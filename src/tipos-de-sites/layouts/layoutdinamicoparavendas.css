@@ -1,0 +1,774 @@
+/* ============================ */
+/* BASE E ESTRUTURA */
+/* ============================ */
+
+.dpv-root {
+    width: 100%;
+    background: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    font-family: Poppins, sans-serif;
+    color: #222;
+}
+
+
+
+/* ============================ */
+/* HEADER */
+/* ============================ */
+
+.dpv-header {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 16px 0;
+}
+
+.dpv-header-inner {
+    width: 92%;
+    max-width: 1300px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dpv-header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dpv-header-logo-placeholder {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(145deg, #ddd, #c6c6c6);
+    border-radius: 10px;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.dpv-header-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.dpv-header-nav {
+    display: flex;
+    gap: 22px;
+}
+
+.dpv-header-nav a {
+    font-size: 15px;
+    color: #333;
+    transition: opacity 0.25s ease;
+}
+
+.dpv-header-nav a:hover {
+    opacity: 0.6;
+}
+
+.dpv-header-nav-btn {
+    padding: 8px 18px;
+    background: #111;
+    color: #fff !important;
+    border-radius: 6px;
+}
+
+
+
+/* ============================ */
+/* HERO */
+/* ============================ */
+
+.dpv-hero-section {
+    position: relative;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(140deg, #111, #222, #2c2c2c);
+    color: #fff;
+    margin-bottom: 60px;
+}
+
+.dpv-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.dpv-hero-content {
+    position: relative;
+    width: 90%;
+    max-width: 850px;
+    text-align: center;
+}
+
+.dpv-hero-title {
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.dpv-hero-sub {
+    font-size: 18px;
+    opacity: 0.85;
+    margin-bottom: 28px;
+}
+
+.dpv-hero-action {
+    padding: 12px 24px;
+    background: #f4d27a;
+    border-radius: 6px;
+    color: #111;
+    font-weight: 600;
+    transition: transform 0.25s ease;
+}
+
+.dpv-hero-action:hover {
+    transform: scale(1.06);
+}
+
+
+
+/* ============================ */
+/* SESSÃO SOBRE */
+/* ============================ */
+
+.dpv-sobre-section {
+    width: 100%;
+    padding: 70px 0;
+    background: #ffffff;
+}
+
+.dpv-sobre-inner {
+    width: 92%;
+    max-width: 950px;
+    margin: auto;
+}
+
+.dpv-sobre-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.dpv-sobre-text {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+
+
+/* ============================ */
+/* CARDÁPIO */
+/* ============================ */
+
+.dpv-cardapio-section {
+    width: 100%;
+    padding: 80px 0;
+}
+
+.dpv-cardapio-title {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.dpv-cardapio-sub {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    font-size: 17px;
+    opacity: 0.75;
+}
+
+.dpv-cardapio-grid {
+    width: 92%;
+    max-width: 1300px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 26px;
+}
+
+.dpv-produto-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.25s ease;
+}
+
+.dpv-produto-card:hover {
+    transform: translateY(-4px);
+}
+
+.dpv-produto-thumb {
+    width: 100%;
+    height: 120px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #dadada, #c9c9c9);
+}
+
+.dpv-produto-nome {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.dpv-produto-desc {
+    font-size: 14px;
+    opacity: 0.75;
+}
+
+.dpv-produto-preco-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dpv-produto-preco {
+    font-weight: 700;
+}
+
+.dpv-produto-btn {
+    background: #111;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: opacity 0.25s ease;
+}
+
+.dpv-produto-btn:hover {
+    opacity: 0.7;
+}
+
+
+
+/* ============================ */
+/* CARRINHO */
+/* ============================ */
+
+.dpv-carrinho-section {
+    width: 100%;
+    padding: 80px 0;
+    background: #fafafa;
+}
+
+.dpv-carrinho-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 14px;
+}
+
+.dpv-carrinho-empty {
+    text-align: center;
+    opacity: 0.6;
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+.dpv-carrinho-list {
+    width: 92%;
+    max-width: 800px;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.dpv-carrinho-item {
+    background: #fff;
+    padding: 14px 18px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dpv-carrinho-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.dpv-carrinho-nome {
+    font-weight: 600;
+}
+
+.dpv-carrinho-preco {
+    opacity: 0.7;
+}
+
+.dpv-carrinho-remove {
+    background: #c0392b;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: opacity 0.25s ease;
+}
+
+.dpv-carrinho-remove:hover {
+    opacity: 0.7;
+}
+
+.dpv-carrinho-total-box {
+    width: 92%;
+    max-width: 800px;
+    margin: 40px auto 0;
+    text-align: center;
+}
+
+.dpv-carrinho-total {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.dpv-carrinho-finalizar {
+    background: #27ae60;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 17px;
+    transition: transform 0.25s ease;
+}
+
+.dpv-carrinho-finalizar:hover {
+    transform: scale(1.05);
+}
+
+
+
+/* ============================ */
+/* AVALIAÇÕES */
+/* ============================ */
+
+.dpv-aval-section {
+    width: 100%;
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.dpv-aval-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 26px;
+}
+
+.dpv-aval-grid {
+    width: 92%;
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    gap: 26px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.dpv-aval-card {
+    background: #fafafa;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+}
+
+.dpv-aval-text {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 18px;
+}
+
+.dpv-aval-nome {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+
+
+/* ============================ */
+/* CONTATO */
+/* ============================ */
+
+.dpv-contato-section {
+    width: 100%;
+    padding: 80px 0;
+    background: #f4f4f4;
+    text-align: center;
+}
+
+.dpv-contato-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.dpv-contato-sub {
+    max-width: 700px;
+    margin: auto;
+    opacity: 0.7;
+    margin-bottom: 26px;
+}
+
+.dpv-contato-btn {
+    padding: 12px 26px;
+    background: #111;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 17px;
+    transition: transform 0.25s;
+}
+
+.dpv-contato-btn:hover {
+    transform: scale(1.05);
+}
+
+
+
+/* ============================ */
+/* FOOTER */
+/* ============================ */
+
+.dpv-footer {
+    width: 100%;
+    padding: 70px 0 40px;
+    background: #111;
+    color: #fff;
+}
+
+.dpv-footer-grid {
+    width: 92%;
+    max-width: 1300px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+}
+
+.dpv-footer-col-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.dpv-footer-col-text {
+    opacity: 0.7;
+    line-height: 1.5;
+}
+
+.dpv-footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dpv-footer-links a {
+    color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.25s ease;
+}
+
+.dpv-footer-links a:hover {
+    opacity: 1;
+}
+
+.dpv-footer-copy {
+    margin-top: 50px;
+    text-align: center;
+    opacity: 0.6;
+}
+
+
+
+/* ============================ */
+/* CTA FINAL */
+/* ============================ */
+
+.dpv-cta-final {
+    width: 100%;
+    padding: 80px 0;
+    background: #222;
+    color: #fff;
+    text-align: center;
+}
+
+.dpv-cta-final-title {
+    font-size: 30px;
+    margin-bottom: 16px;
+}
+
+.dpv-cta-final-text {
+    max-width: 700px;
+    margin: auto;
+    opacity: 0.75;
+    margin-bottom: 28px;
+}
+
+.dpv-cta-final-btn {
+    padding: 12px 28px;
+    background: #f4d27a;
+    color: #111;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: transform 0.25s ease;
+}
+
+.dpv-cta-final-btn:hover {
+    transform: scale(1.06);
+}
+
+/* ============================ */
+/* RESPONSIVIDADE PROFISSIONAL */
+/* ============================ */
+
+/* ======= 1100px — Tablets grandes ======= */
+@media (max-width: 1100px) {
+
+    .dpv-header-inner {
+        max-width: 95%;
+    }
+
+    .dpv-cardapio-grid {
+        gap: 22px;
+    }
+
+    .dpv-aval-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+}
+
+
+/* ======= 900px — Tablets médios ======= */
+@media (max-width: 900px) {
+
+    /* Header */
+    .dpv-header-inner {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+    }
+
+    .dpv-header-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    /* Hero */
+    .dpv-hero-section {
+        height: 340px;
+        padding: 30px 20px;
+    }
+
+    .dpv-hero-title {
+        font-size: 28px;
+    }
+
+    .dpv-hero-sub {
+        font-size: 16px;
+    }
+
+    /* Cardápio */
+    .dpv-cardapio-section {
+        padding: 60px 0;
+    }
+
+    .dpv-cardapio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    /* Carrinho */
+    .dpv-carrinho-item {
+        gap: 14px;
+    }
+
+    /* Footer */
+    .dpv-footer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+
+
+/* ======= 720px — Celulares grandes ======= */
+@media (max-width: 720px) {
+
+    /* Hero */
+    .dpv-hero-section {
+        height: auto;
+        padding: 80px 25px;
+    }
+
+    .dpv-hero-title {
+        font-size: 26px;
+    }
+
+    .dpv-hero-sub {
+        font-size: 15px;
+    }
+
+    /* Cardápio */
+    .dpv-cardapio-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    /* Produto */
+    .dpv-produto-card {
+        padding: 18px;
+    }
+}
+
+
+
+/* ======= 600px — Celulares médios ======= */
+@media (max-width: 600px) {
+
+    /* Header */
+    .dpv-header-inner {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .dpv-header-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .dpv-header-title {
+        font-size: 18px;
+    }
+
+    /* Hero */
+    .dpv-hero-title {
+        font-size: 22px;
+    }
+
+    /* Sobre */
+    .dpv-sobre-text {
+        font-size: 15px;
+    }
+
+    /* Cardápio */
+    .dpv-cardapio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dpv-cardapio-title {
+        font-size: 24px;
+    }
+
+    /* Carrinho */
+    .dpv-carrinho-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .dpv-carrinho-total {
+        font-size: 18px;
+    }
+
+    /* Avaliações */
+    .dpv-aval-card {
+        padding: 18px;
+    }
+
+    .dpv-aval-text {
+        font-size: 14px;
+    }
+}
+
+
+
+/* ======= 450px — Celulares pequenos ======= */
+@media (max-width: 450px) {
+
+    /* Header */
+    .dpv-header-title {
+        font-size: 17px;
+    }
+
+    .dpv-header-nav a {
+        font-size: 13px;
+    }
+
+    /* Hero */
+    .dpv-hero-section {
+        padding: 60px 16px;
+    }
+
+    .dpv-hero-title {
+        font-size: 20px;
+        line-height: 1.3;
+    }
+
+    .dpv-hero-action {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+
+    /* Produto */
+    .dpv-produto-nome {
+        font-size: 16px;
+    }
+
+    .dpv-produto-desc {
+        font-size: 13px;
+    }
+
+    /* Carrinho */
+    .dpv-carrinho-finalizar {
+        padding: 10px 22px;
+        font-size: 15px;
+    }
+
+    /* Footer */
+    .dpv-footer-col-title {
+        font-size: 18px;
+    }
+}
+
+
+
+/* ======= 360px — Celulares muito pequenos ======= */
+@media (max-width: 360px) {
+
+    .dpv-header-title {
+        font-size: 15px;
+    }
+
+    .dpv-header-nav {
+        gap: 8px;
+    }
+
+    .dpv-hero-title {
+        font-size: 18px;
+    }
+
+    .dpv-hero-sub {
+        font-size: 14px;
+    }
+
+    .dpv-produto-card {
+        padding: 14px;
+    }
+
+    .dpv-cardapio-sub {
+        font-size: 14px;
+    }
+
+    .dpv-carrinho-item {
+        padding: 12px;
+    }
+
+    .dpv-footer-copy {
+        font-size: 13px;
+    }
+}

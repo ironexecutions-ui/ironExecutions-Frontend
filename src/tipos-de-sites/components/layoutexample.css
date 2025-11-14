@@ -1,0 +1,46 @@
+.le-card {
+    padding: 45px;
+    border-radius: 16px;
+    margin-top: 35px;
+
+    box-shadow:
+        0 0 25px rgba(0, 0, 0, 0.45),
+        inset 0 0 22px rgba(255, 255, 255, 0.08);
+}
+
+.le-titulo {
+    font-size: 32px;
+    margin-bottom: 12px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.le-texto {
+    font-size: 18px;
+    color: #e5e5e5;
+    margin-bottom: 28px;
+}
+
+.le-exemplo {
+    background: rgba(255, 255, 255, 0.10);
+    padding: 22px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+
+    box-shadow:
+        inset 0 0 12px rgba(0, 0, 0, 0.25);
+}
+
+.le-container {
+    margin-top: 40px;
+}
+
+.le-erro {
+    color: white;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 18px;
+    opacity: 0.7;
+}

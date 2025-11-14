@@ -1,0 +1,55 @@
+.pedido-container {
+    min-height: 100vh;
+    padding: 60px;
+    background: linear-gradient(160deg, #111111, #0d0d0d, #000000);
+    color: white;
+}
+
+.pedido-titulo {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.pedido-texto {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #cccccc;
+}
+
+.pedido-form {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pedido-form input,
+.pedido-form textarea {
+    padding: 16px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+}
+
+.pedido-form textarea {
+    min-height: 120px;
+    resize: none;
+}
+
+.pedido-botao {
+    padding: 14px;
+    background: #f4d27a;
+    color: #111;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.pedido-botao:hover {
+    transform: scale(1.05);
+}

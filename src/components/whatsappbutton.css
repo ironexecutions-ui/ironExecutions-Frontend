@@ -1,0 +1,83 @@
+.zap-bolinha {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #25d366;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 200;
+    transition: transform 0.25s ease;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.45);
+    animation: zoomPulse 3s ease-in-out infinite;
+    overflow: visible;
+}
+
+/* Primeiro aro */
+.zap-bolinha::before,
+.zap-bolinha::after {
+    content: "";
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    animation: spinVertical 6s linear infinite;
+    transform-style: preserve-3d;
+}
+
+/* Segundo aro, um pouco menor e em velocidade diferente */
+.zap-bolinha::after {
+    width: 118px;
+    height: 118px;
+    border: 2px solid rgba(255, 255, 255, 0.10);
+    animation: spinVerticalReverse 8s linear infinite;
+}
+
+.zap-bolinha img {
+    width: 38px;
+    height: 38px;
+    z-index: 5;
+}
+
+.zap-bolinha:hover {
+    transform: scale(1.06);
+}
+
+/* Animação do aro girando verticalmente */
+@keyframes spinVertical {
+    0% {
+        transform: rotateX(0deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg) rotateZ(360deg);
+    }
+}
+
+@keyframes spinVerticalReverse {
+    0% {
+        transform: rotateX(0deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateX(-360deg) rotateZ(-360deg);
+    }
+}
+
+/* Pequeno pulso elegante */
+@keyframes zoomPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.045);
+    }
+}
