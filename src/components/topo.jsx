@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./topo.css";
 import ModalFuncionario from "./modalfuncionario";
 
+// importação correta da imagem
+import logo from "../../logo.png";
+
 export default function Topo() {
     const navigate = useNavigate();
     const [abrirModal, setAbrirModal] = useState(false);
@@ -22,7 +25,7 @@ export default function Topo() {
             <header className="topo-container">
                 <div className="topo-esquerda">
                     <img
-                        src="../../logo.png"
+                        src={logo}
                         alt="Logo Iron Executions"
                         className="topo-img"
                     />
