@@ -22,7 +22,7 @@ export default function Topo() {
             <header className="topo-container">
                 <div className="topo-esquerda">
                     <img
-                        src="././logo.png"
+                        src="../../logo.png"
                         alt="Logo Iron Executions"
                         className="topo-img"
                     />
