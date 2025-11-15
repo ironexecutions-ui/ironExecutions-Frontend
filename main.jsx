@@ -1,10 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './app';
+import App from './src/app.jsx';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { LoadingProvider } from "./loadingcontext";
+import { LoadingProvider } from "./src/loadingcontext.jsx";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
