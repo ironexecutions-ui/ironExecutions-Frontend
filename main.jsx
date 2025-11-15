@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './src/app.jsx';
+import App from './src/App.jsx';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { LoadingProvider } from "./src/loadingcontext.jsx";
