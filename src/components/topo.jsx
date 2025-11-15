@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./topo.css";
+import ModalFuncionario from "./modalfuncionario";
 
 export default function Topo() {
     const navigate = useNavigate();
+    const [abrirModal, setAbrirModal] = useState(false);
 
     function irPara(secao) {
         navigate("/", { replace: false });
@@ -15,28 +17,30 @@ export default function Topo() {
         }, 100);
     }
 
-    function abrirWhatsApp() {
-        window.open("https://wa.me/5511918547818", "_blank");
-    }
-
     return (
-        <header className="topo-container">
-            <div className="topo-esquerda">
-                <img
-                    src="././logo.png"
-                    alt="Logo Iron Executions"
-                    className="topo-img"
-                />
-                <span className="topo-logo-text">Iron Executions</span>
-            </div>
+        <>
+            <header className="topo-container">
+                <div className="topo-esquerda">
+                    <img
+                        src="././logo.png"
+                        alt="Logo Iron Executions"
+                        className="topo-img"
+                    />
+                    <span className="topo-logo-text">Iron Executions</span>
+                </div>
 
-            <nav className="topo-nav">
-                <button className="topo-nav-link" onClick={() => irPara("inicio")}>Início</button>
-                <button className="topo-nav-link" onClick={() => irPara("servicos")}>Serviços</button>
-                <button className="topo-nav-link" onClick={() => irPara("tipos-sites")}>Tipos de Sites</button>
+                <nav className="topo-nav">
+                    <button className="topo-nav-link" onClick={() => irPara("inicio")}>Início</button>
+                    <button className="topo-nav-link" onClick={() => irPara("servicos")}>Serviços</button>
+                    <button className="topo-nav-link" onClick={() => irPara("tipos-sites")}>Tipos de Sites</button>
 
+                    <button className="topo-nav-link" onClick={() => setAbrirModal(true)}>
+                        Sou funcionario
+                    </button>
+                </nav>
+            </header>
 
-            </nav>
-        </header>
+            {abrirModal && <ModalFuncionario fechar={() => setAbrirModal(false)} />}
+        </>
     );
 }

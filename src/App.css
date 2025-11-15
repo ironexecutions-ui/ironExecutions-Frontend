@@ -8,9 +8,5 @@
 .app {
   background: #0d0d0d;
   color: #ffffff;
-  min-height: 100vh;
-}
-
-html {
-  zoom: 80%;
+  min-height: 100%;
 }

@@ -1,0 +1,203 @@
+/* Caixa principal */
+.oa-box {
+    width: 100%;
+    height: 100%;
+    padding: 25px;
+    background: rgba(11, 31, 61, 0.86);
+    color: white;
+    border-radius: 14px;
+    box-shadow: 0 0 22px rgba(0, 0, 0, 0.26);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Título */
+.oa-titulo {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Área dos meses */
+.oa-meses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 25px;
+}
+
+.oa-mes-botao {
+    padding: 12px 22px;
+    background: #14325f;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s;
+}
+
+.oa-mes-botao:hover {
+    background: #1f4a82;
+    transform: scale(1.05);
+}
+
+/* Mensagem sem ganhos */
+.oa-sem-ganhos {
+    opacity: 0.8;
+    font-size: 15px;
+}
+
+/* Detalhes do mês */
+.oa-detalhes {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+}
+
+.oa-detalhes h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+/* Informações do usuário */
+.oa-usuario-info {
+    font-size: 16px;
+    margin-bottom: 18px;
+}
+
+.oa-usuario-info strong {
+    color: #ffd56b;
+}
+
+/* Lista de serviços */
+.oa-servicos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.oa-servico {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.oa-servico p {
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.oa-servico a {
+    color: #8cc6ff;
+    text-decoration: none;
+}
+
+.oa-servico a:hover {
+    text-decoration: underline;
+}
+
+
+/* Botão para ver sócios */
+.oa-socios-botao {
+    margin-top: 18px;
+    padding: 12px 20px;
+    background: #0d274b;
+    border: none;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.25s ease, transform 0.15s;
+}
+
+.oa-socios-botao:hover {
+    background: #153a70;
+    transform: scale(1.05);
+}
+
+
+/* Modal */
+.oa-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.oa-modal-conteudo {
+    background: #162c4e;
+    padding: 26px;
+    width: 520px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 14px;
+    color: white;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    animation: modalFade 0.2s ease;
+}
+
+/* Animação suave */
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Título do modal */
+.oa-modal-titulo {
+    font-size: 22px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+/* Blocos de sócios */
+.oa-socio-bloco {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.oa-socio-nome {
+    font-size: 17px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.oa-socio-linha {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+/* Botão fechar */
+.oa-fechar {
+    margin-top: 18px;
+    padding: 12px;
+    width: 100%;
+    background: #0d274b;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.25s ease;
+}
+
+.oa-fechar:hover {
+    background: #153a70;
+}

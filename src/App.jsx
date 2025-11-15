@@ -2,6 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./app.css";
 import "./app-responsivo.css";
+import FuncionariosPage from "./painel/components/info/funcionariospage";
+
+import Painel from "./painel/painel";
+import Protegido from "./protegido";
+import ClientesPage from "./painel/components/info/infopage";
 
 import Topo from "./components/topo";
 import Hero from "./components/hero";
@@ -14,15 +19,6 @@ import SitesCriados from "./components/sitescriados";
 
 import Pedido from "./pedido/pedido";
 
-// páginas internas
-import TipoSiteSimples from "./tipos-de-sites/tipositesimples";
-import TipoSiteProfissional from "./tipos-de-sites/tipositeprofissional";
-import TipoPainel from "./tipos-de-sites/tipopainel";
-import TipoAgendamentos from "./tipos-de-sites/tipoagendamentos";
-import TipoLojaSimples from "./tipos-de-sites/tipolojasimples";
-import TipoLojaCompleta from "./tipos-de-sites/tipolojacompleta";
-import TipoCursos from "./tipos-de-sites/tipocursos";
-
 export default function App() {
   return (
     <Router>
@@ -30,7 +26,7 @@ export default function App() {
 
         <Routes>
 
-          {/* Página principal com header e whatsapp */}
+          {/* Página inicial */}
           <Route
             path="/"
             element={
@@ -47,16 +43,37 @@ export default function App() {
             }
           />
 
+          {/* Página de pedido */}
           <Route path="/pedido" element={<Pedido />} />
 
-          {/* páginas internas sem topo e sem whatsapp */}
-          <Route path="/tipo/site-simples" element={<TipoSiteSimples />} />
-          <Route path="/tipo/site-profissional" element={<TipoSiteProfissional />} />
-          <Route path="/tipo/painel-administrativo" element={<TipoPainel />} />
-          <Route path="/tipo/agendamentos" element={<TipoAgendamentos />} />
-          <Route path="/tipo/loja-simples" element={<TipoLojaSimples />} />
-          <Route path="/tipo/loja-completa" element={<TipoLojaCompleta />} />
-          <Route path="/tipo/plataforma-cursos" element={<TipoCursos />} />
+          {/* Painel protegido */}
+          <Route
+            path="/painel"
+            element={
+              <Protegido>
+                <Painel />
+              </Protegido>
+            }
+          />
+
+          {/* Página de clientes protegida também */}
+          <Route
+            path="/clientes"
+            element={
+              <Protegido>
+                <ClientesPage />
+              </Protegido>
+            }
+          />
+          {/* Página de funcionários protegida */}
+          <Route
+            path="/funcionarios"
+            element={
+              <Protegido>
+                <FuncionariosPage />
+              </Protegido>
+            }
+          />
 
         </Routes>
 
