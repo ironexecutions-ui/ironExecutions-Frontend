@@ -40,7 +40,7 @@ export default function ServicosAdmin() {
 
     const totalContratacao = servicos.filter(s => s.processo === "contratacao").length;
     const totalAndamento = servicos.filter(s => s.processo === "andamento").length;
-    const totalFinalizados = servicos.filter(s => s.processo === "finalizados").length;
+    const totalFinalizados = servicos.filter(s => s.processo === "finalizado").length;
     const totalGeral = servicos.length;
 
     return (
@@ -57,7 +57,7 @@ export default function ServicosAdmin() {
                     Em andamento ({totalAndamento})
                 </button>
 
-                <button onClick={() => setFiltro("finalizados")}>
+                <button onClick={() => setFiltro("finalizado")}>
                     Finalizados ({totalFinalizados})
                 </button>
 

@@ -1,0 +1,284 @@
+.equipe-container {
+    width: 100%;
+    padding: 80px 0;
+    background: linear-gradient(160deg, #0b1f3d, #09172e);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* brilho suave por trás do título */
+.equipe-container::before {
+    content: "";
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(62, 120, 255, 0.25), transparent 70%);
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.equipe-titulo {
+    color: white;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 45px;
+    letter-spacing: 1px;
+}
+
+/* faixa horizontal */
+.equipe-scroll {
+    width: 70%;
+    display: flex;
+    gap: 28px;
+    overflow-x: auto;
+    padding: 30px;
+    scroll-behavior: smooth;
+    mask-image: linear-gradient(to right, transparent 0%, white 12%, white 88%, transparent 100%);
+}
+
+/* barra de rolagem */
+.equipe-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.equipe-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.20);
+    border-radius: 30px;
+}
+
+.equipe-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* cartão */
+.equipe-card {
+    flex: 0 0 260px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 28px 20px;
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 6px 26px rgba(0, 0, 0, 0.35);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* brilho sutil dentro do card */
+.equipe-card::before {
+    content: "";
+    position: absolute;
+    width: 180%;
+    height: 180%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.10), transparent 70%);
+    top: -40%;
+    left: -40%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.equipe-card:hover::before {
+    opacity: 1;
+}
+
+/* animação no hover */
+.equipe-card:hover {
+    transform: translateY(-10px) scale(1.06);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+/* foto */
+.equipe-foto {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 18px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.10);
+    transition: transform 0.35s ease;
+}
+
+.equipe-card:hover .equipe-foto {
+    transform: scale(1.08);
+}
+
+.equipe-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* textos */
+.equipe-nome {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.equipe-funcao {
+    font-size: 16px;
+    color: #7fb1ff;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.equipe-resp {
+    font-size: 14px;
+    color: #e8e8e8;
+    opacity: 0.85;
+    line-height: 1.4;
+    margin-top: 6px;
+}
+
+/* ===================== */
+/* RESPONSIVIDADE GERAL */
+/* ===================== */
+
+/* tablets grandes */
+@media (max-width: 1200px) {
+    .equipe-scroll {
+        width: 90%;
+        gap: 24px;
+    }
+
+    .equipe-card {
+        flex: 0 0 240px;
+        padding: 24px 18px;
+    }
+
+    .equipe-foto {
+        width: 120px;
+        height: 120px;
+    }
+
+    .equipe-nome {
+        font-size: 20px;
+    }
+}
+
+/* tablets médios */
+@media (max-width: 900px) {
+    .equipe-titulo {
+        font-size: 32px;
+    }
+
+    .equipe-scroll {
+        width: 92%;
+        gap: 22px;
+        padding: 24px;
+    }
+
+    .equipe-card {
+        flex: 0 0 220px;
+    }
+
+    .equipe-foto {
+        width: 110px;
+        height: 110px;
+    }
+
+    .equipe-resp {
+        font-size: 13px;
+    }
+}
+
+/* celulares grandes */
+@media (max-width: 700px) {
+
+    .equipe-container {
+        padding: 60px 0;
+    }
+
+    .equipe-titulo {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .equipe-scroll {
+        width: 95%;
+        gap: 20px;
+        padding: 20px;
+        mask-image: linear-gradient(to right, transparent 0%, white 18%, white 82%, transparent 100%);
+    }
+
+    .equipe-card {
+        flex: 0 0 200px;
+        padding: 22px 16px;
+        border-radius: 16px;
+    }
+
+    .equipe-foto {
+        width: 100px;
+        height: 100px;
+    }
+
+    .equipe-nome {
+        font-size: 18px;
+    }
+
+    .equipe-funcao {
+        font-size: 15px;
+    }
+}
+
+/* celulares médios */
+@media (max-width: 520px) {
+
+    .equipe-titulo {
+        font-size: 24px;
+    }
+
+    .equipe-scroll {
+        gap: 18px;
+        padding: 18px;
+    }
+
+    .equipe-card {
+        flex: 0 0 180px;
+    }
+
+    .equipe-foto {
+        width: 90px;
+        height: 90px;
+    }
+
+    .equipe-resp {
+        font-size: 12px;
+    }
+}
+
+/* celulares pequenos */
+@media (max-width: 420px) {
+
+    .equipe-card {
+        flex: 0 0 160px;
+        padding: 18px 14px;
+    }
+
+    .equipe-foto {
+        width: 80px;
+        height: 80px;
+    }
+
+    .equipe-nome {
+        font-size: 16px;
+    }
+
+    .equipe-funcao {
+        font-size: 14px;
+    }
+
+    .equipe-resp {
+        font-size: 11px;
+        line-height: 1.35;
+    }
+}

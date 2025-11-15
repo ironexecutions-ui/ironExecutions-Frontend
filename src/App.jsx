@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import "./app.css";
 import "./app-responsivo.css";
 import FuncionariosPage from "./painel/components/info/funcionariospage";
@@ -16,67 +16,92 @@ import TiposSites from "./components/tipossites";
 import Rodape from "./components/rodape";
 import WhatsAppButton from "./components/whatsappbutton";
 import SitesCriados from "./components/sitescriados";
+import DadosPage from "./painel/components/info/dadospage";
+import Equipe from "./components/equipe";
 
 import Pedido from "./pedido/pedido";
+
+import { useLoading } from "./loadingcontext";
+
+function RoteamentoComLoading() {
+
+  const { setLoading } = useLoading();
+  const location = useLocation();
+
+  // sempre que a página mudar, mostra um loading curto
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => setLoading(false), 600);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  return (
+    <Routes>
+
+      <Route
+        path="/"
+        element={
+          <>
+            <Topo />
+            <WhatsAppButton />
+            <Hero />
+            <Oferecemos />
+            <Servicos />
+            <TiposSites />
+            <Equipe />
+            <SitesCriados />
+            <Rodape />
+          </>
+        }
+      />
+
+      <Route path="/pedido" element={<Pedido />} />
+
+      <Route
+        path="/painel"
+        element={
+          <Protegido>
+            <Painel />
+          </Protegido>
+        }
+      />
+
+      <Route
+        path="/clientes"
+        element={
+          <Protegido>
+            <ClientesPage />
+          </Protegido>
+        }
+      />
+
+      <Route
+        path="/funcionarios"
+        element={
+          <Protegido>
+            <FuncionariosPage />
+          </Protegido>
+        }
+      />
+
+      <Route
+        path="/dados"
+        element={
+          <Protegido>
+            <DadosPage />
+          </Protegido>
+        }
+      />
+
+    </Routes>
+  );
+}
 
 export default function App() {
   return (
     <Router>
       <div className="app">
-
-        <Routes>
-
-          {/* Página inicial */}
-          <Route
-            path="/"
-            element={
-              <>
-                <Topo />
-                <WhatsAppButton />
-                <Hero />
-                <Oferecemos />
-                <Servicos />
-                <TiposSites />
-                <SitesCriados />
-                <Rodape />
-              </>
-            }
-          />
-
-          {/* Página de pedido */}
-          <Route path="/pedido" element={<Pedido />} />
-
-          {/* Painel protegido */}
-          <Route
-            path="/painel"
-            element={
-              <Protegido>
-                <Painel />
-              </Protegido>
-            }
-          />
-
-          {/* Página de clientes protegida também */}
-          <Route
-            path="/clientes"
-            element={
-              <Protegido>
-                <ClientesPage />
-              </Protegido>
-            }
-          />
-          {/* Página de funcionários protegida */}
-          <Route
-            path="/funcionarios"
-            element={
-              <Protegido>
-                <FuncionariosPage />
-              </Protegido>
-            }
-          />
-
-        </Routes>
-
+        <RoteamentoComLoading />
       </div>
     </Router>
   );

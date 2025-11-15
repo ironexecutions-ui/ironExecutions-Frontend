@@ -3,12 +3,17 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './app';
 
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { LoadingProvider } from "./loadingcontext";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <GoogleOAuthProvider clientId="992388111982-j9snf8coc87rjamrtavg26a8vm2f35jc.apps.googleusercontent.com">
-      <App />
+
+      <LoadingProvider>
+        <App />
+      </LoadingProvider>
+
     </GoogleOAuthProvider>
   </StrictMode>
 );
