@@ -4,7 +4,7 @@ import "./topo.css";
 import ModalFuncionario from "./modalfuncionario";
 
 // importação correta da imagem
-import logo from "../../logo.png";
+import GravataLogo from "./gravatalogo";
 
 export default function Topo() {
     const navigate = useNavigate();
@@ -24,11 +24,8 @@ export default function Topo() {
         <>
             <header className="topo-container">
                 <div className="topo-esquerda">
-                    <img
-                        src={logo}
-                        alt="Logo Iron Executions"
-                        className="topo-img"
-                    />
+                    <GravataLogo />
+
                     <span className="topo-logo-text">Iron Executions</span>
                 </div>
 

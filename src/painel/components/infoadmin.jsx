@@ -25,12 +25,11 @@ export default function InfoAdmin() {
                 Sócios Executivos
             </button>
 
-            <button style={{ display: "none" }}
+            <button
                 className="ia-botao"
                 onClick={() => navigate("/dados")}
             >
-                Dados Pessoais
-            </button>
+                Contratos            </button>
 
         </div>
     );

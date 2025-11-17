@@ -1,0 +1,13 @@
+.gravata-logo-container {
+    width: 55px;
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gravata-logo-svg {
+    width: 55px;
+    height: 85px;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 100, 0.35));
+}

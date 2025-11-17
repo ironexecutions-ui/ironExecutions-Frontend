@@ -18,6 +18,14 @@ export default function FuncionariosAdmin() {
     const [responsabilidade, setResponsabilidade] = useState("");
     const [porcentagem, setPorcentagem] = useState(0);
     const [foto, setFoto] = useState("");
+    const [celular, setCelular] = useState("");
+
+    const emailLogado = JSON.parse(localStorage.getItem("funcionario") || "{}").email;
+    const isAdminMaster = emailLogado === "elderromero565@gmail.com";
+
+    // AGORA ESTÁ NO LUGAR CERTO
+    const editandoASiMesmo = modoEdicao && email === emailLogado;
+    const editandoOutroUsuario = modoEdicao && email !== emailLogado;
 
     async function carregar() {
         try {
@@ -64,11 +72,23 @@ export default function FuncionariosAdmin() {
         setNome(usuario.nome);
         setSobrenome(usuario.sobrenome);
         setEmail(usuario.email);
-        setSenha(usuario.senha);
+
+        if (isAdminMaster) {
+            setSenha(usuario.senha);
+        } else {
+            if (usuario.email === emailLogado) {
+                setSenha(usuario.senha);
+            } else {
+                setSenha("Oculta");
+            }
+        }
+
         setFuncao(usuario.funcao);
         setResponsabilidade(usuario.responsabilidade);
         setPorcentagem(usuario.porcentagem);
         setFoto(usuario.foto);
+        setCelular(usuario.celular || "");
+
     }
 
     function limparFormulario() {
@@ -82,6 +102,8 @@ export default function FuncionariosAdmin() {
         setResponsabilidade("");
         setPorcentagem(0);
         setFoto("");
+        setCelular("");
+
     }
 
     async function salvar() {
@@ -93,8 +115,13 @@ export default function FuncionariosAdmin() {
             funcao,
             responsabilidade,
             porcentagem,
-            foto
+            foto,
+            celular
         };
+
+        if (!isAdminMaster && senha === "Oculta" && email !== emailLogado) {
+            delete body.senha;
+        }
 
         if (modoEdicao) {
             body.id = itemEditando;
@@ -125,56 +152,102 @@ export default function FuncionariosAdmin() {
         <div className="fa-container fa-admin-container">
             <h2 className="fa-titulo fa-admin-titulo">Sócios Executivos</h2>
 
-            {/* Formulário */}
             <div className="fa-form fa-admin-formulario">
 
-                <input className="fa-input fa-input-nome"
+                <input
+                    className="fa-input fa-input-nome"
                     placeholder="Nome"
                     value={nome}
-                    onChange={e => setNome(e.target.value)}
+                    readOnly={editandoOutroUsuario && !isAdminMaster && !editandoASiMesmo}
+                    onChange={e => {
+                        if (isAdminMaster || !modoEdicao || editandoASiMesmo) {
+                            setNome(e.target.value);
+                        }
+                    }}
                 />
 
-                <input className="fa-input fa-input-sobrenome"
+                <input
+                    className="fa-input fa-input-sobrenome"
                     placeholder="Sobrenome"
                     value={sobrenome}
-                    onChange={e => setSobrenome(e.target.value)}
+                    readOnly={editandoOutroUsuario && !isAdminMaster && !editandoASiMesmo}
+                    onChange={e => {
+                        if (isAdminMaster || !modoEdicao || editandoASiMesmo) {
+                            setSobrenome(e.target.value);
+                        }
+                    }}
                 />
 
-                <input className="fa-input fa-input-email"
+                <input
+                    className="fa-input fa-input-email"
                     placeholder="Email"
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    readOnly={
+                        editandoOutroUsuario && !isAdminMaster ||
+                        (editandoASiMesmo ? false : false)
+                    }
+                    onChange={e => {
+                        if (!modoEdicao || isAdminMaster || editandoASiMesmo) {
+                            setEmail(e.target.value);
+                        }
+                    }}
                 />
 
-                <input className="fa-input fa-input-senha"
-                    placeholder="Senha"
-                    value={senha}
-                    onChange={e => setSenha(e.target.value)}
-                />
+                {!modoEdicao || isAdminMaster || email === emailLogado ? (
+                    <input
+                        className="fa-input fa-input-senha"
+                        placeholder="Senha"
+                        value={senha}
+                        onChange={e => setSenha(e.target.value)}
+                    />
+                ) : (
+                    <div className="fa-input fa-input-senha" style={{ opacity: 0.6 }}>
+                        Oculta
+                    </div>
+                )}
 
-                <input className="fa-input fa-input-funcao"
+                <input
+                    className="fa-input fa-input-funcao"
                     placeholder="Função"
                     value={funcao}
-                    onChange={e => setFuncao(e.target.value)}
+                    readOnly={!isAdminMaster}
+                    onChange={e => {
+                        if (isAdminMaster) setFuncao(e.target.value);
+                    }}
                 />
 
-                <input className="fa-input fa-input-resp"
+                <input
+                    className="fa-input fa-input-resp"
                     placeholder="Responsabilidade"
                     value={responsabilidade}
-                    onChange={e => setResponsabilidade(e.target.value)}
+                    readOnly={!isAdminMaster}
+                    onChange={e => {
+                        if (isAdminMaster) setResponsabilidade(e.target.value);
+                    }}
                 />
 
-                <input className="fa-input fa-input-porcentagem"
+                <input
+                    className="fa-input fa-input-porcentagem"
                     placeholder="Porcentagem"
                     type="number"
                     value={porcentagem}
-                    onChange={e => setPorcentagem(e.target.value)}
+                    readOnly={!isAdminMaster}
+                    onChange={e => {
+                        if (isAdminMaster) setPorcentagem(e.target.value);
+                    }}
                 />
 
-                <input className="fa-input fa-input-foto"
+                <input
+                    className="fa-input fa-input-foto"
                     placeholder="Foto (link)"
                     value={foto}
                     onChange={e => setFoto(e.target.value)}
+                />
+                <input
+                    className="fa-input fa-input-celular"
+                    placeholder="Celular"
+                    value={celular}
+                    onChange={e => setCelular(e.target.value)}
                 />
 
                 <button className="fa-botao fa-botao-salvar" onClick={salvar}>
@@ -188,7 +261,6 @@ export default function FuncionariosAdmin() {
                 )}
             </div>
 
-            {/* Tabela */}
             {loading ? (
                 <p className="fa-loading">Carregando...</p>
             ) : (
@@ -201,7 +273,10 @@ export default function FuncionariosAdmin() {
                             <th className="fa-col-cargo">Cargo</th>
                             <th className="fa-col-resp">Responsabilidade</th>
                             <th className="fa-col-porcentagem">Porcentagem</th>
+                            <th className="fa-col-celular">Celular</th>
+
                             <th className="fa-col-acoes">Ações</th>
+
                         </tr>
                     </thead>
 
@@ -210,7 +285,7 @@ export default function FuncionariosAdmin() {
                             <tr key={u.id} className="fa-linha">
 
                                 <td className="fa-celula fa-foto-celula">
-                                    <img src={u.foto} alt="" className="fa-foto" />
+                                    <img src={u.foto || null} alt="" className="fa-foto" />
                                 </td>
 
                                 <td className="fa-celula fa-nome">
@@ -226,6 +301,7 @@ export default function FuncionariosAdmin() {
                                 <td className="fa-celula fa-porcentagem">
                                     {u.porcentagem === 0 ? "Sócia complementar" : `${u.porcentagem}%`}
                                 </td>
+                                <td className="fa-celula fa-celular">{u.celular}</td>
 
                                 <td className="fa-celula fa-acoes">
                                     <button className="fa-botao-editar" onClick={() => iniciarEdicao(u)}>
@@ -236,6 +312,7 @@ export default function FuncionariosAdmin() {
                                         Apagar
                                     </button>
                                 </td>
+
                             </tr>
                         ))}
                     </tbody>

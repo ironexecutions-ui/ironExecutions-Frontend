@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import "./app.css";
 import "./app-responsivo.css";
 import FuncionariosPage from "./painel/components/info/funcionariospage";
-
+import ContratoPublico from "../contratopublico";
 import Painel from "./painel/painel";
 import Protegido from "./protegido";
 import ClientesPage from "./painel/components/info/infopage";
@@ -54,6 +54,8 @@ function RoteamentoComLoading() {
           </>
         }
       />
+      <Route path="/contrato/:codigo" element={<ContratoPublico />} />
+      <Route path="/contrato" element={<ContratoPublico />} />
 
       <Route path="/pedido" element={<Pedido />} />
 

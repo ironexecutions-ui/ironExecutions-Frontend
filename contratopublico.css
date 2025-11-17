@@ -1,0 +1,224 @@
+/* ========================================= */
+/* FUNDO PRETO PROFISSIONAL */
+/* ========================================= */
+
+.cp-container {
+    width: 100%;
+    min-height: 100vh;
+    background: #010238;
+    /* preto elegante */
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Arial", sans-serif;
+}
+
+/* ========================================= */
+/* TÍTULO DA ÁREA DE PESQUISA */
+/* ========================================= */
+.cp-titulo {
+    color: white;
+    font-size: 34px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* ========================================= */
+/* BUSCA DO CONTRATO */
+/* ========================================= */
+.cp-input-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.cp-input-box input {
+    padding: 14px 16px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    width: 260px;
+    font-size: 16px;
+}
+
+.cp-input-box button {
+    background: #ffffff;
+    border: none;
+    padding: 14px 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.cp-input-box button:hover {
+    background: #e7e7e7;
+}
+
+.cp-erro {
+    color: #ff5b5b;
+    font-size: 16px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+/* ========================================= */
+/* DOCUMENTO (FOLHA BRANCA) */
+/* ========================================= */
+.cp-doc {
+    width: 850px;
+    background: white;
+    padding: 50px 65px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 22px rgba(255, 255, 255, 0.05);
+    margin-bottom: 60px;
+}
+
+/* ========================================= */
+/* BOTÃO PDF */
+/* ========================================= */
+.cp-btn-pdf {
+    background: #111;
+    color: white;
+    padding: 10px 18px;
+    border: 1px solid #222;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cp-btn-pdf:hover {
+    background: #333;
+}
+
+/* ========================================= */
+/* TÍTULOS DO DOCUMENTO */
+/* ========================================= */
+.cp-doc-titulo {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.cp-subtitulo {
+    margin-top: 35px;
+    margin-bottom: 12px;
+    font-size: 19px;
+    font-weight: bold;
+    color: #222;
+}
+
+/* ========================================= */
+/* TEXTOS E LINHAS */
+/* ========================================= */
+.cp-linha {
+    font-size: 16px;
+    color: #222;
+    line-height: 1.55;
+    margin-bottom: 10px;
+}
+
+.cp-intro {
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.cp-bloco-titulo {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Observações */
+.cp-obs {
+    background: #f3f3f3;
+    padding: 12px 16px;
+    border-left: 4px solid #444;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #444;
+    line-height: 1.55;
+}
+
+/* ========================================= */
+/* ASSINATURAS */
+/* ========================================= */
+.cp-assinaturas {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 30px;
+}
+
+.cp-assinatura {
+    width: 48%;
+}
+
+.cp-assinatura p {
+    margin-bottom: 12px;
+    color: #222;
+    font-size: 15.5px;
+    line-height: 1.5;
+}
+
+.cp-img-assinatura {
+    width: 230px;
+    height: auto;
+    margin-top: 12px;
+    border-radius: 4px;
+    display: block;
+}
+
+/* ========================================= */
+/* CÓDIGO FINAL */
+/* ========================================= */
+.cp-codigo-final {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    opacity: 0.8;
+}
+
+/* ========================================= */
+/* RESPONSIVIDADE */
+/* ========================================= */
+
+@media(max-width: 940px) {
+    .cp-doc {
+        width: 90%;
+        padding: 35px 25px;
+    }
+
+    .cp-assinaturas {
+        flex-direction: column;
+    }
+
+    .cp-assinatura {
+        width: 100%;
+    }
+
+    .cp-input-box {
+        flex-direction: column;
+    }
+
+    .cp-input-box button,
+    .cp-input-box input {
+        width: 100%;
+    }
+}
+
+.cp-doc {
+    background: white;
+    color: black;
+}
