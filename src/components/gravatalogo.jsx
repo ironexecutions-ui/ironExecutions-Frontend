@@ -1,5 +1,5 @@
 import React from "react";
-import "./gravataLogo.css";
+import "./gravatalogo.css";
 
 export default function GravataLogo() {
     return (
