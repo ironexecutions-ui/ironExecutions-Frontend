@@ -18,7 +18,7 @@ export default function GravataLogo() {
                         <stop offset="15%" stopColor="#f6d978" />
                         <stop offset="40%" stopColor="#d9ac43" />
                         <stop offset="70%" stopColor="#c28c2f" />
-                        <stop offset="100%" stopColor="#9c6f22" />
+                        <stop offset="100%" stopColor="#8b5f13ff" />
                     </linearGradient>
 
                     {/* brilho lateral */}
