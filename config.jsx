@@ -1,4 +1,10 @@
-// Arquivo responsável por fornecer a URL padrão do backend
-// Tudo centralizado aqui para facilitar manutenção futura
+// Arquivo responsável pela URL padrão do backend
+// Troca automática entre localhost e Render
 
-export const API_URL = "http://127.0.0.1:8888";
+const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+
+export const API_URL = isLocalhost
+    ? "http://127.0.0.1:8888"
+    : "https://ironexecutions-backend.onrender.com";
