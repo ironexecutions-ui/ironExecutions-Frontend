@@ -10,8 +10,9 @@
     justify-content: center;
     align-items: center;
     padding: 25px;
-    z-index: 200;
+    z-index: 99999;
 }
+
 
 .mf-card {
     width: 100%;
