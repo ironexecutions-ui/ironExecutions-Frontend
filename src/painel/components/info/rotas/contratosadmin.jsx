@@ -75,6 +75,20 @@ export default function ContratosAdmin({ onModoChange }) {
             alert("Erro ao conectar ao servidor.");
         }
     }
+    async function salvarData(id, campo, valor) {
+        try {
+            await fetch(`${API_URL}/contratos/${id}/data`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    campo,
+                    valor
+                })
+            });
+        } catch (err) {
+            console.log("Erro ao salvar data", err);
+        }
+    }
 
 
     return (
@@ -400,7 +414,29 @@ export default function ContratosAdmin({ onModoChange }) {
                         {/* Assinatura da empresa */}
                         <div className="assinatura">
                             <p>Contratado(a): <strong> {contratoSelecionado.representante_nome} </strong>  <br /> Representante de: <strong> Iron Executions </strong> </p>
-                            <p>Data: <strong> {contratoSelecionado.data_assinatura_contratada} </strong> </p>
+                            <div style={{ marginBottom: "8px" }}>
+                                <label style={{ fontSize: "0.8rem", opacity: 0.8 }}>Data:</label>
+                                <input
+                                    type="date"
+                                    value={contratoSelecionado.data_assinatura_contratada || ""}
+                                    onChange={e => {
+                                        const novaData = e.target.value;
+                                        setContratoSelecionado({
+                                            ...contratoSelecionado,
+                                            data_assinatura_contratada: novaData
+                                        });
+                                        salvarData(contratoSelecionado.id, "data_assinatura_contratada", novaData);
+                                    }}
+                                    className="input-data-assinatura"
+                                    style={{
+                                        padding: "6px",
+                                        borderRadius: "6px",
+                                        border: "1px solid #ccc",
+                                        marginTop: "4px",
+                                        width: "160px"
+                                    }}
+                                />
+                            </div>
 
                             {contratoSelecionado.LOGO_ASSINATURA_CONTRATADA ? (
                                 <>
@@ -439,7 +475,29 @@ export default function ContratosAdmin({ onModoChange }) {
                         {/* Assinatura do cliente */}
                         <div className="assinatura">
                             <p>Contratante: <strong> {contratoSelecionado.nome_cliente} </strong>  <br /> Representante de: <strong> {contratoSelecionado.negocio_cliente} </strong> </p>
-                            <p>Data: <strong> {contratoSelecionado.data_assinatura_cliente} </strong> </p>
+                            <div style={{ marginBottom: "8px" }}>
+                                <label style={{ fontSize: "0.8rem", opacity: 0.8 }}>Data:</label>
+                                <input
+                                    type="date"
+                                    value={contratoSelecionado.data_assinatura_cliente || ""}
+                                    onChange={e => {
+                                        const novaData = e.target.value;
+                                        setContratoSelecionado({
+                                            ...contratoSelecionado,
+                                            data_assinatura_cliente: novaData
+                                        });
+                                        salvarData(contratoSelecionado.id, "data_assinatura_cliente", novaData);
+                                    }}
+                                    className="input-data-assinatura"
+                                    style={{
+                                        padding: "6px",
+                                        borderRadius: "6px",
+                                        border: "1px solid #ccc",
+                                        marginTop: "4px",
+                                        width: "160px"
+                                    }}
+                                />
+                            </div>
 
                             {contratoSelecionado.LOGO_ASSINATURA_CLIENTE ? (
                                 <>

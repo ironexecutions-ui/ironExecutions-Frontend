@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./contratopublico.css";
 import { API_URL } from "./config";
 import { useParams } from "react-router-dom";
+import AssinaturaCanvas from "./src/painel/components/info/rotas/assinaturacanvas";
 
 export default function ContratoPublico() {
 
@@ -9,6 +10,9 @@ export default function ContratoPublico() {
     const [codigoInput, setCodigoInput] = useState(codigo || "");
     const [contrato, setContrato] = useState(null);
     const [erro, setErro] = useState("");
+    const [abrirAssinaturaPublica, setAbrirAssinaturaPublica] = useState(false);
+    const [permitirEscolherData, setPermitirEscolherData] = useState(false);
+    const [dataSelecionada, setDataSelecionada] = useState("");
 
     async function buscar() {
         setErro("");
@@ -43,6 +47,31 @@ export default function ContratoPublico() {
 
     return (
         <div className="cp-container">
+            {abrirAssinaturaPublica && (
+                <div className="modal-assinatura-fundo">
+                    <div className="modal-assinatura-box">
+
+                        <button
+                            className="modal-assinatura-fechar"
+                            onClick={() => setAbrirAssinaturaPublica(false)}
+                        >
+                            Fechar
+                        </button>
+
+                        <AssinaturaCanvas
+                            idContrato={contrato.id}
+                            tipo="cliente"
+                            onFinalizado={(url) => {
+                                setContrato({
+                                    ...contrato,
+                                    LOGO_ASSINATURA_CLIENTE: url
+                                });
+                                setAbrirAssinaturaPublica(false);
+                            }}
+                        />
+                    </div>
+                </div>
+            )}
 
             <h1 className="cp-titulo">Consulta de Contrato</h1>
 
@@ -306,24 +335,94 @@ export default function ContratoPublico() {
                                 Representante de: <strong>{contrato.negocio_cliente}</strong>
                             </p>
 
-                            <p>Data: <strong>{contrato.data_assinatura_cliente}</strong></p>
+                            {/* DATA DO CLIENTE — só pode escolher uma vez */}
 
-                            {(contrato.LOGO_ASSINATURA_CLIENTE || contrato.logo_assinatura_cliente) && (
-                                <div> <p style={{ fontSize: "0.6rem" }} >assinatura:</p> <img
-                                    style={{
-                                        border: "2px solid rgba(0,0,0,0.15)",
-                                        borderRadius: "10px",
-                                        padding: "8px",
-                                        background: "linear-gradient(to bottom right, #ffffff, #f1f1f1)",
-                                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
-                                    }}
-                                    src={contrato.LOGO_ASSINATURA_CLIENTE || contrato.logo_assinatura_cliente}
-                                    className="cp-img-assinatura"
-                                    alt="Assinatura cliente"
-                                />
-                                </div>
+                            <div style={{ marginTop: "10px" }}>
+                                <p style={{ marginBottom: "6px" }}>
+                                    Data: <strong>{contrato.data_assinatura_cliente || dataSelecionada || "—"}</strong>
+                                </p>
 
-                            )}
+                                {/* Se já tem data salva no banco, não pode mudar */}
+                                {contrato.data_assinatura_cliente ? null : (
+                                    <>
+                                        {/* Primeiro clique ativa a confirmação */}
+                                        {!permitirEscolherData && (
+                                            <button
+                                                className="btn-assinar-publico"
+                                                onClick={() => setPermitirEscolherData(true)}
+                                            >
+                                                Selecionar data
+                                            </button>
+                                        )}
+
+                                        {/* Após o segundo clique, mostra o input */}
+                                        {permitirEscolherData && !dataSelecionada && (
+                                            <input
+                                                type="date"
+                                                style={{
+                                                    padding: "6px",
+                                                    borderRadius: "6px",
+                                                    border: "1px solid #ccc",
+                                                    marginTop: "6px"
+                                                }}
+                                                onChange={async (e) => {
+                                                    const valor = e.target.value;
+                                                    setDataSelecionada(valor);
+
+                                                    // Salva imediatamente no backend
+                                                    await fetch(`${API_URL}/contratos/${contrato.id}/data`, {
+                                                        method: "PUT",
+                                                        headers: { "Content-Type": "application/json" },
+                                                        body: JSON.stringify({
+                                                            campo: "data_assinatura_cliente",
+                                                            valor
+                                                        })
+                                                    });
+
+                                                    // Atualiza visualmente
+                                                    setContrato({
+                                                        ...contrato,
+                                                        data_assinatura_cliente: valor
+                                                    });
+                                                }}
+                                            />
+                                        )}
+                                    </>
+                                )}
+
+                            </div>
+
+                            {/* Assinatura cliente */}
+                            <div className="cp-assinatura">
+
+
+
+                                {contrato.LOGO_ASSINATURA_CLIENTE || contrato.logo_assinatura_cliente ? (
+                                    <>
+                                        <p style={{ fontSize: "0.6rem" }}>assinatura:</p>
+                                        <img
+                                            style={{
+                                                border: "2px solid rgba(0,0,0,0.15)",
+                                                borderRadius: "10px",
+                                                padding: "8px",
+                                                background: "linear-gradient(to bottom right, #ffffff, #f1f1f1)",
+                                                boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
+                                            }}
+                                            src={contrato.LOGO_ASSINATURA_CLIENTE || contrato.logo_assinatura_cliente}
+                                            className="cp-img-assinatura"
+                                            alt="Assinatura cliente"
+                                        />
+                                    </>
+                                ) : (
+                                    <button
+                                        className="btn-assinar-publico"
+                                        onClick={() => setAbrirAssinaturaPublica(true)}
+                                    >
+                                        Assinar contrato
+                                    </button>
+                                )}
+                            </div>
+
                         </div>
 
                     </div>

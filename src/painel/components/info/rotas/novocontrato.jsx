@@ -115,6 +115,17 @@ export default function NovoContrato({ voltar, editando }) {
 
         carregar();
     }, [editando]);
+    useEffect(() => {
+        if (editando) return;
+
+        setForm(f => ({
+            ...f,
+            representante_nome: `${usuario.nome} ${usuario.sobrenome}, ${usuario.funcao}`,
+            endereco_empresa: "https://www.ironexecutions.com.br",
+            telefone_empresa: usuario.celular,
+            email_empresa: "ironexecutions@gmail.com"
+        }));
+    }, []);
 
     function atualizar(campo, valor) {
         setForm({ ...form, [campo]: valor });
@@ -185,7 +196,7 @@ export default function NovoContrato({ voltar, editando }) {
 
                 <input
                     placeholder="Responsável"
-                    value={form.representante_nome || `${usuario.nome} ${usuario.sobrenome}, ${usuario.funcao}`}
+                    value={form.representante_nome}
                     onChange={e => atualizar("representante_nome", e.target.value)}
                 />
 
@@ -196,14 +207,14 @@ export default function NovoContrato({ voltar, editando }) {
 
                 <input
                     placeholder="link da empresa"
-                    value={form.endereco_empresa || "ironexecutions.com.br"}
+                    value={form.endereco_empresa}
                     onChange={e => atualizar("endereco_empresa", e.target.value)}
                 />
 
 
                 <input
                     placeholder="Telefone da empresa"
-                    value={form.telefone_empresa || usuario.celular}
+                    value={form.telefone_empresa}
                     onChange={e => atualizar("telefone_empresa", e.target.value)}
                 />
 

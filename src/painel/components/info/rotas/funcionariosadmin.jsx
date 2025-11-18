@@ -6,6 +6,7 @@ export default function FuncionariosAdmin() {
 
     const [lista, setLista] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [mostrarFormularioMobile, setMostrarFormularioMobile] = useState(false);
 
     const [modoEdicao, setModoEdicao] = useState(false);
     const [itemEditando, setItemEditando] = useState(null);

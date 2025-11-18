@@ -102,7 +102,7 @@ export default function ServicosAdmin() {
                                 {item.processo === "andamento" && (
                                     <button
                                         className="sa-avancar"
-                                        onClick={() => mudarProcesso(item.id, "finalizados")}
+                                        onClick={() => mudarProcesso(item.id, "finalizado")}
                                     >
                                         Finalizar serviço
                                     </button>
