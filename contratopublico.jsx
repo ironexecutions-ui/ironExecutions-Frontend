@@ -3,7 +3,7 @@ import "./contratopublico.css";
 import { API_URL } from "./config";
 import { useParams } from "react-router-dom";
 import AssinaturaCanvas from "./src/painel/components/info/rotas/assinaturacanvas";
-
+import GravataLogo from "./src/components/gravatalogo";
 export default function ContratoPublico() {
 
     const { codigo } = useParams();
@@ -37,7 +37,14 @@ export default function ContratoPublico() {
         }
     }
 
-
+    function capitalizeWords(text) {
+        if (!text) return "";
+        return text
+            .toLowerCase()
+            .split(" ")
+            .map(p => p.charAt(0).toUpperCase() + p.slice(1))
+            .join(" ");
+    }
 
     useEffect(() => {
         if (codigo) {
@@ -73,7 +80,15 @@ export default function ContratoPublico() {
                 </div>
             )}
 
-            <h1 className="cp-titulo">Consulta de Contrato</h1>
+            <h1 className="cp-titulo" style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                justifyContent: "center"
+            }}>
+                <GravataLogo />
+                Iron Executions
+            </h1>
 
             <div style={{ display: "none" }} className="cp-input-box">
                 <input
@@ -144,7 +159,7 @@ export default function ContratoPublico() {
                             Negócio: <strong>{contrato.negocio_cliente}</strong>
                         </p>
                         <p className="cp-linha">
-                            Representante: <strong>{contrato.nome_cliente}</strong>
+                            Representante: <strong>{capitalizeWords(contrato.nome_cliente)}</strong>
                         </p>
                         <p className="cp-linha">
                             Documento: <strong>{contrato.documento_cliente}</strong>
@@ -168,7 +183,7 @@ export default function ContratoPublico() {
                             E-mail: <strong>{contrato.email_cliente}</strong>
                         </p>
                     </div>
-                    <br /><br />
+                    <br />
                     {/* ============================== */}
                     {/* CLÁUSULA 2 */}
                     {/* ============================== */}
@@ -460,7 +475,7 @@ export default function ContratoPublico() {
                             {/* Assinatura cliente */}
                             <div className="cp-assinatura">
                                 <p>
-                                    Contratante: <strong>{contrato.nome_cliente}</strong><br />
+                                    Contratante: <strong>{capitalizeWords(contrato.nome_cliente)}</strong><br />
                                     Representante de: <strong>{contrato.negocio_cliente}</strong>
                                 </p>
 
