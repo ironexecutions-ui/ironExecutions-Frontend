@@ -310,14 +310,14 @@ export default function ContratoPublico() {
                     {/* ============================== */}
                     <div className="cp-clausula">
                         <br />
-                        <h3 className="cp-subtitulo">CLÁUSULA 6 — HOSPEDAGEM E SUPORTE</h3>
+                        <h3 className="cp-subtitulo">CLÁUSULA 6 — HOSPEDAGEM/BANCO DE DADOS/SERVIDOR & SUPORTE</h3>
 
                         <p className="cp-linha">
-                            Hospedagem inclusa: <strong>{contrato.hospedagem_inclusa}</strong>
+                            Hospedagem/Banco de dados/servidor inclusa: <strong>{contrato.hospedagem_inclusa}</strong>
                         </p>
 
                         <p className="cp-linha">
-                            Valor da hospedagem:{" "}
+                            Valor:{" "}
                             {contrato.hospedagem_inclusa === "Não"
                                 ? <strong>Não possui hospedagem</strong>
                                 : <>R$ <strong>{contrato.valor_hospedagem}</strong></>
