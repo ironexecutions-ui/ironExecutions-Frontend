@@ -5,20 +5,44 @@ import { API_URL } from "../../config";
 export default function Equipe() {
 
     const [lista, setLista] = useState([]);
+    const [visivel, setVisivel] = useState(false);
 
     async function carregar() {
         try {
             const resp = await fetch(`${API_URL}/api/usuarios/todos`);
+            if (!resp.ok) {
+                setVisivel(false);
+                return;
+            }
+
             const dados = await resp.json();
-            setLista(dados);
+
+            if (Array.isArray(dados) && dados.length > 0) {
+                setLista(dados);
+                setVisivel(true);
+            } else {
+                setVisivel(false);
+            }
+
         } catch (err) {
             console.log("Erro ao carregar equipe", err);
+            setVisivel(false);
         }
     }
 
     useEffect(() => {
         carregar();
+
+        const intervalo = setInterval(() => {
+            carregar();
+        }, 5000);  
+
+        return () => clearInterval(intervalo);
     }, []);
+
+    if (!visivel) {
+        return null;
+    }
 
     return (
         <section className="equipe-container" id="equipe">
@@ -37,9 +61,7 @@ export default function Equipe() {
 
                         <p className="equipe-funcao">{f.funcao}</p>
 
-                        <p className="equipe-resp">
-                            {f.responsabilidade}
-                        </p>
+                        <p className="equipe-resp">{f.responsabilidade}</p>
                     </div>
                 ))}
             </div>

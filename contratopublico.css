@@ -153,15 +153,19 @@
 /* ========================================= */
 /* ASSINATURAS */
 /* ========================================= */
+/* Assinaturas em coluna uma abaixo da outra */
 .cp-assinaturas {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 45px;
     margin-top: 30px;
-    gap: 30px;
 }
 
 .cp-assinatura {
-    width: 48%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .cp-assinatura p {
@@ -322,5 +326,146 @@
     .modal-assinatura-box {
         width: 90%;
         padding: 18px;
+    }
+}
+
+/* Subtítulos das novas cláusulas */
+.cp-subtitulo {
+    margin-top: 35px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #222;
+    font-weight: 600;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e6e6e6;
+}
+
+/* Linhas internas das cláusulas */
+.cp-linha {
+    margin: 6px 0;
+    line-height: 1.6;
+    font-size: 0.96rem;
+    color: #333;
+}
+
+/* Destaque para blocos mais importantes */
+.cp-linha strong {
+    color: #000;
+}
+
+/* Parágrafos maiores (caso suas novas cláusulas fiquem extensas) */
+.cp-paragrafo {
+    margin: 10px 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #2a2a2a;
+}
+
+/* Observações opcionais dentro das cláusulas */
+.cp-obs {
+    font-size: 0.88rem;
+    color: #555;
+    margin-top: 10px;
+    background: #f7f7f7;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-left: 3px solid #cfcfcf;
+    line-height: 1.5;
+}
+
+/* Ajuste visual para blocos longos das cláusulas 10 e 11 */
+.cp-clausula-bloco {
+    background: #fafafa;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #ececec;
+    margin: 15px 0;
+}
+
+/* Espaçamento abaixo antes das assinaturas */
+.cp-pre-assinaturas {
+    margin-bottom: 40px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .cp-subtitulo {
+        font-size: 1.05rem;
+    }
+
+    .cp-linha {
+        font-size: 0.9rem;
+        line-height: 1.55;
+    }
+
+    .cp-clausula-bloco {
+        padding: 10px 12px;
+    }
+}
+
+.btn-imprimir-contrato {
+    padding: 10px 18px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+}
+
+.btn-imprimir-contrato:hover {
+    background: #333;
+}
+
+/* Ao imprimir, esconder botões e elementos interativos */
+@media print {
+
+    .btn-imprimir-contrato,
+    .btn-assinar-publico,
+    .modal-assinatura-fundo,
+    .modal-assinatura-box {
+        display: none !important;
+    }
+
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* Garantir que a cláusula 12 e assinaturas fiquem sempre juntas */
+.cp-clausula-12-wrapper {
+    page-break-before: always;
+    /* Começar em nova página */
+    page-break-inside: avoid;
+    /* Nunca dividir */
+}
+
+/* Na impressão, garantir que nada quebre dentro do bloco */
+@media print {
+    .cp-clausula-12-wrapper {
+        page-break-before: always;
+        page-break-inside: avoid;
+    }
+
+    .cp-assinaturas,
+    .cp-assinatura {
+        page-break-inside: avoid;
+    }
+}
+
+/* Cada cláusula deve tentar ficar inteira */
+.cp-clausula {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Reforço durante impressão */
+@media print {
+    .cp-clausula {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
     }
 }

@@ -302,7 +302,11 @@ export default function NovoContrato({ voltar, editando }) {
                         </p>
                     ))}
                 </div>
-
+                <input
+                    placeholder="Quantidade de páginas"
+                    value={form.quantidade_paginas}
+                    onChange={e => atualizar("quantidade_paginas", e.target.value)}
+                />
                 {/* INTEGRAÇÕES */}
                 <h3>Integrações</h3>
 
@@ -356,7 +360,7 @@ export default function NovoContrato({ voltar, editando }) {
                     onChange={e => atualizar("numero_revisoes", e.target.value)} />
 
 
-                <h3>Prazos</h3>
+                <h3>Prazos da entrega</h3>
 
                 <input placeholder="Prazo de entrega (dias)"
                     value={form.prazo_entrega}
@@ -408,7 +412,7 @@ export default function NovoContrato({ voltar, editando }) {
                 </select>
 
                 <input
-                    placeholder="Valor da hospedagem"
+                    placeholder="Valor da hospedagem/Servidor/Banco de dados/ect"
                     value={form.hospedagem_inclusa === "Não" ? "Não tem hospedagem" : form.valor_hospedagem}
                     onChange={e => atualizar("valor_hospedagem", e.target.value)}
                     readOnly={form.hospedagem_inclusa === "Não"}

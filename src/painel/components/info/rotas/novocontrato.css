@@ -129,6 +129,7 @@
 .integracao-linha {
     display: flex;
     gap: 10px;
+    width: fit-content;
     align-items: center;
     margin: 12px 0;
 }
@@ -178,6 +179,7 @@
     margin-top: 5px;
     padding-left: 5px;
     display: flex;
+    width: fit-content;
     flex-direction: column;
     gap: 6px;
 }

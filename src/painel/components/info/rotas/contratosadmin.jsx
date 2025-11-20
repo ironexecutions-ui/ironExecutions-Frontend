@@ -401,10 +401,106 @@ export default function ContratosAdmin({ onModoChange }) {
                         <strong> {contratoSelecionado.cidade_foro}</strong> como o responsável para resolver questões judiciais,
                         com renúncia a qualquer outro foro que possa ser aplicável.
                     </p>
+                    {/* OBRIGAÇÕES DO CONTRATANTE */}
+                    <h3 className="subtitulo">CLÁUSULA 8 — OBRIGAÇÕES DO CONTRATANTE</h3>
+
+                    <p className="linha">
+                        O contratante se compromete a enviar todos os textos, imagens, vídeos, logotipo,
+                        cores e demais materiais necessários para o desenvolvimento. O prazo de entrega
+                        somente começa a contar após o envio completo desses itens.
+                    </p>
+
+                    <p className="linha">
+                        O contratante declara que possui direitos legais sobre todo o conteúdo enviado
+                        para o site, isentando a contratada de qualquer responsabilidade por direitos autorais.
+                    </p>
+
+                    <p className="linha">
+                        O contratante compromete-se a responder aprovações, revisões e confirmações dentro
+                        de até 5 dias úteis. A ausência de resposta poderá gerar atrasos no cronograma sem
+                        que isso seja considerado responsabilidade da contratada.
+                    </p>
+
+                    <p className="linha">
+                        O contratante deve fornecer acessos quando solicitados, como contas Google, redes
+                        sociais, hospedagem e demais plataformas integradas.
+                    </p>
+
+
+                    {/* PROPRIEDADE INTELECTUAL */}
+                    <h3 className="subtitulo">CLÁUSULA 9 — PROPRIEDADE INTELECTUAL</h3>
+
+                    <p className="linha">
+                        Todo o código, estrutura, componentes internos, automações e design produzidos pela
+                        contratada permanecem como propriedade exclusiva da Iron Executions até o pagamento
+                        total do projeto.
+                    </p>
+
+                    <p className="linha">
+                        Após o pagamento integral, o contratante recebe o direito de uso do site, proibindo-se
+                        expressamente revenda, redistribuição, clonagem, cópia comercial ou cessão do projeto
+                        a terceiros sem autorização da contratada.
+                    </p>
+
+                    <p className="linha">
+                        Ferramentas internas, scripts proprietários e sistemas utilizados pela contratada continuam
+                        sendo propriedade da Iron Executions mesmo após a entrega final.
+                    </p>
+
+
+                    {/* RESCISÃO E CANCELAMENTO */}
+                    <h3 className="subtitulo">CLÁUSULA 10 — RESCISÃO E CANCELAMENTO</h3>
+
+                    <p className="linha">
+                        A entrada paga pelo contratante não é reembolsável, pois cobre custos iniciais, design,
+                        planejamento e reserva de agenda.
+                    </p>
+
+                    <p className="linha">
+                        Caso o contratante solicite cancelamento após o início do desenvolvimento, será cobrada
+                        multa de 30% do valor restante ou o valor proporcional às horas trabalhadas, prevalecendo
+                        o maior.
+                    </p>
+
+                    <p className="linha">
+                        Caso o cancelamento ocorra após a entrega do site, a cobrança total do projeto será devida,
+                        independentemente do uso futuro.
+                    </p>
+
+                    <p className="linha">
+                        Se o contratante deixar de responder ou não enviar materiais por mais de 30 dias, o projeto
+                        poderá ser pausado e só será retomado conforme disponibilidade da equipe e possível reajuste
+                        de valores.
+                    </p>
+
+
+                    {/* LIMITAÇÃO DE RESPONSABILIDADE */}
+                    <h3 className="subtitulo">CLÁUSULA 11 — LIMITAÇÃO DE RESPONSABILIDADE</h3>
+
+                    <p className="linha">
+                        A contratada não se responsabiliza por instabilidades, falhas, mudanças de políticas ou
+                        limitações em plataformas externas como Instagram, WhatsApp, Google, PayPal e serviços de
+                        hospedagem de terceiros.
+                    </p>
+
+                    <p className="linha">
+                        A contratada também não é responsável por erros causados por terceiros ou modificações
+                        realizadas pelo contratante após a entrega.
+                    </p>
+
+                    <p className="linha">
+                        Não há garantia de aumento de vendas, engajamento ou resultados financeiros, pois tais fatores
+                        dependem de variáveis externas ao desenvolvimento do site.
+                    </p>
+
+                    <p className="linha">
+                        A assinatura digital utilizada neste contrato tem validade jurídica conforme a Lei nº 14.063/2020,
+                        reconhecida oficialmente em território nacional.
+                    </p>
 
 
                     {/* ASSINATURAS */}
-                    <h3 className="subtitulo">CLÁUSULA 8 — ASSINATURAS</h3>
+                    <h3 className="subtitulo">CLÁUSULA 12 — ASSINATURAS</h3>
 
                     <p className="linha">
                         As partes confirmam o acordo e autorizam o prosseguimento do projeto.                    </p>

@@ -34,9 +34,13 @@ export default function Topo() {
                     <button className="topo-nav-link" onClick={() => irPara("servicos")}>Serviços</button>
                     <button className="topo-nav-link" onClick={() => irPara("tipos-sites")}>Tipos de Sites</button>
 
-                    <button className="topo-nav-link" onClick={() => setAbrirModal(true)}>
+                    <button
+                        className="topo-nav-link topo-funcionario-btn"
+                        onClick={() => setAbrirModal(true)}
+                    >
                         Sou funcionario
                     </button>
+
                 </nav>
             </header>
 
