@@ -101,6 +101,30 @@
     }
 }
 
+/* Impede texto longo de atravessar a página */
+.cp-linha strong,
+.cp-linha a {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+/* Garante quebra automática quando imprimir */
+@media print {
+
+    .cp-linha,
+    .cp-linha strong,
+    .cp-linha a {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Evita que blocos grandes fiquem cortados no meio */
+    .cp-clausula {
+        page-break-inside: avoid;
+    }
+}
+
 /* ========================================= */
 /* BOTÃO PDF */
 /* ========================================= */
