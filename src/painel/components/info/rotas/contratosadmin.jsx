@@ -3,6 +3,7 @@ import "./contratosadmin.css";
 import { API_URL } from "../../../../../config";
 import NovoContrato from "./novocontrato";
 import AssinaturaCanvas from "./assinaturacanvas";
+
 export default function ContratosAdmin({ onModoChange }) {
 
     const [modo, setModo] = useState("menu");
@@ -89,7 +90,6 @@ export default function ContratosAdmin({ onModoChange }) {
             console.log("Erro ao salvar data", err);
         }
     }
-
 
     return (
         <div className="da-box">
@@ -500,7 +500,87 @@ export default function ContratosAdmin({ onModoChange }) {
 
 
                     {/* ASSINATURAS */}
-                    <h3 className="subtitulo">CLÁUSULA 12 — ASSINATURAS</h3>
+                    <h3 className="subtitulo">CLÁUSULA 12 — ASSINATURAS  & COMPROVANTE DE PAGAMENTO</h3>
+                    {/* Comprovante de pagamento */}
+                    <div className="comprovante-box">
+
+                        <h4 style={{ margin: "10px 0" }}>
+                            Comprovante de pagamento
+                        </h4>
+
+                        {contratoSelecionado.comprovante ? (
+                            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+
+                                <div className="comprovante-acoes">
+
+                                    <button
+                                        className="btn-ver-comprovante"
+                                        onClick={() => window.open(contratoSelecionado.comprovante, "_blank")}
+                                    >
+                                        Ver comprovante
+                                    </button>
+
+                                    <button
+                                        className="btn-substituir-comprovante"
+                                        onClick={() => {
+                                            setContratoSelecionado({
+                                                ...contratoSelecionado,
+                                                comprovante: null
+                                            });
+                                        }}
+                                    >
+                                        Substituir comprovante
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        ) : (
+                            <>
+                                <input
+                                    type="file"
+                                    accept="application/pdf"
+                                    id="input-comprovante"
+                                    style={{ display: "none" }}
+                                    onChange={async (e) => {
+                                        const pdf = e.target.files[0];
+                                        if (!pdf) return;
+
+                                        const form = new FormData();
+                                        form.append("arquivo", pdf);
+
+                                        const resp = await fetch(
+                                            `${API_URL}/contratos/salvar-comprovante?id_contrato=${contratoSelecionado.id}`,
+                                            { method: "POST", body: form }
+                                        );
+
+                                        const dados = await resp.json();
+
+                                        if (resp.ok && dados.url) {
+                                            setContratoSelecionado({
+                                                ...contratoSelecionado,
+                                                comprovante: dados.url
+                                            });
+                                            alert("Comprovante salvo com sucesso.");
+                                        } else {
+                                            alert("Erro ao enviar o comprovante.");
+                                            console.log("Erro:", dados);
+                                        }
+                                    }}
+                                />
+
+                                <button
+                                    className="btn-assinar"
+                                    onClick={() =>
+                                        document.getElementById("input-comprovante").click()
+                                    }
+                                >
+                                    Enviar comprovante em PDF
+                                </button>
+                            </>
+                        )}
+
+                    </div>
 
                     <p className="linha">
                         As partes confirmam o acordo e autorizam o prosseguimento do projeto.                    </p>

@@ -562,6 +562,90 @@
     transition: 0.2s;
 }
 
-.btn-copiar-profissional:hover {
-    opacity: 0.85;
+/* Container principal do comprovante */
+.comprovante-box {
+    background: #f7f7f7;
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Título interno */
+.comprovante-box h4 {
+    font-size: 1.1rem;
+    margin: 0;
+    color: #222;
+}
+
+/* Botão: ver / baixar */
+.btn-ver-comprovante {
+    background: #0a4fff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-ver-comprovante:hover {
+    background: #003cc2;
+}
+
+/* Botão substituir */
+.btn-substituir-comprovante {
+    background: #b60000;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-substituir-comprovante:hover {
+    background: #8a0000;
+}
+
+/* Botão enviar */
+.btn-enviar-comprovante {
+    background: #0b1f3d;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-enviar-comprovante:hover {
+    background: #07203b;
+}
+
+/* Espaçamento do bloco quando já existe comprovante */
+.comprovante-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .comprovante-box {
+        padding: 14px;
+    }
+
+    .btn-ver-comprovante,
+    .btn-substituir-comprovante,
+    .btn-enviar-comprovante {
+        width: 100%;
+        text-align: center;
+    }
 }

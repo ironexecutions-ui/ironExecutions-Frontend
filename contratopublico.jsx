@@ -276,6 +276,27 @@ export default function ContratoPublico() {
                         <p className="cp-linha">
                             Valor final na entrega: R$ <strong>{contrato.valor_final_entrega}</strong>
                         </p>
+                        {/* Botão para ver comprovante */}
+                        {contrato.comprovante && (
+                            <button
+                                className="btn-ver-comprovante"
+                                onClick={() => window.open(contrato.comprovante, "_blank")}
+                                style={{
+                                    marginTop: "10px",
+                                    padding: "10px 16px",
+                                    background: "#4CAF50",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                    border: "none",
+                                    borderRadius: "6px",
+                                    cursor: "pointer",
+                                    fontSize: "15px",
+                                    width: "fit-content"
+                                }}
+                            >
+                                Ver comprovante de pagamento inicial
+                            </button>
+                        )}
 
                         <p className="cp-linha cp-obs">
                             A liberação final do projeto acontece somente após o pagamento total acordado, incluindo
