@@ -94,6 +94,13 @@
     background: #3e8e41;
 }
 
+/* Esconde o botão de ver comprovante ao imprimir */
+@media print {
+    .btn-ver-comprovante {
+        display: none !important;
+    }
+}
+
 /* ========================================= */
 /* BOTÃO PDF */
 /* ========================================= */
