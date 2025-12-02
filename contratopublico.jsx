@@ -127,7 +127,7 @@ export default function ContratoPublico() {
                     {/* CLÁUSULA 1 */}
                     {/* ============================== */}
                     <div className="cp-clausula">
-
+                        <br />
                         <h3 className="cp-subtitulo">CLÁUSULA 1 — IDENTIFICAÇÃO DAS PARTES</h3>
 
                         <p className="cp-bloco-titulo">Contratada</p>
@@ -188,7 +188,7 @@ export default function ContratoPublico() {
                     {/* CLÁUSULA 2 */}
                     {/* ============================== */}
                     <div className="cp-clausula">
-
+                        <br />
                         <h3 className="cp-subtitulo">CLÁUSULA 2 — OBJETO DO CONTRATO</h3>
 
                         <p className="cp-linha">
@@ -244,7 +244,7 @@ export default function ContratoPublico() {
                     {/* CLÁUSULA 4 */}
                     {/* ============================== */}
                     <div className="cp-clausula">
-
+                        <br />
                         <h3 className="cp-subtitulo">CLÁUSULA 4 — PRAZO DE ENTREGA</h3>
 
                         <p className="cp-linha">
@@ -258,7 +258,7 @@ export default function ContratoPublico() {
                     {/* CLÁUSULA 5 */}
                     {/* ============================== */}
                     <div className="cp-clausula">
-
+                        <br />
                         <h3 className="cp-subtitulo">CLÁUSULA 5 — VALORES E FORMAS DE PAGAMENTO</h3>
 
                         <p className="cp-linha">
@@ -310,19 +310,29 @@ export default function ContratoPublico() {
                     {/* ============================== */}
                     <div className="cp-clausula">
                         <br />
-                        <h3 className="cp-subtitulo">CLÁUSULA 6 — HOSPEDAGEM/BANCO DE DADOS/SERVIDOR & SUPORTE</h3>
+                        <h3 className="cp-subtitulo">CLÁUSULA 6 —  INFRAESTRUTURA DE HOSPEDAGEM E SERVIÇOS TÉCNICOS
+                        </h3>
 
                         <p className="cp-linha">
-                            Hospedagem/Banco de dados/servidor inclusa: <strong>{contrato.hospedagem_inclusa}</strong>
+                            Infraestrutur inclusa: <strong>{contrato.hospedagem_inclusa}</strong>
                         </p>
 
-                        <p className="cp-linha">
-                            Valor:{" "}
-                            {contrato.hospedagem_inclusa === "Não"
-                                ? <strong>Não possui hospedagem</strong>
-                                : <>R$ <strong>{contrato.valor_hospedagem}</strong></>
-                            }
-                        </p>
+
+
+                        {contrato.hospedagem_inclusa === "Não" ? (
+                            <p className="cp-linha">
+                                <strong>Não possui hospedagem</strong>
+                            </p>
+                        ) : (
+                            <ul className="cp-lista-hospedagem">
+                                {String(contrato.valor_hospedagem)
+                                    .split(",")
+                                    .map((item, i) => (
+                                        <li key={i}>{item.trim()}</li>
+                                    ))}
+                            </ul>
+                        )}
+
 
                         <p className="cp-linha">
                             O contratante terá <strong>{contrato.dias_suporte} dias</strong> de suporte gratuito para
@@ -333,22 +343,33 @@ export default function ContratoPublico() {
                             Modificações estruturais, redesign completo, novas seções ou automações avançadas não são
                             consideradas suporte. Esses itens exigem orçamento adicional.
                         </p>
+                        <p className="cp-linha cp-obs">
+                            A Iron Executions atua apenas como <strong>intermediadora</strong> no uso de serviços externos como
+                            hospedagem, servidores e bancos de dados. Esses serviços dependem totalmente da infraestrutura e das
+                            políticas de <strong>provedores externos</strong>. Falhas técnicas, instabilidades, quedas ou
+                            indisponibilidades ocorridas nessas plataformas são de responsabilidade exclusiva desses provedores,
+                            não sendo a Iron Executions responsável por tais ocorrências. A contratada será responsável apenas pelos
+                            serviços que produz diretamente, como <strong>criação de layout</strong>, <strong>design visual</strong>,
+                            <strong>logotipos</strong>, <strong>imagens internas do projeto</strong> e demais elementos criados pela
+                            equipe da Iron Executions.
+                        </p>
+
                     </div>
                     {/* ============================== */}
                     {/* CLÁUSULA 7 */}
                     {/* ============================== */}
                     <div className="cp-clausula">
-
-                        <h3 className="cp-subtitulo">CLÁUSULA 7 — FORO</h3>
+                        <br />
+                        <h3 className="cp-subtitulo">CLÁUSULA 7 — FORUM</h3>
 
                         <p className="cp-linha">
-                            Ambas as partes elegem o foro da cidade de
+                            Ambas as partes elegem o forum da cidade de
                             <strong> {contrato.cidade_foro}</strong> para resolver eventuais questões judiciais.
                         </p>
                     </div>
                     <div className="cp-clausula">
-
-                        <h3 className="cp-subtitulo">CLÁUSULA 8 — OBRIGAÇÕES DO CONTRATANTE</h3>
+                        <br />
+                        <h3 className="cp-subtitulo">CLÁUSULA 8 — OBRIGAÇÕES DO CONTRATANTE & CONTRATADA</h3>
 
                         <p className="cp-linha">
                             O contratante se compromete a fornecer todos os materiais necessários para o desenvolvimento
@@ -367,9 +388,35 @@ export default function ContratoPublico() {
                             da contratada.
                         </p>
 
+
                         <p className="cp-linha">
                             O contratante deve fornecer acessos necessários para integrações, quando solicitado, incluindo
                             contas de redes sociais, Google, emails, hospedagem ou outras plataformas externas.
+                        </p>
+
+                        <p className="cp-linha">
+                            A contratante e a contratada se comprometem a manter pontualidade nas reuniões realizadas
+                            após a assinatura do contrato. Caso qualquer parte se atrase ou não compareça, deverá informar
+                            o motivo e reagendar de forma adequada, mantendo comunicação clara e respeito ao tempo de ambos.
+                        </p>
+
+                        <p className="cp-linha">
+                            A ausência sem aviso prévio poderá afetar o cronograma do projeto e, se necessário,
+                            resultar em prorrogação dos prazos, sem que isso seja considerado responsabilidade da
+                            contratada.
+                        </p>
+
+
+
+                        <p className="cp-linha">
+                            O contratante reconhece que a entrega dos materiais é essencial para o avanço do projeto.
+                            A ausência desses itens poderá pausar o desenvolvimento e estender o prazo de entrega,
+                            sem que isso seja considerado responsabilidade da contratada.
+                        </p>
+                        <p className="cp-linha">
+                            A comunicação entre as partes ocorrerá preferencialmente por WhatsApp ou email,
+                            dentro de horários comerciais. Mensagens fora desse período poderão ser respondidas
+                            no próximo dia útil, salvo situações previamente acordadas entre as partes.
                         </p>
                     </div>
                     <div className="cp-clausula">
@@ -378,10 +425,27 @@ export default function ContratoPublico() {
 
                         <h3 className="cp-subtitulo">CLÁUSULA 9 — PROPRIEDADE INTELECTUAL</h3>
                         <p className="cp-linha">
-                            Todo o código, estrutura, componentes, automações internas, design e elementos técnicos
-                            produzidos pela contratada permanecem como propriedade intelectual da Iron Executions
-                            enquanto o pagamento integral do projeto não for concluído.
+                            O <strong>layout visual do site</strong>, incluindo cores, logotipo, identidade visual,
+                            textos fornecidos, imagens enviadas pelo contratante e todo o conteúdo estético criado
+                            exclusivamente para o projeto, pertence ao <strong>contratante</strong> após o pagamento
+                            integral. O contratante possui direito de uso e modificação desses elementos como desejar.
                         </p>
+
+                        <p className="cp-linha">
+                            Em contrapartida, a <strong>estrutura do código</strong>, componentes reutilizáveis,
+                            bibliotecas internas, sistemas de automação, integrações desenvolvidas pela Iron Executions
+                            e toda a base lógica do projeto permanecem como <strong>propriedade intelectual exclusiva
+                                da Iron Executions</strong>, podendo ser reutilizados, replicados ou adaptados em outros
+                            projetos sem restrição.
+                        </p>
+
+                        <p className="cp-linha">
+                            Essa separação garante que o cliente tenha plena posse do aspecto visual e do conteúdo do
+                            seu site, enquanto a contratada mantém os direitos autorais do código-fonte e da estrutura
+                            técnica que compõem o funcionamento do sistema.
+                        </p>
+
+
 
                         <p className="cp-linha">
                             Após o pagamento total, o contratante obtém o direito de uso do site, incluindo layout,
@@ -396,8 +460,7 @@ export default function ContratoPublico() {
                         </p>
                     </div>
                     <div className="cp-clausula">
-
-                        <h3 className="cp-subtitulo">CLÁUSULA 10 — RESCISÃO E CANCELAMENTO</h3>
+                        <br />
 
                         <p className="cp-linha">
                             A entrada paga pelo contratante não é reembolsável, pois cobre custos de design inicial,
@@ -450,6 +513,12 @@ export default function ContratoPublico() {
                             A validade jurídica da assinatura digital utilizada neste contrato é garantida pela Lei nº 14.063/2020,
                             que reconhece assinaturas eletrônicas como instrumento legalmente válido.
                         </p>
+                        <p className="cp-linha">
+                            Após a entrega final do projeto, qualquer alteração realizada diretamente pelo contratante
+                            ou por terceiros poderá gerar falhas ou inconsistências. Nessas situações, qualquer correção,
+                            ajuste ou restauração será considerada serviço adicional e poderá gerar custos extras.
+                        </p>
+
                     </div>
 
                     {/* ============================== */}

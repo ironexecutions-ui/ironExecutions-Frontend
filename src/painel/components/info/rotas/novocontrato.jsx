@@ -10,6 +10,8 @@ export default function NovoContrato({ voltar, editando }) {
     const [tecnologiasLista, setTecnologiasLista] = useState([]);
     const [tecnologiaTemp, setTecnologiaTemp] = useState("");
     const usuario = JSON.parse(localStorage.getItem("funcionario") || "{}");
+    const [hospedagemLista, setHospedagemLista] = useState([]);
+    const [hospedagemTemp, setHospedagemTemp] = useState("");
 
     const [form, setForm] = useState({
         representante_nome: "",
@@ -48,6 +50,7 @@ export default function NovoContrato({ voltar, editando }) {
         data_assinatura_contratada: "",
         data_assinatura_cliente: ""
     });
+
 
 
     useEffect(() => {
@@ -108,6 +111,13 @@ export default function NovoContrato({ voltar, editando }) {
                         : []
                 );
 
+                // ✅ AGORA SIM AQUI
+                setHospedagemLista(
+                    dados.valor_hospedagem
+                        ? dados.valor_hospedagem.split(",").map(t => t.trim())
+                        : []
+                );
+
             } catch (err) {
                 alert("Erro ao carregar dados do contrato para edição");
             }
@@ -115,6 +125,7 @@ export default function NovoContrato({ voltar, editando }) {
 
         carregar();
     }, [editando]);
+
     useEffect(() => {
         if (editando) return;
 
@@ -149,8 +160,10 @@ export default function NovoContrato({ voltar, editando }) {
         const dadosEnviar = {
             ...form,
             integracoes: integracoesLista.join(", "),
-            tecnologias: tecnologiasLista.join(", ")
+            tecnologias: tecnologiasLista.join(", "),
+            valor_hospedagem: hospedagemLista.join(", ")   // <--- AQUI
         };
+
 
         try {
 
@@ -411,26 +424,42 @@ export default function NovoContrato({ voltar, editando }) {
                     <option value="Não">Não</option>
                 </select>
 
-                <input
-                    placeholder="Valor da hospedagem/Servidor/Banco de dados/ect"
-                    value={form.hospedagem_inclusa === "Não" ? "Não tem hospedagem" : form.valor_hospedagem}
-                    onChange={e => atualizar("valor_hospedagem", e.target.value)}
-                    readOnly={form.hospedagem_inclusa === "Não"}
-                    className={form.hospedagem_inclusa === "Não" ? "input-desabilitado" : ""}
-                />
+                {/* Entrada + botão */}
+                {form.hospedagem_inclusa === "Não" ? (
+                    <input
+                        value="Não tem hospedagem"
+                        readOnly
+                        className="input-desabilitado"
+                    />
+                ) : (
+                    <>
+                        <div className="integracao-linha">
+                            <input
+                                placeholder="Hospedagem/Servidor/Banco de dados/etc"
+                                value={hospedagemTemp}
+                                onChange={e => setHospedagemTemp(e.target.value)}
+                            />
 
+                            <button
+                                className="botao-add"
+                                onClick={() => {
+                                    if (!hospedagemTemp.trim()) return;
+                                    setHospedagemLista([...hospedagemLista, hospedagemTemp.trim()]);
+                                    setHospedagemTemp("");
+                                }}
+                            >
+                                +
+                            </button>
+                        </div>
 
-                <input
-                    placeholder="Dias de suporte"
-                    value={form.dias_suporte}
-                    onChange={e => atualizar("dias_suporte", e.target.value)}
-                />
-
-                <input
-                    placeholder="Atualizações inclusas (ex: 2 atualizações)"
-                    value={form.atualizacoes_inclusas}
-                    onChange={e => atualizar("atualizacoes_inclusas", e.target.value)}
-                />
+                        {/* Lista aparecendo embaixo */}
+                        <div className="integracoes-lista">
+                            {hospedagemLista.map((item, i) => (
+                                <p key={i} className="integracao-item">• {item}</p>
+                            ))}
+                        </div>
+                    </>
+                )}
 
 
                 <h3>Foro e Assinaturas</h3>

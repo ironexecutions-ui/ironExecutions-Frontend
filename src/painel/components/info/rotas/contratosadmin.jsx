@@ -207,7 +207,13 @@ export default function ContratosAdmin({ onModoChange }) {
 
 
                     <h2 className="titulo-documento">
-                        Contrato de Prestação de Serviços de Desenvolvimento de Site
+                        Este contrato é apenas para ser assinado pelo Representante da Iron Executions não possui valor legal, o contrato valido <br /> e para ser assinado pelo cliente é <a
+                            href={`/contrato/${contratoSelecionado.codigo}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="link-codigo"
+                        >
+                            este                        </a>
                     </h2>
 
                     <p className="linha intro">
@@ -373,15 +379,23 @@ export default function ContratosAdmin({ onModoChange }) {
                     </p>
 
                     <p className="linha">
-                        Valor da hospedagem:{" "}
-                        {contratoSelecionado.hospedagem_inclusa === "Não" ? (
-                            <strong>Não possui hospedagem</strong>
-                        ) : (
-                            <>
-                                R$ <strong>{contratoSelecionado.valor_hospedagem}</strong>
-                            </>
-                        )}
+                        Recursos de hospedagem:
                     </p>
+
+                    {contratoSelecionado.hospedagem_inclusa === "Não" ? (
+                        <p className="linha">
+                            <strong>Não possui hospedagem</strong>
+                        </p>
+                    ) : (
+                        <ul className="lista-hospedagem">
+                            {String(contratoSelecionado.valor_hospedagem)
+                                .split(",")
+                                .map((item, i) => (
+                                    <li key={i}>{item.trim()}</li>
+                                ))}
+                        </ul>
+                    )}
+
 
 
                     <p className="linha">
