@@ -12,6 +12,10 @@ export default function ContratosAdmin({ onModoChange }) {
     const [abrirModalAssinatura, setAbrirModalAssinatura] = useState(false);
     const [tipoAssinaturaAtual, setTipoAssinaturaAtual] = useState(null);
     const [editandoId, setEditandoId] = useState(null);
+    const usuario = JSON.parse(localStorage.getItem("funcionario") || "{}");
+
+
+
     useEffect(() => {
         if (onModoChange) {
             onModoChange(modo);
@@ -52,8 +56,7 @@ export default function ContratosAdmin({ onModoChange }) {
             console.log("Erro ao carregar contrato completo", err);
         }
     }
-
-    async function apagarContrato(id) {
+    async function apagarContrato(id, usuarioId) {
         const c1 = window.confirm("Deseja mesmo apagar este contrato?");
         if (!c1) return;
 
@@ -61,13 +64,15 @@ export default function ContratosAdmin({ onModoChange }) {
         if (!c2) return;
 
         try {
-            const resp = await fetch(`${API_URL}/contratos/${id}`, {
+            const resp = await fetch(`${API_URL}/contratos/${id}?usuario_id=${usuarioId}`, {
                 method: "DELETE"
             });
 
             if (resp.ok) {
-                alert("Contrato apagado.");
-                carregarContratos();
+                await carregarContratos();
+                alert("Contrato removido com sucesso.");
+
+
             } else {
                 alert("Erro ao apagar o contrato.");
             }
@@ -76,6 +81,7 @@ export default function ContratosAdmin({ onModoChange }) {
             alert("Erro ao conectar ao servidor.");
         }
     }
+
     async function salvarData(id, campo, valor) {
         try {
             await fetch(`${API_URL}/contratos/${id}/data`, {
@@ -90,6 +96,12 @@ export default function ContratosAdmin({ onModoChange }) {
             console.log("Erro ao salvar data", err);
         }
     }
+    useEffect(() => {
+        if (modo === "ver" && contratoSelecionado) {
+            const url = `/contrato/${contratoSelecionado.codigo}`;
+            window.open(url, "_blank");
+        }
+    }, [modo, contratoSelecionado]);
 
     return (
         <div className="da-box">
@@ -146,45 +158,52 @@ export default function ContratosAdmin({ onModoChange }) {
                     </button>
 
                     <div className="lista-simples">
-                        {lista.map(item => (
-                            <div key={item.id} className="linha-cliente">
+                        {lista
+                            .filter(item => item.apagado !== 1)
+                            .map(item => (
+                                <div key={item.id} className="linha-cliente">
 
-                                <div className="linha-click" onClick={() => abrirContrato(item)}>
-                                    <p>{item.nome_cliente}</p>
-                                    <span>{item.telefone_cliente}</span>
+                                    <div className="linha-click" onClick={() => abrirContrato(item)}>
+                                        <p>{item.nome_cliente}</p>
+                                        <span>{item.telefone_cliente}</span>
+                                    </div>
+
+                                    <div className="acoes-lista">
+
+                                        <button
+                                            className="btn-abrir"
+                                            onClick={() => {
+                                                const url = `/contrato/${item.codigo}`;
+                                                window.open(url, "_blank");
+                                            }}
+                                        >
+                                            Abrir
+                                        </button>
+
+
+                                        <button
+                                            className="btn-editar"
+                                            onClick={() => {
+                                                setEditandoId(item.id);
+                                                setModo("novo");
+                                            }}
+                                        >
+                                            Editar
+                                        </button>
+
+                                        <button
+                                            className="btn-apagar"
+                                            onClick={() => apagarContrato(item.id, usuario.id)}
+                                        >
+                                            Apagar
+                                        </button>
+
+
+                                    </div>
+
+
                                 </div>
-
-                                <div className="acoes-lista">
-
-                                    <button
-                                        className="btn-abrir"
-                                        onClick={() => abrirContrato(item)}
-                                    >
-                                        Abrir
-                                    </button>
-
-                                    <button
-                                        className="btn-editar"
-                                        onClick={() => {
-                                            setEditandoId(item.id);
-                                            setModo("novo");
-                                        }}
-                                    >
-                                        Editar
-                                    </button>
-
-                                    <button
-                                        className="btn-apagar"
-                                        onClick={() => apagarContrato(item.id)}
-                                    >
-                                        Apagar
-                                    </button>
-
-                                </div>
-
-
-                            </div>
-                        ))}
+                            ))}
                     </div>
                 </>
             )}
@@ -209,7 +228,6 @@ export default function ContratosAdmin({ onModoChange }) {
                     <h2 className="titulo-documento">
                         Este contrato é apenas para ser assinado pelo Representante da Iron Executions não possui valor legal, o contrato valido <br /> e para ser assinado pelo cliente é <a
                             href={`/contrato/${contratoSelecionado.codigo}`}
-                            target="_blank"
                             rel="noopener noreferrer"
                             className="link-codigo"
                         >

@@ -12,6 +12,9 @@ export default function NovoContrato({ voltar, editando }) {
     const usuario = JSON.parse(localStorage.getItem("funcionario") || "{}");
     const [hospedagemLista, setHospedagemLista] = useState([]);
     const [hospedagemTemp, setHospedagemTemp] = useState("");
+    const [paginasLista, setPaginasLista] = useState([]);
+    const [paginaTipoTemp, setPaginaTipoTemp] = useState("");
+    const [paginaDescricaoTemp, setPaginaDescricaoTemp] = useState("");
 
     const [form, setForm] = useState({
         representante_nome: "",
@@ -20,7 +23,7 @@ export default function NovoContrato({ voltar, editando }) {
         telefone_empresa: "",
         email_empresa: "",
 
-        negocio_cliente: "",     // <-- NOVO CAMPO
+        negocio_cliente: "",
         nome_cliente: "",
         documento_cliente: "",
         endereco_cliente: "",
@@ -111,12 +114,20 @@ export default function NovoContrato({ voltar, editando }) {
                         : []
                 );
 
-                // ✅ AGORA SIM AQUI
                 setHospedagemLista(
                     dados.valor_hospedagem
                         ? dados.valor_hospedagem.split(",").map(t => t.trim())
                         : []
                 );
+
+                // carregamento das páginas do contrato
+                try {
+                    const respPaginas = await fetch(`${API_URL}/paginas/${editando}`);
+                    const listaPaginas = await respPaginas.json();
+                    setPaginasLista(listaPaginas);
+                } catch {
+                    setPaginasLista([]);
+                }
 
             } catch (err) {
                 alert("Erro ao carregar dados do contrato para edição");
@@ -161,7 +172,9 @@ export default function NovoContrato({ voltar, editando }) {
             ...form,
             integracoes: integracoesLista.join(", "),
             tecnologias: tecnologiasLista.join(", "),
-            valor_hospedagem: hospedagemLista.join(", ")   // <--- AQUI
+            valor_hospedagem: hospedagemLista.join(", "),
+            paginas: paginasLista
+
         };
 
 
@@ -197,6 +210,12 @@ export default function NovoContrato({ voltar, editando }) {
             alert("Erro ao conectar com o servidor");
         }
     }
+    useEffect(() => {
+        setForm(f => ({
+            ...f,
+            quantidade_paginas: paginasLista.length.toString()
+        }));
+    }, [paginasLista]);
 
 
     return (
@@ -266,6 +285,48 @@ export default function NovoContrato({ voltar, editando }) {
                     value={form.email_cliente}
                     onChange={e => atualizar("email_cliente", e.target.value)} />
 
+                <h3>Páginas do Projeto</h3>
+
+                <div className="integracao-linha">
+                    <input
+                        placeholder="Nome da página, por exemplo Home ou Dashboard"
+                        value={paginaTipoTemp}
+                        onChange={e => setPaginaTipoTemp(e.target.value)}
+                    />
+                    <input
+                        placeholder="Descrição da página"
+                        value={paginaDescricaoTemp}
+                        onChange={e => setPaginaDescricaoTemp(e.target.value)}
+                    />
+
+                    <button
+                        className="botao-add"
+                        onClick={() => {
+                            if (!paginaTipoTemp.trim() || !paginaDescricaoTemp.trim()) return;
+
+                            setPaginasLista([
+                                ...paginasLista,
+                                {
+                                    tipo: paginaTipoTemp.trim(),
+                                    descricao: paginaDescricaoTemp.trim()
+                                }
+                            ]);
+
+                            setPaginaTipoTemp("");
+                            setPaginaDescricaoTemp("");
+                        }}
+                    >
+                        +
+                    </button>
+                </div>
+
+                <div className="integracoes-lista">
+                    {paginasLista.map((p, i) => (
+                        <p key={i} className="integracao-item">
+                            • {p.tipo}   |   {p.descricao}
+                        </p>
+                    ))}
+                </div>
 
                 <h3>Informações do Projeto</h3>
 
@@ -318,8 +379,9 @@ export default function NovoContrato({ voltar, editando }) {
                 <input
                     placeholder="Quantidade de páginas"
                     value={form.quantidade_paginas}
-                    onChange={e => atualizar("quantidade_paginas", e.target.value)}
+                    readOnly
                 />
+
                 {/* INTEGRAÇÕES */}
                 <h3>Integrações</h3>
 

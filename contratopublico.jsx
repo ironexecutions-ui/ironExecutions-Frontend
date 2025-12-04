@@ -10,9 +10,8 @@ export default function ContratoPublico() {
     const [codigoInput, setCodigoInput] = useState(codigo || "");
     const [contrato, setContrato] = useState(null);
     const [erro, setErro] = useState("");
-    const [abrirAssinaturaPublica, setAbrirAssinaturaPublica] = useState(false);
-    const [permitirEscolherData, setPermitirEscolherData] = useState(false);
-    const [dataSelecionada, setDataSelecionada] = useState("");
+    const [assinaturaTipo, setAssinaturaTipo] = useState(null);
+
 
     async function buscar() {
         setErro("");
@@ -54,31 +53,86 @@ export default function ContratoPublico() {
 
     return (
         <div className="cp-container">
-            {abrirAssinaturaPublica && (
+            {assinaturaTipo && (
                 <div className="modal-assinatura-fundo">
                     <div className="modal-assinatura-box">
 
                         <button
                             className="modal-assinatura-fechar"
-                            onClick={() => setAbrirAssinaturaPublica(false)}
+                            onClick={() => setAssinaturaTipo(null)}
                         >
                             Fechar
                         </button>
 
                         <AssinaturaCanvas
                             idContrato={contrato.id}
-                            tipo="cliente"
-                            onFinalizado={(url) => {
-                                setContrato({
-                                    ...contrato,
-                                    LOGO_ASSINATURA_CLIENTE: url
-                                });
-                                setAbrirAssinaturaPublica(false);
+                            tipo={assinaturaTipo}
+                            onFinalizado={async (url) => {
+
+                                if (assinaturaTipo === "cliente") {
+
+                                    // 1. atualizar assinatura no frontend
+                                    setContrato(prev => ({
+                                        ...prev,
+                                        LOGO_ASSINATURA_CLIENTE: url
+                                    }));
+
+                                    // 2. gerar data do dia automaticamente
+                                    const hoje = new Date().toISOString().split("T")[0];
+
+                                    // 3. enviar para backend
+                                    await fetch(`${API_URL}/contratos/${contrato.id}/data`, {
+                                        method: "PUT",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
+                                            campo: "data_assinatura_cliente",
+                                            valor: hoje
+                                        })
+                                    });
+
+                                    // 4. atualizar tela
+                                    setContrato(prev => ({
+                                        ...prev,
+                                        data_assinatura_cliente: hoje
+                                    }));
+                                }
+
+
+                                if (assinaturaTipo === "contratada") {
+
+                                    // 1. Atualiza assinatura no frontend
+                                    setContrato(prev => ({
+                                        ...prev,
+                                        LOGO_ASSINATURA_CONTRATADA: url
+                                    }));
+
+
+                                    // 2. Atualiza data no backend
+                                    const hoje = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+                                    await fetch(`${API_URL}/contratos/${contrato.id}/data`, {
+                                        method: "PUT",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
+                                            campo: "data_assinatura_contratada",
+                                            valor: hoje
+                                        })
+                                    });
+
+                                    // 3. Atualiza visualmente no frontend
+                                    setContrato(prev => ({
+                                        ...prev,
+                                        data_assinatura_contratada: hoje
+                                    }));
+                                }
+
+                                setAssinaturaTipo(null);
                             }}
+
                         />
                     </div>
                 </div>
             )}
+
 
             <h1 className="cp-titulo" style={{
                 display: "flex",
@@ -183,6 +237,45 @@ export default function ContratoPublico() {
                             E-mail: <strong>{contrato.email_cliente}</strong>
                         </p>
                     </div>
+                    {/* ============================== */}
+                    {/* PÁGINAS CONTRATADAS */}
+                    {/* ============================== */}
+
+                    <div className="cp-clausula">
+                        <br />
+                        <h3 className="cp-subtitulo">ESPECIFICAÇÃO DAS PÁGINAS CONTRATADAS</h3>
+
+                        <p className="cp-linha">
+                            O presente projeto inclui exclusivamente as páginas descritas abaixo, conforme acordo
+                            estabelecido entre contratante e contratada.
+                        </p>
+
+                        {/* Lista de páginas */}
+                        {contrato.paginas && contrato.paginas.length > 0 ? (
+                            <ul className="cp-lista-paginas">
+                                {contrato.paginas.map((p, index) => (
+                                    <li key={index} style={{ marginBottom: "8px" }}>
+                                        <strong>{p.tipo}</strong>
+                                        <div style={{ marginLeft: "8px", fontSize: "0.95rem" }}>
+                                            {p.descricao}
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className="cp-linha">
+                                Nenhuma página foi cadastrada para este contrato.
+                            </p>
+                        )}
+
+                        <p className="cp-linha cp-obs">
+                            Qualquer nova página que não esteja listada acima será considerada adicional e
+                            poderá gerar custos extras. A descrição de cada página representa claramente o
+                            que está incluído no projeto.
+                        </p>
+                    </div>
+
+
                     <br />
                     {/* ============================== */}
                     {/* CLÁUSULA 2 */}
@@ -425,39 +518,17 @@ export default function ContratoPublico() {
 
                         <h3 className="cp-subtitulo">CLÁUSULA 9 — PROPRIEDADE INTELECTUAL</h3>
                         <p className="cp-linha">
-                            O <strong>layout visual do site</strong>, incluindo cores, logotipo, identidade visual,
-                            textos fornecidos, imagens enviadas pelo contratante e todo o conteúdo estético criado
-                            exclusivamente para o projeto, pertence ao <strong>contratante</strong> após o pagamento
-                            integral. O contratante possui direito de uso e modificação desses elementos como desejar.
+                            O <strong>layout visual do site</strong>, incluindo cores, logotipo, identidade visual, textos fornecidos, imagens enviadas pelo contratante e todo o material estético criado exclusivamente para este projeto, passa a pertencer ao <strong>contratante</strong> após o pagamento integral. O contratante possui direito de uso e pode <em>modificar, ajustar e personalizar</em> esses elementos conforme desejar.
                         </p>
 
                         <p className="cp-linha">
-                            Em contrapartida, a <strong>estrutura do código</strong>, componentes reutilizáveis,
-                            bibliotecas internas, sistemas de automação, integrações desenvolvidas pela Iron Executions
-                            e toda a base lógica do projeto permanecem como <strong>propriedade intelectual exclusiva
-                                da Iron Executions</strong>, podendo ser reutilizados, replicados ou adaptados em outros
-                            projetos sem restrição.
+                            Em contrapartida, a <strong>estrutura técnica e lógica do site</strong> permanece como <strong>propriedade intelectual exclusiva da Iron Executions</strong>. Esse conjunto inclui o código-fonte, os componentes reutilizáveis, as bibliotecas internas, os sistemas de automação, a organização do projeto e todas as soluções técnicas desenvolvidas para o funcionamento do site. Essas tecnologias poderão ser <em>reutilizadas, adaptadas ou reaproveitadas</em> pela Iron Executions em futuros projetos, sempre sem utilizar elementos exclusivos da identidade visual do contratante, como logotipo, paleta de cores, imagens e demais características únicas da marca.
                         </p>
 
                         <p className="cp-linha">
-                            Essa separação garante que o cliente tenha plena posse do aspecto visual e do conteúdo do
-                            seu site, enquanto a contratada mantém os direitos autorais do código-fonte e da estrutura
-                            técnica que compõem o funcionamento do sistema.
+                            Essa separação garante ao contratante o domínio total sobre o <strong>visual e conteúdo exclusivo</strong> do seu site, ao mesmo tempo em que assegura à Iron Executions o direito de evoluir, aprimorar e reaproveitar sua própria tecnologia e métodos de desenvolvimento. Assim, nenhuma característica visual exclusiva do contratante será reproduzida em outros projetos, porém a base técnica poderá ser <em>utilizada para otimizar novos desenvolvimentos</em>, garantindo qualidade e eficiência para todos os clientes.
                         </p>
 
-
-
-                        <p className="cp-linha">
-                            Após o pagamento total, o contratante obtém o direito de uso do site, incluindo layout,
-                            design visual e textos estruturados. É proibida a revenda, redistribuição, clonagem ou
-                            comercialização do projeto sem autorização da contratada.
-                        </p>
-
-                        <p className="cp-linha">
-                            Códigos internos, bibliotecas próprias, sistemas de automação e estruturas desenvolvidas
-                            pela contratada permanecem de propriedade exclusiva da Iron Executions, mesmo após a
-                            entrega final do projeto.
-                        </p>
                     </div>
                     <div className="cp-clausula">
                         <br />
@@ -534,18 +605,26 @@ export default function ContratoPublico() {
 
                         <div className="cp-assinaturas">
 
-                            {/* Assinatura contratada */}
+                            {/* ASSINATURA CONTRATADA */}
                             <div className="cp-assinatura">
                                 <p>
                                     Contratada: <strong>{contrato.representante_nome}</strong><br />
                                     Representante de: <strong>Iron Executions</strong>
                                 </p>
 
-                                <p>Data: <strong>{contrato.data_assinatura_contratada}</strong></p>
+                                {/* DATA AUTOMÁTICA */}
+                                <p style={{ marginTop: "10px" }}>
+                                    Data: <strong>{contrato.data_assinatura_contratada || "—"}</strong>
+                                </p>
 
-                                {(contrato.LOGO_ASSINATURA_CONTRATADA || contrato.logo_assinatura_contratada) && (
-                                    <div> <p style={{ fontSize: "0.6rem" }} >assinatura:</p>
+                                {/* SE JÁ ASSINOU, MOSTRA IMAGEM */}
+                                {contrato.LOGO_ASSINATURA_CONTRATADA ? (
+                                    <>
+                                        <p style={{ fontSize: "0.6rem", marginTop: "6px" }}>assinatura:</p>
                                         <img
+                                            src={contrato.LOGO_ASSINATURA_CONTRATADA}
+                                            className="cp-img-assinatura"
+                                            alt="Assinatura contratada"
                                             style={{
                                                 border: "2px solid rgba(0,0,0,0.15)",
                                                 borderRadius: "10px",
@@ -553,89 +632,39 @@ export default function ContratoPublico() {
                                                 background: "linear-gradient(to bottom right, #ffffff, #f1f1f1)",
                                                 boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
                                             }}
-                                            src={contrato.LOGO_ASSINATURA_CONTRATADA || contrato.logo_assinatura_contratada}
-                                            className="cp-img-assinatura"
-                                            alt="Assinatura contratada"
                                         />
-
-                                    </div>
+                                    </>
+                                ) : (
+                                    <button
+                                        className="btn-assinar-publico"
+                                        onClick={() => setAssinaturaTipo("contratada")}
+                                        style={{ marginTop: "10px" }}
+                                    >
+                                        Assinar contrato
+                                    </button>
                                 )}
                             </div>
 
-                            {/* Assinatura cliente */}
+                            {/* ASSINATURA CLIENTE */}
                             <div className="cp-assinatura">
                                 <p>
                                     Contratante: <strong>{capitalizeWords(contrato.nome_cliente)}</strong><br />
                                     Representante de: <strong>{contrato.negocio_cliente}</strong>
                                 </p>
 
-                                {/* DATA DO CLIENTE — só pode escolher uma vez */}
+                                {/* DATA AUTOMÁTICA */}
+                                <p style={{ marginTop: "10px" }}>
+                                    Data: <strong>{contrato.data_assinatura_cliente || "—"}</strong>
+                                </p>
 
-                                <div style={{ marginTop: "10px" }}>
-                                    <p style={{ marginBottom: "6px" }}>
-                                        Data: <strong>{contrato.data_assinatura_cliente || dataSelecionada || "—"}</strong>
-                                    </p>
-
-                                    {/* Se já tem data salva no banco, não pode mudar */}
-                                    {contrato.data_assinatura_cliente ? null : (
-                                        <>
-                                            {/* Primeiro clique ativa a confirmação */}
-                                            {!permitirEscolherData && (
-                                                <button
-                                                    className="btn-assinar-publico"
-                                                    onClick={() => setPermitirEscolherData(true)}
-                                                >
-                                                    Selecionar data
-                                                </button>
-                                            )}
-
-                                            {/* Após o segundo clique, mostra o input */}
-                                            {permitirEscolherData && !dataSelecionada && (
-                                                <input
-                                                    type="date"
-                                                    style={{
-                                                        padding: "6px",
-                                                        borderRadius: "6px",
-                                                        border: "1px solid #ccc",
-                                                        marginTop: "6px"
-                                                    }}
-                                                    onChange={async (e) => {
-                                                        const valor = e.target.value;
-                                                        setDataSelecionada(valor);
-
-                                                        // Salva imediatamente no backend
-                                                        await fetch(`${API_URL}/contratos/${contrato.id}/data`, {
-                                                            method: "PUT",
-                                                            headers: { "Content-Type": "application/json" },
-                                                            body: JSON.stringify({
-                                                                campo: "data_assinatura_cliente",
-                                                                valor
-                                                            })
-                                                        });
-
-                                                        // Atualiza visualmente
-                                                        setContrato({
-                                                            ...contrato,
-                                                            data_assinatura_cliente: valor
-                                                        });
-                                                    }}
-                                                />
-                                            )}
-                                        </>
-                                    )}
-
-                                </div>
-                            </div>
-
-                            {/* Assinatura cliente */}
-                            <div className="cp-assinatura">
-
-
-
-                                {contrato.LOGO_ASSINATURA_CLIENTE || contrato.logo_assinatura_cliente ? (
+                                {/* SE JÁ ASSINOU, MOSTRA IMAGEM */}
+                                {(contrato.LOGO_ASSINATURA_CLIENTE || contrato.logo_assinatura_cliente) ? (
                                     <>
-                                        <p style={{ fontSize: "0.6rem" }}>assinatura:</p>
+                                        <p style={{ fontSize: "0.6rem", marginTop: "6px" }}>assinatura:</p>
                                         <img
+                                            src={contrato.LOGO_ASSINATURA_CLIENTE || contrato.logo_assinatura_cliente}
+                                            className="cp-img-assinatura"
+                                            alt="Assinatura cliente"
                                             style={{
                                                 border: "2px solid rgba(0,0,0,0.15)",
                                                 borderRadius: "10px",
@@ -643,15 +672,12 @@ export default function ContratoPublico() {
                                                 background: "linear-gradient(to bottom right, #ffffff, #f1f1f1)",
                                                 boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
                                             }}
-                                            src={contrato.LOGO_ASSINATURA_CLIENTE || contrato.logo_assinatura_cliente}
-                                            className="cp-img-assinatura"
-                                            alt="Assinatura cliente"
                                         />
                                     </>
                                 ) : (
                                     <button
                                         className="btn-assinar-publico"
-                                        onClick={() => setAbrirAssinaturaPublica(true)}
+                                        onClick={() => setAssinaturaTipo("cliente")}
                                     >
                                         Assinar contrato
                                     </button>
@@ -659,8 +685,8 @@ export default function ContratoPublico() {
                             </div>
 
                         </div>
-
                     </div>
+
 
 
 

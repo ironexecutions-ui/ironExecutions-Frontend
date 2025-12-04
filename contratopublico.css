@@ -528,3 +528,39 @@
     font-weight: bolder;
     line-height: 1.3rem;
 }
+
+/* ========================================= */
+/* LISTA DE PÁGINAS CONTRATADAS */
+/* ========================================= */
+
+.cp-lista-paginas {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.cp-lista-paginas li {
+    border: 1px solid #b9b3b3;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    transition: 0.2s ease;
+}
+
+.cp-lista-paginas li:hover {
+    background: #f3f3f3;
+    transform: translateX(3px);
+}
+
+.cp-lista-paginas li strong {
+    font-size: 1rem;
+    color: #000;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.cp-lista-paginas li div {
+    color: #444;
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
