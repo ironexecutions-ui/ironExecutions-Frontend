@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Passo1Loja from "./cadastro_modulos/passo1loja";
-import Passo2Personalizar from "./cadastro_modulos/passo2personalizar";
-import Passo3Modulos from "./cadastro_modulos/passo3modulos";
-import Passo4Cliente from "./cadastro_modulos/passo4cliente";
+import Passo1Loja from "./cadastro_modulos/passoloja";
+import Passo2Personalizar from "./cadastro_modulos/passopersonalizar";
+import Passo3Modulos from "./cadastro_modulos/passomodulos";
+import Passo4Cliente from "./cadastro_modulos/passocliente";
 import { API_URL } from "../../../../config";
 
 export default function CadastroComercio() {

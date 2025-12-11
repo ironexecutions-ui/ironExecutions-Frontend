@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Passo2Personalizar.css";
+import "./PassoPersonalizar.css";
 
 export default function Passo2Personalizar({ onContinuar, onPular }) {
 
