@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import uploadImagemSupabase from "./supabaseupload";
-import "./Passoloja.css";
+import "./passoloja.css";
 
 export default function Passo1Loja({ onContinuar }) {
 

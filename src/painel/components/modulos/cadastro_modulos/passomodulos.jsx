@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Passomodulos.css";
+import "./passomodulos.css";
 import { API_URL } from "../../../../../config";
 
 export default function Passo3Modulos({ onContinuar }) {

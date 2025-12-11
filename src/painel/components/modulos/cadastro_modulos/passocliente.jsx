@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Passocliente.css";
+import "./passocliente.css";
 
 export default function Passo4Cliente({ onFinalizar }) {
 
