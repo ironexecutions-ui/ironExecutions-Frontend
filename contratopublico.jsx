@@ -318,7 +318,9 @@ export default function ContratoPublico() {
                             Revisões inclusas: <strong>{contrato.numero_revisoes}</strong>
                         </p>
 
-
+                        <p className="cp-linha">
+                            Atualizações inclusas: <strong>4</strong>
+                        </p>
 
                         <p className="cp-linha cp-obs">
                             * As revisões correspondem às alterações solicitadas pelo contratante durante o
