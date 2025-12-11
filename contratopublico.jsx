@@ -289,9 +289,6 @@ export default function ContratoPublico() {
                             conforme solicitado pelo contratante, atendendo às especificações abaixo.
                         </p>
 
-                        <p className="cp-linha">
-                            Tipo de site: <strong>{contrato.tipo_site}</strong>
-                        </p>
 
                         <p className="cp-linha">
                             Tecnologias utilizadas: <strong>{contrato.tecnologias}</strong>
