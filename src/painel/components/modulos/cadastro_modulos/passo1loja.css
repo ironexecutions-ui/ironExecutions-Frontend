@@ -1,0 +1,67 @@
+.passo1-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.titulo {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.input-texto {
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    outline: none;
+    transition: 0.2s;
+}
+
+.input-texto:focus {
+    border-color: #4caf50;
+}
+
+.input-arquivo {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.preview-area {
+    margin-top: 10px;
+}
+
+.preview-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.botao-enviar {
+    padding: 10px;
+    cursor: pointer;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.botao-enviar:hover {
+    opacity: 0.9;
+}
+
+.botao-enviar:disabled {
+    background: #999;
+    cursor: not-allowed;
+}

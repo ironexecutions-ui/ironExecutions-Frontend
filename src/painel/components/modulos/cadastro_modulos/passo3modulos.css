@@ -1,0 +1,68 @@
+.passo3-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.titulo {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.grid-modulos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card-modulo {
+    padding: 15px;
+    border-radius: 10px;
+    background: #ccc;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid #bbb;
+}
+
+.card-modulo:hover {
+    opacity: 0.85;
+}
+
+.card-modulo.ativo {
+    background: #4caf50;
+    color: white;
+}
+
+.nome-modulo {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.preco-modulo {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+.texto-modulo {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.botao-confirmar {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.botao-confirmar:hover {
+    opacity: 0.9;
+}

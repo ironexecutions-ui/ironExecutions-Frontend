@@ -1,0 +1,78 @@
+.prod-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px;
+    background: #0f1b2b;
+
+    height: 95vh;
+    max-height: 95vh;
+    overflow: hidden;
+}
+
+/* LINHAS (agora dividem a tela em 2 partes iguais) */
+.linha-superior,
+.linha-inferior {
+    display: flex;
+    gap: 18px;
+
+    height: 50%;
+    max-height: 50%;
+    overflow: hidden;
+}
+
+/* CARTÕES */
+.prod-card {
+    background: #102038;
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 18px;
+    color: #f0f0f0;
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+.prod-card>* {
+    overflow-y: auto;
+}
+
+/* Caixas específicas */
+.buscar {
+    flex: 0.9;
+    height: fit-content;
+}
+
+.itens {
+    flex: 2;
+}
+
+.atual {
+    flex: 2;
+}
+
+.total {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsivo */
+@media (max-width: 700px) {
+
+    .linha-superior,
+    .linha-inferior {
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+    }
+
+    .prod-container {
+        height: auto;
+        max-height: none;
+    }
+}

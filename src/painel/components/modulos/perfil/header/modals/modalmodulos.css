@@ -1,0 +1,173 @@
+/* FUNDO ESCURECIDO DO MODAL */
+.qr-modal-fundo {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+
+    z-index: 9999999999 !important;
+
+    animation: fundoFade 0.25s ease;
+}
+
+@keyframes fundoFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* CAIXA DO MODAL */
+.qr-modal-caixa {
+    position: relative;
+    width: 92%;
+    max-width: 520px;
+
+    background: #121212;
+    padding: 30px;
+    border-radius: 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 0 28px rgba(0, 0, 0, 0.55),
+        0 0 12px rgba(255, 255, 255, 0.05);
+
+    animation: modalGrow 0.25s ease-out;
+
+    z-index: 9999999999 !important;
+}
+
+@keyframes modalGrow {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* TÍTULOS */
+.qr-titulo {
+    text-align: center;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.qr-subtitulo {
+    color: #ccc;
+    margin-top: 22px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* LISTA */
+.qr-lista-modulos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.qr-item-modulo {
+    background: #1d1d1d;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    transition: 0.25s;
+}
+
+.qr-item-modulo:hover {
+    background: #242424;
+}
+
+.qr-nome-modulo {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* STATUS */
+.qr-status {
+    padding: 7px 13px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.qr-status-ativo {
+    background: rgba(0, 255, 100, 0.15);
+    color: #00ff78;
+    border: 1px solid rgba(0, 255, 120, 0.3);
+}
+
+.qr-status-solicitado {
+    background: rgba(255, 200, 0, 0.15);
+    color: #ffc800;
+    border: 1px solid rgba(255, 200, 0, 0.3);
+}
+
+/* BOTÃO SOLICITAR */
+.qr-btn-solicitar {
+    background: #0a84ff;
+    color: #fff;
+
+    padding: 7px 15px;
+    border-radius: 10px;
+    border: none;
+
+    cursor: pointer;
+    transition: 0.25s;
+    font-size: 14px;
+}
+
+.qr-btn-solicitar:hover {
+    background: #0068d6;
+}
+
+/* QUANDO NÃO TEM MÓDULOS */
+.qr-sem-modulos {
+    color: #aaa;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* BOTÃO FECHAR */
+.qr-btn-fechar {
+    width: 100%;
+    background: #2b2b2b;
+    color: white;
+
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #444;
+
+    margin-top: 25px;
+
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.qr-btn-fechar:hover {
+    background: #3a3a3a;
+}

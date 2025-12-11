@@ -1,0 +1,188 @@
+.lista-itens-box {
+    background: #0f1b2b;
+    border: 2px solid #d4af37;
+    border-radius: 14px;
+    padding: 16px;
+    color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+}
+
+.lista-itens-titulo {
+    font-size: 17px;
+    font-weight: 600;
+    color: #d4af37;
+    margin-bottom: 8px;
+}
+
+.lista-vazio {
+    opacity: 0.7;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* Conteúdo com barra rolável */
+.lista-itens-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 130px;
+    padding-right: 6px;
+}
+
+/* Barra personalizada */
+.lista-itens-conteudo::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lista-itens-conteudo::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 10px;
+}
+
+.lista-itens-conteudo::-webkit-scrollbar-track {
+    background: #162639;
+}
+
+/* Linha de cada item */
+.item-linha {
+    background: #162639;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #d4af37;
+    transition: background 0.25s;
+}
+
+.item-linha:hover {
+    background: #1d324a;
+}
+
+/* Texto menor */
+.item-nome {
+    font-size: 13px;
+}
+
+.item-preco {
+    font-size: 14px;
+    color: #d4af37;
+}
+
+/* TELAS MUITO GRANDES (monitores grandes) */
+@media (min-width: 1400px) {
+    .lista-itens-titulo {
+        font-size: 19px;
+    }
+
+    .item-nome {
+        font-size: 15px;
+    }
+
+    .item-preco {
+        font-size: 16px;
+    }
+
+    .lista-itens-conteudo {
+        max-height: 180px;
+    }
+}
+
+/* DESKTOP MÉDIO */
+@media (max-width: 1200px) {
+    .lista-itens-titulo {
+        font-size: 16px;
+    }
+
+    .item-nome {
+        font-size: 13px;
+    }
+
+    .item-preco {
+        font-size: 14px;
+    }
+
+    .lista-itens-conteudo {
+        max-height: 150px;
+    }
+}
+
+/* TABLETS */
+@media (max-width: 900px) {
+    .lista-itens-box {
+        padding: 14px;
+    }
+
+    .lista-itens-titulo {
+        font-size: 15px;
+    }
+
+    .item-linha {
+        padding: 8px;
+    }
+
+    .item-nome {
+        font-size: 12px;
+    }
+
+    .item-preco {
+        font-size: 13px;
+    }
+
+    .lista-itens-conteudo {
+        max-height: 140px;
+    }
+}
+
+/* CELULARES GRANDES */
+@media (max-width: 600px) {
+    .lista-itens-titulo {
+        font-size: 14px;
+    }
+
+    .item-linha {
+        padding: 7px;
+        border-left-width: 3px;
+    }
+
+    .item-nome {
+        font-size: 11px;
+    }
+
+    .item-preco {
+        font-size: 12px;
+    }
+
+    .lista-itens-conteudo {
+        max-height: 120px;
+    }
+}
+
+/* CELULARES PEQUENOS */
+@media (max-width: 420px) {
+    .lista-itens-box {
+        padding: 10px;
+    }
+
+    .lista-itens-titulo {
+        font-size: 13px;
+    }
+
+    .item-linha {
+        padding: 6px;
+    }
+
+    .item-nome {
+        font-size: 10px;
+    }
+
+    .item-preco {
+        font-size: 11px;
+    }
+
+    .lista-itens-conteudo {
+        max-height: 110px;
+    }
+}

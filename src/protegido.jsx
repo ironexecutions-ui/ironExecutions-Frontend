@@ -5,8 +5,9 @@ export default function Protegido({ children }) {
     const funcionario = localStorage.getItem("funcionario");
 
     if (!funcionario) {
-        return <Navigate to="/" />;
+        return <Navigate to="/" replace />;
     }
+
 
     return children;
 }

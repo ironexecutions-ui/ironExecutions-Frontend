@@ -14,7 +14,9 @@
     "@supabase/supabase-js": "^2.81.1",
     "bcryptjs": "^3.0.3",
     "html2pdf.js": "^0.12.1",
+    "jsbarcode": "^3.12.1",
     "pdfjs-dist": "^2.16.105",
+    "qrcode.react": "^4.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.9.6"

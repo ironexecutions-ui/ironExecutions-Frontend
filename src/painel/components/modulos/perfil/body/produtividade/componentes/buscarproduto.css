@@ -1,0 +1,178 @@
+.buscar-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* título */
+.buscar-titulo {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f5f5f5;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* garantir que nada corte a lista de sugestões */
+.buscar-box {
+    position: relative;
+    overflow: visible !important;
+}
+
+/* garantir que o card Pai não esconda o dropdown */
+.prod-card {
+    position: relative;
+    overflow: visible !important;
+}
+
+/* fazer o dropdown aparecer sobreposto */
+.sugestoes-boxx {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+.sugestoes-box {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 999999 !important;
+}
+
+.prod-grid {
+    position: relative;
+    z-index: 1;
+}
+
+.prod-card {
+    position: relative;
+    overflow: visible !important;
+    z-index: 2;
+}
+
+.buscar-box {
+    position: relative;
+    z-index: 999;
+}
+
+/* input */
+.buscar-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.2s;
+    background: #0f1b2b;
+    color: #f7f7f7;
+}
+
+.buscar-input::placeholder {
+    color: #c7c7c7;
+}
+
+.buscar-input:focus {
+    border-color: #f0d98a;
+    box-shadow: 0 0 6px rgba(212, 175, 55, 0.6);
+}
+
+/* loading */
+.buscar-loading {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid #d4af37;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* caixa de sugestões */
+.sugestoes-box {
+    background: #132237;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    margin-top: 6px;
+    max-height: 260px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* item */
+.sug-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.sug-item:hover {
+    background: rgba(240, 217, 138, 0.15);
+    transform: scale(1.01);
+}
+
+/* imagem */
+.sug-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #20344f;
+    border: 1px solid #d4af37;
+}
+
+.sug-img.placeholder {
+    background: #2a3e59;
+}
+
+/* textos */
+.sug-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.sug-nome {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f7f7f7;
+}
+
+.sug-sub {
+    font-size: 13px;
+    color: #d4d4d4;
+}
+
+/* animação */
+.fadde-in {
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

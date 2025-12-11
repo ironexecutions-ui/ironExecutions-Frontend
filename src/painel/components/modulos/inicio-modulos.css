@@ -1,0 +1,46 @@
+.inicio-modulos-fundo {
+    min-height: 100vh;
+    padding: 40px;
+    padding-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #001737, #002a63, #003a8f);
+    z-index: 1;
+}
+
+.inicio-modulos-fundo::before,
+.inicio-modulos-fundo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-image:
+        radial-gradient(2px 2px at 20% 20%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(2px 2px at 80% 40%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(2px 2px at 50% 70%, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(3px 3px at 70% 90%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(2px 2px at 30% 50%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(3px 3px at 90% 20%, rgba(255, 255, 255, 0.5), transparent);
+
+    animation: estrelasMovendo 60s linear infinite;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.inicio-modulos-fundo::after {
+    animation-duration: 120s;
+    opacity: 0.30;
+}
+
+@keyframes estrelasMovendo {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+}

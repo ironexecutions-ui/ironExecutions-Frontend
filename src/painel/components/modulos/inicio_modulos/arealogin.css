@@ -1,0 +1,96 @@
+.area-login-container {
+    background: white;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    animation: entradaSuave 0.4s ease;
+}
+
+.area-login-container h2 {
+    font-size: 24px;
+    margin-bottom: 18px;
+    color: #0d47a1;
+}
+
+.modo-botoes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.modo-botoes button {
+    padding: 10px 18px;
+    background: #0d47a1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.modo-botoes button:hover {
+    background: #1565c0;
+}
+
+.area-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.area-login-form label {
+    text-align: left;
+    color: #0d47a1;
+    font-weight: bold;
+}
+
+.area-login-form input {
+    padding: 12px;
+    border: 1px solid #b0bec5;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.area-login-form input:focus {
+    border-color: #0d47a1;
+    outline: none;
+}
+
+.area-login-form button {
+    background: #0d47a1;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 8px;
+    transition: 0.3s;
+}
+
+.area-login-form button:hover {
+    background: #1565c0;
+}
+
+.erro {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+@keyframes entradaSuave {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

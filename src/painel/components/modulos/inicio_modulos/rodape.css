@@ -1,0 +1,13 @@
+.rodape-container {
+    margin-top: 40px;
+    padding: 20px;
+    background: #0d47a1;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.rodape-container p {
+    margin: 6px 0;
+    font-size: 15px;
+}

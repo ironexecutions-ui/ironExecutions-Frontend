@@ -15,6 +15,13 @@ export default function ContratosAdmin({ onModoChange }) {
     const usuario = JSON.parse(localStorage.getItem("funcionario") || "{}");
 
 
+    const isLocal =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
+
+    const API_URL_FIXO = isLocal
+        ? "http://127.0.0.1:8888"
+        : "https://ironexecutions-backend.onrender.com";
 
     useEffect(() => {
         if (onModoChange) {
@@ -30,16 +37,17 @@ export default function ContratosAdmin({ onModoChange }) {
         setAbrirModalAssinatura(false);
         setTipoAssinaturaAtual(null);
     }
-
     async function carregarContratos() {
         try {
-            const resp = await fetch(`${API_URL}/contratos`);
+            const resp = await fetch(`${API_URL_FIXO}/listar-contratos`);
             const dados = await resp.json();
+            console.log("RETORNO DA API /contratos:", dados);
             setLista(dados);
         } catch (err) {
             console.log("Erro ao carregar contratos", err);
         }
     }
+
 
     function abrirLista() {
         carregarContratos();
@@ -48,7 +56,7 @@ export default function ContratosAdmin({ onModoChange }) {
 
     async function abrirContrato(item) {
         try {
-            const resp = await fetch(`${API_URL}/contratos/${item.id}`);
+            const resp = await fetch(`${API_URL_FIXO}/contratos/${item.id}`);
             const dados = await resp.json();
             setContratoSelecionado(dados);
             setModo("ver");
@@ -64,7 +72,7 @@ export default function ContratosAdmin({ onModoChange }) {
         if (!c2) return;
 
         try {
-            const resp = await fetch(`${API_URL}/contratos/${id}?usuario_id=${usuarioId}`, {
+            const resp = await fetch(`${API_URL_FIXO}/contratos/${id}?usuario_id=${usuarioId}`, {
                 method: "DELETE"
             });
 
@@ -81,10 +89,21 @@ export default function ContratosAdmin({ onModoChange }) {
             alert("Erro ao conectar ao servidor.");
         }
     }
+    function copiarMensagemProfissional(item) {
+        const link = `${window.location.origin}/contrato/${item.codigo}`;
+        const texto =
+            `Segue o PDF do seu contrato digital da Iron Executions. Nele você encontra as informações do projeto, prazos e condições acordadas.
+
+Estou à disposição para qualquer dúvida.
+`;
+
+        navigator.clipboard.writeText(texto);
+        alert("Texto profissional copiado.");
+    }
 
     async function salvarData(id, campo, valor) {
         try {
-            await fetch(`${API_URL}/contratos/${id}/data`, {
+            await fetch(`${API_URL_FIXO}/contratos/${id}/data`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -97,10 +116,11 @@ export default function ContratosAdmin({ onModoChange }) {
         }
     }
     useEffect(() => {
-        if (modo === "ver" && contratoSelecionado) {
-            const url = `/contrato/${contratoSelecionado.codigo}`;
-            window.open(url, "_blank");
-        }
+        if (!contratoSelecionado) return;
+        if (!contratoSelecionado.codigo) return;
+        if (modo !== "ver") return;
+
+        window.open(`/contrato/${contratoSelecionado.codigo}`, "_blank");
     }, [modo, contratoSelecionado]);
 
     return (
@@ -169,7 +189,12 @@ export default function ContratosAdmin({ onModoChange }) {
                                     </div>
 
                                     <div className="acoes-lista">
-
+                                        <button
+                                            className="btn-abrir"
+                                            onClick={() => copiarMensagemProfissional(item)}
+                                        >
+                                            Copiar
+                                        </button>
                                         <button
                                             className="btn-abrir"
                                             onClick={() => {
@@ -582,9 +607,11 @@ export default function ContratosAdmin({ onModoChange }) {
                                         form.append("arquivo", pdf);
 
                                         const resp = await fetch(
-                                            `${API_URL}/contratos/salvar-comprovante?id_contrato=${contratoSelecionado.id}`,
+                                            `${API_URL_FIXO}/contratos/${contratoSelecionado.id}/salvar-comprovante`,
+
                                             { method: "POST", body: form }
                                         );
+
 
                                         const dados = await resp.json();
 

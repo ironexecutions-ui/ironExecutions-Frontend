@@ -428,7 +428,7 @@ export default function ContratoPublico() {
 
 
                         <p className="cp-linha">
-                            O contratante terá <strong>{contrato.dias_suporte} dias</strong> de suporte gratuito para
+                            O contratante terá <strong>30 dias</strong> de suporte gratuito para
                             erros simples, ajustes ou dúvidas.
                         </p>
 

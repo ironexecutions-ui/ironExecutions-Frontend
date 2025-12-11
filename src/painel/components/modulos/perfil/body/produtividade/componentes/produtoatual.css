@@ -1,0 +1,276 @@
+/* Container geral */
+.produto-atual-box {
+    background: linear-gradient(145deg, #0f1b2b, #0c1622);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 22px;
+    width: 100%;
+    color: #e4e4e4;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), inset 0 0 8px rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(4px);
+    animation: aparecerProduto 0.35s ease;
+}
+
+/* Título */
+.produto-atual-titulo {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 18px;
+}
+
+/* Estrutura em duas colunas */
+.produto-atual-conteudo {
+    display: grid;
+    grid-template-columns: 140px auto;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Imagem */
+.produto-atual-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 8px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.35),
+        inset 0 0 6px rgba(255, 255, 255, 0.04);
+}
+
+/* Informações */
+.produto-atual-dir {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.produto-atual-nome {
+    font-size: 34px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.produto-atual-preco {
+    font-size: 16px;
+    color: #00d8ff;
+}
+
+.produto-atual-preco span {
+    font-size: 26px;
+}
+
+.produto-atual-und {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Animação */
+@keyframes aparecerProduto {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   REDUÇÕES A CADA 100px
+   Cada faixa reduz:
+   texto menos 2px
+   imagem menos 5px
+   ============================================ */
+
+/* 1400px */
+@media (max-width: 1400px) {
+    .produto-atual-img {
+        width: 115px;
+        height: 115px;
+    }
+
+    .produto-atual-nome {
+        font-size: 32px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 24px;
+    }
+}
+
+/* 1300px */
+@media (max-width: 1300px) {
+    .produto-atual-img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .produto-atual-nome {
+        font-size: 30px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 22px;
+    }
+}
+
+/* 1200px */
+@media (max-width: 1200px) {
+    .produto-atual-img {
+        width: 105px;
+        height: 105px;
+    }
+
+    .produto-atual-nome {
+        font-size: 28px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 20px;
+    }
+}
+
+/* 1100px */
+@media (max-width: 1100px) {
+    .produto-atual-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .produto-atual-nome {
+        font-size: 26px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 19px;
+    }
+}
+
+/* 1000px */
+@media (max-width: 1000px) {
+    .produto-atual-img {
+        width: 95px;
+        height: 95px;
+    }
+
+    .produto-atual-nome {
+        font-size: 24px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 18px;
+    }
+}
+
+/* 900px */
+@media (max-width: 900px) {
+    .produto-atual-img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .produto-atual-nome {
+        font-size: 22px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 17px;
+    }
+}
+
+/* 800px */
+@media (max-width: 800px) {
+    .produto-atual-img {
+        width: 85px;
+        height: 85px;
+    }
+
+    .produto-atual-nome {
+        font-size: 20px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 16px;
+    }
+}
+
+/* 700px — muda layout */
+@media (max-width: 700px) {
+
+    .produto-atual-conteudo {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .produto-atual-img {
+        margin: 0 auto;
+        width: 90px;
+        height: 90px;
+    }
+
+    .produto-atual-nome {
+        font-size: 22px;
+    }
+}
+
+/* 600px */
+@media (max-width: 600px) {
+    .produto-atual-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .produto-atual-nome {
+        font-size: 20px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 15px;
+    }
+}
+
+/* 500px */
+@media (max-width: 500px) {
+    .produto-atual-img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .produto-atual-nome {
+        font-size: 18px;
+    }
+}
+
+/* 400px */
+@media (max-width: 400px) {
+    .produto-atual-img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .produto-atual-nome {
+        font-size: 17px;
+    }
+}
+
+/* 360px e abaixo */
+@media (max-width: 360px) {
+    .produto-atual-img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .produto-atual-nome {
+        font-size: 16px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 14px;
+    }
+}

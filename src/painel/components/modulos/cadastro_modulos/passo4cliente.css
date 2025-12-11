@@ -1,0 +1,53 @@
+.passo4-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.titulo {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.input-texto {
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    outline: none;
+    transition: 0.2s;
+}
+
+.input-texto:focus {
+    border-color: #4caf50;
+}
+
+.botao-enviar {
+    padding: 12px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.botao-enviar:hover {
+    opacity: 0.9;
+}
+
+.erro-box {
+    padding: 10px;
+    background: #ffbaba;
+    color: #7a0000;
+    border-radius: 6px;
+    font-size: 15px;
+}

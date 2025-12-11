@@ -18,9 +18,12 @@ import WhatsAppButton from "./components/whatsappbutton";
 import SitesCriados from "./components/sitescriados";
 import DadosPage from "./painel/components/info/dadospage";
 import Equipe from "./components/equipe";
-
+import InicioModulos from "./painel/components/modulos/iniciomodulos";
 import Pedido from "./pedido/pedido";
+import CadastroComercio from "./painel/components/modulos/cadastrocomercio";
+import IronBusinessPerfil from "./painel/components/modulos/perfil/ironbusiness";
 
+import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 
 function RoteamentoComLoading() {
@@ -56,7 +59,15 @@ function RoteamentoComLoading() {
       />
       <Route path="/contrato/:codigo" element={<ContratoPublico />} />
       <Route path="/contrato" element={<ContratoPublico />} />
-
+      <Route path="/ironbusiness" element={<InicioModulos />} />
+      <Route
+        path="/cadastrocomercio"
+        element={
+          <Protegido>
+            <CadastroComercio />
+          </Protegido>
+        }
+      />
       <Route path="/pedido" element={<Pedido />} />
 
       <Route
@@ -76,6 +87,15 @@ function RoteamentoComLoading() {
           </Protegido>
         }
       />
+      <Route
+        path="/ironbusiness/perfil"
+        element={
+          <ProtegidoClientes>
+            <IronBusinessPerfil />
+          </ProtegidoClientes>
+        }
+      />
+
 
       <Route
         path="/funcionarios"

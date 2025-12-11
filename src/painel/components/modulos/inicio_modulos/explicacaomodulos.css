@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ---------------------------- */
+/*  Container Principal – PUB   */
+/* ---------------------------- */
+
+.explicacao-container-pub {
+    background: linear-gradient(to bottom right, #e5e5e5, #cfcfcf);
+    margin: 40px auto;
+    max-width: 900px;
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.6s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.explicacao-container-pub h2 {
+    font-size: 30px;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    padding-bottom: 6px;
+}
+
+/* Efeitos de fundo premium */
+.explicacao-container-pub::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: rgba(21, 101, 192, 0.12);
+    border-radius: 50%;
+    filter: blur(18px);
+    z-index: 0;
+}
+
+.explicacao-container-pub::after {
+    content: "";
+    position: absolute;
+    bottom: -70px;
+    left: -70px;
+    width: 200px;
+    height: 200px;
+    background: rgba(13, 71, 161, 0.12);
+    border-radius: 50%;
+    filter: blur(14px);
+    z-index: 0;
+}
+
+.explicacao-container-pub>* {
+    position: relative;
+    z-index: 2;
+}
+
+/* ---------------------------- */
+/*  Texto Descritivo – PUB      */
+/* ---------------------------- */
+
+.explicacao-texto-pub {
+    text-align: center;
+    font-size: 17px;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------------------------- */
+/*  Bloco dos Módulos – PUB     */
+/* ---------------------------- */
+
+.explicacao-bloco-pub {
+    margin-top: 25px;
+}
+
+/* ---------------------------- */
+/* Cartão do Módulo – PUB       */
+/* ---------------------------- */
+
+.modulo-card-pub {
+    background: linear-gradient(to bottom, #ffffff, #f1f5f9) !important;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+    margin-bottom: 24px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: cardFadeIn 0.55s ease forwards;
+    opacity: 0;
+
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.modulo-card-pub:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.28);
+}
+
+/* Título */
+.modulo-card-pub h3 {
+    color: #1565c0;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+
+/* Texto */
+.modulo-card-pub p {
+    color: #1565c0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+/* Preço */
+.preco-info-pub {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #0d47a1;
+
+    background: linear-gradient(to right, #e3f2fd, #bbdefb);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    font-size: 17px;
+    letter-spacing: 0.3px;
+}
+
+/* ---------------------------- */
+/* Loading – PUB                */
+/* ---------------------------- */
+
+.carregando-pub {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+    font-size: 18px;
+    opacity: 0.75;
+}
+
+/* ---------------------------- */
+/* Destaque Azul                */
+/* ---------------------------- */
+
+.negrito-azul {
+    color: #0d47a1;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------------------------- */
+/* Animações                    */
+/* ---------------------------- */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Delay gradual dos cards */
+.modulo-card-pub:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.modulo-card-pub:nth-child(2) {
+    animation-delay: 0.22s;
+}
+
+.modulo-card-pub:nth-child(3) {
+    animation-delay: 0.34s;
+}
+
+.modulo-card-pub:nth-child(4) {
+    animation-delay: 0.46s;
+}
