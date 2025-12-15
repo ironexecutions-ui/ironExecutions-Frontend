@@ -314,7 +314,7 @@ export default function Anotacoes() {
                     className="btn-arquivados"
                     onClick={() => abrirArquivados()}
                 >
-                    Arquivados
+                    Informação sensivel
                 </button>
 
                 <button className="btn-nova" onClick={criarNova}>
@@ -438,7 +438,7 @@ export default function Anotacoes() {
                                         }}
                                         style={{ color: "#ffbf00", marginLeft: "30px" }}
                                     >
-                                        Arquivar
+                                        Mover para área sensivel
                                     </button>
 
                                 </div>
