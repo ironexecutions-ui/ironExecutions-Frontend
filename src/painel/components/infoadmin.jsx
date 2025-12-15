@@ -35,7 +35,12 @@ export default function InfoAdmin() {
                 onClick={() => window.open("/cadastrocomercio", "_blank")}
             >
                 Cadastrar novo sistema            </button>
-
+            <button
+                className="ia-botao"
+                onClick={() => window.open("/ferramentas", "_blank")}
+            >
+                ferramentas
+            </button>
         </div>
     );
 }

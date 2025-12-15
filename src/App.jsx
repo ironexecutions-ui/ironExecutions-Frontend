@@ -22,7 +22,7 @@ import InicioModulos from "./painel/components/modulos/iniciomodulos";
 import Pedido from "./pedido/pedido";
 import CadastroComercio from "./painel/components/modulos/cadastrocomercio";
 import IronBusinessPerfil from "./painel/components/modulos/perfil/ironbusiness";
-
+import Ferramentas from "./ferramentas/ferramentas";
 import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 
@@ -69,6 +69,7 @@ function RoteamentoComLoading() {
         }
       />
       <Route path="/pedido" element={<Pedido />} />
+      <Route path="/ferramentas" element={<Ferramentas />} />
 
       <Route
         path="/painel"
