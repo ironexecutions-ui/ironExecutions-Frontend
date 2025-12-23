@@ -120,13 +120,17 @@ export default function Passo4Cliente({ onFinalizar }) {
 
                 <label>Função</label>
                 <input
-                    type="text"
+                    list="funcao" type="text"
                     value={funcao}
                     onChange={e => setFuncao(e.target.value)}
                     placeholder="Exemplo administrador do sistema"
                     className="input-texto"
                 />
-
+                <datalist id="funcao" >
+                    <option value="Administrador(a)">Administrador(a)</option>
+                    <option value="Supervisor(a)">Supervisor(a)</option>
+                    <option value="Funcionario(a)">Funcionari(a)</option>
+                </datalist>
                 <label>Matrícula do comércio (opcional)</label>
                 <input
                     type="text"

@@ -24,6 +24,7 @@ export default function Body({ setHeaderMinimizado }) {
     const [modoModuloAberto, setModoModuloAberto] = useState(false);
 
     const [ComponenteAtivo, setComponenteAtivo] = useState(null);
+    const [cliente, setCliente] = useState(null);
 
     const componentes = {
         "Produtividade": Produtividade,
@@ -45,11 +46,26 @@ export default function Body({ setHeaderMinimizado }) {
 
             const h = { Authorization: "Bearer " + token };
 
-            const cliente = await (await fetch(`${API_URL}/retorno/me`, { headers: h })).json();
-            const modulos = await (await fetch(`${API_URL}/retorno/modulos`, { headers: h })).json();
-            const permissoes = await (await fetch(`${API_URL}/retorno/permissoes/${cliente.id}`, { headers: h })).json();
+            const clienteResp = await (
+                await fetch(`${API_URL}/retorno/me`, { headers: h })
+            ).json();
 
-            const filtrados = filtrarModulos({ modulos, cliente, permissoes });
+            setCliente(clienteResp);
+
+            const modulos = await (
+                await fetch(`${API_URL}/retorno/modulos`, { headers: h })
+            ).json();
+
+            const permissoes = await (
+                await fetch(`${API_URL}/retorno/permissoes/${clienteResp.id}`, { headers: h })
+            ).json();
+
+            const filtrados = filtrarModulos({
+                modulos,
+                cliente: clienteResp,
+                permissoes
+            });
+
             setModulosVisiveis(filtrados);
 
             setTimeout(() => {
@@ -66,8 +82,7 @@ export default function Body({ setHeaderMinimizado }) {
             if (mod.ativo === 0) return false;
 
             const modulosDoComercio = cliente.modulos_comercio || [];
-            const temNoComercio = modulosDoComercio.includes(mod.modulo);
-            if (!temNoComercio) return false;
+            if (!modulosDoComercio.includes(mod.modulo)) return false;
 
             if (cliente.funcao === "Funcionario(a)") {
                 const bloqueado = permissoes.find(p => p.modulo === mod.modulo);
@@ -78,7 +93,19 @@ export default function Body({ setHeaderMinimizado }) {
         });
     }
 
+    function podeAcessarControle() {
+        if (!cliente) return false;
+        return (
+            cliente.funcao === "Administrador(a)" ||
+            cliente.funcao === "Supervisor(a)"
+        );
+    }
+
     function abrirModulo(modulo) {
+        if (modulo === "Controle" && !podeAcessarControle()) {
+            return;
+        }
+
         setModuloAtivo(modulo);
         setModoModuloAberto(true);
         setHeaderMinimizado(true);
@@ -111,12 +138,15 @@ export default function Body({ setHeaderMinimizado }) {
         <div className={`body-container body-fade ${fade ? "show" : ""}`}>
 
             {!modoModuloAberto && (
-                <h1 className="titulo-body fade-in-up">Módulos do seu comércio</h1>
+                <h1 className="titulo-body fade-in-up">
+                    Módulos do seu comércio
+                </h1>
             )}
 
             {!modoModuloAberto && (
                 <div className="modulos-wrapper fade-in-up-delay">
                     <div className="modulos-lista">
+
                         {modulosVisiveis.map((m, i) => (
                             <button
                                 key={m.modulo}
@@ -127,17 +157,21 @@ export default function Body({ setHeaderMinimizado }) {
                             </button>
                         ))}
 
-                        <button
-                            className="modulo-card"
-                            onClick={() => abrirModulo("Controle")}
-                        >
-                            <span>Controle</span>
-                        </button>
+                        {podeAcessarControle() && (
+                            <button
+                                className="modulo-card"
+                                onClick={() => abrirModulo("Controle")}
+                            >
+                                <span>Controle</span>
+
+                            </button>
+                        )}
                     </div>
+                    <br />
+                    <div></div>
                 </div>
             )}
 
-            {/* RENDERIZAÇÃO DO BOTÃO FIXO COM PORTAL */}
             {modoModuloAberto && createPortal(
                 <div className="modulo-tag-flutuante" onClick={fecharModulo}>
                     <span className="modulo-tag-nome">{moduloAtivo}</span>

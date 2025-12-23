@@ -7,18 +7,24 @@
 
     height: 95vh;
     max-height: 95vh;
+    border-radius: 30px;
     overflow: hidden;
+    border: #051885 solid 1px;
 }
 
 /* LINHAS (agora dividem a tela em 2 partes iguais) */
 .linha-superior,
 .linha-inferior {
     display: flex;
-    gap: 18px;
+    gap: 13px;
 
     height: 50%;
-    max-height: 50%;
+    max-height: 70%;
     overflow: hidden;
+}
+
+.linha-superior {
+    height: 70% !important;
 }
 
 /* CARTÕES */
@@ -33,7 +39,6 @@
     display: flex;
     flex-direction: column;
 
-    overflow: hidden;
 }
 
 .prod-card>* {
@@ -75,4 +80,10 @@
         height: auto;
         max-height: none;
     }
+}
+
+.prod-container.tema-claro {
+    background: linear-gradient(180deg, #d8e0eb, #e9eff6);
+    border-radius: 20px;
+    color: #1a1a1a;
 }

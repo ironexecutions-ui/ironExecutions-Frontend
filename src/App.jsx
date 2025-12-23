@@ -69,7 +69,14 @@ function RoteamentoComLoading() {
         }
       />
       <Route path="/pedido" element={<Pedido />} />
-      <Route path="/ferramentas" element={<Ferramentas />} />
+      <Route
+        path="/ferramentas"
+        element={
+          <Protegido>
+            <Ferramentas />
+          </Protegido>
+        }
+      />
 
       <Route
         path="/painel"

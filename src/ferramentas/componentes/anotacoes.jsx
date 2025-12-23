@@ -440,7 +440,11 @@ export default function Anotacoes() {
                                     >
                                         Mover para área sensivel
                                     </button>
-
+                                    {modoEdicao && (
+                                        <button className="btn-salvar" onClick={salvar}>
+                                            Salvar
+                                        </button>
+                                    )}
                                 </div>
 
                             </div>

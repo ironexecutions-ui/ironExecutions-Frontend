@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: relative;
+    z-index: 20;
 }
 
 /* título */
@@ -40,8 +42,30 @@
     top: 100%;
     left: 0;
     width: 100%;
-    z-index: 999999 !important;
+
+    z-index: 9999 !important;
+
+    background: #132237;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    margin-top: 6px;
+    max-height: 260px;
+    overflow-y: auto;
 }
+
+.sugestoes-box.portal {
+    position: absolute;
+    z-index: 9999999;
+
+    background: #132237;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    max-height: 260px;
+    overflow-y: auto;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
 
 .prod-grid {
     position: relative;
@@ -109,7 +133,7 @@
     border: 1px solid #d4af37;
     border-radius: 8px;
     margin-top: 6px;
-    max-height: 260px;
+    max-height: 200px !important;
     overflow-y: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
@@ -131,8 +155,8 @@
 
 /* imagem */
 .sug-img {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 6px;
     object-fit: cover;
     background: #20344f;
@@ -150,7 +174,7 @@
 }
 
 .sug-nome {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     color: #f7f7f7;
 }
@@ -175,4 +199,77 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ===============================
+   SOBRESCRITAS TEMA CLARO
+=============================== */
+
+.buscar-box.tema-claro .buscar-titulo {
+    color: #ffffff;
+}
+
+/* input */
+.buscar-box.tema-claro .buscar-input {
+    background: #ffffff;
+    color: #1a1a1a;
+    border: 2px solid #c9a437;
+}
+
+.buscar-box.tema-claro .buscar-input::placeholder {
+    color: #777;
+}
+
+.buscar-box.tema-claro .buscar-input:focus {
+    border-color: #b89b2e;
+    box-shadow: 0 0 6px rgba(184, 155, 46, 0.4);
+}
+
+/* sugestões */
+.buscar-box.tema-claro .sugestoes-box {
+    background: #ffffff;
+    border: 1px solid #c9a437;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* item */
+.buscar-box.tema-claro .sug-item {
+    background: #ffffff;
+}
+
+.buscar-box.tema-claro .sug-item:hover {
+    background: rgba(201, 164, 55, 0.15);
+}
+
+/* textos */
+.buscar-box.tema-claro .sug-nome {
+    color: #1a1a1a;
+}
+
+.buscar-box.tema-claro .sug-sub {
+    color: #555;
+}
+
+/* imagem */
+.buscar-box.tema-claro .sug-img {
+    background: #f0f0f0;
+    border: 1px solid #c9a437;
+}
+
+/* loader */
+.buscar-box.tema-claro .spinner {
+    border: 3px solid #c9a437;
+    border-top-color: transparent;
+}
+
+/* item ativo por teclado */
+.sug-item.ativo {
+    background: rgba(212, 175, 55, 0.25);
+    box-shadow: inset 3px 0 0 #d4af37;
+}
+
+/* tema claro */
+.buscar-box.tema-claro .sug-item.ativo {
+    background: rgba(201, 164, 55, 0.22);
+    box-shadow: inset 3px 0 0 #c9a437;
 }

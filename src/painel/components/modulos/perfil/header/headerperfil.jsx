@@ -62,7 +62,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
 
     if (minimizado) {
         return (
-            <div
+            <div style={{ display: "none" }}
                 className="header-mini header-mini-anim"
                 onClick={() => {
                     setMinimizado(false);
@@ -88,8 +88,8 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
 
                 <div className="per-info">
                     <h2 className="per-nome">{dados.nome_completo}</h2>
-                    <p className="per-cargo">Cargo: {dados.cargo}</p>
-                    <p className="per-funcao">Função no sistema: {dados.funcao}</p>
+                    <p className="per-cargo">Cargo: <strong> {dados.cargo} </strong> </p>
+                    <p className="per-funcao">Função no sistema: <strong> {dados.funcao} </strong> </p>
                 </div>
 
                 <div className="per-acoes">

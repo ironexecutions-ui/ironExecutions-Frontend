@@ -1,108 +1,160 @@
-.total-box {
-    border-radius: 14px;
-    padding: 20px;
-    color: #f2f2f2;
+/* ======================================
+   TOTAL VENDA - COBRANÇA PDV
+====================================== */
+
+.cob-box {
+    width: 100%;
+    height: 90%;
+    border-radius: 16px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    height: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.total-titulo {
-    font-size: 22px;
-    font-weight: 600;
-    margin-top: 20px;
-    color: #d4af37;
-    margin: 0;
+/* ======================================
+   TEMAS
+====================================== */
+
+.cob-tema-escuro {
+    background: linear-gradient(180deg, #0f1624, #111a2e);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 12px 30px rgba(0, 0, 0, 0.55);
 }
 
-.total-valor {
-    font-size: 36px;
-    font-weight: 700;
-    color: #ffffff;
-    padding: 14px 30px;
-    background: #162639;
-    border-radius: 12px;
-    border-left: 6px solid #d4af37;
-    border-right: 6px solid #d4af37;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+.cob-tema-claro {
+    background: linear-gradient(180deg, #f3f6fb, #e7ecf4);
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+        0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+/* ======================================
+   VALOR TOTAL
+====================================== */
+
+.cob-valor {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
     letter-spacing: 1px;
+    padding: 18px;
+    border-radius: 14px;
+    user-select: none;
 }
 
-/* TELAS MUITO GRANDES */
-@media (min-width: 1500px) {
-    .total-titulo {
-        font-size: 26px;
-    }
-
-    .total-valor {
-        font-size: 44px;
-        padding: 18px 40px;
-    }
+.cob-tema-escuro .cob-valor {
+    color: #ffffff;
+    background: linear-gradient(135deg, #18263b, #1d2f4a);
+    box-shadow:
+        inset 0 0 0 1px rgba(212, 175, 55, 0.35),
+        0 8px 22px rgba(0, 0, 0, 0.45);
 }
 
-/* DESKTOP MÉDIO */
-@media (max-width: 1200px) {
-    .total-titulo {
-        font-size: 20px;
-    }
-
-    .total-valor {
-        font-size: 34px;
-        padding: 14px 28px;
-    }
+.cob-tema-claro .cob-valor {
+    color: #162030;
+    background: linear-gradient(135deg, #ffffff, #eef2f8);
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+        0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
-/* DESKTOP PEQUENO / TABLET HORIZONTAL */
-@media (max-width: 900px) {
-    .total-valor {
-        font-size: 25px;
-        padding: 12px 26px;
-    }
+/* ======================================
+   BOTÃO COBRAR
+====================================== */
 
-    .total-titulo {
-        font-size: 18px;
-    }
+.cob-botao {
+    width: 100%;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease,
+        opacity 0.25s ease;
 }
 
-/* TABLET VERTICAL */
-@media (max-width: 700px) {
-    .total-box {
-        padding: 18px;
-        gap: 10px;
-    }
-
-    .total-valor {
-        font-size: 28px;
-        padding: 10px 22px;
-    }
+/* Botão ativo */
+.cob-tema-escuro .cob-botao {
+    color: #0e0e0e;
+    font-weight: 10000000;
+    background: linear-gradient(135deg, #2bca03, #16b301);
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
-/* CELULAR COMUM */
-@media (max-width: 480px) {
-    .total-titulo {
-        font-size: 17px;
-        text-align: center;
-    }
-
-    .total-valor {
-        font-size: 24px;
-        padding: 10px 20px;
-        border-left: 4px solid #d4af37;
-        border-right: 4px solid #d4af37;
-    }
+.cob-tema-claro .cob-botao {
+    color: #ffffff;
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-/* CELULAR MUITO PEQUENO */
-@media (max-width: 360px) {
-    .total-titulo {
-        font-size: 16px;
-    }
+.cob-botao:hover:not(.cob-botao-desabilitado) {
+    transform: translateY(-1px);
+}
 
-    .total-valor {
-        font-size: 20px;
-        padding: 8px 16px;
-    }
+.cob-botao:active:not(.cob-botao-desabilitado) {
+    transform: scale(0.98);
+}
+
+/* ======================================
+   BOTÃO DESABILITADO
+====================================== */
+
+.cob-botao-desabilitado {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(60%);
+    box-shadow: none;
+}
+
+/* ======================================
+   RESPONSIVO
+====================================== */
+.cob-acoes {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.cob-botao-cancelar {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: linear-gradient(180deg, #3a1414, #2a0f0f);
+    color: #ffb4b4;
+
+    border: 1px solid rgba(255, 180, 180, 0.4);
+
+    font-weight: 600;
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.cob-botao-cancelar:hover:not(.desabilitado) {
+    background: linear-gradient(180deg, #4a1d1d, #321212);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+.cob-botao-cancelar.desabilitado {
+    opacity: 0.45;
+    cursor: not-allowed;
 }

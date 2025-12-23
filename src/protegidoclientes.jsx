@@ -2,11 +2,12 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 export default function ProtegidoClientes({ children }) {
+    const cliente =
+        JSON.parse(localStorage.getItem("cliente")) ||
+        JSON.parse(localStorage.getItem("clientes"));
 
-    const cliente = JSON.parse(localStorage.getItem("usuario"));
-
-    if (!cliente) {
-        return <Navigate to="/ironbusiness" />;
+    if (!cliente || !cliente.id) {
+        return <Navigate to="/ironbusiness" replace />;
     }
 
     return children;

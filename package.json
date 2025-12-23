@@ -15,6 +15,8 @@
     "bcryptjs": "^3.0.3",
     "html2pdf.js": "^0.12.1",
     "jsbarcode": "^3.12.1",
+    "jspdf": "^3.0.4",
+    "jspdf-autotable": "^5.0.2",
     "pdfjs-dist": "^2.16.105",
     "qrcode.react": "^4.2.0",
     "react": "^19.1.0",

@@ -1,37 +1,59 @@
+/* ===============================
+   CONTAINER PRINCIPAL
+=============================== */
 .lista-itens-box {
-    background: #0f1b2b;
+    background: linear-gradient(180deg, #0f1b2b, #0b1624);
     border: 2px solid #d4af37;
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 16px;
+
     color: #f2f2f2;
+
     display: flex;
     flex-direction: column;
+    box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.lista-itens-titulo {
-    font-size: 17px;
-    font-weight: 600;
-    color: #d4af37;
-    margin-bottom: 8px;
+@keyframes itemEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* ===============================
+   ESTADO VAZIO
+=============================== */
 .lista-vazio {
-    opacity: 0.7;
     font-size: 13px;
-    margin-top: 8px;
+    opacity: 0.7;
+    padding: 6px 2px;
 }
 
-/* Conteúdo com barra rolável */
+/* ===============================
+   CONTEÚDO COM SCROLL
+=============================== */
 .lista-itens-conteudo {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: fit-content !important;
+    max-width: 100%;
+    height: 100%;
     overflow-y: auto;
-    max-height: 130px;
     padding-right: 6px;
 }
 
-/* Barra personalizada */
+/* ===============================
+   SCROLL PERSONALIZADO
+=============================== */
 .lista-itens-conteudo::-webkit-scrollbar {
     width: 6px;
 }
@@ -45,144 +67,248 @@
     background: #162639;
 }
 
-/* Linha de cada item */
+/* ===============================
+   LINHA DO ITEM
+=============================== */
 .item-linha {
-    background: #162639;
-    padding: 10px;
-    border-radius: 10px;
+    background: linear-gradient(180deg, #162639, #132235);
+    padding: 10px 12px;
+
+    border-radius: 12px;
+    border-left: 4px solid #d4af37;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-left: 4px solid #d4af37;
-    transition: background 0.25s;
+
+    animation: itemEntrada 0.28s ease-out;
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease;
 }
 
 .item-linha:hover {
     background: #1d324a;
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.5);
 }
 
-/* Texto menor */
+/* ===============================
+   NOME DO ITEM
+=============================== */
 .item-nome {
     font-size: 13px;
+    font-weight: 500;
+    color: #f2f2f2;
 }
 
+/* Unidade */
+.item-und {
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+/* ===============================
+   CONTROLES
+=============================== */
+.item-controles {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Quantidade */
+.item-qtd {
+    min-width: 22px;
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #f2f2f2;
+}
+
+/* ===============================
+   BOTÕES + E -
+=============================== */
+.btn-mais,
+.btn-menos {
+    width: 26px;
+    height: 26px;
+
+    border-radius: 6px;
+    border: none;
+
+    background: #0f1b2b;
+    color: #d4af37;
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.4);
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn-mais:hover,
+.btn-menos:hover {
+    background: #1d324a;
+    transform: translateY(-1px);
+}
+
+.btn-mais:active,
+.btn-menos:active {
+    transform: translateY(0);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* ===============================
+   BOTÃO REMOVER
+=============================== */
+.btn-remover {
+    width: 26px;
+    height: 26px;
+
+    border-radius: 6px;
+    border: none;
+
+    background: #2a0f15;
+    color: #ffb4b4;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 2px 6px rgba(0, 0, 0, 0.4);
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.btn-remover:hover {
+    background: #4a1d1d;
+    color: #ffdada;
+    transform: translateY(-1px);
+}
+
+.btn-remover:active {
+    transform: translateY(0);
+}
+
+/* ===============================
+   PREÇO
+=============================== */
 .item-preco {
     font-size: 14px;
+    font-weight: 600;
     color: #d4af37;
 }
 
-/* TELAS MUITO GRANDES (monitores grandes) */
-@media (min-width: 1400px) {
-    .lista-itens-titulo {
-        font-size: 19px;
-    }
+/* ===============================
+   TEMA CLARO
+=============================== */
 
-    .item-nome {
-        font-size: 15px;
-    }
+.lista-itens-box.tema-claro {
+    background: linear-gradient(180deg, #ffffff, #f2f2f2);
+    border: 2px solid #c9a437;
+    color: #1a1a1a;
 
-    .item-preco {
-        font-size: 16px;
-    }
-
-    .lista-itens-conteudo {
-        max-height: 180px;
-    }
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(0, 0, 0, 0.04);
 }
 
-/* DESKTOP MÉDIO */
-@media (max-width: 1200px) {
-    .lista-itens-titulo {
-        font-size: 16px;
-    }
-
-    .item-nome {
-        font-size: 13px;
-    }
-
-    .item-preco {
-        font-size: 14px;
-    }
-
-    .lista-itens-conteudo {
-        max-height: 150px;
-    }
+/* vazio */
+.lista-itens-box.tema-claro .lista-vazio {
+    color: #131313;
 }
 
-/* TABLETS */
-@media (max-width: 900px) {
-    .lista-itens-box {
-        padding: 14px;
-    }
-
-    .lista-itens-titulo {
-        font-size: 15px;
-    }
-
-    .item-linha {
-        padding: 8px;
-    }
-
-    .item-nome {
-        font-size: 12px;
-    }
-
-    .item-preco {
-        font-size: 13px;
-    }
-
-    .lista-itens-conteudo {
-        max-height: 140px;
-    }
+/* scroll */
+.lista-itens-box.tema-claro .lista-itens-conteudo::-webkit-scrollbar-thumb {
+    background: #c9a437;
 }
 
-/* CELULARES GRANDES */
-@media (max-width: 600px) {
-    .lista-itens-titulo {
-        font-size: 14px;
-    }
-
-    .item-linha {
-        padding: 7px;
-        border-left-width: 3px;
-    }
-
-    .item-nome {
-        font-size: 11px;
-    }
-
-    .item-preco {
-        font-size: 12px;
-    }
-
-    .lista-itens-conteudo {
-        max-height: 120px;
-    }
+.lista-itens-box.tema-claro .lista-itens-conteudo::-webkit-scrollbar-track {
+    background: #e5e5e5;
 }
 
-/* CELULARES PEQUENOS */
-@media (max-width: 420px) {
-    .lista-itens-box {
-        padding: 10px;
-    }
+/* item */
+.lista-itens-box.tema-claro .item-linha {
+    background: #ffffff;
+    border: #c9a437 solid 1px;
+    border-left: 4px solid #c9a437;
+}
 
-    .lista-itens-titulo {
-        font-size: 13px;
-    }
+.lista-itens-box.tema-claro .item-linha:hover {
+    background: #eaeaea;
+}
 
-    .item-linha {
-        padding: 6px;
-    }
+/* textos */
+.lista-itens-box.tema-claro .item-nome {
+    color: #1a1a1a;
+}
 
-    .item-nome {
-        font-size: 10px;
-    }
+.lista-itens-box.tema-claro .item-und {
+    color: #777;
+}
 
-    .item-preco {
-        font-size: 11px;
-    }
+.lista-itens-box.tema-claro .item-qtd {
+    color: #1a1a1a;
+}
 
-    .lista-itens-conteudo {
-        max-height: 110px;
-    }
+/* botões + e - */
+.lista-itens-box.tema-claro .btn-mais,
+.lista-itens-box.tema-claro .btn-menos {
+    background: #ffffff;
+    color: #0a0a0a;
+
+    box-shadow:
+        inset 0 1px 0 rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.lista-itens-box.tema-claro .btn-mais:hover,
+.lista-itens-box.tema-claro .btn-menos:hover {
+    background: #f0f0f0;
+}
+
+/* remover */
+.lista-itens-box.tema-claro .btn-remover {
+    background: #ffecec;
+    color: #b32020;
+}
+
+.lista-itens-box.tema-claro .btn-remover:hover {
+    background: #ffd6d6;
+    color: #8f1a1a;
+}
+
+/* preço */
+.lista-itens-box.tema-claro .item-preco {
+    color: #000000;
 }

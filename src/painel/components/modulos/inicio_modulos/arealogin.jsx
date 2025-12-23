@@ -17,6 +17,13 @@ export default function AreaLogin() {
     async function fazerLogin(url, body) {
         setErro("");
 
+        // 🔒 LOGOUT GLOBAL ANTES DE LOGAR
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
+        localStorage.removeItem("cliente");
+        localStorage.removeItem("clientes");
+        localStorage.removeItem("funcionario");
+
         const resp = await fetch(`${API_URL}${url}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -30,11 +37,11 @@ export default function AreaLogin() {
             return;
         }
 
-        // salva o token JWT (FINALMENTE)
+        // salva o token JWT
         localStorage.setItem("token", json.token);
 
-        // salva os dados do usuário
-        localStorage.setItem("usuario", JSON.stringify(json.usuario));
+        // salva os dados do CLIENTE
+        localStorage.setItem("cliente", JSON.stringify(json.usuario));
 
         // redireciona
         window.location.href = "/ironbusiness/perfil";

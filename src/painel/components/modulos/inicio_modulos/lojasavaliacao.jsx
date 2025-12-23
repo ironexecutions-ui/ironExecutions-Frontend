@@ -10,7 +10,7 @@ export default function LojasAvaliacao() {
     useEffect(() => {
         async function carregar() {
             try {
-                const resp = await fetch(`${API_URL}/comercios/comercios_cadastradas`);
+                const resp = await fetch(`${API_URL}/cadastrados/comercios_cadastradas`);
                 const dados = await resp.json();
                 setLojas(dados);
             } catch (err) {

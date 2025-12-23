@@ -76,11 +76,19 @@ export default function ModalFuncionario({ fechar }) {
                 const dados = await fetch(`${API_URL}/api/dados-funcionario?email=${email}`);
                 const funcionario = await dados.json();
 
+                // 🔒 LOGOUT GLOBAL
+                localStorage.removeItem("token");
+                localStorage.removeItem("usuario");
+                localStorage.removeItem("cliente");
+                localStorage.removeItem("clientes");
+                localStorage.removeItem("funcionario");
+
+                // 🔐 LOGIN FUNCIONÁRIO
                 localStorage.setItem("funcionario", JSON.stringify(funcionario));
 
                 window.location.href = "/painel";
-            }
-            else {
+
+            } else {
                 setErro("Senha incorreta");
             }
 

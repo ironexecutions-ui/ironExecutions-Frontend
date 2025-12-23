@@ -14,7 +14,7 @@ export default function ModalQrcode({ qrcode, fechar }) {
                         value={qrcode}
                         size={180}
                         bgColor="#FFFFFF"
-                        fgColor="#000000"
+                        fgColor="#05012bff"
                         level="H"
                     />
                 </div>
