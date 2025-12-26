@@ -6,6 +6,7 @@ import { API_URL } from "../../../../../../config";
 import "./headerperfil.css";
 
 export default function HeaderPerfil({ minimizado, setMinimizado }) {
+    const [eventoInstalacao, setEventoInstalacao] = useState(null);
 
     const [dados, setDados] = useState(null);
     const [loja, setLoja] = useState(null);
@@ -27,6 +28,10 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                 const json = await resp.json();
                 setDados(json);
 
+                // ESSENCIAL
+                localStorage.setItem("usuario", JSON.stringify(json));
+
+
                 if (json.comercio_id) {
                     const respLoja = await fetch(`${API_URL}/comercios/${json.comercio_id}`);
                     const lojaJson = await respLoja.json();
@@ -41,6 +46,18 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
         }
 
         carregar();
+    }, []);
+    useEffect(() => {
+        function capturar(e) {
+            e.preventDefault();
+            setEventoInstalacao(e);
+        }
+
+        window.addEventListener("beforeinstallprompt", capturar);
+
+        return () => {
+            window.removeEventListener("beforeinstallprompt", capturar);
+        };
     }, []);
 
     function abrirOuFechar(secao) {
@@ -74,6 +91,21 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
             </div>
         );
     }
+    async function instalarApp() {
+        if (!eventoInstalacao) {
+            alert("Instalação não disponível neste navegador");
+            return;
+        }
+
+        eventoInstalacao.prompt();
+        const escolha = await eventoInstalacao.userChoice;
+
+        if (escolha.outcome === "accepted") {
+            console.log("App instalado");
+        }
+
+        setEventoInstalacao(null);
+    }
 
     return (
         <>
@@ -93,6 +125,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                 </div>
 
                 <div className="per-acoes">
+
                     {dados.funcao === "Administrador(a)" && (
                         <button className="per-btn" onClick={() => abrirOuFechar("modulos")}>
                             Módulos
@@ -106,7 +139,15 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                     <button className="per-btn" onClick={() => abrirOuFechar("qrcode")}>
                         QR Code
                     </button>
+
+                    {eventoInstalacao && (
+                        <button className="per-btn baixar-app" onClick={instalarApp}>
+                            Baixar App
+                        </button>
+                    )}
+
                 </div>
+
             </header>
 
             {/* ÁREA EXPANSÍVEL */}

@@ -14,6 +14,9 @@ import Agendamentos from "./agendamentos/agendamentos";
 import Gerencial from "./gerencial/ferencial";
 import Fiscal from "./fiscal/fiscal";
 import Controle from "./controle/controle";
+import Funcionarios from "./funcionarios/clientes_exibicao";
+
+
 
 export default function Body({ setHeaderMinimizado }) {
 
@@ -168,7 +171,9 @@ export default function Body({ setHeaderMinimizado }) {
                         )}
                     </div>
                     <br />
-                    <div></div>
+                    <div>
+                        <Funcionarios />
+                    </div>
                 </div>
             )}
 

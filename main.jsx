@@ -1,19 +1,33 @@
 import React from "react";
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './src/App.jsx';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./src/App.jsx";
 
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { LoadingProvider } from "./src/loadingcontext.jsx";
 
-createRoot(document.getElementById('root')).render(
+// ===============================
+// REGISTRO DO SERVICE WORKER (PWA)
+// ===============================
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then(() => {
+        console.log("Service Worker registrado");
+      })
+      .catch(err => {
+        console.log("Erro ao registrar Service Worker", err);
+      });
+  });
+}
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <GoogleOAuthProvider clientId="992388111982-j9snf8coc87rjamrtavg26a8vm2f35jc.apps.googleusercontent.com">
-
       <LoadingProvider>
         <App />
       </LoadingProvider>
-
     </GoogleOAuthProvider>
   </StrictMode>
 );

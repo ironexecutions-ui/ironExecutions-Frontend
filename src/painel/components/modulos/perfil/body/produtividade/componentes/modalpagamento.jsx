@@ -16,43 +16,9 @@ export default function ModalPagamento({ total, fechar }) {
         pagamento === "dinheiro"
             ? Math.max(Number(valorRecebido || 0) - total, 0)
             : 0;
-    // IMPRIMIR SEM ABRIR O PDF NA TELA
-    function imprimirPDF(url) {
-        const iframe = document.createElement("iframe");
 
-        iframe.style.position = "fixed";
-        iframe.style.right = "0";
-        iframe.style.bottom = "0";
-        iframe.style.width = "0";
-        iframe.style.height = "0";
-        iframe.style.border = "0";
-
-        iframe.src = url;
-
-        iframe.onload = () => {
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
-
-            setTimeout(() => {
-                document.body.removeChild(iframe);
-            }, 1000);
-        };
-
-        document.body.appendChild(iframe);
-    }
 
     async function confirmarPagamento() {
-
-        // abre a aba IMEDIATAMENTE no clique
-        const janelaImpressao = window.open("", "_blank");
-
-        if (!janelaImpressao) {
-            alert("Permita pop-ups para imprimir a comanda");
-            return;
-        }
-
-        janelaImpressao.document.write("<p>Gerando comanda...</p>");
-
         const produtos = itens.map(i => ({
             id: i.id,
             nome: i.nome,
@@ -63,7 +29,6 @@ export default function ModalPagamento({ total, fechar }) {
         }));
 
         if (produtos.length === 0) {
-            janelaImpressao.close();
             alert("Nenhum produto na venda");
             return;
         }
@@ -82,35 +47,73 @@ export default function ModalPagamento({ total, fechar }) {
         });
 
         if (!resp.ok) {
-            janelaImpressao.close();
             alert("Erro ao finalizar venda");
             return;
         }
 
         const data = await resp.json();
 
-        // agora sim, redireciona a aba já aberta
-        janelaImpressao.location.href = data.comanda;
+        if (data.impressao === "direta") {
+            try {
+                await fetch("http://localhost:3333/print", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: data.comanda })
+                });
+            } catch {
+                alert("Node Printer não está rodando");
+            }
 
-        janelaImpressao.onload = () => {
-            janelaImpressao.focus();
-            janelaImpressao.print();
-        };
+        } else if (data.impressao === "download") {
 
-        // feedback visual
+            const respPdf = await fetch(data.comanda, {
+                cache: "no-store"
+            });
+
+            if (!respPdf.ok) {
+                alert("Erro ao baixar comanda");
+                return;
+            }
+
+            const blob = await respPdf.blob();
+
+            // ===== DATA E HORA BRASIL =====
+            const agora = new Date();
+
+            const dataStr = agora.toLocaleDateString("pt-BR").replace(/\//g, "-");
+            const hora = agora.toLocaleTimeString("pt-BR", { hour12: false }).replace(/:/g, "-");
+
+            const nomeArquivo = `comanda_${dataStr}_${hora}.pdf`;
+
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download = nomeArquivo;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            window.URL.revokeObjectURL(url);
+        }
+
+        else {
+            alert("Erro ao processar a comanda");
+        }
+
+
+
         setSucesso(true);
 
         setTimeout(() => {
             setFechando(true);
-
             setTimeout(() => {
                 limparVenda();
                 fechar();
             }, 400);
         }, 2000);
     }
-
-
 
 
     return (

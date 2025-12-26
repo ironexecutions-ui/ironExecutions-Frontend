@@ -242,6 +242,12 @@
     }
 }
 
+.baixar-app {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: #fff;
+    font-weight: 600;
+}
+
 .secao-expandida {
     width: 100%;
     max-width: 1100px;
