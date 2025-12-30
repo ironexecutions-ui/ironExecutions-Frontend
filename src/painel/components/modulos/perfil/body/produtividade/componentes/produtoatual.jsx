@@ -12,6 +12,7 @@ export default function ProdutoAtual() {
     const [novoPreco, setNovoPreco] = useState("");
     const [tema, setTema] = useState("escuro");
 
+
     const inputRef = useRef(null);
     const salvandoRef = useRef(false); // evita duplo envio
 
@@ -134,19 +135,25 @@ export default function ProdutoAtual() {
             salvandoRef.current = false;
         }
     }
+    const imagemFinal =
+        produtoAtual?.imagem_url
+            ? produtoAtual.imagem_url
+            : produtoAtual?.imagem_comercio;
+
 
     return (
         <div className={`produto-atual-box tema-${tema}`}>
             <div className="produto-atual-conteudo">
 
                 <div className="produto-atual-esq">
-                    {produtoAtual.imagem_url && (
+                    {imagemFinal && (
                         <img
-                            src={produtoAtual.imagem_url}
+                            src={imagemFinal}
                             alt=""
                             className="produto-atual-img"
                         />
                     )}
+
                 </div>
 
                 <div className="produto-atual-dir">

@@ -7,7 +7,10 @@
 }
 
 .app {
-  background: #0d0d0d;
+  background: linear-gradient(180deg,
+      #001644,
+      #000c24,
+      #000000);
   color: #ffffff;
   min-height: 100%;
 }

@@ -73,7 +73,7 @@ export default function ListaItens() {
         <div className={`lista-itens-box tema-${tema}`}>
 
             <div className="lista-itens-conteudo">
-                {itens.map((item, index) => (
+                {[...itens].reverse().map((item, index) => (
                     <div
                         key={item.id}
                         className="item-linha"

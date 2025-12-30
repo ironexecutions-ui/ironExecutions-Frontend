@@ -1,24 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { API_URL } from "../../../../../../../../config";
 import "./modalpagamento.css";
 import { useVenda } from "./vendaprovider";
 
 export default function ModalPagamento({ total, fechar }) {
+    const [infoMaquininha, setInfoMaquininha] = useState(null);
+    const [erroMaquininha, setErroMaquininha] = useState(null);
+    const [forcarManual, setForcarManual] = useState(false);
+    const [usaMaquininha, setUsaMaquininha] = useState(false);
 
     const [etapa, setEtapa] = useState("metodo");
     const [pagamento, setPagamento] = useState(null);
     const [valorRecebido, setValorRecebido] = useState("");
     const [sucesso, setSucesso] = useState(false);
-    const { itens, limparVenda } = useVenda();
+    const [processando, setProcessando] = useState(false);
     const [fechando, setFechando] = useState(false);
+
+    const { itens, limparVenda } = useVenda();
 
     const troco =
         pagamento === "dinheiro"
             ? Math.max(Number(valorRecebido || 0) - total, 0)
             : 0;
 
-
     async function confirmarPagamento() {
+
+        if (processando) return;
+        setProcessando(true);
+
         const produtos = itens.map(i => ({
             id: i.id,
             nome: i.nome,
@@ -30,91 +39,123 @@ export default function ModalPagamento({ total, fechar }) {
 
         if (produtos.length === 0) {
             alert("Nenhum produto na venda");
+            setProcessando(false);
             return;
         }
 
-        const resp = await fetch(`${API_URL}/vendas/finalizar`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify({
-                pagamento,
-                valor: total,
-                produtos
-            })
-        });
+        try {
+            const resp = await fetch(`${API_URL}/vendas/finalizar`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({
+                    pagamento,
+                    valor: total,
+                    produtos,
+                    forcar_manual: forcarManual
+                })
 
-        if (!resp.ok) {
-            alert("Erro ao finalizar venda");
-            return;
-        }
-
-        const data = await resp.json();
-
-        if (data.impressao === "direta") {
-            try {
-                await fetch("http://localhost:3333/print", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ url: data.comanda })
-                });
-            } catch {
-                alert("Node Printer não está rodando");
-            }
-
-        } else if (data.impressao === "download") {
-
-            const respPdf = await fetch(data.comanda, {
-                cache: "no-store"
             });
 
-            if (!respPdf.ok) {
-                alert("Erro ao baixar comanda");
+            if (!resp.ok) {
+                const erro = await resp.json().catch(() => ({}));
+
+                if (erro.detail && erro.detail.includes("Maquininha não conectada.")) {
+                    setErroMaquininha(erro.detail);
+                    setProcessando(false);
+                    return;
+                }
+
+                setErroMaquininha("Pagamento recusado ou erro ao finalizar venda");
+                setProcessando(false);
                 return;
             }
 
-            const blob = await respPdf.blob();
 
-            // ===== DATA E HORA BRASIL =====
-            const agora = new Date();
+            const data = await resp.json();
+            if (data.maquininha && data.maquininha.apelido) {
+                setInfoMaquininha(data.maquininha);
+            }
 
-            const dataStr = agora.toLocaleDateString("pt-BR").replace(/\//g, "-");
-            const hora = agora.toLocaleTimeString("pt-BR", { hour12: false }).replace(/:/g, "-");
+            if (data.impressao === "direta") {
+                try {
+                    await fetch("http://localhost:3333/print", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ url: data.comanda })
+                    });
+                } catch {
+                    alert("Node Printer não está rodando");
+                }
 
-            const nomeArquivo = `comanda_${dataStr}_${hora}.pdf`;
+            } else if (data.impressao === "download") {
 
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement("a");
+                const respPdf = await fetch(data.comanda, { cache: "no-store" });
 
-            link.href = url;
-            link.download = nomeArquivo;
+                if (!respPdf.ok) {
+                    alert("Erro ao baixar comanda");
+                    setProcessando(false);
+                    return;
+                }
 
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+                const blob = await respPdf.blob();
 
-            window.URL.revokeObjectURL(url);
-        }
+                const agora = new Date();
+                const dataStr = agora.toLocaleDateString("pt-BR").replace(/\//g, "-");
+                const hora = agora
+                    .toLocaleTimeString("pt-BR", { hour12: false })
+                    .replace(/:/g, "-");
 
-        else {
-            alert("Erro ao processar a comanda");
-        }
+                const nomeArquivo = `comanda_${dataStr}_${hora}.pdf`;
 
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement("a");
 
+                link.href = url;
+                link.download = nomeArquivo;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            }
 
-        setSucesso(true);
+            setSucesso(true);
 
-        setTimeout(() => {
-            setFechando(true);
             setTimeout(() => {
-                limparVenda();
-                fechar();
-            }, 400);
-        }, 2000);
-    }
+                setFechando(true);
+                setTimeout(() => {
+                    limparVenda();
+                    fechar();
+                }, 400);
+            }, 2000);
 
+        } catch {
+            alert("Erro de conexão com o servidor");
+            setProcessando(false);
+        }
+    }
+    useEffect(() => {
+        async function carregarApiMaquininha() {
+            try {
+                const resp = await fetch(`${API_URL}/comercio/status-pagamento`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+
+                if (!resp.ok) return;
+
+                const data = await resp.json();
+                setUsaMaquininha(data.api_maquininha === true);
+            } catch {
+                setUsaMaquininha(false);
+            }
+        }
+
+        carregarApiMaquininha();
+    }, []);
 
     return (
         <div className={`pag-overlay ${fechando ? "overlay-fechar" : ""}`}>
@@ -157,6 +198,29 @@ export default function ModalPagamento({ total, fechar }) {
                         {etapa === "confirmar" && (
                             <>
                                 <h3>Pagamento: {pagamento}</h3>
+                                {usaMaquininha && pagamento !== "dinheiro" && !forcarManual && (
+                                    <div className="status-maquininha">
+                                        {erroMaquininha ? (
+                                            <div className="maq-erro-box">
+                                                <p>{erroMaquininha}</p>
+
+                                                <button
+                                                    className="maq-ok-btn"
+                                                    onClick={() => {
+                                                        setForcarManual(true);
+                                                        setErroMaquininha(null);
+                                                    }}
+                                                >
+                                                    OK
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <span className="maq-warn">
+                                                Aguardando conexão com a maquininha
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
 
                                 {pagamento === "dinheiro" && (
                                     <>
@@ -170,20 +234,29 @@ export default function ModalPagamento({ total, fechar }) {
                                     </>
                                 )}
 
-                                <button className="confirmar" onClick={confirmarPagamento}>
-                                    Confirmar pagamento
+                                <button
+                                    className="confirmar"
+                                    onClick={confirmarPagamento}
+                                    disabled={processando}
+                                >
+                                    {processando ? "Processando..." : "Confirmar pagamento"}
                                 </button>
 
-                                <button className="voltar" onClick={() => setEtapa("metodo")}>
+                                <button
+                                    className="voltar"
+                                    onClick={() => setEtapa("metodo")}
+                                    disabled={processando}
+                                >
                                     Voltar
                                 </button>
                             </>
                         )}
+
+
                     </>
                 )}
 
             </div>
         </div>
-
     );
 }

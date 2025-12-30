@@ -2,7 +2,7 @@
    CONTAINER PRINCIPAL
 =============================== */
 .lista-itens-box {
-    background: linear-gradient(180deg, #0f1b2b, #0b1624);
+    background: linear-gradient(180deg, #c9c8c8, #cecece);
     border: 2px solid #d4af37;
     border-radius: 16px;
     padding: 16px;
@@ -33,6 +33,7 @@
 =============================== */
 .lista-vazio {
     font-size: 13px;
+    color: #000000 !important;
     opacity: 0.7;
     padding: 6px 2px;
 }
@@ -89,13 +90,7 @@
         transform 0.2s ease;
 }
 
-.item-linha:hover {
-    background: #1d324a;
-    transform: translateY(-1px);
 
-    box-shadow:
-        0 10px 22px rgba(0, 0, 0, 0.5);
-}
 
 /* ===============================
    NOME DO ITEM
@@ -142,9 +137,9 @@
     border-radius: 6px;
     border: none;
 
-    background: #0f1b2b;
-    color: #d4af37;
-
+    background: #3381e7 !important;
+    color: hsl(0, 0%, 97%) !important;
+    font-weight: bolder !important;
     font-size: 16px;
     font-weight: 700;
     line-height: 1;
@@ -167,7 +162,7 @@
 
 .btn-mais:hover,
 .btn-menos:hover {
-    background: #1d324a;
+    background: #1d324a !important;
     transform: translateY(-1px);
 }
 
@@ -188,7 +183,7 @@
     border-radius: 6px;
     border: none;
 
-    background: #2a0f15;
+    background: #c40f36;
     color: #ffb4b4;
 
     font-size: 14px;

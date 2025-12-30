@@ -4,6 +4,7 @@ import BuscarProduto from "./componentes/buscarproduto";
 import ProdutoAtual from "./componentes/produtoatual";
 import ListaItens from "./componentes/listaitens";
 import TotalVenda from "./componentes/totalvenda";
+import Infos from "./componentes/infos";
 
 import { VendaProvider } from "./componentes/vendaprovider";
 import { API_URL } from "../../../../../../../config";
@@ -13,53 +14,45 @@ import "./produtividade.css";
 export default function Produtividade() {
 
     const [tema, setTema] = useState("escuro");
+    const [bloqueado, setBloqueado] = useState(false);
 
     /* ===============================
-       DEFINIR TEMA LOCAL
+       BLOQUEAR CELULARES
     =============================== */
     useEffect(() => {
-        async function definirTema() {
-            let modoCliente = null;
-
-            try {
-                const token = localStorage.getItem("token");
-
-                if (token) {
-                    const resp = await fetch(
-                        `${API_URL}/api/clientes/modo`,
-                        { headers: { Authorization: `Bearer ${token}` } }
-                    );
-
-                    if (resp.ok) {
-                        const data = await resp.json();
-                        modoCliente = data.modo;
-                    }
-                }
-            } catch {
-                modoCliente = null;
-            }
-
-            if (modoCliente === 1) {
-                setTema("escuro");
-                return;
-            }
-
-            if (modoCliente === 2) {
-                setTema("claro");
-                return;
-            }
-
-            const hora = new Date().getHours();
-
-            if (hora >= 18 || hora < 6) {
-                setTema("escuro");
+        function verificarDispositivo() {
+            if (window.innerWidth < 1124) {
+                setBloqueado(true);
             } else {
-                setTema("claro");
+                setBloqueado(false);
             }
         }
 
-        definirTema();
+        verificarDispositivo();
+        window.addEventListener("resize", verificarDispositivo);
+
+        return () => {
+            window.removeEventListener("resize", verificarDispositivo);
+        };
     }, []);
+
+
+    /* ===============================
+       TELA BLOQUEADA PARA CELULAR
+    =============================== */
+    if (bloqueado) {
+        return (
+            <div className="bloqueio-mobile">
+                <h1>Acesso não autorizado</h1>
+                <p>
+                    Este sistema não pode ser utilizado em celulares ou telas pequenas.
+                </p>
+                <p>
+                    Utilize um computador ou notebook para continuar.
+                </p>
+            </div>
+        );
+    }
 
     return (
         <VendaProvider>
@@ -67,13 +60,16 @@ export default function Produtividade() {
             <div className={`prod-container tema-${tema}`}>
 
                 <div className="linha-superior">
-                    <div className="prod-card buscar">
+
+                    <div className="prod-card buscar buscar-wrapper">
                         <BuscarProduto />
+                        <Infos />
                     </div>
 
                     <div className="prod-card itens">
                         <ListaItens />
                     </div>
+
                 </div>
 
                 <div className="linha-inferior">
@@ -81,7 +77,7 @@ export default function Produtividade() {
                         <ProdutoAtual />
                     </div>
 
-                    <div className="prod-card total">
+                    <div style={{ padding: "0" }} className="prod-card total">
                         <TotalVenda />
                     </div>
                 </div>

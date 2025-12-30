@@ -25,8 +25,9 @@
 /* ===== CADA COLUNA ===== */
 .coluna {
     flex: 1;
-    background: #020f3f;
+    background: #000e41a6;
     border-radius: 14px;
+    color: #ffffff;
     height: fit-content;
     padding: 18px 16px 22px;
     box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
@@ -40,7 +41,7 @@
     font-size: 17px;
     font-weight: 600;
     text-align: center;
-    color: #c7d2fe;
+    color: #ffffff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 

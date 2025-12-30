@@ -11,3 +11,11 @@
     height: 85px;
     filter: drop-shadow(0 0 6px rgba(255, 215, 100, 0.35));
 }
+
+@media (max-width: 820px) {
+    .gravata-logo-container {
+        width: 25px;
+        height: 30px;
+        margin-right: 20px;
+    }
+}

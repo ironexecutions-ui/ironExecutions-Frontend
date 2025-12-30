@@ -16,7 +16,7 @@ import Fiscal from "./fiscal/fiscal";
 import Controle from "./controle/controle";
 import Funcionarios from "./funcionarios/clientes_exibicao";
 
-
+import Configuracoes from "./configuracoes/configuracoes";
 
 export default function Body({ setHeaderMinimizado }) {
 
@@ -39,8 +39,18 @@ export default function Body({ setHeaderMinimizado }) {
         "Agendamentos": Agendamentos,
         "Gerencial": Gerencial,
         "Fiscal": Fiscal,
-        "Controle": Controle
+        "Controle": Controle,
+        "Configurações": Configuracoes
     };
+    function podeAcessarConfiguracoes() {
+        if (!cliente) return false;
+
+        return (
+            cliente.funcao === "Administrador(a)" ||
+            cliente.funcao === "Supervisor(a)"
+        );
+    }
+
 
     useEffect(() => {
         async function carregar() {
@@ -87,6 +97,15 @@ export default function Body({ setHeaderMinimizado }) {
             const modulosDoComercio = cliente.modulos_comercio || [];
             if (!modulosDoComercio.includes(mod.modulo)) return false;
 
+            // 🚫 Administração nunca aparece para Funcionário
+            if (
+                cliente.funcao === "Funcionario(a)" &&
+                (mod.modulo === "Administracao" || mod.modulo === "Administração")
+            ) {
+                return false;
+            }
+
+            // 🔒 Demais bloqueios por permissão
             if (cliente.funcao === "Funcionario(a)") {
                 const bloqueado = permissoes.find(p => p.modulo === mod.modulo);
                 if (bloqueado) return false;
@@ -95,6 +114,7 @@ export default function Body({ setHeaderMinimizado }) {
             return true;
         });
     }
+
 
     function podeAcessarControle() {
         if (!cliente) return false;
@@ -109,6 +129,10 @@ export default function Body({ setHeaderMinimizado }) {
             return;
         }
 
+        if (modulo === "Configurações" && !podeAcessarConfiguracoes()) {
+            return;
+        }
+
         setModuloAtivo(modulo);
         setModoModuloAberto(true);
         setHeaderMinimizado(true);
@@ -116,6 +140,7 @@ export default function Body({ setHeaderMinimizado }) {
         const Comp = componentes[modulo];
         setComponenteAtivo(() => Comp);
     }
+
 
     function fecharModulo() {
         setModoModuloAberto(false);
@@ -168,7 +193,16 @@ export default function Body({ setHeaderMinimizado }) {
                                 <span>Controle</span>
 
                             </button>
+
                         )}
+                        <button
+                            className="modulo-card"
+                            onClick={() => abrirModulo("Configurações")}
+                        >
+                            <span>Configurações</span>
+                        </button>
+
+
                     </div>
                     <br />
                     <div>

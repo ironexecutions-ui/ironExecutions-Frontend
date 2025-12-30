@@ -10,7 +10,7 @@ export default function Funcionarios() {
     const [dados, setDados] = useState({
         "Administrador(a)": [],
         "Supervisor(a)": [],
-        "funcionario(a)": []
+        "Funcionario(a)": []
     });
 
     async function carregar() {
@@ -28,7 +28,7 @@ export default function Funcionarios() {
             setDados({
                 "Administrador(a)": json["Administrador(a)"] || [],
                 "Supervisor(a)": json["Supervisor(a)"] || [],
-                "funcionario(a)": json["funcionario(a)"] || []
+                "Funcionario(a)": json["Funcionario(a)"] || []
             });
         } catch (e) {
             console.log("Erro ao carregar funcionários", e);
@@ -65,7 +65,7 @@ export default function Funcionarios() {
 
                 <div className="coluna">
                     <h2>Funcionários</h2>
-                    {dados["funcionario(a)"].map((p, i) => (
+                    {dados["Funcionario(a)"].map((p, i) => (
                         <div className="pessoa" key={i}>
                             <strong>{p.nome}</strong>
                             <span>{p.cargo}</span>

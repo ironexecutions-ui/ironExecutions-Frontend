@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #111317;
+    background: #33373d;
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     color: white;
     flex-wrap: wrap;
@@ -102,8 +102,29 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    padding-left: 14px;
     min-width: 220px;
+    position: relative;
 }
+
+/* linha lateral profissional */
+.per-info::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 4px;
+    border-radius: 6px;
+    background: linear-gradient(180deg,
+            #85a5eb,
+            #89a6e2,
+            #0b4bb3);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 0 12px rgba(11, 79, 224, 0.35);
+}
+
 
 .per-nome {
     font-size: 18px;
@@ -123,14 +144,24 @@
 }
 
 .per-btn {
-    background: #1f242e;
+    background: #072c77;
     color: white;
     padding: 10px 16px;
-    border-radius: 8px;
+    border-radius: 15px;
+    border: 1px solid #7f8081 !important;
     border: none;
     cursor: pointer;
     transition: 0.2s ease;
     font-size: 14px;
+}
+
+.logout-btn {
+    background-color: #7f1d1d;
+    border: 1px solid #991b1b;
+}
+
+.logout-btn:hover {
+    background-color: #991b1b;
 }
 
 .per-btn:hover {

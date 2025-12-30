@@ -7,6 +7,7 @@ import "./headerperfil.css";
 
 export default function HeaderPerfil({ minimizado, setMinimizado }) {
     const [eventoInstalacao, setEventoInstalacao] = useState(null);
+    const [confirmarLogout, setConfirmarLogout] = useState(false);
 
     const [dados, setDados] = useState(null);
     const [loja, setLoja] = useState(null);
@@ -106,6 +107,25 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
 
         setEventoInstalacao(null);
     }
+    function logout() {
+        if (!confirmarLogout) {
+            setConfirmarLogout(true);
+
+            // volta ao normal depois de 3 segundos
+            setTimeout(() => {
+                setConfirmarLogout(false);
+            }, 3000);
+
+            return;
+        }
+
+        // limpa sessão
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
+
+        // redireciona
+        window.location.href = "/ironbusiness";
+    }
 
     return (
         <>
@@ -145,6 +165,10 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                             Baixar App
                         </button>
                     )}
+                    <button className="per-btn logout-btn" onClick={logout}>
+                        {confirmarLogout ? "Confirmar saída" : "Sair"}
+                    </button>
+
 
                 </div>
 

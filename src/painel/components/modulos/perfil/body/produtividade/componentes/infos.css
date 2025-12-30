@@ -1,0 +1,56 @@
+.infos-container {
+    background: linear-gradient(180deg, #01225f, #000000);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #e5e7eb;
+    font-size: 14px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Linha do funcionário */
+.infos-linha {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.infos-label {
+    font-size: 11px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #93a4c8;
+}
+
+/* Data + hora */
+.infos-datahora {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px solid #f5f3f3;
+}
+
+/* Data */
+.infos-data {
+    font-weight: 500;
+    font-size: 13px;
+    color: #c7d2fe;
+    opacity: 0.85;
+}
+
+/* Hora */
+.infos-hora {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #facc15;
+}
+
+/* Separador some, layout faz o papel */

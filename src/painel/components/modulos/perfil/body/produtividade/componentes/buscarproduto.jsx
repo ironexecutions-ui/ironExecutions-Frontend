@@ -3,10 +3,12 @@ import { API_URL } from "../../../../../../../../config";
 import { useVenda } from "./vendaprovider";
 import "./buscarproduto.css";
 import { createPortal } from "react-dom";
-
+import ModalCadastroProduto from "./registro_rapido/modalregistrorapido";
 export default function BuscarProduto() {
 
     const { setProdutoAtual, adicionarItem, limparBusca, setLimparBusca } = useVenda();
+    const [abrirCadastro, setAbrirCadastro] = useState(false);
+    const [textoCadastro, setTextoCadastro] = useState("");
 
     const [texto, setTexto] = useState("");
     const [sugestoes, setSugestoes] = useState([]);
@@ -99,6 +101,12 @@ export default function BuscarProduto() {
             return;
         }
 
+        // 🔒 SE FOR SÓ NÚMERO, NÃO BUSCA SUGESTÕES
+        if (/^\d+$/.test(valor)) {
+            setSugestoes([]);
+            return;
+        }
+
         timeoutRef.current = setTimeout(async () => {
 
             setCarregando(true);
@@ -130,34 +138,86 @@ export default function BuscarProduto() {
         setSugestoes([]);
     }
 
-    function handleKeyDown(e) {
+    async function handleKeyDown(e) {
 
-        if (!sugestoes.length) return;
+        if (sugestoes.length > 0) {
 
-        if (e.key === "ArrowDown") {
-            e.preventDefault();
-            setIndiceAtivo(prev =>
-                prev < sugestoes.length - 1 ? prev + 1 : 0
-            );
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                setIndiceAtivo(prev =>
+                    prev < sugestoes.length - 1 ? prev + 1 : 0
+                );
+                return;
+            }
+
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                setIndiceAtivo(prev =>
+                    prev > 0 ? prev - 1 : sugestoes.length - 1
+                );
+                return;
+            }
+
+            if (e.key === "Enter") {
+                e.preventDefault();
+
+                const produtoSelecionado =
+                    indiceAtivo >= 0 ? sugestoes[indiceAtivo] : sugestoes[0];
+
+                selecionar(produtoSelecionado);
+                return;
+            }
+
+            if (e.key === "Escape") {
+                setSugestoes([]);
+                setIndiceAtivo(-1);
+                return;
+            }
         }
 
-        if (e.key === "ArrowUp") {
+        /* fallback: Enter sem sugestões */
+        if (e.key === "Enter") {
             e.preventDefault();
-            setIndiceAtivo(prev =>
-                prev > 0 ? prev - 1 : sugestoes.length - 1
-            );
-        }
 
-        if (e.key === "Enter" && indiceAtivo >= 0) {
-            e.preventDefault();
-            selecionar(sugestoes[indiceAtivo]);
-        }
+            if (!texto.trim()) return;
 
-        if (e.key === "Escape") {
-            setSugestoes([]);
-            setIndiceAtivo(-1);
+            setCarregando(true);
+
+            try {
+                const token = localStorage.getItem("token");
+
+                const resp = await fetch(
+                    `${API_URL}/api/produtos_servicos/buscar-exato?valor=${encodeURIComponent(texto.trim())}`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+
+                const produto = resp.ok ? await resp.json() : null;
+
+                if (produto && produto.id) {
+                    selecionar(produto);
+                } else {
+                    abrirModalCadastro(texto);
+                }
+
+            } catch {
+                abrirModalCadastro(texto);
+            } finally {
+                setCarregando(false);
+            }
         }
     }
+
+    function limparInputBusca() {
+        setTexto("");
+        setSugestoes([]);
+        setIndiceAtivo(-1);
+
+        requestAnimationFrame(() => {
+            inputRef.current?.focus();
+        });
+    }
+
+
 
     function getPosicao() {
         if (!inputRef.current) return null;
@@ -169,6 +229,10 @@ export default function BuscarProduto() {
             left: rect.left + window.scrollX,
             width: rect.width
         };
+    }
+    function abrirModalCadastro(texto) {
+        setTextoCadastro(texto);
+        setAbrirCadastro(true);
     }
 
     return (
@@ -190,48 +254,69 @@ export default function BuscarProduto() {
 
                 {carregando && <div className="loader"></div>}
 
-                {texto.trim() !== "" && sugestoes.length > 0 && inputRef.current && createPortal(
-                    (() => {
-                        const pos = getPosicao();
-                        if (!pos) return null;
+                {texto.trim() !== "" &&
+                    !/^\d+$/.test(texto) &&
+                    sugestoes.length > 0 &&
+                    inputRef.current &&
+                    createPortal(
+                        (() => {
+                            const pos = getPosicao();
+                            if (!pos) return null;
 
-                        return (
-                            <div
-                                className="sugestoes-box portal"
-                                style={{
-                                    top: pos.top,
-                                    left: pos.left,
-                                    width: pos.width
-                                }}
-                            >
-                                {sugestoes.map((p, index) => (
-                                    <div
-                                        key={p.id}
-                                        ref={el => itensRef.current[index] = el}
-                                        className={`sug-item ${index === indiceAtivo ? "ativo" : ""}`}
-                                        onClick={() => selecionar(p)}
-                                    >
-                                        <img
-                                            src={p.imagem_url || "https://via.placeholder.com/60"}
-                                            alt=""
-                                            className="sug-img"
-                                        />
+                            return (
+                                <div
+                                    className="sugestoes-box portal"
+                                    style={{
+                                        top: pos.top,
+                                        left: pos.left,
+                                        width: pos.width
+                                    }}
+                                >
+                                    {sugestoes.map((p, index) => (
+                                        <div
+                                            key={p.id}
+                                            ref={el => itensRef.current[index] = el}
+                                            className={`sug-item ${index === indiceAtivo ? "ativo" : ""}`}
+                                            onClick={() => selecionar(p)}
+                                        >
+                                            <img
+                                                src={p.imagem_url || "https://via.placeholder.com/60"}
+                                                alt=""
+                                                className="sug-img"
+                                            />
 
-                                        <div className="sug-info">
-                                            <p className="sug-nome">{p.nome}</p>
-                                            <span className="sug-sub">
-                                                {p.unidade || p.tempo_servico || ""}
-                                            </span>
+                                            <div className="sug-info">
+                                                <p className="sug-nome">{p.nome}</p>
+                                                <span className="sug-sub">
+                                                    {p.unidade || p.tempo_servico || ""}
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        );
-                    })(),
-                    document.body
-                )}
+                                    ))}
+                                </div>
+                            );
+                        })(),
+                        document.body
+                    )}
 
             </div>
+            {abrirCadastro && (
+                <ModalCadastroProduto
+                    textoInicial={textoCadastro}
+                    fechar={() => {
+                        setAbrirCadastro(false);
+                        limparInputBusca();
+                    }}
+                    onCriado={(produto) => {
+                        setProdutoAtual(produto);
+                        adicionarItem(produto);
+                        setAbrirCadastro(false);
+                        limparInputBusca();
+                    }}
+
+                />
+            )}
+
         </div>
     );
 }
