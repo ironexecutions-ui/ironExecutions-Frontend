@@ -13,6 +13,7 @@
     "@react-oauth/google": "^0.12.2",
     "@supabase/supabase-js": "^2.81.1",
     "bcryptjs": "^3.0.3",
+    "chart.js": "^4.5.1",
     "html2pdf.js": "^0.12.1",
     "jsbarcode": "^3.12.1",
     "jspdf": "^3.0.4",
@@ -20,6 +21,7 @@
     "pdfjs-dist": "^2.16.105",
     "qrcode.react": "^4.2.0",
     "react": "^19.1.0",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.9.6"
   },
