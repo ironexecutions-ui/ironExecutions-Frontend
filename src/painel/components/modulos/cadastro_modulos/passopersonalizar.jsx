@@ -5,19 +5,20 @@ export default function Passo2Personalizar({ onContinuar, onPular }) {
 
     const [mostrarForm, setMostrarForm] = useState(false);
 
-    const [fundo, setFundo] = useState("#ffffff");
-    const [letraTipo, setLetraTipo] = useState("Montserrat");
-    const [letraCor, setLetraCor] = useState("#000000");
+    const [fundo, setFundo] = useState("");
+    const [letraTipo, setLetraTipo] = useState("");
+    const [letraCor, setLetraCor] = useState("");
 
     function enviar(e) {
         e.preventDefault();
 
         onContinuar({
-            fundo: fundo,
-            letra_tipo: letraTipo,
-            letra_cor: letraCor
+            fundo: fundo || null,
+            letra_tipo: letraTipo || null,
+            letra_cor: letraCor || null
         });
     }
+
 
     return (
         <div className="passo2-container">
