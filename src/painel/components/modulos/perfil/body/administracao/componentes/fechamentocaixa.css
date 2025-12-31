@@ -1,0 +1,51 @@
+.fechamento-caixa-container {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.fechamento-caixa-container h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.fechamento-loading,
+.fechamento-vazio {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.lista-fechamentos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-fechamento {
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid #1e293b;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.item-fechamento strong {
+    font-size: 14px;
+    color: #e5e7eb;
+}
+
+.item-fechamento span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.item-fechamento:hover {
+    border-color: #22c55e;
+    box-shadow: 0 8px 22px rgba(34, 197, 94, 0.22);
+    transform: translateY(-1px);
+}

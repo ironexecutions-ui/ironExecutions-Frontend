@@ -32,7 +32,7 @@ export default function Administracao() {
                     className={abaAtiva === "resumo" ? "ativo" : ""}
                     onClick={() => setAbaAtiva("resumo")}
                 >
-                    Resumo de Produtos
+                    Lista Produtos
                 </button>
 
                 <button
