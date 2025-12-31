@@ -569,3 +569,176 @@
         font-size: 5px;
     }
 }
+
+/* ===============================
+   OVERLAY
+=============================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(253, 253, 255, 0.075);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* ===============================
+   MODAL CONTAINER
+=============================== */
+.modal-fechamento {
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    background: linear-gradient(180deg, #020617, #020617);
+    border: 1px solid #1e293b;
+    border-radius: 18px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.55),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    animation: modalFadeUp 0.35s ease;
+}
+
+/* ===============================
+   ANIMAÇÃO
+=============================== */
+@keyframes modalFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===============================
+   BOTÃO FECHAR
+=============================== */
+.modal-fechar {
+    align-self: flex-end;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.modal-fechar:hover {
+    color: #e5e7eb;
+    transform: scale(1.05);
+}
+
+/* ===============================
+   BOTÃO FECHAR CAIXA
+=============================== */
+.modal-fechamento .fechar-caixa {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* ===============================
+   LISTA DE COMANDAS
+=============================== */
+.lista-comandas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+/* ===============================
+   ITEM COMANDA
+=============================== */
+.item-comanda {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 10px;
+    padding: 7px 14px;
+    border-radius: 14px;
+    background: #020617;
+    border: 1px solid #1e293b;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+.item-comanda strong {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.item-comanda span {
+    font-size: 12px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
+.item-comanda:hover {
+    border-color: #22c55e;
+    background: #020617;
+    box-shadow: 0 8px 22px rgba(34, 197, 94, 0.22);
+    transform: translateY(-1px);
+}
+
+/* ===============================
+   SEM COMANDAS
+=============================== */
+.sem-comandas {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 12px;
+}
+
+/* ===============================
+   SCROLLBAR PERSONALIZADA
+=============================== */
+.lista-comandas::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lista-comandas::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lista-comandas::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+            #22c55e,
+            #16a34a);
+    border-radius: 10px;
+}
+
+.lista-comandas::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg,
+            #4ade80,
+            #22c55e);
+}
+
+/* ===============================
+   FIREFOX
+=============================== */
+.lista-comandas {
+    scrollbar-width: thin;
+    scrollbar-color: #22c55e transparent;
+}

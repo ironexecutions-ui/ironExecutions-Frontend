@@ -8,12 +8,24 @@ import "./headerperfil.css";
 export default function HeaderPerfil({ minimizado, setMinimizado }) {
     const [eventoInstalacao, setEventoInstalacao] = useState(null);
     const [confirmarLogout, setConfirmarLogout] = useState(false);
+    const [abrirFechamento, setAbrirFechamento] = useState(false);
+    const [comandas, setComandas] = useState([]);
 
     const [dados, setDados] = useState(null);
     const [loja, setLoja] = useState(null);
     const [fade, setFade] = useState(false);
 
     const [secaoAtiva, setSecaoAtiva] = useState(null);
+    async function carregarComandas() {
+        const token = localStorage.getItem("token");
+
+        const resp = await fetch(`${API_URL}/caixa/comandas`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        const json = await resp.json();
+        setComandas(json);
+    }
 
     useEffect(() => {
         async function carregar() {
@@ -145,6 +157,16 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                 </div>
 
                 <div className="per-acoes">
+                    <button
+                        className="per-btn fechar-caixa"
+                        onClick={() => {
+                            setAbrirFechamento(true);
+                            carregarComandas();
+                        }}
+                    >
+                        Fechamento
+                    </button>
+
 
                     {dados.funcao === "Administrador(a)" && (
                         <button className="per-btn" onClick={() => abrirOuFechar("modulos")}>
@@ -188,6 +210,71 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                     <ModalQrcode qrcode={dados.qrcode} fechar={() => setSecaoAtiva(null)} />
                 )}
             </div>
+            {abrirFechamento && (
+                <div className="modal-overlay">
+                    <div className="modal-fechamento">
+
+                        {/* BOTÃO FECHAR MODAL */}
+                        <button
+                            className="modal-fechar"
+                            onClick={() => setAbrirFechamento(false)}
+                        >
+                            ✕
+                        </button>
+
+                        {/* BOTÃO FECHAR CAIXA */}
+                        <button
+                            className="per-btn fechar-caixa"
+                            onClick={async () => {
+                                try {
+                                    const token = localStorage.getItem("token");
+
+                                    const resp = await fetch(`${API_URL}/caixa/fechar`, {
+                                        method: "POST",
+                                        headers: {
+                                            Authorization: `Bearer ${token}`
+                                        }
+                                    });
+
+                                    if (!resp.ok) {
+                                        const erro = await resp.json();
+                                        alert(erro.detail || "Erro ao fechar caixa");
+                                        return;
+                                    }
+
+                                    alert("Caixa fechado com sucesso");
+                                    carregarComandas();
+
+                                } catch {
+                                    alert("Erro ao fechar caixa");
+                                }
+                            }}
+                        >
+                            Fechar Caixa
+                        </button>
+
+                        {/* LISTA DE COMANDAS */}
+                        <div className="lista-comandas">
+                            {comandas.length === 0 && (
+                                <p className="sem-comandas">Nenhuma comanda registrada</p>
+                            )}
+
+                            {comandas.map(c => (
+                                <div
+                                    key={c.id}
+                                    className="item-comanda"
+                                    onClick={() => window.open(c.link, "_blank")}
+                                >
+                                    <strong>Comanda</strong>
+                                    <span>{c.data} {c.hora}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                    </div>
+                </div>
+            )}
+
         </>
     );
 }
