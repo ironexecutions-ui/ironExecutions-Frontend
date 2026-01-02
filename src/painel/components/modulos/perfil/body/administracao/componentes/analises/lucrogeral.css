@@ -4,6 +4,7 @@
 .lucro-geral-container {
     display: flex;
     flex-direction: column;
+    margin: 30px;
     gap: 18px;
 }
 

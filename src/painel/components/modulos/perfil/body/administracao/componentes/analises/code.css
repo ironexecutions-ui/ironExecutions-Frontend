@@ -3,9 +3,10 @@
 ========================= */
 .codigos-container {
     padding: 28px;
-    background: linear-gradient(180deg, #020617, #020617);
+    background: linear-gradient(180deg, #e8e9f0, #e2e3e9);
     color: #e5e7eb;
     min-height: 100vh;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -22,7 +23,7 @@
 .codigos-topo button {
     background: #0070b10c;
     border: 1px solid #1e293b;
-    color: #e5e7eb;
+    color: #070707;
     padding: 10px 22px;
     border-radius: 14px;
     font-size: 13px;

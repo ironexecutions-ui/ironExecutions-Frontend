@@ -80,11 +80,11 @@ export default function ResumoProdutos() {
 
                                         <div className="precos">
                                             <div>
-                                                <label>Preço</label>
+                                                <label>Preço </label>
                                                 <strong>R$ {item.preco}</strong>
                                             </div>
                                             <div>
-                                                <label>Recebido</label>
+                                                <label>Recebido </label>
                                                 <strong>R$ {item.preco_recebido}</strong>
                                             </div>
                                         </div>

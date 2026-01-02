@@ -2,7 +2,7 @@
    CONTAINER GERAL
 ========================= */
 .hv-container {
-    color: #e5e7eb;
+    color: #070707;
     min-height: 100vh;
     box-sizing: border-box;
 }
@@ -20,13 +20,13 @@
 .hv-header h4 {
     font-size: 18px;
     font-weight: 700;
-    color: #f8fafc;
+    color: #000000;
     margin: 0;
 }
 
 .hv-total {
-    font-size: 13px;
-    color: #94a3b8;
+    font-size: 23px;
+    color: #000000 !important;
 }
 
 /* =========================
@@ -34,7 +34,7 @@
 ========================= */
 .hv-loading {
     font-size: 14px;
-    color: #94a3b8;
+    color: #030303 !important;
 }
 
 /* =========================
@@ -209,6 +209,10 @@
         padding: 6px 0;
         border: none;
     }
+}
+
+.hv-filtros button {
+    background-color: #000000 !important;
 }
 
 /* =========================

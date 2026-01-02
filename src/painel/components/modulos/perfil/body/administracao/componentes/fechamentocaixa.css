@@ -6,15 +6,15 @@
 }
 
 .fechamento-caixa-container h4 {
-    font-size: 16px;
+    font-size: 26px;
     font-weight: 600;
-    color: #e5e7eb;
+    color: #020202;
 }
 
 .fechamento-loading,
 .fechamento-vazio {
     font-size: 13px;
-    color: #64748b;
+    color: #0c0c0c !important;
 }
 
 .lista-fechamentos {
@@ -35,17 +35,18 @@
 }
 
 .item-fechamento strong {
-    font-size: 14px;
-    color: #e5e7eb;
+    font-size: 24px;
+    color: #0c0c0c;
 }
 
 .item-fechamento span {
-    font-size: 13px;
-    color: #94a3b8;
+    font-size: 17px;
+    color: #01132e;
 }
 
 .item-fechamento:hover {
-    border-color: #22c55e;
-    box-shadow: 0 8px 22px rgba(34, 197, 94, 0.22);
+    border-color: #fafafa;
+    background-color: #fafafa;
+    box-shadow: 0 8px 52px rgba(34, 197, 94, 0.22);
     transform: translateY(-1px);
 }

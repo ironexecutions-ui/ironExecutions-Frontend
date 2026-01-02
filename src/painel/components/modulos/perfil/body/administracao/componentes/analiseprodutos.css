@@ -2,7 +2,6 @@
    CONTAINER PRINCIPAL
 =============================== */
 .analise-produtos-container {
-    background: linear-gradient(180deg, #020617, #020617);
     color: #e5e7eb;
     min-height: 100%;
     display: flex;
@@ -73,7 +72,6 @@
 =============================== */
 .analise-conteudo {
     margin-top: 6px;
-    padding: 22px 24px;
     background: rgba(2, 6, 23, 0.7);
     border: 1px solid #1e293b;
     border-radius: 20px;

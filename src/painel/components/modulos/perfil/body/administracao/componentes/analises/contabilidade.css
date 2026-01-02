@@ -6,6 +6,7 @@
     background: linear-gradient(180deg, #020617, #020617);
     color: #e5e7eb;
     min-height: 100vh;
+    border-radius: 30px;
     display: flex;
     flex-direction: column;
     gap: 18px;
