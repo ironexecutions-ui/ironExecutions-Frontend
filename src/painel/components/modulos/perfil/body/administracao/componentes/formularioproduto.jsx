@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FormularioImagens from "./FormularioImagens";
+import FormularioImagens from "./formularioimagens";
 import { API_URL } from ".././../../../../../../../config";
 import "./formularioproduto.css";
 
