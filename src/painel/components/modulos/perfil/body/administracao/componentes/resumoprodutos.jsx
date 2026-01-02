@@ -64,7 +64,7 @@ export default function ResumoProdutos() {
                 {carregando ? (
                     <div className="loading-area">
                         <div className="spinner"></div>
-                        <span>Carregando produtos...</span>
+                        <span style={{ color: "black" }} >Carregando produtos...</span>
                     </div>
                 ) : (
                     <>
