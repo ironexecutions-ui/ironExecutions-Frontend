@@ -15,13 +15,49 @@ export default function ModalModulos({ dados, fechar }) {
     useEffect(() => {
         async function carregar() {
 
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                alert("Token não encontrado");
+                fechar();
+                return;
+            }
+
             // módulos que o comércio já tem
-            const resp1 = await fetch(`${API_URL}/modulos/empresa/${dados.comercio_id}`);
+            const resp1 = await fetch(
+                `${API_URL}/modulos/empresa/${dados.comercio_id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!resp1.ok) {
+                alert("Acesso não autorizado");
+                fechar();
+                return;
+            }
+
             const listaComercio = await resp1.json();
             setModulosComercio(listaComercio);
 
             // módulos ativos no sistema
-            const resp2 = await fetch(`${API_URL}/modulos/ativos`);
+            const resp2 = await fetch(
+                `${API_URL}/modulos/ativos`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!resp2.ok) {
+                alert("Acesso não autorizado");
+                fechar();
+                return;
+            }
+
             const listaAtivos = await resp2.json();
             setModulosAtivosSistema(listaAtivos);
 
@@ -42,9 +78,15 @@ export default function ModalModulos({ dados, fechar }) {
     }
 
     async function solicitarModulo(nomeModulo) {
+
+        const token = localStorage.getItem("token");
+
         const resp = await fetch(`${API_URL}/modulos/solicitar`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
             body: JSON.stringify({
                 comercio_id: dados.comercio_id,
                 modulo: nomeModulo
@@ -52,7 +94,7 @@ export default function ModalModulos({ dados, fechar }) {
         });
 
         if (!resp.ok) {
-            alert("Erro ao solicitar módulo");
+            alert("Acesso não autorizado");
             return;
         }
 
@@ -121,5 +163,4 @@ export default function ModalModulos({ dados, fechar }) {
             </div>
         </div>
     );
-
 }

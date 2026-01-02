@@ -12,9 +12,13 @@ export default function DadosComerciais() {
     const cliente = JSON.parse(localStorage.getItem("cliente") || "{}");
     const token = localStorage.getItem("token");
 
-    if (cliente.funcao === "Funcionario(a)") {
+    if (
+        cliente.funcao === "Funcionario(a)" ||
+        cliente.funcao === "Supervisor(a)"
+    ) {
         return <h2 className="dc-sem-acesso">Acesso não autorizado</h2>;
     }
+
 
     const podeEditar = cliente.funcao === "Administrador(a)";
 

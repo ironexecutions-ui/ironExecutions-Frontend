@@ -77,6 +77,10 @@ export default function FormularioProduto({ item, voltar }) {
 
         voltar();
     }
+    function primeiraMaiuscula(texto) {
+        if (!texto) return "";
+        return texto.charAt(0).toUpperCase() + texto.slice(1);
+    }
 
     return (
         <div className="form-produto">
@@ -103,13 +107,21 @@ export default function FormularioProduto({ item, voltar }) {
                 </button>
             </div>
             <div className="grid">
-                <input placeholder="Nome" value={form.nome} onChange={e => alterar("nome", e.target.value)} />
+                <input placeholder="Código de barras" value={form.codigo_barras} onChange={e => alterar("codigo_barras", e.target.value)} />
+                <input placeholder="QRCode" value={form.qrcode} onChange={e => alterar("qrcode", e.target.value)} />
+
+                <input
+                    placeholder="Nome"
+                    value={form.nome}
+                    onChange={e => alterar("nome", primeiraMaiuscula(e.target.value))}
+                />
                 <input
                     list="lista-categorias"
                     placeholder="Categoria"
                     value={form.categoria}
-                    onChange={e => alterar("categoria", e.target.value)}
+                    onChange={e => alterar("categoria", primeiraMaiuscula(e.target.value))}
                 />
+
 
                 <datalist id="lista-categorias">
                     {categorias.map((cat, i) => (
@@ -117,8 +129,6 @@ export default function FormularioProduto({ item, voltar }) {
                     ))}
                 </datalist>
 
-                <input placeholder="Código de barras" value={form.codigo_barras} onChange={e => alterar("codigo_barras", e.target.value)} />
-                <input placeholder="QRCode" value={form.qrcode} onChange={e => alterar("qrcode", e.target.value)} />
 
                 <input placeholder="Preço" value={form.preco} onChange={e => alterar("preco", e.target.value)} />
                 <input placeholder="Preço recebido" value={form.preco_recebido} onChange={e => alterar("preco_recebido", e.target.value)} />

@@ -6,7 +6,7 @@ import GraficoLinhasVendas from "./graficos/graficobarrasprodutos";
 
 export default function GraficosVendas() {
 
-    const [graficoAtivo, setGraficoAtivo] = useState(null);
+    const [graficoAtivo, setGraficoAtivo] = useState("pizza");
 
     function renderizarGrafico() {
         if (graficoAtivo === "pizza") return <GraficoPizzaProdutos />;

@@ -13,6 +13,7 @@ import "./graficopizzaprodutos.css";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function GraficoPizzaProdutos() {
+    const [carregando, setCarregando] = useState(true);
 
     const [modo, setModo] = useState("produtos");
     const [data, setData] = useState("");
@@ -35,8 +36,9 @@ export default function GraficoPizzaProdutos() {
     =============================== */
     useEffect(() => {
         async function carregar() {
-            const params = new URLSearchParams();
+            setCarregando(true);
 
+            const params = new URLSearchParams();
             params.append("modo", modo);
 
             if (data) {
@@ -47,24 +49,32 @@ export default function GraficoPizzaProdutos() {
                 params.append("limite", limite);
             }
 
-            const resp = await fetch(
-                `${API_URL}/admin/graficos/pizza?${params.toString()}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
+            try {
+                const resp = await fetch(
+                    `${API_URL}/admin/graficos/pizza?${params.toString()}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
                     }
-                }
-            );
+                );
 
-            if (resp.ok) {
-                const json = await resp.json();
-                setDados(json);
+                if (resp.ok) {
+                    const json = await resp.json();
+                    setDados(json);
+                } else {
+                    setDados([]);
+                }
+            } catch {
+                setDados([]);
+            } finally {
+                setCarregando(false);
             }
         }
 
-
         carregar();
     }, [modo, data, limite]);
+
 
     const inputBloqueado = modo !== "produtos";
     function quebrarTexto(texto, limite = 18) {
@@ -167,7 +177,12 @@ export default function GraficoPizzaProdutos() {
             </div>
 
             <div className="grafico-pizza-conteudo">
-                {dados.length > 0 ? (
+                {carregando ? (
+                    <div className="grafico-loading">
+                        <div className="loading-ring"></div>
+                        <span>Processando dados</span>
+                    </div>
+                ) : dados.length > 0 ? (
                     <Pie data={chartData} options={chartOptions} />
                 ) : (
                     <span className="grafico-vazio">
@@ -175,6 +190,7 @@ export default function GraficoPizzaProdutos() {
                     </span>
                 )}
             </div>
+
         </div>
     );
 }

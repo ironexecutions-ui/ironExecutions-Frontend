@@ -7,7 +7,7 @@ import HistoricoVendas from "./componentes/historicovendas";
 import FechamentoCaixa from "./componentes/fechamentocaixa";
 
 export default function Administracao() {
-    const [abaAtiva, setAbaAtiva] = useState(null);
+    const [abaAtiva, setAbaAtiva] = useState("resumo");
 
     return (
         <div className="administracao-container">

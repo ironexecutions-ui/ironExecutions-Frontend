@@ -1,20 +1,18 @@
-/* FUNDO ESCURECIDO DO MODAL */
+/* ===============================
+   FUNDO ESCURECIDO DO MODAL
+=============================== */
 .qr-modal-fundo {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    position: fixed;
+    inset: 0;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.075);
+    backdrop-filter: blur(6px);
 
-    z-index: 9999999999 !important;
-
+    z-index: 999999999;
     animation: fundoFade 0.25s ease;
 }
 
@@ -28,30 +26,35 @@
     }
 }
 
-/* CAIXA DO MODAL */
+/* ===============================
+   CAIXA DO MODAL
+=============================== */
 .qr-modal-caixa {
-    position: relative;
     width: 92%;
-    max-width: 520px;
+    max-width: 560px;
+    max-height: 90vh;
 
-    background: #121212;
-    padding: 30px;
-    border-radius: 18px;
+    background: linear-gradient(180deg, #121212, #0e0e0e);
+    padding: 28px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
 
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow:
-        0 0 28px rgba(0, 0, 0, 0.55),
-        0 0 12px rgba(255, 255, 255, 0.05);
+        0 30px 60px rgba(0, 0, 0, 0.7),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+
+    overflow-y: auto;
 
     animation: modalGrow 0.25s ease-out;
-
-    z-index: 9999999999 !important;
 }
 
 @keyframes modalGrow {
     from {
         opacity: 0;
-        transform: scale(0.9) translateY(12px);
+        transform: scale(0.92) translateY(12px);
     }
 
     to {
@@ -60,23 +63,54 @@
     }
 }
 
-/* TÍTULOS */
+/* ===============================
+   SCROLLBAR PERSONALIZADA
+=============================== */
+.qr-modal-caixa::-webkit-scrollbar {
+    width: 8px;
+}
+
+.qr-modal-caixa::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.qr-modal-caixa::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #0a84ff, #005ecb);
+    border-radius: 8px;
+}
+
+.qr-modal-caixa::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #2f9bff, #0a84ff);
+}
+
+/* Firefox */
+.qr-modal-caixa {
+    scrollbar-width: thin;
+    scrollbar-color: #0a84ff transparent;
+}
+
+/* ===============================
+   TÍTULOS
+=============================== */
 .qr-titulo {
     text-align: center;
-    color: #fff;
+    color: #ffffff;
     font-size: 26px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .qr-subtitulo {
-    color: #ccc;
+    color: #bfbfbf;
     margin-top: 22px;
     margin-bottom: 10px;
     font-size: 18px;
+    font-weight: 600;
 }
 
-/* LISTA */
+/* ===============================
+   LISTA DE MÓDULOS
+=============================== */
 .qr-lista-modulos {
     list-style: none;
     margin: 0;
@@ -84,90 +118,118 @@
 }
 
 .qr-item-modulo {
-    background: #1d1d1d;
+    background: linear-gradient(180deg, #1c1c1c, #181818);
     padding: 14px 16px;
-    border-radius: 12px;
+    border-radius: 14px;
     margin-bottom: 10px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
 
-    transition: 0.25s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.25s, transform 0.15s;
 }
 
 .qr-item-modulo:hover {
-    background: #242424;
+    background: linear-gradient(180deg, #232323, #1d1d1d);
+    transform: translateY(-1px);
 }
 
 .qr-nome-modulo {
-    color: white;
+    color: #ffffff;
     font-size: 16px;
     font-weight: 500;
 }
 
-/* STATUS */
+/* ===============================
+   STATUS
+=============================== */
 .qr-status {
-    padding: 7px 13px;
-    border-radius: 10px;
-    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .qr-status-ativo {
-    background: rgba(0, 255, 100, 0.15);
+    background: rgba(0, 255, 120, 0.15);
     color: #00ff78;
-    border: 1px solid rgba(0, 255, 120, 0.3);
+    border: 1px solid rgba(0, 255, 120, 0.35);
 }
 
 .qr-status-solicitado {
     background: rgba(255, 200, 0, 0.15);
     color: #ffc800;
-    border: 1px solid rgba(255, 200, 0, 0.3);
+    border: 1px solid rgba(255, 200, 0, 0.35);
 }
 
-/* BOTÃO SOLICITAR */
+/* ===============================
+   BOTÃO SOLICITAR
+=============================== */
 .qr-btn-solicitar {
-    background: #0a84ff;
-    color: #fff;
+    background: linear-gradient(180deg, #0a84ff, #0068d6);
+    color: #ffffff;
 
-    padding: 7px 15px;
-    border-radius: 10px;
+    padding: 7px 16px;
+    border-radius: 999px;
     border: none;
 
     cursor: pointer;
-    transition: 0.25s;
     font-size: 14px;
+    font-weight: 600;
+
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
 }
 
 .qr-btn-solicitar:hover {
-    background: #0068d6;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(10, 132, 255, 0.35);
 }
 
-/* QUANDO NÃO TEM MÓDULOS */
+.qr-btn-solicitar:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* ===============================
+   TEXTO SEM MÓDULOS
+=============================== */
 .qr-sem-modulos {
-    color: #aaa;
+    color: #9a9a9a;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 12px;
+    font-size: 14px;
 }
 
-/* BOTÃO FECHAR */
+/* ===============================
+   BOTÃO FECHAR
+=============================== */
 .qr-btn-fechar {
+    margin-top: 26px;
+
     width: 100%;
-    background: #2b2b2b;
-    color: white;
+    background: linear-gradient(180deg, #2b2b2b, #242424);
+    color: #ffffff;
 
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #444;
-
-    margin-top: 25px;
+    padding: 13px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.25s;
+
+    transition: background 0.2s, transform 0.15s;
 }
 
 .qr-btn-fechar:hover {
-    background: #3a3a3a;
+    background: linear-gradient(180deg, #3a3a3a, #2f2f2f);
+    transform: translateY(-1px);
+}
+
+.qr-btn-fechar:active {
+    transform: translateY(0);
 }

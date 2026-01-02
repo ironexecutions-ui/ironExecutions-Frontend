@@ -43,7 +43,7 @@ export default function Controlee() {
                     className="controle-adicionar"
                     onClick={() => setSelecionado(null)}
                 >
-                    + Adicionar cliente
+                    + Adicionar Funcionario
                 </button>
 
                 <table className="controle-tabela">
