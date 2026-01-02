@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FormularioProduto from "./FormularioProduto";
+import FormularioProduto from "./formularioproduto";
 import { API_URL } from ".././../../../../../../../config";
 import "./resumoprodutos.css";
 
