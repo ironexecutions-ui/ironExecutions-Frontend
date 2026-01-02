@@ -48,7 +48,7 @@ export default function Configuracoes() {
 
             <div className="configuracoes-tabs">
 
-                {funcao !== "Funcionario(a)" || "Supervisor(a)" && (
+                {funcao !== "Funcionario(a)" && funcao !== "Supervisor(a)" && (
                     <button
                         className={`configuracoes-tab ${abaAtiva === "comerciais" ? "ativa" : ""}`}
                         onClick={() => setAbaAtiva("comerciais")}
@@ -56,6 +56,7 @@ export default function Configuracoes() {
                         Dados comerciais
                     </button>
                 )}
+
 
                 <button
                     className={`configuracoes-tab ${abaAtiva === "pessoais" ? "ativa" : ""}`}
