@@ -200,10 +200,10 @@ export default function DadosComerciais() {
             <section className="dc-section">
                 <h2 className="dc-title">Módulos</h2>
                 <BlocoModulos
-                    dados={dados}
+                    comercioId={dados.id}
                     podeEditar={podeEditar}
-                    salvar={salvarCampo}
                 />
+
             </section>
 
             {/* FLAGS */}

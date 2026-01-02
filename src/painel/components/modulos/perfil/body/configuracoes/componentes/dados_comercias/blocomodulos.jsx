@@ -1,34 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./blocomodulos.css";
+import { URL } from "../../../url";
 
-export default function BlocoModulos({ dados, podeEditar, salvar }) {
+export default function BlocoModulos({ comercioId, podeEditar }) {
+
+    const [modulos, setModulos] = useState([]);
+    const token = localStorage.getItem("token");
+
+    useEffect(() => {
+        carregar();
+    }, []);
+
+    function carregar() {
+        fetch(`${URL}/modulos/empresa/${comercioId}`, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        })
+            .then(r => r.json())
+            .then(setModulos);
+    }
+
+    function solicitar(modulo) {
+        fetch(`${URL}/modulos/solicitar`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
+            },
+            body: JSON.stringify({
+                comercio_id: comercioId,
+                modulo
+            })
+        }).then(() => carregar());
+    }
+
     return (
         <div className="bm-container">
 
             <h2 className="bm-titulo">Módulos</h2>
 
             <div className="bm-lista">
-                {[
-                    ["produtividade", "Produtividade"],
-                    ["administracao", "Administração"],
-                    ["delivery_vendas", "Delivery e Vendas"],
-                    ["mesas_salao_cozinha", "Mesas / Salão / Cozinha"],
-                    ["integracao_ifood", "Integração iFood"],
-                    ["agendamentos", "Agendamentos"],
-                    ["gerencial", "Gerencial"],
-                    ["fiscal", "Fiscal"]
-                ].map(([campo, nome]) => (
-                    <div key={campo} className="bm-item">
-
-                        <span className="bm-nome">{nome}</span>
+                {modulos.map(m => (
+                    <div key={m.modulo} className="bm-item">
+                        <div className="bm-clas"> <span className="bm-nome">{m.modulo}</span>
+                            <span className="bm-descricao">{m.descricao}</span>
+                        </div>
 
                         <div className="bm-acao">
 
-                            {dados[campo] === 0 && (
+                            {m.ativo === null && (
                                 podeEditar ? (
                                     <button
                                         className="bm-btn bm-btn-solicitar"
-                                        onClick={() => salvar(campo, 1)}
+                                        onClick={() => solicitar(m.modulo)}
                                     >
                                         Solicitar
                                     </button>
@@ -39,13 +64,13 @@ export default function BlocoModulos({ dados, podeEditar, salvar }) {
                                 )
                             )}
 
-                            {dados[campo] === 1 && (
+                            {m.ativo === 0 && (
                                 <span className="bm-status bm-solicitado">
                                     Solicitado
                                 </span>
                             )}
 
-                            {dados[campo] === 2 && (
+                            {m.ativo === 1 && (
                                 <span className="bm-status bm-ativo">
                                     Ativo
                                 </span>
