@@ -126,8 +126,17 @@ function RoteamentoComLoading() {
     </Routes>
   );
 }
-
 export default function App() {
+
+  useEffect(() => {
+    fetch("https://nfcee.onrender.com/", {
+      method: "GET",
+      mode: "no-cors"
+    }).catch(() => {
+      // ignora erro, é só keep-alive
+    });
+  }, []);
+
   return (
     <Router>
       <div className="app">
@@ -136,3 +145,4 @@ export default function App() {
     </Router>
   );
 }
+
