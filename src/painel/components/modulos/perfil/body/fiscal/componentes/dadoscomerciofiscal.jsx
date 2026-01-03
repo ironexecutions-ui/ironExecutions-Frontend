@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_URL } from ".././../../../../../../../config";
 import "./dadoscomerciofiscal.css";
-import UploadCertificadoA1 from "./UploadCertificadoA1";
+import UploadCertificadoA1 from "./uploadcertificadoa1";
 
 export default function DadosComerciaisFiscal() {
 
