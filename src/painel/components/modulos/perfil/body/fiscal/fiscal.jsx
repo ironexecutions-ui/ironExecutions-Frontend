@@ -5,6 +5,7 @@ import RegistrarFiscal from "./componentes/registrarfiscal";
 import CuponsFiscais from "./componentes/cuponsfiscais";
 import RegistradosFiscal from "./componentes/registradosfiscal";
 import DadosComerciaisFiscal from "./componentes/dadoscomerciofiscal";
+import EmitirNfce from "./componentes/emitirnfce";
 
 import { API_URL } from ".././../../../../../../config";
 
@@ -40,7 +41,10 @@ export default function Fiscal() {
 
     function renderizarConteudo() {
 
-        // se não for administrador, só pode ver cupons
+        if (abaAtiva === "emitir-nfce") {
+            return <EmitirNfce />;
+        }
+
         if (funcao !== "Administrador(a)") {
             return <CuponsFiscais />;
         }
@@ -60,17 +64,6 @@ export default function Fiscal() {
         return <CuponsFiscais />;
     }
 
-    if (carregando) {
-        return (
-            <div className="fiscal-carregando">
-                <div className="fiscal-loader"></div>
-                <p>Carregando módulo fiscal</p>
-                <span>Verificando permissões e dados</span>
-            </div>
-        );
-    }
-
-
     return (
         <div className="fiscal-container">
 
@@ -83,6 +76,12 @@ export default function Fiscal() {
                     onClick={() => setAbaAtiva("cupons")}
                 >
                     Cupons
+                </button>
+                <button
+                    className={abaAtiva === "emitir-nfce" ? "ativo" : ""}
+                    onClick={() => setAbaAtiva("emitir-nfce")}
+                >
+                    Emitir NFC-e
                 </button>
 
                 {funcao === "Administrador(a)" && (
