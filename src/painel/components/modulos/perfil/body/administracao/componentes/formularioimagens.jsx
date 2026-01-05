@@ -1,41 +1,73 @@
 import React, { useRef, useState } from "react";
+import { API_URL } from ".././../../../../../../../config";
 import "./formularioimagens.css";
 
 export default function FormularioImagens({ valor, alterar }) {
 
-    const imagens = valor ? valor.split("|").filter(Boolean) : [];
-    const inputRef = useRef(null);
-    const [arrastando, setArrastando] = useState(false);
+    const imagensSalvas = valor
+        ? valor.split("|").filter(Boolean)
+        : [];
 
-    function adicionarArquivos(files) {
-        const novas = Array.from(files).map(file =>
-            URL.createObjectURL(file)
+    const [preview, setPreview] = useState([]);
+    const [arrastando, setArrastando] = useState(false);
+    const inputRef = useRef(null);
+
+    async function upload(files) {
+        const token = localStorage.getItem("token");
+
+        // preview local (blob)
+        const blobs = Array.from(files).map(f =>
+            URL.createObjectURL(f)
         );
-        alterar([...imagens, ...novas].join("|"));
+        setPreview(prev => [...prev, ...blobs]);
+
+        const formData = new FormData();
+        formData.append("pasta", "produtos");
+        Array.from(files).forEach(f =>
+            formData.append("arquivos", f)
+        );
+
+        const resp = await fetch(`${API_URL}/upload/client/imagens`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        const json = await resp.json();
+
+        const novasUrls = json.urls.split("|").filter(Boolean);
+
+        alterar([...imagensSalvas, ...novasUrls].join("|"));
+
+        // 🔥 ESSA LINHA RESOLVE A DUPLICAÇÃO
+        setPreview([]);
     }
 
     function remover(index) {
-        alterar(imagens.filter((_, i) => i !== index).join("|"));
+        const novaLista = imagensSalvas.filter((_, i) => i !== index);
+        alterar(novaLista.join("|"));
     }
 
     function soltar(e) {
         e.preventDefault();
         setArrastando(false);
         if (e.dataTransfer.files.length) {
-            adicionarArquivos(e.dataTransfer.files);
+            upload(e.dataTransfer.files);
         }
     }
 
     return (
         <div className="imagens-container">
+
             <input
                 ref={inputRef}
                 type="file"
                 accept="image/*"
-                capture="environment"
                 multiple
                 hidden
-                onChange={e => adicionarArquivos(e.target.files)}
+                onChange={e => upload(e.target.files)}
             />
 
             <div
@@ -52,14 +84,22 @@ export default function FormularioImagens({ valor, alterar }) {
                 <span>ou clique para adicionar</span>
             </div>
 
-            {imagens.length > 0 && (
+            {(imagensSalvas.length > 0 || preview.length > 0) && (
                 <div className="lista-imagens">
-                    {imagens.map((img, i) => (
-                        <div className="imagem-card" key={i}>
+
+                    {imagensSalvas.map((img, i) => (
+                        <div className="imagem-card" key={`db-${i}`}>
                             <img src={img} alt="" />
                             <button onClick={() => remover(i)}>✕</button>
                         </div>
                     ))}
+
+                    {preview.map((img, i) => (
+                        <div className="imagem-card preview" key={`blob-${i}`}>
+                            <img src={img} alt="" />
+                        </div>
+                    ))}
+
                 </div>
             )}
         </div>

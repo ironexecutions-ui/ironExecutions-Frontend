@@ -280,10 +280,15 @@ export default function BuscarProduto() {
                                             onClick={() => selecionar(p)}
                                         >
                                             <img
-                                                src={p.imagem_url || "https://via.placeholder.com/60"}
+                                                src={
+                                                    p.imagem_url
+                                                        ? p.imagem_url.split("|")[0]
+                                                        : "https://via.placeholder.com/60"
+                                                }
                                                 alt=""
                                                 className="sug-img"
                                             />
+
 
                                             <div className="sug-info">
                                                 <p className="sug-nome">{p.nome}</p>

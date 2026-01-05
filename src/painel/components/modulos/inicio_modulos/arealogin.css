@@ -1,41 +1,70 @@
+/* ===============================
+   CONTAINER GERAL
+=============================== */
+
 .area-login-container {
-    background: white;
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 28px;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-    text-align: center;
-    animation: entradaSuave 0.4s ease;
+    max-width: 540px;
+    margin: 70px auto;
+    padding: 32px;
+    background: #0b1220;
+    border-radius: 16px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    color: #e5e7eb;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .area-login-container h2 {
-    font-size: 24px;
-    margin-bottom: 18px;
-    color: #0d47a1;
+    text-align: center;
+    margin-bottom: 28px;
+    font-size: 22px;
+    font-weight: 600;
 }
+
+
+/* ===============================
+   BOTÕES DE MODO
+=============================== */
 
 .modo-botoes {
     display: flex;
-    justify-content: center;
     gap: 10px;
-    margin-bottom: 18px;
+    margin-bottom: 25px;
 }
 
 .modo-botoes button {
-    padding: 10px 18px;
-    background: #0d47a1;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    flex: 1;
+    padding: 11px;
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 10px;
+    color: #e5e7eb;
     cursor: pointer;
-    font-size: 14px;
-    transition: 0.3s;
+    transition: all 0.2s ease;
 }
 
 .modo-botoes button:hover {
-    background: #1565c0;
+    background: #1f2937;
 }
+
+
+/* ===============================
+   ERRO
+=============================== */
+
+.erro {
+    background: #7f1d1d;
+    color: #fee2e2;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/* ===============================
+   FORM PADRÃO (EMAIL)
+=============================== */
 
 .area-login-form {
     display: flex;
@@ -44,53 +73,145 @@
 }
 
 .area-login-form label {
-    text-align: left;
-    color: #0d47a1;
-    font-weight: bold;
+    font-size: 14px;
+    opacity: 0.9;
 }
 
 .area-login-form input {
-    padding: 12px;
-    border: 1px solid #b0bec5;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-.area-login-form input:focus {
-    border-color: #0d47a1;
+    padding: 11px;
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    background: #020617;
+    color: #e5e7eb;
     outline: none;
 }
 
 .area-login-form button {
-    background: #0d47a1;
-    color: white;
-    border: none;
+    margin-top: 10px;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 10px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 8px;
-    transition: 0.3s;
 }
 
-.area-login-form button:hover {
-    background: #1565c0;
+
+/* ===============================
+   INPUT OCULTO (BIPADOR / QR)
+=============================== */
+
+.barcode-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+    width: 0;
 }
 
-.erro {
-    color: red;
-    font-size: 14px;
+
+/* ===============================
+   CÓDIGO DE BARRAS FALSO
+=============================== */
+
+.barcode-box {
+    position: relative;
+    height: 120px;
+    border-radius: 14px;
+    background: #020617;
+    border: 2px dashed #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: border-color 0.2s ease;
+}
+
+.barcode-box:hover {
+    border-color: #3b82f6;
+}
+
+.barcode-box::before {
+    content: "";
+    width: 85%;
+    height: 55px;
+    background: repeating-linear-gradient(90deg,
+            #e5e7eb 0px,
+            #e5e7eb 2px,
+            transparent 2px,
+            transparent 4px,
+            #e5e7eb 4px,
+            #e5e7eb 7px,
+            transparent 7px,
+            transparent 9px);
+    border-radius: 4px;
     margin-bottom: 10px;
 }
 
-@keyframes entradaSuave {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
+.barcode-box span {
+    font-size: 13px;
+    color: #94a3b8;
+}
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+
+/* ===============================
+   QR CODE FALSO
+=============================== */
+
+.qrcode-box {
+    position: relative;
+    height: 180px;
+    border-radius: 16px;
+    background: #020617;
+    border: 2px dashed #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: border-color 0.2s ease;
+}
+
+.qrcode-box:hover {
+    border-color: #22c55e;
+}
+
+.qrcode-desenho {
+    width: 110px;
+    height: 110px;
+    background:
+        linear-gradient(90deg, #e5e7eb 10px, transparent 10px),
+        linear-gradient(#e5e7eb 10px, transparent 10px);
+    background-size: 22px 22px;
+    background-position: 0 0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.qrcode-desenho::before,
+.qrcode-desenho::after {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border: 5px solid #020617;
+    background: #e5e7eb;
+}
+
+.qrcode-desenho::before {
+    top: 4px;
+    left: 4px;
+}
+
+.qrcode-desenho::after {
+    bottom: 4px;
+    right: 4px;
+}
+
+.qrcode-box span {
+    font-size: 13px;
+    color: #94a3b8;
 }

@@ -1,46 +1,90 @@
 .inicio-modulos-fundo {
     min-height: 100vh;
     padding: 40px;
-    padding-bottom: 40px;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(to bottom, #001737, #002a63, #003a8f);
-    z-index: 1;
+    background: linear-gradient(180deg,
+            #00111f 0%,
+            #001f3a 40%,
+            #002f5e 70%,
+            #003f7a 100%);
 }
 
-.inicio-modulos-fundo::before,
+/* PARTÍCULAS PROFUNDAS */
+.inicio-modulos-fundo::before {
+    content: "";
+    position: absolute;
+    inset: -120%;
+    background-image:
+        radial-gradient(1px 1px at 5% 10%, rgba(120, 200, 255, 0.35), transparent),
+        radial-gradient(1px 1px at 10% 80%, rgba(140, 210, 255, 0.3), transparent),
+        radial-gradient(1px 1px at 15% 30%, rgba(100, 180, 240, 0.25), transparent),
+        radial-gradient(1px 1px at 20% 60%, rgba(160, 220, 255, 0.35), transparent),
+        radial-gradient(1px 1px at 25% 15%, rgba(120, 200, 255, 0.3), transparent),
+        radial-gradient(1px 1px at 30% 75%, rgba(140, 210, 255, 0.25), transparent),
+        radial-gradient(1px 1px at 35% 40%, rgba(100, 180, 240, 0.35), transparent),
+        radial-gradient(1px 1px at 40% 90%, rgba(160, 220, 255, 0.3), transparent),
+        radial-gradient(1px 1px at 45% 20%, rgba(120, 200, 255, 0.25), transparent),
+        radial-gradient(1px 1px at 50% 70%, rgba(140, 210, 255, 0.35), transparent),
+        radial-gradient(1px 1px at 55% 35%, rgba(100, 180, 240, 0.3), transparent),
+        radial-gradient(1px 1px at 60% 85%, rgba(160, 220, 255, 0.25), transparent),
+        radial-gradient(1px 1px at 65% 10%, rgba(120, 200, 255, 0.35), transparent),
+        radial-gradient(1px 1px at 70% 60%, rgba(140, 210, 255, 0.3), transparent),
+        radial-gradient(1px 1px at 75% 30%, rgba(100, 180, 240, 0.25), transparent),
+        radial-gradient(1px 1px at 80% 80%, rgba(160, 220, 255, 0.35), transparent),
+        radial-gradient(1px 1px at 85% 45%, rgba(120, 200, 255, 0.3), transparent),
+        radial-gradient(1px 1px at 90% 15%, rgba(140, 210, 255, 0.25), transparent),
+        radial-gradient(1px 1px at 95% 70%, rgba(100, 180, 240, 0.35), transparent);
+    background-repeat: repeat;
+    background-size: 220px 220px;
+    animation: aguaLenta 160s linear infinite;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(0.3px);
+}
+
+/* PARTÍCULAS MAIS PRÓXIMAS */
 .inicio-modulos-fundo::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
+    inset: -120%;
     background-image:
-        radial-gradient(2px 2px at 20% 20%, rgba(255, 255, 255, 0.6), transparent),
-        radial-gradient(2px 2px at 80% 40%, rgba(255, 255, 255, 0.5), transparent),
-        radial-gradient(2px 2px at 50% 70%, rgba(255, 255, 255, 0.3), transparent),
-        radial-gradient(3px 3px at 70% 90%, rgba(255, 255, 255, 0.7), transparent),
-        radial-gradient(2px 2px at 30% 50%, rgba(255, 255, 255, 0.4), transparent),
-        radial-gradient(3px 3px at 90% 20%, rgba(255, 255, 255, 0.5), transparent);
-
-    animation: estrelasMovendo 60s linear infinite;
+        radial-gradient(2px 2px at 10% 20%, rgba(180, 240, 255, 0.45), transparent),
+        radial-gradient(2px 2px at 20% 50%, rgba(160, 230, 255, 0.4), transparent),
+        radial-gradient(2px 2px at 30% 80%, rgba(140, 220, 255, 0.35), transparent),
+        radial-gradient(2px 2px at 40% 35%, rgba(180, 240, 255, 0.45), transparent),
+        radial-gradient(2px 2px at 50% 65%, rgba(160, 230, 255, 0.4), transparent),
+        radial-gradient(2px 2px at 60% 25%, rgba(140, 220, 255, 0.35), transparent),
+        radial-gradient(2px 2px at 70% 75%, rgba(180, 240, 255, 0.45), transparent),
+        radial-gradient(2px 2px at 80% 45%, rgba(160, 230, 255, 0.4), transparent),
+        radial-gradient(2px 2px at 90% 15%, rgba(140, 220, 255, 0.35), transparent);
+    background-repeat: repeat;
+    background-size: 320px 320px;
+    animation: aguaRapida 90s linear infinite;
     opacity: 0.45;
     pointer-events: none;
     z-index: 0;
+    filter: blur(0.2px);
 }
 
-.inicio-modulos-fundo::after {
-    animation-duration: 120s;
-    opacity: 0.30;
-}
-
-@keyframes estrelasMovendo {
+/* ANIMAÇÕES AQUÁTICAS */
+@keyframes aguaLenta {
     from {
-        transform: translateY(0);
+        transform: translate(0, 0);
     }
 
     to {
-        transform: translateY(-50%);
+        transform: translate(-15%, -55%);
+    }
+}
+
+@keyframes aguaRapida {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(10%, -85%);
     }
 }

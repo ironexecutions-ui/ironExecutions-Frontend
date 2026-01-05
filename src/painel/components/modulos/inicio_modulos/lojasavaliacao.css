@@ -1,18 +1,50 @@
+/* ===============================
+   CONTAINER PRINCIPAL
+=============================== */
+
 .lojas-container {
-    background: rgb(54, 68, 95);
-    margin: 40px auto;
-    max-width: 850px;
-    padding: 30px;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    max-width: 1200px;
+    margin: 90px auto;
+    padding: 48px 36px;
+
+    background:
+        radial-gradient(1200px 420px at top center,
+            rgba(37, 99, 235, 0.08),
+            transparent 60%),
+        linear-gradient(180deg,
+            #020617 0%,
+            #01030a 100%);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    color: #e5e7eb;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    position: relative;
+    overflow: hidden;
 }
 
+
+/* ===============================
+   TÍTULO
+=============================== */
+
 .lojas-container h2 {
-    font-size: 26px;
-    color: #ffffff;
-    margin-bottom: 20px;
+    text-align: center;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 36px;
+    color: #f8fafc;
 }
+
+
+/* ===============================
+   LISTA COM SCROLL
+=============================== */
 
 .lojas-lista {
     list-style: none;
@@ -20,97 +52,135 @@
     margin: 0;
 }
 
-.loja-item {
-    background: #e3f2fd;
-    padding: 14px;
-    border-radius: 10px;
-    font-size: 17px;
-    color: #0d47a1;
-    margin: 10px 0;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-    transition: 0.3s;
-}
-
-.loja-item:hover {
-    background: #bbdefb;
-    transform: translateY(-2px);
-}
-
-.avaliacao-estrelas {
-    margin-left: 8px;
-    font-size: 18px;
-}
-
-.estrela {
-    margin-right: 2px;
-}
-
-.estrela.cheia {
-    color: gold;
-}
-
-.estrela.meia {
-    color: goldenrod;
-    opacity: 0.7;
-}
-
-.estrela.vazia {
-    color: #ccc;
-}
-
-.sem-avaliacao {
-    color: #999;
-    margin-left: 8px;
-    font-style: italic;
-}
-
 .lojas-scroll {
-    max-height: 200px;
+    max-height: 380px;
     overflow-y: auto;
-    padding-right: 10px;
+    padding-right: 12px;
 }
 
-/* barra vertical personalizada */
+/* Scroll customizado */
 .lojas-scroll::-webkit-scrollbar {
     width: 8px;
 }
 
-.lojas-scroll::-webkit-scrollbar-thumb {
-    background: #1565c0;
-    border-radius: 10px;
-}
-
-.lojas-scroll::-webkit-scrollbar-thumb:hover {
-    background: #0d47a1;
-}
-
 .lojas-scroll::-webkit-scrollbar-track {
-    background: #e3f2fd;
-    border-radius: 10px;
+    background: transparent;
 }
+
+.lojas-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+            #2563eb,
+            #1e40af);
+    border-radius: 8px;
+}
+
+
+/* ===============================
+   ITEM DE LOJA
+=============================== */
 
 .loja-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    margin-bottom: 10px;
+    gap: 18px;
+    padding: 10px 13px;
+    margin: 14px;
+
+    background: linear-gradient(180deg,
+            #0b1220 0%,
+            #020617 100%);
+
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
 }
+
+.loja-item:hover {
+    transform: translateY(-4px);
+    border-color: #2563eb;
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+
+/* ===============================
+   FOTO / LOGO DA LOJA
+=============================== */
 
 .loja-foto {
-    width: 55px;
-    height: 55px;
-    border-radius: 10px;
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
     object-fit: cover;
+    background: #020617;
+    border: 1px solid #1e293b;
+    flex-shrink: 0;
 }
 
+
+/* ===============================
+   INFORMAÇÕES DA LOJA
+=============================== */
+
 .loja-info {
-    display: flex;
-    flex-direction: column;
     font-size: 16px;
     font-weight: 600;
-    color: #0d47a1;
+    color: #f1f5f9;
+    letter-spacing: 0.2px;
+}
+
+
+/* ===============================
+   AVALIAÇÃO
+=============================== */
+
+.avaliacao-estrelas {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.estrela {
+    font-size: 18px;
+}
+
+.estrela.cheia {
+    color: #facc15;
+}
+
+.estrela.meia {
+    color: #fde047;
+    opacity: 0.6;
+}
+
+.estrela.vazia {
+    color: #475569;
+}
+
+.sem-avaliacao {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-left: auto;
+}
+
+
+/* ===============================
+   ESTADO VAZIO
+=============================== */
+
+.lojas-container p {
+    text-align: center;
+    font-size: 15px;
+    color: #94a3b8;
+    padding: 20px 0;
 }

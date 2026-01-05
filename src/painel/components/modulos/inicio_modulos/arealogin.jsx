@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./arealogin.css";
 import { API_URL } from "../../../../../config";
 
@@ -14,10 +14,12 @@ export default function AreaLogin() {
 
     const [erro, setErro] = useState("");
 
+    const codigoRef = useRef(null);
+    const qrcodeRef = useRef(null);
+
     async function fazerLogin(url, body) {
         setErro("");
 
-        // 🔒 LOGOUT GLOBAL ANTES DE LOGAR
         localStorage.removeItem("token");
         localStorage.removeItem("usuario");
         localStorage.removeItem("cliente");
@@ -37,43 +39,24 @@ export default function AreaLogin() {
             return;
         }
 
-        // tenta pegar o token de todos os formatos possíveis
         const token =
             json.token ||
             json.access_token ||
             json.jwt ||
             json.accessToken;
 
-        const cliente =
-            json.usuario ||
-            json.cliente ||
-            json.user;
-
         if (!token) {
             setErro("Erro no login: token não recebido");
             return;
         }
 
-        if (!cliente) {
-            setErro("Erro no login: dados do usuário não recebidos");
-            return;
-        }
-
-        // salva corretamente
         localStorage.setItem("token", token);
 
-        // extrai o payload do JWT (fonte da verdade)
         const payload = JSON.parse(atob(token.split(".")[1]));
-
-        // salva cliente COM FUNÇÃO, SEM DEPENDER DO BANCO
         localStorage.setItem("cliente", JSON.stringify(payload));
 
-
-
-        // redireciona
         window.location.href = "/ironbusiness/perfil";
     }
-
 
     function entrarEmail(e) {
         e.preventDefault();
@@ -82,11 +65,13 @@ export default function AreaLogin() {
 
     function entrarCodigo(e) {
         e.preventDefault();
+        if (!codigo.trim()) return;
         fazerLogin("/login/codigo", { codigo });
     }
 
     function entrarQrcode(e) {
         e.preventDefault();
+        if (!qrcode.trim()) return;
         fazerLogin("/login/qrcode", { qrcode });
     }
 
@@ -105,10 +90,17 @@ export default function AreaLogin() {
             {modo === "email" && (
                 <form onSubmit={entrarEmail} className="area-login-form">
                     <label>Email</label>
-                    <input value={email} onChange={e => setEmail(e.target.value)} />
+                    <input
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
 
                     <label>Senha</label>
-                    <input type="password" value={senha} onChange={e => setSenha(e.target.value)} />
+                    <input
+                        type="password"
+                        value={senha}
+                        onChange={e => setSenha(e.target.value)}
+                    />
 
                     <button type="submit">Entrar</button>
                 </form>
@@ -116,19 +108,38 @@ export default function AreaLogin() {
 
             {modo === "codigo" && (
                 <form onSubmit={entrarCodigo} className="area-login-form">
-                    <label>Código de Barras</label>
-                    <input style={{ color: "transparent" }} value={codigo} onChange={e => setCodigo(e.target.value)} />
-
-                    <button type="submit">Entrar</button>
+                    <div
+                        className="barcode-box"
+                        onClick={() => codigoRef.current.focus()}
+                    >
+                        <span>📦 Clique e bipar o código</span>
+                        <input
+                            ref={codigoRef}
+                            value={codigo}
+                            onChange={e => setCodigo(e.target.value)}
+                            className="barcode-input"
+                            autoFocus
+                        />
+                    </div>
                 </form>
             )}
 
             {modo === "qrcode" && (
                 <form onSubmit={entrarQrcode} className="area-login-form">
-                    <label>QR Code</label>
-                    <input style={{ color: "transparent" }} value={qrcode} onChange={e => setQrcode(e.target.value)} />
-
-                    <button type="submit">Entrar</button>
+                    <div
+                        className="qrcode-box"
+                        onClick={() => qrcodeRef.current.focus()}
+                    >
+                        <div className="qrcode-desenho" />
+                        <span>📱 Clique e escaneie o QR Code</span>
+                        <input
+                            ref={qrcodeRef}
+                            value={qrcode}
+                            onChange={e => setQrcode(e.target.value)}
+                            className="barcode-input"
+                            autoFocus
+                        />
+                    </div>
                 </form>
             )}
         </div>

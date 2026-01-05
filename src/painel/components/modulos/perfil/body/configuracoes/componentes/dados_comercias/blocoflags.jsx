@@ -32,8 +32,10 @@ export default function BlocoFlags({ dados, podeEditar, salvar }) {
                 <div className="bf-item">
                     <label className="bf-label">
                         Impressão automática da comanda
+                        <span><br />
+                            Requer instalação e configuração prévia nos computadores do estabelecimento.                        </span>
                     </label>
-                    <br />
+                    <br /><br />
                     <select
                         className="bf-select"
                         disabled={!podeEditar}
@@ -53,7 +55,9 @@ export default function BlocoFlags({ dados, podeEditar, salvar }) {
                         <strong>Conectar maquininha automaticamente nos computadores </strong>  <br />
                         <span style={{
                             fontSize: "1rem"
-                        }} > é necessario Conectar as maquininhas no computadores manualmente </span>
+                        }} >
+                            As maquininhas precisam estar conectadas manualmente aos computadores antes do uso.                        </span>
+                        <br />
                     </label>
                     <br />
                     <select

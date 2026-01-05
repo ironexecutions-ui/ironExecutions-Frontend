@@ -135,10 +135,17 @@ export default function ProdutoAtual() {
             salvandoRef.current = false;
         }
     }
-    const imagemFinal =
-        produtoAtual?.imagem_url
-            ? produtoAtual.imagem_url
-            : produtoAtual?.imagem_comercio;
+    const imagemFinal = (() => {
+        if (produtoAtual?.imagem_url) {
+            return produtoAtual.imagem_url.split("|")[0];
+        }
+
+        if (produtoAtual?.imagem_comercio) {
+            return produtoAtual.imagem_comercio.split("|")[0];
+        }
+
+        return null;
+    })();
 
 
     return (

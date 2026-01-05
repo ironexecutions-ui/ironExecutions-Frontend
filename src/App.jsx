@@ -59,7 +59,7 @@ function RoteamentoComLoading() {
       />
       <Route path="/contrato/:codigo" element={<ContratoPublico />} />
       <Route path="/contrato" element={<ContratoPublico />} />
-      <Route path="/ironbusiness" element={<InicioModulos />} />
+      <Route path="/ironbusiness/*" element={<InicioModulos />} />
       <Route
         path="/cadastrocomercio"
         element={
