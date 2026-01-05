@@ -343,7 +343,7 @@
 
 .modulo-tag-flutuante {
     position: fixed;
-    top: 10px;
+    top: 10px !important;
     right: 25px;
 
     background: linear-gradient(135deg, #1f1f1f, #262626);
@@ -359,7 +359,6 @@
     color: #fff;
     font-size: 15px;
     cursor: pointer;
-
     z-index: 999999;
     /* Garantia máxima */
 

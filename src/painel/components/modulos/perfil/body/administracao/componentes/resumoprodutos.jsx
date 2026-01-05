@@ -71,7 +71,10 @@ export default function ResumoProdutos() {
                         <div className="lista-cards">
                             {itensVisiveis.map(item => (
                                 <div className="card-produto" key={item.id}>
-                                    <div className="card-info">
+                                    <div onClick={() => {
+                                        setEditar(item);
+                                        setModo("editar");
+                                    }} className="card-info">
                                         <h5>{item.nome}</h5>
 
                                         <span className="sub">
@@ -91,12 +94,7 @@ export default function ResumoProdutos() {
                                     </div>
 
                                     <div className="card-acoes">
-                                        <button onClick={() => {
-                                            setEditar(item);
-                                            setModo("editar");
-                                        }}>
-                                            Editar
-                                        </button>
+
                                         <button
                                             className="apagar"
                                             onClick={() => setConfirmarApagar(item)}

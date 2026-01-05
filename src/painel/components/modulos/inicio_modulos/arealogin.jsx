@@ -112,7 +112,7 @@ export default function AreaLogin() {
                         className="barcode-box"
                         onClick={() => codigoRef.current.focus()}
                     >
-                        <span>📦 Clique e bipar o código</span>
+                        <span>Clique e escaneie o código</span>
                         <input
                             ref={codigoRef}
                             value={codigo}
@@ -131,7 +131,7 @@ export default function AreaLogin() {
                         onClick={() => qrcodeRef.current.focus()}
                     >
                         <div className="qrcode-desenho" />
-                        <span>📱 Clique e escaneie o QR Code</span>
+                        <span>Clique e escaneie o QR Code</span>
                         <input
                             ref={qrcodeRef}
                             value={qrcode}
