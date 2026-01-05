@@ -15,6 +15,46 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
+.senha-status.aviso {
+    color: #b58900;
+}
+
+.senha-status.erro {
+    color: #dc2626;
+}
+
+.senha-status.ok {
+    color: #16a34a;
+}
+
+.input-texto.erro {
+    border-color: #dc2626;
+}
+
+.input-texto.ok {
+    border-color: #16a34a;
+}
+
+.senha-status.aviso {
+    color: #b58900;
+}
+
+.senha-status.erro {
+    color: #dc2626;
+}
+
+.senha-status.ok {
+    color: #16a34a;
+}
+
+.input-texto.erro {
+    border-color: #dc2626;
+}
+
+.input-texto.ok {
+    border-color: #16a34a;
+}
+
 /* ===============================
    TÍTULO
 =============================== */

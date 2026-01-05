@@ -1,22 +1,38 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./passocliente.css";
 
 export default function Passo4Cliente({ onFinalizar }) {
-
 
     const [email, setEmail] = useState("");
     const [nomeCompleto, setNomeCompleto] = useState("");
     const [senha, setSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
     const [cargo, setCargo] = useState("");
-    const [funcao, setFuncao] = useState("");
+    const [funcao] = useState("Administrador(a)");
     const [matricula, setMatricula] = useState("");
 
     const [erro, setErro] = useState("");
 
-    async function emailExiste(emailDigitado) {
-        return false;
+    function formatarNomeCompleto(valor) {
+        return valor.replace(/\b\w+/g, palavra => {
+            return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase();
+        });
+    }
+
+    function mensagemSenha() {
+        if (!confirmarSenha) {
+            return "As senhas devem ser iguais";
+        }
+        if (senha !== confirmarSenha) {
+            return "As senhas não coincidem";
+        }
+        return "As senhas coincidem";
+    }
+
+    function statusSenha() {
+        if (!confirmarSenha) return "aviso";
+        if (senha !== confirmarSenha) return "erro";
+        return "ok";
     }
 
     async function enviar(e) {
@@ -25,13 +41,6 @@ export default function Passo4Cliente({ onFinalizar }) {
 
         if (!email.trim()) {
             setErro("Digite o email");
-            return;
-        }
-
-        const existe = await emailExiste(email);
-
-        if (existe) {
-            setErro("Este email já está cadastrado");
             return;
         }
 
@@ -51,14 +60,13 @@ export default function Passo4Cliente({ onFinalizar }) {
         }
 
         onFinalizar({
-            email: email,
+            email,
             nome_completo: nomeCompleto,
-            senha: senha,
-            cargo: cargo,
-            funcao: funcao,
+            senha,
+            cargo,
+            funcao,
             matricula: matricula || null
         });
-
     }
 
     return (
@@ -67,18 +75,13 @@ export default function Passo4Cliente({ onFinalizar }) {
 
             <form onSubmit={enviar} className="formulario">
 
-                {erro && (
-                    <div className="erro-box">
-                        {erro}
-                    </div>
-                )}
+                {erro && <div className="erro-box">{erro}</div>}
 
                 <label>Email</label>
                 <input
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    placeholder="Digite seu email"
                     className="input-texto"
                 />
 
@@ -86,17 +89,17 @@ export default function Passo4Cliente({ onFinalizar }) {
                 <input
                     type="text"
                     value={nomeCompleto}
-                    onChange={e => setNomeCompleto(e.target.value)}
+                    onChange={e => setNomeCompleto(formatarNomeCompleto(e.target.value))}
                     placeholder="Digite seu nome completo"
                     className="input-texto"
                 />
+
 
                 <label>Senha</label>
                 <input
                     type="password"
                     value={senha}
                     onChange={e => setSenha(e.target.value)}
-                    placeholder="Digite a senha"
                     className="input-texto"
                 />
 
@@ -105,38 +108,49 @@ export default function Passo4Cliente({ onFinalizar }) {
                     type="password"
                     value={confirmarSenha}
                     onChange={e => setConfirmarSenha(e.target.value)}
-                    placeholder="Repita a senha"
+                    className={`input-texto ${statusSenha()}`}
+                />
+
+                <div className={`senha-status ${statusSenha()}`}>
+                    {mensagemSenha()}
+                </div>
+
+                <label>Função</label>
+                <input
+                    type="text"
+                    value={funcao}
+                    disabled
                     className="input-texto"
                 />
 
                 <label>Cargo</label>
                 <input
                     type="text"
+                    list="cargos"
                     value={cargo}
                     onChange={e => setCargo(e.target.value)}
-                    placeholder="Exemplo gerente"
                     className="input-texto"
                 />
-
-                <label>Função</label>
-                <input
-                    list="funcao" type="text"
-                    value={funcao}
-                    onChange={e => setFuncao(e.target.value)}
-                    placeholder="Exemplo administrador do sistema"
-                    className="input-texto"
-                />
-                <datalist id="funcao" >
-                    <option value="Administrador(a)">Administrador(a)</option>
-                    <option value="Supervisor(a)">Supervisor(a)</option>
-                    <option value="Funcionario(a)">Funcionari(a)</option>
+                <datalist id="cargos">
+                    <option value="Gerente" />
+                    <option value="Gerente Geral" />
+                    <option value="Administrador" />
+                    <option value="Administrador Financeiro" />
+                    <option value="Diretor" />
+                    <option value="Diretor Administrativo" />
+                    <option value="Sócio Administrador" />
+                    <option value="Responsável Legal" />
+                    <option value="Gestor de Operações" />
+                    <option value="Gestor Comercial" />
+                    <option value="Coordenador Administrativo" />
+                    <option value="Supervisor Geral" />
                 </datalist>
+
                 <label>Matrícula do comércio (opcional)</label>
                 <input
                     type="text"
                     value={matricula}
                     onChange={e => setMatricula(e.target.value)}
-                    placeholder="Opcional"
                     className="input-texto"
                 />
 
