@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./clientesadmin.css";
 import { API_URL } from "../../../../../config";
+import ClientesAdminIB from "./clientesadminib";
 
 export default function ClientesAdmin() {
 
@@ -19,6 +20,7 @@ export default function ClientesAdmin() {
     const [dias, setDias] = useState("");
     const [link, setLink] = useState("");
     const [processo, setProcesso] = useState("contratacao");
+    const [modoIB, setModoIB] = useState(false);
 
     const [confirmarApagar, setConfirmarApagar] = useState(null);
 
@@ -156,125 +158,207 @@ export default function ClientesAdmin() {
 
             {/* TOPO */}
             <div className="cli-top">
-                <h2 className="cli-titulo">Serviços Registrados</h2>
-
-                <button
-                    className="cli-adicionar"
-                    onClick={() => {
-                        limparCampos();
-                        setMostrarModal(true);
-                    }}
+                <h2
+                    className="cli-titulo cli-titulo-click"
+                    onClick={() => setModoIB(!modoIB)}
                 >
-                    Adicionar Serviço
-                </button>
+                    {modoIB
+                        ? "Serviços IronBusiness"
+                        : "Serviços de criação de sistemas registrados"}
+                </h2>
+
+                {!modoIB && (
+                    <button
+                        className="cli-adicionar"
+                        onClick={() => {
+                            limparCampos();
+                            setMostrarModal(true);
+                        }}
+                    >
+                        Adicionar Serviço
+                    </button>
+                )}
             </div>
 
-            {/* CONTADORES CLICÁVEIS */}
-            <div className="cli-stats">
-                <span
-                    className={filtro === "todos" ? "stat-ativo" : ""}
-                    onClick={() => setFiltro("todos")}
-                >
-                    Total: {servicos.length}
-                </span>
+            {/* CONTEÚDO */}
+            {modoIB ? (
 
-                <span
-                    className={filtro === "andamento" ? "stat-ativo" : ""}
-                    onClick={() => setFiltro("andamento")}
-                >
-                    Em andamento: {servicos.filter(s => s.processo === "andamento").length}
-                </span>
+                <ClientesAdminIB voltar={() => setModoIB(false)} />
 
-                <span
-                    className={filtro === "contratacao" ? "stat-ativo" : ""}
-                    onClick={() => setFiltro("contratacao")}
-                >
-                    contratacao: {servicos.filter(s => s.processo === "contratacao").length}
-                </span>
-
-                <span
-                    className={filtro === "finalizado" ? "stat-ativo" : ""}
-                    onClick={() => setFiltro("finalizado")}
-                >
-                    Finalizados: {servicos.filter(s => s.processo === "finalizado").length}
-                </span>
-            </div>
-
-            {/* TABELA */}
-            {loading ? (
-                <p style={{ color: "white" }}>Carregando...</p>
             ) : (
-                <table className="cli-tabela">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Loja</th>
-                            <th>Data</th>
-                            <th>Valor</th>
-                            <th>Dias</th>
-                            <th>Link</th>
-                            <th>Processo</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        {servicosFiltrados.map(s => (
-                            <tr key={s.id}>
-                                <td>{s.id}</td>
-                                <td>{s.cliente}</td>
-                                <td>{s.loja}</td>
-                                <td>{s.data}</td>
-                                <td>R$ {Number(s.valor).toFixed(2)}</td>
-                                <td>{s.dias}</td>
+                <>
+                    {/* CONTADORES CLICÁVEIS */}
+                    <div className="cli-stats">
+                        <span
+                            className={filtro === "todos" ? "stat-ativo" : ""}
+                            onClick={() => setFiltro("todos")}
+                        >
+                            Total: {servicos.length}
+                        </span>
 
-                                <td>
-                                    {s.link ? (
-                                        <a href={s.link} target="_blank" className="cli-link">Abrir</a>
-                                    ) : "Nenhum"}
-                                </td>
+                        <span
+                            className={filtro === "andamento" ? "stat-ativo" : ""}
+                            onClick={() => setFiltro("andamento")}
+                        >
+                            Em andamento: {servicos.filter(s => s.processo === "andamento").length}
+                        </span>
 
-                                <td className={`proc proc-${s.processo}`}>
-                                    {s.processo}
-                                </td>
+                        <span
+                            className={filtro === "contratacao" ? "stat-ativo" : ""}
+                            onClick={() => setFiltro("contratacao")}
+                        >
+                            Contratação: {servicos.filter(s => s.processo === "contratacao").length}
+                        </span>
 
-                                <td>
-                                    <button className="cli-editar" onClick={() => editar(s)}>
-                                        Editar
-                                    </button>
+                        <span
+                            className={filtro === "finalizado" ? "stat-ativo" : ""}
+                            onClick={() => setFiltro("finalizado")}
+                        >
+                            Finalizados: {servicos.filter(s => s.processo === "finalizado").length}
+                        </span>
+                    </div>
 
-                                    <button className="cli-apagar" onClick={() => apagar(s.id)}>
-                                        {confirmarApagar === s.id ? "Confirmar" : "Apagar"}
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                    {/* TABELA */}
+                    {loading ? (
+                        <p style={{ color: "white" }}>Carregando...</p>
+                    ) : (
+                        <table className="cli-tabela">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Loja</th>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                    <th>Dias</th>
+                                    <th>Link</th>
+                                    <th>Processo</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {servicosFiltrados.map(s => (
+                                    <tr key={s.id}>
+                                        <td>{s.cliente}</td>
+                                        <td>{s.loja}</td>
+                                        <td>{s.data}</td>
+                                        <td>R$ {Number(s.valor).toFixed(2)}</td>
+                                        <td>{s.dias}</td>
+
+                                        <td>
+                                            {s.link ? (
+                                                <a
+                                                    href={s.link}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="cli-link"
+                                                >
+                                                    Abrir
+                                                </a>
+                                            ) : "Nenhum"}
+                                        </td>
+
+                                        <td className={`proc proc-${s.processo}`}>
+                                            {s.processo}
+                                        </td>
+
+                                        <td>
+                                            <button
+                                                className="cli-editar"
+                                                onClick={() => editar(s)}
+                                            >
+                                                Editar
+                                            </button>
+
+                                            <button
+                                                className="cli-apagar"
+                                                onClick={() => apagar(s.id)}
+                                            >
+                                                {confirmarApagar === s.id
+                                                    ? "Confirmar"
+                                                    : "Apagar"}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </>
             )}
 
             {/* MODAL */}
             {mostrarModal && (
-                <div className="cli-modal-overlay" onClick={() => setMostrarModal(false)}>
-                    <div className="cli-modal" onClick={(e) => e.stopPropagation()}>
-
+                <div
+                    className="cli-modal-overlay"
+                    onClick={() => setMostrarModal(false)}
+                >
+                    <div
+                        className="cli-modal"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <h2 className="cli-modal-titulo">
                             {modoEdicao ? "Editar Serviço" : "Cadastrar Serviço"}
                         </h2>
 
-                        <form onSubmit={modoEdicao ? atualizar : cadastrar} className="cli-form">
+                        <form
+                            onSubmit={modoEdicao ? atualizar : cadastrar}
+                            className="cli-form"
+                        >
+                            <input
+                                type="text"
+                                placeholder="Cliente"
+                                value={cliente}
+                                onChange={(e) => setCliente(e.target.value)}
+                                required
+                            />
 
-                            <input type="text" placeholder="Cliente" value={cliente} onChange={(e) => setCliente(e.target.value)} required />
-                            <input type="text" placeholder="Loja" value={loja} onChange={(e) => setLoja(e.target.value)} required />
-                            <input type="date" value={data} onChange={(e) => setData(e.target.value)} required />
-                            <input type="number" step="0.01" placeholder="Valor" value={valor} onChange={(e) => setValor(e.target.value)} required />
-                            <input type="number" placeholder="Dias" value={dias} onChange={(e) => setDias(e.target.value)} required />
-                            <input type="text" placeholder="Link (opcional)" value={link} onChange={(e) => setLink(e.target.value)} />
+                            <input
+                                type="text"
+                                placeholder="Loja"
+                                value={loja}
+                                onChange={(e) => setLoja(e.target.value)}
+                                required
+                            />
 
-                            <select value={processo} onChange={(e) => setProcesso(e.target.value)} required>
-                                <option value="contratacao">contratacao</option>
+                            <input
+                                type="date"
+                                value={data}
+                                onChange={(e) => setData(e.target.value)}
+                                required
+                            />
 
+                            <input
+                                type="number"
+                                step="0.01"
+                                placeholder="Valor"
+                                value={valor}
+                                onChange={(e) => setValor(e.target.value)}
+                                required
+                            />
+
+                            <input
+                                type="number"
+                                placeholder="Dias"
+                                value={dias}
+                                onChange={(e) => setDias(e.target.value)}
+                                required
+                            />
+
+                            <input
+                                type="text"
+                                placeholder="Link (opcional)"
+                                value={link}
+                                onChange={(e) => setLink(e.target.value)}
+                            />
+
+                            <select
+                                value={processo}
+                                onChange={(e) => setProcesso(e.target.value)}
+                                required
+                            >
+                                <option value="contratacao">Contratação</option>
                                 <option value="andamento">Em andamento</option>
                                 <option value="finalizado">Finalizado</option>
                             </select>
@@ -283,11 +367,11 @@ export default function ClientesAdmin() {
                                 {modoEdicao ? "Atualizar" : "Salvar"}
                             </button>
                         </form>
-
                     </div>
                 </div>
             )}
 
         </div>
     );
+
 }

@@ -163,11 +163,74 @@
 }
 
 /* =========================
-   RESPONSIVO
+   TABLET
 ========================= */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
+
     .ppv-container {
-        width: 300px;
         right: 16px;
+        top: 80px;
+        width: 320px;
+        max-height: 300px;
+    }
+
+    .ppv-item img {
+        width: 46px;
+        height: 46px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .ppv-container {
+        right: 12px;
+        left: 12px;
+        width: auto;
+        top: auto;
+        bottom: 16px;
+        max-height: 45vh;
+        border-radius: 16px;
+    }
+
+    .ppv-item {
+        gap: 10px;
+    }
+
+    .ppv-item img {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 420px) {
+
+    .ppv-container {
+        padding: 14px;
+        bottom: 12px;
+        max-height: 50vh;
+    }
+
+    .ppv-container h5 {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .ppv-item {
+        flex-direction: row;
+        padding: 8px;
+    }
+
+    .ppv-item strong {
+        font-size: 12px;
+    }
+
+    .ppv-item span {
+        font-size: 11px;
     }
 }

@@ -26,6 +26,17 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
         const json = await resp.json();
         setComandas(json);
     }
+    function gerarSlugEmpresa(nome) {
+        if (!nome) return "";
+
+        return nome
+            .toLowerCase()
+            .normalize("NFD")                 // remove acentos
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9\s-]/g, "")     // remove caracteres inválidos
+            .trim()
+            .replace(/\s+/g, "-");            // troca espaços por -
+    }
 
     useEffect(() => {
         async function carregar() {
@@ -123,7 +134,6 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
         if (!confirmarLogout) {
             setConfirmarLogout(true);
 
-            // volta ao normal depois de 3 segundos
             setTimeout(() => {
                 setConfirmarLogout(false);
             }, 3000);
@@ -135,9 +145,17 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
         localStorage.removeItem("token");
         localStorage.removeItem("usuario");
 
+        // gera slug da empresa
+        const empresaSlug = gerarSlugEmpresa(loja?.loja);
+
         // redireciona
-        window.location.href = "/ironbusiness";
+        if (empresaSlug) {
+            window.location.href = `/ironbusiness/${empresaSlug}`;
+        } else {
+            window.location.href = "/ironbusiness";
+        }
     }
+
 
     return (
         <>

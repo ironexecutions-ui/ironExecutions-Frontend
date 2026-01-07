@@ -144,3 +144,58 @@
         transform: translateY(0px);
     }
 }
+
+/* ===========================================================
+   ÁREA DE INFORMAÇÕES
+   =========================================================== */
+
+.ha-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* ===========================================================
+   BOTÕES DE MODO
+   =========================================================== */
+
+.ha-modos {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Botão padrão (cinza) */
+.ha-botao {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #d1d1d1;
+    color: #222;
+    font-size: 13px;
+    font-weight: 600;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Hover */
+.ha-botao:hover {
+    background: #bdbdbd;
+    transform: translateY(-1px);
+}
+
+/* Botão ativo */
+.ha-botao.ativo {
+    background: #000000;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* Hover do ativo */
+.ha-botao.ativo:hover {
+    background: #111111;
+}

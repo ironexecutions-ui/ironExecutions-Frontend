@@ -21,7 +21,7 @@ export default function Produtividade() {
     =============================== */
     useEffect(() => {
         function verificarDispositivo() {
-            if (window.innerWidth < 1124) {
+            if (window.innerWidth < 624) {
                 setBloqueado(true);
             } else {
                 setBloqueado(false);
@@ -61,7 +61,7 @@ export default function Produtividade() {
 
                 <div className="linha-superior">
 
-                    <div className="prod-card buscar buscar-wrapper">
+                    <div style={{ background: "#102038", border: "2px solid #d4af37", maxHeight: "95%" }} className="prod-card buscar buscar-wrapper">
                         <BuscarProduto />
                         <Infos />
                     </div>
@@ -77,7 +77,7 @@ export default function Produtividade() {
                         <ProdutoAtual />
                     </div>
 
-                    <div style={{ padding: "0" }} className="prod-card total">
+                    <div style={{ padding: "0", background: "transparent", border: "none" }} className="prod-card total">
                         <TotalVenda />
                     </div>
                 </div>

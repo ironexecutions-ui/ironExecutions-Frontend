@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import "./headeradmin.css";
 
-export default function HeaderAdmin({ funcionario }) {
+export default function HeaderAdmin({ funcionario, modo, setModo }) {
 
     const [mostrarModal, setMostrarModal] = useState(false);
 
     return (
         <>
             <header className="ha-header">
+
                 <img
                     src={funcionario.foto}
                     alt="Foto do funcionário"
                     className="ha-foto"
                 />
 
-                <div>
+                <div className="ha-info">
                     <h2 className="ha-nome">
                         {funcionario.nome} {funcionario.sobrenome}
                     </h2>
@@ -25,9 +26,28 @@ export default function HeaderAdmin({ funcionario }) {
                     >
                         {funcionario.funcao}
                     </p>
+
+                    {/* BOTÕES DE MODO */}
+                    <div style={{ display: "none" }} className="ha-modos">
+                        <button
+                            className={`ha-botao ${modo === "servicos" ? "ativo" : ""}`}
+                            onClick={() => setModo("servicos")}
+                        >
+                            Modo Serviços
+                        </button>
+
+                        <button
+                            className={`ha-botao ${modo === "ib" ? "ativo" : ""}`}
+                            onClick={() => setModo("ib")}
+                        >
+                            Modo IronBusiness
+                        </button>
+                    </div>
                 </div>
+
             </header>
 
+            {/* MODAL DE RESPONSABILIDADE */}
             {mostrarModal && (
                 <div
                     className="ha-modal-overlay"

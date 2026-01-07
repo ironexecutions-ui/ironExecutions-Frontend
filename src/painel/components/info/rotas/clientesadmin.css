@@ -307,3 +307,17 @@
     box-shadow: 0 0 10px rgba(29, 122, 227, 0.6);
     cursor: pointer;
 }
+
+.cli-titulo-click {
+    cursor: pointer;
+    transition:
+        color 0.25s ease,
+        transform 0.2s ease,
+        letter-spacing 0.2s ease;
+}
+
+.cli-titulo-click:hover {
+    color: #c9dbf0;
+    transform: scale(1.02);
+    letter-spacing: 0.5px;
+}

@@ -142,23 +142,94 @@
 }
 
 /* =========================
-   RESPONSIVO
+   TABLET
 ========================= */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+
     .administracao-container {
-        padding: 22px;
+        padding: 26px 24px;
+    }
+
+    .administracao-container h3 {
+        font-size: 20px;
+        margin-bottom: 18px;
     }
 
     .administracao-botoes {
         gap: 10px;
+        margin-bottom: 22px;
     }
 
     .administracao-botoes button {
-        flex: 1;
-        justify-content: center;
+        padding: 10px 16px;
+        font-size: 13px;
     }
 
     .administracao-conteudo {
-        padding: 20px;
+        padding: 22px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .administracao-container {
+        padding: 20px 16px;
+        min-height: auto;
+    }
+
+    .administracao-container h3 {
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .administracao-botoes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .administracao-botoes button {
+        width: 100%;
+        padding: 14px;
+        font-size: 14px;
+        border-radius: 16px;
+    }
+
+    .administracao-conteudo {
+        padding: 18px 16px;
+        border-radius: 16px;
+        min-height: auto;
+    }
+
+    .administracao-conteudo::before {
+        left: 16px;
+        right: 16px;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 420px) {
+
+    .administracao-container {
+        padding: 16px 12px;
+    }
+
+    .administracao-container h3 {
+        font-size: 16px;
+        letter-spacing: 0.2px;
+    }
+
+    .administracao-botoes button {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .administracao-conteudo {
+        padding: 14px 12px;
     }
 }

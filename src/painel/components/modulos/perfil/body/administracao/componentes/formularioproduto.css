@@ -206,19 +206,110 @@
 }
 
 /* =========================
-   MOBILE
+   TABLET
 ========================= */
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
+
     .form-produto {
-        padding: 22px;
-        border-radius: 20px;
+        padding: 26px;
+        border-radius: 22px;
     }
 
-    .topo-form h4 {
-        font-size: 18px;
+    .tipos {
+        gap: 12px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .acoes {
+        gap: 12px;
+    }
+
+    .disponivel,
+    .salvar {
+        max-width: 45%;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .form-produto {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .topo-form {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .topo-form button {
+        width: 100%;
+        text-align: center;
     }
 
     .tipos {
         grid-template-columns: 1fr;
+    }
+
+    .tipos button {
+        font-size: 15px;
+        padding: 14px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .acoes {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .disponivel,
+    .salvar {
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 420px) {
+
+    .form-produto {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .topo-form h4 {
+        font-size: 16px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .tipos button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .grid input {
+        font-size: 13px;
+        padding: 12px 14px;
+    }
+
+    .disponivel,
+    .salvar {
+        font-size: 13px;
+        padding: 12px;
     }
 }

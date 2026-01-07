@@ -169,24 +169,6 @@
     transform: scale(1.04);
 }
 
-/* Responsividade */
-@media (max-width: 760px) {
-    .per-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .per-acoes {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .per-btn {
-        flex: 1;
-    }
-}
-
 .header-mini {
     position: fixed;
     top: 14px;
@@ -310,266 +292,6 @@
     opacity: 1;
 }
 
-/* Ciclo:
-   0 a 90 por cento do tempo: meio invisível
-   90 a 100 por cento do tempo: visível
-*/
-@keyframes pulsarHeader {
-    0% {
-        opacity: 0.35;
-    }
-
-    90% {
-        opacity: 0.35;
-    }
-
-    100% {
-        opacity: 2;
-    }
-}
-
-/* TELAS MUITO GRANDES (mais espaçamento, fontes melhores) */
-@media (min-width: 1500px) {
-    .per-header {
-        padding: 30px;
-    }
-
-    .per-loja-img {
-        width: 72px;
-        height: 72px;
-    }
-
-    .per-loja-nome {
-        font-size: 24px;
-    }
-
-    .per-nome {
-        font-size: 22px;
-    }
-
-    .per-btn {
-        font-size: 16px;
-        padding: 12px 20px;
-    }
-
-    .header-mini {
-        padding: 12px 22px;
-        right: 20px;
-        top: 20px;
-    }
-
-    .mini-img {
-        width: 46px;
-        height: 46px;
-    }
-
-    .mini-nome {
-        font-size: 18px;
-    }
-}
-
-/* DESKTOP PADRÃO */
-@media (max-width: 1200px) {
-    .per-header {
-        gap: 16px;
-        padding: 20px;
-    }
-
-    .per-loja-img {
-        width: 56px;
-        height: 56px;
-    }
-
-    .per-loja-nome {
-        font-size: 19px;
-    }
-}
-
-/* DESKTOP PEQUENO E TABLET DEITADO */
-@media (max-width: 992px) {
-    .per-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 22px;
-    }
-
-    .per-info {
-        width: 100 per cent;
-    }
-
-    .per-acoes {
-        width: 100 per cent;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    .per-btn {
-        flex: 1;
-        min-width: 120px;
-        font-size: 15px;
-    }
-
-    .header-mini {
-        right: 16px;
-        top: 16px;
-        padding: 9px 16px;
-    }
-
-    .mini-img {
-        width: 28px;
-        height: 28px;
-    }
-
-    .mini-nome {
-        font-size: 10px;
-    }
-}
-
-/* TABLET VERTICAL */
-@media (max-width: 768px) {
-    .per-header {
-        padding: 18px;
-    }
-
-    .per-loja-img {
-        width: 52px;
-        height: 52px;
-    }
-
-    .per-loja-nome {
-        font-size: 18px;
-    }
-
-    .per-nome {
-        font-size: 17px;
-    }
-
-    .per-cargo,
-    .per-funcao {
-        font-size: 13px;
-    }
-
-    .per-btn {
-        font-size: 14px;
-        padding: 9px 14px;
-    }
-
-    .header-mini {
-        padding: 8px 14px;
-        right: 12px;
-        top: 12px;
-    }
-
-    .mini-img {
-        width: 24px;
-        height: 24px;
-    }
-
-    .mini-nome {
-        font-size: 8px;
-    }
-}
-
-/* CELULAR */
-@media (max-width: 480px) {
-    .per-header {
-        padding: 16px;
-        border-radius: 22px;
-    }
-
-    .per-loja {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .per-loja-img {
-        width: 48px;
-        height: 48px;
-    }
-
-    .per-loja-nome {
-        font-size: 17px;
-    }
-
-    .per-nome {
-        font-size: 16px;
-    }
-
-    .per-acoes {
-        flex-direction: column;
-        gap: 10px;
-        width: 100 per cent;
-    }
-
-    .per-btn {
-        width: 100 per cent;
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .header-mini {
-        padding: 7px 12px;
-        right: 10px;
-        top: 10px;
-        gap: 8px;
-    }
-
-    .mini-img {
-        width: 22px;
-        height: 22px;
-    }
-
-    .mini-nome {
-        font-size: 7px;
-    }
-}
-
-/* CELULAR MUITO PEQUENO */
-@media (max-width: 360px) {
-    .per-header {
-        padding: 14px;
-    }
-
-    .per-loja-img {
-        width: 42px;
-        height: 42px;
-    }
-
-    .per-loja-nome {
-        font-size: 15px;
-    }
-
-    .per-nome {
-        font-size: 15px;
-    }
-
-    .per-cargo,
-    .per-funcao {
-        font-size: 12px;
-    }
-
-    .per-btn {
-        font-size: 13px;
-        padding: 8px 12px;
-    }
-
-    .header-mini {
-        padding: 6px 10px;
-        right: 8px;
-        top: 8px;
-    }
-
-    .mini-img {
-        width: 18px;
-        height: 18px;
-    }
-
-    .mini-nome {
-        font-size: 5px;
-    }
-}
-
 /* ===============================
    OVERLAY
 =============================== */
@@ -588,9 +310,10 @@
    MODAL CONTAINER
 =============================== */
 .modal-fechamento {
-    width: 100%;
-    max-width: 500px;
+    width: 90% !important;
+    max-width: 500px !important;
     max-height: 85vh;
+
     background: linear-gradient(180deg, #020617, #020617);
     border: 1px solid #1e293b;
     border-radius: 18px;
@@ -741,4 +464,156 @@
 .lista-comandas {
     scrollbar-width: thin;
     scrollbar-color: #22c55e transparent;
+}
+
+/* =========================
+   RESPONSIVO GERAL HEADER PERFIL
+========================= */
+@media (max-width: 1024px) {
+
+    .per-header {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .per-info {
+        min-width: unset;
+    }
+}
+
+/* =========================
+   TABLET E MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .per-header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        border-radius: 24px;
+        gap: 14px;
+    }
+
+    .per-loja {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .per-loja-img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .per-loja-nome {
+        font-size: 16px;
+    }
+
+    .per-info {
+        width: 100%;
+        padding-left: 12px;
+    }
+
+    .per-info::before {
+        width: 3px;
+    }
+
+    .per-nome {
+        font-size: 15px;
+    }
+
+    .per-cargo,
+    .per-funcao {
+        font-size: 13px;
+    }
+
+    .per-acoes {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+    }
+
+    .per-btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    /* HEADER MINI */
+    .header-mini {
+        top: 10px;
+        right: 10px;
+        padding: 8px 14px;
+        border-radius: 12px;
+    }
+
+    .mini-img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .mini-nome {
+        font-size: 14px;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+        align-items: flex-end;
+    }
+
+    .modal-fechamento {
+        width: 100%;
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: 18px 18px 0 0;
+        padding: 18px 16px;
+    }
+}
+
+/* =========================
+   CELULAR
+========================= */
+@media (max-width: 480px) {
+
+    .per-header {
+        padding: 14px;
+        border-radius: 20px;
+    }
+
+    .per-loja-img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .per-loja-nome {
+        font-size: 15px;
+    }
+
+    .per-nome {
+        font-size: 14px;
+    }
+
+    .per-cargo,
+    .per-funcao {
+        font-size: 12px;
+    }
+
+    .per-acoes {
+        grid-template-columns: 1fr;
+    }
+
+    .per-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .mini-img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .mini-nome {
+        font-size: 12px;
+    }
 }

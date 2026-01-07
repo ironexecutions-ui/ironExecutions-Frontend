@@ -1,0 +1,433 @@
+/* =========================
+   CONTAINER PRINCIPAL
+========================= */
+.pg-container {
+    max-width: 920px;
+    margin: auto auto;
+    padding: 32px;
+    background: linear-gradient(180deg, #0f172a, #020617);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    color: #e5e7eb;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+.pg-container h2 {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 28px;
+    letter-spacing: 0.4px;
+}
+
+/* =========================
+   INPUT
+========================= */
+.pg-input {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: #f9fafb;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.pg-input::placeholder {
+    color: #9ca3af;
+}
+
+.pg-input:focus {
+    border-color: #22d3ee;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
+}
+
+/* =========================
+   BOTÕES
+========================= */
+.pg-btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: #020617;
+    background: linear-gradient(135deg, #22d3ee, #38bdf8);
+    box-shadow: 0 12px 30px rgba(34, 211, 238, 0.35);
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.pg-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 40px rgba(34, 211, 238, 0.45);
+}
+
+.pg-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* =========================
+   BOTÃO PIX
+========================= */
+.pg-btn.pix {
+    background: linear-gradient(135deg, #22c55e, #4ade80);
+    box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
+}
+
+.pg-btn.pix:hover {
+    box-shadow: 0 18px 40px rgba(34, 197, 94, 0.45);
+}
+
+/* =========================
+   ERRO
+========================= */
+.pg-erro {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(239, 68, 68, 0.15);
+    color: #fecaca;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* =========================
+   BOX DE DADOS
+========================= */
+.pg-box {
+    margin-top: 28px;
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+/* =========================
+   TEXTO DENTRO DO BOX
+========================= */
+.pg-box p {
+    margin: 10px 0;
+    font-size: 15px;
+    color: #e5e7eb;
+}
+
+.pg-box strong {
+    color: #f9fafb;
+}
+
+/* =========================
+   PIX BOX
+========================= */
+.pix-box {
+    margin-top: 22px;
+    padding: 22px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    text-align: center;
+}
+
+/* =========================
+   QR CODE
+========================= */
+.pix-box img {
+    margin: 18px auto;
+    max-width: 220px;
+    border-radius: 14px;
+    background: #ffffff;
+    padding: 10px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================
+   TEXTO PIX
+========================= */
+.pix-texto {
+    width: 100%;
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px dashed rgba(34, 197, 94, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+    color: #ecfeff;
+    font-size: 13px;
+    resize: none;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+}
+
+.pix-texto:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #22c55e;
+}
+
+/* =========================
+   STATUS
+========================= */
+.pix-box p:last-child {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #bbf7d0;
+    animation: piscar 1.4s infinite;
+}
+
+@keyframes piscar {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.45;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* =====================================================
+   RESPONSIVO GERAL
+===================================================== */
+
+/* =========================
+   TELAS ATÉ 1024px
+========================= */
+@media (max-width: 1024px) {
+
+    .pg-container {
+        margin: 40px 20px;
+        padding: 28px;
+    }
+
+    .pg-container h2 {
+        font-size: 24px;
+    }
+
+    .pg-box {
+        padding: 20px;
+    }
+
+    .pix-box img {
+        max-width: 200px;
+    }
+}
+
+/* =========================
+   TELAS ATÉ 768px
+========================= */
+@media (max-width: 768px) {
+
+    .pg-container {
+        margin: 30px 16px;
+        padding: 24px;
+        border-radius: 18px;
+    }
+
+    .pg-container h2 {
+        font-size: 22px;
+    }
+
+    .pg-input {
+        padding: 15px 16px;
+        font-size: 14px;
+    }
+
+    .pg-btn {
+        padding: 14px;
+        font-size: 14px;
+    }
+
+    .pg-box p {
+        font-size: 14px;
+    }
+
+    .pix-box {
+        padding: 18px;
+    }
+
+    .pix-box img {
+        max-width: 180px;
+        padding: 8px;
+    }
+
+    .pix-texto {
+        font-size: 12px;
+        padding: 12px;
+    }
+}
+
+/* =========================
+   TELAS ATÉ 480px
+========================= */
+@media (max-width: 480px) {
+
+    .pg-container {
+        margin: 20px 12px;
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .pg-container h2 {
+        font-size: 20px;
+        margin-bottom: 22px;
+    }
+
+    .pg-input {
+        padding: 14px;
+        font-size: 14px;
+        border-radius: 12px;
+    }
+
+    .pg-btn {
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 14px;
+    }
+
+    .pg-erro {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .pg-box {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .pg-box p {
+        font-size: 13px;
+    }
+
+    .pix-box {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .pix-box img {
+        max-width: 160px;
+    }
+
+    .pix-texto {
+        font-size: 12px;
+        padding: 11px;
+    }
+}
+
+/* =========================
+   TELAS MUITO PEQUENAS ATÉ 360px
+========================= */
+@media (max-width: 360px) {
+
+    .pg-container {
+        margin: 16px 10px;
+        padding: 16px;
+    }
+
+    .pg-container h2 {
+        font-size: 18px;
+    }
+
+    .pg-input {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .pg-btn {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .pix-box img {
+        max-width: 140px;
+    }
+
+    .pix-box p {
+        font-size: 12px;
+    }
+}
+
+/* =========================
+   MELHOR TOQUE EM MOBILE
+========================= */
+@media (hover: none) {
+
+    .pg-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .pix-texto:hover {
+        background: rgba(255, 255, 255, 0.06);
+    }
+}
+
+/* =========================
+   OVERLAY DE CARREGAMENTO
+========================= */
+.pg-loading {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    z-index: 50;
+}
+
+/* =========================
+   BOX CENTRAL
+========================= */
+.pg-loading-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 28px 36px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #020617, #020617);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================
+   TEXTO
+========================= */
+.pg-loading-box p {
+    font-size: 15px;
+    font-weight: 500;
+    color: #e5e7eb;
+    letter-spacing: 0.3px;
+}
+
+/* =========================
+   SPINNER PREMIUM
+========================= */
+.pg-spinner {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.12);
+    border-top-color: #22d3ee;
+    animation: pg-spin 0.9s linear infinite;
+}
+
+@keyframes pg-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

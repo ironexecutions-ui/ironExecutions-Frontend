@@ -307,3 +307,118 @@
 .lista-itens-box.tema-claro .item-preco {
     color: #000000;
 }
+
+/* ===============================
+   DESKTOP MENOR
+=============================== */
+@media (max-width: 1024px) {
+    .lista-itens-box {
+        padding: 14px;
+    }
+
+    .lista-itens-conteudo {
+        gap: 8px;
+    }
+
+    .item-preco {
+        font-size: 13.5px;
+    }
+}
+
+/* ===============================
+   TABLET
+=============================== */
+@media (max-width: 768px) {
+    .lista-itens-box {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .item-linha {
+        padding: 9px 10px;
+        gap: 10px;
+    }
+
+    .item-nome {
+        font-size: 12.5px;
+    }
+
+    .item-qtd {
+        font-size: 12.5px;
+        min-width: 20px;
+    }
+
+    .btn-mais,
+    .btn-menos,
+    .btn-remover {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
+
+    .item-preco {
+        font-size: 13px;
+    }
+}
+
+/* ===============================
+   CELULAR
+=============================== */
+@media (max-width: 600px) {
+    .lista-itens-box {
+        padding: 10px;
+    }
+
+    .lista-itens-conteudo {
+        gap: 6px;
+        padding-right: 4px;
+    }
+
+    .item-linha {
+        flex-wrap: wrap;
+        row-gap: 6px;
+    }
+
+    .item-nome {
+        width: 100%;
+        font-size: 12.5px;
+    }
+
+    .item-controles {
+        gap: 5px;
+    }
+
+    .item-preco {
+        margin-left: auto;
+        font-size: 12.5px;
+    }
+}
+
+/* ===============================
+   CELULARES MUITO PEQUENOS
+=============================== */
+@media (max-width: 360px) {
+    .lista-itens-box {
+        padding: 8px;
+    }
+
+    .item-linha {
+        padding: 8px;
+    }
+
+    .item-nome {
+        font-size: 12px;
+    }
+
+    .btn-mais,
+    .btn-menos,
+    .btn-remover {
+        width: 22px;
+        height: 22px;
+        font-size: 13px;
+    }
+
+    .item-preco {
+        font-size: 12px;
+    }
+}

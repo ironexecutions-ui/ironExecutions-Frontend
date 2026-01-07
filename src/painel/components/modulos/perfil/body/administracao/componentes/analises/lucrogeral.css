@@ -136,3 +136,87 @@
     cursor: pointer;
     width: fit-content;
 }
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+
+    .lucro-geral-container {
+        margin: 20px;
+        gap: 16px;
+    }
+
+    .lucro-card {
+        min-width: 200px;
+    }
+
+    .lucro-geral-filtro {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .lucro-geral-container {
+        margin: 16px;
+        gap: 14px;
+    }
+
+    .lucro-card {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .lucro-geral-filtro {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .lucro-geral-filtro input {
+        width: 100%;
+    }
+
+    .lucro-alerta {
+        width: 100%;
+        text-align: center;
+    }
+
+    .lucro-ranking-bloco {
+        padding: 12px 14px;
+    }
+
+    .lucro-ranking-bloco h5 {
+        font-size: 13px;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 420px) {
+
+    .lucro-geral-container {
+        margin: 12px;
+        gap: 12px;
+    }
+
+    .lucro-card strong {
+        font-size: 16px;
+    }
+
+    .lucro-item {
+        font-size: 12px;
+        padding: 6px 4px;
+    }
+
+    .lucro-alerta {
+        font-size: 12px;
+        padding: 9px 12px;
+    }
+}

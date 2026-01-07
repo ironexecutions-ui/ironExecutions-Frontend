@@ -338,3 +338,98 @@
     transform: translateY(0);
     box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
 }
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+
+    .grafico-ganhos-topo {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .grafico-ganhos-topo button {
+        padding: 10px 18px;
+        font-size: 12px;
+    }
+
+    .grafico-ganhos-conteudo {
+        height: 340px;
+        border-radius: 24px;
+    }
+
+    .ganhos-detalhes {
+        padding: 18px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .grafico-ganhos-topo {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .grafico-ganhos-topo button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .grafico-ganhos-conteudo {
+        height: 300px;
+        border-radius: 20px;
+    }
+
+    .ganhos-detalhes-topo {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .ganhos-detalhes-topo button {
+        width: 100%;
+    }
+
+    .ganhos-detalhes {
+        padding: 16px;
+    }
+
+    .ganhos-detalhes table {
+        font-size: 11px;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 420px) {
+
+    .grafico-ganhos-topo button {
+        font-size: 11px;
+        padding: 9px 14px;
+    }
+
+    .grafico-ganhos-conteudo {
+        height: 260px;
+        border-radius: 18px;
+    }
+
+    .ganhos-detalhes h4 {
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .ganhos-detalhes {
+        padding: 14px;
+        border-radius: 18px;
+    }
+
+    .ganhos-detalhes table {
+        font-size: 10px;
+    }
+}

@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: 90% !important;
     position: relative;
     z-index: 20;
     font-family: "Montserrat", sans-serif;
@@ -176,4 +177,132 @@
 .prod-card {
     overflow: visible !important;
     position: relative;
+}
+
+/* ===============================
+   DESKTOP MENOR
+=============================== */
+@media (max-width: 1024px) {
+    .buscar-box {
+        gap: 8px;
+    }
+
+    .buscar-input {
+        font-size: 14.5px;
+        padding: 11px 13px;
+    }
+
+    .sugestoes-box {
+        max-height: 220px;
+    }
+}
+
+/* ===============================
+   TABLET
+=============================== */
+@media (max-width: 768px) {
+    .buscar-titulo {
+        font-size: 16px;
+    }
+
+    .buscar-input {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .sugestoes-box {
+        max-height: 200px;
+        border-radius: 8px;
+    }
+
+    .sug-item {
+        padding: 9px 10px;
+        gap: 10px;
+    }
+
+    .sug-img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .sug-nome {
+        font-size: 13.5px;
+    }
+
+    .sug-sub {
+        font-size: 12px;
+    }
+}
+
+/* ===============================
+   CELULAR
+=============================== */
+@media (max-width: 600px) {
+    .buscar-titulo {
+        font-size: 15px;
+        text-align: left;
+    }
+
+    .buscar-input {
+        font-size: 13.5px;
+        padding: 10px;
+    }
+
+    .loader {
+        right: 10px;
+    }
+
+    .sugestoes-box {
+        max-height: 180px;
+        font-size: 13px;
+    }
+
+    .sug-item {
+        padding: 8px 9px;
+        gap: 8px;
+    }
+
+    .sug-img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .sug-nome {
+        font-size: 13px;
+    }
+
+    .sug-sub {
+        font-size: 11.5px;
+    }
+}
+
+/* ===============================
+   CELULARES MUITO PEQUENOS
+=============================== */
+@media (max-width: 360px) {
+    .buscar-input {
+        font-size: 13px;
+        padding: 9px;
+    }
+
+    .sugestoes-box {
+        max-height: 160px;
+    }
+
+    .sug-item {
+        padding: 7px;
+    }
+
+    .sug-img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .sug-nome {
+        font-size: 12.5px;
+    }
+
+    .sug-sub {
+        font-size: 11px;
+    }
 }

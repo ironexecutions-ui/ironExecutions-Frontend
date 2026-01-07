@@ -68,3 +68,70 @@
     align-items: center;
     justify-content: center;
 }
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+
+    .graficos-vendas-container {
+        padding: 20px;
+    }
+
+    .graficos-vendas-conteudo {
+        min-height: 240px;
+        padding: 18px;
+    }
+
+    .graficos-vendas-botoes button {
+        font-size: 13px;
+        padding: 9px 14px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .graficos-vendas-container {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .graficos-vendas-botoes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .graficos-vendas-botoes button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .graficos-vendas-conteudo {
+        padding: 16px;
+        min-height: 220px;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 420px) {
+
+    .graficos-vendas-container h4 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .graficos-vendas-botoes button {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .graficos-vendas-conteudo {
+        padding: 14px;
+        min-height: 200px;
+    }
+}

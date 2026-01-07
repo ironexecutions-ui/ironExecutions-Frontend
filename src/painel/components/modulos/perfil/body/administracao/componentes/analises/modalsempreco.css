@@ -165,3 +165,86 @@
     transform: translateY(0);
     box-shadow: none;
 }
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+
+    .modal-caixa {
+        width: 560px;
+        padding: 20px;
+    }
+
+    .modal-item {
+        grid-template-columns: 1fr 100px 100px 80px;
+        gap: 8px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .modal-caixa {
+        width: 94vw;
+        max-height: 85vh;
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    .modal-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 12px 6px;
+    }
+
+    .modal-item strong {
+        font-size: 14px;
+    }
+
+    .modal-item input {
+        width: 100%;
+    }
+
+    .modal-item button {
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .modal-caixa .fechar {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 420px) {
+
+    .modal-caixa {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .modal-caixa h4 {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .modal-item strong {
+        font-size: 13px;
+    }
+
+    .modal-item input {
+        font-size: 12px;
+        padding: 7px 9px;
+    }
+
+    .modal-item button {
+        font-size: 12px;
+        padding: 8px;
+    }
+}

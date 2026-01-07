@@ -39,7 +39,7 @@ export default function ContratosAdmin({ onModoChange }) {
     }
     async function carregarContratos() {
         try {
-            const resp = await fetch(`${API_URL_FIXO}/listar-contratos`);
+            const resp = await fetch(`${API_URL_FIXO}/contratos`);
             const dados = await resp.json();
             console.log("RETORNO DA API /contratos:", dados);
             setLista(dados);

@@ -285,3 +285,108 @@
     font-weight: 600;
     color: #e5e7eb;
 }
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+
+    .contabilidade-container {
+        padding: 22px 24px;
+        border-radius: 24px;
+    }
+
+    .contabilidade-topo {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .contabilidade-lista li {
+        font-size: 13px;
+        padding: 11px 14px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .contabilidade-container {
+        padding: 18px 16px;
+        border-radius: 20px;
+    }
+
+    .contabilidade-topo {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+    }
+
+    .contabilidade-topo input {
+        width: 100%;
+        padding: 13px 14px;
+    }
+
+    .contabilidade-lista li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 14px;
+    }
+
+    .contabilidade-lista li span {
+        width: 100%;
+    }
+
+    .quantidade-clicavel {
+        align-self: flex-end;
+        font-size: 15px;
+    }
+
+    .contabilidade-lista input[type="number"] {
+        width: 100%;
+        text-align: left;
+    }
+
+    .contabilidade-aviso,
+    .contabilidade-aviso.erro {
+        font-size: 12.5px;
+        line-height: 1.4;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 420px) {
+
+    .contabilidade-container {
+        padding: 14px 12px;
+        gap: 14px;
+    }
+
+    .contabilidade-container h4 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .contabilidade-lista li {
+        font-size: 12px;
+        padding: 10px 12px;
+    }
+
+    .quantidade-clicavel {
+        font-size: 14px;
+    }
+
+    .contabilidade-produto {
+        max-width: 100%;
+        padding: 14px;
+    }
+
+    .titulo-nao-contabilizados {
+        font-size: 13px;
+        text-align: center;
+    }
+}

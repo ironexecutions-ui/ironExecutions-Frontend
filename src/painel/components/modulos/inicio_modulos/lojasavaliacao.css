@@ -184,3 +184,123 @@
     color: #94a3b8;
     padding: 20px 0;
 }
+
+/* ===============================
+   RESPONSIVO DESKTOP MENOR
+=============================== */
+@media (max-width: 1024px) {
+    .lojas-container {
+        margin: 70px 24px;
+        padding: 40px 28px;
+    }
+
+    .lojas-scroll {
+        max-height: 340px;
+    }
+}
+
+/* ===============================
+   RESPONSIVO TABLET
+=============================== */
+@media (max-width: 768px) {
+    .lojas-container {
+        margin: 60px 18px;
+        padding: 32px 22px;
+        border-radius: 20px;
+    }
+
+    .lojas-container h2 {
+        font-size: 26px;
+        margin-bottom: 28px;
+    }
+
+    .lojas-scroll {
+        max-height: 320px;
+        padding-right: 8px;
+    }
+
+    .loja-item {
+        gap: 14px;
+        margin: 12px;
+        padding: 10px 12px;
+    }
+
+    .loja-foto {
+        width: 56px;
+        height: 56px;
+    }
+
+    .loja-info {
+        font-size: 15px;
+    }
+}
+
+/* ===============================
+   RESPONSIVO CELULAR
+=============================== */
+@media (max-width: 600px) {
+    .lojas-container {
+        margin: 40px 12px;
+        padding: 26px 16px;
+        border-radius: 16px;
+    }
+
+    .lojas-container h2 {
+        font-size: 22px;
+        margin-bottom: 22px;
+    }
+
+    .lojas-scroll {
+        max-height: 300px;
+    }
+
+    .loja-item {
+        margin: 10px 6px;
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .loja-foto {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+    }
+
+    .loja-info {
+        font-size: 14px;
+    }
+
+    .avaliacao-estrelas {
+        gap: 2px;
+    }
+
+    .estrela {
+        font-size: 16px;
+    }
+
+    .sem-avaliacao {
+        font-size: 12px;
+    }
+}
+
+/* ===============================
+   CELULARES MUITO PEQUENOS
+=============================== */
+@media (max-width: 360px) {
+    .lojas-container {
+        padding: 22px 14px;
+    }
+
+    .lojas-container h2 {
+        font-size: 20px;
+    }
+
+    .loja-item {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    .loja-info {
+        font-size: 13px;
+    }
+}

@@ -11,6 +11,17 @@ export default function ContratoPublico() {
     const [contrato, setContrato] = useState(null);
     const [erro, setErro] = useState("");
     const [assinaturaTipo, setAssinaturaTipo] = useState(null);
+    useEffect(() => {
+        if (assinaturaTipo) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [assinaturaTipo]);
 
 
     async function buscar() {

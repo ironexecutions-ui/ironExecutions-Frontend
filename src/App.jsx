@@ -7,7 +7,7 @@ import ContratoPublico from "../contratopublico";
 import Painel from "./painel/painel";
 import Protegido from "./protegido";
 import ClientesPage from "./painel/components/info/infopage";
-
+import PagamentosIB from "./pagamentos/pagamentosib";
 import Topo from "./components/topo";
 import Hero from "./components/hero";
 import Oferecemos from "./components/oferecemos";
@@ -57,6 +57,9 @@ function RoteamentoComLoading() {
           </>
         }
       />
+      <Route path="/pagamento" element={<PagamentosIB />} />
+      <Route path="/pagamento/:id" element={<PagamentosIB />} />
+
       <Route path="/contrato/:codigo" element={<ContratoPublico />} />
       <Route path="/contrato" element={<ContratoPublico />} />
       <Route path="/ironbusiness/*" element={<InicioModulos />} />

@@ -239,3 +239,139 @@
 .btn-salvar-preco:hover {
     background: #43a047;
 }
+
+/* ===============================
+   DESKTOP MENOR
+=============================== */
+@media (max-width: 1024px) {
+    .produto-atual-box {
+        padding: 20px;
+    }
+
+    .produto-atual-conteudo {
+        grid-template-columns: 120px auto;
+        gap: 16px;
+    }
+
+    .produto-atual-nome {
+        font-size: 30px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 24px;
+    }
+}
+
+/* ===============================
+   TABLET
+=============================== */
+@media (max-width: 768px) {
+    .produto-atual-box {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .produto-atual-conteudo {
+        grid-template-columns: 100px auto;
+        gap: 14px;
+    }
+
+    .produto-atual-img {
+        width: 96px;
+        height: 96px;
+    }
+
+    .produto-atual-nome {
+        font-size: 26px;
+    }
+
+    .produto-atual-preco {
+        font-size: 15px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 22px;
+    }
+
+    .preco-inline-input {
+        width: 140px;
+        font-size: 16px;
+    }
+}
+
+/* ===============================
+   CELULAR
+=============================== */
+@media (max-width: 600px) {
+    .produto-atual-box {
+        padding: 14px;
+    }
+
+    .produto-atual-conteudo {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .produto-atual-esq {
+        justify-content: center;
+    }
+
+    .produto-atual-img {
+        width: 88px;
+        height: 88px;
+    }
+
+    .produto-atual-dir {
+        align-items: center;
+    }
+
+    .produto-atual-nome {
+        font-size: 22px;
+    }
+
+    .produto-atual-preco {
+        font-size: 14px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 20px;
+    }
+
+    .preco-edicao {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .preco-inline-input {
+        width: 100%;
+        max-width: 180px;
+        text-align: center;
+    }
+}
+
+/* ===============================
+   CELULARES MUITO PEQUENOS
+=============================== */
+@media (max-width: 360px) {
+    .produto-atual-box {
+        padding: 12px;
+    }
+
+    .produto-atual-img {
+        width: 76px;
+        height: 76px;
+    }
+
+    .produto-atual-nome {
+        font-size: 20px;
+    }
+
+    .produto-atual-preco span {
+        font-size: 18px;
+    }
+
+    .produto-atual-und {
+        font-size: 13px;
+    }
+}

@@ -352,3 +352,126 @@
         transform: translateY(0) scale(1);
     }
 }
+
+/* ===============================
+   DESKTOP MENOR
+=============================== */
+@media (max-width: 1024px) {
+    .pag-box {
+        width: 320px;
+        padding: 24px;
+        gap: 12px;
+    }
+
+    .pag-box button {
+        font-size: 14.5px;
+        padding: 11px;
+    }
+
+    .pag-box p {
+        font-size: 14.5px;
+    }
+}
+
+/* ===============================
+   TABLET
+=============================== */
+@media (max-width: 768px) {
+    .pag-box {
+        width: 300px;
+        padding: 22px;
+        border-radius: 14px;
+    }
+
+    .pag-box h3 {
+        font-size: 17px;
+    }
+
+    .pag-box button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .pag-box input {
+        font-size: 14px;
+        padding: 11px;
+    }
+
+    .maq-erro-box {
+        max-width: 280px;
+        padding: 16px 14px;
+    }
+}
+
+/* ===============================
+   CELULAR
+=============================== */
+@media (max-width: 600px) {
+    .pag-overlay {
+        padding: 12px;
+    }
+
+    .pag-box {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .pag-box h3 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .pag-box button {
+        font-size: 13.5px;
+        padding: 10px;
+    }
+
+    .pag-box input {
+        font-size: 13.5px;
+        padding: 10px;
+    }
+
+    .pag-box p {
+        font-size: 13.5px;
+        text-align: center;
+    }
+
+    .status-maquininha {
+        font-size: 13px;
+    }
+}
+
+/* ===============================
+   CELULARES MUITO PEQUENOS
+=============================== */
+@media (max-width: 360px) {
+    .pag-box {
+        padding: 18px;
+    }
+
+    .pag-box h3 {
+        font-size: 15px;
+    }
+
+    .pag-box button {
+        font-size: 13px;
+        padding: 9px;
+    }
+
+    .pag-box input {
+        font-size: 13px;
+        padding: 9px;
+    }
+
+    .maq-erro-box {
+        max-width: 100%;
+    }
+
+    .sucesso-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 30px;
+    }
+}
