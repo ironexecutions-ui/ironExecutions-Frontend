@@ -10,7 +10,6 @@
     align-items: center;
     justify-content: center;
     z-index: 999999 !important;
-
     animation: fadeOverlay 0.25s ease;
 }
 
@@ -25,6 +24,75 @@
 }
 
 /* ===============================
+   CPF / CUPOM FISCAL
+=============================== */
+
+.cpf-area {
+    margin: 14px 0;
+    padding: 12px;
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cpf-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #e6e6e6;
+}
+
+.cpf-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #d4af37;
+    /* dourado */
+    cursor: pointer;
+}
+
+.cpf-input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    outline: none;
+    background: #0e1625;
+    color: #fff;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cpf-input::placeholder {
+    color: #8a8a8a;
+}
+
+.cpf-input.cpf-invalido {
+    border: 2px solid #e74c3c;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15);
+}
+
+.cpf-input.cpf-valido {
+    border: 2px solid #2ecc71;
+    box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.15);
+}
+
+.cpf-ajuda {
+    font-size: 12px;
+    color: #b5b5b5;
+    line-height: 1.4;
+}
+
+.cpf-ajuda span {
+    color: #d4af37;
+    font-weight: 600;
+}
+
+/* ===============================
    CAIXA DO MODAL
 =============================== */
 .pag-box {
@@ -32,6 +100,15 @@
     padding: 26px;
     border-radius: 16px;
     width: 340px;
+
+    max-height: 80vh;
+    overflow-y: auto;
+    /* SCROLL ÚNICO */
+    overflow-x: hidden;
+
+
+    /* IMPORTANTE */
+
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -44,6 +121,36 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
     animation: modalUp 0.3s ease;
+}
+
+/* ===============================
+   SCROLLBAR DO MODAL (ÚNICA)
+=============================== */
+
+.pag-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.pag-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pag-box::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+            rgba(212, 175, 55, 0.9),
+            rgba(212, 175, 55, 0.55));
+    border-radius: 6px;
+}
+
+.pag-box::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg,
+            rgba(212, 175, 55, 1),
+            rgba(212, 175, 55, 0.7));
+}
+
+.pag-box {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.8) transparent;
 }
 
 @keyframes modalUp {

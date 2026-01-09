@@ -16,7 +16,42 @@ export default function ModalPagamento({ total, fechar }) {
     const [processando, setProcessando] = useState(false);
     const [fechando, setFechando] = useState(false);
 
+    // ===== CPF (ADICIONADO) =====
+    const [usarCpf, setUsarCpf] = useState(false);
+    const [cpf, setCpf] = useState("");
+
     const { itens, limparVenda } = useVenda();
+
+    function mascararCpf(valor) {
+        return valor
+            .replace(/\D/g, "")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+            .slice(0, 14);
+    }
+
+    function validarCpf(valor) {
+        const cpfLimpo = valor.replace(/\D/g, "");
+        if (cpfLimpo.length !== 11) return false;
+        if (/^(\d)\1+$/.test(cpfLimpo)) return false;
+
+        let soma = 0;
+        for (let i = 0; i < 9; i++) soma += cpfLimpo[i] * (10 - i);
+        let resto = (soma * 10) % 11;
+        if (resto === 10) resto = 0;
+        if (resto !== Number(cpfLimpo[9])) return false;
+
+        soma = 0;
+        for (let i = 0; i < 10; i++) soma += cpfLimpo[i] * (11 - i);
+        resto = (soma * 10) % 11;
+        if (resto === 10) resto = 0;
+
+        return resto === Number(cpfLimpo[10]);
+    }
+
+    const cpfValido = validarCpf(cpf);
+    const bloquearPagamento = usarCpf && !cpfValido;
 
     const troco =
         pagamento === "dinheiro"
@@ -54,9 +89,9 @@ export default function ModalPagamento({ total, fechar }) {
                     pagamento,
                     valor: total,
                     produtos,
-                    forcar_manual: forcarManual
+                    forcar_manual: forcarManual,
+                    cpf: usarCpf ? cpf : null
                 })
-
             });
 
             if (!resp.ok) {
@@ -73,52 +108,9 @@ export default function ModalPagamento({ total, fechar }) {
                 return;
             }
 
-
             const data = await resp.json();
             if (data.maquininha && data.maquininha.apelido) {
                 setInfoMaquininha(data.maquininha);
-            }
-
-            if (data.impressao === "direta") {
-                try {
-                    await fetch("http://localhost:3333/print", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ url: data.comanda })
-                    });
-                } catch {
-                    alert("Node Printer não está rodando");
-                }
-
-            } else if (data.impressao === "download") {
-
-                const respPdf = await fetch(data.comanda, { cache: "no-store" });
-
-                if (!respPdf.ok) {
-                    alert("Erro ao baixar comanda");
-                    setProcessando(false);
-                    return;
-                }
-
-                const blob = await respPdf.blob();
-
-                const agora = new Date();
-                const dataStr = agora.toLocaleDateString("pt-BR").replace(/\//g, "-");
-                const hora = agora
-                    .toLocaleTimeString("pt-BR", { hour12: false })
-                    .replace(/:/g, "-");
-
-                const nomeArquivo = `comanda_${dataStr}_${hora}.pdf`;
-
-                const url = window.URL.createObjectURL(blob);
-                const link = document.createElement("a");
-
-                link.href = url;
-                link.download = nomeArquivo;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(url);
             }
 
             setSucesso(true);
@@ -136,6 +128,7 @@ export default function ModalPagamento({ total, fechar }) {
             setProcessando(false);
         }
     }
+
     useEffect(() => {
         async function carregarApiMaquininha() {
             try {
@@ -173,19 +166,50 @@ export default function ModalPagamento({ total, fechar }) {
                             <>
                                 <h3>Total: R$ {total.toFixed(2)}</h3>
 
-                                <button onClick={() => { setPagamento("debito"); setEtapa("confirmar"); }}>
+                                <div className="cpf-area">
+                                    <label className="cpf-toggle">
+                                        <input
+                                            type="checkbox"
+                                            checked={usarCpf}
+                                            onChange={e => {
+                                                setUsarCpf(e.target.checked);
+                                                setCpf("");
+                                            }}
+                                        />
+                                        Cupom fiscal (CPF na nota)
+                                    </label>
+
+                                    {usarCpf && (
+                                        <>
+                                            <input
+                                                className={`cpf-input ${cpfValido ? "cpf-valido" : "cpf-invalido"}`}
+                                                type="text"
+                                                placeholder="000.000.000-00"
+                                                value={cpf}
+                                                onChange={e => setCpf(mascararCpf(e.target.value))}
+                                            />
+
+                                            <div className="cpf-ajuda">
+                                                <br />
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+
+
+                                <button disabled={bloquearPagamento} onClick={() => { setPagamento("debito"); setEtapa("confirmar"); }}>
                                     Cartão Débito
                                 </button>
 
-                                <button onClick={() => { setPagamento("credito"); setEtapa("confirmar"); }}>
+                                <button disabled={bloquearPagamento} onClick={() => { setPagamento("credito"); setEtapa("confirmar"); }}>
                                     Cartão Crédito
                                 </button>
 
-                                <button onClick={() => { setPagamento("pix"); setEtapa("confirmar"); }}>
+                                <button disabled={bloquearPagamento} onClick={() => { setPagamento("pix"); setEtapa("confirmar"); }}>
                                     Pix
                                 </button>
 
-                                <button onClick={() => { setPagamento("dinheiro"); setEtapa("confirmar"); }}>
+                                <button disabled={bloquearPagamento} onClick={() => { setPagamento("dinheiro"); setEtapa("confirmar"); }}>
                                     Dinheiro
                                 </button>
 
@@ -198,29 +222,6 @@ export default function ModalPagamento({ total, fechar }) {
                         {etapa === "confirmar" && (
                             <>
                                 <h3>Pagamento: {pagamento}</h3>
-                                {usaMaquininha && pagamento !== "dinheiro" && !forcarManual && (
-                                    <div className="status-maquininha">
-                                        {erroMaquininha ? (
-                                            <div className="maq-erro-box">
-                                                <p>{erroMaquininha}</p>
-
-                                                <button
-                                                    className="maq-ok-btn"
-                                                    onClick={() => {
-                                                        setForcarManual(true);
-                                                        setErroMaquininha(null);
-                                                    }}
-                                                >
-                                                    OK
-                                                </button>
-                                            </div>
-                                        ) : (
-                                            <span className="maq-warn">
-                                                Aguardando conexão com a maquininha
-                                            </span>
-                                        )}
-                                    </div>
-                                )}
 
                                 {pagamento === "dinheiro" && (
                                     <>
@@ -251,8 +252,6 @@ export default function ModalPagamento({ total, fechar }) {
                                 </button>
                             </>
                         )}
-
-
                     </>
                 )}
 
