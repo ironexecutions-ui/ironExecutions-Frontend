@@ -158,8 +158,16 @@ export default function ProdutoAtual() {
                             src={imagemFinal}
                             alt=""
                             className="produto-atual-img"
+                            onError={(e) => {
+                                if (produtoAtual?.imagem_comercio) {
+                                    e.currentTarget.src = produtoAtual.imagem_comercio.split("|")[0];
+                                } else {
+                                    e.currentTarget.style.display = "none";
+                                }
+                            }}
                         />
                     )}
+
 
                 </div>
 
