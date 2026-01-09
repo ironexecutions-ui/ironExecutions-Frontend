@@ -62,21 +62,37 @@ export default function FormularioProduto({ item, voltar }) {
 
     async function salvar() {
         const token = localStorage.getItem("token");
+
+        const payload = {
+            ...form,
+            preco: Number(form.preco || 0),
+            preco_recebido: Number(form.preco_recebido || 0),
+            unidades: Number(form.unidades || 0),
+            disponivel: Number(form.disponivel),
+        };
+
         const url = item
             ? `${API_URL}/admin/produtos-servicos/${item.id}`
             : `${API_URL}/admin/produtos-servicos`;
 
-        await fetch(url, {
+        const resp = await fetch(url, {
             method: item ? "PUT" : "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(form)
+            body: JSON.stringify(payload)
         });
+
+        if (!resp.ok) {
+            const erro = await resp.text();
+            console.error("Erro ao salvar:", erro);
+            return;
+        }
 
         voltar();
     }
+
     function primeiraMaiuscula(texto) {
         if (!texto) return "";
         return texto.charAt(0).toUpperCase() + texto.slice(1);

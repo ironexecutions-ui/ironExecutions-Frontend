@@ -141,13 +141,22 @@
 
     border: 1px solid rgba(3, 3, 3, 0.4);
 
-    font-weight: 600;
+    font-weight: bolder;
     cursor: pointer;
 
     transition:
         background 0.2s ease,
         transform 0.15s ease,
         box-shadow 0.2s ease;
+}
+
+.cob-valor.clicavel {
+    cursor: pointer;
+    user-select: none;
+}
+
+.cob-valor.clicavel:hover {
+    opacity: 0.75;
 }
 
 .cob-botao-cancelar:hover:not(.desabilitado) {

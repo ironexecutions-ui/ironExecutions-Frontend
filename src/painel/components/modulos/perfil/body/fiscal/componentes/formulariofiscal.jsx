@@ -110,6 +110,11 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
 
         const method = modo === "editar" ? "PUT" : "POST";
 
+        const dadosLimpos = normalizarFormulario({
+            ...form,
+            tipo
+        });
+
         try {
             const resp = await fetch(url, {
                 method,
@@ -117,7 +122,7 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({ ...form, tipo })
+                body: JSON.stringify(dadosLimpos)
             });
 
             const json = await resp.json();
@@ -131,6 +136,22 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
         } finally {
             setSalvando(false);
         }
+    }
+
+
+    function normalizarFormulario(form) {
+        const copia = { ...form };
+
+        Object.keys(copia).forEach(k => {
+            if (copia[k] === "") {
+                copia[k] = null;
+            }
+            if (Number.isNaN(copia[k])) {
+                copia[k] = null;
+            }
+        });
+
+        return copia;
     }
 
     return (
@@ -199,7 +220,7 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
                         placeholder="ICMS (%)"
                         type="number"
                         step="0.01"
-                        value={form.icms || ""}
+                        value={form.icms === 0 ? 0 : form.icms || ""}
                         onChange={e => setForm({ ...form, icms: Number(e.target.value) })}
                     />
 
@@ -207,7 +228,7 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
                         placeholder="PIS (%)"
                         type="number"
                         step="0.01"
-                        value={form.pis || ""}
+                        value={form.pis === 0 ? 0 : form.pis || ""}
                         onChange={e => setForm({ ...form, pis: Number(e.target.value) })}
                     />
 
@@ -215,7 +236,7 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
                         placeholder="COFINS (%)"
                         type="number"
                         step="0.01"
-                        value={form.cofins || ""}
+                        value={form.cofins === 0 ? 0 : form.cofins || ""}
                         onChange={e => setForm({ ...form, cofins: Number(e.target.value) })}
                     />
 
@@ -256,7 +277,7 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
                         placeholder="Alíquota ISS (%)"
                         type="number"
                         step="0.01"
-                        value={form.aliquota_iss || ""}
+                        value={form.aliquota_iss === 0 ? 0 : form.aliquota_iss || ""}
                         onChange={e => setForm({ ...form, aliquota_iss: Number(e.target.value) })}
                     />
 

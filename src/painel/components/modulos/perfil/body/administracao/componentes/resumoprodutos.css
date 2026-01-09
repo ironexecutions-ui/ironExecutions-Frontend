@@ -333,6 +333,126 @@
 }
 
 /* =========================
+   FILTROS PRODUTOS (MODERNO)
+========================= */
+
+.filtros-produtos {
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 18px;
+    margin-bottom: 22px;
+
+
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+
+
+}
+
+.card-produto.duplicado {
+    background: linear-gradient(90deg,
+            rgba(255, 0, 0, 0.678),
+            rgba(255, 0, 0, 0.76)) !important;
+    border: 1px solid rgba(255, 0, 0, 0.4);
+}
+
+.btn-duplicados {
+    background: #8b0000;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-duplicados:hover {
+    background: #b30000;
+}
+
+/* INPUT */
+.filtros-produtos input {
+    width: 100%;
+    padding: 10px 14px;
+
+    border-radius: 14px;
+    border: 1px solid #1e293b;
+
+    background: linear-gradient(180deg,
+            #020617,
+            #020617);
+
+    color: #e5e7eb;
+    font-size: 13px;
+    font-weight: 500;
+
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+/* PLACEHOLDER */
+.filtros-produtos input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* HOVER */
+.filtros-produtos input:hover {
+    border-color: #334155;
+}
+
+/* FOCO */
+.filtros-produtos input:focus {
+    border-color: #38bdf8;
+    color: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(56, 189, 248, 0.15),
+        0 8px 24px rgba(56, 189, 248, 0.25);
+
+    transform: translateY(-1px);
+}
+
+/* INPUT NUMBER REMOVE SETAS */
+.filtros-produtos input[type="number"]::-webkit-inner-spin-button,
+.filtros-produtos input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.filtros-produtos input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* =========================
+   FILTROS MOBILE
+========================= */
+@media (max-width: 768px) {
+    .filtros-produtos {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .filtros-produtos input {
+        font-size: 14px;
+        padding: 12px 14px;
+    }
+}
+
+/* MOBILE PEQUENO */
+@media (max-width: 420px) {
+    .filtros-produtos {
+        padding: 10px;
+        border-radius: 16px;
+    }
+
+    .filtros-produtos input {
+        border-radius: 12px;
+    }
+}
+
+/* =========================
    TABLET
 ========================= */
 @media (max-width: 1024px) {

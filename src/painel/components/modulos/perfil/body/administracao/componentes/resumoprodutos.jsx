@@ -10,8 +10,13 @@ export default function ResumoProdutos() {
     const [editar, setEditar] = useState(null);
     const [carregando, setCarregando] = useState(true);
     const [confirmarApagar, setConfirmarApagar] = useState(null);
+    const duplicados = lista.filter(i => i.duplicado === 1);
 
     const [limite, setLimite] = useState(30);
+    const [filtroNome, setFiltroNome] = useState("");
+    const [filtroCategoria, setFiltroCategoria] = useState("");
+    const [precoMin, setPrecoMin] = useState("");
+    const [precoMax, setPrecoMax] = useState("");
 
     const token = localStorage.getItem("token");
 
@@ -50,14 +55,104 @@ export default function ResumoProdutos() {
         );
     }
 
-    const itensVisiveis = lista.slice(0, limite);
-    const temMais = lista.length > limite;
+    const listaFiltrada = lista.filter(item => {
+
+        if (filtroNome) {
+            if (!item.nome?.toLowerCase().includes(filtroNome.toLowerCase())) {
+                return false;
+            }
+        }
+
+        if (filtroCategoria) {
+            if (!item.categoria?.toLowerCase().includes(filtroCategoria.toLowerCase())) {
+                return false;
+            }
+        }
+
+        const preco = Number(item.preco);
+
+        if (precoMin !== "" && preco < Number(precoMin)) {
+            return false;
+        }
+
+        if (precoMax !== "" && preco > Number(precoMax)) {
+            return false;
+        }
+
+        return true;
+    });
+
+    const itensVisiveis = listaFiltrada.slice(0, limite);
+    const temMais = listaFiltrada.length > limite;
 
     return (
         <div className="resumo-produtos">
             <div className="topo">
                 <h4>Produtos e Serviços</h4>
+                {duplicados.length > 0 && (
+                    <button
+                        className="btn-duplicados"
+                        onClick={async () => {
+                            if (!window.confirm(
+                                `Existem ${duplicados.length} produtos duplicados. Deseja apagar todos?`
+                            )) return;
+
+                            await fetch(`${API_URL}/admin/produtos-servicos/duplicados`, {
+                                method: "DELETE",
+                                headers: { Authorization: `Bearer ${token}` }
+                            });
+
+                            carregar();
+                        }}
+                    >
+                        ⚠️ Duplicados ({duplicados.length})
+                    </button>
+                )}
+
                 <button onClick={() => setModo("novo")}>Adicionar</button>
+            </div>
+            <div className="filtros-produtos">
+
+                <input
+                    type="text"
+                    placeholder="Filtrar por nome"
+                    value={filtroNome}
+                    onChange={e => {
+                        setFiltroNome(e.target.value);
+                        setLimite(30);
+                    }}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Filtrar por categoria"
+                    value={filtroCategoria}
+                    onChange={e => {
+                        setFiltroCategoria(e.target.value);
+                        setLimite(30);
+                    }}
+                />
+
+                <input
+                    type="number"
+                    placeholder="Preço mínimo"
+                    value={precoMin}
+                    onChange={e => {
+                        setPrecoMin(e.target.value);
+                        setLimite(30);
+                    }}
+                />
+
+                <input
+                    type="number"
+                    placeholder="Preço máximo"
+                    value={precoMax}
+                    onChange={e => {
+                        setPrecoMax(e.target.value);
+                        setLimite(30);
+                    }}
+                />
+
             </div>
 
             <div className="conteudo-scroll">
@@ -70,7 +165,10 @@ export default function ResumoProdutos() {
                     <>
                         <div className="lista-cards">
                             {itensVisiveis.map(item => (
-                                <div className="card-produto" key={item.id}>
+                                <div
+                                    className={`card-produto ${item.duplicado ? "duplicado" : ""}`}
+                                    key={item.id}
+                                >
                                     <div onClick={() => {
                                         setEditar(item);
                                         setModo("editar");
@@ -116,8 +214,9 @@ export default function ResumoProdutos() {
                                     Ver mais
                                 </button>
                                 <span>
-                                    Mostrando {itensVisiveis.length} de {lista.length}
+                                    Mostrando {itensVisiveis.length} de {listaFiltrada.length}
                                 </span>
+
                             </div>
                         )}
                     </>

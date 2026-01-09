@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./passopersonalizar.css";
 
 export default function Passo2Personalizar({ onContinuar, onPular }) {
@@ -9,6 +9,11 @@ export default function Passo2Personalizar({ onContinuar, onPular }) {
     const [letraTipo, setLetraTipo] = useState("");
     const [letraCor, setLetraCor] = useState("");
 
+    // ⬇️ PULAR POR PADRÃO AO ENTRAR NO PASSO
+    useEffect(() => {
+        onPular();
+    }, []);
+
     function enviar(e) {
         e.preventDefault();
 
@@ -18,7 +23,6 @@ export default function Passo2Personalizar({ onContinuar, onPular }) {
             letra_cor: letraCor || null
         });
     }
-
 
     return (
         <div className="passo2-container">
@@ -104,7 +108,6 @@ export default function Passo2Personalizar({ onContinuar, onPular }) {
                         </button>
                     </form>
 
-                    {/* PREVIEW */}
                     <div
                         className="preview-comercio"
                         style={{
@@ -113,14 +116,12 @@ export default function Passo2Personalizar({ onContinuar, onPular }) {
                             color: letraCor
                         }}
                     >
-
                         <h4>Exemplo de visual</h4>
                         <p>A cor de letra sera aplicada no sistema</p>
                         <button className="preview-botao">Botão de exemplo</button>
                     </div>
                 </>
             )}
-
 
         </div>
     );

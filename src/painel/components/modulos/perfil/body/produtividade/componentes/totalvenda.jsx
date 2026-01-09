@@ -11,8 +11,14 @@ export default function TotalVenda() {
     const [tema, setTema] = useState("escuro");
     const [abrirPagamento, setAbrirPagamento] = useState(false);
 
+    const [mostrarUSD, setMostrarUSD] = useState(false);
+    const [cotacaoUSD, setCotacaoUSD] = useState(null);
+
     const vendaVazia = itens.length === 0;
 
+    // ===============================
+    // DEFINIR TEMA
+    // ===============================
     useEffect(() => {
         async function definirTema() {
             let modoCliente = null;
@@ -41,11 +47,53 @@ export default function TotalVenda() {
         definirTema();
     }, []);
 
+    // ===============================
+    // BUSCAR COTAÇÃO USD
+    // ===============================
+    useEffect(() => {
+        async function buscarCotacao() {
+            try {
+                const r = await fetch(
+                    "https://economia.awesomeapi.com.br/json/last/USD-BRL"
+                );
+                const j = await r.json();
+
+                const valor = parseFloat(j.USDBRL.bid);
+                if (!isNaN(valor)) {
+                    setCotacaoUSD(valor);
+                }
+            } catch {
+                setCotacaoUSD(null);
+            }
+        }
+
+        buscarCotacao();
+    }, []);
+
+    // ===============================
+    // VALOR FORMATADO
+    // ===============================
+    function valorExibido() {
+        if (mostrarUSD && cotacaoUSD && total > 0) {
+            const usd = total / cotacaoUSD;
+            return `US$ ${usd.toFixed(2)}`;
+        }
+        return `R$ ${total.toFixed(2)}`;
+    }
+
     return (
         <div className={`cob-box cob-tema-${tema}`}>
 
-            <div className="cob-valor">
-                R$ {total.toFixed(2)}
+            <div
+                className={`cob-valor ${total > 0 ? "clicavel" : ""}`}
+                onClick={() => {
+                    if (total > 0 && cotacaoUSD) {
+                        setMostrarUSD(v => !v);
+                    }
+                }}
+                title={total > 0 ? "Clique para alternar moeda" : ""}
+            >
+                {valorExibido()}
             </div>
 
             <div className="cob-acoes">
@@ -69,12 +117,11 @@ export default function TotalVenda() {
                     Cobrar
                 </button>
 
-
             </div>
 
             {abrirPagamento && (
                 <ModalPagamento
-                    total={total}
+                    total={total} // 🔒 SEMPRE BRL
                     fechar={() => setAbrirPagamento(false)}
                 />
             )}

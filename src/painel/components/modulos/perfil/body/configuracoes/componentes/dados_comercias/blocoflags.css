@@ -1,6 +1,5 @@
 /* ===== CONTAINER ===== */
 .bf-container {
-    margin-top: 56px;
     display: flex;
     flex-direction: column;
     gap: 26px;
