@@ -90,7 +90,7 @@ export default function ResumoProdutos() {
             <div className="topo">
                 <h4>Produtos e Serviços</h4>
                 {duplicados.length > 0 && (
-                    <button
+                    <button style={{ display: "none" }}
                         className="btn-duplicados"
                         onClick={async () => {
                             if (!window.confirm(
