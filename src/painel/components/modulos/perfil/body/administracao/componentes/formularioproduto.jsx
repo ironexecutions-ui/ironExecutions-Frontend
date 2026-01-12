@@ -146,7 +146,16 @@ export default function FormularioProduto({ item, voltar }) {
                 </datalist>
 
 
-                <input placeholder="Preço" value={form.preco} onChange={e => alterar("preco", e.target.value)} />
+                <input
+                    placeholder="Preço"
+                    value={form.preco}
+                    onChange={e =>
+                        alterar(
+                            "preco",
+                            e.target.value.replace(",", ".")
+                        )
+                    }
+                />
                 <input placeholder="Preço recebido" value={form.preco_recebido} onChange={e => alterar("preco_recebido", e.target.value)} />
 
                 {tipo === "produto" && (
