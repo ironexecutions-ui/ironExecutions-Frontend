@@ -156,7 +156,16 @@ export default function FormularioProduto({ item, voltar }) {
                         )
                     }
                 />
-                <input placeholder="Preço recebido" value={form.preco_recebido} onChange={e => alterar("preco_recebido", e.target.value)} />
+                <input
+                    placeholder="Preço recebido"
+                    value={form.preco_recebido}
+                    onChange={e =>
+                        alterar(
+                            "preco_recebido",
+                            e.target.value.replace(",", ".")
+                        )
+                    }
+                />
 
                 {tipo === "produto" && (
                     <input placeholder="Unidade (ex: kg, un, caixa)" value={form.unidade} onChange={e => alterar("unidade", e.target.value)} />
