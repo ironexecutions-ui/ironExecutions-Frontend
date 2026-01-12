@@ -44,7 +44,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
             if (!dados.funcao) {
                 window.location.href = "/ironbusiness";
             }
-        }, 100); // 10 segundos
+        }, 10000); // 10 segundos
 
         return () => clearTimeout(timeout);
     }, [dados]);
