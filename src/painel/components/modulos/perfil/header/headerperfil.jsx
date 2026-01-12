@@ -37,6 +37,17 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
             .trim()
             .replace(/\s+/g, "-");            // troca espaços por -
     }
+    useEffect(() => {
+        if (!dados) return;
+
+        const timeout = setTimeout(() => {
+            if (!dados.funcao) {
+                window.location.href = "/ironbusiness";
+            }
+        }, 100); // 10 segundos
+
+        return () => clearTimeout(timeout);
+    }, [dados]);
 
     useEffect(() => {
         async function carregar() {
