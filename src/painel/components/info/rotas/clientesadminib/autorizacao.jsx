@@ -43,11 +43,29 @@ export default function Autorizacao() {
     }
 
     function abrirZap(celular, loja) {
-        const msg = encodeURIComponent(
+
+        if (!celular) {
+            alert("Número de WhatsApp não informado");
+            return;
+        }
+
+        // remove tudo que não for número
+        let numero = celular.replace(/\D/g, "");
+
+        // se vier só com DDD + número, adiciona 55
+        if (numero.length === 10 || numero.length === 11) {
+            numero = "55" + numero;
+        }
+
+        const mensagem = encodeURIComponent(
             `Olá ${loja}, analisamos sua solicitação de módulos.`
         );
-        window.open(`https://wa.me/55${celular}?text=${msg}`, "_blank");
+
+        const url = `https://wa.me/${numero}?text=${mensagem}`;
+
+        window.open(url, "_blank");
     }
+
 
     if (loading) {
         return <div className="aut-loading">Carregando autorizações...</div>;
