@@ -13,6 +13,26 @@
     border-radius: 30px;
 }
 
+.funcao-alerta {
+    color: #e53935 !important;
+    font-weight: 700;
+    animation: piscar 1s infinite;
+}
+
+@keyframes piscar {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 /* Skeleton loading */
 .skeleton-header {
     width: 100%;

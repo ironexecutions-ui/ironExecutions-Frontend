@@ -10,6 +10,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
     const [confirmarLogout, setConfirmarLogout] = useState(false);
     const [abrirFechamento, setAbrirFechamento] = useState(false);
     const [comandas, setComandas] = useState([]);
+    const [tempoLogout, setTempoLogout] = useState(null);
 
     const [dados, setDados] = useState(null);
     const [loja, setLoja] = useState(null);
@@ -40,14 +41,29 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
     useEffect(() => {
         if (!dados) return;
 
-        const timeout = setTimeout(() => {
-            if (!dados.funcao) {
-                window.location.href = "/ironbusiness";
-            }
-        }, 10000); // 10 segundos
+        // Se NÃO existir função, inicia o contador
+        if (!dados.funcao) {
+            setTempoLogout(10);
 
-        return () => clearTimeout(timeout);
+            const intervalo = setInterval(() => {
+                setTempoLogout(prev => {
+                    if (prev === 1) {
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("usuario");
+                        window.location.href = "/ironbusiness";
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+
+            return () => clearInterval(intervalo);
+        }
+
+        // Se existir função, não faz nada
+        setTempoLogout(null);
     }, [dados]);
+
 
     useEffect(() => {
         async function carregar() {
@@ -182,7 +198,16 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                 <div className="per-info">
                     <h2 className="per-nome">{dados.nome_completo}</h2>
                     <p className="per-cargo">Cargo: <strong> {dados.cargo} </strong> </p>
-                    <p className="per-funcao">Função no sistema: <strong> {dados.funcao} </strong> </p>
+                    <p className="per-funcao">
+                        Função no sistema:{" "}
+                        {dados.funcao ? (
+                            <strong>{dados.funcao}</strong>
+                        ) : (
+                            <strong className="funcao-alerta">
+                                sessão inválida, saindo em {tempoLogout}s
+                            </strong>
+                        )}
+                    </p>
                 </div>
 
                 <div className="per-acoes">
