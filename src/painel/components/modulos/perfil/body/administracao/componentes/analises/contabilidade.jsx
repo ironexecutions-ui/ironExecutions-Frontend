@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../../../../../../config";
 import "./contabilidade.css";
-
+import ContabilidadePdf from "./pdf";
 export default function Contabilidade() {
 
     const [dados, setDados] = useState(null);
@@ -90,13 +90,16 @@ export default function Contabilidade() {
 
             {modo === "lista" && (
                 <>
+
                     <div className="contabilidade-topo">
                         <input
                             placeholder="Filtrar por nome ou código de barras"
                             value={filtro}
                             onChange={e => setFiltro(e.target.value)}
                         />
+
                     </div>
+                    <ContabilidadePdf />
 
                     <ul className="contabilidade-lista">
                         {produtosContabilizados.map(p => (
