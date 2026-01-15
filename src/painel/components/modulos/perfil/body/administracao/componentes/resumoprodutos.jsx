@@ -17,6 +17,7 @@ export default function ResumoProdutos() {
     const [precoMin, setPrecoMin] = useState("");
     const [precoMax, setPrecoMax] = useState("");
     const [confirmarId, setConfirmarId] = useState(null);
+    const [filtroVencimento, setFiltroVencimento] = useState(false);
 
     const token = localStorage.getItem("token");
 
@@ -78,12 +79,31 @@ export default function ResumoProdutos() {
         if (precoMax !== "" && preco > Number(precoMax)) {
             return false;
         }
+        if (filtroVencimento) {
+            if (!produtoVencidoOuPerto(item.data_vencimento)) {
+                return false;
+            }
+        }
 
         return true;
     });
 
     const itensVisiveis = listaFiltrada.slice(0, limite);
     const temMais = listaFiltrada.length > limite;
+    function produtoVencidoOuPerto(data) {
+        if (!data) return false;
+
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+
+        const vencimento = new Date(data);
+        vencimento.setHours(0, 0, 0, 0);
+
+        const limite = new Date(hoje);
+        limite.setDate(limite.getDate() + 7);
+
+        return vencimento <= limite;
+    }
 
     return (
         <div className="resumo-produtos">
@@ -152,6 +172,17 @@ export default function ResumoProdutos() {
                         setLimite(30);
                     }}
                 />
+                <button
+                    className={`btn-vencimento ${filtroVencimento ? "ativo" : ""}`}
+                    onClick={() => {
+                        setFiltroVencimento(v => !v);
+                        setLimite(30);
+                    }}
+                >
+                    {filtroVencimento
+                        ? "Mostrando vencidos / a vencer"
+                        : "Filtrar vencidos / a vencer"}
+                </button>
 
             </div>
 

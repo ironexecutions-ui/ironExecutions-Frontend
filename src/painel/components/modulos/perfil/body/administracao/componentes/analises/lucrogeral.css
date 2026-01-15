@@ -137,6 +137,74 @@
     width: fit-content;
 }
 
+/* ===============================
+   FILTROS NOVOS (CATEGORIA / NOME / LIMITE)
+=============================== */
+.lucro-geral-filtros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 16px;
+    background: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+}
+
+.lucro-geral-filtros>div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lucro-geral-filtros label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+/* ===============================
+   INPUTS DOS FILTROS
+=============================== */
+.lucro-geral-filtros input {
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid #1e293b;
+    background: #020617;
+    color: #f8fafc;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lucro-geral-filtros input::placeholder {
+    color: #64748b;
+}
+
+.lucro-geral-filtros input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+}
+
+/* ===============================
+   INPUT NUMBER AJUSTE
+=============================== */
+
+/* ===============================
+   RESPONSIVO DOS FILTROS
+=============================== */
+@media (max-width: 768px) {
+    .lucro-geral-filtros {
+        padding: 14px;
+        gap: 14px;
+    }
+
+    .lucro-geral-filtros input {
+        height: 36px;
+        font-size: 12px;
+    }
+}
+
 /* =========================
    TABLET
 ========================= */

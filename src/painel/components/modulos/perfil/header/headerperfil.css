@@ -33,6 +33,29 @@
     }
 }
 
+.alerta-vencimento {
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ff2e2e !important;
+    animation: piscarAlerta 1s infinite;
+}
+
+@keyframes piscarAlerta {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
 /* Skeleton loading */
 .skeleton-header {
     width: 100%;

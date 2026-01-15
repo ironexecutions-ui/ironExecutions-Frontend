@@ -21,7 +21,9 @@ export default function FormularioProduto({ item, voltar }) {
         unidade: "",
         produto_id: 0,
         unidades: 0,
-        tempo_servico: ""
+        tempo_servico: "",
+        data_vencimento: ""
+
     });
 
     useEffect(() => {
@@ -199,6 +201,13 @@ export default function FormularioProduto({ item, voltar }) {
                         onChange={e => alterar("tempo_servico", e.target.value)}
                     />
                 )}
+                <input
+                    type="date"
+                    value={form.data_vencimento || ""}
+                    onChange={e => alterar("data_vencimento", e.target.value)}
+                    placeholder="Data de vencimento"
+                />
+
             </div>
 
             <FormularioImagens

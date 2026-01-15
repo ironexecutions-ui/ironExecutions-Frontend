@@ -14,6 +14,36 @@
     margin-bottom: 18px;
 }
 
+.btn-vencimento {
+    background: #2b2b2b;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-vencimento.ativo {
+    background: #b40000;
+    border-color: #ff4d4d;
+    animation: piscarVencimento 1s infinite;
+}
+
+@keyframes piscarVencimento {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 .conteudo-scroll {
     flex: 1;
     overflow-y: auto;

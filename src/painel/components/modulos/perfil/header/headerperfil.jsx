@@ -15,6 +15,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
     const [dados, setDados] = useState(null);
     const [loja, setLoja] = useState(null);
     const [fade, setFade] = useState(false);
+    const [alertaVencimento, setAlertaVencimento] = useState(null);
 
     const [secaoAtiva, setSecaoAtiva] = useState(null);
     async function carregarComandas() {
@@ -38,6 +39,29 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
             .trim()
             .replace(/\s+/g, "-");            // troca espaços por -
     }
+    async function carregarAlertaVencimento() {
+        const token = localStorage.getItem("token");
+
+        try {
+            const resp = await fetch(`${API_URL}/admin/produtos-servicos/alerta-vencimento`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (!resp.ok) {
+                setAlertaVencimento(null);
+                return;
+            }
+
+            const json = await resp.json();
+            setAlertaVencimento(json);
+
+        } catch {
+            setAlertaVencimento(null);
+        }
+    }
+
     useEffect(() => {
         if (!dados) return;
 
@@ -84,10 +108,23 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
 
 
                 if (json.comercio_id) {
-                    const respLoja = await fetch(`${API_URL}/comercios/${json.comercio_id}`);
-                    const lojaJson = await respLoja.json();
-                    setLoja(lojaJson);
+                    const token = localStorage.getItem("token");
+
+                    // 🔹 CARREGA DADOS DA LOJA
+                    try {
+                        const respLoja = await fetch(`${API_URL}/comercios/${json.comercio_id}`);
+                        const lojaJson = await respLoja.json();
+                        setLoja(lojaJson);
+                    } catch {
+                        setLoja(null);
+                    }
+
+                    // 🔹 ALERTA DE VENCIMENTO
+                    await carregarAlertaVencimento();
+
                 }
+
+
 
                 setTimeout(() => setFade(true), 150);
 
@@ -110,6 +147,15 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
             window.removeEventListener("beforeinstallprompt", capturar);
         };
     }, []);
+    useEffect(() => {
+        if (!dados?.comercio_id) return;
+
+        const intervalo = setInterval(() => {
+            carregarAlertaVencimento();
+        }, 10000); // a cada 10 segundos
+
+        return () => clearInterval(intervalo);
+    }, [dados?.comercio_id]);
 
     function abrirOuFechar(secao) {
         setSecaoAtiva(prev => prev === secao ? null : secao);
@@ -208,6 +254,12 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                             </strong>
                         )}
                     </p>
+                    {alertaVencimento?.alerta && (
+                        <p className="alerta-vencimento">
+                            ⚠️ Existem {alertaVencimento.total} produtos que vão vencer ou já venceram
+                        </p>
+                    )}
+
                 </div>
 
                 <div className="per-acoes">
