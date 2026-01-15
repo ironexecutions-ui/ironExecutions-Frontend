@@ -18,6 +18,9 @@ export default function ModalPagamento({ total, fechar }) {
     const [pixQr, setPixQr] = useState(null);
     const [pixId, setPixId] = useState(null);
     const [pixPago, setPixPago] = useState(false);
+    const [carregandoPix, setCarregandoPix] = useState(false);
+    const bloquearTudo = carregandoPix || processando;
+
     async function verificarStatusPix() {
         if (!pixId || pixPago) return;
 
@@ -282,57 +285,87 @@ export default function ModalPagamento({ total, fechar }) {
                                 </div>
 
 
-                                <button disabled={bloquearPagamento} onClick={() => { setPagamento("debito"); setEtapa("confirmar"); }}>
+                                <button
+                                    disabled={bloquearPagamento || bloquearTudo}
+                                    onClick={() => { setPagamento("debito"); setEtapa("confirmar"); }}
+                                >
                                     Cartão Débito
                                 </button>
 
-                                <button disabled={bloquearPagamento} onClick={() => { setPagamento("credito"); setEtapa("confirmar"); }}>
+                                <button
+                                    disabled={bloquearPagamento || bloquearTudo}
+                                    onClick={() => { setPagamento("credito"); setEtapa("confirmar"); }}
+                                >
                                     Cartão Crédito
                                 </button>
 
+
                                 <button
-                                    disabled={bloquearPagamento}
+                                    disabled={bloquearPagamento || bloquearTudo}
                                     onClick={async () => {
 
-                                        const r = await fetch(`${API_URL}/comercio/pix/ativo`, {
-                                            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-                                        });
+                                        if (bloquearTudo) return;
 
-                                        const j = await r.json();
+                                        setCarregandoPix(true);
 
-                                        if (j.ativo) {
-                                            const pix = await fetch(`${API_URL}/vendas/pix/gerar`, {
-                                                method: "POST",
+                                        try {
+                                            const r = await fetch(`${API_URL}/comercio/pix/ativo`, {
                                                 headers: {
-                                                    "Content-Type": "application/json",
                                                     Authorization: `Bearer ${localStorage.getItem("token")}`
-                                                },
-                                                body: JSON.stringify({ valor: total })
-                                            }).then(r => r.json());
+                                                }
+                                            });
 
-                                            setPixQr(pix.qr_code_base64);
-                                            setPixId(pix.id);
+                                            const j = await r.json();
+
+                                            if (j.ativo) {
+                                                const pix = await fetch(`${API_URL}/vendas/pix/gerar`, {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                                                    },
+                                                    body: JSON.stringify({ valor: total })
+                                                }).then(r => r.json());
+
+                                                setPixQr(pix.qr_code_base64);
+                                                setPixId(pix.id);
+                                                setPagamento("pix");
+                                                setEtapa("pix_mp");
+                                                return;
+                                            }
+
                                             setPagamento("pix");
-                                            setEtapa("pix_mp");
+                                            setEtapa("confirmar");
 
-                                            return;
+                                        } catch {
+                                            alert("Erro ao gerar Pix. Tente novamente.");
+                                        } finally {
+                                            setCarregandoPix(false);
                                         }
-
-                                        setPagamento("pix");
-                                        setEtapa("confirmar");
                                     }}
                                 >
-                                    Pix
+                                    {carregandoPix ? "Gerando Pix..." : "Pix"}
                                 </button>
 
 
-                                <button disabled={bloquearPagamento} onClick={() => { setPagamento("dinheiro"); setEtapa("confirmar"); }}>
+
+
+                                <button
+                                    disabled={bloquearPagamento || bloquearTudo}
+                                    onClick={() => { setPagamento("dinheiro"); setEtapa("confirmar"); }}
+                                >
                                     Dinheiro
                                 </button>
 
-                                <button className="voltar" onClick={fechar}>
+
+                                <button
+                                    className="voltar"
+                                    onClick={fechar}
+                                    disabled={bloquearTudo}
+                                >
                                     Voltar
                                 </button>
+
                             </>
                         )}
                         {etapa === "pix_mp" && pixQr && (

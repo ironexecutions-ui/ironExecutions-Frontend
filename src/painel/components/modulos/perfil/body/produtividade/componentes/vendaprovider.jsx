@@ -25,15 +25,18 @@ export function VendaProvider({ children }) {
             const existente = prev.find(p => p.id === produto.id);
 
             if (existente) {
-                const novaLista = prev.map(p =>
-                    p.id === produto.id
-                        ? {
-                            ...p,
-                            quantidade: p.quantidade + 1,
-                            subtotal: (p.quantidade + 1) * p.preco
-                        }
-                        : p
-                );
+                const itemAtualizado = {
+                    ...existente,
+                    quantidade: existente.quantidade + 1,
+                    subtotal: (existente.quantidade + 1) * existente.preco
+                };
+
+                // remove o antigo e coloca o atualizado NO FINAL
+                const novaLista = [
+                    ...prev.filter(p => p.id !== produto.id),
+                    itemAtualizado
+                ];
+
                 calcularTotal(novaLista);
                 return novaLista;
             }
@@ -47,11 +50,13 @@ export function VendaProvider({ children }) {
                 unidade: produto.unidade || produto.tempo_servico || ""
             };
 
+            // novo item entra no final
             const novaLista = [...prev, novoItem];
             calcularTotal(novaLista);
             return novaLista;
         });
     }
+
     function atualizarPrecoItem(produtoAtualizado) {
         setItens(prev => {
             const novaLista = prev.map(item => {

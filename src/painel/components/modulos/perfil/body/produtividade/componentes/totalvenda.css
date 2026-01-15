@@ -42,7 +42,7 @@
 .cob-valor {
     width: 100%;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 800;
     letter-spacing: 1px;
     padding: 18px;
@@ -73,7 +73,7 @@
 .cob-botao {
     width: 100%;
     padding: 16px;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 700;
     border-radius: 12px;
     border: none;

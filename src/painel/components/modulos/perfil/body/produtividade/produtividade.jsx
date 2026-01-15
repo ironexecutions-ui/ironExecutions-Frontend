@@ -61,7 +61,7 @@ export default function Produtividade() {
 
                 <div className="linha-superior">
 
-                    <div style={{ background: "#102038", border: "2px solid #d4af37", maxHeight: "95%" }} className="prod-card buscar buscar-wrapper">
+                    <div style={{ background: "#102038", border: "2px solid #d4af37", maxHeight: "100%" }} className="prod-card buscar buscar-wrapper">
                         <BuscarProduto />
                         <Infos />
                     </div>
