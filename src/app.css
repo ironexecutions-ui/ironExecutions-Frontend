@@ -8,9 +8,9 @@
 
 .app {
   background: linear-gradient(180deg,
-      #001644,
-      #000c24,
-      #000000);
+      #e4e7ec,
+      #ffffff,
+      #8b8b8d);
   color: #ffffff;
   min-height: 100%;
 }

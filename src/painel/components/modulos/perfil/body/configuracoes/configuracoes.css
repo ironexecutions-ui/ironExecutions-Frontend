@@ -44,6 +44,8 @@
 /* HOVER */
 .configuracoes-tab:hover {
     background-color: rgba(252, 252, 252, 0.384);
+    color: #020617 !important;
+    border: solid 1px #848d02;
 }
 
 /* ============================= */

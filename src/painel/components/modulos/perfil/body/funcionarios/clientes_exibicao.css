@@ -1,7 +1,7 @@
 /* ===== CONTAINER PRINCIPAL ===== */
 .funcionarios-container {
     padding: 24px;
-    max-height: 250px;
+    max-height: 300px;
     overflow-y: auto;
     border-radius: 16px;
 }
@@ -25,7 +25,7 @@
 /* ===== CADA COLUNA ===== */
 .coluna {
     flex: 1;
-    background: #000e41a6;
+    background: #000e41e7;
     border-radius: 14px;
     color: #ffffff;
     height: fit-content;

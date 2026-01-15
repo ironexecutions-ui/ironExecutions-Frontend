@@ -215,7 +215,6 @@ export default function DadosComerciais() {
                     salvar={salvarCampo}
                 />
             </section>
-            const token = localStorage.getItem("token");
             <BlocoPix token={token} />
 
         </div>

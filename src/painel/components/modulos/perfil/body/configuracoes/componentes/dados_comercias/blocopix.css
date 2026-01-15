@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
-    max-width: 420px;
+    max-width: 820px;
 }
 
 /* Inputs */
@@ -68,10 +68,10 @@
 
 /* Aviso de segurança */
 .dc-pix-info {
-    font-size: 12px;
+    font-size: 22px;
     color: #6b7280;
-    max-width: 420px;
-    line-height: 1.4;
+    max-width: 720px;
+    line-height: 1.5;
 }
 
 /* ===============================

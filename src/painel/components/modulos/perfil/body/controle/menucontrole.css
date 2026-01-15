@@ -12,7 +12,10 @@
 .menu-controle-botoes {
     display: flex;
     gap: 12px;
+    background-color: #e5e7eb;
     align-items: center;
+    padding: 30px;
+    border-radius: 20px;
 }
 
 /* ===== BOTÃO BASE ===== */
@@ -31,6 +34,7 @@
 /* ===== HOVER ===== */
 .menu-controle-btn:hover {
     background-color: rgba(255, 255, 255, 0.06);
+    color: #020617;
 }
 
 /* ===== ATIVO ===== */
