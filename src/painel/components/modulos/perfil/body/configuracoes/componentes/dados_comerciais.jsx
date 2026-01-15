@@ -5,7 +5,7 @@ import BlocoModulos from "./dados_comercias/blocomodulos";
 import ModalEndereco from "./dados_comercias/modalendereco";
 import "./dados_comerciais.css";
 import { URL } from "../../url";
-
+import BlocoPix from "./dados_comercias/blocopix";
 export default function DadosComerciais() {
     const [tiposLetra, setTiposLetra] = useState([]);
 
@@ -215,6 +215,8 @@ export default function DadosComerciais() {
                     salvar={salvarCampo}
                 />
             </section>
+            const token = localStorage.getItem("token");
+            <BlocoPix token={token} />
 
         </div>
     );

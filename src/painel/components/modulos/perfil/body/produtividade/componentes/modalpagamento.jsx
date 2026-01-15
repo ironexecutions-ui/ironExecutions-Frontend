@@ -15,6 +15,91 @@ export default function ModalPagamento({ total, fechar }) {
     const [sucesso, setSucesso] = useState(false);
     const [processando, setProcessando] = useState(false);
     const [fechando, setFechando] = useState(false);
+    const [pixQr, setPixQr] = useState(null);
+    const [pixId, setPixId] = useState(null);
+    const [pixPago, setPixPago] = useState(false);
+    async function verificarStatusPix() {
+        if (!pixId || pixPago) return;
+
+        try {
+            const r = await fetch(
+                `${API_URL}/vendas/pix/status/${pixId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                }
+            );
+
+            const j = await r.json();
+            if (j.status === "approved") {
+                setPixPago(true);
+                setPagamento("pix");
+                finalizarVendaPix(); // 🔥 ISSO REGISTRA A VENDA
+
+
+            }
+
+        } catch {
+            // silencioso
+        }
+    }
+    useEffect(() => {
+        if (etapa !== "pix_mp") return;
+        if (!pixId || pixPago) return;
+
+        const interval = setInterval(() => {
+            verificarStatusPix();
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [etapa, pixId, pixPago]);
+
+    async function finalizarVendaPix() {
+        if (processando) return;
+        setProcessando(true);
+
+        const produtos = itens.map(i => ({
+            id: i.id,
+            nome: i.nome,
+            preco: i.preco,
+            quantidade: i.quantidade,
+            subtotal: i.subtotal,
+            unidade: i.unidade
+        }));
+
+        const resp = await fetch(`${API_URL}/vendas/finalizar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({
+                pagamento: "pix",
+                valor: total,
+                produtos,
+                forcar_manual: false,
+                cpf: usarCpf ? cpf : null
+            })
+        });
+
+        if (!resp.ok) {
+            console.error("Erro ao finalizar venda Pix");
+            setProcessando(false);
+            return;
+        }
+
+        setSucesso(true);
+
+        setTimeout(() => {
+            setFechando(true);
+            setTimeout(() => {
+                limparVenda();
+                fechar();
+            }, 400);
+        }, 2000);
+    }
+
 
     // ===== CPF (ADICIONADO) =====
     const [usarCpf, setUsarCpf] = useState(false);
@@ -205,9 +290,41 @@ export default function ModalPagamento({ total, fechar }) {
                                     Cartão Crédito
                                 </button>
 
-                                <button disabled={bloquearPagamento} onClick={() => { setPagamento("pix"); setEtapa("confirmar"); }}>
+                                <button
+                                    disabled={bloquearPagamento}
+                                    onClick={async () => {
+
+                                        const r = await fetch(`${API_URL}/comercio/pix/ativo`, {
+                                            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                                        });
+
+                                        const j = await r.json();
+
+                                        if (j.ativo) {
+                                            const pix = await fetch(`${API_URL}/vendas/pix/gerar`, {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json",
+                                                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                                                },
+                                                body: JSON.stringify({ valor: total })
+                                            }).then(r => r.json());
+
+                                            setPixQr(pix.qr_code_base64);
+                                            setPixId(pix.id);
+                                            setPagamento("pix");
+                                            setEtapa("pix_mp");
+
+                                            return;
+                                        }
+
+                                        setPagamento("pix");
+                                        setEtapa("confirmar");
+                                    }}
+                                >
                                     Pix
                                 </button>
+
 
                                 <button disabled={bloquearPagamento} onClick={() => { setPagamento("dinheiro"); setEtapa("confirmar"); }}>
                                     Dinheiro
@@ -218,6 +335,38 @@ export default function ModalPagamento({ total, fechar }) {
                                 </button>
                             </>
                         )}
+                        {etapa === "pix_mp" && pixQr && (
+                            <>
+                                <h3>Pagamento Pix</h3>
+
+                                <div className="pix-qrcode">
+                                    <img
+                                        src={`data:image/png;base64,${pixQr}`}
+                                        alt="Pix QR Code"
+                                    />
+                                    <p>
+                                        {!pixPago && "Aguardando pagamento…"}
+                                        {pixPago && "Pagamento recebido ✔ Finalizando venda…"}
+                                    </p>
+
+
+                                </div>
+
+
+                                <button
+                                    className="voltar"
+                                    onClick={() => {
+                                        setPixQr(null);
+                                        setPixId(null);
+                                        setPagamento(null);
+                                        setEtapa("metodo");
+                                    }}
+                                >
+                                    Cancelar
+                                </button>
+                            </>
+                        )}
+
 
                         {etapa === "confirmar" && (
                             <>
