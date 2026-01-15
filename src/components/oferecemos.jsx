@@ -4,7 +4,7 @@ import "./oferecemos.css";
 export default function Oferecemos() {
 
     return (
-        <section className="oferecemos-container" id="oferecemos">
+        <section className="oferecemoss-container" id="oferecemos">
             <h2 className="oferecemos-titulo">O que oferecemos?</h2>
 
             <div className="oferecemos-conteudo">
