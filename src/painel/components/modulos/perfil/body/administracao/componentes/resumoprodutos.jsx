@@ -9,7 +9,6 @@ export default function ResumoProdutos() {
     const [modo, setModo] = useState("lista");
     const [editar, setEditar] = useState(null);
     const [carregando, setCarregando] = useState(true);
-    const [confirmarApagar, setConfirmarApagar] = useState(null);
     const duplicados = lista.filter(i => i.duplicado === 1);
 
     const [limite, setLimite] = useState(30);
@@ -17,6 +16,7 @@ export default function ResumoProdutos() {
     const [filtroCategoria, setFiltroCategoria] = useState("");
     const [precoMin, setPrecoMin] = useState("");
     const [precoMax, setPrecoMax] = useState("");
+    const [confirmarId, setConfirmarId] = useState(null);
 
     const token = localStorage.getItem("token");
 
@@ -194,11 +194,25 @@ export default function ResumoProdutos() {
                                     <div className="card-acoes">
 
                                         <button
-                                            className="apagar"
-                                            onClick={() => setConfirmarApagar(item)}
+                                            className={`apagar ${confirmarId === item.id ? "confirmar" : ""}`}
+                                            onClick={async () => {
+                                                if (confirmarId !== item.id) {
+                                                    setConfirmarId(item.id);
+                                                    return;
+                                                }
+
+                                                await fetch(`${API_URL}/admin/produtos-servicos/${item.id}`, {
+                                                    method: "DELETE",
+                                                    headers: { Authorization: `Bearer ${token}` }
+                                                });
+
+                                                setConfirmarId(null);
+                                                carregar();
+                                            }}
                                         >
-                                            Apagar
+                                            {confirmarId === item.id ? "Confirmar" : "Apagar"}
                                         </button>
+
 
                                     </div>
                                 </div>
@@ -222,49 +236,9 @@ export default function ResumoProdutos() {
                     </>
                 )}
             </div>
-            {confirmarApagar && (
-                <div className="modal-overlay">
-                    <div className="modal-confirmacao">
-                        <h5>Confirmar exclusão</h5>
-                        <p>
-                            Tem certeza que deseja apagar
-                            <strong> {confirmarApagar.nome}</strong>?
-                        </p>
 
-                        <div className="modal-acoes">
-                            <button
-                                className="cancelar"
-                                onClick={() => setConfirmarApagar(null)}
-                            >
-                                Cancelar
-                            </button>
-
-                            <button
-                                className="confirmar"
-                                onClick={apagarConfirmado}
-                            >
-                                Apagar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
 
         </div>
     );
-
-    async function apagarConfirmado() {
-        if (!confirmarApagar) return;
-
-        const id = confirmarApagar.id;
-
-        await fetch(`${API_URL}/admin/produtos-servicos/${id}`, {
-            method: "DELETE",
-            headers: { Authorization: `Bearer ${token}` }
-        });
-
-        setConfirmarApagar(null);
-        carregar();
-    }
 
 }
