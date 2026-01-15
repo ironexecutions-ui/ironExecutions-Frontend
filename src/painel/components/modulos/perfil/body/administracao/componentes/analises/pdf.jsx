@@ -13,7 +13,7 @@ export default function ContabilidadePdf() {
     function gerarPdf() {
         const token = localStorage.getItem("token");
 
-        const url = `${API_URL}/admin/contabilidade/pdf?data_inicio=${dataInicio}&data_fim=${dataFim}`;
+        const url = `${API_URL}/admin/contabilidade/pdf/pdf?data_inicio=${dataInicio}&data_fim=${dataFim}`;
 
         fetch(url, {
             headers: { Authorization: `Bearer ${token}` }

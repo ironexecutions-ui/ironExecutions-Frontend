@@ -65,13 +65,42 @@ export default function FormularioProduto({ item, voltar }) {
     async function salvar() {
         const token = localStorage.getItem("token");
 
+        // payload base comum a todos
         const payload = {
-            ...form,
+            nome: form.nome,
+            codigo_barras: form.codigo_barras || null,
+            qrcode: form.qrcode || null,
+            categoria: form.categoria || null,
+            imagem_url: form.imagem_url || null,
             preco: Number(form.preco || 0),
             preco_recebido: Number(form.preco_recebido || 0),
-            unidades: Number(form.unidades || 0),
             disponivel: Number(form.disponivel),
+            data_vencimento: form.data_vencimento || null
         };
+
+        // produto simples
+        if (tipo === "produto") {
+            payload.unidade = form.unidade || null;
+            payload.produto_id = null;
+            payload.unidades = 0;
+            payload.tempo_servico = null;
+        }
+
+        // pacote
+        if (tipo === "pacote") {
+            payload.produto_id = form.produto_id || null;
+            payload.unidades = Number(form.unidades || 0);
+            payload.unidade = null;
+            payload.tempo_servico = null;
+        }
+
+        // serviço
+        if (tipo === "servico") {
+            payload.tempo_servico = form.tempo_servico || null;
+            payload.unidade = null;
+            payload.produto_id = null;
+            payload.unidades = 0;
+        }
 
         const url = item
             ? `${API_URL}/admin/produtos-servicos/${item.id}`
@@ -87,8 +116,8 @@ export default function FormularioProduto({ item, voltar }) {
         });
 
         if (!resp.ok) {
-            const erro = await resp.text();
-            console.error("Erro ao salvar:", erro);
+            const erro = await resp.json().catch(() => null);
+            console.error("Erro ao salvar:", erro || await resp.text());
             return;
         }
 
