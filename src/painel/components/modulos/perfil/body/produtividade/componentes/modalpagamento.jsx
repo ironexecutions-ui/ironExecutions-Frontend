@@ -168,6 +168,7 @@ export default function ModalPagamento({ total, fechar }) {
         }
 
         try {
+            // confirmarPagamento
             const resp = await fetch(`${API_URL}/vendas/finalizar`, {
                 method: "POST",
                 headers: {
