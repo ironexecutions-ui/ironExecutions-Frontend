@@ -20,6 +20,9 @@ export default function ModalPagamento({ total, fechar }) {
     const [pixPago, setPixPago] = useState(false);
     const [carregandoPix, setCarregandoPix] = useState(false);
     const bloquearTudo = carregandoPix || processando;
+    const SOMENTE_LOCALHOST =
+        API_URL.includes("localhost") ||
+        API_URL.includes("127.0.0.1");
 
     async function verificarStatusPix() {
         if (!pixId || pixPago) return;
@@ -59,8 +62,15 @@ export default function ModalPagamento({ total, fechar }) {
     }, [etapa, pixId, pixPago]);
 
     async function finalizarVendaPix() {
+
+        if (!SOMENTE_LOCALHOST) {
+            alert("Finalização de venda permitida apenas em localhost");
+            return;
+        }
+
         if (processando) return;
         setProcessando(true);
+
 
         const produtos = itens.map(i => ({
             id: i.id,
@@ -148,8 +158,14 @@ export default function ModalPagamento({ total, fechar }) {
 
     async function confirmarPagamento() {
 
+        if (!SOMENTE_LOCALHOST) {
+            alert("Finalização de venda permitida apenas em localhost");
+            return;
+        }
+
         if (processando) return;
         setProcessando(true);
+
 
         const produtos = itens.map(i => ({
             id: i.id,
