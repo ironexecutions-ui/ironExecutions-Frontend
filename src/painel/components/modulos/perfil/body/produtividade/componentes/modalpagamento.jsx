@@ -8,7 +8,7 @@ export default function ModalPagamento({ total, fechar }) {
     const [erroMaquininha, setErroMaquininha] = useState(null);
     const [forcarManual, setForcarManual] = useState(false);
     const [usaMaquininha, setUsaMaquininha] = useState(false);
-    const API_LOCAL_VENDAS = "http://localhost:8889"; //nao esqueça que é 8888
+    const API_LOCAL_VENDAS = "http://localhost:8888"; //nao esqueça que é 8888
     const API_ONLINE_VENDAS = API_URL;
     const [apiPronta, setApiPronta] = useState(false);
 
