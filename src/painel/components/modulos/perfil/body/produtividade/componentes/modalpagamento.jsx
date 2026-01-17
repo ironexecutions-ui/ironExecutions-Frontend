@@ -8,11 +8,12 @@ export default function ModalPagamento({ total, fechar }) {
     const [erroMaquininha, setErroMaquininha] = useState(null);
     const [forcarManual, setForcarManual] = useState(false);
     const [usaMaquininha, setUsaMaquininha] = useState(false);
-    const API_LOCAL_VENDAS = "http://localhost:8889";
+    const API_LOCAL_VENDAS = "http://localhost:8889"; //nao esqueça que é 8888
     const API_ONLINE_VENDAS = API_URL;
     const [apiPronta, setApiPronta] = useState(false);
 
     const [apiVendas, setApiVendas] = useState(null);
+    const [carregandoConfirmacao, setCarregandoConfirmacao] = useState(false);
 
     const [etapa, setEtapa] = useState("metodo");
     const [pagamento, setPagamento] = useState(null);
@@ -25,6 +26,30 @@ export default function ModalPagamento({ total, fechar }) {
     const [pixPago, setPixPago] = useState(false);
     const [carregandoPix, setCarregandoPix] = useState(false);
     const bloquearTudo = carregandoPix || processando || !apiPronta;
+    const [vendaPId, setVendaPId] = useState(null);
+    async function preRegistrarVenda(tipoPagamento) {
+        const produtos = itens.map(i => ({
+            id: i.id,
+            quantidade: i.quantidade
+        }));
+
+        const resp = await fetch(`${apiVendas}/vendas/pre-registrar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({
+                pagamento: tipoPagamento,
+                valor: total,
+                produtos,
+                cpf: usarCpf ? cpf : null
+            })
+        });
+
+        const data = await resp.json();
+        setVendaPId(data.venda_p_id);
+    }
 
     async function verificarStatusPix() {
         if (!pixId || pixPago) return;
@@ -43,10 +68,24 @@ export default function ModalPagamento({ total, fechar }) {
             if (j.status === "approved") {
                 setPixPago(true);
                 setPagamento("pix");
-                finalizarVendaPix(); // 🔥 ISSO REGISTRA A VENDA
 
+                if (apiVendas === API_LOCAL_VENDAS) {
+                    await fetch(
+                        `${apiVendas}/vendas/confirmar-local/${vendaPId}`,
+                        {
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem("token")}`
+                            }
+                        }
+                    );
 
+                    setSucesso(true);
+                } else {
+                    finalizarVendaPix();
+                }
             }
+
 
         } catch {
             // silencioso
@@ -102,8 +141,11 @@ export default function ModalPagamento({ total, fechar }) {
         setTimeout(() => {
             setFechando(true);
             setTimeout(() => {
+                setVendaPId(null);
                 limparVenda();
                 fechar();
+
+
             }, 400);
         }, 2000);
     }
@@ -152,58 +194,45 @@ export default function ModalPagamento({ total, fechar }) {
             : 0;
 
     async function confirmarPagamento() {
+        if (pixPago) return;
 
         if (processando) return;
         setProcessando(true);
-
-        const produtos = itens.map(i => ({
-            id: i.id,
-            nome: i.nome,
-            preco: i.preco,
-            quantidade: i.quantidade,
-            subtotal: i.subtotal,
-            unidade: i.unidade
-        }));
-
-        if (produtos.length === 0) {
-            alert("Nenhum produto na venda");
+        if (apiVendas === API_LOCAL_VENDAS && !vendaPId) {
+            alert("Venda local não registrada. Reabra o pagamento.");
             setProcessando(false);
             return;
         }
 
         try {
-            const resp = await fetch(`${apiVendas}/vendas/finalizar`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify({
-                    pagamento,
-                    valor: total,
-                    produtos,
-                    forcar_manual: forcarManual,
-                    cpf: usarCpf ? cpf : null
-                })
-            });
-
-            if (!resp.ok) {
-                const erro = await resp.json().catch(() => ({}));
-
-                if (erro.detail && erro.detail.includes("Maquininha não conectada.")) {
-                    setErroMaquininha(erro.detail);
-                    setProcessando(false);
-                    return;
-                }
-
-                setErroMaquininha("Pagamento recusado ou erro ao finalizar venda");
-                setProcessando(false);
-                return;
+            // 🔥 NODE LOCAL
+            if (apiVendas === API_LOCAL_VENDAS) {
+                await fetch(
+                    `${apiVendas}/vendas/confirmar-local/${vendaPId}`,
+                    {
+                        method: "POST",
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
+                        }
+                    }
+                );
             }
-
-            const data = await resp.json();
-            if (data.maquininha && data.maquininha.apelido) {
-                setInfoMaquininha(data.maquininha);
+            // 🌐 ONLINE
+            else {
+                await fetch(`${apiVendas}/vendas/finalizar`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify({
+                        pagamento,
+                        valor: total,
+                        produtos: itens,
+                        forcar_manual: forcarManual,
+                        cpf: usarCpf ? cpf : null
+                    })
+                });
             }
 
             setSucesso(true);
@@ -211,16 +240,19 @@ export default function ModalPagamento({ total, fechar }) {
             setTimeout(() => {
                 setFechando(true);
                 setTimeout(() => {
+                    setVendaPId(null);
                     limparVenda();
                     fechar();
+
                 }, 400);
             }, 2000);
 
         } catch {
-            alert("Erro de conexão com o servidor");
+            alert("Erro ao confirmar pagamento");
             setProcessando(false);
         }
     }
+
     useEffect(() => {
         async function definirApiVendas() {
             try {
@@ -333,14 +365,37 @@ export default function ModalPagamento({ total, fechar }) {
 
                                 <button
                                     disabled={bloquearPagamento || bloquearTudo}
-                                    onClick={() => { setPagamento("debito"); setEtapa("confirmar"); }}
+                                    onClick={async () => {
+                                        setPagamento("debito");
+                                        setEtapa("confirmar");
+                                        setCarregandoConfirmacao(true);
+
+                                        if (apiVendas === API_LOCAL_VENDAS) {
+                                            await preRegistrarVenda("debito");
+                                        }
+
+                                        setCarregandoConfirmacao(false);
+                                    }}
+
                                 >
                                     Cartão Débito
                                 </button>
 
+
                                 <button
                                     disabled={bloquearPagamento || bloquearTudo}
-                                    onClick={() => { setPagamento("credito"); setEtapa("confirmar"); }}
+                                    onClick={async () => {
+                                        setPagamento("debito");
+                                        setEtapa("confirmar");
+                                        setCarregandoConfirmacao(true);
+
+                                        if (apiVendas === API_LOCAL_VENDAS) {
+                                            await preRegistrarVenda("debito");
+                                        }
+
+                                        setCarregandoConfirmacao(false);
+                                    }}
+
                                 >
                                     Cartão Crédito
                                 </button>
@@ -364,6 +419,11 @@ export default function ModalPagamento({ total, fechar }) {
                                             const j = await r.json();
 
                                             if (j.ativo) {
+
+                                                if (apiVendas === API_LOCAL_VENDAS) {
+                                                    await preRegistrarVenda("pix");
+                                                }
+
                                                 const pix = await fetch(`${API_URL}/vendas/pix/gerar`, {
                                                     method: "POST",
                                                     headers: {
@@ -379,7 +439,6 @@ export default function ModalPagamento({ total, fechar }) {
                                                 setEtapa("pix_mp");
                                                 return;
                                             }
-
                                             setPagamento("pix");
                                             setEtapa("confirmar");
 
@@ -398,7 +457,18 @@ export default function ModalPagamento({ total, fechar }) {
 
                                 <button
                                     disabled={bloquearPagamento || bloquearTudo}
-                                    onClick={() => { setPagamento("dinheiro"); setEtapa("confirmar"); }}
+                                    onClick={async () => {
+                                        setPagamento("debito");
+                                        setEtapa("confirmar");
+                                        setCarregandoConfirmacao(true);
+
+                                        if (apiVendas === API_LOCAL_VENDAS) {
+                                            await preRegistrarVenda("debito");
+                                        }
+
+                                        setCarregandoConfirmacao(false);
+                                    }}
+
                                 >
                                     Dinheiro
                                 </button>
@@ -437,8 +507,10 @@ export default function ModalPagamento({ total, fechar }) {
                                     onClick={() => {
                                         setPixQr(null);
                                         setPixId(null);
+                                        setVendaPId(null);
                                         setPagamento(null);
                                         setEtapa("metodo");
+
                                     }}
                                 >
                                     Cancelar
@@ -466,18 +538,24 @@ export default function ModalPagamento({ total, fechar }) {
                                 <button
                                     className="confirmar"
                                     onClick={confirmarPagamento}
-                                    disabled={processando}
+                                    disabled={processando || carregandoConfirmacao}
                                 >
-                                    {processando ? "Processando..." : "Confirmar pagamento"}
+                                    {carregandoConfirmacao
+                                        ? "Preparando pagamento..."
+                                        : processando
+                                            ? "Processando..."
+                                            : "Confirmar pagamento"}
                                 </button>
+
 
                                 <button
                                     className="voltar"
                                     onClick={() => setEtapa("metodo")}
-                                    disabled={processando}
+                                    disabled={processando || carregandoConfirmacao}
                                 >
                                     Voltar
                                 </button>
+
                             </>
                         )}
                     </>
