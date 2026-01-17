@@ -267,8 +267,8 @@ export default function ModalPagamento({ total, fechar }) {
                 const data = await resp.json();
 
                 if (Number(data.node) === 1) {
-                    console.log("[PAGAMENTO] NODE = 1 → API LOCAL 8889");
-                    setApiVendas("http://localhost:8889");
+                    console.log("[PAGAMENTO] NODE = 1 → API LOCAL 8888");
+                    setApiVendas("http://localhost:8888");
                 } else {
                     console.log("[PAGAMENTO] NODE = 0 → API ONLINE");
                     setApiVendas(API_ONLINE_VENDAS);
