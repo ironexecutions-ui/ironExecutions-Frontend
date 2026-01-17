@@ -24,6 +24,8 @@ export default function ModalPagamento({ total, fechar }) {
     const [pixQr, setPixQr] = useState(null);
     const [pixId, setPixId] = useState(null);
     const [pixPago, setPixPago] = useState(false);
+    const API_PIX = apiVendas;
+
     const [carregandoPix, setCarregandoPix] = useState(false);
     const bloquearTudo = carregandoPix || processando || !apiPronta;
     const [vendaPId, setVendaPId] = useState(null);
@@ -56,7 +58,7 @@ export default function ModalPagamento({ total, fechar }) {
 
         try {
             const r = await fetch(
-                `${API_URL}/vendas/pix/status/${pixId}`,
+                `${API_PIX}/vendas/pix/status/${pixId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -66,6 +68,8 @@ export default function ModalPagamento({ total, fechar }) {
 
             const j = await r.json();
             if (j.status === "approved") {
+                if (apiVendas === API_LOCAL_VENDAS && !vendaPId) return;
+
                 setPixPago(true);
                 setPagamento("pix");
 
@@ -79,7 +83,6 @@ export default function ModalPagamento({ total, fechar }) {
                             }
                         }
                     );
-
                     setSucesso(true);
                 } else {
                     finalizarVendaPix();
@@ -92,12 +95,9 @@ export default function ModalPagamento({ total, fechar }) {
         }
     }
     useEffect(() => {
-        if (etapa !== "pix_mp") return;
-        if (!pixId || pixPago) return;
+        if (etapa !== "pix_mp" || !pixId || pixPago) return;
 
-        const interval = setInterval(() => {
-            verificarStatusPix();
-        }, 3000);
+        const interval = setInterval(verificarStatusPix, 3000);
 
         return () => clearInterval(interval);
     }, [etapa, pixId, pixPago]);
@@ -194,7 +194,7 @@ export default function ModalPagamento({ total, fechar }) {
             : 0;
 
     async function confirmarPagamento() {
-        if (pixPago) return;
+        if (pixPago && pagamento === "pix" && etapa === "pix_mp") return;
 
         if (processando) return;
         setProcessando(true);
@@ -316,6 +316,7 @@ export default function ModalPagamento({ total, fechar }) {
         );
     }
 
+
     return (
         <div className={`pag-overlay ${fechando ? "overlay-fechar" : ""}`}>
             <div className={`pag-box ${sucesso ? "pag-box-sucesso" : ""}`}>
@@ -385,16 +386,17 @@ export default function ModalPagamento({ total, fechar }) {
                                 <button
                                     disabled={bloquearPagamento || bloquearTudo}
                                     onClick={async () => {
-                                        setPagamento("debito");
+                                        setPagamento("credito");
                                         setEtapa("confirmar");
                                         setCarregandoConfirmacao(true);
 
                                         if (apiVendas === API_LOCAL_VENDAS) {
-                                            await preRegistrarVenda("debito");
+                                            await preRegistrarVenda("credito");
                                         }
 
                                         setCarregandoConfirmacao(false);
                                     }}
+
 
                                 >
                                     Cartão Crédito
@@ -404,50 +406,82 @@ export default function ModalPagamento({ total, fechar }) {
                                 <button
                                     disabled={bloquearPagamento || bloquearTudo}
                                     onClick={async () => {
-
                                         if (bloquearTudo) return;
 
+                                        setPagamento("pix");
+                                        setPixPago(false); // ← FALTAVA ISSO
+                                        setCarregandoConfirmacao(true);
                                         setCarregandoPix(true);
 
+
+
                                         try {
-                                            const r = await fetch(`${API_URL}/comercio/pix/ativo`, {
-                                                headers: {
-                                                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                                                }
-                                            });
+                                            let usarPixMP = false;
 
-                                            const j = await r.json();
-
-                                            if (j.ativo) {
-
-                                                if (apiVendas === API_LOCAL_VENDAS) {
-                                                    await preRegistrarVenda("pix");
-                                                }
-
-                                                const pix = await fetch(`${API_URL}/vendas/pix/gerar`, {
-                                                    method: "POST",
+                                            try {
+                                                const r = await fetch(`${API_URL}/comercio/status-pagamento`, {
                                                     headers: {
-                                                        "Content-Type": "application/json",
                                                         Authorization: `Bearer ${localStorage.getItem("token")}`
-                                                    },
-                                                    body: JSON.stringify({ valor: total })
-                                                }).then(r => r.json());
+                                                    }
+                                                });
 
-                                                setPixQr(pix.qr_code_base64);
-                                                setPixId(pix.id);
+                                                const j = await r.json();
+                                                usarPixMP = j.api_maquininha === true;
+                                            } catch {
+                                                usarPixMP = false;
+                                            }
+
+
+                                            if (apiVendas === API_LOCAL_VENDAS) {
+                                                await preRegistrarVenda("pix");
+                                            }
+
+                                            const pix = await fetch(`${API_PIX}/vendas/pix/gerar`, {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json",
+                                                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                                                },
+                                                body: JSON.stringify({ valor: total })
+                                            }).then(r => r.json());
+
+                                            if (pix.tipo === "pix_local") {
+                                                setPixPago(true);
                                                 setPagamento("pix");
-                                                setEtapa("pix_mp");
+
+                                                // CONFIRMA DIRETO
+                                                if (apiVendas === API_LOCAL_VENDAS && vendaPId) {
+                                                    await fetch(
+                                                        `${apiVendas}/vendas/confirmar-local/${vendaPId}`,
+                                                        {
+                                                            method: "POST",
+                                                            headers: {
+                                                                Authorization: `Bearer ${localStorage.getItem("token")}`
+                                                            }
+                                                        }
+                                                    );
+                                                    setSucesso(true);
+                                                    return;
+                                                }
+
+                                                setEtapa("confirmar");
                                                 return;
                                             }
-                                            setPagamento("pix");
-                                            setEtapa("confirmar");
 
+
+                                            setPixQr(pix.qr_code_base64);
+                                            setPixId(pix.id);
+                                            setEtapa("pix_mp");
                                         } catch {
-                                            alert("Erro ao gerar Pix. Tente novamente.");
+                                            alert("Erro ao gerar Pix");
+                                            setEtapa("metodo");
                                         } finally {
                                             setCarregandoPix(false);
+                                            setCarregandoConfirmacao(false);
                                         }
                                     }}
+
+
                                 >
                                     {carregandoPix ? "Gerando Pix..." : "Pix"}
                                 </button>
@@ -458,16 +492,17 @@ export default function ModalPagamento({ total, fechar }) {
                                 <button
                                     disabled={bloquearPagamento || bloquearTudo}
                                     onClick={async () => {
-                                        setPagamento("debito");
+                                        setPagamento("dinheiro");
                                         setEtapa("confirmar");
                                         setCarregandoConfirmacao(true);
 
                                         if (apiVendas === API_LOCAL_VENDAS) {
-                                            await preRegistrarVenda("debito");
+                                            await preRegistrarVenda("dinheiro");
                                         }
 
                                         setCarregandoConfirmacao(false);
                                     }}
+
 
                                 >
                                     Dinheiro
@@ -509,12 +544,17 @@ export default function ModalPagamento({ total, fechar }) {
                                         setPixId(null);
                                         setVendaPId(null);
                                         setPagamento(null);
+                                        setPixPago(false);
+                                        setCarregandoPix(false);
+                                        setCarregandoConfirmacao(false);
                                         setEtapa("metodo");
-
                                     }}
+
                                 >
                                     Cancelar
                                 </button>
+
+
                             </>
                         )}
 
@@ -538,7 +578,13 @@ export default function ModalPagamento({ total, fechar }) {
                                 <button
                                     className="confirmar"
                                     onClick={confirmarPagamento}
-                                    disabled={processando || carregandoConfirmacao}
+                                    disabled={
+                                        processando ||
+                                        carregandoConfirmacao ||
+                                        (pagamento === "pix" && !pixPago) ||
+                                        (apiVendas === API_LOCAL_VENDAS && !vendaPId && pagamento !== "pix")
+                                    }
+
                                 >
                                     {carregandoConfirmacao
                                         ? "Preparando pagamento..."
@@ -546,6 +592,7 @@ export default function ModalPagamento({ total, fechar }) {
                                             ? "Processando..."
                                             : "Confirmar pagamento"}
                                 </button>
+
 
 
                                 <button
