@@ -166,6 +166,36 @@
 }
 
 /* ===============================
+   BOTÃO EM ESTADO DE PROCESSO (VERMELHO)
+=============================== */
+.btn-processando {
+    background: linear-gradient(135deg, #b91c1c, #ef4444) !important;
+    color: #ffffff !important;
+    cursor: not-allowed;
+    box-shadow:
+        0 6px 18px rgba(239, 68, 68, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    animation: pulseErro 1.2s ease-in-out infinite;
+}
+
+@keyframes pulseErro {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(239, 68, 68, 0.5);
+    }
+
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 18px rgba(239, 68, 68, 0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(239, 68, 68, 0.5);
+    }
+}
+
+/* ===============================
    BOTÕES DO MODAL
 =============================== */
 .pag-box button {

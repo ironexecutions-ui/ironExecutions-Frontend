@@ -481,6 +481,7 @@ export default function ModalPagamento({ total, fechar }) {
                                         }
                                     }}
 
+                                    className={carregandoPix ? "btn-processando" : ""}
 
                                 >
                                     {carregandoPix ? "Gerando Pix..." : "Pix"}
@@ -576,7 +577,7 @@ export default function ModalPagamento({ total, fechar }) {
                                 )}
 
                                 <button
-                                    className="confirmar"
+                                    className={`confirmar ${carregandoConfirmacao || processando ? "btn-processando" : ""}`}
                                     onClick={confirmarPagamento}
                                     disabled={
                                         processando ||
@@ -584,7 +585,6 @@ export default function ModalPagamento({ total, fechar }) {
                                         (pagamento === "pix" && !pixPago) ||
                                         (apiVendas === API_LOCAL_VENDAS && !vendaPId && pagamento !== "pix")
                                     }
-
                                 >
                                     {carregandoConfirmacao
                                         ? "Preparando pagamento..."
@@ -592,6 +592,7 @@ export default function ModalPagamento({ total, fechar }) {
                                             ? "Processando..."
                                             : "Confirmar pagamento"}
                                 </button>
+
 
 
 
