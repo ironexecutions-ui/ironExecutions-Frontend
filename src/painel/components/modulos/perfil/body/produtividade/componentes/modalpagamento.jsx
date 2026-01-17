@@ -8,7 +8,11 @@ export default function ModalPagamento({ total, fechar }) {
     const [erroMaquininha, setErroMaquininha] = useState(null);
     const [forcarManual, setForcarManual] = useState(false);
     const [usaMaquininha, setUsaMaquininha] = useState(false);
-    const API_LOCAL_VENDAS = "http://localhost:8888";
+    const API_LOCAL_VENDAS = "http://localhost:8889";
+    const API_ONLINE_VENDAS = API_URL;
+    const [apiPronta, setApiPronta] = useState(false);
+
+    const [apiVendas, setApiVendas] = useState(null);
 
     const [etapa, setEtapa] = useState("metodo");
     const [pagamento, setPagamento] = useState(null);
@@ -20,7 +24,7 @@ export default function ModalPagamento({ total, fechar }) {
     const [pixId, setPixId] = useState(null);
     const [pixPago, setPixPago] = useState(false);
     const [carregandoPix, setCarregandoPix] = useState(false);
-    const bloquearTudo = carregandoPix || processando;
+    const bloquearTudo = carregandoPix || processando || !apiPronta;
 
     async function verificarStatusPix() {
         if (!pixId || pixPago) return;
@@ -72,7 +76,7 @@ export default function ModalPagamento({ total, fechar }) {
             unidade: i.unidade
         }));
 
-        const resp = await fetch(`${API_LOCAL_VENDAS}/vendas/finalizar`, {
+        const resp = await fetch(`${apiVendas}/vendas/finalizar`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -168,8 +172,7 @@ export default function ModalPagamento({ total, fechar }) {
         }
 
         try {
-            // confirmarPagamento
-            const resp = await fetch(`${API_LOCAL_VENDAS}/vendas/finalizar`, {
+            const resp = await fetch(`${apiVendas}/vendas/finalizar`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -218,6 +221,38 @@ export default function ModalPagamento({ total, fechar }) {
             setProcessando(false);
         }
     }
+    useEffect(() => {
+        async function definirApiVendas() {
+            try {
+                const resp = await fetch(`${API_URL}/clientes/me`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+
+                if (!resp.ok) throw new Error("Falha ao buscar cliente");
+
+                const data = await resp.json();
+
+                if (Number(data.node) === 1) {
+                    console.log("[PAGAMENTO] NODE = 1 → API LOCAL 8889");
+                    setApiVendas("http://localhost:8889");
+                } else {
+                    console.log("[PAGAMENTO] NODE = 0 → API ONLINE");
+                    setApiVendas(API_ONLINE_VENDAS);
+                }
+
+            } catch (err) {
+                console.error("[PAGAMENTO] Erro ao definir API", err);
+                setApiVendas(API_ONLINE_VENDAS);
+            } finally {
+                setApiPronta(true);
+            }
+        }
+
+        definirApiVendas();
+    }, []);
+
 
     useEffect(() => {
         async function carregarApiMaquininha() {
@@ -239,6 +274,15 @@ export default function ModalPagamento({ total, fechar }) {
 
         carregarApiMaquininha();
     }, []);
+    if (!apiPronta) {
+        return (
+            <div className="pag-overlay">
+                <div className="pag-box">
+                    <p>Inicializando sistema de pagamento...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={`pag-overlay ${fechando ? "overlay-fechar" : ""}`}>
