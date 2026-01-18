@@ -15,7 +15,8 @@ export default function ModalPagamento({ total, fechar }) {
     const [comandaUrl, setComandaUrl] = useState(null);
     const [statusVenda, setStatusVenda] = useState(null);
     const pixAutomatico = false; // enquanto não tem QR configurado
-    const [processandoMetodo, setProcessandoMetodo] = useState(false);
+    const [processandoMetodo, setProcessandoMetodo] = useState(null);
+    // valores: "debito" | "credito" | "dinheiro" | null
 
     const API_ONLINE_VENDAS = API_URL;
 
@@ -414,7 +415,7 @@ export default function ModalPagamento({ total, fechar }) {
                                     onClick={async () => {
                                         if (processandoMetodo) return;
 
-                                        setProcessandoMetodo(true);
+                                        setProcessandoMetodo("debito");
                                         setPagamento("debito");
 
                                         try {
@@ -430,9 +431,9 @@ export default function ModalPagamento({ total, fechar }) {
                                         }
                                     }}
 
-                                    className={processandoMetodo ? "btn-processando" : ""}
+                                    className={processandoMetodo === "debito" ? "btn-processando" : ""}
                                 >
-                                    {processandoMetodo ? "Processando..." : "Cartão Débito"}
+                                    {processandoMetodo === "debito" ? "Processando..." : "Cartão Débito"}
                                 </button>
 
 
@@ -446,7 +447,7 @@ export default function ModalPagamento({ total, fechar }) {
                                     onClick={async () => {
                                         if (processandoMetodo) return;
 
-                                        setProcessandoMetodo(true);
+                                        setProcessandoMetodo("credito");
                                         setPagamento("credito");
 
                                         try {
@@ -461,10 +462,11 @@ export default function ModalPagamento({ total, fechar }) {
                                             setProcessandoMetodo(false);
                                         }
                                     }}
+                                    className={processandoMetodo === "credito" ? "btn-processando" : ""}
 
 
                                 >
-                                    Cartão Crédito
+                                    {processandoMetodo === "credito" ? "Processando..." : "Cartão Crédito"}
                                 </button>
 
                                 <button
@@ -531,7 +533,7 @@ export default function ModalPagamento({ total, fechar }) {
                                     onClick={async () => {
                                         if (processandoMetodo) return;
 
-                                        setProcessandoMetodo(true);
+                                        setProcessandoMetodo("dinheiro");
                                         setPagamento("dinheiro");
 
                                         try {
@@ -547,10 +549,11 @@ export default function ModalPagamento({ total, fechar }) {
                                         }
                                     }}
 
+                                    className={processandoMetodo === "dinheiro" ? "btn-processando" : ""}
 
 
                                 >
-                                    Dinheiro
+                                    {processandoMetodo === "dinheiro" ? "Processando..." : "Dinheiro"}
                                 </button>
 
                                 <button
