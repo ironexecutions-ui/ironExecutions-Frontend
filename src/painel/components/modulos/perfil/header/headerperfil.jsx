@@ -108,9 +108,6 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
 
 
                 if (json.comercio_id) {
-                    const token = localStorage.getItem("token");
-
-                    // 🔹 CARREGA DADOS DA LOJA
                     try {
                         const respLoja = await fetch(`${API_URL}/comercios/${json.comercio_id}`);
                         const lojaJson = await respLoja.json();
@@ -119,10 +116,10 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                         setLoja(null);
                     }
 
-                    // 🔹 ALERTA DE VENCIMENTO
+                    // 🔹 ALERTA DE VENCIMENTO (apenas uma vez)
                     await carregarAlertaVencimento();
-
                 }
+
 
 
 
@@ -147,15 +144,8 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
             window.removeEventListener("beforeinstallprompt", capturar);
         };
     }, []);
-    useEffect(() => {
-        if (!dados?.comercio_id) return;
 
-        const intervalo = setInterval(() => {
-            carregarAlertaVencimento();
-        }, 10000); // a cada 10 segundos
 
-        return () => clearInterval(intervalo);
-    }, [dados?.comercio_id]);
 
     function abrirOuFechar(secao) {
         setSecaoAtiva(prev => prev === secao ? null : secao);

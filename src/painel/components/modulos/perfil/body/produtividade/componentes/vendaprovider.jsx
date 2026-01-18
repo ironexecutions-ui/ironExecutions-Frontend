@@ -8,6 +8,7 @@ export function VendaProvider({ children }) {
     const [itens, setItens] = useState([]);
     const [total, setTotal] = useState(0);
     const [limparBusca, setLimparBusca] = useState(false);
+    const [modalAberto, setModalAberto] = useState(false);
 
     function calcularTotal(lista) {
         const soma = lista.reduce((acc, item) => acc + item.subtotal, 0);
@@ -141,14 +142,16 @@ export function VendaProvider({ children }) {
             total,
             limparVenda,
             limparBusca,
-            setLimparBusca
+            setLimparBusca,
+
+            // 🔥 NOVO
+            modalAberto,
+            setModalAberto
         }}>
-
-
-
             {children}
         </VendaContext.Provider>
     );
+
 }
 
 export function useVenda() {

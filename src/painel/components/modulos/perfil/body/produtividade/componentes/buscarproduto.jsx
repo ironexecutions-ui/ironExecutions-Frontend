@@ -4,6 +4,8 @@ import { useVenda } from "./vendaprovider";
 import "./buscarproduto.css";
 import { createPortal } from "react-dom";
 import ModalCadastroProduto from "./registro_rapido/modalregistrorapido";
+export const buscarInputRef = { current: null };
+
 export default function BuscarProduto() {
 
     const { setProdutoAtual, adicionarItem, limparBusca, setLimparBusca } = useVenda();
@@ -13,8 +15,8 @@ export default function BuscarProduto() {
     const [texto, setTexto] = useState("");
     const [sugestoes, setSugestoes] = useState([]);
     const [carregando, setCarregando] = useState(false);
-
     const inputRef = useRef(null);
+
     const itensRef = useRef([]);
     const timeoutRef = useRef(null);
 
@@ -243,7 +245,10 @@ export default function BuscarProduto() {
             <div className="buscar-container">
 
                 <input
-                    ref={inputRef}
+                    ref={el => {
+                        inputRef.current = el;
+                        buscarInputRef.current = el;
+                    }}
                     className="buscar-input"
                     type="text"
                     placeholder="Digite nome, código de barras ou QRCode"
@@ -251,6 +256,7 @@ export default function BuscarProduto() {
                     onChange={(e) => buscar(e.target.value)}
                     onKeyDown={handleKeyDown}
                 />
+
 
                 {carregando && <div className="loader"></div>}
 

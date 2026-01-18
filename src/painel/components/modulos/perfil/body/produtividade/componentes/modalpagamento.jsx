@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { API_URL } from "../../../../../../../../config";
 import "./modalpagamento.css";
 import { useVenda } from "./vendaprovider";
@@ -8,34 +8,50 @@ export default function ModalPagamento({ total, fechar }) {
     const [erroMaquininha, setErroMaquininha] = useState(null);
     const [forcarManual, setForcarManual] = useState(false);
     const [usaMaquininha, setUsaMaquininha] = useState(false);
-    const API_LOCAL_VENDAS = "http://localhost:8888"; //nao esqueça que é 8888
-    const API_ONLINE_VENDAS = API_URL;
-    const [apiPronta, setApiPronta] = useState(false);
+    const API_LOCAL = "http://localhost:8888";
+    const [vendaId, setVendaId] = useState(null);
+    const criandoVendaRef = useRef(false);
 
+    const [comandaUrl, setComandaUrl] = useState(null);
+    const [statusVenda, setStatusVenda] = useState(null);
+    const pixAutomatico = false; // enquanto não tem QR configurado
+    const [processandoMetodo, setProcessandoMetodo] = useState(false);
+
+    const API_ONLINE_VENDAS = API_URL;
+
+    const [apiPronta, setApiPronta] = useState(false);
     const [apiVendas, setApiVendas] = useState(null);
+
     const [carregandoConfirmacao, setCarregandoConfirmacao] = useState(false);
+    const [processando, setProcessando] = useState(false);
+    const [fechando, setFechando] = useState(false);
+    const [sucesso, setSucesso] = useState(false);
+    const imprimindoRef = useRef(false);
 
     const [etapa, setEtapa] = useState("metodo");
     const [pagamento, setPagamento] = useState(null);
+
     const [valorRecebido, setValorRecebido] = useState("");
-    const [sucesso, setSucesso] = useState(false);
-    const [processando, setProcessando] = useState(false);
-    const [fechando, setFechando] = useState(false);
+
     const [pixQr, setPixQr] = useState(null);
     const [pixId, setPixId] = useState(null);
     const [pixPago, setPixPago] = useState(false);
-    const API_PIX = apiVendas;
-
     const [carregandoPix, setCarregandoPix] = useState(false);
-    const bloquearTudo = carregandoPix || processando || !apiPronta;
-    const [vendaPId, setVendaPId] = useState(null);
-    async function preRegistrarVenda(tipoPagamento) {
-        const produtos = itens.map(i => ({
-            id: i.id,
-            quantidade: i.quantidade
-        }));
 
-        const resp = await fetch(`${apiVendas}/vendas/pre-registrar`, {
+    const bloquearTudo =
+        carregandoPix ||
+        processando ||
+        processandoMetodo ||
+        !apiPronta;
+
+    const { itens, limparVenda } = useVenda();
+
+    async function criarVendaInicial(tipoPagamento) {
+        if (criandoVendaRef.current) return null;
+
+        criandoVendaRef.current = true;
+
+        const resp = await fetch(`${API_ONLINE_VENDAS}/vendas/finalizar`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -44,118 +60,32 @@ export default function ModalPagamento({ total, fechar }) {
             body: JSON.stringify({
                 pagamento: tipoPagamento,
                 valor: total,
-                produtos,
-                cpf: usarCpf ? cpf : null
-            })
-        });
-
-        const data = await resp.json();
-        setVendaPId(data.venda_p_id);
-    }
-
-    async function verificarStatusPix() {
-        if (!pixId || pixPago) return;
-
-        try {
-            const r = await fetch(
-                `${API_PIX}/vendas/pix/status/${pixId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                    }
-                }
-            );
-
-            const j = await r.json();
-            if (j.status === "approved") {
-                if (apiVendas === API_LOCAL_VENDAS && !vendaPId) return;
-
-                setPixPago(true);
-                setPagamento("pix");
-
-                if (apiVendas === API_LOCAL_VENDAS) {
-                    await fetch(
-                        `${apiVendas}/vendas/confirmar-local/${vendaPId}`,
-                        {
-                            method: "POST",
-                            headers: {
-                                Authorization: `Bearer ${localStorage.getItem("token")}`
-                            }
-                        }
-                    );
-                    setSucesso(true);
-                } else {
-                    finalizarVendaPix();
-                }
-            }
-
-
-        } catch {
-            // silencioso
-        }
-    }
-    useEffect(() => {
-        if (etapa !== "pix_mp" || !pixId || pixPago) return;
-
-        const interval = setInterval(verificarStatusPix, 3000);
-
-        return () => clearInterval(interval);
-    }, [etapa, pixId, pixPago]);
-
-    async function finalizarVendaPix() {
-        if (processando) return;
-        setProcessando(true);
-
-        const produtos = itens.map(i => ({
-            id: i.id,
-            nome: i.nome,
-            preco: i.preco,
-            quantidade: i.quantidade,
-            subtotal: i.subtotal,
-            unidade: i.unidade
-        }));
-
-        const resp = await fetch(`${apiVendas}/vendas/finalizar`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify({
-                pagamento: "pix",
-                valor: total,
-                produtos,
-                forcar_manual: false,
+                produtos: itens,
+                forcar_manual: forcarManual,
                 cpf: usarCpf ? cpf : null
             })
         });
 
         if (!resp.ok) {
-            console.error("Erro ao finalizar venda Pix");
-            setProcessando(false);
-            return;
+            criandoVendaRef.current = false;
+            throw new Error("Erro ao criar venda");
         }
 
-        setSucesso(true);
+        const dados = await resp.json();
 
-        setTimeout(() => {
-            setFechando(true);
-            setTimeout(() => {
-                setVendaPId(null);
-                limparVenda();
-                fechar();
+        setVendaId(dados.venda_id);
+        setComandaUrl(dados.comanda);
+        setStatusVenda(dados.status);
 
-
-            }, 400);
-        }, 2000);
+        return dados; // 🔥 ESSENCIAL
     }
 
 
-    // ===== CPF (ADICIONADO) =====
+    // ===============================
+    // CPF
+    // ===============================
     const [usarCpf, setUsarCpf] = useState(false);
     const [cpf, setCpf] = useState("");
-
-    const { itens, limparVenda } = useVenda();
 
     function mascararCpf(valor) {
         return valor
@@ -184,6 +114,11 @@ export default function ModalPagamento({ total, fechar }) {
 
         return resto === Number(cpfLimpo[10]);
     }
+    function fecharModalSemCancelar() {
+        criandoVendaRef.current = false;
+        fechar();
+    }
+
 
     const cpfValido = validarCpf(cpf);
     const bloquearPagamento = usarCpf && !cpfValido;
@@ -193,99 +128,196 @@ export default function ModalPagamento({ total, fechar }) {
             ? Math.max(Number(valorRecebido || 0) - total, 0)
             : 0;
 
-    async function confirmarPagamento() {
-        if (pixPago && pagamento === "pix" && etapa === "pix_mp") return;
-
-        if (processando) return;
-        setProcessando(true);
-        if (apiVendas === API_LOCAL_VENDAS && !vendaPId) {
-            alert("Venda local não registrada. Reabra o pagamento.");
-            setProcessando(false);
-            return;
-        }
-
+    // ===============================
+    // FINALIZAR VENDA (ÚNICO FLUXO)
+    // ===============================
+    async function cancelarVendaAtual() {
         try {
-            // 🔥 NODE LOCAL
-            if (apiVendas === API_LOCAL_VENDAS) {
+            if (vendaId) {
                 await fetch(
-                    `${apiVendas}/vendas/confirmar-local/${vendaPId}`,
+                    `${API_ONLINE_VENDAS}/vendas/${vendaId}/cancelar`,
                     {
-                        method: "POST",
+                        method: "DELETE",
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem("token")}`
                         }
                     }
                 );
             }
-            // 🌐 ONLINE
-            else {
-                await fetch(`${apiVendas}/vendas/finalizar`, {
+        } catch (e) {
+            console.warn("Erro ao cancelar venda (ignorado):", e);
+        }
+
+        // 🔥 RESET TOTAL — ISSO É O MAIS IMPORTANTE
+        criandoVendaRef.current = false;
+
+        setVendaId(null);
+        setComandaUrl(null);
+        setStatusVenda(null);
+        setPagamento(null);
+        setValorRecebido("");
+        setPixQr(null);
+        setPixId(null);
+        setPixPago(false);
+        setProcessando(false);
+        setCarregandoPix(false);
+        setEtapa("metodo");
+
+        // limpa carrinho se quiser
+        // limparVenda();
+
+        // NÃO fecha o modal automaticamente
+    }
+
+    async function confirmarPagamento() {
+        if (imprimindoRef.current) {
+            console.warn("Impressão já em andamento, ignorando chamada duplicada");
+            return;
+        }
+
+        imprimindoRef.current = true;
+
+
+        // Pix não precisa passar por botão manual
+        setProcessando(true);
+
+
+        if (apiVendas !== API_LOCAL) {
+            imprimindoRef.current = false;
+            alert("Impressão local indisponível");
+            return;
+        }
+
+
+        setProcessando(true);
+
+        try {
+            // SEMPRE tenta confirmar
+            const conf = await fetch(
+                `${API_ONLINE_VENDAS}/vendas/${vendaId}/confirmar`,
+                {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
                         Authorization: `Bearer ${localStorage.getItem("token")}`
-                    },
-                    body: JSON.stringify({
-                        pagamento,
-                        valor: total,
-                        produtos: itens,
-                        forcar_manual: forcarManual,
-                        cpf: usarCpf ? cpf : null
-                    })
-                });
+                    }
+                }
+            );
+
+            // 409 NÃO BLOQUEIA
+            if (!conf.ok && conf.status !== 409) {
+                throw new Error("Erro ao confirmar venda");
+            }
+
+            // IMPRIME SEMPRE
+            const imp = await fetch(`${API_LOCAL}/imprimir`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    venda_id: vendaId,
+                    url: comandaUrl
+                })
+            });
+
+            if (!imp.ok) {
+                throw new Error("Falha na impressão");
             }
 
             setSucesso(true);
 
             setTimeout(() => {
-                setFechando(true);
-                setTimeout(() => {
-                    setVendaPId(null);
-                    limparVenda();
-                    fechar();
+                imprimindoRef.current = false;
+                criandoVendaRef.current = false;
 
-                }, 400);
-            }, 2000);
+                setVendaId(null);
+                setComandaUrl(null);
+                setStatusVenda(null);
+                setPagamento(null);
+                setPixQr(null);
+                setPixId(null);
+                setPixPago(false);
+                setEtapa("metodo");
+                limparVenda();
+                fechar();
+            }, 1500);
+
+        } catch (e) {
+            imprimindoRef.current = false;
+
+            alert("Erro ao confirmar ou imprimir");
+            setProcessando(false);
+            resetarModal();
+        }
+    }
+
+
+
+    // ===============================
+    // PIX – VERIFICAR STATUS
+    // ===============================
+    async function verificarStatusPix() {
+        if (!pixId || pixPago) return;
+
+        try {
+            const r = await
+                fetch(`${API_ONLINE_VENDAS}/vendas/pix/status/${pixId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
+                        }
+                    }
+                );
+
+            const j = await r.json();
+
+            if (j.status === "approved") {
+                setPixPago(true);
+
+                // Pix aprovado = confirma automaticamente
+                await confirmarPagamento();
+            }
+
 
         } catch {
-            alert("Erro ao confirmar pagamento");
-            setProcessando(false);
+            // silencioso
         }
     }
 
     useEffect(() => {
+        if (etapa !== "pix_mp" || !pixId || pixPago) return;
+
+        const interval = setInterval(verificarStatusPix, 3000);
+        return () => clearInterval(interval);
+    }, [etapa, pixId, pixPago]);
+
+    // ===============================
+    // DEFINIR API
+    // ===============================
+    useEffect(() => {
         async function definirApiVendas() {
             try {
-                const resp = await fetch(`${API_URL}/clientes/me`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                    }
+                const r = await fetch(`${API_LOCAL}/health`, {
+                    method: "GET"
                 });
 
-                if (!resp.ok) throw new Error("Falha ao buscar cliente");
-
-                const data = await resp.json();
-
-                if (Number(data.node) === 1) {
-                    console.log("[PAGAMENTO] NODE = 1 → API LOCAL 8888");
-                    setApiVendas("http://localhost:8888");
-                } else {
-                    console.log("[PAGAMENTO] NODE = 0 → API ONLINE");
-                    setApiVendas(API_ONLINE_VENDAS);
+                if (r.ok) {
+                    console.log("API LOCAL ativa, usando 8888");
+                    setApiVendas(API_LOCAL);
+                    return;
                 }
-
-            } catch (err) {
-                console.error("[PAGAMENTO] Erro ao definir API", err);
-                setApiVendas(API_ONLINE_VENDAS);
-            } finally {
-                setApiPronta(true);
+            } catch {
+                // silencioso
             }
+
+            console.log("API LOCAL indisponível, usando ONLINE");
+            setApiVendas(API_ONLINE_VENDAS);
         }
 
-        definirApiVendas();
+        definirApiVendas().finally(() => setApiPronta(true));
     }, []);
 
-
+    // ===============================
+    // STATUS MAQUININHA
+    // ===============================
     useEffect(() => {
         async function carregarApiMaquininha() {
             try {
@@ -306,15 +338,25 @@ export default function ModalPagamento({ total, fechar }) {
 
         carregarApiMaquininha();
     }, []);
-    if (!apiPronta) {
-        return (
-            <div className="pag-overlay">
-                <div className="pag-box">
-                    <p>Inicializando sistema de pagamento...</p>
-                </div>
-            </div>
-        );
+
+    function resetarModal() {
+        criandoVendaRef.current = false;
+
+        setProcessando(false);
+        setCarregandoPix(false);
+        setVendaId(null);
+        setComandaUrl(null);
+        setStatusVenda(null);
+        setPagamento(null);
+        setValorRecebido("");
+        setPixQr(null);
+        setPixId(null);
+        setPixPago(false);
+        setEtapa("metodo");
+
+        fechar();
     }
+
 
 
     return (
@@ -355,7 +397,6 @@ export default function ModalPagamento({ total, fechar }) {
                                                 value={cpf}
                                                 onChange={e => setCpf(mascararCpf(e.target.value))}
                                             />
-
                                             <div className="cpf-ajuda">
                                                 <br />
                                             </div>
@@ -363,38 +404,62 @@ export default function ModalPagamento({ total, fechar }) {
                                     )}
                                 </div>
 
-
                                 <button
-                                    disabled={bloquearPagamento || bloquearTudo}
+                                    disabled={
+                                        bloquearPagamento ||
+                                        bloquearTudo ||
+                                        vendaId ||
+                                        criandoVendaRef.current
+                                    }
                                     onClick={async () => {
+                                        if (processandoMetodo) return;
+
+                                        setProcessandoMetodo(true);
                                         setPagamento("debito");
-                                        setEtapa("confirmar");
-                                        setCarregandoConfirmacao(true);
 
-                                        if (apiVendas === API_LOCAL_VENDAS) {
-                                            await preRegistrarVenda("debito");
+                                        try {
+                                            const dados = await criarVendaInicial("debito");
+                                            if (!dados) return;
+
+                                            setEtapa("confirmar");
+                                        } catch {
+                                            alert("Erro ao iniciar pagamento");
+                                            setPagamento(null);
+                                        } finally {
+                                            setProcessandoMetodo(false);
                                         }
-
-                                        setCarregandoConfirmacao(false);
                                     }}
 
+                                    className={processandoMetodo ? "btn-processando" : ""}
                                 >
-                                    Cartão Débito
+                                    {processandoMetodo ? "Processando..." : "Cartão Débito"}
                                 </button>
 
 
                                 <button
-                                    disabled={bloquearPagamento || bloquearTudo}
+                                    disabled={
+                                        bloquearPagamento ||
+                                        bloquearTudo ||
+                                        vendaId ||
+                                        criandoVendaRef.current
+                                    }
                                     onClick={async () => {
+                                        if (processandoMetodo) return;
+
+                                        setProcessandoMetodo(true);
                                         setPagamento("credito");
-                                        setEtapa("confirmar");
-                                        setCarregandoConfirmacao(true);
 
-                                        if (apiVendas === API_LOCAL_VENDAS) {
-                                            await preRegistrarVenda("credito");
+                                        try {
+                                            const dados = await criarVendaInicial("credito");
+                                            if (!dados) return;
+
+                                            setEtapa("confirmar");
+                                        } catch {
+                                            alert("Erro ao iniciar pagamento");
+                                            setPagamento(null);
+                                        } finally {
+                                            setProcessandoMetodo(false);
                                         }
-
-                                        setCarregandoConfirmacao(false);
                                     }}
 
 
@@ -402,41 +467,26 @@ export default function ModalPagamento({ total, fechar }) {
                                     Cartão Crédito
                                 </button>
 
-
                                 <button
-                                    disabled={bloquearPagamento || bloquearTudo}
+                                    disabled={
+                                        bloquearPagamento ||
+                                        bloquearTudo ||
+                                        vendaId ||
+                                        criandoVendaRef.current
+                                    }
                                     onClick={async () => {
                                         if (bloquearTudo) return;
 
                                         setPagamento("pix");
-                                        setPixPago(false); // ← FALTAVA ISSO
-                                        setCarregandoConfirmacao(true);
+                                        setPixPago(false);
                                         setCarregandoPix(true);
 
-
-
                                         try {
-                                            let usarPixMP = false;
+                                            // cria a venda normalmente (igual hoje)
+                                            await criarVendaInicial("pix");
 
-                                            try {
-                                                const r = await fetch(`${API_URL}/comercio/status-pagamento`, {
-                                                    headers: {
-                                                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                                                    }
-                                                });
-
-                                                const j = await r.json();
-                                                usarPixMP = j.api_maquininha === true;
-                                            } catch {
-                                                usarPixMP = false;
-                                            }
-
-
-                                            if (apiVendas === API_LOCAL_VENDAS) {
-                                                await preRegistrarVenda("pix");
-                                            }
-
-                                            const pix = await fetch(`${API_PIX}/vendas/pix/gerar`, {
+                                            // 🔥 CHAMA O PIX IGUAL AO CÓDIGO ANTIGO
+                                            const pix = await fetch(`${API_ONLINE_VENDAS}/vendas/pix/gerar`, {
                                                 method: "POST",
                                                 headers: {
                                                     "Content-Type": "application/json",
@@ -445,81 +495,77 @@ export default function ModalPagamento({ total, fechar }) {
                                                 body: JSON.stringify({ valor: total })
                                             }).then(r => r.json());
 
+                                            // PIX LOCAL → CONFIRMA DIRETO
                                             if (pix.tipo === "pix_local") {
                                                 setPixPago(true);
-                                                setPagamento("pix");
-
-                                                // CONFIRMA DIRETO
-                                                if (apiVendas === API_LOCAL_VENDAS && vendaPId) {
-                                                    await fetch(
-                                                        `${apiVendas}/vendas/confirmar-local/${vendaPId}`,
-                                                        {
-                                                            method: "POST",
-                                                            headers: {
-                                                                Authorization: `Bearer ${localStorage.getItem("token")}`
-                                                            }
-                                                        }
-                                                    );
-                                                    setSucesso(true);
-                                                    return;
-                                                }
-
                                                 setEtapa("confirmar");
                                                 return;
                                             }
 
-
+                                            // PIX MERCADO PAGO → MOSTRA QR
                                             setPixQr(pix.qr_code_base64);
                                             setPixId(pix.id);
                                             setEtapa("pix_mp");
-                                        } catch {
+
+                                        } catch (e) {
                                             alert("Erro ao gerar Pix");
                                             setEtapa("metodo");
                                         } finally {
                                             setCarregandoPix(false);
-                                            setCarregandoConfirmacao(false);
                                         }
                                     }}
 
-                                    className={carregandoPix ? "btn-processando" : ""}
 
+                                    className={carregandoPix ? "btn-processando" : ""}
                                 >
                                     {carregandoPix ? "Gerando Pix..." : "Pix"}
                                 </button>
 
-
-
-
                                 <button
-                                    disabled={bloquearPagamento || bloquearTudo}
+                                    disabled={
+                                        bloquearPagamento ||
+                                        bloquearTudo ||
+                                        vendaId ||
+                                        criandoVendaRef.current
+                                    }
                                     onClick={async () => {
+                                        if (processandoMetodo) return;
+
+                                        setProcessandoMetodo(true);
                                         setPagamento("dinheiro");
-                                        setEtapa("confirmar");
-                                        setCarregandoConfirmacao(true);
 
-                                        if (apiVendas === API_LOCAL_VENDAS) {
-                                            await preRegistrarVenda("dinheiro");
+                                        try {
+                                            const dados = await criarVendaInicial("dinheiro");
+                                            if (!dados) return;
+
+                                            setEtapa("confirmar");
+                                        } catch {
+                                            alert("Erro ao iniciar pagamento");
+                                            setPagamento(null);
+                                        } finally {
+                                            setProcessandoMetodo(false);
                                         }
-
-                                        setCarregandoConfirmacao(false);
                                     }}
+
 
 
                                 >
                                     Dinheiro
                                 </button>
 
-
                                 <button
                                     className="voltar"
-                                    onClick={fechar}
-                                    disabled={bloquearTudo}
+                                    onClick={fecharModalSemCancelar}
                                 >
                                     Voltar
                                 </button>
 
+
+
+
                             </>
                         )}
+
                         {etapa === "pix_mp" && pixQr && (
                             <>
                                 <h3>Pagamento Pix</h3>
@@ -533,34 +579,22 @@ export default function ModalPagamento({ total, fechar }) {
                                         {!pixPago && "Aguardando pagamento…"}
                                         {pixPago && "Pagamento recebido ✔ Finalizando venda…"}
                                     </p>
-
-
                                 </div>
-
-
                                 <button
-                                    className="voltar"
-                                    onClick={() => {
-                                        setPixQr(null);
-                                        setPixId(null);
-                                        setVendaPId(null);
-                                        setPagamento(null);
-                                        setPixPago(false);
-                                        setCarregandoPix(false);
-                                        setCarregandoConfirmacao(false);
-                                        setEtapa("metodo");
-                                    }}
-
+                                    className="cancelar"
+                                    onClick={cancelarVendaAtual}
                                 >
-                                    Cancelar
+                                    Cancelar Venda
                                 </button>
+
+
+
 
 
                             </>
                         )}
 
-
-                        {etapa === "confirmar" && (
+                        {etapa === "confirmar" && pagamento !== "pix" && (
                             <>
                                 <h3>Pagamento: {pagamento}</h3>
 
@@ -577,32 +611,32 @@ export default function ModalPagamento({ total, fechar }) {
                                 )}
 
                                 <button
-                                    className={`confirmar ${carregandoConfirmacao || processando ? "btn-processando" : ""}`}
+                                    className={`confirmar ${processando ? "btn-processando" : ""}`}
                                     onClick={confirmarPagamento}
                                     disabled={
                                         processando ||
-                                        carregandoConfirmacao ||
-                                        (pagamento === "pix" && !pixPago) ||
-                                        (apiVendas === API_LOCAL_VENDAS && !vendaPId && pagamento !== "pix")
+                                        (pagamento === "pix" && pixAutomatico && !pixPago)
                                     }
-                                >
-                                    {carregandoConfirmacao
-                                        ? "Preparando pagamento..."
-                                        : processando
-                                            ? "Processando..."
-                                            : "Confirmar pagamento"}
-                                </button>
 
+                                >
+                                    {processando ? "Processando..." : "Confirmar pagamento"}
+                                </button>
+                                <button
+                                    className="cancelar"
+                                    onClick={cancelarVendaAtual}
+                                >
+                                    Cancelar Venda
+                                </button>
 
 
 
                                 <button
                                     className="voltar"
-                                    onClick={() => setEtapa("metodo")}
-                                    disabled={processando || carregandoConfirmacao}
+                                    onClick={cancelarVendaAtual}
                                 >
                                     Voltar
                                 </button>
+
 
                             </>
                         )}
