@@ -177,24 +177,11 @@ export default function ModalPagamento({ total, fechar }) {
         }
 
         imprimindoRef.current = true;
-
-
-        // Pix não precisa passar por botão manual
-        setProcessando(true);
-
-
-        if (apiVendas !== API_LOCAL) {
-            imprimindoRef.current = false;
-            alert("Impressão local indisponível");
-            return;
-        }
-
-
         setProcessando(true);
 
         try {
-            // SEMPRE tenta confirmar
-            const conf = await fetch(
+            // 1️⃣ CONFIRMA A VENDA (UMA ÚNICA VEZ)
+            const confResp = await fetch(
                 `${API_ONLINE_VENDAS}/vendas/${vendaId}/confirmar`,
                 {
                     method: "POST",
@@ -204,25 +191,34 @@ export default function ModalPagamento({ total, fechar }) {
                 }
             );
 
-            // 409 NÃO BLOQUEIA
-            if (!conf.ok && conf.status !== 409) {
+            if (!confResp.ok && confResp.status !== 409) {
                 throw new Error("Erro ao confirmar venda");
             }
 
-            // IMPRIME SEMPRE
-            const imp = await fetch(`${API_LOCAL}/imprimir`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    venda_id: vendaId,
-                    url: comandaUrl
-                })
-            });
+            const confData = await confResp.json();
 
-            if (!imp.ok) {
-                throw new Error("Falha na impressão");
+            // 2️⃣ IMPRIME SOMENTE SE BACKEND AUTORIZAR
+            if (confData.imprimir === true) {
+
+                if (apiVendas !== API_LOCAL) {
+                    throw new Error("Impressão local indisponível");
+                }
+
+                const impResp = await fetch(`${API_LOCAL}/imprimir`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        venda_id: vendaId,
+                        url: comandaUrl
+                    })
+                });
+
+                if (!impResp.ok) {
+                    throw new Error("Falha na impressão");
+                }
             }
 
+            // 3️⃣ SUCESSO FINAL
             setSucesso(true);
 
             setTimeout(() => {
@@ -237,18 +233,22 @@ export default function ModalPagamento({ total, fechar }) {
                 setPixId(null);
                 setPixPago(false);
                 setEtapa("metodo");
+
                 limparVenda();
                 fechar();
             }, 1500);
 
         } catch (e) {
-            imprimindoRef.current = false;
+            console.error(e);
 
-            alert("Erro ao confirmar ou imprimir");
+            imprimindoRef.current = false;
             setProcessando(false);
+
+            alert(e.message || "Erro ao confirmar pagamento");
             resetarModal();
         }
     }
+
 
 
 
