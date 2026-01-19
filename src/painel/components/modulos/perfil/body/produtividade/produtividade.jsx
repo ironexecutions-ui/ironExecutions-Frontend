@@ -31,15 +31,21 @@ function ProdutividadeConteudo() {
         function handleKeyDown(e) {
 
             // 🔒 modal bloqueia tudo
+            // 🔒 SE MODAL ESTIVER ABERTO, NÃO FAZ NADA
             if (modalAberto) return;
 
             const input = buscarInputRef.current;
             if (!input) return;
 
-            // 🔥 força foco no buscar
-            if (document.activeElement !== input) {
+            const ativo = document.activeElement;
+            const ehCampo =
+                ativo &&
+                (ativo.tagName === "INPUT" || ativo.tagName === "TEXTAREA");
+
+            if (!ehCampo && ativo !== input) {
                 input.focus();
             }
+
 
             // ENTER = cobrar
             if (e.key === "Enter") {

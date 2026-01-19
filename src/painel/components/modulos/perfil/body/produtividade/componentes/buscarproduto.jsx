@@ -8,7 +8,13 @@ export const buscarInputRef = { current: null };
 
 export default function BuscarProduto() {
 
-    const { setProdutoAtual, adicionarItem, limparBusca, setLimparBusca } = useVenda();
+    const {
+        setProdutoAtual,
+        adicionarItem,
+        limparBusca,
+        setLimparBusca,
+        setModalAberto
+    } = useVenda();
     const [abrirCadastro, setAbrirCadastro] = useState(false);
     const [textoCadastro, setTextoCadastro] = useState("");
 
@@ -235,7 +241,9 @@ export default function BuscarProduto() {
     function abrirModalCadastro(texto) {
         setTextoCadastro(texto);
         setAbrirCadastro(true);
+        setModalAberto(true);
     }
+
 
     return (
         <div className={`buscar-box tema-${tema}`}>
@@ -316,17 +324,19 @@ export default function BuscarProduto() {
                     textoInicial={textoCadastro}
                     fechar={() => {
                         setAbrirCadastro(false);
+                        setModalAberto(false);
                         limparInputBusca();
                     }}
                     onCriado={(produto) => {
                         setProdutoAtual(produto);
                         adicionarItem(produto);
                         setAbrirCadastro(false);
+                        setModalAberto(false);
                         limparInputBusca();
                     }}
-
                 />
             )}
+
 
         </div>
     );

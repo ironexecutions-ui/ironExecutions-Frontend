@@ -45,7 +45,7 @@ export default function ModalPagamento({ total, fechar }) {
         processandoMetodo ||
         !apiPronta;
 
-    const { itens, limparVenda } = useVenda();
+    const { itens, limparVenda, setModalAberto } = useVenda();
 
     async function criarVendaInicial(tipoPagamento) {
         if (criandoVendaRef.current) return null;
@@ -117,8 +117,10 @@ export default function ModalPagamento({ total, fechar }) {
     }
     function fecharModalSemCancelar() {
         criandoVendaRef.current = false;
+        setModalAberto(false);
         fechar();
     }
+
 
 
     const cpfValido = validarCpf(cpf);
@@ -241,6 +243,8 @@ export default function ModalPagamento({ total, fechar }) {
                 setEtapa("metodo");
 
                 limparVenda();
+                setModalAberto(false);
+
                 fechar();
 
                 if (erroImpressao) {
@@ -365,6 +369,8 @@ export default function ModalPagamento({ total, fechar }) {
         setPixId(null);
         setPixPago(false);
         setEtapa("metodo");
+        setModalAberto(false);
+
 
         fechar();
     }
