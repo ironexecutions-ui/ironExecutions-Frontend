@@ -179,8 +179,10 @@ export default function ModalPagamento({ total, fechar }) {
         imprimindoRef.current = true;
         setProcessando(true);
 
+        let erroImpressao = false;
+
         try {
-            // 1️⃣ CONFIRMA A VENDA (UMA ÚNICA VEZ)
+            // 1️⃣ CONFIRMA VENDA
             const confResp = await fetch(
                 `${API_ONLINE_VENDAS}/vendas/${vendaId}/confirmar`,
                 {
@@ -197,28 +199,32 @@ export default function ModalPagamento({ total, fechar }) {
 
             const confData = await confResp.json();
 
-            // 2️⃣ IMPRIME SOMENTE SE BACKEND AUTORIZAR
+            // 2️⃣ TENTA IMPRIMIR SE NODE = 1
             if (confData.imprimir === true) {
 
                 if (apiVendas !== API_LOCAL) {
-                    throw new Error("Impressão local indisponível");
-                }
+                    erroImpressao = true;
+                } else {
+                    try {
+                        const impResp = await fetch(`${API_LOCAL}/imprimir`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                venda_id: vendaId,
+                                url: comandaUrl
+                            })
+                        });
 
-                const impResp = await fetch(`${API_LOCAL}/imprimir`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        venda_id: vendaId,
-                        url: comandaUrl
-                    })
-                });
-
-                if (!impResp.ok) {
-                    throw new Error("Falha na impressão");
+                        if (!impResp.ok) {
+                            erroImpressao = true;
+                        }
+                    } catch {
+                        erroImpressao = true;
+                    }
                 }
             }
 
-            // 3️⃣ SUCESSO FINAL
+            // 3️⃣ VENDA SEMPRE CONCLUÍDA
             setSucesso(true);
 
             setTimeout(() => {
@@ -236,6 +242,12 @@ export default function ModalPagamento({ total, fechar }) {
 
                 limparVenda();
                 fechar();
+
+                if (erroImpressao) {
+                    alert(
+                        "Venda concluída com sucesso, mas ocorreu um erro na impressão. Verifique a impressora."
+                    );
+                }
             }, 1500);
 
         } catch (e) {
@@ -248,7 +260,6 @@ export default function ModalPagamento({ total, fechar }) {
             resetarModal();
         }
     }
-
 
 
 
