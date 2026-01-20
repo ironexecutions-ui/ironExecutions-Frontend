@@ -23,6 +23,7 @@ export default function PagamentosIB() {
         navigator.clipboard.writeText(pix.qr_code);
         alert("Código PIX copiado");
     }
+
     // =============================
     // BUSCA AUTOMÁTICA VIA URL
     // =============================
@@ -280,7 +281,7 @@ export default function PagamentosIB() {
 
 
 
-                            <p>Aguardando confirmação do pagamento...</p>
+                            <p className="aguarda-pix">Aguardando confirmação do pagamento...</p>
                         </div>
                     )}
                     {/* CARTÃO */}

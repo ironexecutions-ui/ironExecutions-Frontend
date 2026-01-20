@@ -1,11 +1,11 @@
 /* Todas as classes deste arquivo começam com "rodape-" para manter organização e evitar conflitos */
 
-.rodape-container {
+.rodapee-containerr {
     padding: 30px 40px;
-    background: #0b0b0b;
+    background: #0b0b0b !important;
     text-align: center;
     color: #b3b3b3;
-    margin-top: 50px;
+    margin-top: 2px;
 }
 
 .rodape-texto {

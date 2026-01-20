@@ -6,7 +6,7 @@ export default function Rodape() {
     // Todas as classes deste componente começam com "rodape-" para manter organização e evitar conflitos
 
     return (
-        <footer className="rodape-container" id="contato">
+        <footer className="rodapee-containerr" id="contato">
             <p className="rodape-texto">
                 Iron Executions cria sites modernos e sistemas profissionais
             </p>

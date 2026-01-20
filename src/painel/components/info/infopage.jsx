@@ -7,7 +7,7 @@ export default function ClientesPage() {
     const funcionario = JSON.parse(localStorage.getItem("funcionario"));
 
     return (
-        <div style={{ height: "100vh" }}>
+        <div >
 
             <HeaderAdmin funcionario={funcionario} />
 

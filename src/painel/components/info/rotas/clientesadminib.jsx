@@ -5,6 +5,7 @@ import "./clientesadminib.css";
 import IBServicos from "./clientesadminib/servicos";
 import IBMensalidades from "./clientesadminib/mensalidades";
 import Autorizacao from "./clientesadminib/autorizacao";
+import Contagem from "./clientesadminib/contagem";
 export default function ClientesAdminIB({ voltar }) {
 
     const [aba, setAba] = useState("servicos");
@@ -37,6 +38,12 @@ export default function ClientesAdminIB({ voltar }) {
                 >
                     Autorizar Modulos
                 </button>
+                <button
+                    className={aba === "contagem" ? "ib-btn ativo" : "ib-btn"}
+                    onClick={() => setAba("contagem")}
+                >
+                    Controle & Contagem
+                </button>
             </div>
 
             {/* CONTEÚDO */}
@@ -44,6 +51,7 @@ export default function ClientesAdminIB({ voltar }) {
                 {aba === "servicos" && <IBServicos />}
                 {aba === "mensalidades" && <IBMensalidades />}
                 {aba === "autorizacao" && <Autorizacao />}
+                {aba === "contagem" && <Contagem />}
             </div>
 
 

@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../../../config";
 import IBMensalidadeForm from "./mensform";
-import "./mensalidades.css"
+import "./mensalidades.css";
+
 export default function IBMensalidades() {
 
     const [lista, setLista] = useState([]);
@@ -21,10 +22,51 @@ export default function IBMensalidades() {
             setLoading(false);
         }
     }
+    function formatarDataMaisUmDia(dataStr) {
+        if (!dataStr) return "";
+
+        const data = new Date(dataStr);
+        data.setDate(data.getDate() + 1);
+
+        return data.toLocaleDateString("pt-BR");
+    }
 
     useEffect(() => {
         carregar();
     }, []);
+
+    function enviarWhatsApp(item) {
+        if (!item.celular) {
+            alert("Celular do cliente não informado");
+            return;
+        }
+
+        const linkPagamento = `https://ironexecutions.com.br/pagamento/${item.id}`;
+
+        const mensagem = `
+Olá ${item.loja}, tudo bem? 👋
+
+Estamos entrando em contato para lembrar sobre a mensalidade do seu serviço IronExecutions.
+
+Valor: R$ ${Number(item.valor).toFixed(2)}
+Referente ao Dia: ${formatarDataMaisUmDia(item.data_inicio)}
+
+Você pode realizar o pagamento diretamente pelo link abaixo:
+${linkPagamento}
+
+Caso prefira, também é possível pagar via PIX:
+📲 Chave PIX: 11918547818
+
+Se optar pelo PIX, pedimos por gentileza que envie o comprovante neste WhatsApp.
+
+Qualquer dúvida, ficamos à disposição.
+        `.trim();
+
+        const numero = item.celular.replace(/\D/g, "");
+        const url = `https://wa.me/55${numero}?text=${encodeURIComponent(mensagem)}`;
+
+        window.open(url, "_blank");
+    }
 
     return (
         <div className="mens-container">
@@ -63,6 +105,7 @@ export default function IBMensalidades() {
                             <th>Data início</th>
                             <th>Valor</th>
                             <th>Situação</th>
+                            <th>Cobrança</th>
                         </tr>
                     </thead>
 
@@ -84,7 +127,7 @@ export default function IBMensalidades() {
                                 </td>
 
                                 <td className="mens-data">
-                                    {new Date(item.data_inicio).toLocaleDateString("pt-BR")}
+                                    {formatarDataMaisUmDia(item.data_inicio)}
                                 </td>
 
                                 <td className="mens-valor">
@@ -99,15 +142,21 @@ export default function IBMensalidades() {
                                     </span>
                                 </td>
 
+                                <td className="mens-link">
+                                    <button
+                                        className="mens-btn-link"
+                                        onClick={() => enviarWhatsApp(item)}
+                                    >
+                                        Enviar cobrança
+                                    </button>
+                                </td>
+
                             </tr>
                         ))}
                     </tbody>
-
-
                 </table>
             )}
 
         </div>
     );
-
 }

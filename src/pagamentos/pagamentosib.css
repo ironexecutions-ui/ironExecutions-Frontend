@@ -2,11 +2,11 @@
    CONTAINER PRINCIPAL
 ========================= */
 .pg-container {
-    max-width: 920px;
-    margin: auto auto;
-    padding: 32px;
-    background: linear-gradient(180deg, #0f172a, #020617);
-    border-radius: 20px;
+    max-width: 100%;
+    padding: 30px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    background: linear-gradient(180deg, #3669f5, #3206d3);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
     color: #e5e7eb;
     font-family: "Inter", system-ui, sans-serif;
@@ -18,6 +18,7 @@
 .pg-container h2 {
     font-size: 26px;
     font-weight: 700;
+    color: #020617;
     text-align: center;
     margin-bottom: 28px;
     letter-spacing: 0.4px;
@@ -32,7 +33,7 @@
     border-radius: 14px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.04);
-    color: #f9fafb;
+    color: #141414 !important;
     font-size: 15px;
     outline: none;
     transition: border 0.25s, box-shadow 0.25s, background 0.25s;
@@ -61,7 +62,7 @@
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    color: #020617;
+    color: #070707;
     background: linear-gradient(135deg, #22d3ee, #38bdf8);
     box-shadow: 0 12px 30px rgba(34, 211, 238, 0.35);
     transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
@@ -98,7 +99,7 @@
     padding: 14px;
     border-radius: 12px;
     background: rgba(239, 68, 68, 0.15);
-    color: #fecaca;
+    color: #050505;
     font-size: 14px;
     text-align: center;
 }
@@ -120,12 +121,13 @@
 ========================= */
 .pg-box p {
     margin: 10px 0;
-    font-size: 15px;
-    color: #e5e7eb;
+    font-size: 20px;
+    color: #000000;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .pg-box strong {
-    color: #f9fafb;
+    color: #000000;
 }
 
 /* =========================
@@ -138,6 +140,11 @@
     background: linear-gradient(180deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
     border: 1px solid rgba(34, 197, 94, 0.25);
     text-align: center;
+}
+
+.aguarda-pix {
+    font-size: 20px !important;
+    color: #010005 !important;
 }
 
 /* =========================
@@ -162,7 +169,7 @@
     border-radius: 12px;
     border: 1px dashed rgba(34, 197, 94, 0.5);
     background: rgba(255, 255, 255, 0.06);
-    color: #ecfeff;
+    color: #000000;
     font-size: 13px;
     resize: none;
     cursor: pointer;
@@ -198,17 +205,31 @@
     }
 }
 
-/* =====================================================
-   RESPONSIVO GERAL
-===================================================== */
-
 /* =========================
-   TELAS ATÉ 1024px
+   RESPONSIVO GLOBAL
 ========================= */
-@media (max-width: 1024px) {
 
+/* Telas grandes */
+@media (min-width: 1200px) {
     .pg-container {
-        margin: 40px 20px;
+        max-width: 720px;
+        margin: 40px auto;
+        padding: 40px;
+        border-radius: 26px;
+    }
+
+    .pg-container h2 {
+        font-size: 30px;
+    }
+
+    .pg-box p {
+        font-size: 22px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .pg-container {
         padding: 28px;
     }
 
@@ -216,28 +237,20 @@
         font-size: 24px;
     }
 
-    .pg-box {
-        padding: 20px;
-    }
-
-    .pix-box img {
-        max-width: 200px;
+    .pg-box p {
+        font-size: 19px;
     }
 }
 
-/* =========================
-   TELAS ATÉ 768px
-========================= */
+/* Tablets pequenos e celulares grandes */
 @media (max-width: 768px) {
-
     .pg-container {
-        margin: 30px 16px;
-        padding: 24px;
-        border-radius: 18px;
+        padding: 24px 20px;
     }
 
     .pg-container h2 {
         font-size: 22px;
+        margin-bottom: 22px;
     }
 
     .pg-input {
@@ -250,8 +263,46 @@
         font-size: 14px;
     }
 
+    .pg-box {
+        padding: 20px;
+    }
+
     .pg-box p {
+        font-size: 18px;
+    }
+
+    .pix-box img {
+        max-width: 200px;
+    }
+}
+
+/* Celulares médios */
+@media (max-width: 480px) {
+    .pg-container {
+        padding: 20px 16px;
+    }
+
+    .pg-container h2 {
+        font-size: 20px;
+    }
+
+    .pg-input {
+        padding: 14px;
         font-size: 14px;
+    }
+
+    .pg-btn {
+        padding: 13px;
+        border-radius: 12px;
+    }
+
+    .pg-box {
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    .pg-box p {
+        font-size: 16px;
     }
 
     .pix-box {
@@ -269,80 +320,18 @@
     }
 }
 
-/* =========================
-   TELAS ATÉ 480px
-========================= */
-@media (max-width: 480px) {
-
-    .pg-container {
-        margin: 20px 12px;
-        padding: 20px;
-        border-radius: 16px;
-    }
-
-    .pg-container h2 {
-        font-size: 20px;
-        margin-bottom: 22px;
-    }
-
-    .pg-input {
-        padding: 14px;
-        font-size: 14px;
-        border-radius: 12px;
-    }
-
-    .pg-btn {
-        padding: 14px;
-        border-radius: 12px;
-        font-size: 14px;
-    }
-
-    .pg-erro {
-        font-size: 13px;
-        padding: 12px;
-    }
-
-    .pg-box {
-        padding: 18px;
-        border-radius: 14px;
-    }
-
-    .pg-box p {
-        font-size: 13px;
-    }
-
-    .pix-box {
-        padding: 16px;
-        border-radius: 14px;
-    }
-
-    .pix-box img {
-        max-width: 160px;
-    }
-
-    .pix-texto {
-        font-size: 12px;
-        padding: 11px;
-    }
-}
-
-/* =========================
-   TELAS MUITO PEQUENAS ATÉ 360px
-========================= */
+/* Celulares muito pequenos */
 @media (max-width: 360px) {
-
     .pg-container {
-        margin: 16px 10px;
-        padding: 16px;
+        padding: 18px 14px;
     }
 
     .pg-container h2 {
         font-size: 18px;
     }
 
-    .pg-input {
-        font-size: 13px;
-        padding: 12px;
+    .pg-box p {
+        font-size: 15px;
     }
 
     .pg-btn {
@@ -351,83 +340,14 @@
     }
 
     .pix-box img {
-        max-width: 140px;
-    }
-
-    .pix-box p {
-        font-size: 12px;
+        max-width: 160px;
     }
 }
 
-/* =========================
-   MELHOR TOQUE EM MOBILE
-========================= */
+/* Ajustes de toque */
 @media (hover: none) {
-
     .pg-btn:hover {
         transform: none;
-        box-shadow: none;
-    }
-
-    .pix-texto:hover {
-        background: rgba(255, 255, 255, 0.06);
-    }
-}
-
-/* =========================
-   OVERLAY DE CARREGAMENTO
-========================= */
-.pg-loading {
-    position: absolute;
-    inset: 0;
-    background: rgba(2, 6, 23, 0.85);
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    z-index: 50;
-}
-
-/* =========================
-   BOX CENTRAL
-========================= */
-.pg-loading-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 28px 36px;
-    border-radius: 18px;
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-}
-
-/* =========================
-   TEXTO
-========================= */
-.pg-loading-box p {
-    font-size: 15px;
-    font-weight: 500;
-    color: #e5e7eb;
-    letter-spacing: 0.3px;
-}
-
-/* =========================
-   SPINNER PREMIUM
-========================= */
-.pg-spinner {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    border: 4px solid rgba(255, 255, 255, 0.12);
-    border-top-color: #22d3ee;
-    animation: pg-spin 0.9s linear infinite;
-}
-
-@keyframes pg-spin {
-    to {
-        transform: rotate(360deg);
+        box-shadow: 0 12px 30px rgba(34, 211, 238, 0.35);
     }
 }
