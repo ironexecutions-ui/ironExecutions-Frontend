@@ -38,15 +38,18 @@ export default function IronBusinessPerfil() {
         }
 
         function atualizarFavicon(url) {
-            let link = document.querySelector("link[rel='icon']");
+            let link = document.getElementById("favicon");
 
             if (!link) {
                 link = document.createElement("link");
+                link.id = "favicon";
                 link.rel = "icon";
+                link.type = "image/png";
                 document.head.appendChild(link);
+
             }
 
-            link.href = url;
+            link.href = `${url}?v=${Date.now()}`;
         }
 
         carregarDadosLoja();
@@ -89,18 +92,30 @@ function TemaWrapper({ children }) {
         </div>
     );
 }
-
 function Painel() {
 
     const [headerMinimizado, setHeaderMinimizado] = useState(false);
+    const [headerRefreshKey, setHeaderRefreshKey] = useState(0);
+
+    function atualizarHeader() {
+        setHeaderRefreshKey(prev => prev + 1);
+    }
 
     return (
         <>
-            <HeaderPerfil minimizado={headerMinimizado} setMinimizado={setHeaderMinimizado} />
+            <HeaderPerfil
+                minimizado={headerMinimizado}
+                setMinimizado={setHeaderMinimizado}
+                refreshKey={headerRefreshKey}
+            />
 
             <div style={{ marginTop: "30px" }}>
-                <Body setHeaderMinimizado={setHeaderMinimizado} />
+                <Body
+                    setHeaderMinimizado={setHeaderMinimizado}
+                    atualizarHeader={atualizarHeader}
+                />
             </div>
         </>
     );
 }
+

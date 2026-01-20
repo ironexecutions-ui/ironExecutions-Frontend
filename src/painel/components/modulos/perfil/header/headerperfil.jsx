@@ -5,7 +5,7 @@ import ModalQrcode from "./modals/modaqrcode";
 import { API_URL } from "../../../../../../config";
 import "./headerperfil.css";
 
-export default function HeaderPerfil({ minimizado, setMinimizado }) {
+export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) {
     const [eventoInstalacao, setEventoInstalacao] = useState(null);
     const [confirmarLogout, setConfirmarLogout] = useState(false);
     const [abrirFechamento, setAbrirFechamento] = useState(false);
@@ -93,6 +93,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
         async function carregar() {
             try {
                 const token = localStorage.getItem("token");
+
                 const resp = await fetch(`${API_URL}/clientes/me`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -102,10 +103,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
 
                 const json = await resp.json();
                 setDados(json);
-
-                // ESSENCIAL
                 localStorage.setItem("usuario", JSON.stringify(json));
-
 
                 if (json.comercio_id) {
                     try {
@@ -116,22 +114,20 @@ export default function HeaderPerfil({ minimizado, setMinimizado }) {
                         setLoja(null);
                     }
 
-                    // 🔹 ALERTA DE VENCIMENTO (apenas uma vez)
                     await carregarAlertaVencimento();
                 }
 
+                setFade(false);
+                setTimeout(() => setFade(true), 120);
 
-
-
-                setTimeout(() => setFade(true), 150);
-
-            } catch (err) {
-                console.log("Erro ao carregar dados");
+            } catch {
+                console.log("Erro ao atualizar header");
             }
         }
 
         carregar();
-    }, []);
+    }, [refreshKey]);
+
     useEffect(() => {
         function capturar(e) {
             e.preventDefault();

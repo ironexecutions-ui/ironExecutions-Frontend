@@ -199,12 +199,17 @@ export default function ProdutoAtual() {
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                         e.preventDefault();
+                                        e.stopPropagation();
                                         salvarPreco();
+                                        return;
                                     }
+
                                     if (e.key === "Escape") {
+                                        e.preventDefault();
                                         setEditando(false);
                                     }
                                 }}
+
                             />
 
                             <button

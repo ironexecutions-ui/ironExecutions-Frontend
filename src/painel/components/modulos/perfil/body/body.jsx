@@ -18,7 +18,7 @@ import Funcionarios from "./funcionarios/clientes_exibicao";
 
 import Configuracoes from "./configuracoes/configuracoes";
 
-export default function Body({ setHeaderMinimizado }) {
+export default function Body({ setHeaderMinimizado, atualizarHeader }) {
 
     const [modulosVisiveis, setModulosVisiveis] = useState([]);
     const [moduloAtivo, setModuloAtivo] = useState("");
@@ -49,6 +49,17 @@ export default function Body({ setHeaderMinimizado }) {
             cliente.funcao === "Administrador(a)" ||
             cliente.funcao === "Supervisor(a)"
         );
+    }
+    function fecharModuloComAtualizacao() {
+        const naoAtualiza = ["Produtividade", "Fiscal"];
+
+        setModoModuloAberto(false);
+        setHeaderMinimizado(false);
+        setComponenteAtivo(null);
+
+        if (!naoAtualiza.includes(moduloAtivo)) {
+            atualizarHeader();
+        }
     }
 
 
@@ -212,7 +223,10 @@ export default function Body({ setHeaderMinimizado }) {
             )}
 
             {modoModuloAberto && createPortal(
-                <div className="modulo-tag-flutuante" onClick={fecharModulo}>
+                <div
+                    className="modulo-tag-flutuante"
+                    onClick={fecharModuloComAtualizacao}
+                >
                     <span className="modulo-tag-nome">{moduloAtivo}</span>
                     <span className="modulo-tag-voltar">voltar</span>
                 </div>,
