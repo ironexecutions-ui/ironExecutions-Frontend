@@ -231,7 +231,7 @@ export default function IBServicos() {
                                 <td className="ib-date">
                                     {new Date(s.data).toLocaleDateString("pt-BR")}
                                 </td>
-                                <td>{s.servico_ib_id}</td>
+                                <td>{s.loja}</td>
                                 <td>{s.servico}</td>
                                 <td className="ib-money">
                                     R$ {Number(s.valor).toFixed(2)}
