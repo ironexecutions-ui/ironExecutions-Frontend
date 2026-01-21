@@ -15,8 +15,9 @@ export default function ModalPagamento({ total, fechar }) {
     const [comandaUrl, setComandaUrl] = useState(null);
     const [statusVenda, setStatusVenda] = useState(null);
     const pixAutomatico = false; // enquanto não tem QR configurado
-    const [processandoMetodo, setProcessandoMetodo] = useState(null);
-    // valores: "debito" | "credito" | "dinheiro" | null
+    const [metodoProcessando, setMetodoProcessando] = useState(null);
+    const [bloqueandoMetodo, setBloqueandoMetodo] = useState(false);
+
 
     const API_ONLINE_VENDAS = API_URL;
 
@@ -38,19 +39,16 @@ export default function ModalPagamento({ total, fechar }) {
     const [pixId, setPixId] = useState(null);
     const [pixPago, setPixPago] = useState(false);
     const [carregandoPix, setCarregandoPix] = useState(false);
-
     const bloquearTudo =
         carregandoPix ||
         processando ||
-        processandoMetodo ||
+        bloqueandoMetodo ||
         !apiPronta;
 
     const { itens, limparVenda, setModalAberto } = useVenda();
 
     async function criarVendaInicial(tipoPagamento) {
-        if (criandoVendaRef.current) return null;
 
-        criandoVendaRef.current = true;
 
         const resp = await fetch(`${API_ONLINE_VENDAS}/vendas/finalizar`, {
             method: "POST",
@@ -422,6 +420,7 @@ export default function ModalPagamento({ total, fechar }) {
                                     )}
                                 </div>
 
+                                {/* DÉBITO */}
                                 <button
                                     disabled={
                                         bloquearPagamento ||
@@ -430,30 +429,32 @@ export default function ModalPagamento({ total, fechar }) {
                                         criandoVendaRef.current
                                     }
                                     onClick={async () => {
-                                        if (processandoMetodo) return;
+                                        if (bloqueandoMetodo || criandoVendaRef.current) return;
 
-                                        setProcessandoMetodo("debito");
+                                        criandoVendaRef.current = true;
+                                        setBloqueandoMetodo(true);
+                                        setMetodoProcessando("debito");
                                         setPagamento("debito");
 
                                         try {
                                             const dados = await criarVendaInicial("debito");
                                             if (!dados) return;
-
                                             setEtapa("confirmar");
                                         } catch {
                                             alert("Erro ao iniciar pagamento");
                                             setPagamento(null);
                                         } finally {
-                                            setProcessandoMetodo(false);
+                                            criandoVendaRef.current = false;
+                                            setMetodoProcessando(null);
+                                            setBloqueandoMetodo(false);
                                         }
                                     }}
-
-                                    className={processandoMetodo === "debito" ? "btn-processando" : ""}
+                                    className={metodoProcessando === "debito" ? "btn-processando" : ""}
                                 >
-                                    {processandoMetodo === "debito" ? "Processando..." : "Cartão Débito"}
+                                    {metodoProcessando === "debito" ? "Processando..." : "Cartão Débito"}
                                 </button>
 
-
+                                {/* CRÉDITO */}
                                 <button
                                     disabled={
                                         bloquearPagamento ||
@@ -462,30 +463,32 @@ export default function ModalPagamento({ total, fechar }) {
                                         criandoVendaRef.current
                                     }
                                     onClick={async () => {
-                                        if (processandoMetodo) return;
+                                        if (bloqueandoMetodo || criandoVendaRef.current) return;
 
-                                        setProcessandoMetodo("credito");
+                                        criandoVendaRef.current = true;
+                                        setBloqueandoMetodo(true);
+                                        setMetodoProcessando("credito");
                                         setPagamento("credito");
 
                                         try {
                                             const dados = await criarVendaInicial("credito");
                                             if (!dados) return;
-
                                             setEtapa("confirmar");
                                         } catch {
                                             alert("Erro ao iniciar pagamento");
                                             setPagamento(null);
                                         } finally {
-                                            setProcessandoMetodo(false);
+                                            criandoVendaRef.current = false;
+                                            setMetodoProcessando(null);
+                                            setBloqueandoMetodo(false);
                                         }
                                     }}
-                                    className={processandoMetodo === "credito" ? "btn-processando" : ""}
-
-
+                                    className={metodoProcessando === "credito" ? "btn-processando" : ""}
                                 >
-                                    {processandoMetodo === "credito" ? "Processando..." : "Cartão Crédito"}
+                                    {metodoProcessando === "credito" ? "Processando..." : "Cartão Crédito"}
                                 </button>
 
+                                {/* PIX */}
                                 <button
                                     disabled={
                                         bloquearPagamento ||
@@ -494,52 +497,53 @@ export default function ModalPagamento({ total, fechar }) {
                                         criandoVendaRef.current
                                     }
                                     onClick={async () => {
-                                        if (bloquearTudo) return;
+                                        if (criandoVendaRef.current) return;
 
+                                        criandoVendaRef.current = true;
                                         setPagamento("pix");
                                         setPixPago(false);
                                         setCarregandoPix(true);
 
                                         try {
-                                            // cria a venda normalmente (igual hoje)
                                             await criarVendaInicial("pix");
 
-                                            // 🔥 CHAMA O PIX IGUAL AO CÓDIGO ANTIGO
-                                            const pix = await fetch(`${API_ONLINE_VENDAS}/vendas/pix/gerar`, {
-                                                method: "POST",
-                                                headers: {
-                                                    "Content-Type": "application/json",
-                                                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                                                },
-                                                body: JSON.stringify({ valor: total })
-                                            }).then(r => r.json());
+                                            const pix = await fetch(
+                                                `${API_ONLINE_VENDAS}/vendas/pix/gerar`,
+                                                {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                                                    },
+                                                    body: JSON.stringify({ valor: total })
+                                                }
+                                            ).then(r => r.json());
 
-                                            // PIX LOCAL → CONFIRMA DIRETO
                                             if (pix.tipo === "pix_local") {
+                                                setPagamento("pix");
                                                 setPixPago(true);
                                                 setEtapa("confirmar");
                                                 return;
                                             }
 
-                                            // PIX MERCADO PAGO → MOSTRA QR
                                             setPixQr(pix.qr_code_base64);
                                             setPixId(pix.id);
                                             setEtapa("pix_mp");
 
-                                        } catch (e) {
+                                        } catch {
                                             alert("Erro ao gerar Pix");
                                             setEtapa("metodo");
                                         } finally {
+                                            criandoVendaRef.current = false;
                                             setCarregandoPix(false);
                                         }
                                     }}
-
-
                                     className={carregandoPix ? "btn-processando" : ""}
                                 >
                                     {carregandoPix ? "Gerando Pix..." : "Pix"}
                                 </button>
 
+                                {/* DINHEIRO */}
                                 <button
                                     disabled={
                                         bloquearPagamento ||
@@ -548,29 +552,29 @@ export default function ModalPagamento({ total, fechar }) {
                                         criandoVendaRef.current
                                     }
                                     onClick={async () => {
-                                        if (processandoMetodo) return;
+                                        if (bloqueandoMetodo || criandoVendaRef.current) return;
 
-                                        setProcessandoMetodo("dinheiro");
+                                        criandoVendaRef.current = true;
+                                        setBloqueandoMetodo(true);
+                                        setMetodoProcessando("dinheiro");
                                         setPagamento("dinheiro");
 
                                         try {
                                             const dados = await criarVendaInicial("dinheiro");
                                             if (!dados) return;
-
                                             setEtapa("confirmar");
                                         } catch {
                                             alert("Erro ao iniciar pagamento");
                                             setPagamento(null);
                                         } finally {
-                                            setProcessandoMetodo(false);
+                                            criandoVendaRef.current = false;
+                                            setMetodoProcessando(null);
+                                            setBloqueandoMetodo(false);
                                         }
                                     }}
-
-                                    className={processandoMetodo === "dinheiro" ? "btn-processando" : ""}
-
-
+                                    className={metodoProcessando === "dinheiro" ? "btn-processando" : ""}
                                 >
-                                    {processandoMetodo === "dinheiro" ? "Processando..." : "Dinheiro"}
+                                    {metodoProcessando === "dinheiro" ? "Processando..." : "Dinheiro"}
                                 </button>
 
                                 <button
@@ -579,12 +583,9 @@ export default function ModalPagamento({ total, fechar }) {
                                 >
                                     Voltar
                                 </button>
-
-
-
-
                             </>
                         )}
+
 
                         {etapa === "pix_mp" && pixQr && (
                             <>
@@ -614,7 +615,7 @@ export default function ModalPagamento({ total, fechar }) {
                             </>
                         )}
 
-                        {etapa === "confirmar" && pagamento !== "pix" && (
+                        {etapa === "confirmar" && (
                             <>
                                 <h3>Pagamento: {pagamento}</h3>
 
