@@ -466,21 +466,7 @@
     background: #333;
 }
 
-/* Ao imprimir, esconder botões e elementos interativos */
-@media print {
 
-    .btn-imprimir-contrato,
-    .btn-assinar-publico,
-    .modal-assinatura-fundo,
-    .modal-assinatura-box {
-        display: none !important;
-    }
-
-    body {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-}
 
 /* Garantir que a cláusula 12 e assinaturas fiquem sempre juntas */
 .cp-clausula-12-wrapper {

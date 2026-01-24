@@ -1,9 +1,13 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./rifacompras.css";
 import { API_URL } from "../../config";
 import ModalPagamento from "./modalpagamento";
 
 export default function RifaCompras() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+
     const [rifaId, setRifaId] = useState("");
     const [rifa, setRifa] = useState(null);
     const [comprados, setComprados] = useState([]);
@@ -21,6 +25,24 @@ export default function RifaCompras() {
         whatsapp: "",
         mensagem: ""
     });
+
+    // ===============================
+    // SINCRONIZAR URL -> INPUT
+    // ===============================
+    useEffect(() => {
+        if (id) {
+            setRifaId(id);
+        }
+    }, [id]);
+
+    // ===============================
+    // BUSCAR AUTOMATICAMENTE SE VIER DA URL
+    // ===============================
+    useEffect(() => {
+        if (rifaId) {
+            buscarRifa();
+        }
+    }, [rifaId]);
 
     // ===============================
     // BUSCAR RIFA
@@ -113,7 +135,6 @@ export default function RifaCompras() {
         try {
             setLoading(true);
 
-            // 1️⃣ CRIA COMPRA
             const r = await fetch(`${API_URL}/rifa/${rifa.id}/comprar`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -134,7 +155,6 @@ export default function RifaCompras() {
                 return;
             }
 
-            // 2️⃣ CRIA PIX
             const p = await fetch(
                 `${API_URL}/rifa/${rifa.id}/pagamento/pix`,
                 {
@@ -155,10 +175,8 @@ export default function RifaCompras() {
                 return;
             }
 
-            // 3️⃣ MOSTRA PIX
             setPix(pixData);
             setEtapa("pix");
-
         } catch {
             alert("Erro ao iniciar pagamento");
         } finally {
@@ -180,7 +198,13 @@ export default function RifaCompras() {
                 />
                 <button
                     className="rif-busca-btn"
-                    onClick={buscarRifa}
+                    onClick={() => {
+                        if (!rifaId) {
+                            setErro("Informe o ID da rifa");
+                            return;
+                        }
+                        navigate(`/rifa-compras/${rifaId}`);
+                    }}
                     disabled={loading}
                 >
                     {loading ? "Buscando..." : "Buscar"}
@@ -206,7 +230,7 @@ export default function RifaCompras() {
                     </div>
 
                     <p className="rif-info">
-                        Números: {rifa.numeros} | Preço por número: R$ {rifa.preco}
+                        Preço por número: R$ {rifa.preco}
                     </p>
 
                     <div className="rif-numeros">

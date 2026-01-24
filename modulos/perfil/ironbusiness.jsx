@@ -44,7 +44,7 @@ export default function IronBusinessPerfil() {
                 link = document.createElement("link");
                 link.id = "favicon";
                 link.rel = "icon";
-                link.type = "image/png";
+                link.type = "m/png";
                 document.head.appendChild(link);
 
             }

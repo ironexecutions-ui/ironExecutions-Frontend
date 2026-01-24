@@ -26,7 +26,7 @@ function RoteamentoComLoading() {
   return (
     <Routes>
 
-      <Route path="/rifa-compras" element={<RifaCompras />} />
+      <Route path="/rifa-compras/:id?" element={<RifaCompras />} />
 
       <Route path="/pagamento" element={<PagamentosIB />} />
       <Route path="/pagamento/:id" element={<PagamentosIB />} />
@@ -41,7 +41,7 @@ function RoteamentoComLoading() {
 
 
       <Route
-        path="/perfil"
+        path="ironbusiness/perfil"
         element={
           <ProtegidoClientes>
             <IronBusinessPerfil />

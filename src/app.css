@@ -7,17 +7,11 @@
 }
 
 .app {
-  background: linear-gradient(180deg,
-      #e4e7ec,
-      #ffffff,
-      #8b8b8d);
+
   color: #ffffff;
   min-height: 100%;
 }
 
-body {
-  background-color: #0d0d0d;
-}
 
 html {
   zoom: 98%;

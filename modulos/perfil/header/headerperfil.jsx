@@ -278,11 +278,8 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                     </button>
 
 
-                    {dados.funcao === "Administrador(a)" && (
-                        <button className="per-btn" onClick={() => abrirOuFechar("modulos")}>
-                            Módulos
-                        </button>
-                    )}
+
+
 
                     <button className="per-btn" onClick={() => abrirOuFechar("codigo")}>
                         Código

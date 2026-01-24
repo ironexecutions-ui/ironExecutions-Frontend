@@ -55,7 +55,7 @@ export default function AreaLogin() {
         const payload = JSON.parse(atob(token.split(".")[1]));
         localStorage.setItem("cliente", JSON.stringify(payload));
 
-        window.location.href = "/perfil";
+        window.location.href = "/ironbusiness/perfil";
     }
 
     function entrarEmail(e) {

@@ -1,6 +1,6 @@
 import React from "react";
 import "./loadinglayout.css";
-import logo from "../logo.png";
+import logo from "../favicon.png";
 
 export default function LoadingLayout() {
     return (
