@@ -17,6 +17,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
     const [loja, setLoja] = useState(null);
     const [fade, setFade] = useState(false);
     const [alertaVencimento, setAlertaVencimento] = useState(null);
+    const [pwaInstalado, setPwaInstalado] = useState(false);
 
     const [secaoAtiva, setSecaoAtiva] = useState(null);
     async function carregarComandas() {
@@ -29,6 +30,14 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
         const json = await resp.json();
         setComandas(json);
     }
+    useEffect(() => {
+        const modoStandalone =
+            window.matchMedia("(display-mode: standalone)").matches ||
+            window.navigator.standalone === true;
+
+        setPwaInstalado(modoStandalone);
+    }, []);
+
     function gerarSlugEmpresa(nome) {
         if (!nome) return "";
 
@@ -131,6 +140,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
 
     useEffect(() => {
         function capturar(e) {
+            console.log("beforeinstallprompt disparou");
             e.preventDefault();
             setEventoInstalacao(e);
         }
@@ -142,6 +152,21 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
         };
     }, []);
 
+
+    async function instalarApp() {
+        if (!eventoInstalacao) {
+            alert("Instalação não disponível neste navegador");
+            return;
+        }
+
+        eventoInstalacao.prompt();
+        const escolha = await eventoInstalacao.userChoice;
+
+        if (escolha.outcome === "accepted") {
+            setPwaInstalado(true);
+            setEventoInstalacao(null);
+        }
+    }
 
 
     function abrirOuFechar(secao) {
@@ -175,21 +200,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
             </div>
         );
     }
-    async function instalarApp() {
-        if (!eventoInstalacao) {
-            alert("Instalação não disponível neste navegador");
-            return;
-        }
 
-        eventoInstalacao.prompt();
-        const escolha = await eventoInstalacao.userChoice;
-
-        if (escolha.outcome === "accepted") {
-            console.log("App instalado");
-        }
-
-        setEventoInstalacao(null);
-    }
     function logout() {
         if (!confirmarLogout) {
             setConfirmarLogout(true);
@@ -281,11 +292,12 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                         QR Code
                     </button>
 
-                    {eventoInstalacao && (
+                    {eventoInstalacao && !pwaInstalado && (
                         <button className="per-btn baixar-app" onClick={instalarApp}>
                             Baixar App
                         </button>
                     )}
+
                     <button className="per-btn logout-btn" onClick={logout}>
                         {confirmarLogout ? "Confirmar saída" : "Sair"}
                     </button>

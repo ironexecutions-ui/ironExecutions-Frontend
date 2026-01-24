@@ -15,7 +15,7 @@ export default function ModalPagamento({
     setForm,
     loading
 }) {
-    const [metodo, setMetodo] = useState("pix"); // pix | cartao
+    const [metodo, setMetodo] = useState("pix");
     const [statusPix, setStatusPix] = useState("aguardando");
 
     const [cartao, setCartao] = useState({
@@ -26,8 +26,10 @@ export default function ModalPagamento({
     });
 
     // ===============================
-    // RESET AO ABRIR MODAL
+    // EMAIL VÁLIDO
     // ===============================
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email || "");
+
     useEffect(() => {
         if (aberto) {
             setStatusPix("aguardando");
@@ -41,17 +43,12 @@ export default function ModalPagamento({
         }
     }, [aberto]);
 
-    // ===============================
-    // POLLING PIX
-    // ===============================
     useEffect(() => {
         if (!aberto || etapa !== "pix" || !pix?.id) return;
 
         const interval = setInterval(async () => {
             try {
-                const r = await fetch(
-                    `${API_URL}/rifa/pagamento/status/${pix.id}`
-                );
+                const r = await fetch(`${API_URL}/rifa/pagamento/status/${pix.id}`);
                 const json = await r.json();
 
                 if (json.status === "approved") {
@@ -66,9 +63,6 @@ export default function ModalPagamento({
 
     if (!aberto) return null;
 
-    // ===============================
-    // VALIDAR CARTÃO
-    // ===============================
     const cartaoValido =
         cartao.numero.length >= 13 &&
         cartao.nome.length > 3 &&
@@ -79,15 +73,10 @@ export default function ModalPagamento({
         <div
             className="rif-mp-overlay"
             onClick={(e) => {
-                if (e.target === e.currentTarget) {
-                    onFechar();
-                }
+                if (e.target === e.currentTarget) onFechar();
             }}
         >
-            <div
-                className="rif-mp-modal"
-                onClick={(e) => e.stopPropagation()}
-            >
+            <div className="rif-mp-modal" onClick={(e) => e.stopPropagation()}>
 
                 {/* ===== DADOS ===== */}
                 {etapa === "dados" && (
@@ -104,7 +93,16 @@ export default function ModalPagamento({
                             value={form.email}
                             placeholder="Email"
                             onChange={e => setForm({ ...form, email: e.target.value })}
+                            style={{
+                                borderColor: form.email && !emailValido ? "red" : undefined
+                            }}
                         />
+
+                        {form.email && !emailValido && (
+                            <small style={{ color: "red" }}>
+                                Email inválido
+                            </small>
+                        )}
 
                         <input
                             value={form.whatsapp}
@@ -119,7 +117,7 @@ export default function ModalPagamento({
                         />
 
                         <button
-                            disabled={!form.nome || !form.email || !form.whatsapp}
+                            disabled={!form.nome || !emailValido || !form.whatsapp}
                             onClick={() => setEtapa("confirmacao")}
                         >
                             Confirmar dados
@@ -157,7 +155,7 @@ export default function ModalPagamento({
                         </div>
 
                         <button
-                            disabled={loading}
+                            disabled={loading || !emailValido}
                             onClick={() => {
                                 if (metodo === "pix") {
                                     onConfirmarPagamento();
@@ -169,6 +167,9 @@ export default function ModalPagamento({
                             {loading ? "Processando..." : "Ir para pagamento"}
                         </button>
 
+                        <button onClick={() => setEtapa("dados")}>
+                            Voltar
+                        </button>
                     </div>
                 )}
 
@@ -186,6 +187,10 @@ export default function ModalPagamento({
                                 />
 
                                 <textarea readOnly value={pix.qr_code} />
+
+                                <button onClick={() => setEtapa("confirmacao")}>
+                                    Voltar
+                                </button>
                             </>
                         )}
 
@@ -240,13 +245,17 @@ export default function ModalPagamento({
                         />
 
                         <button
-                            disabled={!cartaoValido}
+                            disabled={!cartaoValido || !emailValido}
                             onClick={() => {
                                 console.log("DADOS DO CARTÃO:", cartao);
                                 alert("Dados do cartão capturados. Backend vem depois.");
                             }}
                         >
                             Confirmar pagamento
+                        </button>
+
+                        <button onClick={() => setEtapa("confirmacao")}>
+                            Voltar
                         </button>
                     </div>
                 )}
