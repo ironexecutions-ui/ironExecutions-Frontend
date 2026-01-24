@@ -142,7 +142,7 @@ export default function RifaCompras() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         compra_id: compra.compra_id,
-                        total: compra.total,
+                        total: Number(compra.total),
                         email: form.email
                     })
                 }

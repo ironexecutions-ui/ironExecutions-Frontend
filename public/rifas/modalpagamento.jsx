@@ -16,19 +16,33 @@ export default function ModalPagamento({
     loading
 }) {
     const [metodo, setMetodo] = useState("pix"); // pix | cartao
-    const [statusPix, setStatusPix] = useState("aguardando"); // aguardando | pago
+    const [statusPix, setStatusPix] = useState("aguardando");
+
+    const [cartao, setCartao] = useState({
+        numero: "",
+        nome: "",
+        validade: "",
+        cvv: ""
+    });
 
     // ===============================
-    // RESETAR STATUS DO PIX AO ABRIR MODAL
+    // RESET AO ABRIR MODAL
     // ===============================
     useEffect(() => {
         if (aberto) {
             setStatusPix("aguardando");
+            setMetodo("pix");
+            setCartao({
+                numero: "",
+                nome: "",
+                validade: "",
+                cvv: ""
+            });
         }
     }, [aberto]);
 
     // ===============================
-    // POLLING STATUS PIX
+    // POLLING PIX
     // ===============================
     useEffect(() => {
         if (!aberto || etapa !== "pix" || !pix?.id) return;
@@ -44,9 +58,7 @@ export default function ModalPagamento({
                     setStatusPix("pago");
                     clearInterval(interval);
                 }
-            } catch {
-                // silêncio, continua tentando
-            }
+            } catch { }
         }, 3000);
 
         return () => clearInterval(interval);
@@ -54,9 +66,28 @@ export default function ModalPagamento({
 
     if (!aberto) return null;
 
+    // ===============================
+    // VALIDAR CARTÃO
+    // ===============================
+    const cartaoValido =
+        cartao.numero.length >= 13 &&
+        cartao.nome.length > 3 &&
+        cartao.validade.length === 5 &&
+        cartao.cvv.length >= 3;
+
     return (
-        <div className="rif-mp-overlay">
-            <div className="rif-mp-modal">
+        <div
+            className="rif-mp-overlay"
+            onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                    onFechar();
+                }
+            }}
+        >
+            <div
+                className="rif-mp-modal"
+                onClick={(e) => e.stopPropagation()}
+            >
 
                 {/* ===== DADOS ===== */}
                 {etapa === "dados" && (
@@ -117,14 +148,27 @@ export default function ModalPagamento({
                                 PIX
                             </button>
 
-                            <button disabled title="Em breve">
+                            <button
+                                className={metodo === "cartao" ? "ativo" : ""}
+                                onClick={() => setMetodo("cartao")}
+                            >
                                 Cartão
                             </button>
                         </div>
 
-                        <button onClick={onConfirmarPagamento} disabled={loading}>
+                        <button
+                            disabled={loading}
+                            onClick={() => {
+                                if (metodo === "pix") {
+                                    onConfirmarPagamento();
+                                } else {
+                                    setEtapa("cartao");
+                                }
+                            }}
+                        >
                             {loading ? "Processando..." : "Ir para pagamento"}
                         </button>
+
                     </div>
                 )}
 
@@ -155,6 +199,55 @@ export default function ModalPagamento({
                                 </button>
                             </>
                         )}
+                    </div>
+                )}
+
+                {/* ===== CARTÃO ===== */}
+                {etapa === "cartao" && metodo === "cartao" && (
+                    <div className="rif-mp-etapa">
+                        <h3>Pagamento com cartão</h3>
+
+                        <input
+                            placeholder="Número do cartão"
+                            value={cartao.numero}
+                            onChange={e =>
+                                setCartao({ ...cartao, numero: e.target.value.replace(/\D/g, "") })
+                            }
+                        />
+
+                        <input
+                            placeholder="Nome no cartão"
+                            value={cartao.nome}
+                            onChange={e =>
+                                setCartao({ ...cartao, nome: e.target.value })
+                            }
+                        />
+
+                        <input
+                            placeholder="Validade (MM/AA)"
+                            value={cartao.validade}
+                            onChange={e =>
+                                setCartao({ ...cartao, validade: e.target.value })
+                            }
+                        />
+
+                        <input
+                            placeholder="CVV"
+                            value={cartao.cvv}
+                            onChange={e =>
+                                setCartao({ ...cartao, cvv: e.target.value.replace(/\D/g, "") })
+                            }
+                        />
+
+                        <button
+                            disabled={!cartaoValido}
+                            onClick={() => {
+                                console.log("DADOS DO CARTÃO:", cartao);
+                                alert("Dados do cartão capturados. Backend vem depois.");
+                            }}
+                        >
+                            Confirmar pagamento
+                        </button>
                     </div>
                 )}
 
