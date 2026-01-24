@@ -2,27 +2,12 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import "./app.css";
 import "./app-responsivo.css";
-import FuncionariosPage from "./painel/components/info/funcionariospage";
-import ContratoPublico from "../contratopublico";
-import Painel from "./painel/painel";
-import Protegido from "./protegido";
-import ClientesPage from "./painel/components/info/infopage";
+
 import PagamentosIB from "./pagamentos/pagamentosib";
-import Topo from "./components/topo";
-import Hero from "./components/hero";
-import Oferecemos from "./components/oferecemos";
-import Servicos from "./components/servicos";
-import TiposSites from "./components/tipossites";
-import Rodape from "./components/rodape";
-import WhatsAppButton from "./components/whatsappbutton";
-import SitesCriados from "./components/sitescriados";
-import DadosPage from "./painel/components/info/dadospage";
-import Equipe from "./components/equipe";
-import InicioModulos from "./painel/components/modulos/iniciomodulos";
-import Pedido from "./pedido/pedido";
-import CadastroComercio from "./painel/components/modulos/cadastrocomercio";
-import IronBusinessPerfil from "./painel/components/modulos/perfil/ironbusiness";
-import Ferramentas from "./ferramentas/ferramentas";
+import RifaCompras from "../public/rifas/rifacompras"
+import InicioModulos from "../modulos/iniciomodulos";
+import CadastroComercio from "../modulos/cadastrocomercio";
+import IronBusinessPerfil from "../modulos/perfil/ironbusiness";
 import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 
@@ -41,65 +26,22 @@ function RoteamentoComLoading() {
   return (
     <Routes>
 
-      <Route
-        path="/"
-        element={
-          <>
-            <Topo />
-            <WhatsAppButton />
-            <Hero />
-            <Oferecemos />
-            <Servicos />
-            <TiposSites />
-            <Equipe />
-            <SitesCriados />
-            <Rodape />
-          </>
-        }
-      />
+      <Route path="/rifa-compras" element={<RifaCompras />} />
+
       <Route path="/pagamento" element={<PagamentosIB />} />
       <Route path="/pagamento/:id" element={<PagamentosIB />} />
 
-      <Route path="/contrato/:codigo" element={<ContratoPublico />} />
-      <Route path="/contrato" element={<ContratoPublico />} />
-      <Route path="/ironbusiness/*" element={<InicioModulos />} />
+      <Route path="/*" element={<InicioModulos />} />
       <Route
         path="/cadastrocomercio"
         element={
-          <Protegido>
-            <CadastroComercio />
-          </Protegido>
-        }
-      />
-      <Route path="/pedido" element={<Pedido />} />
-      <Route
-        path="/ferramentas"
-        element={
-          <Protegido>
-            <Ferramentas />
-          </Protegido>
+          <CadastroComercio />
         }
       />
 
-      <Route
-        path="/painel"
-        element={
-          <Protegido>
-            <Painel />
-          </Protegido>
-        }
-      />
 
       <Route
-        path="/clientes"
-        element={
-          <Protegido>
-            <ClientesPage />
-          </Protegido>
-        }
-      />
-      <Route
-        path="/ironbusiness/perfil"
+        path="/perfil"
         element={
           <ProtegidoClientes>
             <IronBusinessPerfil />
@@ -108,23 +50,6 @@ function RoteamentoComLoading() {
       />
 
 
-      <Route
-        path="/funcionarios"
-        element={
-          <Protegido>
-            <FuncionariosPage />
-          </Protegido>
-        }
-      />
-
-      <Route
-        path="/dados"
-        element={
-          <Protegido>
-            <DadosPage />
-          </Protegido>
-        }
-      />
 
     </Routes>
   );

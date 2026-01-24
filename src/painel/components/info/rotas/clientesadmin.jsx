@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./clientesadmin.css";
-import { API_URL } from "../../../../../config";
+import { API_URL } from "../../config";
 import ClientesAdminIB from "./clientesadminib";
 
 export default function ClientesAdmin() {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./novocontrato.css";
-import { API_URL } from "../../../../../config";
+import { API_URL } from "../../config";
 import { useEffect } from "react";
 
 export default function NovoContrato({ voltar, editando }) {

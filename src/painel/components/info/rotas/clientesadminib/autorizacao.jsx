@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { API_URL } from "../../../../../../config";
+import { API_URL } from "../../../config";
+
 import "./autorizacao.css";
 
 export default function Autorizacao() {

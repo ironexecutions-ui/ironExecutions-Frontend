@@ -1,6 +1,7 @@
 // IBServicos.jsx
 import React, { useEffect, useState } from "react";
-import { API_URL } from "../../../../../../config";
+import { API_URL } from "../../../config";
+
 import "./servicos.css";
 
 export default function IBServicos() {

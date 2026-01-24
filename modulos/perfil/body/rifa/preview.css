@@ -1,0 +1,208 @@
+/* ===============================
+   CONTAINER PRINCIPAL
+   =============================== */
+.rifa-preview {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 22px 24px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ===============================
+   HEADER
+   =============================== */
+.rifa-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.rifa-preview-header h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+    word-break: break-word;
+}
+
+/* ===============================
+   BOTÕES GERAIS
+   =============================== */
+.rifa-preview button {
+    border: none;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rifa-preview button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.rifa-preview button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Botão primário */
+.rifa-preview-header button,
+.rifa-edicao-acoes button:first-child,
+.ver-mais {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: #ffffff;
+}
+
+/* Botão secundário */
+.rifa-edicao-acoes .secundario {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+/* ===============================
+   EDIÇÃO DO NOME
+   =============================== */
+.rifa-edicao {
+    width: 100%;
+}
+
+.rifa-edicao input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.rifa-edicao input:focus {
+    border-color: #111827;
+}
+
+.rifa-edicao-acoes {
+    display: flex;
+    gap: 10px;
+}
+
+/* ===============================
+   INFORMAÇÕES DA RIFA
+   =============================== */
+.rifa-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.rifa-info span {
+    font-weight: 500;
+}
+
+/* ===============================
+   LISTA DE NÚMEROS
+   =============================== */
+.rifa-numeros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+    gap: 8px;
+    padding: 14px;
+    background: #f9fafb;
+    border-radius: 12px;
+
+    overflow-y: auto;
+    margin-bottom: 18px;
+}
+
+/* Número individual */
+.rifa-numero {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb;
+    user-select: none;
+}
+
+
+/* ===============================
+   ESTADO VAZIO
+   =============================== */
+.rifa-vazia {
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    color: #6b7280;
+    padding: 12px 0;
+}
+
+/* ===============================
+   BOTÃO VER MAIS
+   =============================== */
+.ver-mais {
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 15px;
+}
+
+/* ===============================
+   SCROLL PERSONALIZADO
+   =============================== */
+.rifa-numeros::-webkit-scrollbar {
+    width: 8px;
+}
+
+.rifa-numeros::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.rifa-numeros::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 10px;
+}
+
+.rifa-numeros::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* ===============================
+   RESPONSIVO
+   =============================== */
+@media (max-width: 600px) {
+    .rifa-preview {
+        padding: 16px;
+    }
+
+    .rifa-preview-header h4 {
+        font-size: 18px;
+    }
+
+    .rifa-info {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .rifa-numeros {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+        max-height: 240px;
+    }
+}

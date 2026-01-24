@@ -1,6 +1,7 @@
 // IBMensalidadeForm.jsx
 import React, { useEffect, useState } from "react";
-import { API_URL } from "../../../../../../config";
+import { API_URL } from "../../../config";
+
 import "./mensform.css"
 
 export default function IBMensalidadeForm({ fechar, recarregar }) {

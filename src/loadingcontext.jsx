@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import LoadingLayout from "./components/loadinglayout";
+import LoadingLayout from "./loadinglayout";
 import React from "react";
 
 const LoadingContext = createContext();

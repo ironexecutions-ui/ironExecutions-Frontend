@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./contratosadmin.css";
-import { API_URL } from "../../../../../config";
+import { API_URL } from "../../config";
 import NovoContrato from "./novocontrato";
 import AssinaturaCanvas from "./assinaturacanvas";
 
@@ -20,7 +20,7 @@ export default function ContratosAdmin({ onModoChange }) {
         window.location.hostname === "127.0.0.1";
 
     const API_URL_FIXO = isLocal
-        ? "http://127.0.0.1:8888"
+        ? "http://127.0.0.1:8889"
         : "https://ironexecutions-backend.onrender.com";
 
     useEffect(() => {

@@ -1,0 +1,249 @@
+/* ===============================
+   CONTAINER PRINCIPAL
+   =============================== */
+
+.rifa-container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px;
+    background: #0412dda8;
+    border-radius: 18px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+}
+
+/* ===============================
+   TÍTULO
+   =============================== */
+
+.rifa-container h3 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 26px;
+    color: #111;
+}
+
+/* ===============================
+   FORMULÁRIO
+   =============================== */
+
+.rifa-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.rifa-dropzone {
+    border: 2px dashed #999;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    background: #fafafa;
+    transition: 0.2s;
+}
+
+.rifa-dropzone:hover {
+    background: #f0f0f0;
+    border-color: #555;
+}
+
+.rifa-preview-fotos {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.rifa-preview-fotos img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.rifa-form label {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    font-weight: 500;
+    color: #000000;
+    gap: 8px;
+}
+
+.rifa-form input {
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid #d6d6d6;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background: #fafafa;
+}
+
+.rifa-form input:focus {
+    outline: none;
+    border-color: #111;
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Nome da rifa ocupa largura total */
+.rifa-form label:first-child {
+    grid-column: 1 / -1;
+}
+
+/* ===============================
+   BOTÃO
+   =============================== */
+
+.rifa-form button {
+    grid-column: 1 / -1;
+    margin-top: 12px;
+    height: 50px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #111 0%, #2c2c2c 100%);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.rifa-form button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+}
+
+.rifa-form button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* ===============================
+   FEEDBACK
+   =============================== */
+
+.erro {
+    grid-column: 1 / -1;
+    color: #c62828;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.ok {
+    grid-column: 1 / -1;
+    color: #2e7d32;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* ===============================
+   BLOQUEIO DE ACESSO
+   =============================== */
+
+.rifa-bloqueado {
+    max-width: 520px;
+    margin: 100px auto;
+    padding: 42px;
+    background: #f5f5f5;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.rifa-bloqueado h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.rifa-bloqueado p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* ===============================
+   PREVIEW DA RIFA
+   =============================== */
+
+.rifa-preview {
+    margin-top: 42px;
+    padding: 28px;
+    background: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+}
+
+.rifa-preview-header {
+    margin-bottom: 20px;
+}
+
+.rifa-preview-header label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 500;
+    gap: 8px;
+}
+
+.rifa-preview-header input {
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+/* ===============================
+   GRID DE NÚMEROS
+   =============================== */
+
+.rifa-numeros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 14px;
+}
+
+.rifa-numero {
+    height: 54px;
+    border-radius: 14px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 15px;
+    color: #111;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.rifa-numero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
+   RESPONSIVO
+   =============================== */
+
+@media (max-width: 768px) {
+    .rifa-container {
+        padding: 24px;
+    }
+
+    .rifa-form {
+        grid-template-columns: 1fr;
+    }
+
+    .rifa-preview {
+        padding: 22px;
+    }
+
+    .rifa-numeros {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    }
+}

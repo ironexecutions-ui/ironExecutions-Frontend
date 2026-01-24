@@ -1,6 +1,7 @@
 // IBMensalidades.jsx
 import React, { useEffect, useState } from "react";
-import { API_URL } from "../../../../../../config";
+import { API_URL } from "../../../config";
+
 import IBMensalidadeForm from "./mensform";
 import "./mensalidades.css";
 

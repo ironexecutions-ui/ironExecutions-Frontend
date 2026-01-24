@@ -13,7 +13,7 @@ export default function ProtegidoClientes({ children }) {
     }
 
     if (!cliente || !cliente.id) {
-        return <Navigate to="/ironbusiness" replace />;
+        return <Navigate to="/" replace />;
     }
 
     return children;
