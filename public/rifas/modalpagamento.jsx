@@ -19,10 +19,19 @@ export default function ModalPagamento({
     const [statusPix, setStatusPix] = useState("aguardando"); // aguardando | pago
 
     // ===============================
+    // RESETAR STATUS DO PIX AO ABRIR MODAL
+    // ===============================
+    useEffect(() => {
+        if (aberto) {
+            setStatusPix("aguardando");
+        }
+    }, [aberto]);
+
+    // ===============================
     // POLLING STATUS PIX
     // ===============================
     useEffect(() => {
-        if (etapa !== "pix" || !pix?.id) return;
+        if (!aberto || etapa !== "pix" || !pix?.id) return;
 
         const interval = setInterval(async () => {
             try {
@@ -41,7 +50,7 @@ export default function ModalPagamento({
         }, 3000);
 
         return () => clearInterval(interval);
-    }, [etapa, pix]);
+    }, [aberto, etapa, pix]);
 
     if (!aberto) return null;
 
