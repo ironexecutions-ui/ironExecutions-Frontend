@@ -10,11 +10,14 @@ export default function HistoricoVendas() {
     const [limite, setLimite] = useState(20);
     const [carregando, setCarregando] = useState(true);
     const [vendaAtiva, setVendaAtiva] = useState(null);
+
+    const [filtroProtocolo, setFiltroProtocolo] = useState("");
     const [filtroOperador, setFiltroOperador] = useState("");
     const [filtroValorMin, setFiltroValorMin] = useState("");
     const [filtroValorMax, setFiltroValorMax] = useState("");
     const [filtroDataMin, setFiltroDataMin] = useState("");
     const [filtroStatus, setFiltroStatus] = useState("");
+
     function traduzirModulo(valor) {
         if (valor === 1) return "Caixa";
         if (valor === 4) return "Online";
@@ -63,10 +66,17 @@ export default function HistoricoVendas() {
             </div>
         );
     }
+
     const vendasFiltradas = vendas.filter(v => {
 
-        if (filtroOperador &&
-            !v.operador.toLowerCase().includes(filtroOperador.toLowerCase())) {
+        if (filtroProtocolo && Number(v.id) !== Number(filtroProtocolo)) {
+            return false;
+        }
+
+        if (
+            filtroOperador &&
+            !v.operador.toLowerCase().includes(filtroOperador.toLowerCase())
+        ) {
             return false;
         }
 
@@ -98,7 +108,15 @@ export default function HistoricoVendas() {
                     {vendasFiltradas.length} vendas
                 </span>
             </div>
+
             <div className="hv-filtros">
+
+                <input
+                    type="number"
+                    placeholder="Protocolo"
+                    value={filtroProtocolo}
+                    onChange={e => setFiltroProtocolo(e.target.value)}
+                />
 
                 <input
                     type="text"
@@ -135,6 +153,7 @@ export default function HistoricoVendas() {
                     <option value="pago">Pago</option>
                     <option value="cancelado">Cancelado</option>
                 </select>
+
                 <button
                     className={`hv-toggle-preview ${previewAtivo ? "ativo" : ""}`}
                     onClick={() => setPreviewAtivo(!previewAtivo)}
@@ -158,7 +177,6 @@ export default function HistoricoVendas() {
                             <th>Maquininha</th>
                             <th>Módulo</th>
                             <th>Ação</th>
-
                         </tr>
                     </thead>
 
@@ -185,7 +203,6 @@ export default function HistoricoVendas() {
                                 <td className={`hv-modulo hv-modulo-${v.modulo}`}>
                                     {traduzirModulo(v.modulo)}
                                 </td>
-
                                 <td>
                                     {v.comanda ? (
                                         <button
@@ -210,9 +227,7 @@ export default function HistoricoVendas() {
                 )}
             </div>
 
-            {/* PREVIEW SEMPRE FIXO NA TELA */}
             {previewAtivo && <PreviewProdutosVenda venda={vendaAtiva} />}
-
 
         </div>
     );

@@ -280,7 +280,7 @@ export default function Code() {
                     Código de Barras
                 </button>
 
-                <button style={{ display: "none" }}
+                <button
                     className={modo === "qrcode" ? "ativo" : ""}
                     onClick={() => setModo("qrcode")}
                 >
