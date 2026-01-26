@@ -20,12 +20,6 @@ export default function AreaLogin() {
     async function fazerLogin(url, body) {
         setErro("");
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("usuario");
-        localStorage.removeItem("cliente");
-        localStorage.removeItem("clientes");
-        localStorage.removeItem("funcionario");
-
         const resp = await fetch(`${API_URL}${url}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -50,6 +44,7 @@ export default function AreaLogin() {
             return;
         }
 
+        // só aqui substitui a sessão
         localStorage.setItem("token", token);
 
         const payload = JSON.parse(atob(token.split(".")[1]));

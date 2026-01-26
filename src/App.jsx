@@ -1,22 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import "./app.css";
 import "./app-responsivo.css";
 
 import PagamentosIB from "./pagamentos/pagamentosib";
-import RifaCompras from "../public/rifas/rifacompras"
+import RifaCompras from "../public/rifas/rifacompras";
 import InicioModulos from "../modulos/iniciomodulos";
 import CadastroComercio from "../modulos/cadastrocomercio";
 import IronBusinessPerfil from "../modulos/perfil/ironbusiness";
 import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
+import { API_URL } from "../config";
+
+/* Mapa fixo de comercio_id -> imagem */
+const FUNDOS_POR_COMERCIO = {
+  11: "/fundos/ironexecutions.png",
+  25: "/fundos/missionarystorebrasil.png",
+  27: "/fundos/teste.png",
+  28: "/fundos/dass.png",
+  29: "/fundos/alexsiautilidades.png"
+};
+
 
 function RoteamentoComLoading() {
-
   const { setLoading } = useLoading();
   const location = useLocation();
 
-  // sempre que a página mudar, mostra um loading curto
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => setLoading(false), 600);
@@ -25,21 +34,10 @@ function RoteamentoComLoading() {
 
   return (
     <Routes>
-
       <Route path="/rifa-compras/:id?" element={<RifaCompras />} />
-
       <Route path="/pagamento" element={<PagamentosIB />} />
       <Route path="/pagamento/:id" element={<PagamentosIB />} />
-
-      <Route path="/*" element={<InicioModulos />} />
-      <Route
-        path="/cadastrocomercio"
-        element={
-          <CadastroComercio />
-        }
-      />
-
-
+      <Route path="/cadastrocomercio" element={<CadastroComercio />} />
       <Route
         path="ironbusiness/perfil"
         element={
@@ -48,29 +46,71 @@ function RoteamentoComLoading() {
           </ProtegidoClientes>
         }
       />
-
-
-
+      <Route path="/*" element={<InicioModulos />} />
     </Routes>
   );
 }
-export default function App() {
 
+export default function App() {
+  const [fundoComercio, setFundoComercio] = useState(null);
+
+  /* keep-alive backend */
   useEffect(() => {
     fetch("https://nfcee.onrender.com/", {
       method: "GET",
       mode: "no-cors"
-    }).catch(() => {
-      // ignora erro, é só keep-alive
-    });
+    }).catch(() => { });
+  }, []);
+
+  /* detectar comercio logado e aplicar fundo */
+  useEffect(() => {
+    async function carregarFundo() {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const r = await fetch(`${API_URL}/retorno/me`, {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        });
+
+        if (!r.ok) return;
+
+        const usuario = await r.json();
+        if (!usuario?.comercio_id) return;
+
+        const imagem = FUNDOS_POR_COMERCIO[usuario.comercio_id];
+        if (!imagem) return;
+
+        setFundoComercio(imagem);
+
+      } catch (e) {
+        // silêncio intencional
+      }
+    }
+
+    carregarFundo();
   }, []);
 
   return (
     <Router>
-      <div className="app">
+      <div
+        className="app"
+        style={
+          fundoComercio
+            ? {
+              backgroundImage: `url(${fundoComercio})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              minHeight: "100vh"
+            }
+            : undefined
+        }
+      >
         <RoteamentoComLoading />
       </div>
     </Router>
   );
 }
-
