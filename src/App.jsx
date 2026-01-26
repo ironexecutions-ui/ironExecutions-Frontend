@@ -14,11 +14,11 @@ import { API_URL } from "../config";
 
 /* Mapa fixo de comercio_id -> imagem */
 const FUNDOS_POR_COMERCIO = {
-  11: "/fundos/ironexecutions.png",
-  25: "/fundos/missionarystorebrasil.png",
-  27: "/fundos/teste.png",
-  28: "/fundos/dass.png",
-  29: "/fundos/alexsiautilidades.png"
+  11: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/ironexecutions.png",
+  25: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/missionarystorebrasil.png",
+  27: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/teste.png",
+  28: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/dass.png",
+  29: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/alexsiautilidades.png"
 };
 
 
