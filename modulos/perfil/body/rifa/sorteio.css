@@ -457,6 +457,153 @@
 }
 
 /* ======================================================
+   ESTADO COMEMORATIVO · RESULTADO FINAL
+====================================================== */
+
+.sorteioRifa-numeroFinal {
+    color: #22c55e;
+    background:
+        linear-gradient(#020617, #020617) padding-box,
+        linear-gradient(135deg, #22c55e, #16a34a) border-box;
+    border: 2px solid transparent;
+
+    box-shadow:
+        inset 0 0 40px rgba(34, 197, 94, 0.55),
+        0 0 90px rgba(34, 197, 94, 0.75),
+        0 0 140px rgba(34, 197, 94, 0.45);
+
+    transform: scale(1.08);
+    animation: numeroFinalEntrada 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ======================================================
+   ANIMAÇÃO DE ENTRADA DO RESULTADO
+====================================================== */
+@keyframes numeroFinalEntrada {
+    0% {
+        transform: scale(0.85);
+        opacity: 0;
+        filter: blur(6px);
+    }
+
+    60% {
+        transform: scale(1.12);
+        opacity: 1;
+        filter: blur(0);
+    }
+
+    100% {
+        transform: scale(1.08);
+    }
+}
+
+/* ======================================================
+   FUNDO COMEMORATIVO QUANDO FINALIZA
+====================================================== */
+.sorteioRifa-container:has(.sorteioRifa-numeroFinal) {
+    background:
+        linear-gradient(180deg,
+            rgba(2, 6, 23, 0.96),
+            rgba(2, 6, 23, 1)),
+        radial-gradient(circle at top,
+            rgba(34, 197, 94, 0.18),
+            transparent 60%);
+}
+
+/* ===============================
+   COMEMORAÇÃO FINAL
+================================ */
+
+.sorteioRifa-comemoracao {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.sorteioRifa-fogo {
+    position: absolute;
+    bottom: -40px;
+    animation: subirExplodir 3.5s ease-out forwards;
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
+}
+
+@keyframes subirExplodir {
+    0% {
+        transform: translateY(0) scale(0.6);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    60% {
+        transform: translateY(-70vh) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100vh) scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* ===============================
+   FOGOS ARTIFICIAIS · REAL
+================================ */
+
+.sorteioRifa-fogo {
+    position: absolute;
+    bottom: -60px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: transparent;
+    animation: fogueteSubir 1.6s ease-out forwards,
+        explosao 0.8s ease-out forwards;
+    animation-delay: 0s, 1.6s;
+}
+
+/* SUBIDA DO FOGUETE */
+@keyframes fogueteSubir {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+    }
+
+    100% {
+        transform: translateY(-65vh);
+        opacity: 1;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+}
+
+/* EXPLOSÃO */
+@keyframes explosao {
+    0% {
+        box-shadow: 0 0 0 transparent;
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        box-shadow:
+            0 0 0 0 #fff,
+            30px 0 0 #22c55e,
+            -30px 0 0 #38bdf8,
+            0 30px 0 #facc15,
+            0 -30px 0 #a855f7,
+            22px 22px 0 #fb7185,
+            -22px 22px 0 #4ade80,
+            22px -22px 0 #60a5fa,
+            -22px -22px 0 #f472b6;
+    }
+}
+
+/* ======================================================
    RESPONSIVO · TABLET
 ====================================================== */
 @media (max-width: 1024px) {

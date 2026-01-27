@@ -10,6 +10,21 @@ export default function SorteioRifa({ rifa, premio }) {
     const [erro, setErro] = useState(null);
     const [rodando, setRodando] = useState(false);
     const [verificandoResultado, setVerificandoResultado] = useState(true);
+    const [liberadoParaSorteio, setLiberadoParaSorteio] = useState(false);
+    const [comemorar, setComemorar] = useState(false);
+
+    useEffect(() => {
+        if (!rifa?.data_fim) return;
+
+        const agora = new Date();
+        const dataFim = new Date(rifa.data_fim);
+
+        if (agora >= dataFim) {
+            setLiberadoParaSorteio(true);
+        } else {
+            setLiberadoParaSorteio(false);
+        }
+    }, [rifa]);
 
     // ===============================
     // INTERVALO DA RIFA
@@ -44,7 +59,7 @@ export default function SorteioRifa({ rifa, premio }) {
     // ===============================
     async function iniciarSorteio() {
         if (!tempo || tempo <= 0) return;
-        if (!inicioRifa || !fimRifa) {
+        if (inicioRifa == null || fimRifa == null) {
             setErro("Intervalo da rifa inválido.");
             return;
         }
@@ -86,6 +101,10 @@ export default function SorteioRifa({ rifa, premio }) {
                 setNumeroAnimado(resultadoBackend.numero);
                 setResultado(resultadoBackend);
                 setRodando(false);
+                setComemorar(true);
+
+                // encerra a comemoração depois de 4 segundos
+                setTimeout(() => setComemorar(false), 4000);
             }
         }, 80);
     }
@@ -120,6 +139,15 @@ export default function SorteioRifa({ rifa, premio }) {
             <div className="sorteioRifa-container">
                 <p className="sorteioRifa-alertaDefinitivo">
                     Verificando status do sorteio...
+                </p>
+            </div>
+        );
+    }
+    if (!liberadoParaSorteio) {
+        return (
+            <div className="sorteioRifa-container">
+                <p className="sorteioRifa-alertaDefinitivo">
+                    O sorteio ficará disponível após a data de encerramento da rifa.
                 </p>
             </div>
         );
@@ -180,9 +208,17 @@ export default function SorteioRifa({ rifa, premio }) {
                                 </div>
                             )}
 
-                            <span className="sorteioRifa-numeroAtual">
+                            <span
+                                className={`sorteioRifa-numeroAtual ${rodando
+                                    ? "sorteioRifa-numeroRodando"
+                                    : resultado
+                                        ? "sorteioRifa-numeroFinal"
+                                        : ""
+                                    }`}
+                            >
                                 {numeroAnimado}
                             </span>
+
                         </div>
                     )}
 
@@ -208,7 +244,7 @@ export default function SorteioRifa({ rifa, premio }) {
                         <div className="sorteioRifa-blocoGanhador">
 
                             <h3 className="sorteioRifa-nomeGanhador">
-                                {resultado.nome}
+                                O ganhador do premio {premio}  é para:   {resultado.nome}
                             </h3>
 
                             <div className="sorteioRifa-acoesContato">
@@ -251,6 +287,23 @@ Você foi o ganhador do prêmio "${premio}".`;
                 <p className="sorteioRifa-mensagemErro">
                     {erro}
                 </p>
+            )}
+            {comemorar && (
+                <div className="sorteioRifa-comemoracao">
+                    {Array.from({ length: 60 }).map((_, i) => (
+                        <span
+                            key={i}
+                            className="sorteioRifa-fogo"
+                            style={{
+                                left: `${Math.random() * 100}%`,
+                                animationDelay: `${Math.random()}s`,
+                                fontSize: `${18 + Math.random() * 30}px`
+                            }}
+                        >
+                            🎆
+                        </span>
+                    ))}
+                </div>
             )}
 
         </div>

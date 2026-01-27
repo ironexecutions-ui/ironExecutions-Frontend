@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./modalpagamento.css";
 import { API_URL } from "../../config";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function ModalPagamento({
     aberto,
@@ -17,6 +18,7 @@ export default function ModalPagamento({
 }) {
     const [metodo, setMetodo] = useState("pix");
     const [statusPix, setStatusPix] = useState("aguardando");
+    const [erroGoogle, setErroGoogle] = useState("");
 
     const [cartao, setCartao] = useState({
         numero: "",
@@ -29,6 +31,52 @@ export default function ModalPagamento({
     // EMAIL VÁLIDO
     // ===============================
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email || "");
+
+    // ===============================
+    // LOGIN GOOGLE
+    // ===============================
+    const loginGoogle = useGoogleLogin({
+        onSuccess: async (token) => {
+            try {
+                const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                    headers: {
+                        Authorization: `Bearer ${token.access_token}`,
+                    },
+                });
+
+                const data = await res.json();
+
+                const partesNome = (data.name || "").split(" ");
+
+                setForm(prev => ({
+                    ...prev,
+                    nome: partesNome[0] || "",
+                    sobrenome: partesNome.slice(1).join(" "),
+                    email: data.email || prev.email,
+                    googleLogado: true
+                }));
+
+                setErroGoogle("");
+
+            } catch {
+                setErroGoogle("Erro ao obter dados do Google");
+            }
+        },
+        onError: () => {
+            setErroGoogle("Não foi possível entrar com o Google");
+        }
+    });
+    useEffect(() => {
+        if (aberto) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [aberto]);
 
     useEffect(() => {
         if (aberto) {
@@ -82,20 +130,38 @@ export default function ModalPagamento({
                 {etapa === "dados" && (
                     <div className="rif-mp-etapa">
                         <h3>Dados do comprador</h3>
+                        <h4>As informações informadas serão utilizadas para contato oficial em caso de premiação.</h4>
+                        {!form.googleLogado && (
+                            <>
+                                <button
+                                    type="button"
+                                    className="rif-mp-google"
+                                    onClick={() => loginGoogle()}
+                                >
+                                    Entrar com Google
+                                </button>
+
+                                {erroGoogle && (
+                                    <small style={{ color: "red" }}>{erroGoogle}</small>
+                                )}
+                            </>
+                        )}
 
                         <input
-                            value={form.nome}
-                            placeholder="Nome"
-                            onChange={e => setForm({ ...form, nome: e.target.value })}
+                            value={`${form.nome || ""} ${form.sobrenome || ""}`.trim()}
+                            placeholder="Nome e sobrenome (Google)"
+                            disabled
                         />
 
                         <input
+
                             value={form.email}
                             placeholder="Email"
                             onChange={e => setForm({ ...form, email: e.target.value })}
                             style={{
                                 borderColor: form.email && !emailValido ? "red" : undefined
                             }}
+                            readOnly
                         />
 
                         {form.email && !emailValido && (
@@ -117,7 +183,12 @@ export default function ModalPagamento({
                         />
 
                         <button
-                            disabled={!form.nome || !emailValido || !form.whatsapp}
+                            disabled={
+                                !form.googleLogado ||
+                                !form.nome ||
+                                !emailValido ||
+                                !form.whatsapp
+                            }
                             onClick={() => setEtapa("confirmacao")}
                         >
                             Confirmar dados
@@ -132,7 +203,7 @@ export default function ModalPagamento({
                     <div className="rif-mp-etapa">
                         <h3>Confirmação</h3>
 
-                        <p><b>Nome:</b> {form.nome}</p>
+                        <p><b>Nome:</b> {form.nome} {form.sobrenome}</p>
                         <p><b>Email:</b> {form.email}</p>
                         <p><b>WhatsApp:</b> {form.whatsapp}</p>
                         <p><b>Números:</b> {selecionados.join(", ")}</p>
@@ -259,7 +330,6 @@ export default function ModalPagamento({
                         </button>
                     </div>
                 )}
-
             </div>
         </div>
     );
