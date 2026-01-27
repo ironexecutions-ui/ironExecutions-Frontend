@@ -43,6 +43,20 @@ export default function RifaCompras() {
             buscarRifa();
         }
     }, [rifaId]);
+    function formatarDataHora(data) {
+        if (!data) return null;
+
+        const d = new Date(data);
+
+        const dataFormatada = d.toLocaleDateString("pt-BR");
+        const horaFormatada = d.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+        return `${dataFormatada} às ${horaFormatada}`;
+    }
+
 
     // ===============================
     // BUSCAR RIFA
@@ -76,6 +90,24 @@ export default function RifaCompras() {
             setLoading(false);
         }
     }
+    function abrirWhatsApp(numero) {
+        if (!numero) return;
+
+        const limpo = numero.replace(/\D/g, "");
+        const url = `https://wa.me/${limpo}`;
+        window.open(url, "_blank");
+    }
+
+    async function copiarEmail(email) {
+        if (!email) return;
+
+        try {
+            await navigator.clipboard.writeText(email);
+            alert("Email copiado para a área de transferência");
+        } catch {
+            alert("Não foi possível copiar o email");
+        }
+    }
 
     // ===============================
     // GERAR NÚMEROS
@@ -88,6 +120,9 @@ export default function RifaCompras() {
             (_, i) => inicio + i
         );
     }, [rifa]);
+    const estaFinalizada = rifa?.data_fim
+        ? rifaFinalizada(rifa.data_fim)
+        : false;
 
     // ===============================
     // SELEÇÃO DE NÚMEROS
@@ -183,6 +218,15 @@ export default function RifaCompras() {
             setLoading(false);
         }
     }
+    function rifaFinalizada(dataFim) {
+        if (!dataFim) return false;
+
+        const dataFimISO = dataFim.replace(" ", "T") + "-03:00";
+        const agora = new Date();
+        const fim = new Date(dataFimISO);
+
+        return agora >= fim;
+    }
 
     return (
         <div className="rif-compra-container">
@@ -213,13 +257,50 @@ export default function RifaCompras() {
 
             {erro && <p className="rif-erro">{erro}</p>}
 
-            {rifa && (
+            {rifa && estaFinalizada && (
+                <div className="rif-resultado">
+                    {rifa.ganhador && rifa.ganhador.nome ? (
+                        <>
+                            <h3 className="rif-ganhador-titulo">
+                                Ganhador da Rifa
+                            </h3>
+
+                            <p className="rif-ganhador-nome">
+                                {rifa.ganhador.nome}
+                            </p>
+
+                            <p className="rif-ganhador-numero">
+                                Número sorteado: {rifa.ganhador.numero}
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <h3 className="rif-ganhador-titulo">
+                                Resultado da Rifa
+                            </h3>
+
+                            <p className="rif-ganhador-sem">
+                                Nenhum ganhador foi definido para esta rifa.
+                            </p>
+                        </>
+                    )}
+                </div>
+            )}
+
+
+            {rifa && !estaFinalizada && (
                 <>
                     <h3 className="rif-nome">{rifa.nome}</h3>
 
                     {rifa.premio && (
                         <div className="rif-premio">
                             <strong>Prêmio:</strong> {rifa.premio}
+                        </div>
+                    )}
+
+                    {rifa.data_fim && (
+                        <div className="rif-data-fim">
+                            <strong>Data final da rifa:</strong> {formatarDataHora(rifa.data_fim)}
                         </div>
                     )}
 
@@ -233,14 +314,50 @@ export default function RifaCompras() {
                         Preço por número: R$ {rifa.preco}
                     </p>
 
+                    {rifa?.comercio && (
+                        <div className="rif-comercio">
+                            {rifa.comercio.imagem && (
+                                <img
+                                    src={rifa.comercio.imagem}
+                                    alt={rifa.comercio.loja}
+                                    className="rif-comercio-logo"
+                                />
+                            )}
+
+                            <div className="rif-comercio-info">
+                                <p className="rif-comercio-nome">
+                                    Rifa realizada por <strong>{rifa.comercio.loja}</strong>
+                                </p>
+
+                                {rifa.comercio.email && (
+                                    <p
+                                        className="rif-comercio-contato rif-comercio-link"
+                                        onClick={() => copiarEmail(rifa.comercio.email)}
+                                    >
+                                        Email: {rifa.comercio.email}
+                                    </p>
+                                )}
+
+                                {rifa.comercio.celular && (
+                                    <p
+                                        className="rif-comercio-contato rif-comercio-link"
+                                        onClick={() => abrirWhatsApp(rifa.comercio.celular)}
+                                    >
+                                        WhatsApp: {rifa.comercio.celular}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
                     <div className="rif-numeros">
                         {numerosOrdenados.map(n => (
                             <div
                                 key={n}
                                 className={`rif-numero
-                                    ${comprados.includes(n) ? "rif-comprado" : ""}
-                                    ${selecionados.includes(n) ? "rif-selecionado" : ""}
-                                `}
+                        ${comprados.includes(n) ? "rif-comprado" : ""}
+                        ${selecionados.includes(n) ? "rif-selecionado" : ""}
+                    `}
                                 onClick={() => toggleNumero(n)}
                             >
                                 {n}
@@ -268,6 +385,7 @@ export default function RifaCompras() {
                     )}
                 </>
             )}
+
 
             <ModalPagamento
                 aberto={modalAberto}

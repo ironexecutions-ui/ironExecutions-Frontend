@@ -6,6 +6,7 @@ import "./rifa.css";
 export default function Rifa() {
     const [autorizado, setAutorizado] = useState(false);
     const [carregando, setCarregando] = useState(true);
+    const [avisoIntervalo, setAvisoIntervalo] = useState("");
 
     const [rifas, setRifas] = useState([]);
 
@@ -21,6 +22,7 @@ export default function Rifa() {
 
     const [erro, setErro] = useState("");
     const [ok, setOk] = useState("");
+    const [avisoFim, setAvisoFim] = useState("");
 
     const token = localStorage.getItem("token");
 
@@ -110,12 +112,19 @@ export default function Rifa() {
             return;
         }
 
+        if (fotos.length === 0) {
+            setErro("É obrigatório adicionar pelo menos uma imagem do prêmio");
+            return;
+        }
+
         try {
             let urls = [];
 
             if (fotos.length > 0) {
                 urls = await uploadFotos();
             }
+
+
 
             const fotosString = urls.join("|");
 
@@ -159,7 +168,7 @@ export default function Rifa() {
         }
     }
 
-    if (carregando) return <p>Carregando...</p>;
+    if (carregando) return <p className="carregando-rifa">Carregando...</p>;
 
     if (!autorizado) {
         return (
@@ -176,7 +185,7 @@ export default function Rifa() {
 
             <form onSubmit={salvarRifa} className="rifa-form">
                 <label>
-                    Nome da rifa
+                    Nome da rifa<span className="obrigatorio" >*</span>
                     <input
                         type="text"
                         value={nomeRifa}
@@ -185,7 +194,7 @@ export default function Rifa() {
                 </label>
 
                 <label>
-                    Prêmio
+                    Prêmio<span className="obrigatorio" >*</span>
                     <input
                         type="text"
                         value={premio}
@@ -193,7 +202,7 @@ export default function Rifa() {
                     />
                 </label>
 
-                <label>Fotos do prêmio</label>
+
 
                 <div
                     className="rifa-dropzone"
@@ -207,7 +216,7 @@ export default function Rifa() {
                     }}
                     onClick={() => document.getElementById("input-fotos-rifa").click()}
                 >
-                    <p>Arraste as imagens aqui ou clique para selecionar</p>
+                    <p>Arraste as imagens aqui ou clique para selecionar <span className="obrigatorio" >*</span></p>
                 </div>
 
                 <input
@@ -236,25 +245,59 @@ export default function Rifa() {
 
 
                 <label>
-                    Número inicial
+                    Número inicial<span className="obrigatorio" >*</span>
                     <input
                         type="number"
                         value={inicio}
-                        onChange={e => setInicio(Number(e.target.value))}
+                        onChange={e => {
+                            const valor = Number(e.target.value);
+
+                            if (valor > fim) {
+                                setInicio(fim);
+                                setAvisoIntervalo("O número inicial não pode ser maior que o número final");
+                                return;
+                            }
+
+                            setAvisoIntervalo("");
+                            setInicio(valor);
+                        }}
                     />
                 </label>
 
                 <label>
-                    Número final
+                    Número final<span className="obrigatorio" >*</span>
                     <input
                         type="number"
                         value={fim}
-                        onChange={e => setFim(Number(e.target.value))}
+                        max={150}
+                        onChange={e => {
+                            const valor = Number(e.target.value);
+
+                            if (valor > 150) {
+                                setFim(150);
+                                setAvisoIntervalo("O número final máximo permitido é 150");
+                                return;
+                            }
+
+                            if (valor < inicio) {
+                                setFim(inicio);
+                                setAvisoIntervalo("O número final não pode ser menor que o número inicial");
+                                return;
+                            }
+
+                            setAvisoIntervalo("");
+                            setFim(valor);
+                        }}
                     />
                 </label>
 
+                {avisoIntervalo && <p className="aviso">{avisoIntervalo}</p>}
+
+                {avisoFim && <p className="aviso">{avisoFim}</p>}
+
+
                 <label>
-                    Preço por número (R$)
+                    Preço por número (R$)<span className="obrigatorio" >*</span>
                     <input
                         type="number"
                         step="0.01"
@@ -264,7 +307,7 @@ export default function Rifa() {
                 </label>
 
                 <label>
-                    Data de finalização
+                    Data de finalização<span className="obrigatorio" >*</span>
                     <input
                         type="datetime-local"
                         value={dataFim}
