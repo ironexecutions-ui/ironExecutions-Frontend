@@ -1,13 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./administracao.css";
 import GraficosVendas from "./componentes/graficovendas";
 import AnaliseProdutos from "./componentes/analiseprodutos";
 import ResumoProdutos from "./componentes/resumoprodutos";
 import HistoricoVendas from "./componentes/historicovendas";
 import FechamentoCaixa from "./componentes/fechamentocaixa";
+import { API_URL } from "../../../../config";
 
 export default function Administracao() {
     const [abaAtiva, setAbaAtiva] = useState("resumo");
+    const [mostrarParceria, setMostrarParceria] = useState(false);
+
+    useEffect(() => {
+        async function verificarComercio() {
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) return;
+
+                const res = await fetch(`${API_URL}/retorno/me`, {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                });
+
+                const cliente = await res.json();
+
+                if ([25, 11, 28].includes(cliente?.comercio_id)) {
+                    setMostrarParceria(true);
+                }
+            } catch (err) {
+                console.error("Erro ao verificar comercio_id", err);
+            }
+        }
+
+        verificarComercio();
+    }, []);
+
+    function irParaParceria() {
+        const url =
+            API_URL.includes("localhost") || API_URL.includes("127.0.0.1")
+                ? "/parceria"
+                : `${API_URL}/parceria`;
+
+        window.open(url, "_blank", "noopener,noreferrer");
+    }
 
     return (
         <div className="administracao-container">
@@ -48,6 +84,15 @@ export default function Administracao() {
                 >
                     Fechamento de Caixa
                 </button>
+
+                {mostrarParceria && (
+                    <button
+                        className="btn-parceria"
+                        onClick={irParaParceria}
+                    >
+                        Parceria
+                    </button>
+                )}
             </div>
 
             <div className="administracao-conteudo">
@@ -58,6 +103,5 @@ export default function Administracao() {
                 {abaAtiva === "fechamento" && <FechamentoCaixa />}
             </div>
         </div>
-
     );
 }

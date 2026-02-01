@@ -50,6 +50,23 @@ export default function HorasDetalhes({ semanaInicio, onLoaded }) {
             carregarDados();
         });
     }
+    function enviarWhatsapp(registro) {
+        const numero = "5511918547818";
+
+        const texto = `
+Olá,
+Estou entrando em contato sobre um registro de horas.
+
+Horas: ${registro.horas}h
+${registro.relato ? `Relato: ${registro.relato}` : ""}
+    `.trim();
+
+        const mensagem = encodeURIComponent(texto);
+        const url = `https://wa.me/${numero}?text=${mensagem}`;
+
+        window.open(url, "_blank", "noopener,noreferrer");
+    }
+
 
     return (
         <div className="hrs-det-card">
@@ -73,6 +90,12 @@ export default function HorasDetalhes({ semanaInicio, onLoaded }) {
                                 <span className="hrs-det-horas">
                                     {d.horas}h
                                 </span>
+                                <button
+                                    className="hrs-btn-whatsapp"
+                                    onClick={() => enviarWhatsapp(d)}
+                                >
+                                    Enviar mensagem
+                                </button>
 
                                 {usuario?.comercio_id === 11 && (
                                     <button

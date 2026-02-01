@@ -158,6 +158,43 @@
     box-shadow: 0 2px 6px rgba(153, 27, 27, 0.4);
 }
 
+/* Botão Enviar mensagem (WhatsApp) */
+.hrs-btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    background-color: #25d366;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 6px;
+
+    padding: 6px 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.hrs-btn-whatsapp:hover {
+    background-color: #1ebe5d;
+    transform: translateY(-1px);
+}
+
+.hrs-btn-whatsapp:active {
+    transform: translateY(0);
+}
+
+.hrs-btn-whatsapp:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.35);
+}
+
 .hrs-btn-apagar:disabled {
     opacity: 0.45;
     cursor: not-allowed;
