@@ -37,13 +37,13 @@ export default function Administracao() {
     }, []);
 
     function irParaParceria() {
-        const url =
-            API_URL.includes("localhost") || API_URL.includes("127.0.0.1")
-                ? "/parceria"
-                : `${API_URL}/parceria`;
-
-        window.open(url, "_blank", "noopener,noreferrer");
+        window.open(
+            "https://ironexecutions.com.br/parceria",
+            "_blank",
+            "noopener,noreferrer"
+        );
     }
+
 
     return (
         <div className="administracao-container">
