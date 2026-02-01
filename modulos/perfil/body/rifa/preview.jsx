@@ -2,12 +2,14 @@ import React, { useState, useMemo, useEffect } from "react";
 import "./preview.css";
 import { API_URL } from "../../../../config";
 import SorteioRifa from "./sorteio";
+import StoryModal from "./storymodal";
 
 export default function RifaPreview({ rifas = [], onSalvarNome }) {
     const [indexAtual, setIndexAtual] = useState(0);
     const [editando, setEditando] = useState(false);
     const [nomeEditavel, setNomeEditavel] = useState("");
     const [gerandoStory, setGerandoStory] = useState(false);
+    const [storyAberta, setStoryAberta] = useState(false);
 
     // ===== ESTADOS EXISTENTES (MANTIDOS) =====
     const [compras, setCompras] = useState([]);
@@ -254,29 +256,26 @@ export default function RifaPreview({ rifas = [], onSalvarNome }) {
                         const link = `https://ironexecutions.com.br/rifa-compras/${rifa.id}`;
                         await navigator.clipboard.writeText(link);
 
-                        // chama backend para gerar imagem
-                        const r = await fetch(`${API_URL}/rifa/${rifa.id}/gerar-story`, {
-                            method: "POST"
-                        });
-
-                        if (!r.ok) {
-                            alert("Erro ao gerar imagem");
-                            return;
-                        }
-
-                        const blob = await r.blob();
-                        const url = URL.createObjectURL(blob);
-
-                        // abre imagem em nova aba
-                        window.open(url, "_blank");
+                        // abre modal JSX (não chama backend)
+                        setStoryAberta(true);
 
                     } finally {
                         setGerandoStory(false);
                     }
                 }}
             >
-                {gerandoStory ? "Gerando..." : "Gerar imagem para Stories e copiar o link publico"}
+                {gerandoStory
+                    ? "Gerando..."
+                    : "Gerar imagem para Stories e copiar o link publico"}
             </button>
+            {storyAberta && (
+                <StoryModal
+                    rifa={rifa}
+                    compras={compras}
+                    onClose={() => setStoryAberta(false)}
+                />
+            )}
+
             <br /><br /><br /><br /><br /><br /><br /><br />
             {podeMostrarSorteio(rifa.data_fim) && (
                 <SorteioRifa rifa={rifa} premio={rifa.premio} />

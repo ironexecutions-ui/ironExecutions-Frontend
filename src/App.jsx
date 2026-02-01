@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import "./app.css";
 import "./app-responsivo.css";
 
-import PagamentosIB from "./pagamentos/pagamentosib";
 import RifaCompras from "../public/rifas/rifacompras";
 import InicioModulos from "../modulos/iniciomodulos";
 import CadastroComercio from "../modulos/cadastrocomercio";
@@ -11,6 +10,7 @@ import IronBusinessPerfil from "../modulos/perfil/ironbusiness";
 import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
+import Horas from "../horas/horas"
 
 /* Mapa fixo de comercio_id -> imagem */
 const FUNDOS_POR_COMERCIO = {
@@ -35,8 +35,7 @@ function RoteamentoComLoading() {
   return (
     <Routes>
       <Route path="/rifa-compras/:id?" element={<RifaCompras />} />
-      <Route path="/pagamento" element={<PagamentosIB />} />
-      <Route path="/pagamento/:id" element={<PagamentosIB />} />
+
       <Route path="/cadastrocomercio" element={<CadastroComercio />} />
       <Route
         path="ironbusiness/perfil"
@@ -47,6 +46,7 @@ function RoteamentoComLoading() {
         }
       />
       <Route path="/*" element={<InicioModulos />} />
+      <Route path="/parceria" element={<Horas />} />
     </Routes>
   );
 }
