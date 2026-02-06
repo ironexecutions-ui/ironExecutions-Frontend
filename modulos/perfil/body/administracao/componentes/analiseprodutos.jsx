@@ -4,7 +4,7 @@ import LucroGeral from "./analises/lucrogeral";
 import Code from "./analises/code";
 import LucroPorMes from "./analises/lucropormes";
 import Contabilidade from "./analises/contabilidade";
-
+import Pontos from "./analises/pontos";
 import "./analiseprodutos.css";
 
 export default function AnaliseProdutos() {
@@ -37,6 +37,13 @@ export default function AnaliseProdutos() {
                 >
                     Lucro por Mês
                 </button>
+                <button
+
+                    className={aba === "pontos" ? "ativo" : ""}
+                    onClick={() => setAba("pontos")}
+                >
+                    Pontos
+                </button>
 
                 <button
                     className={aba === "sem-venda" ? "ativo" : ""}
@@ -52,6 +59,7 @@ export default function AnaliseProdutos() {
                 {aba === "ranking" && <Code />}
                 {aba === "lucro-mes" && <LucroPorMes />}
                 {aba === "sem-venda" && <Contabilidade />}
+                {aba === "pontos" && <Pontos />}
             </div>
 
         </div>

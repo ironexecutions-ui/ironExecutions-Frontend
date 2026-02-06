@@ -44,6 +44,7 @@ export default function ModalPagamento({ total, fechar }) {
         processando ||
         bloqueandoMetodo ||
         !apiPronta;
+    const jogosRegistradosRef = useRef(false);
 
     const { itens, limparVenda, setModalAberto } = useVenda();
 
@@ -163,6 +164,7 @@ export default function ModalPagamento({ total, fechar }) {
         setProcessando(false);
         setCarregandoPix(false);
         setEtapa("metodo");
+        jogosRegistradosRef.current = false;
 
         // limpa carrinho se quiser
         // limparVenda();
@@ -260,6 +262,45 @@ export default function ModalPagamento({ total, fechar }) {
 
             alert(e.message || "Erro ao confirmar pagamento");
             resetarModal();
+        }
+    }
+
+    async function registrarJogosQuizAntecipado() {
+        if (jogosRegistradosRef.current) return;
+
+        if (!itens || itens.length === 0) return;
+
+        const jogos = itens.filter(
+            item =>
+                item.nome &&
+                item.nome.toLowerCase().includes("jogos")
+        );
+
+        if (jogos.length === 0) return;
+
+        const totalJogos = jogos.reduce(
+            (soma, item) => soma + (item.quantidade || 0),
+            0
+        );
+
+        if (totalJogos <= 0) return;
+
+        jogosRegistradosRef.current = true;
+
+        try {
+            await fetch(`${API_URL}/jogos/registrar`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({ quantos: totalJogos })
+            });
+
+            console.log(`[JOGOS] Registro antecipado: ${totalJogos}`);
+        } catch (e) {
+            console.warn("[JOGOS] Falha ao registrar antecipadamente:", e);
+            jogosRegistradosRef.current = false;
         }
     }
 
@@ -437,6 +478,8 @@ export default function ModalPagamento({ total, fechar }) {
                                         setPagamento("debito");
 
                                         try {
+                                            await registrarJogosQuizAntecipado();
+
                                             const dados = await criarVendaInicial("debito");
                                             if (!dados) return;
                                             setEtapa("confirmar");
@@ -471,6 +514,8 @@ export default function ModalPagamento({ total, fechar }) {
                                         setPagamento("credito");
 
                                         try {
+                                            await registrarJogosQuizAntecipado();
+
                                             const dados = await criarVendaInicial("credito");
                                             if (!dados) return;
                                             setEtapa("confirmar");
@@ -505,6 +550,8 @@ export default function ModalPagamento({ total, fechar }) {
                                         setCarregandoPix(true);
 
                                         try {
+                                            await registrarJogosQuizAntecipado();
+
                                             await criarVendaInicial("pix");
 
                                             const pix = await fetch(
@@ -560,10 +607,13 @@ export default function ModalPagamento({ total, fechar }) {
                                         setPagamento("dinheiro");
 
                                         try {
+                                            await registrarJogosQuizAntecipado();
+
                                             const dados = await criarVendaInicial("dinheiro");
                                             if (!dados) return;
                                             setEtapa("confirmar");
-                                        } catch {
+                                        }
+                                        catch {
                                             alert("Erro ao iniciar pagamento");
                                             setPagamento(null);
                                         } finally {
