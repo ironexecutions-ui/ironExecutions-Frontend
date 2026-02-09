@@ -49,11 +49,15 @@ export default function HistoricoVendas() {
     }
 
     function formatarHora(segundos) {
-        const h = Math.floor(segundos / 3600);
-        const m = Math.floor((segundos % 3600) / 60);
-        const s = segundos % 60;
+        const segundosAjustados = (Number(segundos) + 3 * 3600) % 86400;
+
+        const h = Math.floor(segundosAjustados / 3600);
+        const m = Math.floor((segundosAjustados % 3600) / 60);
+        const s = segundosAjustados % 60;
+
         return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
     }
+
 
     function abrirComanda(link) {
         window.open(link, "_blank");
