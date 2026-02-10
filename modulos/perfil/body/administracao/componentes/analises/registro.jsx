@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { API_URL } from "../../../../../../config";
 import "./registro.css";
+import EmojiPicker from "emoji-picker-react";
 
 export default function Registro() {
     const topoFormRef = useRef(null);
     const [limite, setLimite] = useState(25);
+    const [alertaAtivo, setAlertaAtivo] = useState(0);
+    const [carregandoAlerta, setCarregandoAlerta] = useState(true);
 
     const modeloVazio = {
         dificuldade: "facil",
@@ -16,6 +19,7 @@ export default function Registro() {
         d: "",
         resposta: "a"
     };
+    const [modoEmoji, setModoEmoji] = useState(false);
 
     const [lista, setLista] = useState([]);
     const [form, setForm] = useState(modeloVazio);
@@ -24,6 +28,56 @@ export default function Registro() {
     const [filtroIdioma, setFiltroIdioma] = useState("");
     const [filtroDificuldade, setFiltroDificuldade] = useState("");
     const [filtroTexto, setFiltroTexto] = useState("");
+    function adicionarEmoji(emojiData) {
+        setForm(prev => {
+            const textoBase = prev.pergunta.trim();
+
+            if (!textoBase) {
+                return {
+                    ...prev,
+                    pergunta: `Adivinha o personagem ou historia: ${emojiData.emoji}`
+                };
+            }
+
+            return {
+                ...prev,
+                pergunta: prev.pergunta + emojiData.emoji
+            };
+        });
+    }
+    useEffect(() => {
+        async function carregarAlerta() {
+            try {
+                const r = await fetch(`${API_URL}/jogos/msb/alerta`);
+                const res = await r.json();
+                setAlertaAtivo(res.alerta);
+            } catch {
+                setAlertaAtivo(0);
+            } finally {
+                setCarregandoAlerta(false);
+            }
+        }
+
+        carregarAlerta();
+    }, []);
+    async function alternarAlerta() {
+        const novoValor = alertaAtivo === 1 ? 0 : 1;
+
+        try {
+            const r = await fetch(
+                `${API_URL}/jogos/msb/alerta?alerta=${novoValor}`,
+                { method: "POST" }
+            );
+
+            const res = await r.json();
+            if (res.sucesso) {
+                setAlertaAtivo(res.alerta);
+            }
+        } catch {
+            alert("Erro ao atualizar alerta");
+        }
+    }
+
 
     /* =========================
        CARREGAR DADOS
@@ -115,6 +169,10 @@ export default function Registro() {
     useEffect(() => {
         setLimite(25);
     }, [filtroIdioma, filtroDificuldade, filtroTexto]);
+    function extrairEmojis(texto) {
+        if (!texto) return [];
+        return [...texto].filter(char => char.match(/\p{Emoji}/u));
+    }
 
     return (
         <div className="quiz-reg-container">
@@ -124,6 +182,15 @@ export default function Registro() {
             <h2 className="quiz-reg-title">
                 {editandoId ? "Editar Pergunta" : "Cadastrar Pergunta"}
             </h2>
+            <div className="quiz-alerta-container">
+                <button
+                    className={`quiz-alerta-btn ${alertaAtivo === 1 ? "ativo" : "inativo"}`}
+                    onClick={alternarAlerta}
+                    disabled={carregandoAlerta}
+                >
+                    {alertaAtivo === 1 ? "🚨 Alerta ATIVADO" : "🔕 Alerta DESATIVADO"}
+                </button>
+            </div>
 
             {/* =========================
                FORMULÁRIO
@@ -145,12 +212,60 @@ export default function Registro() {
                     </select>
                 </div>
 
-                <textarea
-                    name="pergunta"
-                    placeholder="Digite a pergunta completa"
-                    value={form.pergunta}
-                    onChange={alterarCampo}
-                />
+                <div className="quiz-pergunta-container">
+                    {extrairEmojis(form.pergunta).length > 0 && (
+                        <div className="quiz-emojis-usados">
+                            <span className="quiz-emojis-label">Emojis adicionados:</span>
+
+                            <div className="quiz-emojis-lista">
+                                {extrairEmojis(form.pergunta).map((emoji, index) => (
+                                    <span key={index} className="quiz-emoji-item">
+                                        {emoji}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {!modoEmoji && (
+                        <>
+                            <textarea
+                                name="pergunta"
+                                placeholder="Digite a pergunta completa"
+                                value={form.pergunta}
+                                onChange={alterarCampo}
+                            />
+
+                            <button
+                                type="button"
+                                className="quiz-btn-emoji"
+                                onClick={() => setModoEmoji(true)}
+                            >
+                                😊
+                            </button>
+                        </>
+                    )}
+
+                    {modoEmoji && (
+                        <div className="quiz-emoji-area">
+                            <EmojiPicker
+                                onEmojiClick={adicionarEmoji}
+                                searchPlaceholder="Buscar emoji..."
+                                width="100%"
+                            />
+
+                            <button
+                                type="button"
+                                className="quiz-btn-voltar-texto"
+                                onClick={() => setModoEmoji(false)}
+                            >
+                                Voltar ao texto
+                            </button>
+                        </div>
+                    )}
+
+                </div>
+
 
                 <div className="quiz-opcoes-grid">
                     {["a", "b", "c", "d"].map(letra => (
