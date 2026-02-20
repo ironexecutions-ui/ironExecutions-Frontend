@@ -60,6 +60,15 @@ export default function Horas() {
         setDetalhesCarregados(false);
         setSelecionada(semanaInicio);
     }
+    // Próxima semana: nunca passa de 40
+    const proximaSemanaExibida = Math.min(saldo.saldo_proxima_semana, 40);
+
+    // Semana atual com lógica dinâmica
+    let semanaAtualExibida = saldo.saldo_semana_atual;
+
+    if (saldo.saldo_semana_atual > 40) {
+        semanaAtualExibida = 40 - (saldo.saldo_semana_atual - 40);
+    }
 
     return (
         <div className="hrs-page">
@@ -73,16 +82,18 @@ export default function Horas() {
                         <div className="hrs-saldo-item">
                             <span className="hrs-saldo-titulo">Semana atual</span>
                             <span className="hrs-saldo-valor">
-                                {saldo.saldo_semana_atual}h
+                                {semanaAtualExibida}h
                             </span>
                         </div>
+
 
                         <div className="hrs-saldo-item">
                             <span className="hrs-saldo-titulo">Próxima semana</span>
                             <span className="hrs-saldo-valor">
-                                {saldo.saldo_proxima_semana}h
+                                {proximaSemanaExibida}h
                             </span>
                         </div>
+
                     </div>
                 </div>
 
