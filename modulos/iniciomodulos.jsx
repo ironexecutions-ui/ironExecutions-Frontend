@@ -40,24 +40,17 @@ export default function InicioModulos() {
 
             <LojasAvaliacao />
             <ExplicacaoModulos />
-            <div style={{ textAlign: "center", marginTop: "20px", padding: "10px" }}>
-                <p style={{ color: "white", fontSize: "18px" }}>
-                    Não tem seu sistema ainda?
-                </p>
-
+            <div className="inicio-modulos-whatsapp-float">
                 <button
                     onClick={solicitarWhatsapp}
-                    style={{
-                        padding: "10px 20px",
-                        fontSize: "16px",
-                        cursor: "pointer",
-                        borderRadius: "6px",
-                        backgroundColor: "#25D366",
-                        color: "white",
-                        border: "none"
-                    }}
+                    className="inicio-modulos-whatsapp-button"
+                    aria-label="Solicitar sistema comercial via WhatsApp"
                 >
-                    Solicitar sistema comercial via WhatsApp
+                    <img
+                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg"
+                        alt="WhatsApp"
+                        className="inicio-modulos-whatsapp-icon"
+                    />
                 </button>
             </div>
             <Rodape />
