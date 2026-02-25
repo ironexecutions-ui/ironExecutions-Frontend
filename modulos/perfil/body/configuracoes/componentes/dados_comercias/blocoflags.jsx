@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { URL } from "../../../url";
 import "./blocoflags.css";
 
 export default function BlocoFlags({ dados, podeEditar, salvar }) {
+
+    const [converteLocal, setConverteLocal] = useState(dados.converte || 0);
+    const [cambioLocal, setCambioLocal] = useState(dados.cambio || 0);
+
+    async function atualizarCambio(novoConverte, novoCambio) {
+        try {
+            const token = localStorage.getItem("token");
+
+            await fetch(`${URL}/comercio/cambio`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    converte: novoConverte,
+                    cambio: novoCambio
+                })
+            });
+
+        } catch (e) {
+            console.log("Erro ao atualizar cambio", e);
+        }
+    }
+
     return (
         <div className="bf-container">
 
@@ -9,7 +35,51 @@ export default function BlocoFlags({ dados, podeEditar, salvar }) {
 
             <div className="bf-lista">
 
-                {/* EDITAR PREÇO */}
+                {/* ================= CONVERSÃO ================= */}
+                <div className="bf-item">
+                    <label className="bf-label">
+                        Permitir conversão de moeda
+                    </label>
+                    <br />
+                    <select
+                        className="bf-select"
+                        disabled={!podeEditar}
+                        value={converteLocal}
+                        onChange={e => {
+                            const valor = Number(e.target.value);
+                            setConverteLocal(valor);
+                            atualizarCambio(valor, cambioLocal);
+                        }}
+                    >
+                        <option value={0}>Não</option>
+                        <option value={1}>Sim</option>
+                    </select>
+                </div>
+
+                {/* CAMPO CAMBIO APENAS SE CONVERTE = 1 */}
+                {converteLocal === 1 && (
+                    <div className="bf-item">
+                        <label className="bf-label">
+                            Valor do câmbio
+                        </label>
+                        <br />
+                        <input
+                            type="number"
+                            step="0.01"
+                            className="bf-select"
+                            disabled={!podeEditar}
+                            value={cambioLocal}
+                            onChange={e => {
+                                const valor = Number(e.target.value);
+                                setCambioLocal(valor);
+                                atualizarCambio(converteLocal, valor);
+                            }}
+                        />
+                    </div>
+                )}
+
+                {/* ================= RESTANTE DO SEU CÓDIGO ================= */}
+
                 <div className="bf-item">
                     <label className="bf-label">
                         Permitir funcionários editarem preços
@@ -28,14 +98,11 @@ export default function BlocoFlags({ dados, podeEditar, salvar }) {
                     </select>
                 </div>
 
-                {/* IMPRESSÃO */}
                 <div className="bf-item">
                     <label className="bf-label">
                         Impressão automática da comanda
-                        <span><br />
-                            Requer instalação e configuração prévia nos computadores do estabelecimento.                        </span>
                     </label>
-                    <br /><br />
+                    <br />
                     <select
                         className="bf-select"
                         disabled={!podeEditar}
@@ -49,15 +116,9 @@ export default function BlocoFlags({ dados, podeEditar, salvar }) {
                     </select>
                 </div>
 
-                {/* MAQUININHA / API */}
                 <div className="bf-item">
                     <label className="bf-label">
-                        <strong>Conectar maquininha automaticamente nos computadores </strong>  <br />
-                        <span style={{
-                            fontSize: "1rem"
-                        }} >
-                            As maquininhas precisam estar conectadas manualmente aos computadores antes do uso.                        </span>
-                        <br />
+                        Conectar maquininha automaticamente
                     </label>
                     <br />
                     <select
@@ -74,7 +135,6 @@ export default function BlocoFlags({ dados, podeEditar, salvar }) {
                 </div>
 
             </div>
-
         </div>
     );
 }

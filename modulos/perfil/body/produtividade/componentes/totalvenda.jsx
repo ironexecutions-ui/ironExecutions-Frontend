@@ -12,7 +12,10 @@ export default function TotalVenda() {
     const [abrirPagamento, setAbrirPagamento] = useState(false);
 
     const [mostrarUSD, setMostrarUSD] = useState(false);
-    const [cotacaoUSD, setCotacaoUSD] = useState(null);
+
+    // 🔹 NOVOS ESTADOS
+    const [converte, setConverte] = useState(0);
+    const [cambio, setCambio] = useState(null);
 
     const vendaVazia = itens.length === 0;
 
@@ -48,26 +51,41 @@ export default function TotalVenda() {
     }, []);
 
     // ===============================
-    // BUSCAR COTAÇÃO USD
+    // BUSCAR CONFIG DE CAMBIO DO BANCO
     // ===============================
     useEffect(() => {
-        async function buscarCotacao() {
+        async function buscarCambio() {
             try {
-                const r = await fetch(
-                    "https://economia.awesomeapi.com.br/json/last/USD-BRL"
-                );
-                const j = await r.json();
+                const token = localStorage.getItem("token");
 
-                const valor = parseFloat(j.USDBRL.bid);
-                if (!isNaN(valor)) {
-                    setCotacaoUSD(valor);
-                }
-            } catch {
-                setCotacaoUSD(null);
+                console.log("TOKEN:", token);
+
+                const headers = token
+                    ? { Authorization: `Bearer ${token}` }
+                    : {};
+
+                const resp = await fetch(`${API_URL}/comercio/cambio`, { headers });
+
+
+                console.log("STATUS CAMBIO:", resp.status);
+
+                if (!resp.ok) return;
+
+                const data = await resp.json();
+
+                console.log("DADOS CAMBIO:", data);
+
+                setConverte(Number(data.converte));
+                setCambio(Number(data.cambio));
+
+            } catch (e) {
+                console.log("ERRO CAMBIO:", e);
+                setConverte(0);
+                setCambio(null);
             }
         }
 
-        buscarCotacao();
+        buscarCambio();
     }, []);
 
     // ===============================
@@ -88,10 +106,11 @@ export default function TotalVenda() {
     // VALOR FORMATADO
     // ===============================
     function valorExibido() {
-        if (mostrarUSD && cotacaoUSD && total > 0) {
-            const usd = total / cotacaoUSD;
-            return `US$ ${usd.toFixed(2)}`;
+        if (mostrarUSD && converte === 1 && cambio && total > 0) {
+            const convertido = total / cambio;
+            return `US$ ${convertido.toFixed(2)}`;
         }
+
         return `R$ ${total.toFixed(2)}`;
     }
 
@@ -99,13 +118,17 @@ export default function TotalVenda() {
         <div className={`cob-box cob-tema-${tema}`}>
 
             <div
-                className={`cob-valor ${total > 0 ? "clicavel" : ""}`}
+                className={`cob-valor ${total > 0 && converte === 1 ? "clicavel" : ""}`}
                 onClick={() => {
-                    if (total > 0 && cotacaoUSD) {
+                    if (total > 0 && converte === 1 && cambio) {
                         setMostrarUSD(v => !v);
                     }
                 }}
-                title={total > 0 ? "Clique para alternar moeda" : ""}
+                title={
+                    total > 0 && converte === 1
+                        ? "Clique para alternar moeda"
+                        : ""
+                }
             >
                 {valorExibido()}
             </div>
