@@ -15,3 +15,7 @@
 html {
   zoom: 98%;
 }
+
+html {
+  scroll-behavior: smooth;
+}

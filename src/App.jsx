@@ -11,6 +11,7 @@ import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
 import Horas from "../horas/horas"
+import Aulas from "../aulas/aulas"
 
 /* Mapa fixo de comercio_id -> imagem */
 const FUNDOS_POR_COMERCIO = {
@@ -47,6 +48,7 @@ function RoteamentoComLoading() {
       />
       <Route path="/*" element={<InicioModulos />} />
       <Route path="/parceria" element={<Horas />} />
+      <Route path="/aulas" element={<Aulas />} />
     </Routes>
   );
 }
