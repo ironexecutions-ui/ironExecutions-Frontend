@@ -42,7 +42,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 2 – Navegação",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 3",
                             duracao: "1h30",
                             conteudo: [
                                 "Inserção de imagens (img, src, alt)",
@@ -53,7 +53,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 4",
                             duracao: "2h",
                             conteudo: [
                                 "Criação de menu de navegação",
@@ -69,7 +69,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 3 – Estrutura avançada",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 5",
                             duracao: "1h30",
                             conteudo: [
                                 "Criação de tabelas (table, tr, td, th)",
@@ -78,7 +78,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 6",
                             duracao: "2h",
                             conteudo: [
                                 "Tags semânticas (header, main, footer, section)",
@@ -93,7 +93,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 4 – Formulários",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 7",
                             duracao: "1h30",
                             conteudo: [
                                 "Inputs: text, email, password",
@@ -103,7 +103,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 8",
                             duracao: "2h",
                             conteudo: [
                                 "Select, textarea, button",
@@ -124,7 +124,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 5 – Introdução ao CSS",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 9",
                             duracao: "1h30",
                             conteudo: [
                                 "O que é CSS e como funciona",
@@ -134,7 +134,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 10",
                             duracao: "2h",
                             conteudo: [
                                 "Cores (hex, rgb)",
@@ -149,7 +149,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 6 – Box Model",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 11",
                             duracao: "1h30",
                             conteudo: [
                                 "Margin, padding, border",
@@ -158,7 +158,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 12",
                             duracao: "2h",
                             conteudo: [
                                 "Width e height",
@@ -172,7 +172,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 7 – Layout moderno",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 13",
                             duracao: "1h30",
                             conteudo: [
                                 "Display flex",
@@ -181,7 +181,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 14",
                             duracao: "2h",
                             conteudo: [
                                 "Justify-content e align-items",
@@ -195,7 +195,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 8 – Responsividade",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 15",
                             duracao: "1h30",
                             conteudo: [
                                 "Media queries",
@@ -204,7 +204,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 16",
                             duracao: "2h",
                             conteudo: [
                                 "Ajustes para celular",
@@ -224,7 +224,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 9 – Introdução",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 17",
                             duracao: "1h30",
                             conteudo: [
                                 "O que é JavaScript",
@@ -233,7 +233,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 18",
                             duracao: "2h",
                             conteudo: [
                                 "Tipos de dados",
@@ -247,7 +247,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 10 – Lógica",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 19",
                             duracao: "1h30",
                             conteudo: [
                                 "If e else",
@@ -255,7 +255,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 20",
                             duracao: "2h",
                             conteudo: [
                                 "Funções",
@@ -268,7 +268,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 11 – DOM",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 21",
                             duracao: "1h30",
                             conteudo: [
                                 "getElementById",
@@ -277,7 +277,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 22",
                             duracao: "2h",
                             conteudo: [
                                 "Alterar texto e HTML",
@@ -290,7 +290,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 12 – Eventos",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 23",
                             duracao: "1h30",
                             conteudo: [
                                 "Eventos click, input e submit",
@@ -298,7 +298,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 24",
                             duracao: "2h",
                             conteudo: [
                                 "Validação de formulário",
@@ -317,7 +317,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 21 – Git",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 25",
                             duracao: "1h30",
                             conteudo: [
                                 "git init",
@@ -327,7 +327,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 26",
                             duracao: "2h",
                             conteudo: [
                                 "Histórico de commits",
@@ -341,7 +341,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 22 – Deploy",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 27",
                             duracao: "1h30",
                             conteudo: [
                                 "Criar repositório no GitHub",
@@ -350,7 +350,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 28",
                             duracao: "2h",
                             conteudo: [
                                 "Deploy no Render",
@@ -370,7 +370,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 23 – Planejamento",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 29",
                             duracao: "1h30",
                             conteudo: [
                                 "Definir ideia do projeto",
@@ -379,7 +379,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 30",
                             duracao: "2h",
                             conteudo: [
                                 "Criar estrutura HTML",
@@ -393,7 +393,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 24 – Desenvolvimento",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 31",
                             duracao: "1h30",
                             conteudo: [
                                 "Construir frontend completo",
@@ -401,7 +401,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 32",
                             duracao: "2h",
                             conteudo: [
                                 "Conectar backend",
@@ -414,7 +414,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 25 – Finalização",
                     aulas: [
                         {
-                            nome: "Aula 1",
+                            nome: "Aula 33",
                             duracao: "1h30",
                             conteudo: [
                                 "Correção de erros",
@@ -422,7 +422,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 2",
+                            nome: "Aula 34",
                             duracao: "2h",
                             conteudo: [
                                 "Apresentação do projeto",
