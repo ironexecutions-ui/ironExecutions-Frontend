@@ -9,6 +9,52 @@ export default function Matricula() {
 
     const [aba, setAba] = useState(3);
 
+    // 🔒 CONTROLE DE ACESSO
+    const [autorizado, setAutorizado] = useState(false);
+    const [senhaDigitada, setSenhaDigitada] = useState("");
+    const [erro, setErro] = useState("");
+
+    // 🔐 SENHA (não exibida na tela)
+    const senhaCorreta = import.meta.env.VITE_SENHA_ADMIN;
+    function verificarSenha() {
+        if (senhaDigitada === senhaCorreta) {
+            setAutorizado(true);
+            setErro("");
+        } else {
+            setErro("Senha incorreta");
+        }
+    }
+
+    // 🔒 BLOQUEIO ANTES DE ENTRAR
+    if (!autorizado) {
+        return (
+            <div className="matricula_loginContainer">
+
+                <div className="matricula_loginBox">
+
+                    <h2>Acesso restrito</h2>
+                    <p>Digite a senha para acessar o painel de gestão</p>
+
+                    <input
+                        type="password"
+                        placeholder="Digite a senha"
+                        value={senhaDigitada}
+                        onChange={(e) => setSenhaDigitada(e.target.value)}
+                        className="matricula_input"
+                    />
+
+                    {erro && <span className="matricula_erro">{erro}</span>}
+
+                    <button onClick={verificarSenha} className="matricula_button">
+                        Entrar
+                    </button>
+
+                </div>
+
+            </div>
+        );
+    }
+
     return (
         <div className="matricula_container">
 
