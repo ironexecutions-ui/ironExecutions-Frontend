@@ -12,6 +12,8 @@ import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
 import Horas from "../horas/horas"
 import Aulas from "../aulas/aulas"
+import Matricula from "../aulas/matricula/matricula";
+import Perfil from "../aulas/perfil/perfil";
 
 /* Mapa fixo de comercio_id -> imagem */
 const FUNDOS_POR_COMERCIO = {
@@ -49,6 +51,8 @@ function RoteamentoComLoading() {
       <Route path="/*" element={<InicioModulos />} />
       <Route path="/parceria" element={<Horas />} />
       <Route path="/aulas" element={<Aulas />} />
+      <Route path="/aulas/matricula" element={<Matricula />} />
+      <Route path="/aulas/perfil" element={<Perfil />} />
     </Routes>
   );
 }
