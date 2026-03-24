@@ -309,7 +309,203 @@ export default function EstruturaCurso() {
                 }
             ]
         },
+        {
+            titulo: "🟢 MÊS 4 – JAVASCRIPT INTERMEDIÁRIO",
+            semanas: [
+                {
+                    titulo: "Semana 13 – Estruturas",
+                    aulas: [
+                        {
+                            nome: "Aula 25",
+                            duracao: "1h30",
+                            conteudo: [
+                                "Arrays",
+                                "Adicionar e remover itens",
+                                "Percorrer arrays",
+                                "Uso real em listas"
+                            ]
+                        },
+                        {
+                            nome: "Aula 26",
+                            duracao: "2h",
+                            conteudo: [
+                                "Objetos",
+                                "Chave e valor",
+                                "Acessar dados",
+                                "Simular dados de usuário"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "Semana 14 – Manipulação de dados",
+                    aulas: [
+                        {
+                            nome: "Aula 27",
+                            duracao: "1h30",
+                            conteudo: [
+                                "Loop for",
+                                "Percorrer listas",
+                                "Gerar conteúdo dinâmico"
+                            ]
+                        },
+                        {
+                            nome: "Aula 28",
+                            duracao: "2h",
+                            conteudo: [
+                                "map",
+                                "filter",
+                                "Transformar dados",
+                                "Criar listas dinâmicas"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "Semana 15 – API",
+                    aulas: [
+                        {
+                            nome: "Aula 29",
+                            duracao: "1h30",
+                            conteudo: [
+                                "O que é API",
+                                "Formato JSON",
+                                "Requisição e resposta"
+                            ]
+                        },
+                        {
+                            nome: "Aula 2",
+                            duracao: "2h",
+                            conteudo: [
+                                "fetch GET",
+                                "Consumir API pública",
+                                "Mostrar dados na tela"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "Semana 16 – Integração",
+                    aulas: [
+                        {
+                            nome: "Aula 30",
+                            duracao: "1h30",
+                            conteudo: [
+                                "Trabalhar com dados externos",
+                                "Renderizar dados no HTML",
+                                "Atualizar conteúdo dinâmico"
+                            ]
+                        },
+                        {
+                            nome: "Aula 31",
+                            duracao: "2h",
+                            conteudo: [
+                                "Projeto com API",
+                                "Lista dinâmica",
+                                "Simulação de sistema real"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
 
+        {
+            titulo: "🔴 MÊS 5 – BACKEND (PYTHON + MYSQL)",
+            semanas: [
+                {
+                    titulo: "Semana 17 – Python",
+                    aulas: [
+                        {
+                            nome: "Aula 32",
+                            duracao: "1h30",
+                            conteudo: [
+                                "Introdução ao Python",
+                                "Variáveis e print",
+                                "Tipos de dados"
+                            ]
+                        },
+                        {
+                            nome: "Aula 33",
+                            duracao: "2h",
+                            conteudo: [
+                                "If e else",
+                                "Funções",
+                                "Lógica aplicada"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "Semana 18 – FastAPI",
+                    aulas: [
+                        {
+                            nome: "Aula 34",
+                            duracao: "1h30",
+                            conteudo: [
+                                "Criar servidor FastAPI",
+                                "Rodar API local",
+                                "Primeira rota GET"
+                            ]
+                        },
+                        {
+                            nome: "Aula 35",
+                            duracao: "2h",
+                            conteudo: [
+                                "Rotas POST",
+                                "Receber dados",
+                                "Testar no Postman"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "Semana 19 – MySQL",
+                    aulas: [
+                        {
+                            nome: "Aula 36",
+                            duracao: "1h30",
+                            conteudo: [
+                                "Criar banco de dados",
+                                "Criar tabelas",
+                                "Estrutura de dados"
+                            ]
+                        },
+                        {
+                            nome: "Aula 37",
+                            duracao: "2h",
+                            conteudo: [
+                                "Insert",
+                                "Select",
+                                "Consultas reais"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "Semana 20 – Integração",
+                    aulas: [
+                        {
+                            nome: "Aula 38",
+                            duracao: "1h30",
+                            conteudo: [
+                                "Conectar Python ao banco",
+                                "Salvar dados via API"
+                            ]
+                        },
+                        {
+                            nome: "Aula 39",
+                            duracao: "2h",
+                            conteudo: [
+                                "CRUD completo",
+                                "Criar sistema de cadastro real",
+                                "Testar fluxo completo"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
         {
             titulo: "🟠 MÊS 6 – GIT, GITHUB E DEPLOY",
             semanas: [
@@ -317,7 +513,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 21 – Git",
                     aulas: [
                         {
-                            nome: "Aula 25",
+                            nome: "Aula 40",
                             duracao: "1h30",
                             conteudo: [
                                 "git init",
@@ -327,7 +523,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 26",
+                            nome: "Aula 41",
                             duracao: "2h",
                             conteudo: [
                                 "Histórico de commits",
@@ -341,7 +537,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 22 – Deploy",
                     aulas: [
                         {
-                            nome: "Aula 27",
+                            nome: "Aula 42",
                             duracao: "1h30",
                             conteudo: [
                                 "Criar repositório no GitHub",
@@ -350,7 +546,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 28",
+                            nome: "Aula 43",
                             duracao: "2h",
                             conteudo: [
                                 "Deploy no Render",
@@ -370,7 +566,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 23 – Planejamento",
                     aulas: [
                         {
-                            nome: "Aula 29",
+                            nome: "Aula 44",
                             duracao: "1h30",
                             conteudo: [
                                 "Definir ideia do projeto",
@@ -379,7 +575,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 30",
+                            nome: "Aula 45",
                             duracao: "2h",
                             conteudo: [
                                 "Criar estrutura HTML",
@@ -393,7 +589,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 24 – Desenvolvimento",
                     aulas: [
                         {
-                            nome: "Aula 31",
+                            nome: "Aula 46",
                             duracao: "1h30",
                             conteudo: [
                                 "Construir frontend completo",
@@ -401,7 +597,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 32",
+                            nome: "Aula 47",
                             duracao: "2h",
                             conteudo: [
                                 "Conectar backend",
@@ -414,7 +610,7 @@ export default function EstruturaCurso() {
                     titulo: "Semana 25 – Finalização",
                     aulas: [
                         {
-                            nome: "Aula 33",
+                            nome: "Aula 48",
                             duracao: "1h30",
                             conteudo: [
                                 "Correção de erros",
@@ -422,7 +618,7 @@ export default function EstruturaCurso() {
                             ]
                         },
                         {
-                            nome: "Aula 34",
+                            nome: "Aula 49",
                             duracao: "2h",
                             conteudo: [
                                 "Apresentação do projeto",
