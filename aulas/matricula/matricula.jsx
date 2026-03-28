@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cadastro from "./componentes/cadastro";
 import Aulas from "./componentes/aulas";
 import Alunos from "./componentes/aluno";
@@ -14,8 +14,18 @@ export default function Matricula() {
     const [senhaDigitada, setSenhaDigitada] = useState("");
     const [erro, setErro] = useState("");
 
-    // 🔐 SENHA (não exibida na tela)
+    // 🔐 SENHA
     const senhaCorreta = import.meta.env.VITE_SENHA_ADMIN;
+
+    // 🔍 VERIFICA SE ESTÁ EM LOCALHOST
+    useEffect(() => {
+        const host = window.location.hostname;
+
+        if (host === "localhost" || host === "127.0.0.1") {
+            setAutorizado(true);
+        }
+    }, []);
+
     function verificarSenha() {
         if (senhaDigitada === senhaCorreta) {
             setAutorizado(true);
@@ -25,7 +35,7 @@ export default function Matricula() {
         }
     }
 
-    // 🔒 BLOQUEIO ANTES DE ENTRAR
+    // 🔒 BLOQUEIO
     if (!autorizado) {
         return (
             <div className="matricula_loginContainer">
@@ -58,13 +68,11 @@ export default function Matricula() {
     return (
         <div className="matricula_container">
 
-            {/* HEADER */}
             <div className="matricula_header">
                 <h1>Gestão de Alunos</h1>
                 <p>Controle completo de matrículas, aulas e alunos</p>
             </div>
 
-            {/* TABS */}
             <div className="matricula_tabs">
                 <button className={aba === 1 ? "ativo" : ""} onClick={() => setAba(1)}>
                     Cadastro
@@ -79,7 +87,6 @@ export default function Matricula() {
                 </button>
             </div>
 
-            {/* CONTEÚDO */}
             <div className="matricula_conteudo">
                 {aba === 1 && <Cadastro />}
                 {aba === 2 && <Aulas />}

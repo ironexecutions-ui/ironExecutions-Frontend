@@ -14,6 +14,8 @@ import Horas from "../horas/horas"
 import Aulas from "../aulas/aulas"
 import Matricula from "../aulas/matricula/matricula";
 import Perfil from "../aulas/perfil/perfil";
+import Pagos from "..//aulas/pagos/pagos"
+import Aula_pagamentos from "../aulas/pagamentos/aulas_pagamentos"
 
 /* Mapa fixo de comercio_id -> imagem */
 const FUNDOS_POR_COMERCIO = {
@@ -53,6 +55,8 @@ function RoteamentoComLoading() {
       <Route path="/aulas" element={<Aulas />} />
       <Route path="/aulas/matricula" element={<Matricula />} />
       <Route path="/aulas/perfil" element={<Perfil />} />
+      <Route path="/pagos" element={<Pagos />} />
+      <Route path="/pagos/:id" element={<Aula_pagamentos />} />
     </Routes>
   );
 }
