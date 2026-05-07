@@ -4,6 +4,7 @@ import "./app.css";
 import "./app-responsivo.css";
 
 import RifaCompras from "../public/rifas/rifacompras";
+import Codigo from "../public/codigo";
 import InicioModulos from "../modulos/iniciomodulos";
 import CadastroComercio from "../modulos/cadastrocomercio";
 import IronBusinessPerfil from "../modulos/perfil/ironbusiness";
@@ -52,6 +53,7 @@ function RoteamentoComLoading() {
       />
       <Route path="/*" element={<InicioModulos />} />
       <Route path="/parceria" element={<Horas />} />
+      <Route path="/codigo" element={<Codigo />} />
       <Route path="/aulas" element={<Aulas />} />
       <Route path="/aulas/matricula" element={<Matricula />} />
       <Route path="/aulas/perfil" element={<Perfil />} />

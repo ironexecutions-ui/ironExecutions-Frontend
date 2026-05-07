@@ -1,0 +1,584 @@
+.codigoRoot {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 40px;
+
+    background: #0f172a;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    box-sizing: border-box;
+}
+
+.codigoTopo {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.codigoTitulo {
+    color: white;
+
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.codigoBuscaInput {
+    width: 100%;
+    max-width: 500px;
+
+    height: 52px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 14px;
+
+    padding: 0 18px;
+
+    background: #1e293b;
+    color: white;
+
+    font-size: 16px;
+
+    box-sizing: border-box;
+}
+
+.codigoBuscaInput::placeholder {
+    color: #94a3b8;
+}
+
+.codigoLista {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.codigoCardProduto {
+    width: 100%;
+
+    background: #1e293b;
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    transition: 0.2s;
+}
+
+.codigoCardProduto:hover {
+    transform: translateY(-2px);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.codigoAreaImagem {
+    width: 120px;
+    min-width: 120px;
+
+    height: 120px;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    background: #111827;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.codigoImagemProduto {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.codigoSemImagem {
+    color: #94a3b8;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-align: center;
+
+    padding: 10px;
+}
+
+.codigoInfosProduto {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.codigoNomeProduto {
+    color: white;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+.codigoNumeroBarras {
+    color: #94a3b8;
+
+    font-size: 15px;
+
+    word-break: break-all;
+}
+
+.codigoPrecoProduto {
+    color: #22c55e;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.codigoPrecoProduto:hover {
+    opacity: 0.8;
+}
+
+.codigoEditarPrecoArea {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 5px;
+}
+
+.codigoInputPreco {
+    width: 120px;
+    height: 40px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 10px;
+
+    background: #0f172a;
+    color: white;
+
+    padding: 0 12px;
+
+    font-size: 15px;
+
+    box-sizing: border-box;
+}
+
+.codigoSalvarPrecoBotao {
+    height: 40px;
+
+    padding: 0 16px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 10px;
+
+    background: #16a34a;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.codigoSalvarPrecoBotao:hover {
+    transform: scale(1.03);
+
+    background: #15803d;
+}
+
+.codigoAreaBotoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.codigoCopiarBotao {
+    min-width: 130px;
+
+    height: 46px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 12px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.codigoCopiarBotao:hover {
+    transform: scale(1.03);
+
+    background: #1d4ed8;
+}
+
+.codigoCopiarBotao:active {
+    transform: scale(0.98);
+}
+
+.codigoApagarBotao {
+    min-width: 130px;
+
+    height: 46px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 12px;
+
+    background: #dc2626;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.codigoApagarBotao:hover {
+    transform: scale(1.03);
+
+    background: #b91c1c;
+}
+
+.codigoApagarBotao:active {
+    transform: scale(0.98);
+}
+
+.codigoSenhaContainer {
+    width: 100%;
+    height: 100vh;
+
+    background: #020617;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+}
+
+.codigoSenhaCard {
+    width: 100%;
+    max-width: 420px;
+
+    background: #111827;
+
+    padding: 35px;
+
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.codigoSenhaTitulo {
+    color: white;
+
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.codigoSenhaInput {
+    width: 100%;
+
+    height: 52px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 12px;
+
+    padding: 0 15px;
+
+    background: #1f2937;
+    color: white;
+
+    font-size: 16px;
+
+    box-sizing: border-box;
+}
+
+.codigoSenhaInput::placeholder {
+    color: #94a3b8;
+}
+
+.codigoSenhaBotao {
+    width: 100%;
+
+    height: 52px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 12px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.codigoSenhaBotao:hover {
+    transform: scale(1.02);
+
+    background: #1d4ed8;
+}
+
+.codigoSenhaBotao:active {
+    transform: scale(0.98);
+}
+
+/* =========================
+   RESPONSIVO TABLET
+========================= */
+
+@media (max-width: 950px) {
+
+    .codigoRoot {
+        padding: 25px;
+    }
+
+    .codigoCardProduto {
+        padding: 18px;
+    }
+
+    .codigoNomeProduto {
+        font-size: 20px;
+    }
+
+    .codigoAreaImagem {
+        width: 100px;
+        min-width: 100px;
+
+        height: 100px;
+    }
+
+}
+
+/* =========================
+   RESPONSIVO MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .codigoRoot {
+        padding: 16px;
+
+        gap: 18px;
+    }
+
+    .codigoTopo {
+        gap: 12px;
+    }
+
+    .codigoTitulo {
+        font-size: 28px;
+    }
+
+    .codigoBuscaInput {
+        max-width: 100%;
+
+        height: 48px;
+
+        font-size: 15px;
+    }
+
+    .codigoCardProduto {
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding: 16px;
+
+        gap: 18px;
+    }
+
+    .codigoAreaImagem {
+        width: 100%;
+        min-width: 100%;
+
+        height: 230px;
+    }
+
+    .codigoInfosProduto {
+        width: 100%;
+    }
+
+    .codigoNomeProduto {
+        font-size: 18px;
+    }
+
+    .codigoNumeroBarras {
+        font-size: 14px;
+
+        line-height: 1.5;
+    }
+
+    .codigoPrecoProduto {
+        font-size: 18px;
+    }
+
+    .codigoEditarPrecoArea {
+        width: 100%;
+
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .codigoInputPreco {
+        width: 100%;
+    }
+
+    .codigoSalvarPrecoBotao {
+        width: 100%;
+    }
+
+    .codigoAreaBotoes {
+        width: 100%;
+    }
+
+    .codigoCopiarBotao,
+    .codigoApagarBotao {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .codigoSenhaCard {
+        padding: 25px 20px;
+    }
+
+    .codigoSenhaTitulo {
+        font-size: 26px;
+    }
+
+}
+
+/* =========================
+   RESPONSIVO MOBILE PEQUENO
+========================= */
+
+@media (max-width: 480px) {
+
+    .codigoRoot {
+        padding: 12px;
+    }
+
+    .codigoTitulo {
+        font-size: 24px;
+    }
+
+    .codigoBuscaInput {
+        height: 45px;
+
+        padding: 0 14px;
+
+        font-size: 14px;
+    }
+
+    .codigoCardProduto {
+        padding: 14px;
+
+        border-radius: 16px;
+    }
+
+    .codigoAreaImagem {
+        height: 190px;
+
+        border-radius: 14px;
+    }
+
+    .codigoNomeProduto {
+        font-size: 16px;
+    }
+
+    .codigoNumeroBarras {
+        font-size: 13px;
+    }
+
+    .codigoPrecoProduto {
+        font-size: 17px;
+    }
+
+    .codigoCopiarBotao,
+    .codigoApagarBotao {
+        height: 42px;
+
+        font-size: 14px;
+    }
+
+    .codigoInputPreco {
+        height: 42px;
+
+        font-size: 14px;
+    }
+
+    .codigoSalvarPrecoBotao {
+        height: 42px;
+
+        font-size: 14px;
+    }
+
+    .codigoSenhaTitulo {
+        font-size: 22px;
+    }
+
+    .codigoSenhaInput,
+    .codigoSenhaBotao {
+        height: 46px;
+
+        font-size: 14px;
+    }
+
+}
