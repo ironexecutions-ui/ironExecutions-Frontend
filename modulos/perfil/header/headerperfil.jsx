@@ -12,7 +12,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
     const [abrirFechamento, setAbrirFechamento] = useState(false);
     const [comandas, setComandas] = useState([]);
     const [tempoLogout, setTempoLogout] = useState(null);
-
+    const [fechandoCaixa, setFechandoCaixa] = useState(false);
     const [dados, setDados] = useState(null);
     const [loja, setLoja] = useState(null);
     const [fade, setFade] = useState(false);
@@ -333,8 +333,15 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                         {/* BOTÃO FECHAR CAIXA */}
                         <button
                             className="per-btn fechar-caixa"
+                            disabled={fechandoCaixa}
                             onClick={async () => {
+
+                                if (fechandoCaixa) return;
+
                                 try {
+
+                                    setFechandoCaixa(true);
+
                                     const token = localStorage.getItem("token");
 
                                     const resp = await fetch(`${API_URL}/caixa/fechar`, {
@@ -345,20 +352,32 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                                     });
 
                                     if (!resp.ok) {
+
                                         const erro = await resp.json();
+
                                         alert(erro.detail || "Erro ao fechar caixa");
+
+                                        setFechandoCaixa(false);
+
                                         return;
                                     }
 
                                     alert("Caixa fechado com sucesso");
+
                                     carregarComandas();
 
                                 } catch {
+
                                     alert("Erro ao fechar caixa");
+
+                                } finally {
+
+                                    setFechandoCaixa(false);
+
                                 }
                             }}
                         >
-                            Fechar Caixa
+                            {fechandoCaixa ? "Fechando caixa..." : "Fechar Caixa"}
                         </button>
 
                         {/* LISTA DE COMANDAS */}
