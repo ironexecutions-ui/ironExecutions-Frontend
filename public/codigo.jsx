@@ -210,34 +210,42 @@ export default function Codigo() {
 
             setCameraAberta(true);
 
-            const scanner = new Html5Qrcode("reader");
+            setTimeout(async () => {
 
-            setScannerAtivo(scanner);
+                try {
 
-            await scanner.start(
-                {
-                    facingMode: "environment"
-                },
-                {
-                    fps: 10,
-                    qrbox: {
-                        width: 250,
-                        height: 120
-                    }
-                },
-                (codigoLido) => {
+                    const scanner = new Html5Qrcode("reader");
 
-                    setBusca(codigoLido);
+                    setScannerAtivo(scanner);
 
-                    fecharScanner();
+                    await scanner.start(
+                        {
+                            facingMode: "environment"
+                        },
+                        {
+                            fps: 10,
+                            qrbox: {
+                                width: 250,
+                                height: 120
+                            }
+                        },
+                        (codigoLido) => {
 
-                },
-                (erro) => {
+                            setBusca(codigoLido);
 
-                    console.log(erro);
+                            fecharScanner();
+
+                        },
+                        () => { }
+                    );
+
+                } catch (err) {
+
+                    console.log(err);
 
                 }
-            );
+
+            }, 300);
 
         } catch (err) {
 

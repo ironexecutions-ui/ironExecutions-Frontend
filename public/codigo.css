@@ -652,3 +652,12 @@
     font-size: 16px;
     font-weight: bold;
 }
+
+#reader video {
+    width: 100% !important;
+    border-radius: 18px;
+}
+
+#reader {
+    min-height: 300px;
+}
