@@ -661,3 +661,530 @@
 #reader {
     min-height: 300px;
 }
+
+.codigoLimparBuscaBotao {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 52px;
+    width: 52px;
+    height: 52px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            #ef4444 0%,
+            #dc2626 45%,
+            #b91c1c 100%);
+
+    box-shadow:
+        0 10px 24px rgba(220, 38, 38, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+
+    overflow: hidden;
+}
+
+.codigoLimparBuscaBotao::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.22),
+            rgba(255, 255, 255, 0));
+
+    pointer-events: none;
+}
+
+.codigoLimparBuscaBotao:hover {
+    transform:
+        translateY(-2px) scale(1.04);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 14px 30px rgba(220, 38, 38, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.codigoLimparBuscaBotao:active {
+    transform:
+        scale(0.96);
+
+    box-shadow:
+        0 6px 14px rgba(220, 38, 38, 0.25);
+}
+
+.codigoQuantidadeProduto {
+    margin-top: 10px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #16a34a;
+
+    cursor: pointer;
+}
+
+.codigoQuantidadeNegativa {
+    margin-top: 10px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #dc2626;
+
+    cursor: pointer;
+}
+
+.codigoEditarQuantidadeArea {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.codigoInputQuantidade {
+    flex: 1;
+
+    height: 44px;
+
+    border-radius: 14px;
+
+    border: 1px solid #d1d5db;
+
+    padding: 0 14px;
+
+    font-size: 15px;
+}
+
+.codigoSalvarQuantidadeBotao {
+    border: none;
+
+    padding: 0 18px;
+
+    border-radius: 14px;
+
+    background: #111827;
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.codigoImagemContainer {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+}
+
+.codigoTrocarImagemBotao {
+    position: absolute;
+
+    right: 10px;
+    bottom: 10px;
+
+    width: 44px;
+    height: 44px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    background: rgba(17, 24, 39, 0.9);
+
+    color: white;
+
+    backdrop-filter: blur(10px);
+
+    transition: 0.2s;
+}
+
+.codigoTrocarImagemBotao:hover {
+    transform: scale(1.08);
+}
+
+.codigoAreaImagem {
+    position: relative;
+}
+
+.codigoModalImagensOverlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 28px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(15, 23, 42, 0.82),
+            rgba(2, 6, 23, 0.92));
+
+    backdrop-filter: blur(16px);
+
+    animation: codigoFadeOverlay 0.25s ease;
+}
+
+.codigoModalImagens {
+    width: 100%;
+    max-width: 1300px;
+
+    max-height: 92vh;
+
+    overflow-y: auto;
+
+    padding: 28px;
+
+    border-radius: 34px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(248, 250, 252, 0.98));
+
+    border:
+        1px solid rgba(226, 232, 240, 0.9);
+
+    box-shadow:
+        0 40px 90px rgba(0, 0, 0, 0.35);
+
+    animation: codigoModalEntrada 0.28s ease;
+}
+
+.codigoModalImagens::-webkit-scrollbar {
+    width: 10px;
+}
+
+.codigoModalImagens::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.6);
+
+    border-radius: 999px;
+}
+
+.codigoModalTopo {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 28px;
+
+    padding-bottom: 20px;
+
+    border-bottom:
+        1px solid rgba(226, 232, 240, 0.9);
+}
+
+.codigoModalTitulo {
+    font-size: clamp(26px, 4vw, 38px);
+
+    font-weight: 900;
+
+    color: #0f172a;
+
+    letter-spacing: -1px;
+}
+
+.codigoFecharModal {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(135deg,
+            #ef4444,
+            #dc2626);
+
+    color: white;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    box-shadow:
+        0 14px 24px rgba(220, 38, 38, 0.35);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.codigoFecharModal:hover {
+    transform:
+        translateY(-2px) scale(1.05);
+
+    box-shadow:
+        0 18px 30px rgba(220, 38, 38, 0.45);
+}
+
+.codigoAdicionarImagemModal {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    border: none;
+
+    padding: 16px 24px;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(135deg,
+            #111827,
+            #1e293b);
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    letter-spacing: 0.3px;
+
+    box-shadow:
+        0 18px 34px rgba(15, 23, 42, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    margin-bottom: 30px;
+}
+
+.codigoAdicionarImagemModal:hover {
+    transform:
+        translateY(-2px) scale(1.02);
+
+    box-shadow:
+        0 24px 40px rgba(15, 23, 42, 0.35);
+}
+
+.codigoGridImagensModal {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(260px, 1fr));
+
+    gap: 24px;
+}
+
+.codigoItemImagemModal {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc);
+
+    border:
+        1px solid rgba(226, 232, 240, 0.9);
+
+    padding: 14px;
+
+    box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.08);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.codigoItemImagemModal:hover {
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(59, 130, 246, 0.4);
+
+    box-shadow:
+        0 24px 54px rgba(15, 23, 42, 0.14);
+}
+
+.codigoImagemModal {
+    width: 100%;
+    height: 260px;
+
+    object-fit: cover;
+
+    border-radius: 22px;
+
+    background: #e2e8f0;
+}
+
+.codigoApagarImagemModal {
+    width: 100%;
+
+    margin-top: 14px;
+
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(135deg,
+            #ef4444,
+            #dc2626);
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    letter-spacing: 0.2px;
+
+    box-shadow:
+        0 12px 24px rgba(220, 38, 38, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.codigoApagarImagemModal:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 18px 32px rgba(220, 38, 38, 0.35);
+}
+
+.codigoSemImagemModal {
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 280px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(241, 245, 249, 0.9),
+            rgba(226, 232, 240, 0.9));
+
+    border:
+        2px dashed rgba(148, 163, 184, 0.45);
+
+    color: #475569;
+
+    font-size: 22px;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+@keyframes codigoFadeOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes codigoModalEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .codigoModalImagensOverlay {
+        padding: 12px;
+    }
+
+    .codigoModalImagens {
+        padding: 18px;
+
+        border-radius: 24px;
+    }
+
+    .codigoGridImagensModal {
+        grid-template-columns: 1fr;
+    }
+
+    .codigoImagemModal {
+        height: 300px;
+    }
+
+    .codigoModalTitulo {
+        font-size: 24px;
+    }
+
+}

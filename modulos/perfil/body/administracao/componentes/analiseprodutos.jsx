@@ -37,6 +37,8 @@ export default function AnaliseProdutos() {
         usuario &&
         [11, 25, 27].includes(Number(usuario.comercio_id));
 
+    const telaMobileOuTablet = window.innerWidth <= 1024;
+
     return (
         <div className="analise-produtos-container">
 
@@ -88,6 +90,17 @@ export default function AnaliseProdutos() {
                 >
                     Contabilidade
                 </button>
+
+                {telaMobileOuTablet && (
+                    <button
+                        className="analise-botao-mobile-codigo"
+                        onClick={() => {
+                            window.location.href = "/codigo";
+                        }}
+                    >
+                        Para celulares
+                    </button>
+                )}
 
             </div>
 
