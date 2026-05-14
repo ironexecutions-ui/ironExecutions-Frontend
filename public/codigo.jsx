@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { API_URL } from "../config";
 import "./codigo.css";
-
+import { Html5Qrcode } from "html5-qrcode";
 export default function Codigo() {
 
     const [copiadoId, setCopiadoId] = useState(null);
@@ -11,7 +11,8 @@ export default function Codigo() {
     const [editandoPrecoId, setEditandoPrecoId] = useState(null);
 
     const [novoPreco, setNovoPreco] = useState("");
-
+    const [cameraAberta, setCameraAberta] = useState(false);
+    const [scannerAtivo, setScannerAtivo] = useState(null);
     const [senha, setSenha] = useState("");
     const [autorizado, setAutorizado] = useState(false);
 
@@ -77,9 +78,16 @@ export default function Codigo() {
     // =========================
     const produtosFiltrados = useMemo(() => {
 
-        return produtos.filter((produto) =>
-            produto.nome?.toLowerCase().includes(busca.toLowerCase())
-        );
+        return produtos.filter((produto) => {
+
+            const buscaLower = busca.toLowerCase();
+
+            return (
+                produto.nome?.toLowerCase().includes(buscaLower) ||
+                produto.codigo_barras?.toLowerCase().includes(buscaLower)
+            );
+
+        });
 
     }, [produtos, busca]);
 
@@ -193,7 +201,76 @@ export default function Codigo() {
 
         }
     };
+    // =========================
+    // ABRIR CAMERA
+    // =========================
+    const abrirScanner = async () => {
 
+        try {
+
+            setCameraAberta(true);
+
+            const scanner = new Html5Qrcode("reader");
+
+            setScannerAtivo(scanner);
+
+            await scanner.start(
+                {
+                    facingMode: "environment"
+                },
+                {
+                    fps: 10,
+                    qrbox: {
+                        width: 250,
+                        height: 120
+                    }
+                },
+                (codigoLido) => {
+
+                    setBusca(codigoLido);
+
+                    fecharScanner();
+
+                },
+                (erro) => {
+
+                    console.log(erro);
+
+                }
+            );
+
+        } catch (err) {
+
+            console.log(err);
+
+        }
+    };
+
+    // =========================
+    // FECHAR CAMERA
+    // =========================
+    const fecharScanner = async () => {
+
+        try {
+
+            if (scannerAtivo) {
+
+                await scannerAtivo.stop();
+
+                await scannerAtivo.clear();
+
+            }
+
+        } catch (err) {
+
+            console.log(err);
+
+        }
+
+        setCameraAberta(false);
+
+        setScannerAtivo(null);
+    };
     // =========================
     // SENHA
     // =========================
@@ -244,14 +321,47 @@ export default function Codigo() {
                     Lista de Produtos
                 </h1>
 
-                <input
-                    type="text"
-                    placeholder="Buscar produto..."
-                    value={busca}
-                    onChange={(e) => setBusca(e.target.value)}
-                    className="codigoBuscaInput"
-                />
+                <div className="codigoBuscaArea">
 
+                    <input
+                        type="text"
+                        placeholder="Buscar produto ou código..."
+                        value={busca}
+                        onChange={(e) => setBusca(e.target.value)}
+                        className="codigoBuscaInput"
+                    />
+
+                    <button
+                        onClick={abrirScanner}
+                        className="codigoCameraBotao"
+                    >
+                        📷
+                    </button>
+
+                </div>
+                {cameraAberta && (
+
+                    <div className="codigoScannerModal">
+
+                        <div className="codigoScannerCard">
+
+                            <div
+                                id="reader"
+                                className="codigoReader"
+                            />
+
+                            <button
+                                onClick={fecharScanner}
+                                className="codigoFecharScanner"
+                            >
+                                Fechar
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                )}
             </div>
 
             <div className="codigoLista">

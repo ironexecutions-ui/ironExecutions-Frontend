@@ -582,3 +582,73 @@
     }
 
 }
+
+.codigoBuscaArea {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.codigoCameraBotao {
+    border: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 22px;
+    background: #111827;
+    color: white;
+    transition: 0.2s;
+}
+
+.codigoCameraBotao:hover {
+    transform: scale(1.05);
+}
+
+.codigoScannerModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.codigoScannerCard {
+    width: 100%;
+    max-width: 420px;
+
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 20px;
+}
+
+.codigoReader {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.codigoFecharScanner {
+    width: 100%;
+    margin-top: 20px;
+
+    border: none;
+    padding: 14px;
+
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    background: #dc2626;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+}
