@@ -468,9 +468,15 @@ export default function Codigo() {
     // =========================
     // ABRIR CAMERA
     // =========================
+    // =========================
+    // ABRIR CAMERA
+    // =========================
     const abrirScanner = async () => {
 
         try {
+
+            // 🔥 NÃO ABRE 2 VEZES
+            if (cameraAberta) return;
 
             setCameraAberta(true);
 
@@ -481,6 +487,8 @@ export default function Codigo() {
                     const scanner = new Html5Qrcode("reader");
 
                     setScannerAtivo(scanner);
+
+                    let leuCodigo = false;
 
                     await scanner.start(
                         {
@@ -493,18 +501,22 @@ export default function Codigo() {
                                 height: 120
                             }
                         },
-                        (codigoLido) => {
 
-                            setBusca("");
+                        async (codigoLido) => {
 
-                            setTimeout(() => {
+                            // 🔥 IMPEDE LEITURA DUPLA
+                            if (leuCodigo) return;
 
-                                setBusca(String(codigoLido));
+                            leuCodigo = true;
 
-                            }, 50);
-                            fecharScanner();
+                            // 🔥 MANTÉM O CÓDIGO
+                            setBusca(String(codigoLido));
+
+                            // 🔥 FECHA DIRETO
+                            await fecharScanner();
 
                         },
+
                         () => { }
                     );
 
@@ -532,9 +544,17 @@ export default function Codigo() {
 
             if (scannerAtivo) {
 
-                await scannerAtivo.stop();
+                try {
 
-                await scannerAtivo.clear();
+                    await scannerAtivo.stop();
+
+                } catch { }
+
+                try {
+
+                    await scannerAtivo.clear();
+
+                } catch { }
 
             }
 
@@ -544,9 +564,9 @@ export default function Codigo() {
 
         }
 
-        setCameraAberta(false);
-
         setScannerAtivo(null);
+
+        setCameraAberta(false);
     };
     // =========================
     // SENHA
@@ -611,7 +631,12 @@ export default function Codigo() {
                     {busca && (
 
                         <button
-                            onClick={() => setBusca("")}
+                            onClick={() => {
+
+                                // 🔥 LIMPA MANUALMENTE
+                                setBusca("");
+
+                            }}
                             className="codigoLimparBuscaBotao"
                         >
                             ✕
