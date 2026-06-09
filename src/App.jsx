@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import "./app.css";
 import "./app-responsivo.css";
-
 import RifaCompras from "../public/rifas/rifacompras";
 import Codigo from "../public/codigo";
 import InicioModulos from "../modulos/iniciomodulos";
@@ -51,6 +50,7 @@ function RoteamentoComLoading() {
           </ProtegidoClientes>
         }
       />
+
       <Route path="/*" element={<InicioModulos />} />
       <Route path="/parceria" element={<Horas />} />
       <Route path="/codigo" element={<Codigo />} />

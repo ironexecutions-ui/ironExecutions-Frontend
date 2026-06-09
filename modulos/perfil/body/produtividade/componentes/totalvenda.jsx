@@ -108,7 +108,16 @@ export default function TotalVenda() {
     function valorExibido() {
         if (mostrarUSD && converte === 1 && cambio && total > 0) {
             const convertido = total / cambio;
-            return `US$ ${convertido.toFixed(2)}`;
+
+            const inteiro = Math.floor(convertido);
+            const centavos = convertido - inteiro;
+
+            const valorArredondado =
+                centavos > 0.30
+                    ? Math.ceil(convertido)
+                    : Math.floor(convertido);
+
+            return `US$ ${valorArredondado.toFixed(2)}`;
         }
 
         return `R$ ${total.toFixed(2)}`;
