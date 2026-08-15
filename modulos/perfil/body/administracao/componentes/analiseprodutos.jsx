@@ -4,8 +4,6 @@ import LucroGeral from "./analises/lucrogeral";
 import Code from "./analises/code";
 import LucroPorMes from "./analises/lucropormes";
 import Contabilidade from "./analises/contabilidade";
-import Pontos from "./analises/pontos";
-import Registro from "./analises/registro";
 
 import { API_URL } from "../../../../../config";
 import "./analiseprodutos.css";
@@ -66,23 +64,6 @@ export default function AnaliseProdutos() {
                     Lucro por Mês
                 </button>
 
-                {podeVerQuiz && (
-                    <button
-                        className={aba === "pontos" ? "ativo" : ""}
-                        onClick={() => setAba("pontos")}
-                    >
-                        Pontos
-                    </button>
-                )}
-
-                {podeVerQuiz && (
-                    <button
-                        className={aba === "registro" ? "ativo" : ""}
-                        onClick={() => setAba("registro")}
-                    >
-                        Registro Quiz
-                    </button>
-                )}
 
                 <button
                     className={aba === "sem-venda" ? "ativo" : ""}
@@ -109,8 +90,7 @@ export default function AnaliseProdutos() {
                 {aba === "ranking" && <Code />}
                 {aba === "lucro-mes" && <LucroPorMes />}
                 {aba === "sem-venda" && <Contabilidade />}
-                {aba === "pontos" && podeVerQuiz && <Pontos />}
-                {aba === "registro" && podeVerQuiz && <Registro />}
+
             </div>
 
         </div>

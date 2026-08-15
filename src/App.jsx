@@ -10,22 +10,25 @@ import IronBusinessPerfil from "../modulos/perfil/ironbusiness";
 import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
-import Horas from "../horas/horas"
 import Aulas from "../aulas/aulas"
 import Matricula from "../aulas/matricula/matricula";
 import Perfil from "../aulas/perfil/perfil";
 import Pagos from "..//aulas/pagos/pagos"
 import Aula_pagamentos from "../aulas/pagamentos/aulas_pagamentos"
+import ironExecutions from "./imagens/ironexecutions.png";
+import missionaryStoreBrasil from "./imagens/missionarystorebrasil.png";
+import teste from "./imagens/teste.png";
+import dass from "./imagens/dass.png";
+import alexsiaUtilidades from "./imagens/alexsiautilidades.png";
 
 /* Mapa fixo de comercio_id -> imagem */
 const FUNDOS_POR_COMERCIO = {
-  11: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/ironexecutions.png",
-  25: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/missionarystorebrasil.png",
-  27: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/teste.png",
-  28: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/dass.png",
-  29: "https://sbeotetrpndvnvjgddyv.supabase.co/storage/v1/object/public/fotosdeperfis/imagensIronexecutions/alexsiautilidades.png"
+  11: ironExecutions,
+  25: missionaryStoreBrasil,
+  27: teste,
+  28: dass,
+  29: alexsiaUtilidades
 };
-
 
 function RoteamentoComLoading() {
   const { setLoading } = useLoading();
@@ -52,7 +55,6 @@ function RoteamentoComLoading() {
       />
 
       <Route path="/*" element={<InicioModulos />} />
-      <Route path="/parceria" element={<Horas />} />
       <Route path="/codigo" element={<Codigo />} />
       <Route path="/aulas" element={<Aulas />} />
       <Route path="/aulas/matricula" element={<Matricula />} />

@@ -85,14 +85,7 @@ export default function Administracao() {
                     Fechamento de Caixa
                 </button>
 
-                {mostrarParceria && (
-                    <button
-                        className="btn-parceria"
-                        onClick={irParaParceria}
-                    >
-                        Parceria
-                    </button>
-                )}
+
             </div>
 
             <div className="administracao-conteudo">

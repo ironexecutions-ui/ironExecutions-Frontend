@@ -149,3 +149,155 @@
         letter-spacing: 0.4px;
     }
 }
+
+/* =========================================
+   VENDAS PROCESSANDO EM SEGUNDO PLANO
+========================================= */
+
+.infos-vendas-background {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.infos-venda-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 9px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.infos-venda-indicador {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infos-venda-dados {
+    flex: 1;
+    min-width: 0;
+}
+
+.infos-venda-principal {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    font-size: 12px;
+}
+
+.infos-venda-principal strong {
+    font-weight: 700;
+}
+
+.infos-venda-separador {
+    opacity: 0.6;
+}
+
+.infos-venda-valor {
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* =========================================
+   LOADER
+========================================= */
+
+.infos-venda-loader {
+    width: 13px;
+    height: 13px;
+
+    display: block;
+
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-top-color: currentColor;
+    border-radius: 50%;
+
+    animation: infosVendaGirando 0.7s linear infinite;
+}
+
+@keyframes infosVendaGirando {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   PROCESSANDO
+========================================= */
+
+.infos-venda-processando {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* =========================================
+   AGUARDANDO PAGAMENTO
+========================================= */
+
+.infos-venda-aguardando {
+    background: rgba(255, 193, 7, 0.12);
+}
+
+/* =========================================
+   CONCLUÍDA
+========================================= */
+
+.infos-venda-concluida {
+    background: rgba(46, 204, 113, 0.13);
+}
+
+.infos-venda-check {
+    font-size: 17px;
+    font-weight: 800;
+}
+
+/* =========================================
+   ERRO
+========================================= */
+
+.infos-venda-erro {
+    background: rgba(231, 76, 60, 0.14);
+}
+
+.infos-venda-erro-icone {
+    width: 18px;
+    height: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid currentColor;
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.infos-venda-mensagem-erro {
+    margin-top: 3px;
+
+    font-size: 10px;
+    line-height: 1.25;
+
+    opacity: 0.8;
+}
