@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./graficovendas.css"
 import GraficoPizzaProdutos from "./graficos/graficopizzaprodutos";
 import GraficoBarrasProdutos from "./graficos/graficolinhasvendas";
-import GraficoLinhasVendas from "./graficos/graficobarrasprodutos";
 
 export default function GraficosVendas() {
 
@@ -33,12 +32,7 @@ export default function GraficosVendas() {
                 > Evolução de Vendas
                 </button>
 
-                <button
-                    className={graficoAtivo === "linhas" ? "ativo" : ""}
-                    onClick={() => setGraficoAtivo("linhas")}
-                >
-                    Ganhos correspondentes
-                </button>
+
             </div>
 
             <div className="graficos-vendas-conteudo">

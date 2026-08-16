@@ -102,8 +102,13 @@ export default function GraficoPizzaProdutos() {
        DADOS DO GRÁFICO
     =============================== */
     const chartData = {
-        labels: dados.map(d => quebrarTexto(d.nome)),
-        datasets: [
+        labels: dados.map(d =>
+            quebrarTexto(
+                d.nome
+                    ?.replace(/\s*\(None\)\s*/gi, "")
+                    .trim()
+            )
+        ), datasets: [
             {
                 data: dados.map(d => d.quantidade),
                 backgroundColor: [

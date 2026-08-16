@@ -27,9 +27,37 @@ export function VendaProvider({ children }) {
        Esta estrutura será usada pelo
        novo sistema de venda rápida.
     =============================== */
-
+    const [pixRapidoAtual, setPixRapidoAtual] = useState(null);
     const [vendasProcessando, setVendasProcessando] = useState([]);
+    /* ===============================
+       ABRIR PIX RÁPIDO
+    =============================== */
 
+    const abrirPixRapido = useCallback(
+        (dadosPix) => {
+
+            if (!dadosPix) {
+                return;
+            }
+
+            setPixRapidoAtual({
+                ...dadosPix,
+                abertoEm: new Date().toISOString()
+            });
+
+        },
+        []
+    );
+    /* ===============================
+   FECHAR PIX RÁPIDO
+=============================== */
+
+    const fecharPixRapido = useCallback(
+        () => {
+            setPixRapidoAtual(null);
+        },
+        []
+    );
     /* ===============================
        CALCULAR TOTAL
     =============================== */
@@ -452,7 +480,16 @@ export function VendaProvider({ children }) {
                 adicionarVendaProcessando,
                 atualizarVendaProcessando,
                 removerVendaProcessando,
-                buscarVendaProcessando
+                buscarVendaProcessando,
+
+                /* =====================
+                   PIX RÁPIDO
+                ===================== */
+
+                pixRapidoAtual,
+                setPixRapidoAtual,
+                abrirPixRapido,
+                fecharPixRapido
             }}
         >
             {children}

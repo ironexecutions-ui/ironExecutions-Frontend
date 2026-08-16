@@ -1,4 +1,3 @@
-import React from "react";
 import { API_URL } from "../../../../../config";
 
 /* =========================================
@@ -8,35 +7,70 @@ import { API_URL } from "../../../../../config";
 const API_ONLINE_VENDAS = API_URL;
 const API_LOCAL = "http://localhost:8888";
 
-/* =========================================
-   DESCOBRIR SE A API LOCAL ESTÁ DISPONÍVEL
 
-   Usada somente para recursos locais,
-   principalmente impressão.
+/* =========================================
+   DESCOBRIR SE API LOCAL ESTÁ DISPONÍVEL
 ========================================= */
 
 async function descobrirApiLocal() {
+
     try {
-        const resp = await fetch(`${API_LOCAL}/health`, {
-            method: "GET"
-        });
 
-        if (resp.ok) {
-            return true;
-        }
+        const resp = await fetch(
+            `${API_LOCAL}/health`,
+            {
+                method: "GET"
+            }
+        );
 
-        return false;
+        return resp.ok;
 
     } catch {
+
         return false;
     }
 }
 
+
+/* =========================================
+   PEGAR TOKEN
+========================================= */
+
+function pegarToken() {
+
+    return localStorage.getItem("token");
+}
+
+
+/* =========================================
+   EXTRAIR MENSAGEM DE ERRO
+========================================= */
+
+async function extrairErroResposta(
+    resp,
+    mensagemPadrao
+) {
+
+    try {
+
+        const dados = await resp.json();
+
+        return (
+            dados?.detail ||
+            dados?.error ||
+            dados?.message ||
+            mensagemPadrao
+        );
+
+    } catch {
+
+        return mensagemPadrao;
+    }
+}
+
+
 /* =========================================
    REGISTRAR JOGOS
-
-   Mantém a mesma regra que existe no
-   ModalPagamento.
 ========================================= */
 
 async function registrarJogosVenda(itens) {
@@ -47,7 +81,9 @@ async function registrarJogosVenda(itens) {
 
     const jogos = itens.filter(item =>
         item.nome &&
-        item.nome.toLowerCase().includes("jogos")
+        item.nome
+            .toLowerCase()
+            .includes("jogos")
     );
 
     if (jogos.length === 0) {
@@ -65,24 +101,32 @@ async function registrarJogosVenda(itens) {
     }
 
     try {
-        await fetch(`${API_URL}/jogos/registrar`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify({
-                quantos: totalJogos
-            })
-        });
+
+        await fetch(
+            `${API_URL}/jogos/registrar`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization:
+                        `Bearer ${pegarToken()}`
+                },
+
+                body: JSON.stringify({
+                    quantos: totalJogos
+                })
+            }
+        );
 
     } catch (erro) {
-        /*
-            Mantemos o comportamento não bloqueante
-            que já existe no fluxo tradicional.
 
-            Falha ao registrar jogos não impede
-            a venda principal.
+        /*
+            Não bloqueamos a venda por causa
+            do registro de jogos.
+
+            É o mesmo princípio do seu fluxo
+            tradicional.
         */
 
         console.warn(
@@ -92,13 +136,12 @@ async function registrarJogosVenda(itens) {
     }
 }
 
+
 /* =========================================
    CRIAR VENDA NO BACKEND
 ========================================= */
 
 async function criarVenda(venda) {
-
-    const token = localStorage.getItem("token");
 
     const resp = await fetch(
         `${API_ONLINE_VENDAS}/vendas/finalizar`,
@@ -107,7 +150,8 @@ async function criarVenda(venda) {
 
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
+                Authorization:
+                    `Bearer ${pegarToken()}`
             },
 
             body: JSON.stringify({
@@ -116,19 +160,13 @@ async function criarVenda(venda) {
                 produtos: venda.itens,
 
                 /*
-                    Venda rápida inicialmente
-                    será sem CPF.
+                    Venda rápida continua sem CPF.
 
-                    Quando precisar CPF,
-                    o fluxo tradicional continua
-                    disponível.
+                    Quando precisar de CPF,
+                    usamos o fluxo tradicional.
                 */
                 cpf: null,
 
-                /*
-                    Mantemos o mesmo campo que
-                    o ModalPagamento envia.
-                */
                 forcar_manual: false
             })
         }
@@ -136,19 +174,11 @@ async function criarVenda(venda) {
 
     if (!resp.ok) {
 
-        let mensagem = "Erro ao criar venda";
-
-        try {
-            const dadosErro = await resp.json();
-
-            mensagem =
-                dadosErro.detail ||
-                dadosErro.error ||
-                mensagem;
-
-        } catch {
-            // resposta não era JSON
-        }
+        const mensagem =
+            await extrairErroResposta(
+                resp,
+                "Erro ao criar venda"
+            );
 
         throw new Error(mensagem);
     }
@@ -156,6 +186,7 @@ async function criarVenda(venda) {
     const dados = await resp.json();
 
     if (!dados.venda_id) {
+
         throw new Error(
             "Backend não retornou o ID da venda"
         );
@@ -164,13 +195,12 @@ async function criarVenda(venda) {
     return dados;
 }
 
+
 /* =========================================
    CONFIRMAR VENDA
 ========================================= */
 
 async function confirmarVenda(vendaId) {
-
-    const token = localStorage.getItem("token");
 
     const resp = await fetch(
         `${API_ONLINE_VENDAS}/vendas/${vendaId}/confirmar`,
@@ -178,39 +208,32 @@ async function confirmarVenda(vendaId) {
             method: "POST",
 
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization:
+                    `Bearer ${pegarToken()}`
             }
         }
     );
 
     /*
-        Seu fluxo atual considera 409 aceitável.
+        Seu fluxo tradicional aceita 409.
 
-        Vamos manter a mesma regra.
+        Mantemos o mesmo comportamento.
     */
 
     if (!resp.ok && resp.status !== 409) {
 
-        let mensagem =
-            "Erro ao confirmar pagamento";
-
-        try {
-            const dadosErro = await resp.json();
-
-            mensagem =
-                dadosErro.detail ||
-                dadosErro.error ||
-                mensagem;
-
-        } catch {
-            // resposta não era JSON
-        }
+        const mensagem =
+            await extrairErroResposta(
+                resp,
+                "Erro ao confirmar pagamento"
+            );
 
         throw new Error(mensagem);
     }
 
     return await resp.json();
 }
+
 
 /* =========================================
    IMPRIMIR COMANDA
@@ -222,6 +245,7 @@ async function imprimirComanda(
 ) {
 
     if (!comandaUrl) {
+
         return {
             tentou: false,
             sucesso: true
@@ -236,20 +260,12 @@ async function imprimirComanda(
         return {
             tentou: true,
             sucesso: false,
-            erro: "API local de impressão indisponível"
+            erro:
+                "API local de impressão indisponível"
         };
     }
 
     try {
-
-        /*
-            Mantemos a chamada que o seu
-            ModalPagamento atual utiliza.
-
-            Seu serviço local responsável pela
-            venda/impressão pode continuar
-            tratando esse endpoint.
-        */
 
         const resp = await fetch(
             `${API_LOCAL}/imprimir`,
@@ -257,7 +273,8 @@ async function imprimirComanda(
                 method: "POST",
 
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type":
+                        "application/json"
                 },
 
                 body: JSON.stringify({
@@ -272,7 +289,8 @@ async function imprimirComanda(
             return {
                 tentou: true,
                 sucesso: false,
-                erro: "Erro ao imprimir comanda"
+                erro:
+                    "Erro ao imprimir comanda"
             };
         }
 
@@ -286,14 +304,78 @@ async function imprimirComanda(
         return {
             tentou: true,
             sucesso: false,
-            erro: "Erro de conexão com a impressora"
+            erro:
+                "Erro de conexão com a impressora"
         };
     }
 }
 
+
 /* =========================================
-   MOTOR PRINCIPAL DA VENDA RÁPIDA
+   FINALIZAR VENDA JÁ CONFIRMADA
 ========================================= */
+
+async function finalizarVendaConfirmada({
+    venda,
+    vendaId,
+    comandaUrl,
+    atualizar
+}) {
+
+    const confirmacao =
+        await confirmarVenda(vendaId);
+
+    let erroImpressao = null;
+
+    /* =====================================
+       IMPRESSÃO
+    ===================================== */
+
+    if (confirmacao.imprimir === true) {
+
+        atualizar({
+            status: "imprimindo"
+        });
+
+        const resultadoImpressao =
+            await imprimirComanda(
+                vendaId,
+                comandaUrl
+            );
+
+        if (!resultadoImpressao.sucesso) {
+
+            erroImpressao =
+                resultadoImpressao.erro;
+        }
+    }
+
+    /* =====================================
+       CONCLUÍDA
+    ===================================== */
+
+    atualizar({
+        status: "concluida",
+
+        concluidaEm:
+            new Date().toISOString(),
+
+        aviso:
+            erroImpressao || null
+    });
+
+    return {
+        ok: true,
+        vendaId,
+        comandaUrl,
+        aviso: erroImpressao
+    };
+}
+
+
+/* =========================================================
+   DÉBITO / CRÉDITO / FLUXO RÁPIDO TRADICIONAL
+========================================================= */
 
 export async function processarVendaRapida({
     venda,
@@ -301,38 +383,49 @@ export async function processarVendaRapida({
 }) {
 
     if (!venda) {
+
         throw new Error(
             "Venda rápida não informada"
         );
     }
 
     if (!venda.idLocal) {
+
         throw new Error(
             "Venda rápida sem identificador local"
         );
     }
 
-    if (!venda.itens || venda.itens.length === 0) {
+    if (
+        !venda.itens ||
+        venda.itens.length === 0
+    ) {
+
         throw new Error(
             "Venda rápida sem produtos"
         );
     }
 
     if (!venda.total || venda.total <= 0) {
+
         throw new Error(
             "Venda rápida com valor inválido"
         );
     }
 
     if (!venda.pagamento) {
+
         throw new Error(
             "Forma de pagamento não informada"
         );
     }
 
-    const atualizar = (alteracoes) => {
+    const atualizar = alteracoes => {
 
-        if (typeof atualizarVenda === "function") {
+        if (
+            typeof atualizarVenda === "function"
+        ) {
+
             atualizarVenda(
                 venda.idLocal,
                 alteracoes
@@ -343,7 +436,7 @@ export async function processarVendaRapida({
     try {
 
         /* =================================
-           1. PROCESSANDO
+           PROCESSANDO
         ================================= */
 
         atualizar({
@@ -352,13 +445,15 @@ export async function processarVendaRapida({
         });
 
         /* =================================
-           2. REGISTRAR JOGOS
+           REGISTRAR JOGOS
         ================================= */
 
-        await registrarJogosVenda(venda.itens);
+        await registrarJogosVenda(
+            venda.itens
+        );
 
         /* =================================
-           3. CRIAR VENDA
+           CRIAR VENDA
         ================================= */
 
         const dadosVenda =
@@ -373,67 +468,21 @@ export async function processarVendaRapida({
         atualizar({
             vendaId,
             comandaUrl,
+
             statusBackend:
                 dadosVenda.status || null
         });
 
         /* =================================
-           4. CONFIRMAR PAGAMENTO
+           CONFIRMAR E FINALIZAR
         ================================= */
 
-        const confirmacao =
-            await confirmarVenda(vendaId);
-
-        /* =================================
-           5. IMPRESSÃO
-
-           Só imprime quando o backend
-           informar imprimir === true.
-        ================================= */
-
-        let erroImpressao = null;
-
-        if (confirmacao.imprimir === true) {
-
-            atualizar({
-                status: "imprimindo"
-            });
-
-            const resultadoImpressao =
-                await imprimirComanda(
-                    vendaId,
-                    comandaUrl
-                );
-
-            if (!resultadoImpressao.sucesso) {
-                erroImpressao =
-                    resultadoImpressao.erro;
-            }
-        }
-
-        /* =================================
-           6. VENDA CONCLUÍDA
-
-           Falha de impressão NÃO transforma
-           uma venda confirmada em venda
-           financeira com erro.
-        ================================= */
-
-        atualizar({
-            status: "concluida",
-            concluidaEm:
-                new Date().toISOString(),
-
-            aviso:
-                erroImpressao || null
-        });
-
-        return {
-            ok: true,
+        return await finalizarVendaConfirmada({
+            venda,
             vendaId,
             comandaUrl,
-            aviso: erroImpressao
-        };
+            atualizar
+        });
 
     } catch (erro) {
 
@@ -444,6 +493,7 @@ export async function processarVendaRapida({
 
         atualizar({
             status: "erro",
+
             erro:
                 erro?.message ||
                 "Erro desconhecido ao processar venda",
@@ -454,9 +504,457 @@ export async function processarVendaRapida({
 
         return {
             ok: false,
+
             erro:
                 erro?.message ||
                 "Erro desconhecido ao processar venda"
+        };
+    }
+}
+
+
+/* =========================================================
+   GERAR PIX NO BACKEND
+========================================================= */
+
+async function gerarPix(valor) {
+
+    const resp = await fetch(
+        `${API_ONLINE_VENDAS}/vendas/pix/gerar`,
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                    `Bearer ${pegarToken()}`
+            },
+
+            body: JSON.stringify({
+                valor: Number(valor)
+            })
+        }
+    );
+
+    if (!resp.ok) {
+
+        const mensagem =
+            await extrairErroResposta(
+                resp,
+                "Erro ao gerar Pix"
+            );
+
+        throw new Error(mensagem);
+    }
+
+    const dados = await resp.json();
+
+    if (!dados.tipo) {
+
+        throw new Error(
+            "Backend retornou um Pix inválido"
+        );
+    }
+
+    return dados;
+}
+
+
+/* =========================================================
+   INICIAR PIX RÁPIDO
+
+   IMPORTANTE:
+
+   Esta função NÃO confirma automaticamente
+   um Pix Mercado Pago.
+
+   Ela cria a venda, gera o Pix e devolve
+   os dados necessários para o modal.
+========================================================= */
+
+export async function iniciarPixRapido({
+    venda,
+    atualizarVenda
+}) {
+
+    if (!venda) {
+
+        throw new Error(
+            "Venda Pix não informada"
+        );
+    }
+
+    if (!venda.idLocal) {
+
+        throw new Error(
+            "Venda Pix sem identificador local"
+        );
+    }
+
+    if (
+        !venda.itens ||
+        venda.itens.length === 0
+    ) {
+
+        throw new Error(
+            "Venda Pix sem produtos"
+        );
+    }
+
+    if (!venda.total || venda.total <= 0) {
+
+        throw new Error(
+            "Venda Pix com valor inválido"
+        );
+    }
+
+    const atualizar = alteracoes => {
+
+        if (
+            typeof atualizarVenda === "function"
+        ) {
+
+            atualizarVenda(
+                venda.idLocal,
+                alteracoes
+            );
+        }
+    };
+
+    try {
+
+        /* =================================
+           1. PREPARANDO
+        ================================= */
+
+        atualizar({
+            status: "processando",
+            erro: null
+        });
+
+        /* =================================
+           2. REGISTRAR JOGOS
+        ================================= */
+
+        await registrarJogosVenda(
+            venda.itens
+        );
+
+        /* =================================
+           3. CRIAR VENDA
+
+           A venda é criada primeiro para
+           termos o venda_id correto.
+        ================================= */
+
+        const dadosVenda =
+            await criarVenda({
+                ...venda,
+                pagamento: "pix"
+            });
+
+        const vendaId =
+            dadosVenda.venda_id;
+
+        const comandaUrl =
+            dadosVenda.comanda || null;
+
+        atualizar({
+            vendaId,
+            comandaUrl,
+
+            statusBackend:
+                dadosVenda.status || null
+        });
+
+        /* =================================
+           4. GERAR PIX
+        ================================= */
+
+        const pix =
+            await gerarPix(venda.total);
+
+        /* =================================
+           5. PIX LOCAL
+        ================================= */
+
+        if (pix.tipo === "pix_local") {
+
+            /*
+                Não existe QR Mercado Pago.
+
+                Nesse cenário seguimos a regra
+                que seu backend já possui:
+                Pix local é confirmado no caixa.
+            */
+
+            atualizar({
+                status: "processando",
+                tipoPix: "pix_local"
+            });
+
+            return await finalizarVendaConfirmada({
+                venda,
+                vendaId,
+                comandaUrl,
+                atualizar
+            });
+        }
+
+        /* =================================
+           6. PIX MERCADO PAGO
+        ================================= */
+
+        if (pix.tipo === "pix_mp") {
+
+            if (!pix.id) {
+
+                throw new Error(
+                    "Mercado Pago não retornou o ID do Pix"
+                );
+            }
+
+            if (
+                !pix.qr_code &&
+                !pix.qr_code_base64
+            ) {
+
+                throw new Error(
+                    "Mercado Pago não retornou o QR Code"
+                );
+            }
+
+            /*
+                MUITO IMPORTANTE:
+
+                NÃO confirmamos a venda aqui.
+
+                Apenas guardamos o Pix e
+                devolvemos os dados para
+                abrir o modal.
+            */
+
+            atualizar({
+                status:
+                    "aguardando_pagamento",
+
+                tipoPix:
+                    "pix_mp",
+
+                paymentId:
+                    pix.id,
+
+                qrCode:
+                    pix.qr_code || null,
+
+                qrCodeBase64:
+                    pix.qr_code_base64 || null
+            });
+
+            return {
+                ok: true,
+
+                aguardandoPagamento: true,
+
+                tipo: "pix_mp",
+
+                vendaLocalId:
+                    venda.idLocal,
+
+                vendaId,
+
+                comandaUrl,
+
+                paymentId:
+                    pix.id,
+
+                qrCode:
+                    pix.qr_code || null,
+
+                qrCodeBase64:
+                    pix.qr_code_base64 || null,
+
+                total:
+                    venda.total
+            };
+        }
+
+        /* =================================
+           TIPO DESCONHECIDO
+        ================================= */
+
+        throw new Error(
+            `Tipo de Pix não reconhecido: ${pix.tipo}`
+        );
+
+    } catch (erro) {
+
+        console.error(
+            "[PIX RÁPIDO]",
+            erro
+        );
+
+        atualizar({
+            status: "erro",
+
+            erro:
+                erro?.message ||
+                "Erro ao iniciar Pix",
+
+            falhouEm:
+                new Date().toISOString()
+        });
+
+        return {
+            ok: false,
+
+            erro:
+                erro?.message ||
+                "Erro ao iniciar Pix"
+        };
+    }
+}
+
+
+/* =========================================================
+   CONSULTAR STATUS DO PIX MERCADO PAGO
+========================================================= */
+
+export async function consultarStatusPixRapido(
+    paymentId
+) {
+
+    if (!paymentId) {
+
+        throw new Error(
+            "ID do pagamento Pix não informado"
+        );
+    }
+
+    const resp = await fetch(
+        `${API_ONLINE_VENDAS}/vendas/pix/status/${paymentId}`,
+        {
+            headers: {
+                Authorization:
+                    `Bearer ${pegarToken()}`
+            }
+        }
+    );
+
+    if (!resp.ok) {
+
+        const mensagem =
+            await extrairErroResposta(
+                resp,
+                "Erro ao consultar Pix"
+            );
+
+        throw new Error(mensagem);
+    }
+
+    const dados = await resp.json();
+
+    return {
+        status:
+            dados.status || "pending"
+    };
+}
+
+
+/* =========================================================
+   CONFIRMAR PIX RÁPIDO APÓS APROVAÇÃO
+
+   Esta função só será chamada quando
+   /status/{payment_id} retornar approved.
+========================================================= */
+
+export async function confirmarPixRapido({
+    venda,
+    vendaId,
+    comandaUrl,
+    atualizarVenda
+}) {
+
+    if (!venda) {
+
+        throw new Error(
+            "Venda Pix não informada"
+        );
+    }
+
+    if (!venda.idLocal) {
+
+        throw new Error(
+            "Venda Pix sem identificador local"
+        );
+    }
+
+    if (!vendaId) {
+
+        throw new Error(
+            "Venda Pix sem ID do backend"
+        );
+    }
+
+    const atualizar = alteracoes => {
+
+        if (
+            typeof atualizarVenda === "function"
+        ) {
+
+            atualizarVenda(
+                venda.idLocal,
+                alteracoes
+            );
+        }
+    };
+
+    try {
+
+        /* =================================
+           PAGAMENTO APROVADO
+        ================================= */
+
+        atualizar({
+            status: "processando",
+            pixAprovado: true
+        });
+
+        /* =================================
+           CONFIRMAR VENDA
+        ================================= */
+
+        return await finalizarVendaConfirmada({
+            venda,
+            vendaId,
+            comandaUrl,
+            atualizar
+        });
+
+    } catch (erro) {
+
+        console.error(
+            "[PIX RÁPIDO CONFIRMAÇÃO]",
+            erro
+        );
+
+        atualizar({
+            status: "erro",
+
+            erro:
+                erro?.message ||
+                "Pix aprovado, mas ocorreu erro ao finalizar a venda",
+
+            falhouEm:
+                new Date().toISOString()
+        });
+
+        return {
+            ok: false,
+
+            erro:
+                erro?.message ||
+                "Erro ao finalizar Pix"
         };
     }
 }

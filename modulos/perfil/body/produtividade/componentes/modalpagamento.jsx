@@ -3,7 +3,12 @@ import { API_URL } from "../../../../../config";
 import "./modalpagamento.css";
 import { useVenda } from "./vendaprovider";
 
-export default function ModalPagamento({ total, fechar }) {
+export default function ModalPagamento({
+    total,
+    fechar,
+    modoPixRapido = false,
+    dadosPixRapido = null
+}) {
     const [infoMaquininha, setInfoMaquininha] = useState(null);
     const [erroMaquininha, setErroMaquininha] = useState(null);
     const [forcarManual, setForcarManual] = useState(false);
@@ -46,8 +51,79 @@ export default function ModalPagamento({ total, fechar }) {
         !apiPronta;
     const jogosRegistradosRef = useRef(false);
 
-    const { itens, limparVenda, setModalAberto } = useVenda();
+    const {
+        itens,
+        limparVenda,
+        setModalAberto,
 
+        atualizarVendaProcessando,
+        fecharPixRapido
+    } = useVenda();
+    /* ===============================
+   DADOS DO PIX RÁPIDO
+=============================== */
+
+    const vendaRapidaSnapshot =
+        dadosPixRapido?.venda || null;
+
+    const vendaRapidaLocalId =
+        vendaRapidaSnapshot?.idLocal || null;
+
+    const vendaRapidaVendaId =
+        dadosPixRapido?.vendaId || null;
+
+    const vendaRapidaPaymentId =
+        dadosPixRapido?.paymentId || null;
+
+    const vendaRapidaComandaUrl =
+        dadosPixRapido?.comandaUrl || null;
+
+    const vendaRapidaQr =
+        dadosPixRapido?.qrCodeBase64 || null;
+    /* ===============================
+INICIALIZAR PIX RÁPIDO
+=============================== */
+
+    useEffect(() => {
+
+        if (!modoPixRapido) {
+            return;
+        }
+
+        if (!dadosPixRapido) {
+            return;
+        }
+
+        setPagamento("pix");
+
+        setVendaId(
+            vendaRapidaVendaId
+        );
+
+        setComandaUrl(
+            vendaRapidaComandaUrl
+        );
+
+        setPixId(
+            vendaRapidaPaymentId
+        );
+
+        setPixQr(
+            vendaRapidaQr
+        );
+
+        setPixPago(false);
+
+        setEtapa("pix_mp");
+
+    }, [
+        modoPixRapido,
+        dadosPixRapido,
+        vendaRapidaVendaId,
+        vendaRapidaComandaUrl,
+        vendaRapidaPaymentId,
+        vendaRapidaQr
+    ]);
     async function criarVendaInicial(tipoPagamento) {
 
 
@@ -230,6 +306,7 @@ export default function ModalPagamento({ total, fechar }) {
             setSucesso(true);
 
             setTimeout(() => {
+
                 imprimindoRef.current = false;
                 criandoVendaRef.current = false;
 
@@ -242,25 +319,87 @@ export default function ModalPagamento({ total, fechar }) {
                 setPixPago(false);
                 setEtapa("metodo");
 
-                limparVenda();
-                setModalAberto(false);
+                /* ===============================
+                   PIX RÁPIDO
+                =============================== */
+                if (modoPixRapido) {
 
-                fechar();
+                    if (vendaRapidaLocalId) {
+                        atualizarVendaProcessando(
+                            vendaRapidaLocalId,
+                            {
+                                status: "concluida",
+                                pixAprovado: true,
+                                concluidaEm: new Date().toISOString(),
+                                aviso: erroImpressao
+                                    ? "Erro ao imprimir comanda"
+                                    : null
+                            }
+                        );
+                    }
+
+                    fecharPixRapido();
+                    setModalAberto(false);
+                    fechar();
+
+                } else {
+
+                    /* ===============================
+                       VENDA NORMAL
+                    =============================== */
+                    limparVenda();
+                    setModalAberto(false);
+                    fechar();
+                }
 
                 if (erroImpressao) {
                     alert(
                         "Venda concluída com sucesso, mas ocorreu um erro na impressão. Verifique a impressora."
                     );
                 }
+
             }, 1500);
 
         } catch (e) {
+
             console.error(e);
 
             imprimindoRef.current = false;
             setProcessando(false);
 
-            alert(e.message || "Erro ao confirmar pagamento");
+            /* ===============================
+               PIX RÁPIDO
+            =============================== */
+            if (modoPixRapido) {
+
+                if (vendaRapidaLocalId) {
+                    atualizarVendaProcessando(
+                        vendaRapidaLocalId,
+                        {
+                            status: "erro",
+                            erro:
+                                e?.message ||
+                                "Pix pago, mas ocorreu erro ao finalizar a venda"
+                        }
+                    );
+                }
+
+                alert(
+                    e?.message ||
+                    "Pix pago, mas ocorreu erro ao finalizar a venda"
+                );
+
+                return;
+            }
+
+            /* ===============================
+               VENDA NORMAL
+            =============================== */
+            alert(
+                e.message ||
+                "Erro ao confirmar pagamento"
+            );
+
             resetarModal();
         }
     }
@@ -653,7 +792,29 @@ export default function ModalPagamento({ total, fechar }) {
                                 </div>
                                 <button
                                     className="cancelar"
-                                    onClick={cancelarVendaAtual}
+                                    onClick={() => {
+
+                                        if (modoPixRapido) {
+
+                                            if (vendaRapidaLocalId) {
+                                                atualizarVendaProcessando(
+                                                    vendaRapidaLocalId,
+                                                    {
+                                                        status: "erro",
+                                                        erro: "Pix cancelado pelo operador"
+                                                    }
+                                                );
+                                            }
+
+                                            fecharPixRapido();
+                                            setModalAberto(false);
+                                            fechar();
+
+                                            return;
+                                        }
+
+                                        cancelarVendaAtual();
+                                    }}
                                 >
                                     Cancelar Venda
                                 </button>
