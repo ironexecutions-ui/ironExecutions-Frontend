@@ -169,13 +169,35 @@ export default function ProdutoAtual() {
             <div className="produto-atual-conteudo">
 
                 <div className="produto-atual-esq">
-                    {imagemFinal && (
+                    {imagemFinal ? (
                         <img
                             src={imagemFinal}
                             alt=""
                             className="produto-atual-img"
-                            onError={(e) => e.currentTarget.style.display = "none"}
+                            onError={(e) => {
+                                const container =
+                                    e.currentTarget.parentElement;
+
+                                e.currentTarget.remove();
+
+                                const placeholder =
+                                    document.createElement("div");
+
+                                placeholder.className =
+                                    "produto-atual-sem-imagem";
+
+                                placeholder.textContent =
+                                    "Sem imagem";
+
+                                container.prepend(
+                                    placeholder
+                                );
+                            }}
                         />
+                    ) : (
+                        <div className="produto-atual-sem-imagem">
+                            Sem imagem
+                        </div>
                     )}
                 </div>
 

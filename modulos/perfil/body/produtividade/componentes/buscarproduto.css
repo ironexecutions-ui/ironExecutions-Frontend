@@ -306,3 +306,275 @@
         font-size: 11px;
     }
 }
+
+/* ===============================
+   BOTÃO SINCRONIZAR PRODUTOS
+=============================== */
+
+.buscar-sincronizacao-cache-botao {
+    border: 1px solid rgba(212, 175, 55, 0.65);
+    background: linear-gradient(145deg,
+            #d4af37,
+            #b89222);
+
+    color: #102038;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    white-space: nowrap;
+}
+
+.buscar-sincronizacao-cache-botao:hover:not(:disabled) {
+    transform: translateY(-1px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.32),
+        0 0 8px rgba(212, 175, 55, 0.25);
+}
+
+.buscar-sincronizacao-cache-botao:active:not(:disabled) {
+    transform: translateY(1px);
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.buscar-sincronizacao-cache-botao:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.55;
+
+    filter: grayscale(0.3);
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* ===============================
+   ÁREA DA SINCRONIZAÇÃO
+=============================== */
+
+.buscar-sincronizacao-cache-info {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 10px;
+
+    padding: 7px 9px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    border-radius: 8px;
+}
+
+
+/* ===============================
+   TEXTO ÚLTIMA SINCRONIZAÇÃO
+=============================== */
+.sug-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sug-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.sug-img-sem-foto {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid rgba(0, 0, 0, 0.12);
+
+    border-radius: 10px;
+
+    background: rgba(0, 0, 0, 0.04) !important;
+
+    font-size: 10px;
+
+    font-weight: 600;
+    color: #102038;
+    text-align: center;
+
+    line-height: 1.2;
+
+    padding: 4px;
+}
+
+.buscar-sincronizacao-cache-data {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 40% !important;
+
+    padding: 8px 10px;
+
+    text-align: center;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    color: #ffd66b;
+
+    background: rgba(255, 214, 107, 0.08);
+
+    border: 1px solid rgba(255, 214, 107, 0.25);
+
+    border-radius: 8px;
+}
+
+/* ===============================
+   TEMA CLARO
+=============================== */
+
+.tema-claro .buscar-sincronizacao-cache-info {
+    background: rgba(0, 0, 0, 0.035);
+
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.tema-claro .buscar-sincronizacao-cache-data {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+/* ===============================
+   BOTÃO SINCRONIZAÇÃO
+=============================== */
+
+.buscar-sincronizacao-cache-botao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 185px;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+/* ===============================
+   CARREGANDO
+=============================== */
+
+.buscar-sync-loader {
+    width: 14px;
+    height: 14px;
+
+    border: 2px solid rgba(16, 32, 56, 0.25);
+    border-top-color: #102038;
+
+    border-radius: 50%;
+
+    animation:
+        buscarSyncGirando 0.7s linear infinite;
+}
+
+@keyframes buscarSyncGirando {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* ===============================
+   SUCESSO
+=============================== */
+
+.buscar-sincronizacao-cache-botao.buscar-sincronizacao-cache-sucesso {
+    background: linear-gradient(145deg,
+            #2e9b59,
+            #217a43);
+
+    border-color: rgba(92,
+            220,
+            140,
+            0.7);
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.25),
+        0 0 10px rgba(46, 155, 89, 0.22);
+}
+
+
+/* ===============================
+   CHECK
+=============================== */
+
+.buscar-sync-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    font-size: 12px;
+    font-weight: 900;
+
+    animation:
+        buscarSyncCheckEntrada 0.3s ease;
+}
+
+@keyframes buscarSyncCheckEntrada {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

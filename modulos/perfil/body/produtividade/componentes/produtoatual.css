@@ -413,3 +413,29 @@
 
     background: rgba(128, 128, 128, 0.1);
 }
+
+.produto-atual-sem-imagem {
+    width: 100%;
+    height: 100%;
+
+    min-width: 120px;
+    min-height: 120px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(242, 242, 242, 0.448) !important;
+
+    background: rgba(255, 255, 255, 0.05);
+    color: #000000 !important;
+    text-align: center;
+
+    font-size: 14px;
+    font-weight: 600;
+}
