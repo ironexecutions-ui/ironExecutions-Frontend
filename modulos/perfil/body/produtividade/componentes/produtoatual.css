@@ -379,7 +379,7 @@
 .produto-atual-atalhos-pagamento {
     width: 95%;
     margin: 12px auto 0;
-
+    cursor: pointer;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
