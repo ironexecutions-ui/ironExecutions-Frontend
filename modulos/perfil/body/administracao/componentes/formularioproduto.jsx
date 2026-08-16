@@ -154,7 +154,7 @@ export default function FormularioProduto({ item, voltar }) {
                 </button>
             </div>
             <div className="grid">
-                <input placeholder="Código de barras" value={form.codigo_barras} onChange={e => alterar("codigo_barras", e.target.value)} />
+                <input placeholder="Código de barras ou peso" value={form.codigo_barras} onChange={e => alterar("codigo_barras", e.target.value)} />
                 <input placeholder="QRCode" value={form.qrcode} onChange={e => alterar("qrcode", e.target.value)} />
 
                 <input

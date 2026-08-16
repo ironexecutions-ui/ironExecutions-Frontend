@@ -653,6 +653,7 @@ export default function BuscarProduto() {
        Continua usando o servidor.
     =============================== */
     async function buscar(valor) {
+
         setTexto(valor);
 
         if (timeoutRef.current) {
@@ -664,8 +665,10 @@ export default function BuscarProduto() {
             return;
         }
 
-        /* Código de barras não precisa
-           buscar sugestões */
+        /* ===============================
+           CÓDIGOS NUMÉRICOS
+        =============================== */
+
         if (/^\d+$/.test(valor)) {
 
             setSugestoes([]);
@@ -673,39 +676,42 @@ export default function BuscarProduto() {
             return;
         }
 
-        timeoutRef.current =
-            setTimeout(async () => {
-                setCarregando(true);
+        /* ===============================
+           BUSCAR NO CACHE
+        =============================== */
 
-                try {
-                    const token =
-                        localStorage.getItem("token");
+        const cache =
+            lerCacheProdutos();
 
-                    const resp = await fetch(
-                        `${API_URL}/api/produtos_servicos/buscar?query=${encodeURIComponent(valor)}`,
-                        {
-                            headers: {
-                                Authorization:
-                                    `Bearer ${token}`
-                            }
-                        }
+        const produtos =
+            Object.values(
+                cache.produtos || {}
+            );
+
+        const termo =
+            valor
+                .trim()
+                .toLowerCase();
+
+        const encontrados =
+            produtos
+                .filter(produto => {
+
+                    const nome =
+                        String(
+                            produto.nome || ""
+                        ).toLowerCase();
+
+                    return nome.includes(
+                        termo
                     );
 
-                    const dados =
-                        resp.ok
-                            ? await resp.json()
-                            : [];
+                })
+                .slice(0, 20);
 
-                    setSugestoes(dados);
-
-                } catch {
-                    setSugestoes([]);
-
-                } finally {
-                    setCarregando(false);
-                }
-
-            }, 300);
+        setSugestoes(
+            encontrados
+        );
     }
 
     /* ===============================
