@@ -375,3 +375,34 @@
         font-size: 13px;
     }
 }
+
+.produto-atual-atalhos-pagamento {
+    width: 95%;
+    margin: 12px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.produto-atual-atalhos-pagamento span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: #000000;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.produto-atual-atalhos-pagamento kbd {
+    padding: 3px 7px;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 5px;
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+
+    background: rgba(128, 128, 128, 0.1);
+}

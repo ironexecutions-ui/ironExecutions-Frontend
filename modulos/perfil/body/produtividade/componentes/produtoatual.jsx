@@ -101,15 +101,37 @@ export default function ProdutoAtual() {
     /* ===============================
        RETORNO SEM PRODUTO
     =============================== */
+    /* ===============================
+       RETORNO SEM PRODUTO
+    =============================== */
     if (!produtoAtual) {
         return (
             <div className={`produto-atual-box tema-${tema}`}>
                 <h3 className="produto-atual-titulo">Produto atual</h3>
-                <p className="produto-atual-vazio">Nenhum produto selecionado</p>
+
+                <p className="produto-atual-vazio">
+                    Nenhum produto selecionado
+                </p>
+                <div className="produto-atual-atalhos-pagamento">
+                    <span title="Pressione Ctrl + 1 para finalizar e registrar a venda com pagamento em débito.">
+                        <kbd>Ctrl + 1</kbd> Débito
+                    </span>
+
+                    <span title="Pressione Ctrl + 2 para finalizar e registrar a venda com pagamento em crédito.">
+                        <kbd>Ctrl + 2</kbd> Crédito
+                    </span>
+
+                    <span title="Pressione Ctrl + 3 para finalizar e registrar a venda com pagamento via Pix.">
+                        <kbd>Ctrl + 3</kbd> Pix
+                    </span>
+
+                    <span title="Pressione Ctrl + 4 para finalizar e registrar a venda com pagamento em dinheiro.">
+                        <kbd>Ctrl + 4</kbd> Dinheiro
+                    </span>
+                </div>
             </div>
         );
     }
-
     async function salvarPreco() {
         if (salvandoRef.current) return;
 
@@ -220,6 +242,23 @@ export default function ProdutoAtual() {
                     </p>
                 </div>
 
+            </div>
+            <div className="produto-atual-atalhos-pagamento">
+                <span title="Pressione Ctrl + 1 para finalizar e registrar a venda com pagamento em débito.">
+                    <kbd>Ctrl + 1</kbd> Débito
+                </span>
+
+                <span title="Pressione Ctrl + 2 para finalizar e registrar a venda com pagamento em crédito.">
+                    <kbd>Ctrl + 2</kbd> Crédito
+                </span>
+
+                <span title="Pressione Ctrl + 3 para finalizar e registrar a venda com pagamento via Pix.">
+                    <kbd>Ctrl + 3</kbd> Pix
+                </span>
+
+                <span title="Pressione Ctrl + 4 para finalizar e registrar a venda com pagamento em dinheiro.">
+                    <kbd>Ctrl + 4</kbd> Dinheiro
+                </span>
             </div>
         </div>
     );
