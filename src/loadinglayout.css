@@ -1,280 +1,1066 @@
-/* fundo com partículas dinâmicas */
+/* =========================================================
+   IRON EXECUTIONS
+   LOADING SCREEN PREMIUM
+========================================================= */
+
 .load-container {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+
     width: 100%;
     height: 100vh;
-    background: radial-gradient(circle at center, #e6e8eb91, #032f88 80%);
+    min-height: 100dvh;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    inset: 0;
+
     overflow: hidden;
-    z-index: 999999;
+
+    background:
+        radial-gradient(circle at 50% 44%,
+            rgba(235, 241, 250, 0.96) 0%,
+            rgba(210, 220, 234, 0.92) 28%,
+            rgba(124, 157, 199, 0.86) 52%,
+            rgba(19, 73, 143, 0.96) 78%,
+            #031c4a 100%);
+
+    isolation: isolate;
 }
 
-/* partículas sutis */
-.load-container::before,
-.load-container::after {
-    content: "";
-    position: absolute;
-    width: 180%;
-    height: 180%;
-    top: -40%;
-    left: -40%;
 
-    opacity: 0.08;
-    animation: particleMove 45s linear infinite;
+/* =========================================================
+   CAMADA DE PROFUNDIDADE
+========================================================= */
+
+.load-container::before {
+    content: "";
+
+    position: absolute;
+    inset: -40%;
+
+    z-index: -3;
+
+    background:
+        radial-gradient(circle at 20% 30%,
+            rgba(255, 255, 255, 0.20),
+            transparent 18%),
+        radial-gradient(circle at 78% 70%,
+            rgba(15, 85, 180, 0.20),
+            transparent 24%),
+        radial-gradient(circle at 65% 15%,
+            rgba(255, 255, 255, 0.13),
+            transparent 20%);
+
+    animation:
+        loadAtmosfera 16s ease-in-out infinite alternate;
+
     pointer-events: none;
 }
 
+
+/* =========================================================
+   TEXTURA PREMIUM
+========================================================= */
+
 .load-container::after {
-    opacity: 0.04;
-    animation-duration: 95s;
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: -2;
+
+    opacity: 0.28;
+
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px);
+
+    background-size: 44px 44px;
+
+    mask-image:
+        radial-gradient(circle at center,
+            black,
+            transparent 75%);
+
+    -webkit-mask-image:
+        radial-gradient(circle at center,
+            black,
+            transparent 75%);
+
+    animation:
+        loadGradeMovimento 22s linear infinite;
 }
 
-/* brilho central atrás do logo */
+
+/* =========================================================
+   ILUMINAÇÃO CENTRAL
+========================================================= */
+
 .load-backlight {
     position: absolute;
-    width: 650px;
-    height: 650px;
-    background: radial-gradient(circle, rgba(0, 128, 255, 0.55), transparent 75%);
-    filter: blur(140px);
-    animation: luzPulse 5.4s ease-in-out infinite;
+
+    z-index: -1;
+
+    width: 720px;
+    height: 720px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(255, 255, 255, 0.48) 0%,
+            rgba(103, 181, 255, 0.32) 20%,
+            rgba(19, 111, 218, 0.24) 40%,
+            rgba(0, 73, 175, 0.12) 58%,
+            transparent 72%);
+
+    filter: blur(38px);
+
+    animation:
+        loadLuzRespirar 5.5s ease-in-out infinite;
+
+    pointer-events: none;
 }
 
-/* centro */
+
+/* =========================================================
+   CONTEÚDO CENTRAL
+========================================================= */
+
 .load-center {
+    position: relative;
+
+    z-index: 10;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    width: min(90vw, 520px);
+
+    text-align: center;
+
+    animation:
+        loadCentroEntrada 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* container do logo */
+
+/* =========================================================
+   ÁREA DO LOGO
+========================================================= */
+
 .load-image-wrapper {
     position: relative;
-    width: 190px;
-    height: 190px;
+
+    width: 210px;
+    height: 210px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-/* anel externo camadas */
-.load-image-ring {
-    position: absolute;
-    width: 190px;
-    height: 190px;
     border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: rgba(0, 153, 255, 1);
-    border-left-color: rgba(255, 255, 255, 0.18);
-    border-right-color: rgba(0, 80, 255, 0.6);
-    border-bottom-color: rgba(255, 255, 255, 0.12);
-    animation: ringSpin 3.3s cubic-bezier(0.55, 0.1, 0.4, 1) infinite;
-    filter: drop-shadow(0 0 22px rgba(0, 130, 255, 0.8));
+
+    isolation: isolate;
 }
 
-/* anel interno secundário */
-.load-image-ring::before {
-    content: "";
-    position: absolute;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 2px solid rgba(0, 153, 255, 0.65);
-    opacity: 0.4;
-    animation: ringSpinReverse 6s linear infinite;
-}
 
-/* imagem circular com escaneamento */
-.load-logo-img {
-    width: 148px;
-    height: 148px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    box-shadow:
-        0 0 20px rgba(0, 140, 255, 0.9),
-        0 0 45px rgba(0, 80, 255, 0.5);
-    animation:
-        float 3.2s ease-in-out infinite,
-        fadeUp 1.4s ease forwards;
-    position: relative;
-    overflow: hidden;
-}
+/* =========================================================
+   AURA EXTERNA
+========================================================= */
 
-/* efeito de escaneamento */
-.load-logo-img::after {
-    content: "";
-    position: absolute;
-    top: -100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom,
-            rgba(255, 255, 255, 0.1),
-            rgba(255, 255, 255, 0.35),
-            rgba(255, 255, 255, 0.1));
-    animation: scan 3.8s ease-in-out infinite;
-}
-
-/* ondas luminosas atrás do logo */
 .load-image-wrapper::before {
     content: "";
+
     position: absolute;
-    width: 240px;
-    height: 240px;
+
+    width: 255px;
+    height: 255px;
+
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 140, 255, 0.22), transparent);
-    filter: blur(35px);
-    animation: wavePulse 4.5s ease infinite;
+
+    z-index: -3;
+
+    background:
+        radial-gradient(circle,
+            rgba(255, 255, 255, 0.34) 0%,
+            rgba(50, 153, 255, 0.22) 30%,
+            rgba(0, 90, 220, 0.10) 52%,
+            transparent 72%);
+
+    filter: blur(15px);
+
+    animation:
+        loadAuraPulse 4.2s ease-in-out infinite;
 }
 
-/* nome da marca */
-.load-nome {
-    margin-top: 30px;
-    font-size: 38px;
-    font-weight: 700;
-    color: rgb(20, 20, 20);
-    letter-spacing: 1.5px;
-    animation: fadeUp 1.6s ease forwards;
-    text-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
+
+/* =========================================================
+   SCANNER
+   AGORA FUNCIONA DE VERDADE
+========================================================= */
+
+.load-image-wrapper::after {
+    content: "";
+
+    position: absolute;
+
+    z-index: 6;
+
+    left: 36px;
+    right: 36px;
+
+    height: 2px;
+
+    top: 48px;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            rgba(116, 204, 255, 0.95),
+            #ffffff,
+            rgba(116, 204, 255, 0.95),
+            rgba(255, 255, 255, 0.15),
+            transparent);
+
+    box-shadow:
+        0 0 7px rgba(255, 255, 255, 0.75),
+        0 0 16px rgba(0, 153, 255, 0.85),
+        0 0 28px rgba(0, 102, 255, 0.45);
+
+    opacity: 0;
+
+    animation:
+        loadScanner 4s ease-in-out infinite;
+
+    pointer-events: none;
 }
+
+
+/* =========================================================
+   ANEL PRINCIPAL
+========================================================= */
+
+.load-image-ring {
+    position: absolute;
+
+    width: 202px;
+    height: 202px;
+
+    border-radius: 50%;
+
+    border: 2px solid transparent;
+
+    border-top-color: #ffffff;
+    border-right-color: rgba(23, 126, 255, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+    border-left-color: rgba(0, 79, 183, 0.55);
+
+    filter:
+        drop-shadow(0 0 8px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 18px rgba(0, 116, 255, 0.65));
+
+    animation:
+        loadRingPrincipal 4.8s cubic-bezier(0.55, 0.1, 0.4, 1) infinite;
+}
+
+
+/* =========================================================
+   SEGUNDO ANEL
+========================================================= */
+
+.load-image-ring::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.30);
+
+    border-top-color:
+        rgba(0, 91, 211, 0.85);
+
+    border-bottom-color:
+        rgba(255, 255, 255, 0.70);
+
+    box-shadow:
+        inset 0 0 18px rgba(0, 108, 255, 0.08);
+
+    animation:
+        loadRingReverso 7s linear infinite;
+}
+
+
+/* =========================================================
+   TERCEIRO ANEL
+========================================================= */
+
+.load-image-ring::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 25px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        0 0 18px rgba(255, 255, 255, 0.08),
+        inset 0 0 15px rgba(0, 89, 190, 0.12);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.load-logo-img {
+    position: relative;
+
+    z-index: 4;
+
+    width: 150px;
+    height: 150px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    padding: 3px;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.90),
+            rgba(163, 201, 255, 0.48),
+            rgba(255, 255, 255, 0.82));
+
+    border:
+        1px solid rgba(255, 255, 255, 0.82);
+
+    box-shadow:
+        0 18px 40px rgba(0, 35, 95, 0.30),
+
+        0 0 0 5px rgba(255, 255, 255, 0.07),
+
+        0 0 28px rgba(0, 119, 255, 0.48),
+
+        0 0 60px rgba(0, 92, 220, 0.20),
+
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+    animation:
+        loadLogoFlutuar 4s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   NOME DA MARCA
+========================================================= */
+
+.load-nome {
+    position: relative;
+
+    margin: 31px 0 0;
+
+    color: #101828;
+
+    font-size: clamp(32px, 4vw, 41px);
+
+    font-weight: 800;
+
+    letter-spacing: -0.8px;
+
+    line-height: 1;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.50),
+        0 5px 18px rgba(0, 0, 0, 0.08);
+
+    animation:
+        loadTextoEntrada 0.9s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+
+/* =========================================================
+   EXECUTIONS
+========================================================= */
 
 .load-nome span {
-    color: #0257ad;
+    position: relative;
+
     margin-left: 8px;
-    text-shadow: 0 0 18px rgba(62, 160, 255, 1);
-    animation: brilhoTexto 2.8s ease-in-out infinite;
+
+    color: #034c9e;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.40),
+        0 0 18px rgba(40, 134, 255, 0.28);
+
+    animation:
+        loadMarcaBrilho 3.8s ease-in-out infinite;
 }
 
-/* subtítulo */
+
+/* =========================================================
+   LINHA PREMIUM ABAIXO DO NOME
+========================================================= */
+
+.load-nome::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -15px;
+
+    width: 115px;
+    height: 2px;
+
+    transform: translateX(-50%);
+
+    border-radius: 100%;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(3, 76, 158, 0.30),
+            #034c9e,
+            rgba(78, 159, 255, 0.85),
+            #034c9e,
+            rgba(3, 76, 158, 0.30),
+            transparent);
+
+    box-shadow:
+        0 2px 10px rgba(3, 76, 158, 0.25);
+
+    animation:
+        loadLinhaRespirar 3s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   SUBTÍTULO
+========================================================= */
+
 .load-texto {
-    margin-top: 10px;
-    font-size: 17px;
-    color: rgba(21, 21, 21, 0.78);
-    letter-spacing: 0.4px;
-    animation: fadeUp 1.8s ease forwards;
+    margin: 29px 0 0;
+
+    color:
+        rgba(12, 24, 42, 0.72);
+
+    font-size: 15px;
+
+    font-weight: 550;
+
+    letter-spacing: 0.65px;
+
+    line-height: 1.5;
+
+    animation:
+        loadTextoEntrada 0.9s 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* ANIMAÇÕES CINEMATOGRÁFICAS */
-@keyframes particleMove {
-    from {
-        transform: translateY(0);
-    }
 
-    to {
-        transform: translateY(-1200px);
-    }
+/* =========================================================
+   PONTO DE CARREGAMENTO VISUAL
+========================================================= */
+
+.load-texto::after {
+    content: "";
+
+    display: inline-block;
+
+    width: 4px;
+    height: 4px;
+
+    margin-left: 8px;
+
+    vertical-align: middle;
+
+    border-radius: 50%;
+
+    background: #034c9e;
+
+    box-shadow:
+        8px 0 0 rgba(3, 76, 158, 0.55),
+        16px 0 0 rgba(3, 76, 158, 0.25);
+
+    animation:
+        loadPontos 1.5s ease-in-out infinite;
 }
 
-@keyframes luzPulse {
-    0% {
-        opacity: 0.35;
-        transform: scale(1);
-    }
 
-    50% {
-        opacity: 0.95;
-        transform: scale(1.26);
-    }
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
 
-    100% {
-        opacity: 0.35;
-        transform: scale(1);
-    }
-}
+@keyframes loadCentroEntrada {
 
-@keyframes ringSpin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes ringSpinReverse {
-    from {
-        transform: rotate(360deg);
-    }
-
-    to {
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-12px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(18px);
+
+        transform:
+            translateY(18px) scale(0.97);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0) scale(1);
     }
 }
 
-@keyframes scan {
+
+@keyframes loadTextoEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes loadAtmosfera {
+
     0% {
-        top: -120%;
+        transform:
+            translate3d(-2%, -1%, 0) scale(1);
     }
 
     50% {
-        top: 120%;
+        transform:
+            translate3d(2%, 1%, 0) scale(1.05);
     }
 
     100% {
-        top: -120%;
+        transform:
+            translate3d(-1%, 2%, 0) scale(1.02);
     }
 }
 
-@keyframes wavePulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.35;
+
+@keyframes loadGradeMovimento {
+
+    from {
+        background-position:
+            0 0,
+            0 0;
+    }
+
+    to {
+        background-position:
+            44px 44px,
+            44px 44px;
+    }
+}
+
+
+@keyframes loadLuzRespirar {
+
+    0%,
+    100% {
+        opacity: 0.55;
+
+        transform:
+            scale(0.94);
     }
 
     50% {
-        transform: scale(1.2);
+        opacity: 1;
+
+        transform:
+            scale(1.08);
+    }
+}
+
+
+@keyframes loadAuraPulse {
+
+    0%,
+    100% {
+        opacity: 0.55;
+
+        transform:
+            scale(0.92);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            scale(1.12);
+    }
+}
+
+
+@keyframes loadRingPrincipal {
+
+    from {
+        transform:
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+@keyframes loadRingReverso {
+
+    from {
+        transform:
+            rotate(360deg);
+    }
+
+    to {
+        transform:
+            rotate(0deg);
+    }
+}
+
+
+@keyframes loadLogoFlutuar {
+
+    0%,
+    100% {
+        transform:
+            translateY(0) scale(1);
+    }
+
+    50% {
+        transform:
+            translateY(-6px) scale(1.012);
+    }
+}
+
+
+@keyframes loadScanner {
+
+    0% {
+        top: 48px;
+        opacity: 0;
+    }
+
+    12% {
         opacity: 0.75;
     }
 
+    42% {
+        opacity: 0.85;
+    }
+
+    52% {
+        top: 160px;
+        opacity: 0;
+    }
+
     100% {
-        transform: scale(1);
-        opacity: 0.35;
+        top: 160px;
+        opacity: 0;
     }
 }
 
-@keyframes brilhoTexto {
-    0% {
-        opacity: 1;
-        text-shadow: 0 0 12px #3ea0ff;
+
+@keyframes loadMarcaBrilho {
+
+    0%,
+    100% {
+        color: #034c9e;
+
+        text-shadow:
+            0 1px 0 rgba(255, 255, 255, 0.40),
+            0 0 14px rgba(40, 134, 255, 0.20);
     }
 
     50% {
-        opacity: 0.6;
-        text-shadow: 0 0 32px #3ea0ff;
+        color: #075eb9;
+
+        text-shadow:
+            0 1px 0 rgba(255, 255, 255, 0.45),
+            0 0 24px rgba(40, 134, 255, 0.42);
+    }
+}
+
+
+@keyframes loadLinhaRespirar {
+
+    0%,
+    100% {
+        width: 95px;
+
+        opacity: 0.60;
     }
 
-    100% {
+    50% {
+        width: 135px;
+
         opacity: 1;
-        text-shadow: 0 0 12px #3ea0ff;
+    }
+}
+
+
+@keyframes loadPontos {
+
+    0%,
+    100% {
+        opacity: 0.35;
+
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            translateY(-2px);
+    }
+}
+
+
+/* =========================================================
+   TELAS GRANDES
+========================================================= */
+
+@media (min-width: 1600px) {
+
+    .load-image-wrapper {
+        width: 230px;
+        height: 230px;
+    }
+
+    .load-image-ring {
+        width: 220px;
+        height: 220px;
+    }
+
+    .load-logo-img {
+        width: 165px;
+        height: 165px;
+    }
+
+    .load-image-wrapper::before {
+        width: 285px;
+        height: 285px;
+    }
+
+    .load-nome {
+        margin-top: 35px;
+
+        font-size: 44px;
+    }
+
+    .load-texto {
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .load-backlight {
+        width: 520px;
+        height: 520px;
+    }
+
+    .load-image-wrapper {
+        width: 180px;
+        height: 180px;
+    }
+
+    .load-image-ring {
+        width: 174px;
+        height: 174px;
+    }
+
+    .load-image-ring::before {
+        inset: 11px;
+    }
+
+    .load-image-ring::after {
+        inset: 22px;
+    }
+
+    .load-logo-img {
+        width: 130px;
+        height: 130px;
+    }
+
+    .load-image-wrapper::before {
+        width: 215px;
+        height: 215px;
+    }
+
+    .load-image-wrapper::after {
+        left: 31px;
+        right: 31px;
+    }
+
+    .load-nome {
+        margin-top: 26px;
+
+        font-size: 32px;
+    }
+
+    .load-texto {
+        margin-top: 27px;
+
+        font-size: 14px;
+    }
+
+    @keyframes loadScanner {
+
+        0% {
+            top: 42px;
+            opacity: 0;
+        }
+
+        12% {
+            opacity: 0.75;
+        }
+
+        42% {
+            opacity: 0.85;
+        }
+
+        52% {
+            top: 138px;
+            opacity: 0;
+        }
+
+        100% {
+            top: 138px;
+            opacity: 0;
+        }
+    }
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .load-center {
+        width: 92%;
+    }
+
+    .load-backlight {
+        width: 420px;
+        height: 420px;
+
+        filter: blur(50px);
+    }
+
+    .load-image-wrapper {
+        width: 160px;
+        height: 160px;
+    }
+
+    .load-image-ring {
+        width: 154px;
+        height: 154px;
+
+        border-width: 2px;
+    }
+
+    .load-image-ring::before {
+        inset: 10px;
+    }
+
+    .load-image-ring::after {
+        inset: 20px;
+    }
+
+    .load-logo-img {
+        width: 114px;
+        height: 114px;
+    }
+
+    .load-image-wrapper::before {
+        width: 195px;
+        height: 195px;
+    }
+
+    .load-image-wrapper::after {
+        left: 28px;
+        right: 28px;
+    }
+
+    .load-nome {
+        margin-top: 24px;
+
+        font-size: 27px;
+
+        letter-spacing: -0.4px;
+    }
+
+    .load-nome span {
+        margin-left: 6px;
+    }
+
+    .load-nome::after {
+        bottom: -13px;
+    }
+
+    .load-texto {
+        max-width: 290px;
+
+        margin-top: 25px;
+
+        font-size: 12.5px;
+
+        letter-spacing: 0.35px;
+    }
+
+    @keyframes loadScanner {
+
+        0% {
+            top: 38px;
+            opacity: 0;
+        }
+
+        12% {
+            opacity: 0.75;
+        }
+
+        42% {
+            opacity: 0.85;
+        }
+
+        52% {
+            top: 122px;
+            opacity: 0;
+        }
+
+        100% {
+            top: 122px;
+            opacity: 0;
+        }
+    }
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .load-image-wrapper {
+        width: 145px;
+        height: 145px;
+    }
+
+    .load-image-ring {
+        width: 140px;
+        height: 140px;
+    }
+
+    .load-logo-img {
+        width: 103px;
+        height: 103px;
+    }
+
+    .load-image-wrapper::before {
+        width: 175px;
+        height: 175px;
+    }
+
+    .load-nome {
+        font-size: 24px;
+    }
+
+    .load-texto {
+        max-width: 250px;
+
+        font-size: 11.5px;
+    }
+
+    @keyframes loadScanner {
+
+        0% {
+            top: 35px;
+            opacity: 0;
+        }
+
+        12% {
+            opacity: 0.75;
+        }
+
+        42% {
+            opacity: 0.85;
+        }
+
+        52% {
+            top: 110px;
+            opacity: 0;
+        }
+
+        100% {
+            top: 110px;
+            opacity: 0;
+        }
+    }
+}
+
+
+/* =========================================================
+   REDUZIR MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .load-container::before,
+    .load-container::after,
+    .load-backlight,
+    .load-center,
+    .load-image-wrapper::before,
+    .load-image-wrapper::after,
+    .load-image-ring,
+    .load-image-ring::before,
+    .load-logo-img,
+    .load-nome,
+    .load-nome span,
+    .load-nome::after,
+    .load-texto,
+    .load-texto::after {
+        animation: none;
     }
 }
