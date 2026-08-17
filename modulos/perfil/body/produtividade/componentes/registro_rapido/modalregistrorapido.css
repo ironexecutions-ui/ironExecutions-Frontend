@@ -1,17 +1,55 @@
+/* =========================================================
+   MODAL CADASTRO RÁPIDO
+   PREMIUM PDV
+========================================================= */
+
+
+/* =========================================================
+   BACKDROP
+========================================================= */
+
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at center,
-            rgba(246, 249, 255, 0),
-            rgba(233, 233, 235, 0.048));
-    backdrop-filter: blur(6px);
+
+    padding: 20px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background:
+        radial-gradient(circle at 50% 40%,
+            rgba(255, 255, 255, 0.10),
+            rgba(225, 225, 228, 0.10) 45%,
+            rgba(180, 180, 185, 0.18) 100%);
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+
     z-index: 9999;
+
+    animation: cadastroBackdropEntrada 0.22s ease;
 }
 
+@keyframes cadastroBackdropEntrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
 .modal-box {
+    position: relative;
+
     width: 420px;
     max-width: 92%;
     max-height: 500px;
@@ -19,226 +57,604 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-    background:
-        linear-gradient(180deg,
-            rgba(255, 255, 255, 0.98),
-            rgba(132, 132, 133, 0.98));
-    border-radius: 18px;
-    padding: 26px 26px 24px;
-    box-shadow:
-        0 40px 80px rgba(0, 0, 0, 0.75),
-        0 0 0 1px rgba(148, 163, 184, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    animation: modalFadeIn 0.22s cubic-bezier(.16, 1, .3, 1);
-    color: #e5e7eb;
-}
+    box-sizing: border-box;
 
-/* ===== SCROLLBAR (CHROME, EDGE, SAFARI) ===== */
-.modal-box::-webkit-scrollbar {
-    width: 8px;
-}
+    padding: 27px 27px 25px;
 
-.modal-box::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 10px;
-}
+    border-radius: 20px;
 
-.modal-box::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg,
-            rgba(0, 0, 0, 0.35),
-            rgba(0, 0, 0, 0.15));
-    border-radius: 10px;
-}
-
-.modal-box::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg,
-            rgba(0, 0, 0, 0.55),
-            rgba(0, 0, 0, 0.3));
-}
-
-/* ===== FIREFOX ===== */
-.modal-box {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(5, 5, 5, 0.658) transparent;
-}
-
-
-/* ===== TÍTULO ===== */
-.modal-box h3 {
-    margin: 0 0 22px;
-    font-size: 21px;
-    font-weight: 600;
     color: #111111;
-    letter-spacing: 0.4px;
-}
 
-/* ===== FIELD ===== */
-.field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 14px;
-}
+    background:
+        radial-gradient(circle at 90% 5%,
+            rgba(255, 255, 255, 0.65),
+            transparent 30%),
+        linear-gradient(145deg,
+            rgba(244, 244, 245, 0.98),
+            rgba(199, 199, 202, 0.98) 55%,
+            rgba(157, 157, 160, 0.98));
 
-/* ===== LABEL ===== */
-.field label {
-    font-size: 12px;
-    font-weight: 500;
-    color: #000000;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
+    border:
+        1px solid rgba(255, 255, 255, 0.70);
 
-/* ===== INPUT ===== */
-.modal-box input {
-    width: 100%;
-    height: 44px;
-    padding: 0 14px;
-    border-radius: 12px;
-    border: 1px solid rgba(148, 163, 184, 0.14);
-    background: linear-gradient(180deg,
-            #020617,
-            #020617);
-    color: #e5e7eb;
-    font-size: 14px;
-    outline: none;
-    transition:
-        border-color 0.18s ease,
-        box-shadow 0.18s ease,
-        background 0.18s ease;
-}
-
-.modal-box input::placeholder {
-    color: #64748b;
-}
-
-.modal-box input:focus {
-    border-color: #3b82f6;
     box-shadow:
-        0 0 0 1px rgba(59, 130, 246, 0.45),
-        0 0 0 4px rgba(59, 130, 246, 0.12);
-    background: #020617;
+        0 35px 80px rgba(0, 0, 0, 0.42),
+        0 12px 30px rgba(0, 0, 0, 0.20),
+        0 0 0 1px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+    animation:
+        modalCadastroEntrada 0.28s cubic-bezier(.16, 1, .3, 1);
 }
 
-/* ===== BOTÕES ===== */
-.modal-box button {
-    width: 100%;
-    height: 46px;
-    border-radius: 12px;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    transition:
-        background 0.18s ease,
-        opacity 0.18s ease,
-        transform 0.08s ease,
-        box-shadow 0.18s ease;
-}
 
-/* ===== SALVAR ===== */
-.modal-box button:first-of-type {
-    background: linear-gradient(180deg,
+/* =========================================================
+   DETALHE SUPERIOR
+========================================================= */
+
+.modal-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 8%;
+    right: 8%;
+
+    height: 2px;
+
+    border-radius: 0 0 10px 10px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(1, 49, 126, 0.25),
             #01317e,
-            #010e4b);
-    color: #ffffff;
-    margin-top: 14px;
-    box-shadow:
-        0 10px 24px rgba(37, 99, 235, 0.45);
-}
-
-.modal-box button:first-of-type:hover {
-    background: linear-gradient(180deg,
             #2563eb,
-            #1e40af);
+            #01317e,
+            rgba(1, 49, 126, 0.25),
+            transparent);
+
     box-shadow:
-        0 14px 30px rgba(37, 99, 235, 0.55);
+        0 2px 12px rgba(1, 49, 126, 0.25);
+
+    pointer-events: none;
 }
 
-.modal-box button:first-of-type:active {
-    transform: scale(0.97);
+
+/* =========================================================
+   ILUMINAÇÃO
+========================================================= */
+
+.modal-box::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -100px;
+    right: -80px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.30);
+
+    filter: blur(25px);
+
+    pointer-events: none;
 }
 
-.modal-box button:first-of-type:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-    box-shadow: none;
-}
 
-/* ===== CANCELAR ===== */
-.modal-box button:last-of-type {
-    margin-top: 10px;
-    background: #eb2525;
-    color: #ffffff;
-}
+/* =========================================================
+   ANIMAÇÃO
+========================================================= */
 
-.modal-box button:last-of-type:hover {
-    color: #f8fafc;
-}
-
-/* ===== ANIMAÇÃO ===== */
-@keyframes modalFadeIn {
+@keyframes modalCadastroEntrada {
     from {
         opacity: 0;
-        transform: translateY(10px) scale(0.96);
+
+        transform:
+            translateY(15px) scale(0.965);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0) scale(1);
     }
 }
 
-/* =========================
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.modal-box::-webkit-scrollbar {
+    width: 7px;
+}
+
+.modal-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(180deg,
+            #01317e,
+            #1e40af);
+
+    border-radius: 20px;
+
+    border:
+        2px solid transparent;
+
+    background-clip: padding-box;
+}
+
+.modal-box::-webkit-scrollbar-thumb:hover {
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #01317e);
+
+    background-clip: padding-box;
+}
+
+.modal-box {
+    scrollbar-width: thin;
+    scrollbar-color: #01317e transparent;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.modal-box h3 {
+    position: relative;
+
+    z-index: 2;
+
+    margin: 0 0 23px;
+
+    padding-bottom: 14px;
+
+    color: #080808;
+
+    font-size: 22px;
+    font-weight: 800;
+
+    letter-spacing: 0.3px;
+
+    border-bottom:
+        1px solid rgba(0, 0, 0, 0.12);
+}
+
+
+/* detalhe embaixo do título */
+
+.modal-box h3::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: -1px;
+    left: 0;
+
+    width: 65px;
+    height: 2px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(90deg,
+            #01317e,
+            #2563eb);
+
+    box-shadow:
+        0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.field {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.field label {
+    padding-left: 2px;
+
+    color: #111827;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.75px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.modal-box input {
+    width: 100%;
+    height: 45px;
+
+    box-sizing: border-box;
+
+    padding: 0 15px;
+
+    border-radius: 11px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.10);
+
+    background:
+        linear-gradient(180deg,
+            #071426,
+            #020b19 55%,
+            #020617);
+
+    color: #f1f5f9;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    outline: none;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+
+    transition:
+        border-color 0.20s ease,
+        box-shadow 0.20s ease,
+        background 0.20s ease,
+        transform 0.15s ease;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.modal-box input::placeholder {
+    color: #718096;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   INPUT HOVER
+========================================================= */
+
+.modal-box input:hover {
+    border-color:
+        rgba(59, 130, 246, 0.28);
+}
+
+
+/* =========================================================
+   INPUT FOCUS
+========================================================= */
+
+.modal-box input:focus {
+    border-color: #3b82f6;
+
+    background:
+        linear-gradient(180deg,
+            #08172c,
+            #020b19);
+
+    box-shadow:
+        0 0 0 1px rgba(59, 130, 246, 0.50),
+        0 0 0 4px rgba(59, 130, 246, 0.10),
+        0 7px 16px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.modal-box button {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+    height: 47px;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    border: none;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.20s ease,
+        opacity 0.20s ease,
+        transform 0.12s ease,
+        box-shadow 0.20s ease;
+}
+
+
+/* brilho fino dos botões */
+
+.modal-box button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+    right: 10%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.50),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SALVAR
+========================================================= */
+
+.modal-box button:first-of-type {
+    margin-top: 15px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(145deg,
+            #174d9e 0%,
+            #01317e 45%,
+            #010e4b 100%);
+
+    border:
+        1px solid rgba(59, 130, 246, 0.28);
+
+    box-shadow:
+        0 10px 24px rgba(1, 49, 126, 0.35),
+        0 4px 8px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+.modal-box button:first-of-type:hover:not(:disabled) {
+    background:
+        linear-gradient(145deg,
+            #3478e5,
+            #1554b5 48%,
+            #01317e);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 28px rgba(37, 99, 235, 0.38),
+        0 5px 10px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.modal-box button:first-of-type:active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.985);
+
+    box-shadow:
+        0 5px 12px rgba(1, 49, 126, 0.30),
+        inset 0 2px 4px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =========================================================
+   SALVANDO
+========================================================= */
+
+.modal-box button:first-of-type:disabled {
+    opacity: 0.60;
+
+    cursor: not-allowed;
+
+    background:
+        linear-gradient(145deg,
+            #174d9e,
+            #01317e,
+            #010e4b);
+
+    box-shadow:
+        0 6px 15px rgba(1, 49, 126, 0.20);
+
+    animation:
+        cadastroSalvandoPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes cadastroSalvandoPulse {
+
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+
+    50% {
+        opacity: 0.85;
+    }
+}
+
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.modal-box button:last-of-type {
+    margin-top: 10px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(145deg,
+            #f03b3b,
+            #dc2626 50%,
+            #b91c1c);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        0 7px 16px rgba(185, 28, 28, 0.25),
+        0 3px 7px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.modal-box button:last-of-type:hover {
+    background:
+        linear-gradient(145deg,
+            #ff5151,
+            #e52e2e 50%,
+            #c31d1d);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(185, 28, 28, 0.30),
+        0 4px 8px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.modal-box button:last-of-type:active {
+    transform:
+        translateY(0) scale(0.985);
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE TECLADO
+========================================================= */
+
+.modal-box button:focus-visible {
+    outline:
+        2px solid rgba(37, 99, 235, 0.85);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
    TABLET
-========================= */
+========================================================= */
+
 @media (max-width: 1024px) {
 
     .modal-box {
         width: 440px;
+
         max-height: 80vh;
+
         padding: 24px 22px 22px;
     }
 
     .modal-box h3 {
-        font-size: 19px;
-        margin-bottom: 18px;
+        font-size: 20px;
+
+        margin-bottom: 19px;
     }
 
     .modal-box input {
-        height: 42px;
+        height: 43px;
+
         font-size: 14px;
     }
 
     .modal-box button {
-        height: 44px;
+        height: 45px;
+
         font-size: 13.5px;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
+
 @media (max-width: 768px) {
 
     .modal-backdrop {
+        padding: 0;
+
         align-items: flex-end;
     }
 
     .modal-box {
         width: 100%;
         max-width: 100%;
+
         max-height: 92vh;
-        border-radius: 18px 18px 0 0;
-        padding: 22px 18px 20px;
-        animation: modalSlideUp 0.25s cubic-bezier(.16, 1, .3, 1);
+
+        padding: 23px 18px 20px;
+
+        border-radius:
+            20px 20px 0 0;
+
+        animation:
+            modalCadastroMobile 0.28s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .modal-box::before {
+        left: 30%;
+        right: 30%;
     }
 
     .modal-box h3 {
-        font-size: 18px;
+        margin-bottom: 18px;
+
+        font-size: 19px;
+
         text-align: center;
-        margin-bottom: 16px;
+    }
+
+    .modal-box h3::after {
+        left: 50%;
+
+        transform: translateX(-50%);
     }
 
     .field {
@@ -250,53 +666,88 @@
     }
 
     .modal-box input {
-        height: 44px;
+        height: 45px;
+
         font-size: 15px;
     }
 
     .modal-box button {
         height: 48px;
+
+        border-radius: 13px;
+
         font-size: 15px;
-        border-radius: 14px;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE PEQUENO
-========================= */
+========================================================= */
+
 @media (max-width: 420px) {
 
     .modal-box {
-        padding: 18px 14px 18px;
+        max-height: 94vh;
+
+        padding: 19px 14px 18px;
     }
 
     .modal-box h3 {
-        font-size: 16px;
-        letter-spacing: 0.3px;
+        font-size: 17px;
+
+        letter-spacing: 0.2px;
     }
 
     .modal-box input {
         height: 46px;
+
         font-size: 15px;
     }
 
     .modal-box button {
-        height: 50px;
+        height: 49px;
+
         font-size: 15px;
     }
 }
 
-/* =========================
+
+/* =========================================================
    ANIMAÇÃO MOBILE
-========================= */
-@keyframes modalSlideUp {
+========================================================= */
+
+@keyframes modalCadastroMobile {
     from {
         opacity: 0;
-        transform: translateY(24px);
+
+        transform:
+            translateY(35px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .modal-backdrop,
+    .modal-box,
+    .modal-box button:first-of-type:disabled {
+        animation: none;
+    }
+
+    .modal-box input,
+    .modal-box button {
+        transition: none;
     }
 }

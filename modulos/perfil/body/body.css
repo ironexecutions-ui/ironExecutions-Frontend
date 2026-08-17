@@ -1,167 +1,404 @@
-/* Título */
-.titulo-body {
-    color: #00013b !important;
-    margin-bottom: 25px;
-    margin-top: 65px;
-    font-size: 28px;
-    font-weight: 650;
-    letter-spacing: 0.6px;
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+/* =========================================================
+   BODY PRINCIPAL
+========================================================= */
+
+.body-container {
+    width: 100%;
+    position: relative;
 }
 
-/* LISTA DE MÓDULOS — Sempre horizontal */
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.titulo-body {
+    position: relative;
+
+    margin: 62px 0 24px;
+    padding-left: 16px;
+
+    color: #0f172a !important;
+
+    font-size: 27px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
+    line-height: 1.2;
+
+    text-shadow: none;
+}
+
+
+/* DETALHE PREMIUM AO LADO DO TÍTULO */
+
+.titulo-body::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 4px;
+    height: 25px;
+
+    transform: translateY(-50%);
+
+    border-radius: 20px;
+
+    background: linear-gradient(180deg,
+            #60a5fa,
+            #2563eb,
+            #1d4ed8);
+
+    box-shadow:
+        0 0 12px rgba(37, 99, 235, 0.35);
+}
+
+
+/* =========================================================
+   WRAPPER DOS MÓDULOS
+========================================================= */
+
+.modulos-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   LISTA DE MÓDULOS
+========================================================= */
+
 .modulos-lista {
     position: relative;
+
+    width: 100%;
+
     display: flex;
     flex-direction: row;
-    gap: 18px;
-    width: 100%;
+    align-items: stretch;
+
+    gap: 10px;
+
+    padding:
+        10px 8px 14px 8px;
+
     overflow-x: auto;
-    padding-bottom: 14px;
-    padding-top: 16px;
+    overflow-y: hidden;
+
+    scroll-behavior: smooth;
+
     scrollbar-width: thin;
+    scrollbar-color:
+        rgba(37, 99, 235, 0.45) rgba(15, 23, 42, 0.06);
 }
 
-/* BARRA PERSONALIZADA — TRILHO AZUL PREMIUM */
-.modulos-lista::after {
-    content: "";
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    width: 100%;
-    height: 6px;
 
-    background: transparent;
-    border-radius: 12px;
+/* =========================================================
+   SCROLLBAR
+========================================================= */
 
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Scrollbar azul premium */
 .modulos-lista::-webkit-scrollbar {
-    height: 7px;
+    height: 5px;
 }
 
-.modulos-lista::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg,
-            #008cff,
-            #00b7ff);
-    border-radius: 12px;
-    box-shadow:
-        0 0 12px rgba(0, 140, 255, 0.55),
-        0 0 18px rgba(0, 140, 255, 0.35);
-}
 
 .modulos-lista::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.45);
+    background: rgba(15, 23, 42, 0.055);
+
+    border-radius: 20px;
 }
 
-/* Card do módulo */
-.modulo-card {
-    position: relative;
-    padding: 14px 26px;
-    background: linear-gradient(135deg, #151515, #1f1f1f);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    cursor: pointer;
-    color: #e8e8e8;
-    font-size: 1.05rem;
-    white-space: nowrap;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(4px);
-    flex-shrink: 0;
-}
 
-/* Hover */
-.modulo-card:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(135deg, #1c1c1c, #262626);
-    box-shadow:
-        0px 6px 50px rgba(0, 0, 0, 0.35),
-        0 0 12px rgba(0, 140, 255, 0.18);
-}
-
-/* Card ativo */
-.modulo-card.ativo {
-    background: linear-gradient(135deg, #005bb7, #008cff);
-    color: #ffffff;
-    box-shadow:
-        0px 6px 22px rgba(0, 140, 255, 0.38),
-        0 0 18px rgba(0, 140, 255, 0.40);
-}
-
-/* Underline profissional */
-.card-underline {
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 6px;
-    width: 0;
-    border-radius: 40px;
+.modulos-lista::-webkit-scrollbar-thumb {
+    border-radius: 20px;
 
     background: linear-gradient(90deg,
-            rgba(0, 170, 255, 0) 0%,
-            #00b7ff 25%,
-            #008cff 75%,
-            rgba(0, 140, 255, 0) 100%);
+            #1d4ed8,
+            #3b82f6);
+}
+
+
+.modulos-lista::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg,
+            #2563eb,
+            #60a5fa);
+}
+
+
+/* REMOVE AFTER ANTIGO */
+
+.modulos-lista::after {
+    display: none;
+}
+
+
+/* =========================================================
+   CARD DO MÓDULO
+========================================================= */
+
+.modulo-card {
+    position: relative;
+
+    flex-shrink: 0;
+
+    min-width: 155px;
+    min-height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 22px;
+
+    overflow: hidden;
+
+    border-radius: 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background:
+        radial-gradient(circle at 20% 0%,
+            rgba(246, 59, 59, 0.07),
+            transparent 45%),
+        linear-gradient(145deg,
+            #0b111c,
+            #111827);
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05px;
+
+    white-space: nowrap;
+
+    cursor: pointer;
 
     box-shadow:
-        0 0 12px rgba(0, 170, 255, 0.6),
-        0 0 20px rgba(0, 150, 255, 0.35),
-        inset 0 0 6px rgba(255, 255, 255, 0.12);
+        0 6px 16px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* LUZ SUPERIOR */
+
+.modulo-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 15%;
+    right: 15%;
+
+    height: 1px;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(147, 197, 253, 0.28),
+            transparent);
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
+}
+
+
+/* BRILHO DE FUNDO */
+
+.modulo-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 80px;
+    height: 80px;
+
+    top: -65px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(59, 130, 246, 0.18);
+
+    filter: blur(25px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        top 0.3s ease;
+}
+
+
+.modulo-card span {
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   HOVER DO MÓDULO
+========================================================= */
+
+.modulo-card:hover {
+    transform: translateY(-3px);
+
+    color: #ffffff;
+
+    border-color: rgba(96, 165, 250, 0.28);
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(59, 130, 246, 0.13),
+            transparent 55%),
+        linear-gradient(145deg,
+            #0d1523,
+            #131d2e);
+
+    box-shadow:
+        0 11px 25px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(37, 99, 235, 0.04);
+}
+
+
+.modulo-card:hover::before {
+    opacity: 1;
+}
+
+
+.modulo-card:hover::after {
+    opacity: 1;
+
+    top: -45px;
+}
+
+
+.modulo-card:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+
+/* =========================================================
+   CARD ATIVO
+========================================================= */
+
+.modulo-card.ativo {
+    color: #ffffff;
+
+    border-color: rgba(96, 165, 250, 0.4);
+
+    background:
+        linear-gradient(135deg,
+            #1e40af,
+            #2563eb);
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+
+/* =========================================================
+   UNDERLINE
+========================================================= */
+
+.card-underline {
+    position: absolute;
+
+    bottom: -10px;
+    left: 50%;
+
+    width: 0;
+    height: 3px;
+
+    transform: translateX(-50%);
+
+    border-radius: 20px;
+
+    background: linear-gradient(90deg,
+            transparent,
+            #3b82f6,
+            #60a5fa,
+            transparent);
+
+    box-shadow:
+        0 0 10px rgba(59, 130, 246, 0.45);
 
     animation: underlineGrow 0.35s ease forwards;
 }
 
-/* Animação mais fluida */
+
 @keyframes underlineGrow {
-    0% {
+
+    from {
         width: 0;
         opacity: 0;
-        filter: blur(2px);
     }
 
-    50% {
-        width: 55%;
+    to {
+        width: 65%;
         opacity: 1;
-        filter: blur(1.2px);
-    }
-
-    100% {
-        width: 70%;
-        opacity: 1;
-        filter: blur(0.8px);
     }
 }
 
-/* Área do módulo */
+
+/* =========================================================
+   ÁREA GENÉRICA DE MÓDULO
+========================================================= */
+
 .area-modulo {
-    margin-top: 0px;
-    padding: 20px;
-    background: rgba(20, 20, 20, 0.55);
-    color: white;
-    border-radius: 24px;
+    margin-top: 10px;
+
     min-height: 150px;
-    font-size: 17px;
-    line-height: 1.65;
-    backdrop-filter: blur(10px);
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    color: #e2e8f0;
+
+    background:
+        linear-gradient(145deg,
+            rgba(8, 12, 20, 0.97),
+            rgba(11, 17, 28, 0.95));
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+
     box-shadow:
-        0px 8px 22px rgba(0, 0, 0, 0.45),
-        inset 0px 0px 16px rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+        0 16px 40px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    font-size: 16px;
+    line-height: 1.6;
+
     animation: fadeIn 0.4s ease;
 }
 
-/* Fade */
+
 @keyframes fadeIn {
+
     from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(7px);
     }
 
     to {
@@ -170,342 +407,861 @@
     }
 }
 
+
+/* =========================================================
+   SKELETON
+========================================================= */
+
 .body-skeleton {
+    position: relative;
+
     padding: 22px;
+
     display: flex;
     flex-direction: column;
-    background-color: #00013b;
+
+    gap: 24px;
+
+    overflow: hidden;
+
     border-radius: 20px;
-    gap: 26px;
-    animation: pulse 1.3s infinite ease-in-out;
+
+    background:
+        linear-gradient(145deg,
+            #080c14,
+            #0b111c);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.25);
 }
+
 
 .sk-title {
     width: 260px;
-    height: 26px;
+    max-width: 60%;
+
+    height: 25px;
+
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.08);
+
+    background: rgba(255, 255, 255, 0.07);
+
+    animation: pulse 1.4s infinite ease-in-out;
 }
+
 
 .sk-modulos {
     display: flex;
-    gap: 16px;
+
+    gap: 10px;
+
+    overflow: hidden;
 }
 
+
 .sk-card {
+    flex-shrink: 0;
+
     width: 160px;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
+    height: 54px;
+
+    border-radius: 13px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    animation: pulse 1.4s infinite ease-in-out;
 }
+
 
 .sk-area {
     width: 100%;
     height: 150px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+
+    border-radius: 17px;
+
+    background: rgba(255, 255, 255, 0.055);
+
+    animation: pulse 1.4s infinite ease-in-out;
 }
 
+
 @keyframes pulse {
-    0% {
-        opacity: .55;
+
+    0%,
+    100% {
+        opacity: 0.45;
     }
 
     50% {
         opacity: 1;
     }
-
-    100% {
-        opacity: .55;
-    }
 }
+
+
+/* =========================================================
+   FADE GERAL
+========================================================= */
 
 .body-fade {
-    opacity: 0;
-    transform: translateY(10px);
     margin-top: -40px;
-    transition: opacity .4s ease, transform .4s ease;
+
+    opacity: 0;
+
+    transform: translateY(10px);
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
 }
-
-
 
 
 .body-fade.show {
     opacity: 1;
+
     transform: translateY(0);
 }
 
+
+/* =========================================================
+   ANIMAÇÃO DOS CARDS
+========================================================= */
+
 .modulo-card[class*="anim-"] {
     opacity: 0;
+
     transform: translateY(8px);
+
     animation: aparecer 0.4s ease forwards;
 }
 
+
 .anim-0 {
-    animation-delay: .05s;
+    animation-delay: 0.05s;
 }
 
 .anim-1 {
-    animation-delay: .12s;
+    animation-delay: 0.10s;
 }
 
 .anim-2 {
-    animation-delay: .18s;
+    animation-delay: 0.15s;
 }
 
 .anim-3 {
-    animation-delay: .25s;
+    animation-delay: 0.20s;
 }
 
 .anim-4 {
-    animation-delay: .32s;
+    animation-delay: 0.25s;
 }
 
 .anim-5 {
-    animation-delay: .39s;
+    animation-delay: 0.30s;
 }
 
+.anim-6 {
+    animation-delay: 0.35s;
+}
+
+.anim-7 {
+    animation-delay: 0.40s;
+}
+
+.anim-8 {
+    animation-delay: 0.45s;
+}
+
+.anim-9 {
+    animation-delay: 0.50s;
+}
+
+
 @keyframes aparecer {
+
     from {
         opacity: 0;
+
         transform: translateY(8px);
     }
 
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }
+
+
+/* =========================================================
+   FADE DE ELEMENTOS
+========================================================= */
 
 .fade-in-up {
     opacity: 0;
-    transform: translateY(10px);
-    animation: fadeUp 0.35s ease forwards;
+
+    transform: translateY(8px);
+
+    animation: fadeUp 0.4s ease forwards;
 }
+
 
 .fade-in-up-delay {
     opacity: 0;
-    transform: translateY(10px);
-    animation: fadeUp 0.45s ease forwards;
+
+    transform: translateY(8px);
+
+    animation: fadeUp 0.45s 0.05s ease forwards;
 }
 
+
 @keyframes fadeUp {
+
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }
 
+
+/* =========================================================
+   ABERTURA DO MÓDULO
+========================================================= */
+
 .fade-expand {
-    animation: expandFade 0.35s ease forwards;
+    animation:
+        expandFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+
 @keyframes expandFade {
+
     from {
         opacity: 0;
-        transform: scale(0.98);
+
+        transform:
+            translateY(5px) scale(0.99);
     }
 
     to {
         opacity: 1;
-        transform: scale(1);
+
+        transform:
+            translateY(0) scale(1);
     }
 }
 
+
+/* =========================================================
+   ÁREA DO MÓDULO ABERTO
+
+   Mantive propositalmente mais neutra porque os componentes
+   internos já possuem seus próprios estilos.
+========================================================= */
+
 .area-modulo-ativa {
-    margin-top: 20px;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.025),
+            rgba(255, 255, 255, 0.008));
+
+    border: 1px solid rgba(15, 23, 42, 0.07);
+
+    box-shadow:
+        0 12px 35px rgba(15, 23, 42, 0.08);
 }
+
+
+/* =========================================================
+   TOPO DO MÓDULO
+========================================================= */
 
 .topo-modulo {
     cursor: pointer;
+
     padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
     text-align: center;
 }
 
+
 .titulo-modulo {
-    font-size: 24px;
-    color: white;
+    margin: 0;
+
+    font-size: 23px;
+    font-weight: 700;
+
+    color: #0f172a;
 }
+
 
 .clicar-voltar {
-    font-size: 14px;
-    opacity: 0.6;
     margin-top: 4px;
+
+    font-size: 13px;
+
+    color: #64748b;
 }
 
+
+/* =========================================================
+   CONTEÚDO DO MÓDULO
+========================================================= */
+
 .conteudo-modulo {
-    margin-top: -8px;
+    margin-top: 0;
+
     font-size: 16px;
-    color: #ccc;
+
+    color: inherit;
 }
+
+
+/* =========================================================
+   TAG FLUTUANTE
+
+   Aparece quando um módulo está aberto
+========================================================= */
 
 .modulo-tag-flutuante {
     position: fixed;
-    top: 10px !important;
-    right: 25px;
 
-    background: linear-gradient(135deg, #1f1f1f, #262626);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    top: 12px !important;
+    right: 22px;
 
-    padding: 10px 22px;
-    border-radius: 10px;
+    min-height: 43px;
 
     display: flex;
     align-items: center;
-    gap: 12px;
 
-    color: #fff;
-    font-size: 15px;
-    cursor: pointer;
-    z-index: 999999;
-    /* Garantia máxima */
+    gap: 11px;
+
+    padding: 7px 9px 7px 15px;
+
+    overflow: hidden;
+
+    border-radius: 13px;
+
+    color: #f8fafc;
+
+    background:
+        radial-gradient(circle at top left,
+            rgba(59, 130, 246, 0.14),
+            transparent 45%),
+        linear-gradient(145deg,
+            rgba(8, 12, 20, 0.96),
+            rgba(11, 17, 28, 0.96));
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
     box-shadow:
-        0 4px 16px rgba(0, 0, 0, 0.45),
-        0 0 16px rgba(0, 140, 255, 0.22);
+        0 10px 30px rgba(0, 0, 0, 0.32),
+        0 0 0 1px rgba(37, 99, 235, 0.035),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
-    transition: all .25s ease;
-}
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 
-.modulo-tag-flutuante:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(135deg, #242424, #303030);
-}
+    cursor: pointer;
 
-.modulo-tag-nome {
-    font-weight: 600;
-}
+    z-index: 999999;
 
-.modulo-tag-voltar {
-    opacity: .7;
-    font-size: 13px;
-}
+    opacity: 0.48;
 
-/* Estado padrão, meio invisível */
-.modulo-tag-flutuante {
-    opacity: 0.35;
-    transition: opacity .4s ease;
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+
     animation: pulsarVisibilidade 11s infinite;
 }
 
-/* Quando passa o mouse, fica totalmente visível */
-.modulo-tag-flutuante:hover {
-    opacity: 1;
+
+/* LINHA SUPERIOR */
+
+.modulo-tag-flutuante::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+    right: 12%;
+
+    height: 1px;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(96, 165, 250, 0.55),
+            transparent);
 }
 
-/* Ciclo:
-   0 a 90 por cento do tempo: meio invisível
-   90 a 100 por cento do tempo: visível
-*/
+
+/* =========================================================
+   TAG HOVER
+========================================================= */
+
+.modulo-tag-flutuante:hover {
+    opacity: 1;
+
+    transform: translateY(-2px);
+
+    border-color: rgba(96, 165, 250, 0.28);
+
+    box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.38),
+        0 0 18px rgba(37, 99, 235, 0.12);
+}
+
+
+/* =========================================================
+   NOME DO MÓDULO
+========================================================= */
+
+.modulo-tag-nome {
+    max-width: 230px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    letter-spacing: 0.05px;
+}
+
+
+/* =========================================================
+   BOTÃO VOLTAR DENTRO DA TAG
+========================================================= */
+
+.modulo-tag-voltar {
+    min-height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 10px;
+
+    border-radius: 8px;
+
+    color: #bfdbfe;
+
+    background: rgba(37, 99, 235, 0.12);
+
+    border: 1px solid rgba(96, 165, 250, 0.14);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    opacity: 1;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.modulo-tag-flutuante:hover .modulo-tag-voltar {
+    color: #ffffff;
+
+    background: rgba(37, 99, 235, 0.25);
+
+    border-color: rgba(96, 165, 250, 0.28);
+}
+
+
+/* =========================================================
+   PULSO DE VISIBILIDADE
+========================================================= */
+
 @keyframes pulsarVisibilidade {
-    0% {
-        opacity: 0.35;
+
+    0%,
+    88% {
+        opacity: 0.48;
     }
 
-    90% {
-        opacity: 0.35;
+    94% {
+        opacity: 1;
     }
 
     100% {
-        opacity: 2;
+        opacity: 0.48;
     }
 }
 
-/* TELAS MUITO GRANDES */
+
+/* =========================================================
+   DESKTOP GRANDE
+========================================================= */
+
 @media (min-width: 1500px) {
-    .modulo-tag-flutuante {
-        padding: 12px 26px;
-        font-size: 17px;
-        top: 85px;
-        right: 28px;
+
+    .titulo-body {
+        font-size: 29px;
     }
 
-    .modulo-tag-voltar {
+
+    .modulo-card {
+        min-width: 165px;
+
+        min-height: 57px;
+
+        padding: 0 25px;
+
         font-size: 15px;
     }
+
+
+    .modulo-tag-flutuante {
+        right: 28px;
+
+        min-height: 46px;
+
+        padding-left: 17px;
+    }
+
+
+    .modulo-tag-nome {
+        font-size: 14px;
+    }
+
+
+    .modulo-tag-voltar {
+        min-height: 31px;
+
+        font-size: 10px;
+    }
 }
 
-/* DESKTOP MÉDIO */
-@media (max-width: 1200px) {
-    .modulo-tag-flutuante {
-        padding: 10px 22px;
-        font-size: 11px;
-        top: 80px;
-        margin-top: -15px !important;
 
-        right: 22px;
+/* =========================================================
+   DESKTOP MÉDIO
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .modulo-card {
+        min-width: 145px;
+
+        min-height: 52px;
+
+        padding: 0 19px;
+
+        font-size: 13px;
     }
+
+
+    .modulo-tag-flutuante {
+        right: 18px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .titulo-body {
+        margin-top: 58px;
+
+        margin-bottom: 20px;
+
+        font-size: 23px;
+    }
+
+
+    .modulos-lista {
+        gap: 8px;
+
+        padding-top: 8px;
+    }
+
+
+    .modulo-card {
+        min-width: 135px;
+
+        min-height: 49px;
+
+        padding: 0 17px;
+
+        border-radius: 11px;
+
+        font-size: 12px;
+    }
+
+
+    .area-modulo-ativa {
+        padding: 12px;
+
+        border-radius: 15px;
+    }
+
+
+    .modulo-tag-flutuante {
+        top: 10px !important;
+
+        right: 14px;
+
+        min-height: 40px;
+
+        padding:
+            6px 7px 6px 13px;
+
+        border-radius: 11px;
+    }
+
+
+    .modulo-tag-nome {
+        max-width: 180px;
+
+        font-size: 11px;
+    }
+
+
+    .modulo-tag-voltar {
+        min-height: 27px;
+
+        padding: 0 8px;
+
+        font-size: 9px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .body-fade {
+        margin-top: -30px;
+    }
+
+
+    .titulo-body {
+        margin-top: 50px;
+
+        padding-left: 13px;
+
+        font-size: 20px;
+
+        letter-spacing: -0.3px;
+    }
+
+
+    .titulo-body::before {
+        width: 3px;
+
+        height: 20px;
+    }
+
+
+    .modulos-lista {
+        gap: 7px;
+
+        padding:
+            7px 4px 12px;
+    }
+
+
+    .modulo-card {
+        min-width: 125px;
+
+        min-height: 46px;
+
+        padding: 0 15px;
+
+        font-size: 11px;
+    }
+
+
+    .area-modulo-ativa {
+        margin-top: 8px;
+
+        padding: 8px;
+
+        border-radius: 13px;
+    }
+
+
+    .modulo-tag-flutuante {
+        right: 10px;
+
+        max-width: calc(100vw - 20px);
+    }
+
+
+    .modulo-tag-nome {
+        max-width: 150px;
+
+        font-size: 10px;
+    }
+
 
     .modulo-tag-voltar {
         font-size: 8px;
     }
 }
 
-/* DESKTOP PEQUENO / TABLET HORIZONTAL */
-@media (max-width: 900px) {
-    .modulo-tag-flutuante {
-        padding: 9px 20px;
-        margin-top: -20px;
-        font-size: 9px;
-        top: 72px;
-        right: 20px;
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .titulo-body {
+        margin-top: 46px;
+
+        margin-bottom: 16px;
+
+        font-size: 18px;
     }
+
+
+    .modulo-card {
+        min-width: 115px;
+
+        min-height: 44px;
+
+        padding: 0 13px;
+
+        border-radius: 10px;
+
+        font-size: 10px;
+    }
+
+
+    .modulo-tag-flutuante {
+        top: 8px !important;
+
+        right: 8px;
+
+        min-height: 37px;
+
+        gap: 7px;
+
+        padding:
+            5px 6px 5px 11px;
+
+        border-radius: 10px;
+    }
+
+
+    .modulo-tag-nome {
+        max-width: 125px;
+
+        font-size: 9px;
+    }
+
+
+    .modulo-tag-voltar {
+        min-height: 25px;
+
+        padding: 0 7px;
+
+        border-radius: 7px;
+
+        font-size: 7px;
+
+        letter-spacing: 0.3px;
+    }
+
+
+    .conteudo-modulo {
+        font-size: 14px;
+    }
+}
+
+
+/* =========================================================
+   CELULAR MUITO PEQUENO
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .titulo-body {
+        font-size: 17px;
+    }
+
+
+    .modulo-card {
+        min-width: 108px;
+
+        padding: 0 11px;
+
+        font-size: 9px;
+    }
+
+
+    .modulo-tag-nome {
+        max-width: 105px;
+
+        font-size: 8px;
+    }
+
 
     .modulo-tag-voltar {
         font-size: 7px;
     }
 }
 
-/* TABLET VERTICAL */
-@media (max-width: 700px) {
-    .modulo-tag-flutuante {
-        padding: 8px 18px;
-        font-size: 8px;
-        margin-top: -18px !important;
 
-        top: 70px;
-        margin-top: 2px;
-        right: 18px;
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .modulo-card,
+    .body-fade,
+    .fade-in-up,
+    .fade-in-up-delay,
+    .fade-expand,
+    .modulo-tag-flutuante,
+    .sk-title,
+    .sk-card,
+    .sk-area {
+        animation: none !important;
+
+        transition: none !important;
     }
 
-    .modulo-tag-voltar {
-        font-size: 5px;
-    }
-}
 
-/* CELULAR COMUM */
-@media (max-width: 480px) {
-    .modulo-tag-flutuante {
-        padding: 7px 16px;
-        font-size: 4px;
-        gap: 10px;
-        top: 66px;
+    .body-fade,
+    .fade-in-up,
+    .fade-in-up-delay {
+        opacity: 1;
 
-        right: 14px;
-    }
-
-    .modulo-tag-voltar {
-        font-size: 3px;
-    }
-}
-
-/* CELULAR MUITO PEQUENO */
-@media (max-width: 360px) {
-    .modulo-tag-flutuante {
-        padding: 6px 14px;
-        font-size: 3px;
-        gap: 8px;
-        top: 64px;
-        margin-top: -25px !important;
-
-        right: 12px;
-    }
-
-    .modulo-tag-voltar {
-        font-size: 9px;
+        transform: none;
     }
 }

@@ -1179,7 +1179,7 @@ export default function BuscarProduto() {
                         inputRef.current = el;
                         buscarInputRef.current = el;
                     }}
-                    className="buscar-input"
+                    className="buscar-inputtttt"
                     type="text"
                     placeholder="Digite nome, código de barras ou QRCode"
                     value={texto}

@@ -1,42 +1,265 @@
-/* ===============================
-   CONTAINER GERAL
-=============================== */
+/* =========================================================
+   PRODUTO ATUAL
+   PREMIUM MANTENDO A IDENTIDADE ORIGINAL
+========================================================= */
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
+
 .produto-atual-box {
-    background: linear-gradient(145deg, #9c9c9c, #c2c2c2);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 16px;
-    padding: 22px;
+    position: relative;
     width: 100%;
     z-index: 1 !important;
+    max-height: 110%;
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(145deg,
+            #9c9c9c 0%,
+            #b1b1b1 48%,
+            #c2c2c2 100%);
+
+    border: 1px solid rgba(255, 255, 255, 0.20);
+
     color: #e4e4e4;
-    position: relative;
+    overflow-y: hidden !important;
+    overflow: hidden !important;
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 
     box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.55),
-        inset 0 0 8px rgba(255, 255, 255, 0.04);
+        0 12px 28px rgba(0, 0, 0, 0.28),
+        0 4px 10px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.32),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.08);
 
-    backdrop-filter: blur(4px);
+    animation:
+        produtoFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 
-    animation: produtoFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
 }
+
+
+/* =========================================================
+   LINHA PREMIUM SUPERIOR
+========================================================= */
+
+.produto-atual-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 7%;
+    right: 7%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.65),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ILUMINAÇÃO DE FUNDO
+========================================================= */
+
+.produto-atual-box::after {
+    content: "";
+
+    position: absolute;
+
+    top: -170px;
+    right: -100px;
+
+    width: 290px;
+    height: 290px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    filter: blur(25px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO PRINCIPAL
+========================================================= */
 
 @keyframes produtoFadeIn {
     from {
         opacity: 0;
-        transform: translateY(6px) scale(0.985);
+
+        transform:
+            translateY(6px) scale(0.985);
+
         filter: blur(1px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0) scale(1);
+
         filter: blur(0);
     }
 }
 
-.produto-atual-img {
-    animation: imgFocus 0.45s ease-out;
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.produto-atual-titulo {
+    position: relative;
+    z-index: 2;
+
+    margin: 0 0 15px;
+
+    color: #000000 !important;
+
+    font-size: 20px !important;
+    font-weight: 800;
+
+    letter-spacing: -0.3px;
 }
+
+
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+========================================================= */
+
+.produto-atual-conteudo {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns: 140px minmax(0, 1fr);
+
+    gap: 22px;
+
+    align-items: center;
+
+    min-height: 130px;
+}
+
+
+/* =========================================================
+   LADO ESQUERDO
+========================================================= */
+
+.produto-atual-esq {
+    position: relative;
+
+    width: 110px;
+    height: 110px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.20),
+            rgba(255, 255, 255, 0.07));
+
+    border:
+        1px solid rgba(255, 255, 255, 0.26);
+
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.34),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+
+    overflow: hidden;
+}
+
+
+/* brilho da área da imagem */
+
+.produto-atual-esq::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 15%;
+    right: 15%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.75),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   IMAGEM
+========================================================= */
+
+.produto-atual-img {
+    position: relative;
+    z-index: 2;
+
+    width: 100px;
+    height: 100px;
+
+    object-fit: contain;
+
+    padding: 8px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    animation:
+        imgFocus 0.45s ease-out;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.produto-atual-img:hover {
+    transform: scale(1.025);
+
+    box-shadow:
+        0 7px 17px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
 
 @keyframes imgFocus {
     from {
@@ -50,163 +273,208 @@
     }
 }
 
-.produto-atual-box {
-    transition:
-        box-shadow 0.25s ease,
-        background 0.25s ease,
-        transform 0.25s ease;
-}
 
-/* ===============================
-   TÍTULO
-=============================== */
-.produto-atual-titulo {
-    font-size: 25px;
-    font-weight: bolder;
-    color: #000000 !important;
-    margin-bottom: 18px;
-}
+/* =========================================================
+   SEM IMAGEM
+========================================================= */
 
-/* ===============================
-   CONTEÚDO
-=============================== */
-.produto-atual-conteudo {
-    display: grid;
-    grid-template-columns: 140px auto;
-    gap: 20px;
-    align-items: center;
-}
+.produto-atual-sem-imagem {
+    position: relative;
+    z-index: 2;
 
-/* ===============================
-   LADO ESQUERDO
-=============================== */
-.produto-atual-esq {
+    width: 120px;
+    height: 120px;
+
+    min-width: 120px;
+    min-height: 120px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-/* ===============================
-   IMAGEM
-=============================== */
-.produto-atual-img {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
+    padding: 10px;
 
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 8px;
+
+    border:
+        1px solid rgba(242, 242, 242, 0.448) !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.11),
+            rgba(255, 255, 255, 0.04));
+
+    color: #000000 !important;
+
+    text-align: center;
+
+    font-size: 10px;
+    font-weight: 650;
 
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.35),
-        inset 0 0 6px rgba(255, 255, 255, 0.04);
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
 }
 
-/* ===============================
+
+/* =========================================================
    LADO DIREITO
-=============================== */
+========================================================= */
+
 .produto-atual-dir {
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
+
+    justify-content: center;
+
     gap: 10px;
+
+    padding: 5px 0;
 }
 
-/* ===============================
-   NOME
-=============================== */
+
+/* =========================================================
+   NOME DO PRODUTO
+========================================================= */
+
 .produto-atual-nome {
-    font-size: 34px;
-    font-weight: 700;
+    position: relative;
+
+    max-width: 100%;
+
+    margin: 0;
+
     color: #050505 !important;
+
+    font-size: 24px !important;
+    font-weight: 700;
+
+    line-height: 1.12;
+
+    letter-spacing: -0.7px;
+
+    overflow-wrap: break-word;
 }
 
-/* ===============================
+
+.produto-atual-nome strong {
+    font-weight: 750;
+}
+
+
+/* =========================================================
    PREÇO
-=============================== */
+========================================================= */
+
 .produto-atual-preco {
-    font-size: 16px;
+    position: relative;
+
+    width: fit-content;
+
+    margin: 0;
+
+    padding: 7px 12px;
+
+    border-radius: 9px;
+
     color: #050505 !important;
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.14);
+
+    font-size: 10px;
+    font-weight: 500;
+
     user-select: none;
-}
-
-.produto-atual-preco span {
-    font-size: 26px;
-    font-weight: 700;
-}
-
-/* Preço editável */
-.produto-atual-preco.clicavel {
-    cursor: pointer;
-    transition:
-        color 0.2s ease,
-        transform 0.15s ease;
-}
-
-.produto-atual-preco.clicavel:hover {
-    color: #4fe3ff;
-    transform: translateX(2px);
-}
-
-/* ===============================
-   INPUT INLINE
-=============================== */
-.preco-inline-input {
-    width: 160px;
-    padding: 8px 10px;
-
-    background: #0f1b2b;
-    color: #000000 !important;
-    border: 1px solid rgba(0, 216, 255, 0.5);
-    border-radius: 8px;
-
-    font-size: 18px;
-    font-weight: 600;
-
-    outline: none;
 
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.45),
-        inset 0 0 6px rgba(255, 255, 255, 0.04);
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
 
     transition:
+        color 0.2s ease,
+        transform 0.15s ease,
+        background 0.2s ease,
         border-color 0.2s ease,
         box-shadow 0.2s ease;
 }
 
-.preco-inline-input:focus {
-    border-color: #00d8ff;
+
+.produto-atual-preco span {
+    margin-left: 3px;
+
+    font-size: 20px;
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   PREÇO EDITÁVEL
+========================================================= */
+
+.produto-atual-preco.clicavel {
+    cursor: pointer;
+}
+
+
+.produto-atual-preco.clicavel:hover {
+    color: #050505 !important;
+
+    transform: translateX(2px);
+
+    background:
+        rgba(255, 255, 255, 0.18);
+
+    border-color:
+        rgba(0, 104, 190, 0.25);
+
     box-shadow:
-        0 0 0 3px rgba(0, 216, 255, 0.25),
-        inset 0 0 6px rgba(255, 255, 255, 0.06);
+        0 4px 10px rgba(0, 0, 0, 0.10),
+        inset 3px 0 0 #3381e7;
 }
 
-/* ===============================
-   UNIDADE / TEMPO
-=============================== */
-.produto-atual-und {
-    font-size: 14px;
-    opacity: 0.8;
-    color: #000000 !important;
-    font-weight: bolder;
+
+/* =========================================================
+   ÁREA DE EDIÇÃO
+========================================================= */
+
+.preco-edicao {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 5px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(0, 0, 0, 0.07);
+
+    border:
+        1px solid rgba(0, 0, 0, 0.08);
+
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.07);
+
+    animation:
+        aparecerEdicaoPreco 0.22s ease;
 }
 
-/* ===============================
-   ESTADO VAZIO
-=============================== */
-.produto-atual-vazio {
-    font-size: 14px;
-    opacity: 0.7;
-    color: #000000 !important;
-}
 
-/* ===============================
-   ANIMAÇÃO
-=============================== */
-@keyframes aparecerProduto {
+@keyframes aparecerEdicaoPreco {
     from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(3px);
     }
 
     to {
@@ -216,226 +484,719 @@
 }
 
 
-.preco-edicao input {
+/* =========================================================
+   INPUT DO PREÇO
+========================================================= */
+
+.preco-inline-input {
+    width: 160px;
+
+    padding: 9px 11px;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(180deg,
+            #142238,
+            #0f1b2b);
+
     color: #eff2f3 !important;
+
+    border:
+        1px solid rgba(0, 216, 255, 0.50);
+
+    outline: none;
+
+    font-size: 18px;
+    font-weight: 650;
+
+    font-variant-numeric: tabular-nums;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
-.preco-edicao {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+
+.preco-inline-input:focus {
+    border-color: #00d8ff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 0 0 3px rgba(0, 216, 255, 0.16),
+        0 5px 13px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
+
+
+/* remove setinhas do input number */
+
+.preco-inline-input::-webkit-inner-spin-button,
+.preco-inline-input::-webkit-outer-spin-button {
+    opacity: 0.6;
+}
+
+
+/* =========================================================
+   BOTÃO SALVAR
+========================================================= */
 
 .btn-salvar-preco {
-    padding: 6px 14px;
-    border-radius: 10px;
-    border: solid black 2px;
+    min-height: 39px;
+
+    padding: 7px 16px;
+
+    border-radius: 9px;
+
+    border:
+        1px solid rgba(0, 0, 0, 0.28);
+
     cursor: pointer;
-    font-weight: 600;
-    background: #4caf50;
-    color: rgb(8, 8, 8) !important;
+
+    background:
+        linear-gradient(145deg,
+            #59bd5d,
+            #4caf50);
+
+    color: #080808 !important;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 9px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    transition:
+        background 0.18s ease,
+        transform 0.15s ease,
+        box-shadow 0.18s ease;
 }
+
 
 .btn-salvar-preco:hover {
-    background: #43a047;
+    background:
+        linear-gradient(145deg,
+            #4caf50,
+            #43a047);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 12px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
 }
 
-/* ===============================
+
+.btn-salvar-preco:active {
+    transform: scale(0.97);
+}
+
+
+/* =========================================================
+   UNIDADE / TEMPO
+========================================================= */
+
+.produto-atual-und {
+    width: fit-content;
+
+    margin: 0;
+
+    padding: 4px 9px;
+
+    border-radius: 6px;
+
+    background:
+        rgba(0, 0, 0, 0.055);
+
+    color: #000000 !important;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   ESTADO VAZIO
+========================================================= */
+
+.produto-atual-vazio {
+    position: relative;
+    z-index: 2;
+
+    min-height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border:
+        1px dashed rgba(0, 0, 0, 0.15);
+
+    color: #000000 !important;
+
+    font-size: 14px;
+    font-weight: 550;
+
+    opacity: 0.7;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+
+/* =========================================================
+   ATALHOS DE PAGAMENTO
+========================================================= */
+
+.produto-atual-atalhos-pagamento {
+    position: relative;
+    z-index: 2;
+
+    width: 95%;
+
+    margin: 16px auto 0;
+
+    padding-top: 13px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 8px;
+
+    border-top:
+        1px solid rgba(0, 0, 0, 0.25);
+}
+
+
+/* linha de brilho sobre o divisor */
+
+.produto-atual-atalhos-pagamento::before {
+    content: "";
+
+    position: absolute;
+
+    top: -1px;
+    left: 25%;
+    right: 25%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.25),
+            transparent);
+}
+
+
+/* =========================================================
+   CADA ATALHO
+========================================================= */
+
+.produto-atual-atalhos-pagamento span {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 7px 6px;
+
+    border-radius: 8px;
+
+    color: #000000;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.09);
+
+    font-size: 12px;
+    font-weight: 550;
+
+    white-space: nowrap;
+
+    cursor: help;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.produto-atual-atalhos-pagamento span:hover {
+    transform: translateY(-1px);
+
+    background:
+        rgba(255, 255, 255, 0.16);
+
+    box-shadow:
+        0 4px 9px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+
+/* =========================================================
+   TECLA
+========================================================= */
+
+.produto-atual-atalhos-pagamento kbd {
+    padding: 3px 7px;
+
+    border:
+        1px solid rgba(80, 80, 80, 0.32);
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.20),
+            rgba(128, 128, 128, 0.10));
+
+    color: #111111;
+
+    font-family: inherit;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    box-shadow:
+        0 2px 0 rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+
+/* =========================================================
+   TEMA ESCURO
+
+   NÃO MUDA A IDENTIDADE.
+   APENAS GARANTE A APARÊNCIA ATUAL.
+========================================================= */
+
+.produto-atual-box.tema-escuro {
+    background:
+        linear-gradient(145deg,
+            #9c9c9c 0%,
+            #b1b1b1 48%,
+            #c2c2c2 100%);
+
+    color: #e4e4e4;
+}
+
+
+/* =========================================================
+   TEMA CLARO
+
+   MANTÉM CINZA, APENAS UM POUCO MAIS LIMPO
+========================================================= */
+
+.produto-atual-box.tema-claro {
+    background:
+        linear-gradient(145deg,
+            #aaaaaa 0%,
+            #bbbbbb 48%,
+            #cccccc 100%);
+
+    color: #111111;
+
+    border-color:
+        rgba(255, 255, 255, 0.30);
+
+    box-shadow:
+        0 10px 26px rgba(0, 0, 0, 0.16),
+        0 4px 10px rgba(0, 0, 0, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.40);
+}
+
+
+/* =========================================================
    DESKTOP MENOR
-=============================== */
+========================================================= */
+
 @media (max-width: 1024px) {
+
     .produto-atual-box {
         padding: 20px;
     }
 
+
     .produto-atual-conteudo {
-        grid-template-columns: 120px auto;
+        grid-template-columns:
+            120px minmax(0, 1fr);
+
         gap: 16px;
     }
+
+
+    .produto-atual-esq {
+        width: 120px;
+        height: 115px;
+    }
+
+
+    .produto-atual-img,
+    .produto-atual-sem-imagem {
+        width: 105px;
+        height: 105px;
+
+        min-width: 105px;
+        min-height: 105px;
+    }
+
 
     .produto-atual-nome {
         font-size: 30px;
     }
 
+
     .produto-atual-preco span {
         font-size: 24px;
     }
+
+
+    .produto-atual-atalhos-pagamento {
+        width: 100%;
+    }
 }
 
-/* ===============================
+
+/* =========================================================
    TABLET
-=============================== */
+========================================================= */
+
 @media (max-width: 768px) {
+
     .produto-atual-box {
         padding: 18px;
+
         border-radius: 14px;
     }
 
+
     .produto-atual-conteudo {
-        grid-template-columns: 100px auto;
+        grid-template-columns:
+            100px minmax(0, 1fr);
+
         gap: 14px;
+
+        min-height: 100px;
     }
 
-    .produto-atual-img {
-        width: 96px;
-        height: 96px;
+
+    .produto-atual-esq {
+        width: 100px;
+        height: 100px;
+
+        border-radius: 12px;
     }
+
+
+    .produto-atual-img,
+    .produto-atual-sem-imagem {
+        width: 90px;
+        height: 90px;
+
+        min-width: 90px;
+        min-height: 90px;
+    }
+
 
     .produto-atual-nome {
         font-size: 26px;
     }
 
+
     .produto-atual-preco {
         font-size: 15px;
     }
 
+
     .produto-atual-preco span {
         font-size: 22px;
     }
 
+
     .preco-inline-input {
         width: 140px;
+
         font-size: 16px;
+    }
+
+
+    .produto-atual-atalhos-pagamento {
+        gap: 5px;
+    }
+
+
+    .produto-atual-atalhos-pagamento span {
+        gap: 4px;
+
+        padding: 6px 3px;
+
+        font-size: 10px;
+    }
+
+
+    .produto-atual-atalhos-pagamento kbd {
+        padding: 3px 5px;
+
+        font-size: 8px;
     }
 }
 
-/* ===============================
+
+/* =========================================================
    CELULAR
-=============================== */
+========================================================= */
+
 @media (max-width: 600px) {
+
     .produto-atual-box {
         padding: 14px;
     }
 
+
+    /*
+       MANTÉM IMAGEM + PRODUTO LADO A LADO.
+       Evita deixar o componente gigante verticalmente.
+    */
+
     .produto-atual-conteudo {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        text-align: center;
+        grid-template-columns:
+            82px minmax(0, 1fr);
+
+        gap: 11px;
+
+        text-align: left;
     }
+
 
     .produto-atual-esq {
-        justify-content: center;
+        width: 82px;
+        height: 82px;
     }
 
-    .produto-atual-img {
-        width: 88px;
-        height: 88px;
+
+    .produto-atual-img,
+    .produto-atual-sem-imagem {
+        width: 74px;
+        height: 74px;
+
+        min-width: 74px;
+        min-height: 74px;
+
+        padding: 5px;
     }
+
 
     .produto-atual-dir {
-        align-items: center;
+        align-items: flex-start;
+
+        gap: 7px;
     }
 
+
     .produto-atual-nome {
-        font-size: 22px;
+        font-size: 20px;
     }
+
 
     .produto-atual-preco {
-        font-size: 14px;
+        padding: 5px 8px;
+
+        font-size: 12px;
     }
 
-    .produto-atual-preco span {
-        font-size: 20px;
-    }
-
-    .preco-edicao {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .preco-inline-input {
-        width: 100%;
-        max-width: 180px;
-        text-align: center;
-    }
-}
-
-/* ===============================
-   CELULARES MUITO PEQUENOS
-=============================== */
-@media (max-width: 360px) {
-    .produto-atual-box {
-        padding: 12px;
-    }
-
-    .produto-atual-img {
-        width: 76px;
-        height: 76px;
-    }
-
-    .produto-atual-nome {
-        font-size: 20px;
-    }
 
     .produto-atual-preco span {
         font-size: 18px;
     }
 
+
     .produto-atual-und {
-        font-size: 13px;
+        padding: 3px 7px;
+
+        font-size: 11px;
+    }
+
+
+    .preco-edicao {
+        max-width: 100%;
+
+        gap: 5px;
+
+        padding: 3px;
+    }
+
+
+    .preco-inline-input {
+        width: 105px;
+
+        padding: 7px;
+
+        font-size: 14px;
+    }
+
+
+    .btn-salvar-preco {
+        min-height: 34px;
+
+        padding: 6px 9px;
+
+        font-size: 10px;
+    }
+
+
+    /*
+       ATALHOS EM 2 COLUNAS.
+       NÃO FICAM MINÚSCULOS.
+    */
+
+    .produto-atual-atalhos-pagamento {
+        width: 100%;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 5px;
+
+        margin-top: 12px;
+
+        padding-top: 10px;
+    }
+
+
+    .produto-atual-atalhos-pagamento span {
+        justify-content: flex-start;
+
+        padding: 6px 8px;
+
+        font-size: 9px;
+    }
+
+
+    .produto-atual-atalhos-pagamento kbd {
+        font-size: 8px;
     }
 }
 
-.produto-atual-atalhos-pagamento {
-    width: 95%;
-    margin: 12px auto 0;
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
 
-    /* Linha divisória */
-    border-top: 1px solid rgba(0, 0, 0, 0.25);
+/* =========================================================
+   CELULAR MUITO PEQUENO
+========================================================= */
 
-    /* Distância entre a linha e os atalhos */
-    padding-top: 12px;
+@media (max-width: 360px) {
+
+    .produto-atual-box {
+        padding: 11px;
+    }
+
+
+    .produto-atual-conteudo {
+        grid-template-columns:
+            68px minmax(0, 1fr);
+
+        gap: 9px;
+    }
+
+
+    .produto-atual-esq {
+        width: 68px;
+        height: 68px;
+    }
+
+
+    .produto-atual-img,
+    .produto-atual-sem-imagem {
+        width: 62px;
+        height: 62px;
+
+        min-width: 62px;
+        min-height: 62px;
+
+        font-size: 9px;
+    }
+
+
+    .produto-atual-nome {
+        font-size: 17px;
+    }
+
+
+    .produto-atual-preco {
+        font-size: 10px;
+    }
+
+
+    .produto-atual-preco span {
+        font-size: 16px;
+    }
+
+
+    .produto-atual-und {
+        font-size: 10px;
+    }
+
+
+    .produto-atual-atalhos-pagamento span {
+        padding: 5px;
+
+        font-size: 8px;
+    }
+
+
+    .produto-atual-atalhos-pagamento kbd {
+        padding: 2px 4px;
+
+        font-size: 7px;
+    }
 }
 
-.produto-atual-atalhos-pagamento span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    color: #000000;
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-}
 
-.produto-atual-atalhos-pagamento kbd {
-    padding: 3px 7px;
-    border: 1px solid rgba(128, 128, 128, 0.35);
-    border-radius: 5px;
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
 
-    font-family: inherit;
-    font-size: 10px;
-    font-weight: 600;
+@media (prefers-reduced-motion: reduce) {
 
-    background: rgba(128, 128, 128, 0.1);
-}
+    .produto-atual-box,
+    .produto-atual-img,
+    .preco-edicao {
+        animation: none;
+    }
 
-.produto-atual-sem-imagem {
-    width: 100%;
-    height: 100%;
 
-    min-width: 120px;
-    min-height: 120px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 10px;
-
-    border-radius: 12px;
-
-    border: 1px solid rgba(242, 242, 242, 0.448) !important;
-
-    background: rgba(255, 255, 255, 0.05);
-    color: #000000 !important;
-    text-align: center;
-
-    font-size: 14px;
-    font-weight: 600;
+    .produto-atual-img,
+    .produto-atual-preco,
+    .btn-salvar-preco,
+    .produto-atual-atalhos-pagamento span {
+        transition: none;
+    }
 }

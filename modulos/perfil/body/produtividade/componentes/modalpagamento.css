@@ -1,19 +1,39 @@
-/* ===============================
-   OVERLAY MODAL
-=============================== */
+/* =========================================================
+   MODAL PAGAMENTO
+   PREMIUM PDV
+   MANTÉM A MESMA LÓGICA VISUAL
+========================================================= */
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
 .pag-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(218, 218, 218, 0.295);
-    backdrop-filter: blur(4px);
+
+    padding: 20px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background:
+        radial-gradient(circle at 50% 35%,
+            rgba(255, 255, 255, 0.10),
+            rgba(218, 218, 218, 0.295) 55%,
+            rgba(170, 170, 170, 0.30) 100%);
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
     z-index: 999999 !important;
-    animation: fadeOverlay 0.25s ease;
+
+    animation: pagOverlayEntrada 0.25s ease;
 }
 
-@keyframes fadeOverlay {
+@keyframes pagOverlayEntrada {
     from {
         opacity: 0;
     }
@@ -23,136 +43,183 @@
     }
 }
 
-/* ===============================
-   PIX QR CODE
-=============================== */
-.pix-qrcode {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 12px;
-    gap: 12px;
-}
 
-/* CONTROLE REAL DO TAMANHO */
-.pix-qrcode img {
-    width: 220px;
-    max-width: 100%;
-    height: auto;
+/* =========================================================
+   CAIXA PRINCIPAL
+========================================================= */
 
-    border-radius: 12px;
-    background: #ffffff;
-    padding: 10px;
-
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.45),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-}
-
-/* ===============================
-   CPF / CUPOM FISCAL
-=============================== */
-
-.cpf-area {
-    margin: 14px 0;
-    padding: 12px;
-
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.cpf-toggle {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #e6e6e6;
-}
-
-.cpf-toggle input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #d4af37;
-    /* dourado */
-    cursor: pointer;
-}
-
-.cpf-input {
-    width: 100%;
-    padding: 12px 14px;
-    font-size: 16px;
-    border-radius: 8px;
-    outline: none;
-    background: #0e1625;
-    color: #fff;
-    transition: border 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cpf-input::placeholder {
-    color: #8a8a8a;
-}
-
-.cpf-input.cpf-invalido {
-    border: 2px solid #e74c3c;
-    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15);
-}
-
-.cpf-input.cpf-valido {
-    border: 2px solid #2ecc71;
-    box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.15);
-}
-
-.cpf-ajuda {
-    font-size: 12px;
-    color: #b5b5b5;
-    line-height: 1.4;
-}
-
-.cpf-ajuda span {
-    color: #d4af37;
-    font-weight: 600;
-}
-
-/* ===============================
-   CAIXA DO MODAL
-=============================== */
 .pag-box {
-    background: linear-gradient(180deg, #1a1f2b, #12161f);
-    padding: 26px;
-    border-radius: 16px;
-    width: 340px;
+    position: relative;
+
+    width: 360px;
+    max-width: calc(100vw - 32px);
 
     max-height: 80vh;
-    overflow-y: auto;
-    /* SCROLL ÚNICO */
-    overflow-x: hidden;
 
-
-    /* IMPORTANTE */
+    padding: 26px;
 
     display: flex;
     flex-direction: column;
+
     gap: 14px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
     color: #f2f2f2;
 
-    border: 1px solid rgba(212, 175, 55, 0.25);
+    background:
+        linear-gradient(180deg,
+            #1a1f2b 0%,
+            #151a24 48%,
+            #12161f 100%);
+
+    border: 1px solid rgba(212, 175, 55, 0.38);
+
+    border-radius: 18px;
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        0 28px 65px rgba(0, 0, 0, 0.48),
+        0 10px 25px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.025),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-    animation: modalUp 0.3s ease;
+    animation:
+        pagModalEntrada 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ===============================
-   SCROLLBAR DO MODAL (ÚNICA)
-=============================== */
+
+/* detalhe dourado superior */
+
+.pag-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+    right: 12%;
+
+    height: 2px;
+
+    border-radius: 0 0 10px 10px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(212, 175, 55, 0.45),
+            #d4af37,
+            #f1d56c,
+            #d4af37,
+            rgba(212, 175, 55, 0.45),
+            transparent);
+
+    box-shadow:
+        0 2px 10px rgba(212, 175, 55, 0.22);
+
+    pointer-events: none;
+
+    z-index: 5;
+}
+
+
+/* iluminação interna */
+
+.pag-box::after {
+    content: "";
+
+    position: absolute;
+
+    top: -100px;
+    right: -90px;
+
+    width: 220px;
+    height: 220px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    filter: blur(20px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ENTRADA
+========================================================= */
+
+@keyframes pagModalEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(18px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   TÍTULOS
+========================================================= */
+
+.pag-box h3 {
+    position: relative;
+
+    z-index: 2;
+
+    margin: 0 0 4px;
+
+    padding-bottom: 14px;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    font-size: 20px;
+    font-weight: 800;
+
+    letter-spacing: 0.2px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* detalhe dourado abaixo do título */
+
+.pag-box h3::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: -1px;
+    left: 50%;
+
+    width: 70px;
+    height: 1px;
+
+    transform: translateX(-50%);
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #d4af37,
+            transparent);
+}
+
+
+/* =========================================================
+   SCROLL PREMIUM
+========================================================= */
 
 .pag-box::-webkit-scrollbar {
     width: 6px;
@@ -163,16 +230,20 @@
 }
 
 .pag-box::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg,
-            rgba(212, 175, 55, 0.9),
+    background:
+        linear-gradient(180deg,
+            #f0cf61,
+            #d4af37,
             rgba(212, 175, 55, 0.55));
-    border-radius: 6px;
+
+    border-radius: 20px;
 }
 
 .pag-box::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg,
-            rgba(212, 175, 55, 1),
-            rgba(212, 175, 55, 0.7));
+    background:
+        linear-gradient(180deg,
+            #f5dc7e,
+            #d4af37);
 }
 
 .pag-box {
@@ -180,229 +251,718 @@
     scrollbar-color: rgba(212, 175, 55, 0.8) transparent;
 }
 
-@keyframes modalUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98);
-    }
 
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
+/* =========================================================
+   CPF
+========================================================= */
 
-/* ===============================
-   BOTÃO EM ESTADO DE PROCESSO (VERMELHO)
-=============================== */
-.btn-processando {
-    background: linear-gradient(135deg, #b91c1c, #ef4444) !important;
-    color: #ffffff !important;
-    cursor: not-allowed;
+.cpf-area {
+    position: relative;
+
+    z-index: 2;
+
+    margin: 4px 0 6px;
+
+    padding: 13px 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.025));
+
+    border:
+        1px solid rgba(255, 255, 255, 0.10);
+
     box-shadow:
-        0 6px 18px rgba(239, 68, 68, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    animation: pulseErro 1.2s ease-in-out infinite;
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
 }
 
-@keyframes pulseErro {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 rgba(239, 68, 68, 0.5);
-    }
 
-    50% {
-        transform: scale(1.03);
-        box-shadow: 0 0 18px rgba(239, 68, 68, 0.8);
-    }
+/* =========================================================
+   CPF TOGGLE
+========================================================= */
 
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 rgba(239, 68, 68, 0.5);
-    }
-}
+.cpf-toggle {
+    display: flex;
 
-.btn-processando {
-    pointer-events: none;
-}
+    align-items: center;
 
-/* ===============================
-   BOTÕES DO MODAL
-=============================== */
-.pag-box button {
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
+    gap: 10px;
+
+    color: #e6e6e6;
+
+    font-size: 14px;
     font-weight: 500;
 
-    background: #202633;
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.cpf-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+
+    accent-color: #d4af37;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   INPUT CPF
+========================================================= */
+
+.cpf-input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border-radius: 9px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.14);
+
+    outline: none;
+
+    background:
+        linear-gradient(180deg,
+            #101827,
+            #0e1625);
+
     color: #ffffff;
 
+    font-size: 16px;
+
     box-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        inset 0 2px 5px rgba(0, 0, 0, 0.25);
 
     transition:
-        background 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.2s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
-.pag-box button:hover {
-    background: #2a3244;
-    transform: translateY(-1px);
+.cpf-input::placeholder {
+    color: #777f8d;
+}
+
+
+/* inválido */
+
+.cpf-input.cpf-invalido {
+    border: 1px solid #e74c3c;
 
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        0 0 0 2px rgba(231, 76, 60, 0.12),
+        inset 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
-/* ===============================
-   CONFIRMAR PAGAMENTO
-=============================== */
-.confirmar {
-    background: linear-gradient(135deg, #2e7d32, #43a047);
-    color: #ffffff;
+
+/* válido */
+
+.cpf-input.cpf-valido {
+    border: 1px solid #2ecc71;
+
+    box-shadow:
+        0 0 0 2px rgba(46, 204, 113, 0.12),
+        inset 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.cpf-input:focus {
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.10),
+        inset 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   AJUDA CPF
+========================================================= */
+
+.cpf-ajuda {
+    font-size: 12px;
+
+    color: #b5b5b5;
+
+    line-height: 1.4;
+}
+
+.cpf-ajuda span {
+    color: #d4af37;
+
     font-weight: 600;
 }
 
-.confirmar:hover {
-    background: linear-gradient(135deg, #388e3c, #4caf50);
+
+/* =========================================================
+   BOTÕES GERAIS
+========================================================= */
+
+.pag-box button {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    min-height: 47px;
+
+    padding: 12px 14px;
+
+    border-radius: 11px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.065);
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(180deg,
+            #252c3a,
+            #202633);
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    letter-spacing: 0.15px;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+
+    transition:
+        background 0.20s ease,
+        transform 0.15s ease,
+        box-shadow 0.20s ease,
+        border-color 0.20s ease,
+        opacity 0.20s ease;
 }
 
-/* ===============================
-   BOTÃO VOLTAR
-=============================== */
-.voltar {
-    background: #2b2f38;
+
+/* brilho fino superior */
+
+.pag-box button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+    right: 12%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.32),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HOVER BOTÕES
+========================================================= */
+
+.pag-box button:hover:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #30394b,
+            #272f40);
+
+    border-color:
+        rgba(212, 175, 55, 0.18);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.pag-box button:active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.985);
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.22),
+        inset 0 2px 4px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =========================================================
+   BOTÕES DESABILITADOS
+========================================================= */
+
+.pag-box button:disabled {
+    opacity: 0.48;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    filter:
+        grayscale(30%) saturate(70%);
+}
+
+
+/* =========================================================
+   PROCESSANDO
+========================================================= */
+
+.btn-processando {
+    background:
+        linear-gradient(135deg,
+            #b91c1c,
+            #dc2626,
+            #ef4444) !important;
+
+    color: #ffffff !important;
+
+    cursor: not-allowed !important;
+
+    border:
+        1px solid rgba(255, 120, 120, 0.24) !important;
+
+    box-shadow:
+        0 7px 18px rgba(239, 68, 68, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+
+    animation:
+        pagProcessandoPulse 1.2s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+@keyframes pagProcessandoPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 7px 18px rgba(239, 68, 68, 0.22),
+            0 0 0 0 rgba(239, 68, 68, 0.15);
+    }
+
+    50% {
+        box-shadow:
+            0 9px 22px rgba(239, 68, 68, 0.38),
+            0 0 0 4px rgba(239, 68, 68, 0.04);
+    }
+}
+
+
+/* =========================================================
+   CONFIRMAR PAGAMENTO
+========================================================= */
+
+.pag-box .confirmar {
+    background:
+        linear-gradient(135deg,
+            #2e7d32,
+            #388e3c,
+            #43a047);
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    border:
+        1px solid rgba(102, 187, 106, 0.24);
+
+    box-shadow:
+        0 7px 16px rgba(46, 125, 50, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.pag-box .confirmar:hover:not(:disabled) {
+    background:
+        linear-gradient(135deg,
+            #388e3c,
+            #43a047,
+            #4caf50);
+
+    box-shadow:
+        0 9px 20px rgba(76, 175, 80, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.pag-box .cancelar {
+    background:
+        linear-gradient(135deg,
+            #8f1e1e,
+            #a52525,
+            #b52c2c);
+
+    color: #ffffff;
+
+    font-weight: 650;
+
+    border:
+        1px solid rgba(239, 68, 68, 0.22);
+
+    box-shadow:
+        0 6px 14px rgba(120, 20, 20, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.pag-box .cancelar:hover {
+    background:
+        linear-gradient(135deg,
+            #a52525,
+            #b52c2c,
+            #c93636);
+}
+
+
+/* =========================================================
+   VOLTAR
+========================================================= */
+
+.pag-box .voltar {
+    background:
+        linear-gradient(180deg,
+            #30353f,
+            #2b2f38);
+
     color: #cfcfcf;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.06);
 }
 
-.voltar:hover {
-    background: #3a3f4c;
+.pag-box .voltar:hover {
+    background:
+        linear-gradient(180deg,
+            #414754,
+            #353b47);
+
     color: #ffffff;
 }
 
-/* ===============================
-   INPUT DINHEIRO
-=============================== */
-.pag-box input {
-    padding: 12px;
+
+/* =========================================================
+   INPUT GERAL
+   DINHEIRO
+========================================================= */
+
+.pag-box input:not([type="checkbox"]) {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: #0f1320;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.15);
+
+    background:
+        linear-gradient(180deg,
+            #111725,
+            #0f1320);
+
     color: #ffffff;
+
     font-size: 15px;
 
     outline: none;
 
+    box-shadow:
+        inset 0 2px 5px rgba(0, 0, 0, 0.25);
+
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
-.pag-box input:focus {
+.pag-box input:not([type="checkbox"]):focus {
     border-color: #4caf50;
-    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+
+    box-shadow:
+        0 0 0 3px rgba(76, 175, 80, 0.12),
+        inset 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
-/* ===============================
-   TEXTO DE TROCO
-=============================== */
+
+/* =========================================================
+   TEXTOS
+========================================================= */
+
 .pag-box p {
-    font-size: 15px;
+    position: relative;
+
+    z-index: 2;
+
+    margin: 4px 0 0;
+
     color: #b9f6ca;
+
+    font-size: 15px;
     font-weight: 600;
-    margin-top: 4px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   PIX
+========================================================= */
+
+.pix-qrcode {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 6px;
+
+    gap: 14px;
+}
+
+.pix-qrcode img {
+    width: 220px;
+    max-width: 100%;
+
+    height: auto;
+
+    padding: 11px;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    border:
+        1px solid rgba(212, 175, 55, 0.38);
+
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.38),
+        0 0 0 4px rgba(255, 255, 255, 0.025),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+
+    animation:
+        pagQrEntrada 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes pagQrEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.94) translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1) translateY(0);
+    }
+}
+
+.pix-qrcode p {
+    color: #d7dbe2;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   SUCESSO
+========================================================= */
+
+.pag-box-sucesso {
+    background:
+        linear-gradient(180deg,
+            #102016,
+            #0d1a12,
+            #0b1510);
+
+    border:
+        1px solid rgba(76, 175, 80, 0.42);
+
+    box-shadow:
+        0 25px 55px rgba(0, 0, 0, 0.45),
+        0 0 25px rgba(76, 175, 80, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.pag-box-sucesso::before {
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(76, 175, 80, 0.30),
+            #4caf50,
+            #81c784,
+            #4caf50,
+            rgba(76, 175, 80, 0.30),
+            transparent);
 }
 
 .pag-sucesso {
-    text-align: center;
+    position: relative;
+
+    z-index: 2;
+
     padding: 30px 20px;
+
+    text-align: center;
+
     color: #4caf50;
 }
 
 .pag-sucesso h2 {
-    margin-bottom: 10px;
+    margin: 0 0 10px;
+
+    color: #e9f7eb;
+
+    font-size: 23px;
 }
 
 .pag-sucesso p {
-    color: #ccc;
+    margin: 0;
+
+    color: #b9c5bb;
+
     font-size: 15px;
 }
 
-/* ===============================
-   SUCESSO - ANIMAÇÃO PROFISSIONAL
-=============================== */
 
-.pag-box-sucesso {
-    background: linear-gradient(180deg, #102016, #0b1510);
-    border: 1px solid rgba(76, 175, 80, 0.4);
-}
-
-.anim-sucesso {
-    animation: sucessoEntrada 0.6s ease forwards;
-}
-
-@keyframes sucessoEntrada {
-    0% {
-        opacity: 0;
-        transform: scale(0.85) translateY(20px);
-    }
-
-    60% {
-        opacity: 1;
-        transform: scale(1.05) translateY(-4px);
-    }
-
-    100% {
-        transform: scale(1) translateY(0);
-    }
-}
+/* =========================================================
+   ÍCONE SUCESSO
+========================================================= */
 
 .sucesso-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 14px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #43a047, #66bb6a);
+    width: 68px;
+    height: 68px;
+
+    margin: 0 auto 16px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            #43a047,
+            #55b65a,
+            #66bb6a);
+
+    color: #ffffff;
+
     font-size: 34px;
-    color: white;
+    font-weight: 800;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.22);
 
     box-shadow:
-        0 6px 18px rgba(76, 175, 80, 0.6),
-        inset 0 2px 4px rgba(255, 255, 255, 0.35);
+        0 10px 24px rgba(76, 175, 80, 0.38),
+        inset 0 2px 4px rgba(255, 255, 255, 0.28);
 
-    animation: iconPulse 1.4s ease infinite;
+    animation:
+        pagSucessoIcon 1.5s ease-in-out infinite;
 }
 
-@keyframes iconPulse {
-    0% {
+@keyframes pagSucessoIcon {
+
+    0%,
+    100% {
         transform: scale(1);
-        box-shadow: 0 0 0 rgba(76, 175, 80, 0.6);
+
+        box-shadow:
+            0 10px 24px rgba(76, 175, 80, 0.32),
+            0 0 0 0 rgba(76, 175, 80, 0.15);
     }
 
     50% {
-        transform: scale(1.08);
-        box-shadow: 0 0 24px rgba(76, 175, 80, 0.8);
-    }
+        transform: scale(1.06);
 
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 rgba(76, 175, 80, 0.6);
+        box-shadow:
+            0 12px 28px rgba(76, 175, 80, 0.42),
+            0 0 0 7px rgba(76, 175, 80, 0.035);
     }
 }
+
+
+/* =========================================================
+   ENTRADA SUCESSO
+========================================================= */
+
+.anim-sucesso {
+    animation:
+        pagSucessoEntrada 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes pagSucessoEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.90) translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1) translateY(0);
+    }
+}
+
+
+/* =========================================================
+   FECHAR OVERLAY
+========================================================= */
 
 .overlay-fechar {
-    animation: overlaySaida 0.4s ease forwards;
+    animation:
+        pagOverlaySaida 0.35s ease forwards;
 }
 
-@keyframes overlaySaida {
+@keyframes pagOverlaySaida {
     from {
         opacity: 1;
     }
@@ -412,128 +972,237 @@
     }
 }
 
-/* ===== STATUS GERAL ===== */
+
+/* =========================================================
+   STATUS MAQUININHA
+========================================================= */
+
 .status-maquininha {
-    margin: 14px 0;
-    font-size: 14px;
+    position: relative;
+
+    z-index: 2;
+
+    margin: 6px 0;
+
     display: flex;
-    text-align: center;
+
     justify-content: center;
+
+    text-align: center;
+
+    font-size: 14px;
 }
+
+
+/* =========================================================
+   MAQUININHA ERRO
+========================================================= */
 
 .maq-warn {
-    background: rgba(220, 38, 38, 0.08);
-    border: 1px solid rgba(220, 38, 38, 0.35);
-    color: #fecaca;
     padding: 8px 14px;
+
     border-radius: 999px;
+
+    background:
+        rgba(220, 38, 38, 0.08);
+
+    border:
+        1px solid rgba(220, 38, 38, 0.35);
+
+    color: #fecaca;
+
     font-weight: 600;
+
     letter-spacing: 0.3px;
 
-    animation: maqPulse 1.6s ease-in-out infinite;
+    animation:
+        maqPulse 1.6s ease-in-out infinite;
 }
 
-/* ===== ANIMAÇÃO SUAVE (PROFISSIONAL) ===== */
 @keyframes maqPulse {
-    0% {
+
+    0%,
+    100% {
         opacity: 1;
-        box-shadow: 0 0 0 rgba(220, 38, 38, 0);
+
+        box-shadow:
+            0 0 0 rgba(220, 38, 38, 0);
     }
 
     50% {
-        opacity: 0.55;
-        box-shadow: 0 0 12px rgba(220, 38, 38, 0.35);
-    }
+        opacity: 0.65;
 
-    100% {
-        opacity: 1;
-        box-shadow: 0 0 0 rgba(220, 38, 38, 0);
+        box-shadow:
+            0 0 14px rgba(220, 38, 38, 0.22);
     }
 }
 
-/* ===== CONECTADO ===== */
+
+/* =========================================================
+   MAQUININHA OK
+========================================================= */
+
 .maq-ok {
-    background: rgba(22, 163, 74, 0.12);
-    border: 1px solid rgba(22, 163, 74, 0.35);
-    color: #4ade80;
     padding: 8px 14px;
+
     border-radius: 999px;
+
+    background:
+        rgba(22, 163, 74, 0.12);
+
+    border:
+        1px solid rgba(22, 163, 74, 0.35);
+
+    color: #4ade80;
+
     font-weight: 600;
 }
 
-/* ===== BOX DE ERRO (MAQUININHA NÃO CONECTADA) ===== */
+
+/* =========================================================
+   BOX ERRO MAQUININHA
+========================================================= */
+
 .maq-erro-box {
-    background: linear-gradient(180deg, #111827, #020617);
-    border: 1px solid #7f1d1d;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
-    padding: 18px 16px;
-    border-radius: 14px;
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
     max-width: 320px;
+
+    box-sizing: border-box;
+
+    padding: 18px 16px;
+
+    border-radius: 14px;
+
     text-align: center;
-    animation: maqFadeIn 0.25s ease;
+
+    background:
+        linear-gradient(180deg,
+            #111827,
+            #080d18,
+            #020617);
+
+    border:
+        1px solid rgba(127, 29, 29, 0.90);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    animation:
+        maqFadeIn 0.25s ease;
 }
 
-/* ===== TEXTO DO ERRO ===== */
 .maq-erro-box p {
+    margin-bottom: 14px;
+
     color: #fecaca;
+
     font-size: 15px;
     font-weight: 500;
+
     line-height: 1.4;
-    margin-bottom: 14px;
 }
 
-/* ===== BOTÃO OK ===== */
-.maq-ok-btn {
-    background: linear-gradient(135deg, #16a34a, #22c55e);
-    border: none;
+
+/* =========================================================
+   BOTÃO OK MAQUININHA
+========================================================= */
+
+.pag-box .maq-ok-btn {
     padding: 10px 26px;
-    border-radius: 10px;
+
+    background:
+        linear-gradient(135deg,
+            #16a34a,
+            #1db954,
+            #22c55e);
+
+    border:
+        1px solid rgba(74, 222, 128, 0.20);
+
     color: #ffffff;
+
     font-size: 15px;
     font-weight: 700;
+
     letter-spacing: 0.3px;
-    cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.35);
+
+    box-shadow:
+        0 7px 16px rgba(34, 197, 94, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
-.maq-ok-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 22px rgba(34, 197, 94, 0.45);
-    opacity: 0.95;
+.pag-box .maq-ok-btn:hover {
+    background:
+        linear-gradient(135deg,
+            #18ad4e,
+            #22c55e,
+            #2ed16a);
+
+    box-shadow:
+        0 10px 22px rgba(34, 197, 94, 0.32);
+
+    opacity: 1;
 }
 
-.maq-ok-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.35);
-}
 
-/* ===== ANIMAÇÃO ===== */
+/* =========================================================
+   ANIMAÇÃO MAQUININHA
+========================================================= */
+
 @keyframes maqFadeIn {
     from {
         opacity: 0;
-        transform: translateY(6px) scale(0.98);
+
+        transform:
+            translateY(6px) scale(0.98);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0) scale(1);
     }
 }
 
-/* ===============================
+
+/* =========================================================
+   FOCO TECLADO
+========================================================= */
+
+.pag-box button:focus-visible {
+    outline:
+        2px solid rgba(212, 175, 55, 0.75);
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
    DESKTOP MENOR
-=============================== */
+========================================================= */
+
 @media (max-width: 1024px) {
+
     .pag-box {
-        width: 320px;
+        width: 340px;
+
         padding: 24px;
+
         gap: 12px;
     }
 
     .pag-box button {
-        font-size: 14.5px;
+        min-height: 45px;
+
         padding: 11px;
+
+        font-size: 14.5px;
     }
 
     .pag-box p {
@@ -541,69 +1210,113 @@
     }
 }
 
-/* ===============================
+
+/* =========================================================
    TABLET
-=============================== */
+========================================================= */
+
 @media (max-width: 768px) {
+
+    .pag-overlay {
+        padding: 16px;
+    }
+
     .pag-box {
-        width: 300px;
+        width: 320px;
+
+        max-height: 85vh;
+
         padding: 22px;
-        border-radius: 14px;
+
+        border-radius: 15px;
     }
 
     .pag-box h3 {
-        font-size: 17px;
+        font-size: 18px;
     }
 
     .pag-box button {
-        font-size: 14px;
+        min-height: 43px;
+
         padding: 10px;
+
+        font-size: 14px;
     }
 
-    .pag-box input {
-        font-size: 14px;
+    .pag-box input:not([type="checkbox"]) {
         padding: 11px;
+
+        font-size: 14px;
     }
 
     .maq-erro-box {
         max-width: 280px;
+
         padding: 16px 14px;
     }
 }
 
-/* ===============================
+
+/* =========================================================
    CELULAR
-=============================== */
+========================================================= */
+
 @media (max-width: 600px) {
+
     .pag-overlay {
         padding: 12px;
     }
 
     .pag-box {
         width: 100%;
-        max-width: 100%;
-        padding: 20px;
-        border-radius: 12px;
+
+        max-width: 390px;
+
+        max-height: 88vh;
+
+        padding: 19px;
+
+        gap: 11px;
+
+        border-radius: 14px;
     }
 
     .pag-box h3 {
-        font-size: 16px;
+        padding-bottom: 11px;
+
+        font-size: 17px;
+
         text-align: center;
     }
 
-    .pag-box button {
-        font-size: 13.5px;
-        padding: 10px;
+    .cpf-area {
+        margin: 2px 0;
+
+        padding: 11px;
     }
 
-    .pag-box input {
-        font-size: 13.5px;
+    .pag-box button {
+        min-height: 42px;
+
         padding: 10px;
+
+        font-size: 13.5px;
+    }
+
+    .pag-box input:not([type="checkbox"]) {
+        padding: 10px;
+
+        font-size: 13.5px;
     }
 
     .pag-box p {
         font-size: 13.5px;
+
         text-align: center;
+    }
+
+    .pix-qrcode img {
+        width: 190px;
     }
 
     .status-maquininha {
@@ -611,12 +1324,25 @@
     }
 }
 
-/* ===============================
+
+/* =========================================================
    CELULARES MUITO PEQUENOS
-=============================== */
+========================================================= */
+
 @media (max-width: 360px) {
+
+    .pag-overlay {
+        padding: 8px;
+    }
+
     .pag-box {
-        padding: 18px;
+        max-height: 92vh;
+
+        padding: 16px;
+
+        gap: 9px;
+
+        border-radius: 12px;
     }
 
     .pag-box h3 {
@@ -624,13 +1350,21 @@
     }
 
     .pag-box button {
-        font-size: 13px;
+        min-height: 40px;
+
         padding: 9px;
+
+        font-size: 13px;
     }
 
-    .pag-box input {
-        font-size: 13px;
+    .pag-box input:not([type="checkbox"]) {
         padding: 9px;
+
+        font-size: 13px;
+    }
+
+    .pix-qrcode img {
+        width: 170px;
     }
 
     .maq-erro-box {
@@ -638,8 +1372,33 @@
     }
 
     .sucesso-icon {
-        width: 56px;
-        height: 56px;
-        font-size: 30px;
+        width: 58px;
+        height: 58px;
+
+        font-size: 29px;
+    }
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .pag-overlay,
+    .pag-box,
+    .pix-qrcode img,
+    .anim-sucesso,
+    .sucesso-icon,
+    .btn-processando,
+    .maq-warn {
+        animation: none;
+    }
+
+    .pag-box button,
+    .pag-box input,
+    .cpf-input {
+        transition: none;
     }
 }

@@ -1,424 +1,1160 @@
-/* ===============================
+/* =========================================================
+   LISTA DE ITENS
+   PREMIUM MANTENDO AS CORES ORIGINAIS
+
+   REGRA PRINCIPAL:
+   OS ITENS NÃO ENCOLHEM
+   PASSOU DA ALTURA, APARECE SCROLL
+========================================================= */
+
+
+/* =========================================================
    CONTAINER PRINCIPAL
-=============================== */
+========================================================= */
+
 .lista-itens-box {
-    background: linear-gradient(180deg, #c9c8c8, #cecece);
+    position: relative;
+
+    width: 100%;
+
+    background:
+        linear-gradient(180deg,
+            #c9c8c8 0%,
+            #cecece 100%);
+
     border: 2px solid #d4af37;
+
     border-radius: 16px;
+
     padding: 16px;
 
     color: #f2f2f2;
 
     display: flex;
     flex-direction: column;
+
+    /*
+        IMPORTANTE:
+        limita a área da lista.
+        Se passar disso, o conteúdo interno terá scroll.
+    */
+    height: 360px;
+    max-height: 360px;
+
+    overflow: hidden;
+
     box-shadow:
-        0 14px 36px rgba(0, 0, 0, 0.65),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        0 14px 36px rgba(0, 0, 0, 0.38),
+        0 5px 14px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.34),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+
+    transition:
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
+
+/* =========================================================
+   DETALHE DOURADO SUPERIOR
+========================================================= */
+
+.lista-itens-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: -2px;
+    left: 7%;
+    right: 7%;
+
+    height: 2px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 236, 165, 0.30),
+            #d4af37,
+            rgba(255, 236, 165, 0.30),
+            transparent);
+
+    box-shadow:
+        0 1px 8px rgba(212, 175, 55, 0.22);
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+
+/* =========================================================
+   ESTADO VAZIO
+========================================================= */
+
+.lista-vazio {
+    min-height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 0.10);
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    color: #000000 !important;
+
+    font-size: 19px;
+    font-weight: 500;
+
+    text-align: center;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================================
+   CONTEÚDO COM SCROLL
+
+   ESSA É A PARTE MAIS IMPORTANTE
+========================================================= */
+
+.lista-itens-conteudo {
+    position: relative;
+
+    width: 100%;
+
+    /*
+        flex: 1 faz a lista ocupar o espaço disponível
+        dentro do container.
+    */
+    flex: 1;
+
+    /*
+        Fundamental em containers flex.
+        Permite que o overflow funcione corretamente.
+    */
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    /*
+        AQUI ESTÁ O SCROLL
+    */
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding-right: 7px;
+    padding-bottom: 2px;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #d4af37 #162639;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.lista-itens-conteudo::-webkit-scrollbar {
+    width: 7px;
+}
+
+
+.lista-itens-conteudo::-webkit-scrollbar-track {
+    background: #162639;
+
+    border-radius: 20px;
+
+    box-shadow:
+        inset 0 0 5px rgba(0, 0, 0, 0.32);
+}
+
+
+.lista-itens-conteudo::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(180deg,
+            #e3c04c,
+            #d4af37,
+            #b99327);
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    box-shadow:
+        0 0 7px rgba(212, 175, 55, 0.25);
+}
+
+
+.lista-itens-conteudo::-webkit-scrollbar-thumb:hover {
+    background:
+        linear-gradient(180deg,
+            #ebcb5b,
+            #d4af37);
+}
+
+
+/* =========================================================
+   LINHA DO ITEM
+
+   IMPORTANTE:
+   flex-shrink: 0 impede os produtos de encolherem.
+========================================================= */
+
+.item-linha {
+    position: relative;
+
+    width: 100%;
+
+    /*
+        CADA ITEM MANTÉM SUA ALTURA
+    */
+    min-height: 54px;
+    height: 54px;
+
+    /*
+        NÃO DEIXA O FLEX ESMAGAR O ITEM
+    */
+    flex: 0 0 54px;
+    flex-shrink: 0;
+
+    background:
+        linear-gradient(180deg,
+            #162639 0%,
+            #132235 100%);
+
+    padding: 9px 12px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.045);
+
+    border-left:
+        4px solid #d4af37;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) auto minmax(125px, auto);
+
+    align-items: center;
+
+    gap: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.21),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    animation:
+        itemEntrada 0.30s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+    transition:
+        background 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.18s ease,
+        border-color 0.22s ease;
+}
+
+
+/* =========================================================
+   BRILHO SUPERIOR DO ITEM
+========================================================= */
+
+.item-linha::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 18px;
+    right: 18px;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.10),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LUZ DOURADA LATERAL
+========================================================= */
+
+.item-linha::after {
+    content: "";
+
+    position: absolute;
+
+    left: -5px;
+    top: 50%;
+
+    width: 14px;
+    height: 70%;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(212, 175, 55, 0.18);
+
+    filter: blur(7px);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.22s ease;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HOVER DO ITEM
+========================================================= */
+
+.item-linha:hover {
+    transform: translateY(-1px);
+
+    background:
+        linear-gradient(180deg,
+            #192c42,
+            #15273b);
+
+    border-color:
+        rgba(212, 175, 55, 0.15);
+
+    border-left-color:
+        #d4af37;
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.27),
+        0 0 10px rgba(212, 175, 55, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+
+.item-linha:hover::after {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DE ENTRADA
+========================================================= */
+
 @keyframes itemEntrada {
+
     from {
         opacity: 0;
-        transform: translateY(6px);
+
+        transform:
+            translateY(6px) scale(0.995);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0) scale(1);
     }
 }
 
-/* ===============================
-   ESTADO VAZIO
-=============================== */
-.lista-vazio {
-    font-size: 19px;
-    color: #000000 !important;
-    opacity: 0.7;
-    padding: 6px 2px;
-}
 
-/* ===============================
-   CONTEÚDO COM SCROLL
-=============================== */
-.lista-itens-conteudo {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: fit-content !important;
-    max-width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    padding-right: 6px;
-}
+/* =========================================================
+   NOME DO PRODUTO
+========================================================= */
 
-/* ===============================
-   SCROLL PERSONALIZADO
-=============================== */
-.lista-itens-conteudo::-webkit-scrollbar {
-    width: 6px;
-}
-
-.lista-itens-conteudo::-webkit-scrollbar-thumb {
-    background: #d4af37;
-    border-radius: 10px;
-}
-
-.lista-itens-conteudo::-webkit-scrollbar-track {
-    background: #162639;
-}
-
-/* ===============================
-   LINHA DO ITEM
-=============================== */
-.item-linha {
-    background: linear-gradient(180deg, #162639, #132235);
-    padding: 10px 12px;
-
-    border-radius: 12px;
-    border-left: 4px solid #d4af37;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    animation: itemEntrada 0.28s ease-out;
-
-    transition:
-        background 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.2s ease;
-}
-
-
-
-/* ===============================
-   NOME DO ITEM
-=============================== */
 .item-nome {
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: #f2f2f2;
+
     font-size: 19px;
     font-weight: 500;
-    color: #f2f2f2;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.15px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
 }
 
-/* Unidade */
+
+/* =========================================================
+   UNIDADE
+========================================================= */
+
 .item-und {
+    margin-left: 2px;
+
+    color: #f2f2f2;
+
     font-size: 11px;
+
     opacity: 0.7;
 }
 
-/* ===============================
+
+/* =========================================================
    CONTROLES
-=============================== */
+========================================================= */
+
 .item-controles {
     display: flex;
     align-items: center;
+
     gap: 6px;
+
+    padding: 3px;
+
+    border-radius: 9px;
+
+    background:
+        rgba(0, 0, 0, 0.10);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.035);
+
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.14);
 }
 
-/* Quantidade */
+
+/* =========================================================
+   QUANTIDADE
+========================================================= */
+
 .item-qtd {
-    min-width: 22px;
+    min-width: 27px;
+
     text-align: center;
+
+    color: #f2f2f2;
 
     font-size: 18px;
     font-weight: 600;
-    color: #f2f2f2;
+
+    font-variant-numeric:
+        tabular-nums;
 }
 
-/* ===============================
+
+/* =========================================================
    BOTÕES + E -
-=============================== */
+========================================================= */
+
 .btn-mais,
 .btn-menos {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
 
-    border-radius: 6px;
-    border: none;
+    flex: 0 0 28px;
 
-    background: #3381e7 !important;
-    color: hsl(0, 0%, 97%) !important;
-    font-weight: bolder !important;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    background:
+        linear-gradient(145deg,
+            #3c8bed,
+            #3381e7) !important;
+
+    color:
+        hsl(0, 0%, 97%) !important;
+
     font-size: 19px;
-    font-weight: 700;
+    font-weight: 700 !important;
+
     line-height: 1;
 
     cursor: pointer;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 2px 6px rgba(0, 0, 0, 0.4);
+        0 3px 7px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
 
     transition:
-        background-color 0.2s ease,
+        background 0.20s ease,
         transform 0.15s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.20s ease;
 }
+
+
+/* =========================================================
+   HOVER + E -
+========================================================= */
 
 .btn-mais:hover,
 .btn-menos:hover {
-    background: #1d324a !important;
-    transform: translateY(-1px);
+    background:
+        linear-gradient(145deg,
+            #263e59,
+            #1d324a) !important;
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 5px 10px rgba(0, 0, 0, 0.35);
 }
+
 
 .btn-mais:active,
 .btn-menos:active {
-    transform: translateY(0);
-    box-shadow:
-        inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    transform:
+        scale(0.92);
 }
 
-/* ===============================
+
+/* =========================================================
    BOTÃO REMOVER
-=============================== */
+========================================================= */
+
 .btn-remover {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
 
-    border-radius: 6px;
-    border: none;
+    flex: 0 0 28px;
 
-    background: #c40f36;
-    color: #ffb4b4;
-
-    font-size: 19px;
-    font-weight: 700;
-
-    cursor: pointer;
+    padding: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    border-radius: 7px;
+
+    border:
+        1px solid rgba(255, 180, 180, 0.08);
+
+    background:
+        linear-gradient(145deg,
+            #d0143d,
+            #c40f36);
+
+    color: #ffb4b4;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    cursor: pointer;
+
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.06),
-        0 2px 6px rgba(0, 0, 0, 0.4);
+        0 3px 7px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
 
     transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.15s ease;
+        background 0.20s ease,
+        color 0.20s ease,
+        transform 0.15s ease,
+        box-shadow 0.20s ease;
 }
+
 
 .btn-remover:hover {
-    background: #4a1d1d;
+    background:
+        linear-gradient(145deg,
+            #592525,
+            #4a1d1d);
+
     color: #ffdada;
-    transform: translateY(-1px);
+
+    transform:
+        translateY(-1px);
 }
+
 
 .btn-remover:active {
-    transform: translateY(0);
+    transform:
+        scale(0.92);
 }
 
-/* ===============================
+
+/* =========================================================
    PREÇO
-=============================== */
+========================================================= */
+
 .item-preco {
-    font-size: 23px;
-    font-weight: 600;
+    position: relative;
+
+    min-width: 125px;
+
+    padding-left: 15px;
+
     color: #d4af37;
+
+    font-size: 23px;
+    font-weight: 650;
+
+    line-height: 1;
+
+    letter-spacing: -0.45px;
+
+    text-align: right;
+
+    white-space: nowrap;
+
+    font-variant-numeric:
+        tabular-nums;
+
+    text-shadow:
+        0 1px 5px rgba(212, 175, 55, 0.12);
 }
 
-/* ===============================
+
+/* =========================================================
+   DIVISOR DO PREÇO
+========================================================= */
+
+.item-preco::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 1px;
+    height: 30px;
+
+    transform:
+        translateY(-50%);
+
+    background:
+        linear-gradient(180deg,
+            transparent,
+            rgba(212, 175, 55, 0.28),
+            transparent);
+}
+
+
+/* =========================================================
    TEMA CLARO
-=============================== */
+========================================================= */
 
 .lista-itens-box.tema-claro {
-    background: linear-gradient(180deg, #ffffff, #f2f2f2);
-    border: 2px solid #c9a437;
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f2f2f2);
+
+    border:
+        2px solid #c9a437;
+
     color: #1a1a1a;
 
     box-shadow:
         0 12px 30px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(0, 0, 0, 0.04);
+        inset 0 1px 0 rgba(255, 255, 255, 0.80);
 }
 
-/* vazio */
+
+/* =========================================================
+   VAZIO CLARO
+========================================================= */
+
 .lista-itens-box.tema-claro .lista-vazio {
-    color: #131313;
+    color: #131313 !important;
+
+    background:
+        rgba(255, 255, 255, 0.42);
+
+    border-color:
+        rgba(201, 164, 55, 0.18);
 }
 
-/* scroll */
-.lista-itens-box.tema-claro .lista-itens-conteudo::-webkit-scrollbar-thumb {
-    background: #c9a437;
+
+/* =========================================================
+   SCROLL CLARO
+========================================================= */
+
+.lista-itens-box.tema-claro .lista-itens-conteudo {
+    scrollbar-color:
+        #c9a437 #e5e5e5;
 }
+
+
+.lista-itens-box.tema-claro .lista-itens-conteudo::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(180deg,
+            #d8b84e,
+            #c9a437);
+}
+
 
 .lista-itens-box.tema-claro .lista-itens-conteudo::-webkit-scrollbar-track {
     background: #e5e5e5;
 }
 
-/* item */
+
+/* =========================================================
+   ITEM CLARO
+========================================================= */
+
 .lista-itens-box.tema-claro .item-linha {
-    background: #ffffff;
-    border: #c9a437 solid 1px;
-    border-left: 4px solid #c9a437;
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #fafafa);
+
+    border:
+        1px solid #c9a437;
+
+    border-left:
+        4px solid #c9a437;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
+
 
 .lista-itens-box.tema-claro .item-linha:hover {
-    background: #eaeaea;
+    background:
+        linear-gradient(180deg,
+            #f4f4f4,
+            #eaeaea);
+
+    box-shadow:
+        0 7px 15px rgba(0, 0, 0, 0.09);
 }
 
-/* textos */
+
+/* =========================================================
+   TEXTOS CLAROS
+========================================================= */
+
 .lista-itens-box.tema-claro .item-nome {
     color: #1a1a1a;
 }
 
+
 .lista-itens-box.tema-claro .item-und {
-    color: #777;
+    color: #777777;
 }
+
 
 .lista-itens-box.tema-claro .item-qtd {
     color: #1a1a1a;
 }
 
-/* botões + e - */
+
+/* =========================================================
+   CONTROLES CLAROS
+========================================================= */
+
+.lista-itens-box.tema-claro .item-controles {
+    background:
+        rgba(0, 0, 0, 0.025);
+
+    border-color:
+        rgba(0, 0, 0, 0.05);
+}
+
+
+/* =========================================================
+   BOTÕES CLAROS
+========================================================= */
+
 .lista-itens-box.tema-claro .btn-mais,
 .lista-itens-box.tema-claro .btn-menos {
-    background: #ffffff;
-    color: #0a0a0a;
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f7f7f7) !important;
+
+    color: #0a0a0a !important;
+
+    border:
+        1px solid rgba(0, 0, 0, 0.08);
 
     box-shadow:
-        inset 0 1px 0 rgba(0, 0, 0, 0.08),
-        0 2px 6px rgba(0, 0, 0, 0.2);
+        0 2px 6px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
+
 
 .lista-itens-box.tema-claro .btn-mais:hover,
 .lista-itens-box.tema-claro .btn-menos:hover {
-    background: #f0f0f0;
+    background:
+        linear-gradient(180deg,
+            #f5f5f5,
+            #f0f0f0) !important;
 }
 
-/* remover */
+
+/* =========================================================
+   REMOVER CLARO
+========================================================= */
+
 .lista-itens-box.tema-claro .btn-remover {
-    background: #ffecec;
+    background:
+        linear-gradient(145deg,
+            #fff2f2,
+            #ffecec);
+
     color: #b32020;
+
+    border-color:
+        rgba(179, 32, 32, 0.10);
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.08);
 }
+
 
 .lista-itens-box.tema-claro .btn-remover:hover {
-    background: #ffd6d6;
+    background:
+        linear-gradient(145deg,
+            #ffe0e0,
+            #ffd6d6);
+
     color: #8f1a1a;
 }
 
-/* preço */
+
+/* =========================================================
+   PREÇO CLARO
+========================================================= */
+
 .lista-itens-box.tema-claro .item-preco {
     color: #000000;
+
+    text-shadow: none;
 }
 
-/* ===============================
+
+.lista-itens-box.tema-claro .item-preco::before {
+    background:
+        linear-gradient(180deg,
+            transparent,
+            rgba(0, 0, 0, 0.12),
+            transparent);
+}
+
+
+/* =========================================================
    DESKTOP MENOR
-=============================== */
+========================================================= */
+
 @media (max-width: 1024px) {
+
     .lista-itens-box {
+        height: 330px;
+        max-height: 330px;
+
         padding: 14px;
     }
 
-    .lista-itens-conteudo {
-        gap: 8px;
+
+    .item-linha {
+        /*
+            CONTINUA COM ALTURA FIXA.
+            NÃO ENCOLHE COM MAIS PRODUTOS.
+        */
+
+        min-height: 50px;
+        height: 50px;
+
+        flex: 0 0 50px;
+
+        grid-template-columns:
+            minmax(0, 1fr) auto minmax(90px, auto);
+
+        gap: 10px;
     }
 
+
+    .item-nome {
+        font-size: 14px;
+    }
+
+
+    .item-qtd {
+        font-size: 14px;
+    }
+
+
     .item-preco {
-        font-size: 13.5px;
+        min-width: 90px;
+
+        font-size: 15px;
     }
 }
 
-/* ===============================
+
+/* =========================================================
    TABLET
-=============================== */
+========================================================= */
+
 @media (max-width: 768px) {
+
     .lista-itens-box {
+        height: 310px;
+        max-height: 310px;
+
         padding: 12px;
+
         border-radius: 14px;
     }
 
+
     .item-linha {
-        padding: 9px 10px;
-        gap: 10px;
+        min-height: 48px;
+        height: 48px;
+
+        flex: 0 0 48px;
+
+        grid-template-columns:
+            minmax(0, 1fr) auto minmax(75px, auto);
+
+        padding: 8px 9px;
+
+        gap: 7px;
     }
+
 
     .item-nome {
         font-size: 12.5px;
     }
 
+
     .item-qtd {
-        font-size: 12.5px;
         min-width: 20px;
+
+        font-size: 12px;
     }
+
 
     .btn-mais,
     .btn-menos,
     .btn-remover {
         width: 24px;
         height: 24px;
+
+        flex-basis: 24px;
+
         font-size: 14px;
     }
 
+
     .item-preco {
+        min-width: 75px;
+
+        padding-left: 8px;
+
         font-size: 13px;
     }
 }
 
-/* ===============================
+
+/* =========================================================
    CELULAR
-=============================== */
+========================================================= */
+
 @media (max-width: 600px) {
+
     .lista-itens-box {
+        /*
+            NO CELULAR TAMBÉM LIMITA A LISTA.
+            MAIS PRODUTOS = SCROLL.
+        */
+
+        height: 300px;
+        max-height: 300px;
+
         padding: 10px;
     }
 
+
     .lista-itens-conteudo {
-        gap: 6px;
+        gap: 7px;
+
         padding-right: 4px;
     }
 
+
     .item-linha {
-        flex-wrap: wrap;
-        row-gap: 6px;
-    }
+        /*
+            Não usamos flex-wrap aqui.
+            Isso mantém o PDV compacto.
+        */
 
-    .item-nome {
-        width: 100%;
-        font-size: 12.5px;
-    }
+        min-height: 47px;
+        height: 47px;
 
-    .item-controles {
+        flex: 0 0 47px;
+
+        grid-template-columns:
+            minmax(0, 1fr) auto minmax(66px, auto);
+
+        padding: 7px 7px 7px 9px;
+
         gap: 5px;
     }
 
-    .item-preco {
-        margin-left: auto;
-        font-size: 12.5px;
-    }
-}
-
-/* ===============================
-   CELULARES MUITO PEQUENOS
-=============================== */
-@media (max-width: 360px) {
-    .lista-itens-box {
-        padding: 8px;
-    }
-
-    .item-linha {
-        padding: 8px;
-    }
 
     .item-nome {
-        font-size: 12px;
+        font-size: 11px;
     }
+
+
+    .item-und {
+        font-size: 8px;
+    }
+
+
+    .item-controles {
+        gap: 3px;
+
+        padding: 2px;
+    }
+
+
+    .item-qtd {
+        min-width: 18px;
+
+        font-size: 10px;
+    }
+
 
     .btn-mais,
     .btn-menos,
     .btn-remover {
         width: 22px;
         height: 22px;
-        font-size: 13px;
+
+        flex-basis: 22px;
+
+        border-radius: 5px;
+
+        font-size: 12px;
     }
 
+
     .item-preco {
-        font-size: 12px;
+        min-width: 66px;
+
+        padding-left: 6px;
+
+        font-size: 11px;
+    }
+
+
+    .item-preco::before {
+        height: 20px;
+    }
+}
+
+
+/* =========================================================
+   CELULAR MUITO PEQUENO
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .lista-itens-box {
+        height: 280px;
+        max-height: 280px;
+
+        padding: 8px;
+    }
+
+
+    .item-linha {
+        min-height: 44px;
+        height: 44px;
+
+        flex: 0 0 44px;
+
+        padding: 6px 6px 6px 8px;
+    }
+
+
+    .item-nome {
+        font-size: 10px;
+    }
+
+
+    .btn-mais,
+    .btn-menos,
+    .btn-remover {
+        width: 20px;
+        height: 20px;
+
+        flex-basis: 20px;
+
+        font-size: 11px;
+    }
+
+
+    .item-qtd {
+        min-width: 16px;
+
+        font-size: 9px;
+    }
+
+
+    .item-preco {
+        min-width: 60px;
+
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .item-linha {
+        animation: none;
+
+        transition: none;
+    }
+
+
+    .btn-mais,
+    .btn-menos,
+    .btn-remover {
+        transition: none;
     }
 }

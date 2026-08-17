@@ -1,261 +1,885 @@
-/* ======================================
-   TOTAL VENDA - COBRANÇA PDV
-====================================== */
+/* =========================================================
+   TOTAL VENDA
+   PREMIUM SEM ALTERAR A IDENTIDADE VISUAL
+========================================================= */
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
 
 .cob-box {
+    position: relative;
+
     width: 90%;
     height: 90%;
-    border-radius: 16px;
-    padding: 10px;
+
+    padding: 12px;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     gap: 20px;
-    border: #d4af37 solid 3px;
-    border-radius: 25px;
+
     box-sizing: border-box;
-    transition: background-color 0.35s ease, box-shadow 0.35s ease;
+
+    border: 3px solid #d4af37;
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    transition:
+        background 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+
+    animation:
+        cobEntradaPremium 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ======================================
-   TEMAS
-====================================== */
+
+/* =========================================================
+   DETALHE DOURADO SUPERIOR
+========================================================= */
+
+.cob-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: -3px;
+    left: 10%;
+    right: 10%;
+
+    height: 3px;
+
+    border-radius: 0 0 20px 20px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 238, 165, 0.45),
+            #d4af37,
+            #f0cf61,
+            #d4af37,
+            rgba(255, 238, 165, 0.45),
+            transparent);
+
+    box-shadow:
+        0 2px 8px rgba(212, 175, 55, 0.30);
+
+    pointer-events: none;
+
+    z-index: 4;
+}
+
+
+/* =========================================================
+   ILUMINAÇÃO INTERNA
+========================================================= */
+
+.cob-box::after {
+    content: "";
+
+    position: absolute;
+
+    top: -150px;
+    right: -110px;
+
+    width: 260px;
+    height: 260px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    filter: blur(25px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DE ENTRADA
+========================================================= */
+
+@keyframes cobEntradaPremium {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(6px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   TEMA ESCURO
+
+   MANTENDO EXATAMENTE SUA LÓGICA:
+   FUNDO CINZA CLARO
+========================================================= */
 
 .cob-tema-escuro {
-    background: linear-gradient(180deg, #dddee0, #e7e7e7);
+    background:
+        linear-gradient(180deg,
+            #dddee0 0%,
+            #e2e3e4 48%,
+            #e7e7e7 100%);
+
     box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-        0 12px 30px rgba(0, 0, 0, 0.55);
+        0 16px 36px rgba(0, 0, 0, 0.34),
+        0 5px 12px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
+
+
+/* =========================================================
+   TEMA CLARO
+========================================================= */
 
 .cob-tema-claro {
-    background: linear-gradient(180deg, #f3f6fb, #e7ecf4);
+    background:
+        linear-gradient(180deg,
+            #f3f6fb 0%,
+            #edf1f7 48%,
+            #e7ecf4 100%);
+
     box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.06),
-        0 10px 26px rgba(0, 0, 0, 0.18);
+        0 14px 30px rgba(0, 0, 0, 0.16),
+        0 4px 10px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.90),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.04);
 }
 
-/* ======================================
+
+/* =========================================================
    VALOR TOTAL
-====================================== */
+========================================================= */
 
 .cob-valor {
+    position: relative;
+
+    z-index: 2;
+
     width: 100%;
+
+    min-height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
     text-align: center;
+
     font-size: 2rem;
     font-weight: 800;
+
+    line-height: 1;
+
     letter-spacing: 1px;
-    padding: 18px;
-    border-radius: 14px;
+
+    font-variant-numeric: tabular-nums;
+
     user-select: none;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.20s ease,
+        box-shadow 0.25s ease,
+        opacity 0.20s ease,
+        filter 0.20s ease;
 }
+
+
+/* =========================================================
+   BRILHO SUPERIOR DO TOTAL
+========================================================= */
+
+.cob-valor::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+    right: 10%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.45),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LUZ INTERNA DO TOTAL
+========================================================= */
+
+.cob-valor::after {
+    content: "";
+
+    position: absolute;
+
+    width: 160px;
+    height: 80px;
+
+    top: -55px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.09);
+
+    filter: blur(18px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TOTAL TEMA ESCURO
+========================================================= */
 
 .cob-tema-escuro .cob-valor {
     color: #ffffff;
-    background: linear-gradient(135deg, #18263b, #1d2f4a);
+
+    background:
+        linear-gradient(135deg,
+            #18263b 0%,
+            #1b2b43 48%,
+            #1d2f4a 100%);
+
+    border:
+        1px solid rgba(212, 175, 55, 0.40);
+
     box-shadow:
-        inset 0 0 0 1px rgba(212, 175, 55, 0.35),
-        0 8px 22px rgba(0, 0, 0, 0.45);
+        0 10px 24px rgba(0, 0, 0, 0.28),
+        0 3px 8px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 0 0 1px rgba(212, 175, 55, 0.12);
 }
+
+
+/* =========================================================
+   TOTAL TEMA CLARO
+========================================================= */
 
 .cob-tema-claro .cob-valor {
     color: #162030;
-    background: linear-gradient(135deg, #ffffff, #eef2f8);
+
+    background:
+        linear-gradient(135deg,
+            #ffffff 0%,
+            #f6f8fb 48%,
+            #eef2f8 100%);
+
+    border:
+        1px solid rgba(0, 0, 0, 0.07);
+
     box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.08),
-        0 6px 18px rgba(0, 0, 0, 0.18);
+        0 8px 20px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 1),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.025);
 }
 
-/* ======================================
-   BOTÃO COBRAR
-====================================== */
 
-.cob-botao {
-    width: 100%;
-    padding: 16px;
-    font-size: 1.4rem;
-    font-weight: 700;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        background-color 0.25s ease,
-        opacity 0.25s ease;
-}
-
-/* Botão ativo */
-.cob-tema-escuro .cob-botao {
-    color: #000000;
-    font-weight: 10000000;
-    background: linear-gradient(135deg, #2bca03, #16b301);
-    box-shadow:
-        0 8px 22px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.45);
-}
-
-.cob-tema-claro .cob-botao {
-    color: #ffffff;
-    background: linear-gradient(135deg, #1e88e5, #1565c0);
-    box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-.cob-botao:hover:not(.cob-botao-desabilitado) {
-    transform: translateY(-1px);
-}
-
-.cob-botao:active:not(.cob-botao-desabilitado) {
-    transform: scale(0.98);
-}
-
-/* ======================================
-   BOTÃO DESABILITADO
-====================================== */
-
-.cob-botao-desabilitado {
-    opacity: 0.45;
-    cursor: not-allowed;
-    filter: grayscale(60%);
-    box-shadow: none;
-}
-
-/* ======================================
-   RESPONSIVO
-====================================== */
-.cob-acoes {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-}
-
-.cob-botao-cancelar {
-    flex: 1;
-    padding: 12px;
-    border-radius: 13px;
-    font-size: 1rem;
-    background: linear-gradient(180deg, #ee0707, #dd0606);
-    color: #0a0a0a !important;
-
-    border: 1px solid rgba(3, 3, 3, 0.4);
-
-    font-weight: bolder;
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.2s ease;
-}
+/* =========================================================
+   TOTAL CLICÁVEL
+   ALTERAR BRL / USD
+========================================================= */
 
 .cob-valor.clicavel {
     cursor: pointer;
-    user-select: none;
 }
+
+
+/* Mantemos legibilidade.
+   Não diminuímos demais a opacidade como antes. */
 
 .cob-valor.clicavel:hover {
-    opacity: 0.75;
+    opacity: 1;
+
+    transform:
+        translateY(-2px) scale(1.005);
 }
 
-.cob-botao-cancelar:hover:not(.desabilitado) {
-    background: linear-gradient(180deg, #4a1d1d, #321212);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+
+/* hover tema escuro */
+
+.cob-tema-escuro .cob-valor.clicavel:hover {
+    box-shadow:
+        0 13px 28px rgba(0, 0, 0, 0.34),
+        0 0 0 1px rgba(212, 175, 55, 0.22),
+        0 0 16px rgba(212, 175, 55, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
 }
+
+
+/* hover tema claro */
+
+.cob-tema-claro .cob-valor.clicavel:hover {
+    box-shadow:
+        0 11px 24px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(22, 32, 48, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+
+/* clique */
+
+.cob-valor.clicavel:active {
+    transform:
+        translateY(0) scale(0.985);
+}
+
+
+/* =========================================================
+   ÁREA DOS BOTÕES
+========================================================= */
+
+.cob-acoes {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding-top: 3px;
+}
+
+
+/* =========================================================
+   BOTÃO CANCELAR
+========================================================= */
+
+.cob-botao-cancelar {
+    position: relative;
+
+    flex: 1;
+
+    min-height: 52px;
+
+    padding: 12px;
+
+    border-radius: 13px;
+
+    border:
+        1px solid rgba(3, 3, 3, 0.40);
+
+    background:
+        linear-gradient(180deg,
+            #ee0707 0%,
+            #e40606 48%,
+            #dd0606 100%);
+
+    color: #0a0a0a !important;
+
+    font-size: 1rem;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 7px 16px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.10);
+
+    transition:
+        background 0.20s ease,
+        transform 0.15s ease,
+        box-shadow 0.20s ease,
+        opacity 0.20s ease;
+}
+
+
+/* brilho do botão cancelar */
+
+.cob-botao-cancelar::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+    right: 12%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.65),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HOVER CANCELAR
+========================================================= */
+
+.cob-botao-cancelar:hover:not(.desabilitado) {
+    background:
+        linear-gradient(180deg,
+            #4a1d1d,
+            #3e1717,
+            #321212);
+
+    color: #ffffff !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 18px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+
+.cob-botao-cancelar:active:not(.desabilitado) {
+    transform:
+        translateY(0) scale(0.975);
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.20),
+        inset 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+
+/* =========================================================
+   CANCELAR DESABILITADO
+========================================================= */
 
 .cob-botao-cancelar.desabilitado {
     opacity: 0.45;
+
     cursor: not-allowed;
+
+    filter:
+        grayscale(45%) saturate(60%);
+
+    box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.08);
 }
 
-/* ===============================
+
+/* =========================================================
+   BOTÃO COBRAR
+========================================================= */
+
+.cob-botao {
+    position: relative;
+
+    flex: 1;
+
+    width: 100%;
+
+    min-height: 52px;
+
+    padding: 12px 16px;
+
+    border-radius: 13px;
+
+    border: none;
+
+    font-size: 1.4rem;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease,
+        opacity 0.22s ease,
+        filter 0.22s ease;
+}
+
+
+/* =========================================================
+   BRILHO SUPERIOR DO COBRAR
+========================================================= */
+
+.cob-botao::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+    right: 10%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.70),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BOTÃO COBRAR NO TEMA ESCURO
+   CONTINUA VERDE
+========================================================= */
+
+.cob-tema-escuro .cob-botao {
+    color: #000000;
+
+    background:
+        linear-gradient(135deg,
+            #2bca03 0%,
+            #22c004 48%,
+            #16b301 100%);
+
+    border:
+        1px solid rgba(12, 113, 0, 0.40);
+
+    box-shadow:
+        0 9px 20px rgba(0, 0, 0, 0.27),
+        0 3px 7px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.48),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   BOTÃO COBRAR NO TEMA CLARO
+   CONTINUA AZUL
+========================================================= */
+
+.cob-tema-claro .cob-botao {
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            #1e88e5 0%,
+            #1976d2 48%,
+            #1565c0 100%);
+
+    border:
+        1px solid rgba(13, 71, 161, 0.30);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.22),
+        0 3px 7px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   HOVER COBRAR
+========================================================= */
+
+.cob-botao:hover:not(.cob-botao-desabilitado) {
+    transform:
+        translateY(-2px) scale(1.005);
+}
+
+
+/* verde */
+
+.cob-tema-escuro .cob-botao:hover:not(.cob-botao-desabilitado) {
+    background:
+        linear-gradient(135deg,
+            #32d808,
+            #28c807,
+            #18b902);
+
+    box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.30),
+        0 0 14px rgba(43, 202, 3, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.52);
+}
+
+
+/* azul */
+
+.cob-tema-claro .cob-botao:hover:not(.cob-botao-desabilitado) {
+    background:
+        linear-gradient(135deg,
+            #2693ee,
+            #1e7bd4,
+            #176bc7);
+
+    box-shadow:
+        0 11px 22px rgba(0, 0, 0, 0.25),
+        0 0 13px rgba(30, 136, 229, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.40);
+}
+
+
+/* =========================================================
+   ACTIVE COBRAR
+========================================================= */
+
+.cob-botao:active:not(.cob-botao-desabilitado) {
+    transform:
+        translateY(0) scale(0.975);
+
+    box-shadow:
+        0 4px 9px rgba(0, 0, 0, 0.22),
+        inset 0 2px 5px rgba(0, 0, 0, 0.14);
+}
+
+
+/* =========================================================
+   COBRAR DESABILITADO
+========================================================= */
+
+.cob-botao-desabilitado {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    filter:
+        grayscale(60%) saturate(60%);
+
+    box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.08) !important;
+}
+
+
+/* =========================================================
+   FOCO POR TECLADO
+========================================================= */
+
+.cob-botao:focus-visible,
+.cob-botao-cancelar:focus-visible {
+    outline: 3px solid rgba(212, 175, 55, 0.50);
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
    DESKTOP MENOR
-=============================== */
+========================================================= */
+
 @media (max-width: 1024px) {
+
     .cob-box {
         width: 95%;
+
         height: auto;
+
         padding: 12px;
+
         gap: 18px;
     }
 
+
     .cob-valor {
-        font-size: 1.4rem;
+        min-height: 78px;
+
         padding: 16px;
-    }
-}
 
-/* ===============================
-   TABLET
-=============================== */
-@media (max-width: 768px) {
-    .cob-box {
-        width: 100%;
-        padding: 12px;
-        gap: 16px;
+        font-size: 1.4rem;
     }
 
-    .cob-valor {
-        font-size: 1.3rem;
-        padding: 14px;
-    }
 
     .cob-botao,
     .cob-botao-cancelar {
-        font-size: 0.95rem;
-        padding: 14px;
+        min-height: 48px;
     }
 }
 
-/* ===============================
-   CELULAR
-=============================== */
-@media (max-width: 600px) {
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
     .cob-box {
         width: 100%;
+
+        padding: 12px;
+
+        gap: 16px;
+
+        border-radius: 21px;
+    }
+
+
+    .cob-valor {
+        min-height: 68px;
+
+        padding: 14px;
+
+        border-radius: 13px;
+
+        font-size: 1.3rem;
+    }
+
+
+    .cob-botao,
+    .cob-botao-cancelar {
+        min-height: 45px;
+
+        padding: 12px;
+
+        font-size: 0.95rem;
+
+        border-radius: 11px;
+    }
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .cob-box {
+        width: 100%;
+
+        height: auto;
+
         padding: 10px;
-        gap: 14px;
+
+        gap: 12px;
+
+        border-width: 2px;
+
         border-radius: 18px;
     }
 
+
     .cob-valor {
-        font-size: 1.2rem;
+        min-height: 60px;
+
         padding: 12px;
+
+        border-radius: 11px;
+
+        font-size: 1.2rem;
+
         letter-spacing: 0.5px;
     }
 
+
+    /*
+       NO CELULAR MANTEMOS OS BOTÕES
+       LADO A LADO.
+       NÃO PRECISA AUMENTAR O COMPONENTE.
+    */
+
     .cob-acoes {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row;
+
+        gap: 7px;
     }
+
 
     .cob-botao,
     .cob-botao-cancelar {
-        width: 100%;
-        font-size: 0.95rem;
-        padding: 14px;
+        width: auto;
+
+        min-height: 43px;
+
+        padding: 10px 8px;
+
+        font-size: 0.88rem;
+
+        border-radius: 10px;
     }
 }
 
-/* ===============================
-   CELULARES MUITO PEQUENOS
-=============================== */
+
+/* =========================================================
+   CELULAR MUITO PEQUENO
+========================================================= */
+
 @media (max-width: 360px) {
+
     .cob-box {
         padding: 8px;
-        gap: 12px;
+
+        gap: 10px;
+
+        border-radius: 16px;
     }
 
+
     .cob-valor {
-        font-size: 1.1rem;
+        min-height: 54px;
+
         padding: 10px;
+
+        font-size: 1.1rem;
     }
+
+
+    .cob-acoes {
+        gap: 5px;
+    }
+
 
     .cob-botao,
     .cob-botao-cancelar {
-        font-size: 0.9rem;
-        padding: 12px;
+        min-height: 40px;
+
+        padding: 9px 6px;
+
+        font-size: 0.82rem;
+    }
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cob-box {
+        animation: none;
+    }
+
+
+    .cob-box,
+    .cob-valor,
+    .cob-botao,
+    .cob-botao-cancelar {
+        transition: none;
     }
 }
