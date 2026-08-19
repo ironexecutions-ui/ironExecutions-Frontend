@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import FormularioProduto from "./formularioproduto";
 import { API_URL } from "../../../../../config";
 import "./resumoprodutos.css";
+import Etiquetas from "./etiquetas";
 
 export default function ResumoProdutos() {
 
     const [lista, setLista] = useState([]);
     const [modo, setModo] = useState("lista");
+    const [visualizacao, setVisualizacao] = useState("lista");
     const [editar, setEditar] = useState(null);
     const [carregando, setCarregando] = useState(true);
     const duplicados = lista.filter(i => i.duplicado === 1);
@@ -107,20 +109,30 @@ export default function ResumoProdutos() {
 
     return (
         <div className="resumo-produtos">
+
             <div className="topo">
                 <h4>Produtos e Serviços</h4>
+
                 {duplicados.length > 0 && (
-                    <button style={{ display: "none" }}
+                    <button
+                        style={{ display: "none" }}
                         className="btn-duplicados"
                         onClick={async () => {
-                            if (!window.confirm(
-                                `Existem ${duplicados.length} produtos duplicados. Deseja apagar todos?`
-                            )) return;
+                            if (
+                                !window.confirm(
+                                    `Existem ${duplicados.length} produtos duplicados. Deseja apagar todos?`
+                                )
+                            ) return;
 
-                            await fetch(`${API_URL}/admin/produtos-servicos/duplicados`, {
-                                method: "DELETE",
-                                headers: { Authorization: `Bearer ${token}` }
-                            });
+                            await fetch(
+                                `${API_URL}/admin/produtos-servicos/duplicados`,
+                                {
+                                    method: "DELETE",
+                                    headers: {
+                                        Authorization: `Bearer ${token}`
+                                    }
+                                }
+                            );
 
                             carregar();
                         }}
@@ -129,147 +141,262 @@ export default function ResumoProdutos() {
                     </button>
                 )}
 
-                <button onClick={() => setModo("novo")}>Adicionar</button>
+                <button onClick={() => setModo("novo")}>
+                    Adicionar
+                </button>
             </div>
-            <div className="filtros-produtos">
 
-                <input
-                    type="text"
-                    placeholder="Filtrar por nome"
-                    value={filtroNome}
-                    onChange={e => {
-                        setFiltroNome(e.target.value);
-                        setLimite(30);
-                    }}
-                />
 
-                <input
-                    type="text"
-                    placeholder="Filtrar por categoria"
-                    value={filtroCategoria}
-                    onChange={e => {
-                        setFiltroCategoria(e.target.value);
-                        setLimite(30);
-                    }}
-                />
+            {/* ===============================
+            SELETOR LISTA / ETIQUETAS
+        =============================== */}
 
-                <input
-                    type="number"
-                    placeholder="Preço mínimo"
-                    value={precoMin}
-                    onChange={e => {
-                        setPrecoMin(e.target.value);
-                        setLimite(30);
-                    }}
-                />
+            <div className="resumo-produtos-seletor-visualizacao">
 
-                <input
-                    type="number"
-                    placeholder="Preço máximo"
-                    value={precoMax}
-                    onChange={e => {
-                        setPrecoMax(e.target.value);
-                        setLimite(30);
-                    }}
-                />
                 <button
-                    className={`btn-vencimento ${filtroVencimento ? "ativo" : ""}`}
-                    onClick={() => {
-                        setFiltroVencimento(v => !v);
-                        setLimite(30);
-                    }}
+                    type="button"
+                    className={`resumo-produtos-botao-lista ${visualizacao === "lista" ? "ativo" : ""
+                        }`}
+                    onClick={() => setVisualizacao("lista")}
                 >
-                    {filtroVencimento
-                        ? "Mostrando vencidos / a vencer"
-                        : "Filtrar vencidos / a vencer"}
+                    Lista
+                </button>
+
+                <button
+                    type="button"
+                    className={`resumo-produtos-botao-etiquetas ${visualizacao === "etiquetas" ? "ativo" : ""
+                        }`}
+                    onClick={() => setVisualizacao("etiquetas")}
+                >
+                    Etiquetas
                 </button>
 
             </div>
 
-            <div className="conteudo-scroll">
-                {carregando ? (
-                    <div className="loading-area">
-                        <div className="spinner"></div>
-                        <span style={{ color: "white" }} >Carregando produtos...</span>
+
+            {/* ===============================
+            CONTEÚDO
+        =============================== */}
+
+            {visualizacao === "etiquetas" ? (
+
+                <Etiquetas />
+
+            ) : (
+
+                <>
+                    {/* ===============================
+                    FILTROS
+                =============================== */}
+
+                    <div className="filtros-produtos">
+
+                        <input
+                            type="text"
+                            placeholder="Filtrar por nome"
+                            value={filtroNome}
+                            onChange={e => {
+                                setFiltroNome(e.target.value);
+                                setLimite(30);
+                            }}
+                        />
+
+                        <input
+                            type="text"
+                            placeholder="Filtrar por categoria"
+                            value={filtroCategoria}
+                            onChange={e => {
+                                setFiltroCategoria(e.target.value);
+                                setLimite(30);
+                            }}
+                        />
+
+                        <input
+                            type="number"
+                            placeholder="Preço mínimo"
+                            value={precoMin}
+                            onChange={e => {
+                                setPrecoMin(e.target.value);
+                                setLimite(30);
+                            }}
+                        />
+
+                        <input
+                            type="number"
+                            placeholder="Preço máximo"
+                            value={precoMax}
+                            onChange={e => {
+                                setPrecoMax(e.target.value);
+                                setLimite(30);
+                            }}
+                        />
+
+                        <button
+                            className={`btn-vencimento ${filtroVencimento ? "ativo" : ""
+                                }`}
+                            onClick={() => {
+                                setFiltroVencimento(v => !v);
+                                setLimite(30);
+                            }}
+                        >
+                            {filtroVencimento
+                                ? "Mostrando vencidos / a vencer"
+                                : "Filtrar vencidos / a vencer"
+                            }
+                        </button>
+
                     </div>
-                ) : (
-                    <>
-                        <div className="lista-cards">
-                            {itensVisiveis.map(item => (
-                                <div
-                                    className={`card-produto ${item.duplicado ? "duplicado" : ""}`}
-                                    key={item.id}
-                                >
-                                    <div onClick={() => {
-                                        setEditar(item);
-                                        setModo("editar");
-                                    }} className="card-info">
-                                        <h5>{item.nome}</h5>
 
-                                        <span className="sub">
-                                            {colunaUnidade(item)} · {item.categoria}
-                                        </span>
 
-                                        <div className="precos">
-                                            <div>
-                                                <label>Preço </label>
-                                                <strong>R$ {item.preco}</strong>
+                    {/* ===============================
+                    LISTA
+                =============================== */}
+
+                    <div className="conteudo-scroll">
+
+                        {carregando ? (
+
+                            <div className="loading-area">
+                                <div className="spinner"></div>
+
+                                <span style={{ color: "white" }}>
+                                    Carregando produtos...
+                                </span>
+                            </div>
+
+                        ) : (
+
+                            <>
+                                <div className="lista-cards">
+
+                                    {itensVisiveis.map(item => (
+
+                                        <div
+                                            className={`card-produto ${item.duplicado ? "duplicado" : ""
+                                                }`}
+                                            key={item.id}
+                                        >
+
+                                            {/* INFORMAÇÕES */}
+
+                                            <div
+                                                className="card-info"
+                                                onClick={() => {
+                                                    setEditar(item);
+                                                    setModo("editar");
+                                                }}
+                                            >
+
+                                                <h5>{item.nome}</h5>
+
+                                                <span className="sub">
+                                                    {colunaUnidade(item)} · {item.categoria}
+                                                </span>
+
+                                                <div className="precos">
+
+                                                    <div>
+                                                        <label>Preço </label>
+                                                        <strong>
+                                                            R$ {item.preco}
+                                                        </strong>
+                                                    </div>
+
+                                                    <div>
+                                                        <label>Recebido </label>
+                                                        <strong>
+                                                            R$ {item.preco_recebido}
+                                                        </strong>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
-                                            <div>
-                                                <label>Recebido </label>
-                                                <strong>R$ {item.preco_recebido}</strong>
+
+
+                                            {/* AÇÕES */}
+
+                                            <div className="card-acoes">
+
+                                                <button
+                                                    className={`apagar ${confirmarId === item.id
+                                                            ? "confirmar"
+                                                            : ""
+                                                        }`}
+                                                    onClick={async () => {
+
+                                                        if (confirmarId !== item.id) {
+                                                            setConfirmarId(item.id);
+                                                            return;
+                                                        }
+
+                                                        await fetch(
+                                                            `${API_URL}/admin/produtos-servicos/${item.id}`,
+                                                            {
+                                                                method: "DELETE",
+                                                                headers: {
+                                                                    Authorization: `Bearer ${token}`
+                                                                }
+                                                            }
+                                                        );
+
+                                                        setConfirmarId(null);
+                                                        carregar();
+                                                    }}
+                                                >
+                                                    {confirmarId === item.id
+                                                        ? "Confirmar"
+                                                        : "Apagar"
+                                                    }
+                                                </button>
+
                                             </div>
+
                                         </div>
-                                    </div>
 
-                                    <div className="card-acoes">
+                                    ))}
+
+                                </div>
+
+
+                                {/* ===============================
+                                VER MAIS
+                            =============================== */}
+
+                                {temMais && (
+
+                                    <div className="ver-mais-area">
 
                                         <button
-                                            className={`apagar ${confirmarId === item.id ? "confirmar" : ""}`}
-                                            onClick={async () => {
-                                                if (confirmarId !== item.id) {
-                                                    setConfirmarId(item.id);
-                                                    return;
-                                                }
-
-                                                await fetch(`${API_URL}/admin/produtos-servicos/${item.id}`, {
-                                                    method: "DELETE",
-                                                    headers: { Authorization: `Bearer ${token}` }
-                                                });
-
-                                                setConfirmarId(null);
-                                                carregar();
-                                            }}
+                                            className="ver-mais"
+                                            onClick={() =>
+                                                setLimite(l => l + 30)
+                                            }
                                         >
-                                            {confirmarId === item.id ? "Confirmar" : "Apagar"}
+                                            Ver mais
                                         </button>
 
+                                        <span>
+                                            Mostrando {itensVisiveis.length} de{" "}
+                                            {listaFiltrada.length}
+                                        </span>
 
                                     </div>
-                                </div>
-                            ))}
-                        </div>
 
-                        {temMais && (
-                            <div className="ver-mais-area">
-                                <button
-                                    className="ver-mais"
-                                    onClick={() => setLimite(l => l + 30)}
-                                >
-                                    Ver mais
-                                </button>
-                                <span>
-                                    Mostrando {itensVisiveis.length} de {listaFiltrada.length}
-                                </span>
+                                )}
 
-                            </div>
+                            </>
+
                         )}
-                    </>
-                )}
-            </div>
 
+                    </div>
+
+                </>
+
+            )}
 
         </div>
     );
+
 
 }

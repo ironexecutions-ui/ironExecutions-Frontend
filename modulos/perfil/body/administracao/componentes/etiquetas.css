@@ -1,0 +1,1267 @@
+/* =========================================================
+   ETIQUETAS
+   VISUAL PROFISSIONAL CLARO
+========================================================= */
+
+.etiquetas-painel-principal {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    box-sizing: border-box;
+
+    color: #111827;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+
+/* =========================================================
+   CABEÇALHO PRINCIPAL
+========================================================= */
+
+.etiquetas-painel-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+
+    padding: 18px 20px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid rgba(10, 42, 80, 0.10);
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 12px rgba(15, 35, 60, 0.04),
+        0 12px 30px rgba(15, 35, 60, 0.05);
+}
+
+.etiquetas-cabecalho-identificacao {
+    min-width: 220px;
+}
+
+.etiquetas-painel-titulo {
+    margin: 0;
+
+    font-size: 27px;
+    line-height: 1.1;
+    font-weight: 850;
+
+    letter-spacing: -0.6px;
+
+    color: #071f3f;
+}
+
+.etiquetas-painel-subtitulo {
+    margin: 6px 0 0;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #596779;
+}
+
+
+/* =========================================================
+   CONFIGURAÇÕES DE IMPRESSÃO
+========================================================= */
+
+.etiquetas-configuracoes-impressao-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   GRUPOS DE CORES
+========================================================= */
+
+.etiquetas-grupo-cores-normal,
+.etiquetas-grupo-cores-promocao {
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 5px 9px;
+
+    box-sizing: border-box;
+
+    background: #f8fafc;
+
+    border: 1px solid #dce3ec;
+    border-radius: 11px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.etiquetas-grupo-cores-normal:hover {
+    background: #ffffff;
+
+    border-color: #9eb4ce;
+
+    box-shadow:
+        0 5px 14px rgba(14, 47, 84, 0.08);
+
+    transform: translateY(-1px);
+}
+
+.etiquetas-grupo-cores-promocao {
+    background: #fffafa;
+    border-color: #ecc5c1;
+}
+
+.etiquetas-grupo-cores-promocao:hover {
+    background: #ffffff;
+
+    border-color: #d89791;
+
+    box-shadow:
+        0 5px 14px rgba(150, 30, 20, 0.08);
+
+    transform: translateY(-1px);
+}
+
+.etiquetas-grupo-cores-titulo {
+    padding-right: 4px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    color: #0a315f;
+}
+
+.etiquetas-grupo-cores-promocao .etiquetas-grupo-cores-titulo {
+    color: #8c2018;
+}
+
+
+/* =========================================================
+   SELETORES DE COR
+========================================================= */
+
+.etiquetas-seletor-cor-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    color: #3d4c5f;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.etiquetas-seletor-cor-item input[type="color"] {
+    width: 33px;
+    height: 33px;
+
+    padding: 2px;
+
+    border: 1px solid #c7d1dd;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.etiquetas-seletor-cor-item input[type="color"]:hover {
+    transform: scale(1.08);
+
+    border-color: #0d4d91;
+
+    box-shadow:
+        0 3px 10px rgba(13, 77, 145, 0.16);
+}
+
+
+/* =========================================================
+   BOTÃO IMPRIMIR
+========================================================= */
+
+.etiquetas-botao-imprimir-principal {
+    min-height: 48px;
+
+    padding: 0 21px;
+
+    border: 1px solid #07376f;
+    border-radius: 11px;
+
+    background: linear-gradient(135deg,
+            #0a4a91 0%,
+            #072f63 100%);
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 0.15px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(7, 47, 99, 0.18),
+        0 1px 2px rgba(0, 0, 0, 0.10);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+.etiquetas-botao-imprimir-principal:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    filter: brightness(1.07);
+
+    box-shadow:
+        0 9px 20px rgba(7, 47, 99, 0.24),
+        0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.etiquetas-botao-imprimir-principal:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+}
+
+.etiquetas-botao-imprimir-principal:disabled {
+    opacity: 0.42;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   DUAS COLUNAS
+========================================================= */
+
+.etiquetas-duas-colunas-layout {
+    flex: 1;
+    min-height: 0;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) minmax(0, 1fr);
+
+    gap: 18px;
+}
+
+.etiquetas-coluna-produtos-disponiveis,
+.etiquetas-coluna-impressao-selecionada {
+    position: relative;
+
+    min-width: 0;
+    min-height: 500px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid #dce3ec;
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 10px rgba(16, 40, 70, 0.04),
+        0 12px 28px rgba(16, 40, 70, 0.05);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.etiquetas-coluna-produtos-disponiveis:hover,
+.etiquetas-coluna-impressao-selecionada:hover {
+    border-color: #c3cfdd;
+
+    box-shadow:
+        0 5px 14px rgba(16, 40, 70, 0.05),
+        0 16px 34px rgba(16, 40, 70, 0.07);
+}
+
+
+/* =========================================================
+   CABEÇALHO DAS COLUNAS
+========================================================= */
+
+.etiquetas-coluna-cabecalho {
+    min-height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    background: linear-gradient(180deg,
+            #ffffff 0%,
+            #f8fafc 100%);
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.etiquetas-coluna-cabecalho h3 {
+    margin: 0;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    letter-spacing: -0.2px;
+
+    color: #0a2c54;
+}
+
+.etiquetas-coluna-cabecalho span {
+    min-width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 8px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cfdae7;
+    border-radius: 999px;
+
+    background: #eaf1f8;
+
+    color: #0b376b;
+
+    font-size: 12px;
+    font-weight: 850;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.etiquetas-filtros-produtos-area {
+    display: grid;
+
+    grid-template-columns:
+        minmax(150px, 1fr) 135px minmax(165px, 190px);
+
+    gap: 9px;
+
+    padding: 13px;
+
+    background: #fafbfd;
+
+    border-bottom: 1px solid #e6ebf1;
+}
+
+.etiquetas-filtro-nome-input,
+.etiquetas-filtro-preco-input,
+.etiquetas-filtro-codigo-barras-input {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+
+    padding: 0 13px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-size: 13px;
+    font-weight: 550;
+
+    outline: none;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease,
+        background 0.18s ease;
+}
+
+.etiquetas-filtro-nome-input::placeholder,
+.etiquetas-filtro-preco-input::placeholder,
+.etiquetas-filtro-codigo-barras-input::placeholder {
+    color: #8995a5;
+}
+
+.etiquetas-filtro-nome-input:hover,
+.etiquetas-filtro-preco-input:hover,
+.etiquetas-filtro-codigo-barras-input:hover {
+    border-color: #9aacc1;
+}
+
+.etiquetas-filtro-nome-input:focus,
+.etiquetas-filtro-preco-input:focus,
+.etiquetas-filtro-codigo-barras-input:focus {
+    border-color: #14549b;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(20, 84, 155, 0.11),
+        0 4px 10px rgba(20, 84, 155, 0.06);
+}
+
+
+/* =========================================================
+   ÁREA COM SCROLL
+========================================================= */
+
+.etiquetas-listagem-produtos-scroll,
+.etiquetas-listagem-impressao-scroll {
+    flex: 1;
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 12px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #a9b8c9 transparent;
+}
+
+.etiquetas-listagem-produtos-scroll::-webkit-scrollbar,
+.etiquetas-listagem-impressao-scroll::-webkit-scrollbar {
+    width: 7px;
+}
+
+.etiquetas-listagem-produtos-scroll::-webkit-scrollbar-track,
+.etiquetas-listagem-impressao-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.etiquetas-listagem-produtos-scroll::-webkit-scrollbar-thumb,
+.etiquetas-listagem-impressao-scroll::-webkit-scrollbar-thumb {
+    background: #b5c1cf;
+    border-radius: 999px;
+}
+
+.etiquetas-listagem-produtos-scroll::-webkit-scrollbar-thumb:hover,
+.etiquetas-listagem-impressao-scroll::-webkit-scrollbar-thumb:hover {
+    background: #8395aa;
+}
+
+
+/* =========================================================
+   CARD DO PRODUTO
+========================================================= */
+
+.etiquetas-produto-card-individual {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    min-height: 76px;
+
+    padding: 13px 14px;
+
+    margin-bottom: 9px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe5ec;
+    border-radius: 12px;
+
+    box-shadow:
+        0 2px 5px rgba(20, 40, 65, 0.025);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+.etiquetas-produto-card-individual::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+
+    width: 3px;
+
+    border-radius: 0 4px 4px 0;
+
+    background: #123f75;
+
+    opacity: 0;
+
+    transform: scaleY(0.55);
+
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease;
+}
+
+.etiquetas-produto-card-individual:hover {
+    transform: translateY(-2px);
+
+    border-color: #aebfd2;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 18px rgba(15, 43, 76, 0.09);
+}
+
+.etiquetas-produto-card-individual:hover::before {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DO PRODUTO
+========================================================= */
+
+.etiquetas-produto-informacoes-bloco {
+    min-width: 0;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.etiquetas-produto-nome-texto {
+    max-width: 100%;
+
+    font-size: 14px;
+    line-height: 1.3;
+
+    font-weight: 750;
+
+    color: #111827;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.etiquetas-produto-preco-texto {
+    font-size: 18px;
+    line-height: 1;
+
+    font-weight: 850;
+
+    letter-spacing: -0.25px;
+
+    color: #07366d;
+}
+
+
+/* =========================================================
+   QUANTIDADE DE ETIQUETAS
+========================================================= */
+
+.etiquetas-quantidade-impressao-area {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 5px;
+
+    padding: 5px 6px 5px 9px;
+
+    background: #f3f6fa;
+
+    border: 1px solid #d8e0e9;
+    border-radius: 9px;
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.etiquetas-quantidade-impressao-area:focus-within {
+    background: #ffffff;
+
+    border-color: #15549a;
+
+    box-shadow:
+        0 0 0 3px rgba(21, 84, 154, 0.09);
+}
+
+.etiquetas-quantidade-impressao-label {
+    font-size: 11px;
+    font-weight: 750;
+
+    color: #35465a;
+
+    user-select: none;
+}
+
+.etiquetas-quantidade-impressao-input {
+    width: 58px;
+    height: 31px;
+
+    padding: 0 5px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #c5d0dc;
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #082e5b;
+
+    font-size: 14px;
+    font-weight: 850;
+
+    text-align: center;
+
+    outline: none;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.etiquetas-quantidade-impressao-input:focus {
+    border-color: #0c4d92;
+
+    box-shadow:
+        0 0 0 2px rgba(12, 77, 146, 0.08);
+}
+
+
+/* =========================================================
+   AÇÕES DOS CARDS
+========================================================= */
+
+.etiquetas-produto-acoes-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 7px;
+
+    flex-shrink: 0;
+}
+
+.etiquetas-produto-acoes-area button {
+    min-height: 36px;
+
+    padding: 0 11px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    font-size: 11px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        transform 0.16s ease,
+        background 0.16s ease,
+        color 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease;
+}
+
+.etiquetas-produto-acoes-area button:hover {
+    transform: translateY(-1px);
+}
+
+.etiquetas-produto-acoes-area button:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================================
+   MUDAR PREÇO
+========================================================= */
+
+.etiquetas-acao-alterar-preco {
+    background: #f1f4f8;
+
+    border-color: #d9e0e8 !important;
+
+    color: #182b42;
+}
+
+.etiquetas-acao-alterar-preco:hover {
+    background: #e5ebf2;
+
+    border-color: #b9c6d5 !important;
+
+    color: #071f3f;
+}
+
+
+/* =========================================================
+   SETAS
+========================================================= */
+
+.etiquetas-acao-mover-direita,
+.etiquetas-acao-mover-esquerda {
+    width: 40px;
+
+    padding: 0 !important;
+
+    border-color: #0a376c !important;
+
+    background: linear-gradient(135deg,
+            #124f91,
+            #082f61);
+
+    color: #ffffff;
+
+    font-size: 19px !important;
+    font-weight: 800 !important;
+
+    box-shadow:
+        0 3px 8px rgba(8, 47, 97, 0.16);
+}
+
+.etiquetas-acao-mover-direita:hover,
+.etiquetas-acao-mover-esquerda:hover {
+    background: linear-gradient(135deg,
+            #1761ad,
+            #0a376c);
+
+    box-shadow:
+        0 5px 12px rgba(8, 47, 97, 0.24);
+}
+
+
+/* =========================================================
+   PROMOÇÃO
+========================================================= */
+
+.etiquetas-acao-promocao {
+    background: #f5f6f8;
+
+    border-color: #d9dee5 !important;
+
+    color: #26384c;
+}
+
+.etiquetas-acao-promocao:hover {
+    background: #eceff3;
+
+    border-color: #c4ccd6 !important;
+}
+
+.etiquetas-acao-promocao[data-ativo="true"] {
+    background: linear-gradient(135deg,
+            #bd2a1e,
+            #8d1b14);
+
+    border-color: #8d1b14 !important;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 10px rgba(157, 31, 22, 0.20);
+}
+
+.etiquetas-acao-promocao[data-ativo="true"]:hover {
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 6px 14px rgba(157, 31, 22, 0.27);
+}
+
+
+/* =========================================================
+   EDIÇÃO DO PREÇO
+========================================================= */
+
+.etiquetas-edicao-preco-area {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: #0a315f;
+
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.etiquetas-edicao-preco-input {
+    width: 105px;
+    height: 35px;
+
+    padding: 0 9px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #17559c;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #101827;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 85, 156, 0.07);
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.etiquetas-edicao-preco-input:focus {
+    border-color: #073b78;
+
+    box-shadow:
+        0 0 0 3px rgba(7, 59, 120, 0.13);
+}
+
+
+/* =========================================================
+   SALVAR / CANCELAR
+========================================================= */
+
+.etiquetas-acao-salvar-preco {
+    background: #0e7147;
+
+    border-color: #0e7147 !important;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 3px 8px rgba(14, 113, 71, 0.14);
+}
+
+.etiquetas-acao-salvar-preco:hover {
+    background: #095d3a;
+
+    box-shadow:
+        0 5px 12px rgba(14, 113, 71, 0.22);
+}
+
+.etiquetas-acao-cancelar-preco {
+    background: #f1f3f5;
+
+    border-color: #d7dce2 !important;
+
+    color: #293747;
+}
+
+.etiquetas-acao-cancelar-preco:hover {
+    background: #e5e9ee;
+
+    color: #111827;
+}
+
+
+/* =========================================================
+   ÁREA VAZIA
+========================================================= */
+
+.etiquetas-impressao-vazia-area {
+    min-height: 330px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    color: #687689;
+}
+
+.etiquetas-impressao-vazia-icone {
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #cdd9e6;
+    border-radius: 50%;
+
+    background: #edf3f9;
+
+    color: #0c437e;
+
+    font-size: 27px;
+    font-weight: 800;
+
+    box-shadow:
+        0 5px 14px rgba(12, 67, 126, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.etiquetas-impressao-vazia-area:hover .etiquetas-impressao-vazia-icone {
+    transform: translateX(4px);
+
+    box-shadow:
+        0 7px 17px rgba(12, 67, 126, 0.13);
+}
+
+.etiquetas-impressao-vazia-area strong {
+    font-size: 14px;
+    font-weight: 800;
+
+    color: #1c334f;
+}
+
+.etiquetas-impressao-vazia-area p {
+    margin: 6px 0 0;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    color: #788597;
+}
+
+
+/* =========================================================
+   CARREGAMENTO / SEM RESULTADOS
+========================================================= */
+
+.etiquetas-lista-vazia-mensagem,
+.etiquetas-carregamento-produtos {
+    padding: 40px 25px;
+
+    text-align: center;
+
+    color: #647286;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE / FOCO
+========================================================= */
+
+.etiquetas-produto-acoes-area button:focus-visible,
+.etiquetas-botao-imprimir-principal:focus-visible,
+.etiquetas-seletor-cor-item input:focus-visible {
+    outline: 3px solid rgba(18, 79, 145, 0.18);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   RESPONSIVO 1100
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .etiquetas-painel-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .etiquetas-configuracoes-impressao-area {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .etiquetas-filtros-produtos-area {
+        grid-template-columns:
+            minmax(150px, 1fr) 120px;
+    }
+
+    .etiquetas-filtro-codigo-barras-input {
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO 900
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .etiquetas-duas-colunas-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .etiquetas-coluna-produtos-disponiveis,
+    .etiquetas-coluna-impressao-selecionada {
+        min-height: 450px;
+    }
+
+    .etiquetas-filtros-produtos-area {
+        grid-template-columns: 1fr;
+    }
+
+    .etiquetas-filtro-codigo-barras-input {
+        grid-column: auto;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO 650
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .etiquetas-painel-principal {
+        gap: 12px;
+    }
+
+    .etiquetas-painel-cabecalho {
+        padding: 15px;
+        border-radius: 13px;
+    }
+
+    .etiquetas-painel-titulo {
+        font-size: 23px;
+    }
+
+    .etiquetas-configuracoes-impressao-area {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .etiquetas-grupo-cores-normal,
+    .etiquetas-grupo-cores-promocao {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .etiquetas-botao-imprimir-principal {
+        width: 100%;
+    }
+
+    .etiquetas-produto-card-individual {
+        align-items: flex-start;
+        flex-direction: column;
+
+        padding: 13px;
+    }
+
+    .etiquetas-produto-informacoes-bloco {
+        width: 100%;
+    }
+
+    .etiquetas-produto-acoes-area {
+        width: 100%;
+
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+        padding-top: 4px;
+    }
+
+    .etiquetas-quantidade-impressao-area {
+        margin-top: 7px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO 430
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .etiquetas-painel-titulo {
+        font-size: 21px;
+    }
+
+    .etiquetas-coluna-cabecalho {
+        padding: 0 14px;
+    }
+
+    .etiquetas-listagem-produtos-scroll,
+    .etiquetas-listagem-impressao-scroll {
+        padding: 9px;
+    }
+
+    .etiquetas-produto-acoes-area button {
+        flex: 1;
+    }
+
+    .etiquetas-acao-mover-direita,
+    .etiquetas-acao-mover-esquerda {
+        flex: 0 0 42px !important;
+    }
+
+    .etiquetas-seletor-cor-item {
+        font-size: 10px;
+    }
+}
+
+/* =========================================================
+   CORES DE TEXTO FORÇADAS
+   AZUL ESCURO + PRETO
+========================================================= */
+
+/* TEXTO GERAL */
+.etiquetas-painel-principal {
+    color: #111827 !important;
+}
+
+/* TÍTULOS PRINCIPAIS */
+.etiquetas-painel-titulo,
+.etiquetas-coluna-cabecalho h3,
+.etiquetas-grupo-cores-titulo {
+    color: #071f3f !important;
+}
+
+/* TEXTOS SECUNDÁRIOS */
+.etiquetas-painel-subtitulo,
+.etiquetas-seletor-cor-item,
+.etiquetas-quantidade-impressao-label,
+.etiquetas-impressao-vazia-area,
+.etiquetas-impressao-vazia-area p,
+.etiquetas-lista-vazia-mensagem,
+.etiquetas-carregamento-produtos {
+    color: #111827 !important;
+}
+
+/* PRODUTOS */
+.etiquetas-produto-nome-texto {
+    color: #111827 !important;
+}
+
+.etiquetas-produto-preco-texto {
+    color: #071f3f !important;
+}
+
+/* CONTADOR DAS COLUNAS */
+.etiquetas-coluna-cabecalho span {
+    color: #071f3f !important;
+}
+
+/* QUANTIDADE */
+.etiquetas-quantidade-impressao-label,
+.etiquetas-quantidade-impressao-input {
+    color: #071f3f !important;
+}
+
+/* INPUTS DOS FILTROS */
+.etiquetas-filtro-nome-input,
+.etiquetas-filtro-preco-input,
+.etiquetas-filtro-codigo-barras-input,
+.etiquetas-edicao-preco-input {
+    color: #111827 !important;
+}
+
+/* PLACEHOLDERS */
+.etiquetas-filtro-nome-input::placeholder,
+.etiquetas-filtro-preco-input::placeholder,
+.etiquetas-filtro-codigo-barras-input::placeholder {
+    color: #071f3f !important;
+    opacity: 0.65 !important;
+}
+
+/* EDIÇÃO DE PREÇO */
+.etiquetas-edicao-preco-area {
+    color: #071f3f !important;
+}
+
+/* BOTÕES CLAROS */
+.etiquetas-acao-alterar-preco,
+.etiquetas-acao-cancelar-preco,
+.etiquetas-acao-promocao:not([data-ativo="true"]) {
+    color: #071f3f !important;
+}
+
+/* TEXTOS DA ÁREA VAZIA */
+.etiquetas-impressao-vazia-area strong {
+    color: #071f3f !important;
+}
+
+.etiquetas-impressao-vazia-icone {
+    color: #071f3f !important;
+}
+
+
+/* =========================================================
+   EXCEÇÕES
+   BOTÕES COM FUNDO ESCURO
+========================================================= */
+
+.etiquetas-botao-imprimir-principal,
+.etiquetas-acao-mover-direita,
+.etiquetas-acao-mover-esquerda,
+.etiquetas-acao-salvar-preco,
+.etiquetas-acao-promocao[data-ativo="true"] {
+    color: #ffffff !important;
+}
