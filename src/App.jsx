@@ -70,7 +70,7 @@ export default function App() {
 
   /* keep-alive backend */
   useEffect(() => {
-    fetch("https://nfcee.onrender.com/", {
+    fetch("https://nota-dz60.onrender.com/", {
       method: "GET",
       mode: "no-cors"
     }).catch(() => { });
