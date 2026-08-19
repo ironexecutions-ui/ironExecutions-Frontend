@@ -1265,3 +1265,135 @@
 .etiquetas-acao-promocao[data-ativo="true"] {
     color: #ffffff !important;
 }
+
+/* =========================================================
+   NAVEGAÇÃO MOBILE LISTA / ETIQUETAS
+========================================================= */
+
+.etiquetas-navegacao-mobile-abas {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .etiquetas-navegacao-mobile-abas {
+        width: 100%;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        gap: 5px;
+
+        padding: 5px;
+
+        box-sizing: border-box;
+
+        background: #eef2f7;
+
+        border: 1px solid #d4dde8;
+        border-radius: 13px;
+
+        box-shadow:
+            0 3px 10px rgba(7, 31, 63, 0.06);
+    }
+
+    .etiquetas-mobile-aba-botao {
+        position: relative;
+
+        min-height: 46px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        padding: 0 14px;
+
+        border: 1px solid transparent;
+        border-radius: 9px;
+
+        background: transparent;
+
+        color: #071f3f !important;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        cursor: pointer;
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.15s ease;
+    }
+
+    .etiquetas-mobile-aba-botao:active {
+        transform: scale(0.97);
+    }
+
+    .etiquetas-mobile-aba-botao.etiquetas-mobile-aba-ativa {
+        background: #ffffff;
+
+        color: #071f3f !important;
+
+        border-color: #cbd6e3;
+
+        box-shadow:
+            0 3px 9px rgba(7, 31, 63, 0.10);
+    }
+
+    .etiquetas-mobile-aba-contador {
+        min-width: 23px;
+        height: 23px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 6px;
+
+        box-sizing: border-box;
+
+        border-radius: 999px;
+
+        background: #dce6f1;
+
+        color: #071f3f !important;
+
+        font-size: 11px;
+        font-weight: 900;
+    }
+
+    .etiquetas-mobile-aba-ativa .etiquetas-mobile-aba-contador {
+        background: #071f3f;
+        color: #ffffff !important;
+    }
+
+
+    /* =============================================
+       AGORA EXISTE APENAS UMA COLUNA VISÍVEL
+    ============================================= */
+
+    .etiquetas-duas-colunas-layout {
+        display: block;
+        width: 100%;
+    }
+
+    .etiquetas-coluna-mobile-oculta {
+        display: none !important;
+    }
+
+    .etiquetas-coluna-mobile-visivel {
+        display: flex !important;
+
+        width: 100%;
+        min-height: 500px;
+    }
+}

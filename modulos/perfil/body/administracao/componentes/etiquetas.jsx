@@ -24,7 +24,7 @@ export default function Etiquetas() {
     const [novoPreco, setNovoPreco] = useState("");
 
     const [cambio, setCambio] = useState(null);
-
+    const [abaMobileEtiquetas, setAbaMobileEtiquetas] = useState("lista");
     const token = localStorage.getItem("token");
 
     // ===============================
@@ -1022,14 +1022,52 @@ export default function Etiquetas() {
                 </div>
 
             </div>
+            <div className="etiquetas-navegacao-mobile-abas">
+                <button
+                    type="button"
+                    className={`etiquetas-mobile-aba-botao ${abaMobileEtiquetas === "lista"
+                        ? "etiquetas-mobile-aba-ativa"
+                        : ""
+                        }`}
+                    onClick={() =>
+                        setAbaMobileEtiquetas("lista")
+                    }
+                >
+                    Lista
 
+                    <span className="etiquetas-mobile-aba-contador">
+                        {produtosDisponiveis.length}
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    className={`etiquetas-mobile-aba-botao ${abaMobileEtiquetas === "etiquetas"
+                        ? "etiquetas-mobile-aba-ativa"
+                        : ""
+                        }`}
+                    onClick={() =>
+                        setAbaMobileEtiquetas("etiquetas")
+                    }
+                >
+                    Etiquetas
+
+                    <span className="etiquetas-mobile-aba-contador">
+                        {selecionados.length}
+                    </span>
+                </button>
+            </div>
             <div className="etiquetas-duas-colunas-layout">
 
                 {/* ===============================
                     PRODUTOS DISPONÍVEIS
                 =============================== */}
-                <section className="etiquetas-coluna-produtos-disponiveis">
-
+                <section
+                    className={`etiquetas-coluna-produtos-disponiveis ${abaMobileEtiquetas === "lista"
+                        ? "etiquetas-coluna-mobile-visivel"
+                        : "etiquetas-coluna-mobile-oculta"
+                        }`}
+                >
                     <div className="etiquetas-coluna-cabecalho">
                         <h3>
                             Produtos
@@ -1115,8 +1153,12 @@ export default function Etiquetas() {
                 {/* ===============================
                     PRODUTOS PARA IMPRESSÃO
                 =============================== */}
-                <section className="etiquetas-coluna-impressao-selecionada">
-
+                <section
+                    className={`etiquetas-coluna-impressao-selecionada ${abaMobileEtiquetas === "etiquetas"
+                            ? "etiquetas-coluna-mobile-visivel"
+                            : "etiquetas-coluna-mobile-oculta"
+                        }`}
+                >
                     <div className="etiquetas-coluna-cabecalho">
                         <h3>
                             Impressão
