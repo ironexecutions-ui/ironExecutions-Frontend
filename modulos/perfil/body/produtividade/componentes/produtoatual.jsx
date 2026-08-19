@@ -14,7 +14,76 @@ export default function ProdutoAtual() {
 
     const inputRef = useRef(null);
     const salvandoRef = useRef(false);
+    const CACHE_PRODUTOS_KEY = "dkfnjhsdifds65dsf65sd9fdfgd69fg";
+    function atualizarProdutoNoCache(produtoAtualizado) {
+        try {
+            const salvo = localStorage.getItem(CACHE_PRODUTOS_KEY);
 
+            if (!salvo) {
+                return;
+            }
+
+            const cache = JSON.parse(salvo);
+
+            if (!cache?.produtos) {
+                return;
+            }
+
+            const produtos = { ...cache.produtos };
+
+            const codigoProduto =
+                String(
+                    produtoAtualizado?.codigo_barras ||
+                    produtoAtualizado?.codigo_barra ||
+                    produtoAtualizado?.codigo ||
+                    produtoAtualizado?.qrcode ||
+                    produtoAtualizado?.qr_code ||
+                    ""
+                ).trim();
+
+            if (!codigoProduto) {
+                console.warn(
+                    "[CACHE PRODUTOS] Produto sem código, cache não atualizado:",
+                    produtoAtualizado
+                );
+                return;
+            }
+
+            if (!produtos[codigoProduto]) {
+                console.warn(
+                    "[CACHE PRODUTOS] Produto não encontrado no cache:",
+                    codigoProduto
+                );
+                return;
+            }
+
+            produtos[codigoProduto] = {
+                ...produtos[codigoProduto],
+                ...produtoAtualizado,
+                preco: Number(produtoAtualizado.preco)
+            };
+
+            localStorage.setItem(
+                CACHE_PRODUTOS_KEY,
+                JSON.stringify({
+                    ...cache,
+                    produtos
+                })
+            );
+
+            console.log(
+                "[CACHE PRODUTOS] Preço atualizado:",
+                codigoProduto,
+                produtoAtualizado.preco
+            );
+
+        } catch (erro) {
+            console.error(
+                "[CACHE PRODUTOS] Erro ao atualizar produto:",
+                erro
+            );
+        }
+    }
     /* ===============================
        DEFINIR TEMA LOCAL
     =============================== */
@@ -147,9 +216,18 @@ export default function ProdutoAtual() {
                 return;
             }
 
-            const atualizado = { ...produtoAtual, preco: precoNumerico };
+            const atualizado = {
+                ...produtoAtual,
+                preco: precoNumerico
+            };
+
             setProdutoAtual(atualizado);
+
             atualizarPrecoItem(atualizado);
+
+            /* ATUALIZA TAMBÉM O CACHE */
+            atualizarProdutoNoCache(atualizado);
+
             setEditando(false);
 
         } catch {
