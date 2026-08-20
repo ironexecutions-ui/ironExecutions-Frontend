@@ -107,7 +107,13 @@ export default function ModalCadastroProduto({ textoInicial, fechar, onCriado })
                     <input
                         ref={nomeRef}
                         value={nome}
-                        onChange={e => setNome(e.target.value)}
+                        onChange={(e) =>
+                            setNome(
+                                e.target.value
+                                    .toLowerCase()
+                                    .replace(/(^|\s)\S/g, (letra) => letra.toUpperCase())
+                            )
+                        }
                         placeholder="Ex: Pizza Calabresa"
                         onKeyDown={(e) => handleEnterCampo(e, 0)}
                     />
