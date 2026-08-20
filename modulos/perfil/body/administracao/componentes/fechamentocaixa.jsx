@@ -182,7 +182,13 @@ export default function FechamentoCaixa() {
 
 
             const json = await resp.json();
-
+            console.log("====================================");
+            console.log("[FECHAMENTOS API] STATUS:", resp.status);
+            console.log("[FECHAMENTOS API] API_URL:", API_URL);
+            console.log("[FECHAMENTOS API] RESPOSTA COMPLETA:");
+            console.log(json);
+            console.log("[FECHAMENTOS API] QUANTIDADE:", Array.isArray(json) ? json.length : "NÃO É ARRAY");
+            console.log("====================================");
 
             const dadosServidor =
                 Array.isArray(json)

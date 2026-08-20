@@ -303,8 +303,17 @@ export default function ModalProduto({ produto, fechar, atualizar }) {
                 <div className="mp-formm" ref={formRef} onKeyDown={handleEnter}>
 
                     <label>Nome</label>
-                    <input value={form.nome} onChange={e => alterar("nome", e.target.value)} />
-
+                    <input
+                        value={form.nome}
+                        onChange={(e) =>
+                            alterar(
+                                "nome",
+                                e.target.value
+                                    .toLowerCase()
+                                    .replace(/(^|\s)\S/g, (letra) => letra.toUpperCase())
+                            )
+                        }
+                    />
                     <label>Código de barras</label>
                     <input style={{ textAlign: "center" }} value={form.codigo_barras || ""} onChange={e => alterar("codigo_barras", e.target.value)} />
 

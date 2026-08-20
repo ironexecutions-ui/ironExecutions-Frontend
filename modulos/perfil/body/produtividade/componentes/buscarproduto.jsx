@@ -654,13 +654,20 @@ export default function BuscarProduto() {
     =============================== */
     async function buscar(valor) {
 
-        setTexto(valor);
+        // Se tiver letras, formata cada palavra
+        const valorFormatado = /[a-zA-ZÀ-ÿ]/.test(valor)
+            ? valor
+                .toLowerCase()
+                .replace(/(^|\s)\S/g, (letra) => letra.toUpperCase())
+            : valor;
+
+        setTexto(valorFormatado);
 
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
 
-        if (!valor.trim()) {
+        if (!valorFormatado.trim()) {
             setSugestoes([]);
             return;
         }
@@ -669,10 +676,8 @@ export default function BuscarProduto() {
            CÓDIGOS NUMÉRICOS
         =============================== */
 
-        if (/^\d+$/.test(valor)) {
-
+        if (/^\d+$/.test(valorFormatado)) {
             setSugestoes([]);
-
             return;
         }
 
@@ -680,38 +685,28 @@ export default function BuscarProduto() {
            BUSCAR NO CACHE
         =============================== */
 
-        const cache =
-            lerCacheProdutos();
+        const cache = lerCacheProdutos();
 
-        const produtos =
-            Object.values(
-                cache.produtos || {}
-            );
-
-        const termo =
-            valor
-                .trim()
-                .toLowerCase();
-
-        const encontrados =
-            produtos
-                .filter(produto => {
-
-                    const nome =
-                        String(
-                            produto.nome || ""
-                        ).toLowerCase();
-
-                    return nome.includes(
-                        termo
-                    );
-
-                })
-                .slice(0, 20);
-
-        setSugestoes(
-            encontrados
+        const produtos = Object.values(
+            cache.produtos || {}
         );
+
+        const termo = valorFormatado
+            .trim()
+            .toLowerCase();
+
+        const encontrados = produtos
+            .filter(produto => {
+
+                const nome = String(
+                    produto.nome || ""
+                ).toLowerCase();
+
+                return nome.includes(termo);
+            })
+            .slice(0, 20);
+
+        setSugestoes(encontrados);
     }
 
     /* ===============================
