@@ -1,137 +1,630 @@
 /* ===============================
    CONTAINER PRINCIPAL
 =============================== */
+
 .graficos-vendas-container {
-    background: #020617;
-    padding: 24px;
-    border-radius: 14px;
-    color: #e5e7eb;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    position: relative !important;
+
+    width: 100% !important;
+
+    padding: 28px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 24px !important;
+
+    border-radius: 30px !important;
+
+    background:
+        radial-gradient(circle at 10% 0%,
+            rgba(37, 99, 235, 0.10),
+            transparent 28%),
+        radial-gradient(circle at 100% 100%,
+            rgba(14, 165, 233, 0.07),
+            transparent 32%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 48%,
+            #eef2f7 100%) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.10) !important;
+
+    box-shadow:
+        0 24px 60px rgba(15, 23, 42, 0.11),
+        0 6px 18px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+
+    overflow: hidden !important;
+
+    color: #0f172a !important;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease !important;
 }
 
+
 /* ===============================
-   TÍTUL
+   LUZ DE FUNDO
 =============================== */
+
+.graficos-vendas-container::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 420px !important;
+    height: 260px !important;
+
+    top: -170px !important;
+    left: 8% !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.18),
+            transparent 68%) !important;
+
+    filter: blur(25px) !important;
+
+    pointer-events: none !important;
+
+    animation:
+        graficosVendasLuz 8s ease-in-out infinite alternate !important;
+}
+
+
+.graficos-vendas-container::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 320px !important;
+    height: 320px !important;
+
+    right: -170px !important;
+    bottom: -190px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(14, 165, 233, 0.09),
+            transparent 70%) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* ===============================
+   HOVER CONTAINER
+=============================== */
+
+.graficos-vendas-container:hover {
+    border-color:
+        rgba(37, 99, 235, 0.18) !important;
+
+    box-shadow:
+        0 32px 80px rgba(15, 23, 42, 0.14),
+        0 8px 24px rgba(37, 99, 235, 0.06),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* ===============================
+   CABEÇALHO
+=============================== */
+
+.graficos-vendas-cabecalho {
+    position: relative !important;
+
+    z-index: 3 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 24px !important;
+
+    padding: 18px 20px !important;
+
+    border-radius: 20px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.94),
+            rgba(241, 245, 249, 0.82)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* ===============================
+   ÁREA DO TÍTULO
+=============================== */
+
+.graficos-vendas-titulo-area {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 14px !important;
+}
+
+
+/* ===============================
+   INDICADOR AZUL
+=============================== */
+
+.graficos-vendas-indicador {
+    position: relative !important;
+
+    width: 7px !important;
+    height: 46px !important;
+
+    flex-shrink: 0 !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #0ea5e9) !important;
+
+    box-shadow:
+        0 0 18px rgba(37, 99, 235, 0.30) !important;
+
+    animation:
+        graficosVendasIndicador 3s ease-in-out infinite !important;
+}
+
+
+/* ===============================
+   TÍTULO
+=============================== */
+
 .graficos-vendas-container h4 {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-    color: #f8fafc;
+    margin: 0 !important;
+
+    font-size: 19px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: -0.2px !important;
+
+    color: #0f172a !important;
 }
+
 
 /* ===============================
-   BOTÕES DE SELEÇÃO
+   SUBTÍTULO
 =============================== */
-.graficos-vendas-botoes {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+
+.graficos-vendas-titulo-area p {
+    margin: 5px 0 0 !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+
+    color: #64748b !important;
 }
 
-.graficos-vendas-botoes button {
-    padding: 10px 16px;
-    border-radius: 10px;
-    border: 1px solid #1e293b;
-    background: #020617;
-    color: #e5e7eb;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+
+/* ===============================
+   BOTÕES
+=============================== */
+
+.graficos-vendas-botoes {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    flex-wrap: wrap !important;
 }
+
+
+.graficos-vendas-botoes button,
+.graficos-vendas-btn {
+    position: relative !important;
+
+    min-height: 44px !important;
+
+    padding: 0 18px !important;
+
+    border-radius: 13px !important;
+
+    border:
+        1px solid #cbd5e1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f1f5f9) !important;
+
+    color: #334155 !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease !important;
+}
+
+
+/* ===============================
+   EFEITO DE LUZ NO BOTÃO
+=============================== */
+
+.graficos-vendas-botoes button::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -80% !important;
+
+    width: 45% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.38),
+            transparent) !important;
+
+    transform: skewX(-20deg) !important;
+
+    transition:
+        left 0.55s ease !important;
+}
+
+
+.graficos-vendas-botoes button:hover::before {
+    left: 140% !important;
+}
+
+
+/* ===============================
+   HOVER BOTÃO
+=============================== */
 
 .graficos-vendas-botoes button:hover {
-    background: #020617;
-    border-color: #38bdf8;
-    color: #38bdf8;
+    transform: translateY(-2px) !important;
+
+    border-color: #2563eb !important;
+
+    color: #1d4ed8 !important;
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.13),
+        0 3px 8px rgba(15, 23, 42, 0.08) !important;
 }
 
-/* Botão ativo */
-.graficos-vendas-botoes button.ativo {
-    background: #0f172a;
-    border-color: #38bdf8;
-    color: #38bdf8;
-    font-weight: 500;
-}
 
 /* ===============================
-   ÁREA DO GRÁFICO
+   BOTÃO ATIVO
 =============================== */
-.graficos-vendas-conteudo {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 14px;
-    padding: 20px;
-    min-height: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+.graficos-vendas-botoes button.ativo {
+    background:
+        radial-gradient(circle at 20% 0%,
+            rgba(59, 130, 246, 0.45),
+            transparent 55%),
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
+    border-color: #2563eb !important;
+
+    color: #ffffff !important;
+
+    font-weight: 800 !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 12px 28px rgba(37, 99, 235, 0.24),
+        0 4px 10px rgba(15, 23, 42, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
 }
 
-/* =========================
+
+.graficos-vendas-botoes button.ativo:hover {
+    color: #ffffff !important;
+
+    transform: translateY(-3px) !important;
+
+    box-shadow:
+        0 17px 34px rgba(37, 99, 235, 0.30),
+        0 6px 14px rgba(15, 23, 42, 0.16) !important;
+}
+
+
+.graficos-vendas-botoes button:active {
+    transform: scale(0.97) !important;
+}
+
+
+/* ===============================
+   CONTEÚDO
+=============================== */
+
+.graficos-vendas-conteudo {
+    position: relative !important;
+
+    z-index: 2 !important;
+
+    width: 100% !important;
+
+    min-height: 320px !important;
+
+    padding: 20px !important;
+
+    display: flex !important;
+
+    align-items: stretch !important;
+    justify-content: center !important;
+
+    border-radius: 24px !important;
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(37, 99, 235, 0.045),
+            transparent 45%),
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(248, 250, 252, 0.92)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        inset 0 1px 0 #ffffff,
+        0 14px 34px rgba(15, 23, 42, 0.06) !important;
+
+    overflow: hidden !important;
+
+    animation:
+        graficosVendasEntrada 0.42s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+
+/* linha superior do conteúdo */
+.graficos-vendas-conteudo::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 15% !important;
+
+    width: 70% !important;
+    height: 1px !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.45),
+            transparent) !important;
+}
+
+
+/* ===============================
+   GARANTE TAMANHO DOS GRÁFICOS
+=============================== */
+
+.graficos-vendas-conteudo>.grafico-pizza-container,
+.graficos-vendas-conteudo>.grafico-linhas-container {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+
+/* ===============================
+   ANIMAÇÃO DE ENTRADA
+=============================== */
+
+@keyframes graficosVendasEntrada {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(12px) scale(0.985);
+        filter: blur(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+
+/* ===============================
+   LUZ FLUTUANTE
+=============================== */
+
+@keyframes graficosVendasLuz {
+
+    0% {
+        transform:
+            translateX(-40px) scale(0.95);
+    }
+
+    100% {
+        transform:
+            translateX(100px) scale(1.15);
+    }
+}
+
+
+/* ===============================
+   INDICADOR
+=============================== */
+
+@keyframes graficosVendasIndicador {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 12px rgba(37, 99, 235, 0.20);
+    }
+
+    50% {
+        box-shadow:
+            0 0 26px rgba(37, 99, 235, 0.48);
+    }
+}
+
+
+/* ===============================
    TABLET
-========================= */
+=============================== */
+
 @media (max-width: 1024px) {
 
     .graficos-vendas-container {
-        padding: 20px;
+        padding: 22px !important;
+        border-radius: 24px !important;
     }
 
-    .graficos-vendas-conteudo {
-        min-height: 240px;
-        padding: 18px;
-    }
-
-    .graficos-vendas-botoes button {
-        font-size: 13px;
-        padding: 9px 14px;
-    }
-}
-
-/* =========================
-   MOBILE
-========================= */
-@media (max-width: 768px) {
-
-    .graficos-vendas-container {
-        padding: 16px;
-        border-radius: 12px;
+    .graficos-vendas-cabecalho {
+        flex-direction: column !important;
+        align-items: flex-start !important;
     }
 
     .graficos-vendas-botoes {
-        flex-direction: column;
-        gap: 10px;
+        width: 100% !important;
     }
 
     .graficos-vendas-botoes button {
-        width: 100%;
-        text-align: center;
+        flex: 1 !important;
     }
 
     .graficos-vendas-conteudo {
-        padding: 16px;
-        min-height: 220px;
+        padding: 16px !important;
     }
 }
 
-/* =========================
-   MOBILE PEQUENO
-========================= */
-@media (max-width: 420px) {
+
+/* ===============================
+   MOBILE
+=============================== */
+
+@media (max-width: 768px) {
+
+    .graficos-vendas-container {
+        padding: 16px !important;
+        gap: 16px !important;
+
+        border-radius: 20px !important;
+    }
+
+    .graficos-vendas-cabecalho {
+        padding: 15px !important;
+        gap: 18px !important;
+    }
 
     .graficos-vendas-container h4 {
-        font-size: 16px;
-        text-align: center;
+        font-size: 17px !important;
+    }
+
+    .graficos-vendas-titulo-area p {
+        font-size: 11px !important;
+    }
+
+    .graficos-vendas-indicador {
+        height: 40px !important;
+    }
+
+    .graficos-vendas-botoes {
+        flex-direction: column !important;
     }
 
     .graficos-vendas-botoes button {
-        font-size: 12px;
-        padding: 8px 12px;
+        width: 100% !important;
     }
 
     .graficos-vendas-conteudo {
-        padding: 14px;
-        min-height: 200px;
+        min-height: 280px !important;
+
+        padding: 10px !important;
+
+        border-radius: 18px !important;
+    }
+}
+
+
+/* ===============================
+   MOBILE PEQUENO
+=============================== */
+
+@media (max-width: 420px) {
+
+    .graficos-vendas-container {
+        padding: 12px !important;
+    }
+
+    .graficos-vendas-cabecalho {
+        padding: 13px !important;
+        border-radius: 16px !important;
+    }
+
+    .graficos-vendas-container h4 {
+        font-size: 16px !important;
+    }
+
+    .graficos-vendas-titulo-area p {
+        display: none !important;
+    }
+
+    .graficos-vendas-botoes button {
+        min-height: 42px !important;
+
+        font-size: 12px !important;
+    }
+
+    .graficos-vendas-conteudo {
+        padding: 6px !important;
+    }
+}
+
+
+/* ===============================
+   REDUZIR MOVIMENTO
+=============================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .graficos-vendas-container,
+    .graficos-vendas-container::before,
+    .graficos-vendas-indicador,
+    .graficos-vendas-conteudo,
+    .graficos-vendas-botoes button {
+        animation: none !important;
+        transition: none !important;
     }
 }

@@ -1,165 +1,615 @@
-/* ===============================
-   CONTAINER PRINCIPAL
-=============================== */
+/* =========================================================
+   BLOCO DE MÓDULOS
+   PADRÃO CLARO PREMIUM
+========================================================= */
+
 .bm-container {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 16px;
-    padding: 22px 24px;
-    color: #e5e7eb;
+    width: 100%;
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
+
+    position: relative;
+
+    padding: 22px;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 100%) !important;
+
+    border: 1px solid #dfe5ec;
+    border-radius: 18px;
+
+    box-shadow:
+        0 5px 16px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 #ffffff;
+
+    color: #101828 !important;
 }
 
-/* ===============================
+
+/* =========================================================
+   PROTEÇÃO CONTRA TEMA GLOBAL
+========================================================= */
+
+.bm-container,
+.bm-container div {
+    color: #344054 !important;
+}
+
+.bm-container h1,
+.bm-container h2,
+.bm-container h3,
+.bm-container h4,
+.bm-container strong {
+    color: #101828 !important;
+}
+
+
+/* =========================================================
    TÍTULO
-=============================== */
+========================================================= */
+
 .bm-titulo {
-    font-size: 15px;
-    font-weight: 600;
-    color: #f1f5f9;
-    letter-spacing: 0.3px;
+    margin: 0 !important;
+
+    padding: 0 0 14px 0;
+
+    font-size: 13px;
+    line-height: 1.3;
+
+    font-weight: 800;
+
+    color: #123d72 !important;
+
+    letter-spacing: 0.75px;
+
+    text-transform: uppercase;
+
+    border-bottom: 1px solid #e5e9ef;
 }
 
-/* ===============================
+
+/* =========================================================
    LISTA
-=============================== */
+========================================================= */
+
 .bm-lista {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 14px;
 }
 
-/* ===============================
-   ITEM DO MÓDULO
-=============================== */
+
+/* =========================================================
+   ITEM
+========================================================= */
+
 .bm-item {
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    border-radius: 14px;
-    padding: 14px 16px;
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    position: relative;
+    overflow: hidden;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 14px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    gap: 18px;
+
+    padding: 18px 18px 18px 21px;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f9fafb 100%) !important;
+
+    border: 1px solid #dfe5ec;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease;
 }
+
+
+/* =========================================================
+   LINHA AZUL LATERAL
+========================================================= */
+
+.bm-item::before {
+    content: "";
+
+    position: absolute;
+
+    top: 13px;
+    bottom: 13px;
+    left: 0;
+
+    width: 3px;
+
+    background:
+        linear-gradient(180deg,
+            #123d72 0%,
+            #2d6fae 100%);
+
+    border-radius: 0 5px 5px 0;
+
+    opacity: 0.75;
+
+    transition:
+        width 0.22s ease,
+        opacity 0.22s ease;
+}
+
+
+/* =========================================================
+   HOVER DO ITEM
+========================================================= */
 
 .bm-item:hover {
-    border-color: #334155;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+
+    background: #ffffff !important;
+
+    border-color: #b9c9dc;
+
+    box-shadow:
+        0 11px 26px rgba(15, 23, 42, 0.08),
+        0 3px 8px rgba(18, 61, 114, 0.05);
 }
 
-/* ===============================
-   BLOCO TEXTO
-=============================== */
+
+.bm-item:hover::before {
+    width: 4px;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   BLOCO DE INFORMAÇÕES
+========================================================= */
+
 .bm-clas {
+    min-width: 0;
+    flex: 1;
+
     display: flex;
     flex-direction: column;
-    gap: 4px;
+
+    gap: 5px;
 }
 
-/* Nome técnico do módulo */
+
+/* =========================================================
+   NOME DO MÓDULO
+========================================================= */
+
 .bm-nome {
-    font-size: 14px;
-    font-weight: 600;
-    color: #e5e7eb;
+    display: block;
+
+    font-size: 14px !important;
+    line-height: 1.35;
+
+    font-weight: 800 !important;
+
+    color: #123d72 !important;
+
+    letter-spacing: -0.1px;
 }
 
-/* Descrição do módulo */
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
 .bm-descricao {
-    font-size: 12px;
-    color: #94a3b8;
+    display: block;
+
+    max-width: 100%;
+
+    font-size: 12px !important;
+    line-height: 1.5;
+
+    font-weight: 500;
+
+    color: #667085 !important;
 }
 
-/* ===============================
+
+/* =========================================================
    AÇÕES
-=============================== */
+========================================================= */
+
 .bm-acao {
+    flex-shrink: 0;
+
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: flex-end;
+
+    gap: 8px;
 }
 
-/* ===============================
-   BOTÃO SOLICITAR
-=============================== */
+
+/* =========================================================
+   BOTÃO BASE
+========================================================= */
+
 .bm-btn {
-    border-radius: 12px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 600;
+    min-height: 37px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 15px;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 12px !important;
+    line-height: 1;
+
+    font-weight: 800 !important;
+
     cursor: pointer;
+
     transition:
-        background 0.2s ease,
-        color 0.2s ease,
+        transform 0.2s ease,
         box-shadow 0.2s ease,
-        transform 0.1s ease;
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
+
+
+/* =========================================================
+   BOTÃO SOLICITAR
+========================================================= */
 
 .bm-btn-solicitar {
-    background: linear-gradient(180deg, #16a34a, #15803d);
-    border: 1px solid #22c55e;
-    color: #ecfdf5;
+    background:
+        linear-gradient(135deg,
+            #123d72 0%,
+            #1d5590 100%) !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #123d72;
+
+    box-shadow:
+        0 4px 10px rgba(18, 61, 114, 0.14);
 }
+
 
 .bm-btn-solicitar:hover {
-    box-shadow: 0 6px 18px rgba(34, 197, 94, 0.35);
+    background:
+        linear-gradient(135deg,
+            #0c315f 0%,
+            #174b82 100%) !important;
+
+    color: #ffffff !important;
+
+    border-color: #0c315f;
+
     transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(18, 61, 114, 0.22);
 }
+
 
 .bm-btn-solicitar:active {
-    transform: translateY(0);
-    box-shadow: none;
+    transform: translateY(0) scale(0.97);
+
+    box-shadow:
+        0 3px 7px rgba(18, 61, 114, 0.15);
 }
 
-/* ===============================
-   STATUS
-=============================== */
+
+/* =========================================================
+   STATUS BASE
+========================================================= */
+
 .bm-status {
-    padding: 6px 12px;
+    min-height: 29px;
+
+    box-sizing: border-box;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 11px;
+
     border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
+
+    font-size: 10px !important;
+    line-height: 1;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 0.45px;
+
     text-transform: uppercase;
-    border: 1px solid transparent;
+
+    white-space: nowrap;
 }
 
-/* Inativo */
+
+/* =========================================================
+   INATIVO
+========================================================= */
+
+.bm-status.bm-inativo,
 .bm-inativo {
-    color: #94a3b8;
-    background: rgba(148, 163, 184, 0.08);
-    border-color: rgba(148, 163, 184, 0.25);
+    background: #f2f4f7 !important;
+
+    color: #667085 !important;
+
+    border: 1px solid #d0d5dd;
 }
 
-/* Solicitado */
+
+/* =========================================================
+   SOLICITADO
+========================================================= */
+
+.bm-status.bm-solicitado,
 .bm-solicitado {
-    color: #facc15;
-    background: rgba(250, 204, 21, 0.08);
-    border-color: rgba(250, 204, 21, 0.35);
+    background: #fffaeb !important;
+
+    color: #b54708 !important;
+
+    border: 1px solid #fedf89;
+
+    box-shadow:
+        0 2px 6px rgba(181, 71, 8, 0.04);
 }
 
-/* Ativo */
+
+/* =========================================================
+   ATIVO
+========================================================= */
+
+.bm-status.bm-ativo,
 .bm-ativo {
-    color: #22c55e;
-    background: rgba(34, 197, 94, 0.08);
-    border-color: rgba(34, 197, 94, 0.35);
+    background: #ecfdf3 !important;
+
+    color: #027a48 !important;
+
+    border: 1px solid #abefc6;
+
+    box-shadow:
+        0 2px 6px rgba(2, 122, 72, 0.04);
 }
 
-/* ===============================
-   RESPONSIVO
-=============================== */
-@media (max-width: 520px) {
+
+/* =========================================================
+   INDICADOR VISUAL DE STATUS
+========================================================= */
+
+.bm-ativo::before,
+.bm-solicitado::before,
+.bm-inativo::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    margin-right: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+.bm-ativo::before {
+    background: #12b76a;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 183, 106, 0.10);
+}
+
+
+.bm-solicitado::before {
+    background: #f79009;
+
+    box-shadow:
+        0 0 0 3px rgba(247, 144, 9, 0.10);
+}
+
+
+.bm-inativo::before {
+    background: #98a2b3;
+
+    box-shadow:
+        0 0 0 3px rgba(152, 162, 179, 0.10);
+}
+
+
+/* =========================================================
+   ESTADO VAZIO
+========================================================= */
+
+.bm-vazio {
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 28px 20px;
+
+    background:
+        linear-gradient(145deg,
+            #f9fafb 0%,
+            #f2f4f7 100%) !important;
+
+    border: 1px dashed #cfd7e3;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    font-size: 13px !important;
+    line-height: 1.5;
+
+    font-weight: 600;
+
+    color: #667085 !important;
+}
+
+
+/* =========================================================
+   SELEÇÃO
+========================================================= */
+
+.bm-container ::selection {
+    background:
+        rgba(18, 61, 114, 0.16);
+
+    color: #101828 !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .bm-lista {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .bm-container {
+        gap: 16px;
+
+        padding: 17px;
+
+        border-radius: 15px;
+    }
+
+
+    .bm-titulo {
+        font-size: 12px;
+
+        padding-bottom: 12px;
+    }
+
+
+    .bm-lista {
+        gap: 10px;
+    }
+
+
     .bm-item {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+
+        align-items: stretch;
+
+        gap: 14px;
+
+        padding: 16px 15px 15px 18px;
+
+        border-radius: 12px;
     }
+
+
+    .bm-item::before {
+        top: 11px;
+        bottom: 11px;
+    }
+
 
     .bm-acao {
         width: 100%;
+
         justify-content: flex-start;
     }
+
+
+    .bm-btn {
+        min-height: 39px;
+
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .bm-container {
+        padding: 13px;
+    }
+
+
+    .bm-item {
+        padding:
+            14px 12px 14px 16px;
+    }
+
+
+    .bm-nome {
+        font-size: 13px !important;
+    }
+
+
+    .bm-descricao {
+        font-size: 11px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .bm-item,
+    .bm-item::before,
+    .bm-btn {
+        transition: none !important;
+    }
+
 }

@@ -111,57 +111,459 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
             atualizarHeader();
         }
     }
+    /* =========================================================
+       CACHE DO BODY
+    ========================================================= */
 
-    useEffect(() => {
-        async function carregar() {
-            const token = localStorage.getItem("token");
+    function obterChaveCacheBody(usuarioId) {
+        return `iron_body_modulos_cache_${usuarioId}`;
+    }
 
-            if (!token) return;
 
-            const h = {
-                Authorization: "Bearer " + token
-            };
+    function lerCacheBody(usuarioId) {
 
-            const clienteResp = await (
-                await fetch(`${API_URL}/retorno/me`, {
-                    headers: h
-                })
-            ).json();
-
-            setCliente(clienteResp);
-
-            const modulos = await (
-                await fetch(`${API_URL}/retorno/modulos`, {
-                    headers: h
-                })
-            ).json();
-
-            const permissoes = await (
-                await fetch(
-                    `${API_URL}/retorno/permissoes/${clienteResp.id}`,
-                    {
-                        headers: h
-                    }
-                )
-            ).json();
-
-            const filtrados = filtrarModulos({
-                modulos,
-                cliente: clienteResp,
-                permissoes
-            });
-
-            setModulosVisiveis(filtrados);
-
-            setTimeout(() => {
-                setCarregando(false);
-                setFade(true);
-            }, 150);
+        if (!usuarioId) {
+            return null;
         }
 
-        carregar();
-    }, []);
+        try {
 
+            const chave =
+                obterChaveCacheBody(usuarioId);
+
+            const salvo =
+                localStorage.getItem(chave);
+
+            if (!salvo) {
+                return null;
+            }
+
+            return JSON.parse(salvo);
+
+        } catch (erro) {
+
+            console.warn(
+                "[BODY] Erro ao ler cache:",
+                erro
+            );
+
+            return null;
+        }
+    }
+
+
+    function salvarCacheBody(usuarioId, dadosCache) {
+
+        if (!usuarioId) {
+            return;
+        }
+
+        try {
+
+            localStorage.setItem(
+                obterChaveCacheBody(usuarioId),
+                JSON.stringify(dadosCache)
+            );
+
+        } catch (erro) {
+
+            console.warn(
+                "[BODY] Erro ao salvar cache:",
+                erro
+            );
+        }
+    }
+
+
+    function dadosBodyIguais(cache, servidor) {
+
+        if (!cache || !servidor) {
+            return false;
+        }
+
+        try {
+
+            return JSON.stringify(cache) ===
+                JSON.stringify(servidor);
+
+        } catch {
+            return false;
+        }
+    }
+    useEffect(() => {
+
+        let componenteAtivo = true;
+
+        async function carregar() {
+
+            const token =
+                localStorage.getItem("token");
+
+            if (!token) {
+
+                if (componenteAtivo) {
+                    setCarregando(false);
+                }
+
+                return;
+            }
+
+
+            /* =================================================
+               DESCOBRE O USUÁRIO SALVO
+    
+               O login/header já salva "usuario".
+            ================================================= */
+
+            let usuarioLocal = null;
+
+            try {
+
+                usuarioLocal = JSON.parse(
+                    localStorage.getItem("usuario") || "null"
+                );
+
+            } catch {
+
+                usuarioLocal = null;
+
+            }
+
+
+            const usuarioIdCache =
+                usuarioLocal?.id;
+
+
+            /* =================================================
+               1. CARREGA CACHE IMEDIATAMENTE
+            ================================================= */
+
+            const cache =
+                lerCacheBody(usuarioIdCache);
+
+
+            if (
+                cache &&
+                cache.cliente &&
+                Array.isArray(cache.modulosVisiveis)
+            ) {
+
+                console.log(
+                    "[BODY] Cache encontrado."
+                );
+
+
+                setCliente(
+                    cache.cliente
+                );
+
+
+                setModulosVisiveis(
+                    cache.modulosVisiveis
+                );
+
+
+                /*
+                    Como já temos tudo necessário para
+                    montar a tela, removemos o skeleton.
+                */
+
+                setCarregando(false);
+
+
+                requestAnimationFrame(() => {
+
+                    if (componenteAtivo) {
+                        setFade(true);
+                    }
+
+                });
+
+
+                console.log(
+                    "[BODY] Interface carregada pelo cache."
+                );
+            }
+
+
+            try {
+
+                const headers = {
+                    Authorization: `Bearer ${token}`
+                };
+
+
+                /* =================================================
+                   2. BUSCA CLIENTE ATUAL
+                ================================================= */
+
+                const respostaCliente =
+                    await fetch(
+                        `${API_URL}/retorno/me`,
+                        {
+                            headers
+                        }
+                    );
+
+
+                if (!respostaCliente.ok) {
+
+                    throw new Error(
+                        `Erro /retorno/me: ${respostaCliente.status}`
+                    );
+                }
+
+
+                const clienteServidor =
+                    await respostaCliente.json();
+
+
+                if (!componenteAtivo) {
+                    return;
+                }
+
+
+                /* =================================================
+                   IMPORTANTE
+    
+                   A partir daqui usamos o ID retornado pelo
+                   servidor, não confiamos somente no cache.
+                ================================================= */
+
+                const usuarioIdServidor =
+                    clienteServidor.id;
+
+
+                /* =================================================
+                   3. BUSCA MÓDULOS E PERMISSÕES
+    
+                   Agora fazemos as duas chamadas simultaneamente.
+                ================================================= */
+
+                const [
+                    respostaModulos,
+                    respostaPermissoes
+                ] = await Promise.all([
+
+                    fetch(
+                        `${API_URL}/retorno/modulos`,
+                        {
+                            headers
+                        }
+                    ),
+
+                    fetch(
+                        `${API_URL}/retorno/permissoes/${usuarioIdServidor}`,
+                        {
+                            headers
+                        }
+                    )
+
+                ]);
+
+
+                if (!respostaModulos.ok) {
+
+                    throw new Error(
+                        `Erro módulos: ${respostaModulos.status}`
+                    );
+                }
+
+
+                if (!respostaPermissoes.ok) {
+
+                    throw new Error(
+                        `Erro permissões: ${respostaPermissoes.status}`
+                    );
+                }
+
+
+                const [
+                    modulosServidor,
+                    permissoesServidor
+                ] = await Promise.all([
+
+                    respostaModulos.json(),
+
+                    respostaPermissoes.json()
+
+                ]);
+
+
+                if (!componenteAtivo) {
+                    return;
+                }
+
+
+                /* =================================================
+                   4. CALCULA MÓDULOS VISÍVEIS
+                ================================================= */
+
+                const filtradosServidor =
+                    filtrarModulos({
+                        modulos: Array.isArray(modulosServidor)
+                            ? modulosServidor
+                            : [],
+
+                        cliente: clienteServidor,
+
+                        permissoes: Array.isArray(permissoesServidor)
+                            ? permissoesServidor
+                            : []
+                    });
+
+
+                /* =================================================
+                   5. OBJETO COMPLETO QUE SERÁ CACHEADO
+                ================================================= */
+
+                const dadosServidor = {
+
+                    cliente:
+                        clienteServidor,
+
+                    modulos:
+                        Array.isArray(modulosServidor)
+                            ? modulosServidor
+                            : [],
+
+                    permissoes:
+                        Array.isArray(permissoesServidor)
+                            ? permissoesServidor
+                            : [],
+
+                    modulosVisiveis:
+                        filtradosServidor
+
+                };
+
+
+                /* =================================================
+                   6. PEGA CACHE CORRETO DO USUÁRIO
+    
+                   Isso é importante caso o usuarioLocal estivesse
+                   vazio ou pertencesse a outra conta.
+                ================================================= */
+
+                const cacheServidor =
+                    lerCacheBody(
+                        usuarioIdServidor
+                    );
+
+
+                /* =================================================
+                   7. COMPARA
+                ================================================= */
+
+                const iguais =
+                    dadosBodyIguais(
+                        cacheServidor,
+                        dadosServidor
+                    );
+
+
+                if (!iguais) {
+
+                    console.log(
+                        "[BODY] Servidor mudou. Atualizando cache."
+                    );
+
+
+                    setCliente(
+                        clienteServidor
+                    );
+
+
+                    setModulosVisiveis(
+                        filtradosServidor
+                    );
+
+
+                    salvarCacheBody(
+                        usuarioIdServidor,
+                        dadosServidor
+                    );
+
+
+                } else {
+
+                    console.log(
+                        "[BODY] Cache já está atualizado."
+                    );
+
+
+                    /*
+                        Pode acontecer de não termos usado o cache
+                        inicialmente porque "usuario" ainda não
+                        estava disponível.
+    
+                        Garantimos os states aqui.
+                    */
+
+                    if (!cache) {
+
+                        setCliente(
+                            clienteServidor
+                        );
+
+                        setModulosVisiveis(
+                            filtradosServidor
+                        );
+                    }
+                }
+
+
+                /* =================================================
+                   8. FINALIZA CARREGAMENTO
+                ================================================= */
+
+                if (componenteAtivo) {
+
+                    setCarregando(false);
+
+                    requestAnimationFrame(() => {
+
+                        if (componenteAtivo) {
+                            setFade(true);
+                        }
+
+                    });
+                }
+
+
+            } catch (erro) {
+
+                console.error(
+                    "[BODY] Erro ao atualizar dados:",
+                    erro
+                );
+
+
+                /*
+                    Se existe cache, não derrubamos a tela.
+                */
+
+                if (!cache && componenteAtivo) {
+
+                    setCarregando(false);
+
+                    setFade(true);
+
+                }
+            }
+        }
+
+
+        carregar();
+
+
+        return () => {
+
+            componenteAtivo = false;
+
+        };
+
+    }, []);
     function filtrarModulos({
         modulos,
         cliente,

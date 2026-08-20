@@ -1,145 +1,671 @@
-/* ===== CONTAINER ===== */
+/* =========================================================
+   DADOS PESSOAIS
+   PADRÃO VISUAL CLARO PREMIUM
+========================================================= */
+
 .dp-container {
-    padding: 36px;
-    max-width: 560px;
-    background: linear-gradient(180deg, #020617, #020617);
-    border-radius: 30px;
-    margin: auto auto;
-}
+    width: 100%;
+    max-width: 620px;
+    min-height: 100%;
+    box-sizing: border-box;
 
-/* ===== TÍTULO ===== */
-.dp-title {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 26px;
-    color: #e5e7eb;
-    letter-spacing: 0.3px;
-}
+    margin: 0 auto;
+    padding: 28px;
 
-/* ===== CARD ===== */
-.dp-card {
-    background: linear-gradient(180deg, #020617, #020617);
-    border-radius: 18px;
-    padding: 30px;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 8% 0%,
+            rgba(18, 61, 114, 0.08),
+            transparent 32%),
+        linear-gradient(180deg,
+            #f7f8fa 0%,
+            #eef1f5 100%);
+
+    border: 1px solid #dfe5ec;
+    border-radius: 28px;
+
     box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 1px rgba(148, 163, 184, 0.08);
+        0 14px 40px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+    color: #101828 !important;
+}
+
+
+/* =========================================================
+   DETALHE VISUAL DO CONTAINER
+========================================================= */
+
+.dp-container::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 32px;
+
+    width: 72px;
+    height: 4px;
+
+    background: linear-gradient(90deg,
+            #123d72,
+            #245f9f);
+
+    border-radius: 0 0 8px 8px;
+}
+
+
+/* =========================================================
+   PROTEÇÃO CONTRA TEMA GLOBAL
+========================================================= */
+
+.dp-container,
+.dp-container div {
+    color: #344054 !important;
+}
+
+.dp-container label {
+    color: #344054 !important;
+}
+
+.dp-container input {
+    color: #101828 !important;
+}
+
+.dp-container strong,
+.dp-container h1,
+.dp-container h2,
+.dp-container h3,
+.dp-container h4 {
+    color: #101828 !important;
+}
+
+
+/* =========================================================
+   CARD PRINCIPAL
+========================================================= */
+
+.dp-card {
+    width: 100%;
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 22px;
+
+    position: relative;
+
+    padding: 30px;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fbfcfd 100%);
+
+    border: 1px solid #dfe5ec;
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 #ffffff;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
 }
 
-/* ===== CAMPOS ===== */
+
+.dp-card:hover {
+    border-color: #c7d5e6;
+
+    box-shadow:
+        0 16px 38px rgba(15, 23, 42, 0.09),
+        0 4px 12px rgba(18, 61, 114, 0.05);
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.dp-title {
+    margin: 0 0 24px 0;
+
+    padding-bottom: 14px;
+
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 800;
+
+    letter-spacing: -0.3px;
+
+    color: #123d72 !important;
+
+    border-bottom: 1px solid #e5e9ef;
+}
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
 .dp-field {
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
+
+/* =========================================================
+   LABEL
+========================================================= */
+
 .dp-field label {
     font-size: 12px;
-    font-weight: 500;
-    color: #94a3b8;
-    letter-spacing: 0.4px;
+    line-height: 1.3;
+
+    font-weight: 800;
+
+    color: #344054 !important;
+
+    letter-spacing: 0.45px;
+
     text-transform: uppercase;
 }
 
-/* ===== INPUT ===== */
+
+/* =========================================================
+   INPUT
+========================================================= */
+
 .dp-field input {
-    height: 46px;
+    width: 100%;
+    height: 48px;
+
+    box-sizing: border-box;
+
     padding: 0 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(148, 163, 184, 0.2);
-    background: #020617;
-    color: #e5e7eb;
-    font-size: 14px;
+
+    background: #ffffff !important;
+
+    color: #101828 !important;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 11px;
+
     outline: none;
-    transition: all 0.25s ease;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.04);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
-.dp-field input::placeholder {
-    color: #64748b;
+
+.dp-field input:hover {
+    border-color: #9fb5ce;
 }
+
 
 .dp-field input:focus {
-    border-color: #2563eb;
+    background: #ffffff !important;
+
+    border-color: #245f9f;
+
     box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.25),
-        0 8px 24px rgba(37, 99, 235, 0.35);
+        0 0 0 3px rgba(36, 95, 159, 0.12),
+        0 3px 8px rgba(15, 23, 42, 0.05);
 }
 
-/* ===== ALERTAS ===== */
-.dp-alert {
-    padding: 14px 16px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.4;
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.dp-field input::placeholder {
+    color: #98a2b3 !important;
+
+    font-weight: 400;
+
+    opacity: 1;
 }
 
-.dp-error {
-    background: linear-gradient(135deg, #450a0a, #7f1d1d);
-    color: #fecaca;
-    box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.35);
-}
 
-.dp-success {
-    background: linear-gradient(135deg, #052e16, #14532d);
-    color: #bbf7d0;
-    box-shadow: inset 0 0 0 1px rgba(74, 222, 128, 0.35);
-}
+/* =========================================================
+   SENHA ATUAL CORRETA
+========================================================= */
 
-/* ===== BOTÃO ===== */
-.dp-button {
-    margin-top: 10px;
-    height: 48px;
-    border-radius: 14px;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    background: linear-gradient(135deg, #1e3a8a, #2563eb);
-    color: #e5e7eb;
-    letter-spacing: 0.4px;
-    transition: all 0.25s ease;
-}
-
-.dp-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow:
-        0 18px 40px rgba(37, 99, 235, 0.45),
-        0 0 0 1px rgba(59, 130, 246, 0.4);
-}
-
-.dp-button:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow:
-        0 10px 22px rgba(37, 99, 235, 0.4);
-}
-
-.dp-button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
+.dp-field input.dp-input-ok,
 .dp-input-ok {
-    border-color: #22c55e !important;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+    background: #fbfffc !important;
+
+    border-color: #16a34a !important;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 163, 74, 0.09) !important;
 }
 
-.dp-input-error {
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+
+.dp-field input.dp-input-ok:focus,
+.dp-input-ok:focus {
+    border-color: #16a34a !important;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 163, 74, 0.13),
+        0 3px 8px rgba(15, 23, 42, 0.05) !important;
 }
+
+
+/* =========================================================
+   SENHA ATUAL INCORRETA
+========================================================= */
+
+.dp-field input.dp-input-error,
+.dp-input-error {
+    background: #fffdfd !important;
+
+    border-color: #dc2626 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(220, 38, 38, 0.08) !important;
+}
+
+
+.dp-field input.dp-input-error:focus,
+.dp-input-error:focus {
+    border-color: #dc2626 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(220, 38, 38, 0.12),
+        0 3px 8px rgba(15, 23, 42, 0.05) !important;
+}
+
+
+/* =========================================================
+   INDICADOR SENHA CORRETA
+========================================================= */
 
 .dp-hint-ok {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 1px;
+
     font-size: 12px;
-    color: #22c55e;
-    margin-top: 4px;
+    line-height: 1.3;
+
+    font-weight: 700;
+
+    color: #15803d !important;
 }
 
+
+.dp-hint-ok::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+
+/* =========================================================
+   INDICADOR SENHA INCORRETA
+========================================================= */
+
 .dp-hint-error {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 1px;
+
     font-size: 12px;
-    color: #ef4444;
+    line-height: 1.3;
+
+    font-weight: 700;
+
+    color: #b42318 !important;
+}
+
+
+.dp-hint-error::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    background: #ef4444;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+
+/* =========================================================
+   ALERTAS
+========================================================= */
+
+.dp-alert {
+    width: 100%;
+    box-sizing: border-box;
+
+    position: relative;
+
+    padding: 14px 16px 14px 18px;
+
+    border-radius: 11px;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    font-weight: 700;
+
+    animation:
+        dpAlertEntrada 0.25s ease;
+}
+
+
+/* =========================================================
+   ALERTA ERRO
+========================================================= */
+
+.dp-alert.dp-error,
+.dp-error {
+    background: #fff5f5 !important;
+
+    color: #b42318 !important;
+
+    border: 1px solid #fecdca;
+    border-left: 4px solid #d92d20;
+
+    box-shadow:
+        0 3px 10px rgba(180, 35, 24, 0.05);
+}
+
+
+/* =========================================================
+   ALERTA SUCESSO
+========================================================= */
+
+.dp-alert.dp-success,
+.dp-success {
+    background: #f2fbf5 !important;
+
+    color: #166534 !important;
+
+    border: 1px solid #bbefc9;
+    border-left: 4px solid #16a34a;
+
+    box-shadow:
+        0 3px 10px rgba(22, 101, 52, 0.05);
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DOS ALERTAS
+========================================================= */
+
+@keyframes dpAlertEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   BOTÃO PRINCIPAL
+========================================================= */
+
+.dp-button {
+    width: 100%;
+    min-height: 48px;
+
     margin-top: 4px;
+    padding: 11px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(135deg,
+            #123d72 0%,
+            #1d5590 100%) !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #123d72;
+    border-radius: 11px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(18, 61, 114, 0.16);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* =========================================================
+   BOTÃO HOVER
+========================================================= */
+
+.dp-button:hover:not(:disabled) {
+    background:
+        linear-gradient(135deg,
+            #0c315f 0%,
+            #174b82 100%) !important;
+
+    border-color: #0c315f;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 20px rgba(18, 61, 114, 0.22);
+}
+
+
+/* =========================================================
+   BOTÃO ACTIVE
+========================================================= */
+
+.dp-button:active:not(:disabled) {
+    transform: translateY(0) scale(0.985);
+
+    box-shadow:
+        0 4px 9px rgba(18, 61, 114, 0.18);
+}
+
+
+/* =========================================================
+   BOTÃO DESABILITADO
+========================================================= */
+
+.dp-button:disabled {
+    background: #e4e7ec !important;
+
+    color: #98a2b3 !important;
+
+    border-color: #d0d5dd;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   SELEÇÃO DE TEXTO
+========================================================= */
+
+.dp-container ::selection {
+    background: rgba(18, 61, 114, 0.16);
+
+    color: #101828;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .dp-container {
+        max-width: 100%;
+
+        padding: 22px;
+
+        border-radius: 22px;
+    }
+
+
+    .dp-card {
+        padding: 25px;
+
+        border-radius: 18px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .dp-container {
+        width: 100%;
+
+        padding: 12px;
+
+        border-radius: 16px;
+    }
+
+
+    .dp-container::before {
+        left: 24px;
+
+        width: 58px;
+    }
+
+
+    .dp-card {
+        gap: 18px;
+
+        padding: 20px 17px;
+
+        border-radius: 15px;
+    }
+
+
+    .dp-field {
+        gap: 7px;
+    }
+
+
+    .dp-field input {
+        height: 47px;
+
+        padding: 0 14px;
+
+        font-size: 14px;
+    }
+
+
+    .dp-button {
+        min-height: 47px;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS PEQUENAS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .dp-container {
+        padding: 8px;
+    }
+
+
+    .dp-card {
+        padding: 18px 14px;
+    }
+
+
+    .dp-field label {
+        font-size: 11px;
+    }
+
+
+    .dp-field input {
+        padding: 0 12px;
+
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .dp-card,
+    .dp-field input,
+    .dp-button,
+    .dp-alert {
+        transition: none !important;
+        animation: none !important;
+    }
+
 }

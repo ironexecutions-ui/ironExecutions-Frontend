@@ -22,17 +22,355 @@ export default function ResumoProdutos() {
     const [filtroVencimento, setFiltroVencimento] = useState(false);
 
     const token = localStorage.getItem("token");
+    /* =========================================================
+       CACHE DE PRODUTOS POR COMÉRCIO
+    ========================================================= */
 
+    function obterComercioIdCache() {
+
+        try {
+
+            const usuario = JSON.parse(
+                localStorage.getItem("usuario") || "null"
+            );
+
+            return usuario?.comercio_id || null;
+
+        } catch {
+
+            return null;
+        }
+    }
+
+
+    function obterChaveCacheProdutos() {
+
+        const comercioId =
+            obterComercioIdCache();
+
+        if (!comercioId) {
+            return null;
+        }
+
+        return `iron_produtos_servicos_cache_${comercioId}`;
+    }
+
+
+    /* =========================================================
+       LER CACHE
+    ========================================================= */
+
+    function lerCacheProdutos() {
+
+        const chave =
+            obterChaveCacheProdutos();
+
+        if (!chave) {
+            return null;
+        }
+
+        try {
+
+            const salvo =
+                localStorage.getItem(chave);
+
+            if (!salvo) {
+                return null;
+            }
+
+            const dados =
+                JSON.parse(salvo);
+
+            if (!Array.isArray(dados)) {
+                throw new Error(
+                    "Formato do cache inválido"
+                );
+            }
+
+            return dados;
+
+        } catch (erro) {
+
+            console.warn(
+                "[PRODUTOS] Cache inválido:",
+                erro
+            );
+
+            localStorage.removeItem(chave);
+
+            return null;
+        }
+    }
+
+
+    /* =========================================================
+       SALVAR CACHE
+    ========================================================= */
+
+    function salvarCacheProdutos(dados) {
+
+        const chave =
+            obterChaveCacheProdutos();
+
+        if (!chave) {
+            return;
+        }
+
+        try {
+
+            localStorage.setItem(
+                chave,
+                JSON.stringify(dados)
+            );
+
+        } catch (erro) {
+
+            console.warn(
+                "[PRODUTOS] Erro ao salvar cache:",
+                erro
+            );
+        }
+    }
+
+
+    /* =========================================================
+       NORMALIZAR PARA COMPARAÇÃO
+    ========================================================= */
+
+    function normalizarProdutos(listaProdutos) {
+
+        if (!Array.isArray(listaProdutos)) {
+            return [];
+        }
+
+        return [...listaProdutos]
+            .map(item => ({
+                ...item
+            }))
+            .sort((a, b) => {
+
+                return String(a.id).localeCompare(
+                    String(b.id),
+                    undefined,
+                    {
+                        numeric: true
+                    }
+                );
+            });
+    }
+
+
+    /* =========================================================
+       COMPARAR CACHE COM SERVIDOR
+    ========================================================= */
+
+    function produtosIguais(
+        cache,
+        servidor
+    ) {
+
+        if (
+            !Array.isArray(cache) ||
+            !Array.isArray(servidor)
+        ) {
+            return false;
+        }
+
+
+        if (
+            cache.length !==
+            servidor.length
+        ) {
+            return false;
+        }
+
+
+        try {
+
+            const cacheNormalizado =
+                normalizarProdutos(cache);
+
+            const servidorNormalizado =
+                normalizarProdutos(servidor);
+
+
+            return (
+                JSON.stringify(cacheNormalizado) ===
+                JSON.stringify(servidorNormalizado)
+            );
+
+        } catch {
+
+            return false;
+        }
+    }
     async function carregar() {
-        setCarregando(true);
 
-        const resp = await fetch(`${API_URL}/admin/produtos-servicos`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
+        /* =====================================================
+           1. PROCURA CACHE
+        ===================================================== */
 
-        const dados = await resp.json();
-        setLista(dados);
-        setCarregando(false);
+        const cache =
+            lerCacheProdutos();
+
+
+        /* =====================================================
+           2. SE EXISTIR CACHE, MOSTRA IMEDIATAMENTE
+        ===================================================== */
+
+        if (Array.isArray(cache)) {
+
+            setLista(cache);
+
+            setCarregando(false);
+
+            console.log(
+                "[PRODUTOS] Lista carregada do cache:",
+                cache.length
+            );
+
+        } else {
+
+            /*
+                Skeleton/loading somente quando realmente
+                não temos produtos salvos.
+            */
+
+            setCarregando(true);
+        }
+
+
+        /* =====================================================
+           3. CONSULTA SERVIDOR
+        ===================================================== */
+
+        try {
+
+            const resp = await fetch(
+                `${API_URL}/admin/produtos-servicos`,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+
+            if (!resp.ok) {
+
+                throw new Error(
+                    `Erro ao carregar produtos: ${resp.status}`
+                );
+            }
+
+
+            const dados =
+                await resp.json();
+
+
+            const dadosServidor =
+                Array.isArray(dados)
+                    ? dados
+                    : [];
+
+
+            /* =================================================
+               4. COMPARA CACHE COM SERVIDOR
+            ================================================= */
+
+            const iguais =
+                produtosIguais(
+                    cache,
+                    dadosServidor
+                );
+
+
+            /* =================================================
+               5. NÃO MUDOU
+    
+               Não altera state.
+               Não reescreve localStorage.
+            ================================================= */
+
+            if (iguais) {
+
+                console.log(
+                    "[PRODUTOS] Cache já está atualizado."
+                );
+
+                return;
+            }
+
+
+            /* =================================================
+               6. SERVIDOR ESTÁ DIFERENTE
+    
+               Pode ser:
+               produto novo
+               produto removido
+               preço alterado
+               nome alterado
+               estoque alterado
+               categoria alterada
+               vencimento alterado
+               qualquer outro campo alterado
+            ================================================= */
+
+            console.log(
+                "[PRODUTOS] Alterações encontradas.",
+                {
+                    cache:
+                        cache?.length || 0,
+
+                    servidor:
+                        dadosServidor.length
+                }
+            );
+
+
+            setLista(
+                dadosServidor
+            );
+
+
+            salvarCacheProdutos(
+                dadosServidor
+            );
+
+
+            console.log(
+                "[PRODUTOS] Cache atualizado."
+            );
+
+
+        } catch (erro) {
+
+            console.error(
+                "[PRODUTOS] Erro ao consultar servidor:",
+                erro
+            );
+
+
+            /*
+                Se existe cache, continuamos mostrando
+                os produtos salvos.
+    
+                Se não existe cache, não temos o que mostrar.
+            */
+
+            if (!Array.isArray(cache)) {
+
+                setLista([]);
+
+            }
+
+
+        } finally {
+
+            setCarregando(false);
+
+        }
     }
 
     useEffect(() => { carregar(); }, []);
@@ -320,8 +658,8 @@ export default function ResumoProdutos() {
 
                                                 <button
                                                     className={`apagar ${confirmarId === item.id
-                                                            ? "confirmar"
-                                                            : ""
+                                                        ? "confirmar"
+                                                        : ""
                                                         }`}
                                                     onClick={async () => {
 

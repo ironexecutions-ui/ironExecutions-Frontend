@@ -1,115 +1,474 @@
-/* ===== CONTAINER ===== */
+/* =========================================================
+   BLOCO FLAGS
+   PADRÃO CLARO PREMIUM
+========================================================= */
+
 .bf-container {
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
-}
+    width: 100%;
+    box-sizing: border-box;
 
-/* ===== TÍTULO ===== */
-.bf-titulo {
-    font-size: 15px;
-    font-weight: 600;
-    color: #e5e7eb;
-    letter-spacing: 0.55px;
-    text-transform: uppercase;
-    opacity: 0.95;
-}
-
-/* ===== LISTA ===== */
-.bf-lista {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    color: #101828 !important;
 }
 
-/* ===== ITEM ===== */
+
+/* =========================================================
+   PROTEÇÃO CONTRA TEMA GLOBAL
+========================================================= */
+
+.bf-container,
+.bf-container div,
+.bf-container span,
+.bf-container p {
+    color: #344054 !important;
+}
+
+.bf-container h1,
+.bf-container h2,
+.bf-container h3,
+.bf-container h4,
+.bf-container strong,
+.bf-container label {
+    color: #101828 !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.bf-titulo {
+    margin: 0 !important;
+    padding: 0 0 14px 0;
+
+    font-size: 13px;
+    line-height: 1.3;
+
+    font-weight: 800;
+
+    color: #123d72 !important;
+
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+
+    border-bottom: 1px solid #e5e9ef;
+}
+
+
+/* =========================================================
+   LISTA
+========================================================= */
+
+.bf-lista {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+/* =========================================================
+   ITEM
+========================================================= */
+
 .bf-item {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
     position: relative;
-    padding: 24px 28px;
-    border-radius: 18px;
-    width: fit-content;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 13px;
+
+    padding: 18px;
 
     background:
-        linear-gradient(180deg, #020617 0%, #020617f2 100%);
-    border: 1px solid rgba(31, 41, 55, 0.75);
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 100%) !important;
+
+    border: 1px solid #dfe5ec;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 #ffffff;
 
     transition:
-        border-color 0.25s ease,
-        transform 0.18s ease,
-        box-shadow 0.35s ease;
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease;
 }
+
+
+/* =========================================================
+   DETALHE LATERAL
+========================================================= */
 
 .bf-item::before {
     content: "";
+
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.025),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.4);
-}
 
-.bf-item:hover {
-    transform: translateY(-1.5px);
-    border-color: #374151;
-    box-shadow:
-        0 18px 42px rgba(0, 0, 0, 0.6);
-}
+    top: 14px;
+    bottom: 14px;
+    left: 0;
 
-
-
-.bf-item span {
-    font-size: 0.7rem !important;
-}
-
-/* ===== LABEL ===== */
-.bf-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #cbd5f5;
-    margin-bottom: 10px;
-    letter-spacing: 0.85px;
-    text-transform: uppercase;
-    opacity: 0.75;
-}
-
-
-/* ===== SELECT ===== */
-.bf-select {
-    width: 100%;
-    min-width: 220px;
-    padding: 13px 18px;
-    border-radius: 14px;
-    border: 1px solid rgba(31, 41, 55, 0.9);
+    width: 3px;
 
     background:
-        linear-gradient(180deg, #ffffff 0%, #5774f5e8 100%);
-    color: #000000 !important;
+        linear-gradient(180deg,
+            #123d72,
+            #2c6cac);
 
-    font-size: 14px;
-    font-weight: 500;
-    outline: none;
+    border-radius: 0 4px 4px 0;
+
+    opacity: 0.8;
 
     transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
+        width 0.22s ease,
+        opacity 0.22s ease;
 }
 
-.bf-select:hover {
-    border-color: #374151;
+
+/* =========================================================
+   HOVER ITEM
+========================================================= */
+
+.bf-item:hover {
+    transform: translateY(-2px);
+
+    background: #ffffff !important;
+
+    border-color: #b9c9dc;
+
+    box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.08),
+        0 3px 8px rgba(18, 61, 114, 0.04);
 }
+
+
+.bf-item:hover::before {
+    width: 4px;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.bf-label {
+    display: block;
+
+    margin: 0 !important;
+
+    font-size: 12px;
+    line-height: 1.45;
+
+    font-weight: 800;
+
+    color: #344054 !important;
+
+    letter-spacing: 0.15px;
+
+    text-transform: none;
+
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   SELECT E INPUT
+========================================================= */
+
+.bf-select {
+    width: 100%;
+    min-width: 0;
+    height: 43px;
+
+    box-sizing: border-box;
+
+    padding: 0 13px;
+
+    background: #ffffff !important;
+
+    color: #101828 !important;
+
+    border: 1px solid #d0d5dd !important;
+
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.04) !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+/* =========================================================
+   SELECT ESPECÍFICO
+========================================================= */
+
+select.bf-select {
+    cursor: pointer;
+
+    appearance: auto;
+}
+
+
+/* =========================================================
+   INPUT NUMBER
+========================================================= */
+
+input.bf-select[type="number"] {
+    cursor: text;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.bf-select:hover:not(:disabled) {
+    background: #ffffff !important;
+
+    border-color: #9fb5ce !important;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
 
 .bf-select:focus {
-    border-color: #6366f1;
+    background: #ffffff !important;
+
+    color: #101828 !important;
+
+    border-color: #245f9f !important;
+
     box-shadow:
-        0 0 0 3px rgba(99, 102, 241, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        0 0 0 3px rgba(36, 95, 159, 0.11),
+        0 2px 5px rgba(15, 23, 42, 0.05) !important;
 }
 
-/* ===== DISABLED ===== */
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+.bf-select option {
+    background: #ffffff !important;
+
+    color: #101828 !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   DESABILITADO
+========================================================= */
+
 .bf-select:disabled {
-    opacity: 0.38;
+    background: #f2f4f7 !important;
+
+    color: #667085 !important;
+
+    border-color: #e4e7ec !important;
+
     cursor: not-allowed;
+
+    opacity: 1 !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   TEXTO INTERNO
+========================================================= */
+
+.bf-item span {
+    font-size: 12px !important;
+
+    color: #667085 !important;
+}
+
+
+/* =========================================================
+   REMOVE O ESPAÇO DESNECESSÁRIO DO BR
+========================================================= */
+
+.bf-item br {
+    display: none;
+}
+
+
+/* =========================================================
+   PRIMEIRO ITEM, CONVERSÃO
+========================================================= */
+
+.bf-item:first-child {
+    background:
+        linear-gradient(145deg,
+            #f7faff 0%,
+            #ffffff 100%) !important;
+
+    border-color: #cfdae8;
+}
+
+
+/* =========================================================
+   CAMPO DE CÂMBIO
+
+   Quando aparece, recebe uma entrada suave.
+========================================================= */
+
+.bf-item:nth-child(2) {
+    animation:
+        bfEntradaCambio 0.24s ease;
+}
+
+
+@keyframes bfEntradaCambio {
+
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   SELEÇÃO
+========================================================= */
+
+.bf-container ::selection {
+    background:
+        rgba(18, 61, 114, 0.16);
+
+    color: #101828 !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .bf-lista {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .bf-item {
+        padding: 17px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .bf-container {
+        gap: 16px;
+    }
+
+
+    .bf-titulo {
+        font-size: 12px;
+
+        padding-bottom: 12px;
+    }
+
+
+    .bf-lista {
+        gap: 11px;
+    }
+
+
+    .bf-item {
+        gap: 11px;
+
+        padding: 15px 14px;
+
+        border-radius: 12px;
+    }
+
+
+    .bf-item::before {
+        top: 11px;
+        bottom: 11px;
+    }
+
+
+    .bf-label {
+        font-size: 12px;
+    }
+
+
+    .bf-select {
+        height: 42px;
+
+        font-size: 13px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .bf-item,
+    .bf-item::before,
+    .bf-select {
+        transition: none !important;
+    }
+
+
+    .bf-item:nth-child(2) {
+        animation: none !important;
+    }
+
 }

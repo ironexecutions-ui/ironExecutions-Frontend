@@ -1,139 +1,421 @@
-/* ===== CONTAINER ===== */
+/* =========================================================
+   CAMPO EDITÁVEL
+   LAYOUT CLARO PREMIUM
+========================================================= */
+
 .ce-container {
     position: relative;
+
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+    gap: 9px;
+
+    width: 100%;
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid #d8dee7 !important;
+
+    color: #111827 !important;
 }
 
-/* ===== LABEL ===== */
+
+/* =========================================================
+   LABEL
+========================================================= */
+
 .ce-label {
-    font-size: 11.5px;
-    color: #9ca3af;
-    font-weight: 500;
-    letter-spacing: 0.35px;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    color: #344054 !important;
+
+    letter-spacing: 0.55px !important;
     text-transform: uppercase;
 }
 
-/* SELECT - TIPO DE LETRA */
-.ce-input select,
-select.ce-input {
-    background-color: #ffffff;
-    color: #ffffff;
-}
 
-/* Opções do select */
-select.ce-input option {
-    background-color: #000000;
-    color: #fcfcfc;
-}
+/* =========================================================
+   VALOR
+========================================================= */
 
-/* ===== VALOR ===== */
 .ce-valor {
-    font-size: 15px;
-    color: #e5e7eb;
-    padding: 6px 8px;
-    line-height: 1.45;
+    width: fit-content;
+    max-width: 100%;
+
+    padding: 8px 10px;
+
+    border-radius: 9px;
+
+    color: #111827 !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+
+    word-break: break-word;
 }
 
-/* ===== VALOR EDITÁVEL ===== */
+
+/* =========================================================
+   VALOR EDITÁVEL
+========================================================= */
+
 .ce-editavel {
     position: relative;
+
     cursor: pointer;
-    border-radius: 10px;
+
+    border: 1px solid transparent !important;
+
     transition:
-        background 0.25s ease,
-        padding 0.25s ease,
-        box-shadow 0.25s ease;
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease,
+        padding 0.2s ease;
 }
 
 .ce-editavel:hover {
-    background: linear-gradient(180deg, #020617 0%, #020617cc 100%);
     padding-left: 14px;
-    box-shadow: inset 3px 0 0 #2563eb;
+
+    background:
+        linear-gradient(145deg,
+            #edf3f9 0%,
+            #f7f9fb 100%) !important;
+
+    color: #082f5b !important;
+
+    border-color: #c8d5e3 !important;
+
+    box-shadow:
+        inset 3px 0 0 #174f86,
+        0 3px 8px rgba(15, 23, 42, 0.05) !important;
+
+    transform: translateX(2px);
 }
 
-/* ===== ÁREA DE EDIÇÃO ===== */
+
+/* =========================================================
+   ÁREA DE EDIÇÃO
+========================================================= */
+
 .ce-edicao {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    padding-top: 6px;
+    gap: 13px;
+
+    width: 100%;
+
+    padding-top: 4px;
 }
 
-/* ===== INPUT ===== */
+
+/* =========================================================
+   INPUT
+========================================================= */
+
 .ce-input {
-    background: linear-gradient(180deg, #020617 0%, #020617dd 100%);
-    border: 1px solid #1f2937;
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-size: 14px;
-    color: #e5e7eb;
-    outline: none;
+    width: 100%;
+    min-height: 46px;
+
+    box-sizing: border-box;
+
+    padding: 0 14px;
+
+    background: #ffffff !important;
+
+    color: #111827 !important;
+
+    border: 1px solid #bfc9d5 !important;
+
+    border-radius: 10px;
+
+    outline: none !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.04) !important;
+
     transition:
-        border 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
-.ce-input::placeholder {
-    color: #6b7280;
+.ce-input:hover {
+    background: #ffffff !important;
+
+    color: #111827 !important;
+
+    border-color: #7c91a8 !important;
 }
 
 .ce-input:focus {
-    border-color: #3b82f6;
+    background: #ffffff !important;
+
+    color: #111827 !important;
+
+    border-color: #174f86 !important;
+
     box-shadow:
-        0 0 0 3px rgba(59, 130, 246, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        0 0 0 3px rgba(23, 79, 134, 0.12),
+        0 4px 10px rgba(15, 23, 42, 0.05) !important;
 }
 
-/* ===== BOTÕES ===== */
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.ce-input::placeholder {
+    color: #475467 !important;
+
+    font-weight: 600 !important;
+
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+select.ce-input {
+    min-height: 46px;
+
+    background: #ffffff !important;
+
+    color: #111827 !important;
+
+    border: 1px solid #bfc9d5 !important;
+
+    cursor: pointer;
+
+    appearance: auto;
+}
+
+select.ce-input:hover {
+    border-color: #7189a4 !important;
+}
+
+select.ce-input:focus {
+    background: #ffffff !important;
+
+    color: #111827 !important;
+
+    border-color: #174f86 !important;
+}
+
+
+/* =========================================================
+   OPÇÕES DO SELECT
+========================================================= */
+
+select.ce-input option {
+    background: #ffffff !important;
+
+    color: #111827 !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
 .ce-botoes {
     display: flex;
-    gap: 14px;
     align-items: center;
+    gap: 10px;
+
+    width: 100%;
 }
 
-/* ===== BOTÃO BASE ===== */
+
+/* =========================================================
+   BOTÃO BASE
+========================================================= */
+
 .ce-btn {
-    padding: 10px 18px;
-    font-size: 13px;
-    border-radius: 12px;
+    min-height: 40px;
+
+    padding: 9px 17px;
+
+    border-radius: 9px;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.15px;
+
     cursor: pointer;
-    border: none;
-    font-weight: 500;
-    letter-spacing: 0.2px;
+
     transition:
-        background 0.25s ease,
-        transform 0.15s ease,
-        box-shadow 0.25s ease;
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .ce-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.97);
 }
 
-/* ===== BOTÃO SALVAR ===== */
+
+/* =========================================================
+   SALVAR
+========================================================= */
+
 .ce-btn-salvar {
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    color: #ffffff;
-    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+    background:
+        linear-gradient(135deg,
+            #082f5b 0%,
+            #174f86 100%) !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #082f5b !important;
+
+    box-shadow:
+        0 5px 12px rgba(8, 47, 91, 0.18) !important;
 }
 
 .ce-btn-salvar:hover {
-    background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
-    box-shadow: 0 12px 34px rgba(37, 99, 235, 0.45);
+    background:
+        linear-gradient(135deg,
+            #052544 0%,
+            #0d3f72 100%) !important;
+
+    color: #ffffff !important;
+
+    border-color: #052544 !important;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 18px rgba(8, 47, 91, 0.25) !important;
 }
 
-/* ===== BOTÃO CANCELAR ===== */
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
 .ce-btn-cancelar {
-    background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-    color: #e5e7eb;
-    border: 1px solid #374151;
+    background: #ffffff !important;
+
+    color: #344054 !important;
+
+    border: 1px solid #c5ced9 !important;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.04) !important;
 }
 
 .ce-btn-cancelar:hover {
-    background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+    background: #edf1f5 !important;
+
+    color: #111827 !important;
+
+    border-color: #9aa9ba !important;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   FORÇA AS CORES CONTRA O TEMA GLOBAL
+========================================================= */
+
+.ce-container {
+    color: #111827 !important;
+}
+
+.ce-container .ce-label {
+    color: #344054 !important;
+}
+
+.ce-container .ce-valor {
+    color: #111827 !important;
+}
+
+.ce-container .ce-editavel {
+    color: #111827 !important;
+}
+
+.ce-container .ce-editavel:hover {
+    color: #082f5b !important;
+}
+
+.ce-container .ce-input {
+    color: #111827 !important;
+}
+
+.ce-container select {
+    color: #111827 !important;
+}
+
+.ce-container select option {
+    color: #111827 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .ce-container {
+        padding: 14px 0;
+        gap: 8px;
+    }
+
+    .ce-valor {
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 8px;
+    }
+
+    .ce-editavel:hover {
+        padding-left: 11px;
+
+        transform: none;
+    }
+
+    .ce-input {
+        min-height: 44px;
+
+        font-size: 13px !important;
+    }
+
+    .ce-botoes {
+        gap: 8px;
+    }
+
+    .ce-btn {
+        flex: 1;
+
+        min-height: 41px;
+    }
+}
+
+
+/* =========================================================
+   REDUZ ANIMAÇÕES
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ce-editavel,
+    .ce-input,
+    .ce-btn {
+        transition: none !important;
+    }
 }

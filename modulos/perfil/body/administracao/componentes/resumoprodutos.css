@@ -1,222 +1,1192 @@
+/* =========================================================
+   RESUMO DE PRODUTOS
+   PREMIUM LIGHT / NAVY / ELECTRIC BLUE
+========================================================= */
+
 .resumo-produtos {
-    background: #0920a5e7;
-    color: #e5e7eb;
-    padding: 26px;
-    border-radius: 22px;
-    display: flex;
-    flex-direction: column;
+    position: relative !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+
+    padding: 30px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+
+    border-radius: 32px !important;
+
+    background:
+        radial-gradient(circle at 8% 0%,
+            rgba(37, 99, 235, 0.11),
+            transparent 28%),
+        radial-gradient(circle at 100% 12%,
+            rgba(14, 165, 233, 0.07),
+            transparent 26%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 42%,
+            #eef2f7 100%) !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+
+    color: #0f172a !important;
+
+    box-shadow:
+        0 30px 80px rgba(15, 23, 42, 0.12),
+        0 8px 24px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+
+    overflow: hidden !important;
+
+    animation:
+        resumoProdutosEntrada 0.55s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
+
+
+/* =========================================================
+   LUZ AMBIENTE
+========================================================= */
+
+.resumo-produtos::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 520px !important;
+    height: 320px !important;
+
+    top: -230px !important;
+    left: 10% !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.17),
+            transparent 68%) !important;
+
+    filter: blur(30px) !important;
+
+    pointer-events: none !important;
+
+    animation:
+        resumoProdutosLuz 9s ease-in-out infinite alternate !important;
+}
+
+
+.resumo-produtos::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 400px !important;
+    height: 400px !important;
+
+    right: -240px !important;
+    bottom: -230px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(14, 165, 233, 0.10),
+            transparent 70%) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   GARANTE CONTEÚDO ACIMA DOS EFEITOS
+========================================================= */
+
+.resumo-produtos>* {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+
+/* =========================================================
+   TOPO
+========================================================= */
 
 .resumo-produtos .topo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    margin: 0 !important;
+
+    padding: 20px 22px !important;
+
+    border-radius: 22px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 249, 0.86)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        0 12px 32px rgba(15, 23, 42, 0.07),
+        inset 0 1px 0 #ffffff !important;
 }
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.resumo-produtos h4,
+.resumo-produtos .topo h4 {
+    position: relative !important;
+
+    margin: 0 !important;
+    padding-left: 17px !important;
+
+    font-size: 22px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: -0.45px !important;
+
+    color: #0b1635 !important;
+}
+
+
+.resumo-produtos .topo h4::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+    top: 50% !important;
+
+    transform: translateY(-50%) !important;
+
+    width: 6px !important;
+    height: 30px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #0ea5e9) !important;
+
+    box-shadow:
+        0 0 16px rgba(37, 99, 235, 0.35) !important;
+
+    animation:
+        resumoIndicador 3s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
+   BOTÃO ADICIONAR
+========================================================= */
+
+.resumo-produtos .topo button {
+    position: relative !important;
+
+    min-height: 44px !important;
+
+    padding: 0 22px !important;
+
+    border-radius: 14px !important;
+
+    border: 1px solid #1d4ed8 !important;
+
+    background:
+        radial-gradient(circle at 20% 0%,
+            rgba(96, 165, 250, 0.40),
+            transparent 55%),
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.25px !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.22),
+        0 3px 8px rgba(15, 23, 42, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease !important;
+}
+
+
+.resumo-produtos .topo button::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -90% !important;
+
+    width: 50% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.40),
+            transparent) !important;
+
+    transform: skewX(-22deg) !important;
+
+    transition: left 0.6s ease !important;
+}
+
+
+.resumo-produtos .topo button:hover::before {
+    left: 140% !important;
+}
+
+
+.resumo-produtos .topo button:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: #3b82f6 !important;
+
+    box-shadow:
+        0 17px 36px rgba(37, 99, 235, 0.32),
+        0 5px 12px rgba(15, 23, 42, 0.14) !important;
+}
+
+
+.resumo-produtos .topo button:active {
+    transform: scale(0.97) !important;
+}
+
+
+/* =========================================================
+   SELETOR LISTA / ETIQUETAS
+========================================================= */
+
+.resumo-produtos-seletor-visualizacao {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    padding: 7px !important;
+    margin: 0 !important;
+
+    border-radius: 18px !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(226, 232, 240, 0.75),
+            rgba(241, 245, 249, 0.94)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        inset 0 2px 5px rgba(15, 23, 42, 0.04),
+        0 6px 18px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+.resumo-produtos-botao-lista,
+.resumo-produtos-botao-etiquetas {
+    flex: 1 !important;
+
+    min-height: 45px !important;
+
+    padding: 0 18px !important;
+
+    border-radius: 13px !important;
+
+    border: 1px solid transparent !important;
+
+    background: transparent !important;
+
+    color: #475569 !important;
+
+    font-size: 13px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.2s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+
+.resumo-produtos-botao-lista:hover,
+.resumo-produtos-botao-etiquetas:hover {
+    color: #1d4ed8 !important;
+
+    background:
+        rgba(255, 255, 255, 0.75) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.resumo-produtos-botao-lista.ativo,
+.resumo-produtos-botao-etiquetas.ativo {
+    background:
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
+    border-color: #2563eb !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 9px 22px rgba(37, 99, 235, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.13) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.filtros-produtos {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(175px, 1fr)) !important;
+
+    gap: 12px !important;
+
+    margin: 0 0 22px !important;
+
+    padding: 16px !important;
+
+    border-radius: 20px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 249, 0.90)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.filtros-produtos input {
+    width: 100% !important;
+    height: 46px !important;
+
+    padding: 0 15px !important;
+
+    border-radius: 13px !important;
+
+    border:
+        1px solid #cbd5e1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+
+    outline: none !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+
+    transition:
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.18s ease,
+        background 0.22s ease !important;
+}
+
+
+.filtros-produtos input::placeholder {
+    color: #64748b !important;
+    font-weight: 500 !important;
+}
+
+
+.filtros-produtos input:hover {
+    border-color: #94a3b8 !important;
+}
+
+
+.filtros-produtos input:focus {
+    border-color: #2563eb !important;
+
+    background: #ffffff !important;
+
+    color: #020617 !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12),
+        0 10px 24px rgba(37, 99, 235, 0.11) !important;
+}
+
+
+.filtros-produtos input[type="number"]::-webkit-inner-spin-button,
+.filtros-produtos input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+
+.filtros-produtos input[type="number"] {
+    -moz-appearance: textfield !important;
+}
+
+
+/* =========================================================
+   FILTRO VENCIMENTO
+========================================================= */
 
 .btn-vencimento {
-    background: #2b2b2b;
-    color: #fff;
-    border: 1px solid #444;
-    padding: 8px 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 600;
+    min-height: 46px !important;
+
+    padding: 0 16px !important;
+
+    border-radius: 13px !important;
+
+    border: 1px solid #cbd5e1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f1f5f9) !important;
+
+    color: #334155 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease !important;
 }
+
+
+.btn-vencimento:hover {
+    transform: translateY(-2px) !important;
+
+    border-color: #dc2626 !important;
+
+    color: #b91c1c !important;
+
+    box-shadow:
+        0 9px 22px rgba(220, 38, 38, 0.10) !important;
+}
+
 
 .btn-vencimento.ativo {
-    background: #b40000;
-    border-color: #ff4d4d;
-    animation: piscarVencimento 1s infinite;
+    background:
+        linear-gradient(135deg,
+            #991b1b,
+            #dc2626) !important;
+
+    border-color: #ef4444 !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 10px 26px rgba(220, 38, 38, 0.24) !important;
+
+    animation:
+        vencimentoPremium 1.7s ease-in-out infinite !important;
 }
 
-@keyframes piscarVencimento {
-    0% {
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+.conteudo-scroll {
+    flex: 1 !important;
+
+    overflow-y: auto !important;
+
+    padding:
+        3px 7px 5px 3px !important;
+}
+
+
+.conteudo-scroll::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+
+.conteudo-scroll::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+
+.conteudo-scroll::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(180deg,
+            #94a3b8,
+            #64748b) !important;
+
+    border-radius: 999px !important;
+}
+
+
+.conteudo-scroll::-webkit-scrollbar-thumb:hover {
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #1d4ed8) !important;
+}
+
+
+/* =========================================================
+   GRID DE PRODUTOS
+========================================================= */
+
+.lista-cards {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(285px, 1fr)) !important;
+
+    gap: 16px !important;
+}
+
+
+/* =========================================================
+   CARD PRODUTO
+========================================================= */
+
+.card-produto {
+    position: relative !important;
+
+    min-height: 150px !important;
+
+    padding: 19px !important;
+
+    display: flex !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    border-radius: 20px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.055),
+            transparent 38%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.09) !important;
+
+    box-shadow:
+        0 7px 20px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff !important;
+
+    overflow: hidden !important;
+
+    transition:
+        transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.28s ease,
+        border-color 0.28s ease,
+        background 0.28s ease !important;
+}
+
+
+/* faixa decorativa */
+.card-produto::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #0ea5e9) !important;
+
+    opacity: 0 !important;
+
+    transition:
+        opacity 0.25s ease,
+        width 0.25s ease !important;
+}
+
+
+/* reflexo */
+.card-produto::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 130px !important;
+    height: 180% !important;
+
+    top: -40% !important;
+    left: -180px !important;
+
+    transform: rotate(18deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.60),
+            transparent) !important;
+
+    pointer-events: none !important;
+
+    transition: left 0.75s ease !important;
+}
+
+
+.card-produto:hover::after {
+    left: calc(100% + 100px) !important;
+}
+
+
+.card-produto:hover::before {
+    opacity: 1 !important;
+    width: 5px !important;
+}
+
+
+.card-produto:hover {
+    transform:
+        translateY(-5px) scale(1.008) !important;
+
+    border-color:
+        rgba(37, 99, 235, 0.32) !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.10),
+            transparent 42%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f8fbff) !important;
+
+    box-shadow:
+        0 20px 42px rgba(15, 23, 42, 0.12),
+        0 6px 16px rgba(37, 99, 235, 0.07),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES CLICÁVEIS
+========================================================= */
+
+.card-info {
+    flex: 1 !important;
+
+    min-width: 0 !important;
+
+    cursor: pointer !important;
+}
+
+
+.card-info h5 {
+    margin: 0 0 7px !important;
+
+    font-size: 15px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: -0.15px !important;
+
+    color: #0f172a !important;
+}
+
+
+.card-info .sub {
+    display: block !important;
+
+    font-size: 11.5px !important;
+    font-weight: 550 !important;
+
+    line-height: 1.45 !important;
+
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   PREÇOS
+========================================================= */
+
+.precos {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    margin-top: 16px !important;
+}
+
+
+.precos>div {
+    padding: 8px 11px !important;
+
+    border-radius: 11px !important;
+
+    background:
+        rgba(241, 245, 249, 0.80) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.06) !important;
+}
+
+
+.precos label {
+    display: block !important;
+
+    margin-bottom: 2px !important;
+
+    font-size: 9px !important;
+    font-weight: 750 !important;
+
+    text-transform: uppercase !important;
+
+    letter-spacing: 0.55px !important;
+
+    color: #64748b !important;
+}
+
+
+.precos strong {
+    font-size: 14px !important;
+    font-weight: 850 !important;
+
+    color: #0b1635 !important;
+}
+
+
+/* segundo preço */
+.precos>div:nth-child(2) strong {
+    color: #166534 !important;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.card-acoes {
+    position: relative !important;
+
+    z-index: 4 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 8px !important;
+}
+
+
+.card-acoes button {
+    min-width: 78px !important;
+
+    padding: 8px 12px !important;
+
+    border-radius: 11px !important;
+
+    border:
+        1px solid #cbd5e1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f1f5f9) !important;
+
+    color: #334155 !important;
+
+    font-size: 11px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.04) !important;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.card-acoes button:hover {
+    transform: translateY(-2px) !important;
+}
+
+
+/* =========================================================
+   APAGAR
+========================================================= */
+
+.card-acoes .apagar {
+    color: #991b1b !important;
+
+    border-color:
+        rgba(220, 38, 38, 0.22) !important;
+
+    background:
+        linear-gradient(180deg,
+            #fffafa,
+            #fef2f2) !important;
+}
+
+
+.card-acoes .apagar:hover {
+    color: #ffffff !important;
+
+    border-color: #dc2626 !important;
+
+    background:
+        linear-gradient(135deg,
+            #dc2626,
+            #991b1b) !important;
+
+    box-shadow:
+        0 9px 20px rgba(220, 38, 38, 0.20) !important;
+}
+
+
+/* =========================================================
+   CONFIRMAR EXCLUSÃO
+========================================================= */
+
+.card-acoes .apagar.confirmar {
+    color: #ffffff !important;
+
+    border-color: #dc2626 !important;
+
+    background:
+        linear-gradient(135deg,
+            #b91c1c,
+            #7f1d1d) !important;
+
+    box-shadow:
+        0 8px 22px rgba(185, 28, 28, 0.28) !important;
+
+    animation:
+        confirmarProduto 1.15s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
+   PRODUTO DUPLICADO
+========================================================= */
+
+.card-produto.duplicado {
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(220, 38, 38, 0.16),
+            transparent 45%),
+        linear-gradient(145deg,
+            #fff7f7,
+            #fee2e2) !important;
+
+    border:
+        1px solid rgba(220, 38, 38, 0.35) !important;
+
+    box-shadow:
+        0 8px 24px rgba(220, 38, 38, 0.08) !important;
+}
+
+
+.card-produto.duplicado::before {
+    opacity: 1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ef4444,
+            #991b1b) !important;
+}
+
+
+/* =========================================================
+   BOTÃO DUPLICADOS
+========================================================= */
+
+.btn-duplicados {
+    background:
+        linear-gradient(135deg,
+            #991b1b,
+            #7f1d1d) !important;
+
+    color: #ffffff !important;
+
+    border:
+        1px solid #dc2626 !important;
+
+    border-radius: 12px !important;
+
+    padding: 9px 14px !important;
+
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 8px 20px rgba(220, 38, 38, 0.20) !important;
+}
+
+
+/* =========================================================
+   VER MAIS
+========================================================= */
+
+.ver-mais-area {
+    margin: 28px 0 8px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    gap: 10px !important;
+}
+
+
+.ver-mais {
+    position: relative !important;
+
+    min-width: 150px !important;
+    min-height: 43px !important;
+
+    padding: 0 24px !important;
+
+    border-radius: 13px !important;
+
+    border:
+        1px solid #cbd5e1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f1f5f9) !important;
+
+    color: #0f172a !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.ver-mais:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: #2563eb !important;
+
+    color: #1d4ed8 !important;
+
+    box-shadow:
+        0 12px 26px rgba(37, 99, 235, 0.14) !important;
+}
+
+
+.ver-mais-area span {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-area {
+    width: 100% !important;
+    min-height: 300px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 18px !important;
+
+    border-radius: 22px !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.06),
+            transparent 55%) !important;
+
+    animation:
+        loadingProdutosEntrada 0.35s ease !important;
+}
+
+
+.loading-area span {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    color: #334155 !important;
+
+    opacity: 1 !important;
+
+    animation:
+        loadingTextoProdutos 1.5s ease-in-out infinite !important;
+}
+
+
+.loading-area .spinner,
+.resumo-produtos .spinner {
+    width: 46px !important;
+    height: 46px !important;
+
+    border-radius: 50% !important;
+
+    border:
+        3px solid rgba(37, 99, 235, 0.12) !important;
+
+    border-top-color:
+        #2563eb !important;
+
+    border-right-color:
+        #0ea5e9 !important;
+
+    box-shadow:
+        0 0 0 5px rgba(37, 99, 235, 0.04),
+        0 10px 28px rgba(37, 99, 235, 0.18) !important;
+
+    animation:
+        resumoSpinner 0.8s linear infinite !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes resumoProdutosEntrada {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(14px) scale(0.99);
+        filter: blur(3px);
+    }
+
+    to {
         opacity: 1;
+        transform:
+            translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+
+@keyframes resumoProdutosLuz {
+
+    from {
+        transform:
+            translateX(-70px) scale(0.95);
+    }
+
+    to {
+        transform:
+            translateX(150px) scale(1.15);
+    }
+}
+
+
+@keyframes resumoIndicador {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 12px rgba(37, 99, 235, 0.25);
     }
 
     50% {
-        opacity: 0.4;
-    }
-
-    100% {
-        opacity: 1;
+        box-shadow:
+            0 0 27px rgba(37, 99, 235, 0.55);
     }
 }
 
-.conteudo-scroll {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 6px;
-}
 
-/* Scrollbar moderna */
-.conteudo-scroll::-webkit-scrollbar {
-    width: 8px;
-}
+@keyframes resumoSpinner {
 
-.conteudo-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.conteudo-scroll::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 10px;
-}
-
-.conteudo-scroll::-webkit-scrollbar-thumb:hover {
-    background: #334155;
-}
-
-.resumo-produtos h4 {
-    font-size: 23px;
-    color: #fff9f9;
-    font-weight: 700;
-}
-
-.resumo-produtos .topo button {
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    color: #e5e7eb;
-    padding: 10px 18px;
-    border-radius: 14px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.resumo-produtos .topo button:hover {
-    border-color: #22c55e;
-    color: #22c55e;
-    box-shadow: 0 8px 22px rgba(34, 197, 94, 0.25);
-}
-
-.lista-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 18px;
-}
-
-.card-produto {
-    background: #01092c;
-    border: 1px solid #1e293b;
-    border-radius: 18px;
-    padding: 18px;
-    display: flex;
-    justify-content: space-between;
-    gap: 14px;
-    transition: 0.2s;
-}
-
-.card-produto:hover {
-    border-color: #38bdf8;
-    background-color: #0427e9;
-    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.18);
-}
-
-.card-info h5 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.card-info .sub {
-    font-size: 12px;
-    color: #ffffff;
-}
-
-.precos {
-    display: flex;
-    gap: 16px;
-    margin-top: 12px;
-}
-
-.precos label {
-    font-size: 11px;
-    color: #fdfdfd;
-}
-
-.precos strong {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.card-acoes {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.card-acoes button {
-    background: #020617;
-    border: 1px solid #1e293b;
-    color: #e5e7eb;
-    padding: 8px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.card-acoes button:hover {
-    border-color: #22c55e;
-    color: #22c55e;
-}
-
-.card-acoes .apagar:hover {
-    border-color: #f87171;
-    color: #f87171;
-}
-
-.loading-area {
-    height: 100%;
-    min-height: 280px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-
-    border-radius: 18px;
-    color: #000000;
-    font-size: 14px;
-    letter-spacing: 0.3px;
-    animation: fadeInLoading 0.35s ease;
-}
-
-/* Texto */
-.loading-area span {
-    font-size: 23px;
-    font-weight: 500;
-    color: #ececec;
-    opacity: 0.85;
-}
-
-/* Spinner moderno */
-.spinner {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    border: 3px solid rgba(148, 163, 184, 0.15);
-    border-top-color: #020c61;
-    animation: spin 0.9s linear infinite;
-    box-shadow:
-        0 0 0 4px rgba(56, 189, 248, 0.05),
-        0 8px 26px rgba(56, 189, 248, 0.25);
-}
-
-/* Animações */
-@keyframes spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-@keyframes fadeInLoading {
+
+@keyframes loadingProdutosEntrada {
+
     from {
         opacity: 0;
-        transform: scale(0.98);
+        transform: scale(0.985);
     }
 
     to {
@@ -225,492 +1195,264 @@
     }
 }
 
-.ver-mais-area {
-    margin: 26px 0 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
 
-.ver-mais {
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    color: #e5e7eb;
-    padding: 10px 26px;
-    border-radius: 16px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.25s ease;
-}
+@keyframes loadingTextoProdutos {
 
-.ver-mais:hover {
-    border-color: #38bdf8;
-    color: #38bdf8;
-    box-shadow: 0 10px 28px rgba(56, 189, 248, 0.25);
-}
-
-.ver-mais-area span {
-    font-size: 12px;
-    color: #64748b;
-}
-
-/* =========================
-   MODAL CONFIRMAÇÃO
-========================= */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(240, 240, 240, 0.219);
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-    animation: fadeIn 0.2s ease;
-}
-
-.modal-confirmacao {
-    background: linear-gradient(180deg, #160381, #08016b);
-    border-radius: 22px;
-    padding: 28px;
-    width: 100%;
-    max-width: 420px;
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.35);
-    animation: scaleIn 0.25s ease;
-}
-
-.modal-confirmacao h5 {
-    font-size: 18px;
-    font-weight: 800;
-    color: #f1f1f1;
-    margin-bottom: 10px;
-}
-
-.modal-confirmacao p {
-    font-size: 14px;
-    color: #ffffff;
-    line-height: 1.5;
-}
-
-.modal-confirmacao p strong {
-    color: #fdfdfd;
-    font-size: 19px;
-}
-
-.modal-acoes {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 22px;
-}
-
-.modal-acoes button {
-    padding: 10px 18px;
-    border-radius: 14px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-/* Cancelar */
-.modal-acoes .cancelar {
-    background: #e5e7eb;
-    border: 1px solid #cbd5e1;
-    color: #020617;
-}
-
-.modal-acoes .cancelar:hover {
-    background: #f1f5f9;
-}
-
-/* Confirmar */
-.modal-acoes .confirmar {
-    background: linear-gradient(180deg, #dc2626, #b91c1c);
-    border: 1px solid #b91c1c;
-    color: #ffffff;
-}
-
-.modal-acoes .confirmar:hover {
-    box-shadow: 0 10px 26px rgba(185, 28, 28, 0.45);
-    transform: translateY(-1px);
-}
-
-/* Animações */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+    0%,
+    100% {
+        opacity: 0.5;
     }
 
-    to {
+    50% {
         opacity: 1;
     }
 }
 
-@keyframes scaleIn {
-    from {
-        transform: scale(0.96);
-        opacity: 0;
+
+@keyframes vencimentoPremium {
+
+    0%,
+    100% {
+        box-shadow:
+            0 8px 20px rgba(220, 38, 38, 0.18);
     }
 
-    to {
+    50% {
+        box-shadow:
+            0 10px 30px rgba(220, 38, 38, 0.38);
+    }
+}
+
+
+@keyframes confirmarProduto {
+
+    0%,
+    100% {
         transform: scale(1);
-        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.04);
     }
 }
 
-/* =========================
-   FILTROS PRODUTOS (MODERNO)
-========================= */
 
-.filtros-produtos {
-    margin-top: 14px;
-    padding: 14px;
-    border-radius: 18px;
-    margin-bottom: 22px;
-
-
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 12px;
-
-
-}
-
-.card-produto.duplicado {
-    background: linear-gradient(90deg,
-            rgba(255, 0, 0, 0.678),
-            rgba(255, 0, 0, 0.76)) !important;
-    border: 1px solid rgba(255, 0, 0, 0.4);
-}
-
-.btn-duplicados {
-    background: #8b0000;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.btn-duplicados:hover {
-    background: #b30000;
-}
-
-/* INPUT */
-.filtros-produtos input {
-    width: 100%;
-    padding: 10px 14px;
-
-    border-radius: 14px;
-    border: 1px solid #1e293b;
-
-    background: linear-gradient(180deg,
-            #020617,
-            #020617);
-
-    color: #e5e7eb;
-    font-size: 13px;
-    font-weight: 500;
-
-    outline: none;
-    transition: all 0.25s ease;
-}
-
-/* PLACEHOLDER */
-.filtros-produtos input::placeholder {
-    color: #94a3b8;
-    font-weight: 400;
-}
-
-/* HOVER */
-.filtros-produtos input:hover {
-    border-color: #334155;
-}
-
-/* FOCO */
-.filtros-produtos input:focus {
-    border-color: #38bdf8;
-    color: #ffffff;
-
-    box-shadow:
-        0 0 0 3px rgba(56, 189, 248, 0.15),
-        0 8px 24px rgba(56, 189, 248, 0.25);
-
-    transform: translateY(-1px);
-}
-
-/* INPUT NUMBER REMOVE SETAS */
-.filtros-produtos input[type="number"]::-webkit-inner-spin-button,
-.filtros-produtos input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.filtros-produtos input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-/* =========================
-   FILTROS MOBILE
-========================= */
-@media (max-width: 768px) {
-    .filtros-produtos {
-        padding: 12px;
-        gap: 10px;
-    }
-
-    .filtros-produtos input {
-        font-size: 14px;
-        padding: 12px 14px;
-    }
-}
-
-/* MOBILE PEQUENO */
-@media (max-width: 420px) {
-    .filtros-produtos {
-        padding: 10px;
-        border-radius: 16px;
-    }
-
-    .filtros-produtos input {
-        border-radius: 12px;
-    }
-}
-
-/* =========================
+/* =========================================================
    TABLET
-========================= */
+========================================================= */
+
 @media (max-width: 1024px) {
 
     .resumo-produtos {
-        padding: 20px;
+        padding: 22px !important;
+
+        border-radius: 26px !important;
     }
 
     .lista-cards {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        grid-template-columns:
+            repeat(auto-fill,
+                minmax(240px, 1fr)) !important;
     }
 
     .precos {
-        flex-direction: column;
-        gap: 6px;
+        flex-direction: column !important;
+        align-items: stretch !important;
     }
 
-    .card-acoes {
-        justify-content: flex-start;
+    .precos>div {
+        width: 100% !important;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
+
 @media (max-width: 768px) {
 
     .resumo-produtos {
-        padding: 16px;
-        border-radius: 16px;
+        padding: 15px !important;
+
+        gap: 16px !important;
+
+        border-radius: 20px !important;
     }
+
 
     .resumo-produtos .topo {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+
+        padding: 17px !important;
+
+        border-radius: 17px !important;
     }
+
+
+    .resumo-produtos .topo h4 {
+        font-size: 19px !important;
+    }
+
 
     .resumo-produtos .topo button {
-        width: 100%;
+        width: 100% !important;
     }
+
+
+    .resumo-produtos-seletor-visualizacao {
+        padding: 5px !important;
+
+        border-radius: 14px !important;
+    }
+
+
+    .resumo-produtos-botao-lista,
+    .resumo-produtos-botao-etiquetas {
+        min-height: 43px !important;
+
+        padding: 0 10px !important;
+    }
+
+
+    .filtros-produtos {
+        grid-template-columns: 1fr !important;
+
+        padding: 12px !important;
+
+        gap: 9px !important;
+
+        border-radius: 16px !important;
+    }
+
+
+    .filtros-produtos input,
+    .btn-vencimento {
+        width: 100% !important;
+
+        min-height: 44px !important;
+    }
+
 
     .lista-cards {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+
+        gap: 12px !important;
     }
+
 
     .card-produto {
-        flex-direction: column;
-        gap: 16px;
+        min-height: unset !important;
+
+        flex-direction: column !important;
+
+        gap: 17px !important;
+
+        padding: 17px !important;
+
+        border-radius: 17px !important;
     }
+
 
     .card-acoes {
-        flex-direction: row;
-        justify-content: flex-end;
+        width: 100% !important;
+
+        flex-direction: row !important;
     }
+
 
     .card-acoes button {
-        flex: 1;
+        flex: 1 !important;
     }
 
+
     .precos {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row !important;
+    }
+
+
+    .precos>div {
+        flex: 1 !important;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE PEQUENO
-========================= */
+========================================================= */
+
 @media (max-width: 420px) {
 
     .resumo-produtos {
-        padding: 14px;
+        padding: 11px !important;
+
+        border-radius: 16px !important;
     }
+
+
+    .resumo-produtos .topo {
+        padding: 14px !important;
+    }
+
 
     .resumo-produtos .topo h4 {
-        font-size: 18px;
-        text-align: center;
+        font-size: 17px !important;
+
+        text-align: left !important;
     }
+
+
+    .resumo-produtos-seletor-visualizacao {
+        gap: 4px !important;
+    }
+
+
+    .resumo-produtos-botao-lista,
+    .resumo-produtos-botao-etiquetas {
+        font-size: 12px !important;
+    }
+
 
     .card-info h5 {
-        font-size: 14px;
+        font-size: 14px !important;
     }
+
 
     .card-info .sub {
-        font-size: 11px;
+        font-size: 10.5px !important;
     }
+
+
+    .precos {
+        flex-direction: column !important;
+    }
+
 
     .ver-mais {
-        width: 100%;
-    }
-
-    .modal-confirmacao {
-        padding: 20px;
-        border-radius: 18px;
-    }
-
-    .modal-acoes {
-        flex-direction: column;
-    }
-
-    .modal-acoes button {
-        width: 100%;
-    }
-}
-
-/* =========================
-   SELETOR LISTA / ETIQUETAS
-========================= */
-
-.resumo-produtos-seletor-visualizacao {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 6px;
-    margin-bottom: 18px;
-
-    background: rgba(2, 6, 23, 0.55);
-    border: 1px solid #1e293b;
-    border-radius: 16px;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.04),
-        0 8px 22px rgba(0, 0, 0, 0.12);
-}
-
-
-/* =========================
-   BOTÕES
-========================= */
-
-.resumo-produtos-botao-lista,
-.resumo-produtos-botao-etiquetas {
-    flex: 1;
-
-    padding: 11px 18px;
-
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 12px;
-
-    color: #94a3b8;
-
-    font-size: 13px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        color 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.2s ease;
-}
-
-
-/* =========================
-   HOVER
-========================= */
-
-.resumo-produtos-botao-lista:hover,
-.resumo-produtos-botao-etiquetas:hover {
-    color: #ffffff;
-    background: rgba(56, 189, 248, 0.08);
-    border-color: rgba(56, 189, 248, 0.25);
-}
-
-
-/* =========================
-   BOTÃO SELECIONADO
-========================= */
-
-.resumo-produtos-botao-lista.ativo,
-.resumo-produtos-botao-etiquetas.ativo {
-    background: linear-gradient(180deg,
-            #020617,
-            #01092c);
-
-    border-color: #38bdf8;
-
-    color: #ffffff;
-
-    box-shadow:
-        0 0 0 1px rgba(56, 189, 248, 0.08),
-        0 6px 18px rgba(56, 189, 248, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
-    transform: translateY(-1px);
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 768px) {
-
-    .resumo-produtos-seletor-visualizacao {
-        margin-bottom: 14px;
-        padding: 5px;
-        gap: 5px;
-        border-radius: 14px;
-    }
-
-    .resumo-produtos-botao-lista,
-    .resumo-produtos-botao-etiquetas {
-        padding: 11px 12px;
-        font-size: 13px;
-        border-radius: 10px;
+        width: 100% !important;
     }
 }
 
 
-/* =========================
-   MOBILE PEQUENO
-========================= */
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
 
-@media (max-width: 420px) {
+@media (prefers-reduced-motion: reduce) {
 
-    .resumo-produtos-seletor-visualizacao {
-        border-radius: 12px;
-    }
+    .resumo-produtos,
+    .resumo-produtos::before,
+    .resumo-produtos .topo h4::before,
+    .card-produto,
+    .card-produto::after,
+    .btn-vencimento,
+    .loading-area,
+    .loading-area span,
+    .spinner {
+        animation: none !important;
 
-    .resumo-produtos-botao-lista,
-    .resumo-produtos-botao-etiquetas {
-        padding: 10px 8px;
-        font-size: 12px;
+        transition: none !important;
     }
 }

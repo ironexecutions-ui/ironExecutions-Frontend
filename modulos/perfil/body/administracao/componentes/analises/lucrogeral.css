@@ -1,290 +1,640 @@
+/* =========================================================
+   ANÁLISE DE PRECIFICAÇÃO
+   LAYOUT CLARO PREMIUM
+========================================================= */
+
+
 /* ===============================
    CONTAINER PRINCIPAL
 =============================== */
+
 .lucro-geral-container {
-    display: flex;
-    flex-direction: column;
-    margin: 30px;
-    gap: 18px;
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 22px !important;
+
+    margin: 0 !important;
+    padding: 28px !important;
+
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at 0% 0%,
+            rgba(37, 99, 235, 0.08),
+            transparent 30%),
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 249, 0.94)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    border-radius: 24px !important;
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+
+    color: #0f172a !important;
 }
+
 
 /* ===============================
-   CARD DE MÉTRICA PRINCIPAL
+   TÍTULO PRINCIPAL
 =============================== */
-.lucro-card {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 14px;
-    padding: 14px 18px;
-    width: fit-content;
-    min-width: 220px;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+.lucro-geral-container>h4 {
+    margin: 0 !important;
+    padding-bottom: 17px !important;
+
+    border-bottom:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    font-size: 19px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: -0.2px !important;
+
+    color: #0f172a !important;
 }
 
-.lucro-card span {
-    font-size: 12px;
-    color: #94a3b8;
-}
 
-.lucro-card strong {
-    display: block;
-    margin-top: 6px;
-    font-size: 18px;
-    font-weight: 700;
-    color: #22c55e;
-}
-
-/* ===============================
-   FILTRO DE LIMITE
-=============================== */
-.lucro-geral-filtro {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.lucro-geral-filtro label {
-    font-size: 13px;
-    color: #cbd5f5;
-}
-
-.lucro-geral-filtro input {
-    width: 90px;
-    padding: 8px 10px;
-    border-radius: 10px;
-    border: 1px solid #1e293b;
-    background: #f3f4f6;
-    color: #000;
-    font-size: 13px;
-    outline: none;
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.lucro-geral-filtro input:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
-}
-
-/* ===============================
-   ÁREA DE RANKINGS
-=============================== */
-.lucro-ranking {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-@media (max-width: 720px) {
-    .lucro-ranking {
-        grid-template-columns: 1fr;
-    }
-}
-
-.lucro-ranking-bloco {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 14px;
-    padding: 14px 16px;
-}
-
-.lucro-ranking-bloco h5 {
-    margin-bottom: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #f8fafc;
-}
-
-/* ===============================
-   ITENS DO RANKING
-=============================== */
-.lucro-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 6px;
-    font-size: 13px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.lucro-item:last-child {
-    border-bottom: none;
-}
-
-.lucro-item span {
-    font-weight: 600;
-}
-
-/* Maior margem */
-.lucro-item.maior {
-    color: #22c55e;
-}
-
-/* Menor margem */
-.lucro-item.menor {
-    color: #ef4444;
-}
+/* =========================================================
+   ALERTA PRODUTOS SEM PREÇO
+========================================================= */
 
 .lucro-alerta {
-    background: #3f1d0b;
-    border: 1px solid #f97316;
-    color: #fed7aa;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-    cursor: pointer;
-    width: fit-content;
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    width: fit-content !important;
+    max-width: 100% !important;
+
+    padding: 12px 16px !important;
+
+    border-radius: 12px !important;
+
+    background:
+        linear-gradient(135deg,
+            #fff7ed,
+            #ffedd5) !important;
+
+    border:
+        1px solid rgba(234, 88, 12, 0.22) !important;
+
+    color: #9a3412 !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 6px 16px rgba(234, 88, 12, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease !important;
 }
 
-/* ===============================
-   FILTROS NOVOS (CATEGORIA / NOME / LIMITE)
-=============================== */
-.lucro-geral-filtros {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    padding: 16px;
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 14px;
+
+.lucro-alerta:hover {
+    transform: translateY(-2px) !important;
+
+    border-color:
+        rgba(234, 88, 12, 0.40) !important;
+
+    box-shadow:
+        0 10px 24px rgba(234, 88, 12, 0.14) !important;
 }
+
+
+/* =========================================================
+   CARD MÉTRICA PRINCIPAL
+========================================================= */
+
+.lucro-card {
+    position: relative !important;
+
+    width: fit-content !important;
+    min-width: 240px !important;
+
+    padding: 18px 20px !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.09) !important;
+
+    border-radius: 16px !important;
+
+    box-shadow:
+        0 9px 25px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.lucro-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(180deg,
+            #1e3a8a,
+            #2563eb) !important;
+}
+
+
+.lucro-card:hover {
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 14px 32px rgba(15, 23, 42, 0.12) !important;
+}
+
+
+.lucro-card span {
+    display: block !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+
+    letter-spacing: 0.3px !important;
+
+    color: #475569 !important;
+}
+
+
+.lucro-card strong {
+    display: block !important;
+
+    margin-top: 7px !important;
+
+    font-size: 22px !important;
+    font-weight: 800 !important;
+
+    color: #15803d !important;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.lucro-geral-filtros {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr)) !important;
+
+    gap: 14px !important;
+
+    padding: 17px !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.94),
+            rgba(241, 245, 249, 0.92)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    border-radius: 16px !important;
+
+    box-shadow:
+        0 7px 20px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 #ffffff !important;
+}
+
 
 .lucro-geral-filtros>div {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 7px !important;
 }
+
+
+/* ===============================
+   LABELS
+=============================== */
 
 .lucro-geral-filtros label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #94a3b8;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.35px !important;
+
+    color: #334155 !important;
+
+    text-transform: uppercase !important;
 }
 
+
 /* ===============================
-   INPUTS DOS FILTROS
+   INPUTS
 =============================== */
+
 .lucro-geral-filtros input {
-    height: 38px;
-    padding: 0 12px;
-    border-radius: 10px;
-    border: 1px solid #1e293b;
-    background: #020617;
-    color: #f8fafc;
-    font-size: 13px;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100% !important;
+    height: 42px !important;
+
+    box-sizing: border-box !important;
+
+    padding: 0 13px !important;
+
+    border-radius: 11px !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.14) !important;
+
+    background: #ffffff !important;
+
+    color: #111827 !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+
+    outline: none !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
 }
+
 
 .lucro-geral-filtros input::placeholder {
-    color: #64748b;
+    color: #64748b !important;
+    opacity: 1 !important;
 }
+
+
+.lucro-geral-filtros input:hover {
+    border-color:
+        rgba(30, 58, 138, 0.30) !important;
+}
+
 
 .lucro-geral-filtros input:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10),
+        0 6px 16px rgba(37, 99, 235, 0.08) !important;
 }
 
-/* ===============================
-   INPUT NUMBER AJUSTE
-=============================== */
 
-/* ===============================
-   RESPONSIVO DOS FILTROS
-=============================== */
-@media (max-width: 768px) {
-    .lucro-geral-filtros {
-        padding: 14px;
-        gap: 14px;
-    }
+/* =========================================================
+   RANKINGS
+========================================================= */
 
-    .lucro-geral-filtros input {
-        height: 36px;
-        font-size: 12px;
-    }
+.lucro-ranking {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 18px !important;
 }
 
-/* =========================
+
+/* =========================================================
+   BLOCO DO RANKING
+========================================================= */
+
+.lucro-ranking-bloco {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    padding: 18px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.09) !important;
+
+    border-radius: 17px !important;
+
+    box-shadow:
+        0 10px 27px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease !important;
+}
+
+
+.lucro-ranking-bloco:hover {
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 15px 34px rgba(15, 23, 42, 0.11) !important;
+}
+
+
+/* ===============================
+   TÍTULO RANKING
+=============================== */
+
+.lucro-ranking-bloco h5 {
+    margin: 0 0 14px 0 !important;
+
+    padding-bottom: 12px !important;
+
+    border-bottom:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    color: #172554 !important;
+}
+
+
+/* =========================================================
+   ITENS
+========================================================= */
+
+.lucro-item {
+    display: flex !important;
+
+    justify-content: space-between !important;
+    align-items: center !important;
+
+    gap: 15px !important;
+
+    min-height: 42px !important;
+
+    padding: 9px 10px !important;
+
+    border-bottom:
+        1px solid rgba(15, 23, 42, 0.06) !important;
+
+    border-radius: 8px !important;
+
+    color: #1f2937 !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+
+    transition:
+        background 0.18s ease,
+        padding 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.lucro-item:last-child {
+    border-bottom: none !important;
+}
+
+
+.lucro-item:hover {
+    background:
+        rgba(241, 245, 249, 0.85) !important;
+
+    padding-left: 14px !important;
+}
+
+
+/* ===============================
+   PERCENTUAL
+=============================== */
+
+.lucro-item span {
+    flex-shrink: 0 !important;
+
+    min-width: 62px !important;
+
+    padding: 5px 9px !important;
+
+    border-radius: 8px !important;
+
+    text-align: center !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   MAIORES MARKUPS
+========================================================= */
+
+.lucro-item.maior {
+    color: #166534 !important;
+}
+
+
+.lucro-item.maior span {
+    background:
+        rgba(34, 197, 94, 0.10) !important;
+
+    border:
+        1px solid rgba(34, 197, 94, 0.16) !important;
+
+    color: #15803d !important;
+}
+
+
+/* =========================================================
+   MENORES MARKUPS
+========================================================= */
+
+.lucro-item.menor {
+    color: #991b1b !important;
+}
+
+
+.lucro-item.menor span {
+    background:
+        rgba(239, 68, 68, 0.09) !important;
+
+    border:
+        1px solid rgba(239, 68, 68, 0.15) !important;
+
+    color: #b91c1c !important;
+}
+
+
+/* =========================================================
+   CORES FORÇADAS
+========================================================= */
+
+.lucro-geral-container {
+    color: #111827 !important;
+}
+
+
+.lucro-geral-container input {
+    color: #111827 !important;
+}
+
+
+.lucro-geral-container label {
+    color: #334155 !important;
+}
+
+
+/* =========================================================
    TABLET
-========================= */
+========================================================= */
+
 @media (max-width: 1024px) {
 
     .lucro-geral-container {
-        margin: 20px;
-        gap: 16px;
+        padding: 22px !important;
+
+        gap: 18px !important;
     }
 
-    .lucro-card {
-        min-width: 200px;
-    }
 
-    .lucro-geral-filtro {
-        flex-wrap: wrap;
-        gap: 10px;
+    .lucro-ranking {
+        gap: 14px !important;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
+
 @media (max-width: 768px) {
 
     .lucro-geral-container {
-        margin: 16px;
-        gap: 14px;
+        padding: 16px !important;
+
+        gap: 15px !important;
+
+        border-radius: 18px !important;
     }
+
+
+    .lucro-geral-container>h4 {
+        font-size: 17px !important;
+    }
+
 
     .lucro-card {
-        width: 100%;
-        min-width: unset;
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        box-sizing: border-box !important;
     }
 
-    .lucro-geral-filtro {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .lucro-geral-filtro input {
-        width: 100%;
-    }
 
     .lucro-alerta {
-        width: 100%;
-        text-align: center;
+        width: 100% !important;
+
+        box-sizing: border-box !important;
     }
+
+
+    .lucro-geral-filtros {
+        grid-template-columns: 1fr !important;
+
+        padding: 14px !important;
+    }
+
+
+    .lucro-ranking {
+        grid-template-columns: 1fr !important;
+
+        gap: 13px !important;
+    }
+
 
     .lucro-ranking-bloco {
-        padding: 12px 14px;
-    }
-
-    .lucro-ranking-bloco h5 {
-        font-size: 13px;
+        padding: 15px !important;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE PEQUENO
-========================= */
+========================================================= */
+
 @media (max-width: 420px) {
 
     .lucro-geral-container {
-        margin: 12px;
-        gap: 12px;
+        padding: 12px !important;
+
+        gap: 12px !important;
     }
+
+
+    .lucro-card {
+        padding: 15px 17px !important;
+    }
+
 
     .lucro-card strong {
-        font-size: 16px;
+        font-size: 19px !important;
     }
+
+
+    .lucro-geral-filtros {
+        padding: 12px !important;
+    }
+
+
+    .lucro-ranking-bloco {
+        padding: 13px !important;
+    }
+
 
     .lucro-item {
-        font-size: 12px;
-        padding: 6px 4px;
+        padding: 8px 6px !important;
+
+        font-size: 11px !important;
     }
 
+
+    .lucro-item:hover {
+        padding-left: 9px !important;
+    }
+
+
+    .lucro-item span {
+        min-width: 55px !important;
+
+        font-size: 10px !important;
+    }
+
+
     .lucro-alerta {
-        font-size: 12px;
-        padding: 9px 12px;
+        font-size: 11px !important;
     }
 }

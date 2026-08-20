@@ -2,170 +2,488 @@
    CONTAINER PRINCIPAL
 =============================== */
 .grafico-pizza-container {
+    position: relative !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+
+    padding: 28px !important;
+    border-radius: 26px !important;
+
     background:
-        radial-gradient(120% 120% at 50% -20%, rgba(56, 189, 248, 0.08), transparent 60%),
-        linear-gradient(180deg, #020617, #020617);
-    color: #e5e7eb;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 90%;
-    padding: 20px 22px;
-    border-radius: 22px;
+        radial-gradient(circle at 15% 0%,
+            rgba(37, 99, 235, 0.10),
+            transparent 30%),
+        radial-gradient(circle at 90% 100%,
+            rgba(14, 165, 233, 0.07),
+            transparent 35%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 48%,
+            #eef2f7 100%) !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.10) !important;
+
     box-shadow:
-        0 12px 28px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        0 18px 50px rgba(15, 23, 42, 0.10),
+        0 4px 14px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+
+    overflow: hidden !important;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease !important;
 }
 
+
+/* brilho superior */
+.grafico-pizza-container::before {
+    content: "" !important;
+    position: absolute !important;
+
+    top: -120px !important;
+    left: 10% !important;
+
+    width: 360px !important;
+    height: 240px !important;
+
+    background: radial-gradient(circle,
+            rgba(37, 99, 235, 0.14),
+            transparent 68%) !important;
+
+    filter: blur(18px) !important;
+
+    pointer-events: none !important;
+
+    animation: pizzaLuzFlutuante 7s ease-in-out infinite alternate !important;
+}
+
+
+/* detalhe inferior */
+.grafico-pizza-container::after {
+    content: "" !important;
+    position: absolute !important;
+
+    right: -100px !important;
+    bottom: -130px !important;
+
+    width: 300px !important;
+    height: 300px !important;
+
+    border-radius: 50% !important;
+
+    background: radial-gradient(circle,
+            rgba(14, 165, 233, 0.08),
+            transparent 70%) !important;
+
+    pointer-events: none !important;
+}
+
+
+.grafico-pizza-container:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: rgba(37, 99, 235, 0.18) !important;
+
+    box-shadow:
+        0 28px 70px rgba(15, 23, 42, 0.14),
+        0 8px 22px rgba(37, 99, 235, 0.07),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
 /* ===============================
-   TOPO (FILTROS + CONTROLE)
+   TOPO
 =============================== */
 .grafico-pizza-topo {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: center;
+    position: relative !important;
+    z-index: 3 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+
+    gap: 12px !important;
+
+    padding: 16px !important;
+
+    border-radius: 18px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.90),
+            rgba(241, 245, 249, 0.82)) !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 #ffffff !important;
 }
+
 
 /* ===============================
    INPUTS
 =============================== */
 .grafico-pizza-topo input {
-    background: linear-gradient(180deg, #f8fafc, #e5e7eb);
-    color: #020617;
-    border: 1px solid #cbd5f5;
-    border-radius: 12px;
-    padding: 10px 14px;
-    font-size: 13px;
-    outline: none;
+    min-width: 160px !important;
+    height: 44px !important;
+
+    padding: 0 15px !important;
+
+    border-radius: 12px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    border: 1px solid #cbd5e1 !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+
+    outline: none !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+
     transition:
-        border 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease;
-    min-width: 150px;
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease,
+        background 0.22s ease !important;
 }
 
-.grafico-pizza-topo input::placeholder {
-    color: #64748b;
+
+.grafico-pizza-topo input:hover {
+    border-color: #94a3b8 !important;
+
+    background: #ffffff !important;
 }
+
 
 .grafico-pizza-topo input:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
-    transform: translateY(-1px);
+    border-color: #2563eb !important;
+
+    background: #ffffff !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.10),
+        0 8px 20px rgba(37, 99, 235, 0.10) !important;
 }
 
-/* Input bloqueado */
-.grafico-pizza-topo input[readonly] {
-    background: linear-gradient(180deg, #e5e7eb, #cbd5f5);
-    color: #475569;
-    cursor: not-allowed;
-    box-shadow: none;
+
+.grafico-pizza-topo input::placeholder {
+    color: #64748b !important;
 }
+
+
+/* ===============================
+   INPUT BLOQUEADO
+=============================== */
+.grafico-pizza-topo input[readonly] {
+    background:
+        linear-gradient(180deg,
+            #e2e8f0,
+            #f1f5f9) !important;
+
+    color: #475569 !important;
+
+    border-color: #cbd5e1 !important;
+
+    cursor: not-allowed !important;
+
+    box-shadow: none !important;
+
+    opacity: 0.75 !important;
+}
+
 
 /* ===============================
    BOTÃO DE MODO
 =============================== */
 .grafico-pizza-topo button {
+    position: relative !important;
+
+    height: 44px !important;
+
+    padding: 0 22px !important;
+
+    border-radius: 12px !important;
+
     background:
-        linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    color: #e5e7eb;
-    border-radius: 12px;
-    padding: 10px 20px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    cursor: pointer;
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
+    border: 1px solid #1e3a8a !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    letter-spacing: 0.25px !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.18) !important;
+
     transition:
-        all 0.2s ease,
-        transform 0.1s ease;
+        transform 0.2s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease !important;
 }
+
+
+/* efeito passando pelo botão */
+.grafico-pizza-topo button::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -80% !important;
+
+    width: 50% !important;
+    height: 100% !important;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.22),
+            transparent) !important;
+
+    transform: skewX(-20deg) !important;
+
+    transition: left 0.55s ease !important;
+}
+
+
+.grafico-pizza-topo button:hover::before {
+    left: 140% !important;
+}
+
 
 .grafico-pizza-topo button:hover {
-    border-color: #38bdf8;
-    color: #38bdf8;
+    transform: translateY(-2px) !important;
+
+    border-color: #2563eb !important;
+
     box-shadow:
-        0 6px 18px rgba(56, 189, 248, 0.25);
-    transform: translateY(-1px);
+        0 14px 30px rgba(37, 99, 235, 0.22),
+        0 4px 10px rgba(15, 23, 42, 0.16) !important;
 }
+
 
 .grafico-pizza-topo button:active {
-    transform: translateY(0);
-    box-shadow: none;
+    transform: scale(0.97) !important;
 }
+
 
 /* ===============================
-   ÁREA DO GRÁFICO
+   CONTEÚDO DO GRÁFICO
 =============================== */
 .grafico-pizza-conteudo {
-    position: relative;
-    border-radius: 34px;
-    padding: 20px;
-    min-height: 450px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative !important;
+    z-index: 2 !important;
+
+    min-height: 460px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 28px !important;
+
+    border-radius: 24px !important;
+
     background:
-        radial-gradient(80% 80% at 50% 20%, rgba(255, 255, 255, 0.04), transparent 60%),
-        linear-gradient(180deg, #020617, #020617);
+        radial-gradient(circle at 50% 40%,
+            rgba(37, 99, 235, 0.055),
+            transparent 40%),
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(248, 250, 252, 0.94)) !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+
     box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.03),
-        inset 0 -10px 20px rgba(0, 0, 0, 0.4);
+        inset 0 1px 0 #ffffff,
+        inset 0 -1px 0 rgba(15, 23, 42, 0.04),
+        0 12px 32px rgba(15, 23, 42, 0.07) !important;
+
+    overflow: hidden !important;
+
+    transition:
+        box-shadow 0.3s ease,
+        border-color 0.3s ease !important;
 }
 
-/* Garantia de render do Chart.js */
-.grafico-pizza-conteudo canvas {
-    max-height: 100% !important;
-    padding: 20px;
-    max-width: 100% !important;
+
+.grafico-pizza-conteudo:hover {
+    border-color: rgba(37, 99, 235, 0.15) !important;
+
+    box-shadow:
+        inset 0 1px 0 #ffffff,
+        0 18px 42px rgba(15, 23, 42, 0.09),
+        0 0 35px rgba(37, 99, 235, 0.035) !important;
 }
+
+
+/* ===============================
+   CANVAS
+=============================== */
+.grafico-pizza-conteudo canvas {
+    position: relative !important;
+
+    z-index: 2 !important;
+
+    max-width: 100% !important;
+    max-height: 420px !important;
+
+    padding: 12px !important;
+
+    filter:
+        drop-shadow(0 12px 16px rgba(15, 23, 42, 0.10)) !important;
+
+    transition:
+        transform 0.4s ease,
+        filter 0.4s ease !important;
+}
+
+
+.grafico-pizza-conteudo:hover canvas {
+    transform: scale(1.012) !important;
+
+    filter:
+        drop-shadow(0 16px 22px rgba(15, 23, 42, 0.14)) !important;
+}
+
 
 /* ===============================
    ESTADO VAZIO
 =============================== */
 .grafico-vazio {
-    font-size: 13px;
-    color: #94a3b8;
-    text-align: center;
-    letter-spacing: 0.3px;
+    position: relative !important;
+    z-index: 2 !important;
+
+    padding: 18px 26px !important;
+
+    border-radius: 14px !important;
+
+    background: #f8fafc !important;
+
+    border: 1px dashed #cbd5e1 !important;
+
+    color: #334155 !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+
+    text-align: center !important;
 }
+
 
 /* ===============================
-   LOADING PROFISSIONAL
+   LOADING
 =============================== */
 .grafico-loading {
-    height: 100%;
-    min-height: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    color: #cbd5f5;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
+    position: relative !important;
+    z-index: 3 !important;
+
+    width: 100% !important;
+    min-height: 320px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 18px !important;
+
+    color: #1e293b !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    letter-spacing: 0.3px !important;
 }
 
-/* ANEL GIRATÓRIO */
+
+/* ===============================
+   ANEL DE LOADING
+=============================== */
 .loading-ring {
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    border: 4px solid rgba(255, 255, 255, 0.08);
-    border-top-color: #38bdf8;
-    animation: girar 1s linear infinite;
+    position: relative !important;
+
+    width: 58px !important;
+    height: 58px !important;
+
+    border-radius: 50% !important;
+
+    border: 4px solid rgba(37, 99, 235, 0.10) !important;
+
+    border-top-color: #2563eb !important;
+    border-right-color: #0ea5e9 !important;
+
+    animation:
+        pizzaGirar 0.8s linear infinite,
+        pizzaGlow 1.8s ease-in-out infinite !important;
+
+    box-shadow:
+        0 0 0 6px rgba(37, 99, 235, 0.04),
+        0 0 24px rgba(37, 99, 235, 0.15) !important;
 }
 
-/* TEXTO SUAVE */
+
+.loading-ring::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    inset: 10px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            #2563eb 0%,
+            #1d4ed8 35%,
+            transparent 38%) !important;
+
+    opacity: 0.7 !important;
+}
+
+
+/* ===============================
+   TEXTO LOADING
+=============================== */
 .grafico-loading span {
-    opacity: 0.85;
-    animation: pulsarTexto 1.4s ease-in-out infinite;
+    color: #334155 !important;
+
+    opacity: 1 !important;
+
+    animation:
+        pizzaTexto 1.4s ease-in-out infinite !important;
 }
 
-/* ANIMAÇÕES */
-@keyframes girar {
+
+/* ===============================
+   ANIMAÇÕES
+=============================== */
+@keyframes pizzaGirar {
     from {
         transform: rotate(0deg);
     }
@@ -175,95 +493,168 @@
     }
 }
 
-@keyframes pulsarTexto {
-    0% {
-        opacity: 0.4;
+
+@keyframes pizzaGlow {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 5px rgba(37, 99, 235, 0.03),
+            0 0 18px rgba(37, 99, 235, 0.12);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 10px rgba(37, 99, 235, 0.05),
+            0 0 34px rgba(37, 99, 235, 0.25);
+    }
+}
+
+
+@keyframes pizzaTexto {
+
+    0%,
+    100% {
+        opacity: 0.55;
+        transform: translateY(0);
     }
 
     50% {
         opacity: 1;
+        transform: translateY(-2px);
+    }
+}
+
+
+@keyframes pizzaLuzFlutuante {
+    0% {
+        transform:
+            translateX(-20px) translateY(0) scale(0.95);
     }
 
     100% {
-        opacity: 0.4;
+        transform:
+            translateX(70px) translateY(20px) scale(1.15);
     }
 }
 
-/* =========================
+
+/* ===============================
    TABLET
-========================= */
+=============================== */
 @media (max-width: 1024px) {
 
     .grafico-pizza-container {
-        width: 100%;
-        padding: 18px;
-        border-radius: 20px;
+        width: 100% !important;
+        padding: 22px !important;
+        border-radius: 22px !important;
     }
 
     .grafico-pizza-conteudo {
-        min-height: 380px;
-        padding: 18px;
-        border-radius: 28px;
+        min-height: 400px !important;
+        padding: 22px !important;
+        border-radius: 20px !important;
     }
 
     .grafico-pizza-topo input {
-        min-width: 130px;
+        min-width: 140px !important;
     }
 }
 
-/* =========================
+
+/* ===============================
    MOBILE
-========================= */
+=============================== */
 @media (max-width: 768px) {
 
+    .grafico-pizza-container {
+        padding: 18px !important;
+        gap: 18px !important;
+    }
+
     .grafico-pizza-topo {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        padding: 14px !important;
     }
 
     .grafico-pizza-topo input,
     .grafico-pizza-topo button {
-        width: 100%;
+        width: 100% !important;
+        min-width: 0 !important;
     }
 
     .grafico-pizza-conteudo {
-        min-height: 300px;
-        padding: 16px;
-        border-radius: 22px;
+        min-height: 340px !important;
+
+        padding: 16px !important;
+
+        border-radius: 18px !important;
+    }
+
+    .grafico-pizza-conteudo canvas {
+        padding: 4px !important;
+        max-height: 330px !important;
     }
 
     .grafico-loading {
-        min-height: 240px;
+        min-height: 260px !important;
     }
 }
 
-/* =========================
+
+/* ===============================
    MOBILE PEQUENO
-========================= */
+=============================== */
 @media (max-width: 420px) {
 
     .grafico-pizza-container {
-        padding: 14px;
-        border-radius: 18px;
+        padding: 14px !important;
+        border-radius: 18px !important;
+    }
+
+    .grafico-pizza-topo {
+        padding: 12px !important;
+    }
+
+    .grafico-pizza-topo input,
+    .grafico-pizza-topo button {
+        height: 42px !important;
+
+        font-size: 12px !important;
     }
 
     .grafico-pizza-conteudo {
-        min-height: 260px;
-        padding: 12px;
-        border-radius: 18px;
+        min-height: 300px !important;
+
+        padding: 10px !important;
+
+        border-radius: 16px !important;
     }
 
-    .grafico-pizza-topo input {
-        font-size: 12px;
-        padding: 9px 12px;
-    }
-
-    .grafico-pizza-topo button {
-        font-size: 12px;
-        padding: 9px 14px;
+    .grafico-pizza-conteudo canvas {
+        max-height: 290px !important;
     }
 
     .grafico-vazio {
-        font-size: 12px;
+        font-size: 12px !important;
+    }
+}
+
+
+/* ===============================
+   ACESSIBILIDADE
+=============================== */
+@media (prefers-reduced-motion: reduce) {
+
+    .grafico-pizza-container,
+    .grafico-pizza-container::before,
+    .grafico-pizza-conteudo canvas,
+    .grafico-pizza-topo button,
+    .loading-ring,
+    .grafico-loading span {
+        animation: none !important;
+        transition: none !important;
     }
 }

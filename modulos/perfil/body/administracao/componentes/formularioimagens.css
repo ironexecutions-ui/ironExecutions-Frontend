@@ -1,158 +1,822 @@
+/* =========================================================
+   CONTAINER DE IMAGENS
+========================================================= */
+
 .imagens-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 17px !important;
+
+    width: 100% !important;
+
+    padding: 19px !important;
+
+    border-radius: 21px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.055),
+            transparent 34%),
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.97),
+            rgba(248, 250, 252, 0.94)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff !important;
+
+    overflow: hidden !important;
 }
+
+
+/* =========================================================
+   LUZ AMBIENTE
+========================================================= */
+
+.imagens-container::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 300px !important;
+    height: 180px !important;
+
+    top: -130px !important;
+    right: -70px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.13),
+            transparent 68%) !important;
+
+    filter: blur(25px) !important;
+
+    pointer-events: none !important;
+}
+
+
+.imagens-container>* {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+
+/* =========================================================
+   DROPZONE
+========================================================= */
 
 .dropzone {
-    border: 2px dashed #1e293b;
-    border-radius: 20px;
-    padding: 34px;
-    text-align: center;
-    cursor: pointer;
-    background: linear-gradient(180deg, #020617, #020617);
-    color: #94a3b8;
-    transition: 0.25s ease;
+    position: relative !important;
+
+    width: 100% !important;
+
+    min-height: 150px !important;
+
+    padding: 34px 25px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    text-align: center !important;
+
+    cursor: pointer !important;
+
+    border-radius: 18px !important;
+
+    border:
+        2px dashed #94a3b8 !important;
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(37, 99, 235, 0.055),
+            transparent 60%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    color: #475569 !important;
+
+    box-shadow:
+        inset 0 1px 0 #ffffff,
+        inset 0 0 25px rgba(37, 99, 235, 0.025) !important;
+
+    overflow: hidden !important;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease !important;
 }
+
+
+/* =========================================================
+   ÍCONE VISUAL DE UPLOAD
+   GERADO APENAS COM CSS
+========================================================= */
+
+.dropzone::before {
+    content: "↑" !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 5px !important;
+
+    border-radius: 15px !important;
+
+    background:
+        radial-gradient(circle at 30% 10%,
+            rgba(96, 165, 250, 0.42),
+            transparent 50%),
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
+    border:
+        1px solid #2563eb !important;
+
+    color: #ffffff !important;
+
+    font-size: 25px !important;
+    font-weight: 500 !important;
+
+    line-height: 1 !important;
+
+    box-shadow:
+        0 9px 22px rgba(37, 99, 235, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+
+/* =========================================================
+   BRILHO QUE PASSA PELO DROPZONE
+========================================================= */
+
+.dropzone::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -70% !important;
+
+    width: 35% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.07),
+            transparent) !important;
+
+    transform: skewX(-20deg) !important;
+
+    pointer-events: none !important;
+
+    transition: left 0.8s ease !important;
+}
+
+
+.dropzone:hover::after {
+    left: 140% !important;
+}
+
+
+/* =========================================================
+   TEXTO PRINCIPAL
+========================================================= */
 
 .dropzone strong {
-    display: block;
-    font-size: 15px;
-    font-weight: 700;
-    color: #e5e7eb;
+    display: block !important;
+
+    margin: 0 !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: -0.1px !important;
+
+    color: #0f172a !important;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease !important;
 }
+
+
+/* =========================================================
+   TEXTO SECUNDÁRIO
+========================================================= */
 
 .dropzone span {
-    font-size: 12px;
-    color: #64748b;
+    font-size: 12px !important;
+    font-weight: 550 !important;
+
+    color: #64748b !important;
+
+    letter-spacing: 0.1px !important;
 }
+
+
+/* =========================================================
+   HOVER DROPZONE
+========================================================= */
 
 .dropzone:hover {
-    border-color: #38bdf8;
-    box-shadow: 0 12px 32px rgba(56, 189, 248, 0.2);
+    border-color: #2563eb !important;
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(37, 99, 235, 0.10),
+            transparent 62%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f8fbff) !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 14px 30px rgba(37, 99, 235, 0.10),
+        0 4px 10px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 #ffffff !important;
 }
+
+
+.dropzone:hover::before {
+    transform:
+        translateY(-3px) scale(1.06) !important;
+
+    box-shadow:
+        0 14px 30px rgba(37, 99, 235, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+
+.dropzone:hover strong {
+    color: #1d4ed8 !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   ARRASTANDO ARQUIVOS
+========================================================= */
 
 .dropzone.ativo {
-    border-color: #22c55e;
-    background: rgba(34, 197, 94, 0.08);
-    box-shadow: 0 12px 32px rgba(34, 197, 94, 0.25);
+    border-color: #16a34a !important;
+
+    border-style: solid !important;
+
+    background:
+        radial-gradient(circle at 50% 20%,
+            rgba(34, 197, 94, 0.13),
+            transparent 60%),
+        linear-gradient(145deg,
+            #f0fdf4,
+            #dcfce7) !important;
+
+    transform:
+        translateY(-3px) scale(1.008) !important;
+
+    box-shadow:
+        0 17px 36px rgba(34, 197, 94, 0.17),
+        0 0 0 4px rgba(34, 197, 94, 0.07),
+        inset 0 1px 0 #ffffff !important;
+
+    animation:
+        dropzonePulso 1.25s ease-in-out infinite !important;
 }
+
+
+.dropzone.ativo::before {
+    background:
+        linear-gradient(135deg,
+            #16a34a,
+            #15803d) !important;
+
+    border-color: #22c55e !important;
+
+    box-shadow:
+        0 10px 28px rgba(34, 197, 94, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+
+    transform:
+        translateY(-5px) scale(1.08) !important;
+}
+
+
+.dropzone.ativo strong {
+    color: #166534 !important;
+}
+
+
+.dropzone.ativo span {
+    color: #15803d !important;
+}
+
+
+/* =========================================================
+   LISTA DE IMAGENS
+========================================================= */
 
 .lista-imagens {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 14px;
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(auto-fill,
+            minmax(125px, 1fr)) !important;
+
+    gap: 13px !important;
+
+    width: 100% !important;
+
+    padding-top: 4px !important;
 }
+
+
+/* =========================================================
+   CARD DE IMAGEM
+========================================================= */
 
 .imagem-card {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid #1e293b;
-    background: #020617;
-    transition: 0.2s;
+    position: relative !important;
+
+    aspect-ratio: 1 / 1 !important;
+
+    min-width: 0 !important;
+
+    border-radius: 16px !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.12) !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f1f5f9) !important;
+
+    box-shadow:
+        0 7px 18px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease !important;
+
+    animation:
+        imagemEntrada 0.38s cubic-bezier(0.22, 1, 0.36, 1) both !important;
 }
 
-.imagem-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
-}
+
+/* =========================================================
+   IMAGEM
+========================================================= */
 
 .imagem-card img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-    display: block;
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+
+    display: block !important;
+
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.35s ease !important;
 }
+
+
+/* =========================================================
+   HOVER CARD
+========================================================= */
+
+.imagem-card:hover {
+    border-color:
+        rgba(37, 99, 235, 0.40) !important;
+
+    transform:
+        translateY(-5px) scale(1.015) !important;
+
+    box-shadow:
+        0 17px 34px rgba(15, 23, 42, 0.16),
+        0 6px 16px rgba(37, 99, 235, 0.10) !important;
+
+    z-index: 5 !important;
+}
+
+
+.imagem-card:hover img {
+    transform: scale(1.07) !important;
+
+    filter:
+        saturate(1.06) contrast(1.03) !important;
+}
+
+
+/* =========================================================
+   BOTÃO REMOVER
+========================================================= */
 
 .imagem-card button {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0, 0, 0, 0.7);
-    color: #f87171;
-    font-size: 14px;
-    cursor: pointer;
-    transition: 0.2s;
+    position: absolute !important;
+
+    top: 7px !important;
+    right: 7px !important;
+
+    width: 29px !important;
+    height: 29px !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 10px !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.32) !important;
+
+    background:
+        rgba(15, 23, 42, 0.86) !important;
+
+    backdrop-filter: blur(9px) !important;
+    -webkit-backdrop-filter: blur(9px) !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 13px rgba(0, 0, 0, 0.22) !important;
+
+    opacity: 0.88 !important;
+
+    z-index: 10 !important;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
 }
+
 
 .imagem-card button:hover {
-    background: #020617;
-    color: #ef4444;
+    background: #dc2626 !important;
+
+    color: #ffffff !important;
+
+    opacity: 1 !important;
+
+    transform:
+        scale(1.10) rotate(5deg) !important;
+
+    box-shadow:
+        0 7px 18px rgba(220, 38, 38, 0.35) !important;
 }
 
-/* =========================
+
+.imagem-card button:active {
+    transform: scale(0.92) !important;
+}
+
+
+/* =========================================================
+   PREVIEW DURANTE UPLOAD
+========================================================= */
+
+.imagem-card.preview {
+    border-color:
+        rgba(37, 99, 235, 0.35) !important;
+
+    position: relative !important;
+
+    animation:
+        previewEntrada 0.35s ease both,
+        previewPulso 1.5s ease-in-out infinite !important;
+}
+
+
+.imagem-card.preview::after {
+    content: "Enviando..." !important;
+
+    position: absolute !important;
+
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+
+    padding: 6px 8px !important;
+
+    border-radius: 9px !important;
+
+    background:
+        rgba(15, 23, 42, 0.86) !important;
+
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+
+    color: #ffffff !important;
+
+    text-align: center !important;
+
+    font-size: 10px !important;
+    font-weight: 700 !important;
+
+    letter-spacing: 0.2px !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes imagemEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px) scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+@keyframes previewEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.88);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+}
+
+
+@keyframes previewPulso {
+
+    0%,
+    100% {
+        box-shadow:
+            0 7px 18px rgba(15, 23, 42, 0.08),
+            0 0 0 0 rgba(37, 99, 235, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 10px 24px rgba(37, 99, 235, 0.15),
+            0 0 0 3px rgba(37, 99, 235, 0.07);
+    }
+}
+
+
+@keyframes dropzonePulso {
+
+    0%,
+    100% {
+        box-shadow:
+            0 17px 36px rgba(34, 197, 94, 0.14),
+            0 0 0 3px rgba(34, 197, 94, 0.05);
+    }
+
+    50% {
+        box-shadow:
+            0 20px 42px rgba(34, 197, 94, 0.22),
+            0 0 0 6px rgba(34, 197, 94, 0.08);
+    }
+}
+
+
+/* =========================================================
    TABLET
-========================= */
+========================================================= */
+
 @media (max-width: 1024px) {
 
-    .dropzone {
-        padding: 28px;
+    .imagens-container {
+        padding: 16px !important;
+
+        border-radius: 19px !important;
     }
+
+
+    .dropzone {
+        min-height: 140px !important;
+
+        padding: 28px 20px !important;
+    }
+
 
     .lista-imagens {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 12px;
-    }
+        grid-template-columns:
+            repeat(auto-fill,
+                minmax(110px, 1fr)) !important;
 
-    .imagem-card img {
-        height: 100px;
+        gap: 11px !important;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
+
 @media (max-width: 768px) {
 
-    .dropzone {
-        padding: 24px;
-        border-radius: 16px;
+    .imagens-container {
+        padding: 13px !important;
+
+        gap: 13px !important;
+
+        border-radius: 17px !important;
     }
+
+
+    .dropzone {
+        min-height: 135px !important;
+
+        padding: 22px 15px !important;
+
+        border-radius: 15px !important;
+    }
+
+
+    .dropzone::before {
+        width: 43px !important;
+        height: 43px !important;
+
+        border-radius: 13px !important;
+
+        font-size: 22px !important;
+    }
+
 
     .dropzone strong {
-        font-size: 14px;
+        font-size: 13px !important;
     }
+
 
     .dropzone span {
-        font-size: 11px;
+        font-size: 11px !important;
     }
+
 
     .lista-imagens {
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        gap: 10px;
+        grid-template-columns:
+            repeat(3, 1fr) !important;
+
+        gap: 9px !important;
     }
 
-    .imagem-card img {
-        height: 90px;
+
+    .imagem-card {
+        border-radius: 13px !important;
+    }
+
+
+    .imagem-card button {
+        width: 27px !important;
+        height: 27px !important;
+
+        top: 5px !important;
+        right: 5px !important;
+
+        border-radius: 9px !important;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE PEQUENO
-========================= */
+========================================================= */
+
 @media (max-width: 420px) {
 
-    .dropzone {
-        padding: 20px;
+    .imagens-container {
+        padding: 10px !important;
+
+        border-radius: 14px !important;
     }
+
+
+    .dropzone {
+        min-height: 125px !important;
+
+        padding: 18px 10px !important;
+
+        border-radius: 13px !important;
+    }
+
+
+    .dropzone::before {
+        width: 39px !important;
+        height: 39px !important;
+
+        font-size: 20px !important;
+    }
+
+
+    .dropzone strong {
+        font-size: 12px !important;
+    }
+
+
+    .dropzone span {
+        font-size: 10px !important;
+    }
+
 
     .lista-imagens {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+        grid-template-columns:
+            repeat(3, 1fr) !important;
+
+        gap: 7px !important;
     }
 
-    .imagem-card img {
-        height: 80px;
+
+    .imagem-card {
+        border-radius: 11px !important;
     }
+
 
     .imagem-card button {
-        width: 24px;
-        height: 24px;
-        font-size: 12px;
+        width: 25px !important;
+        height: 25px !important;
+
+        font-size: 11px !important;
+    }
+
+
+    .imagem-card.preview::after {
+        left: 5px !important;
+        right: 5px !important;
+        bottom: 5px !important;
+
+        padding: 5px !important;
+
+        font-size: 9px !important;
+    }
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .dropzone,
+    .dropzone::before,
+    .dropzone::after,
+    .imagem-card,
+    .imagem-card img,
+    .imagem-card button,
+    .imagem-card.preview {
+        animation: none !important;
+        transition: none !important;
     }
 }

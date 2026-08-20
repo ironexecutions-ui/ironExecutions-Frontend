@@ -1314,3 +1314,558 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================
+   FECHAMENTO DE CAIXA
+   PADRÃO VISUAL CLARO DO SISTEMA
+   SOMENTE SOBRESCRITA
+========================================================= */
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 24px !important;
+
+    background: rgba(15, 23, 42, 0.32) !important;
+
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+
+    z-index: 999999 !important;
+
+    animation: fechamentoSistemaOverlay 0.22s ease !important;
+}
+
+
+/* =========================================================
+   MODAL PRINCIPAL
+========================================================= */
+
+.modal-fechamento {
+    position: relative !important;
+
+    width: 92% !important;
+    max-width: 560px !important;
+    max-height: 86vh !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 18px !important;
+
+    padding: 26px !important;
+
+    overflow: hidden !important;
+
+    border-radius: 24px !important;
+
+    background:
+        radial-gradient(circle at 0% 0%,
+            rgba(37, 99, 235, 0.12),
+            transparent 35%),
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.97),
+            rgba(235, 239, 245, 0.96)) !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.10) !important;
+
+    box-shadow:
+        0 30px 70px rgba(15, 23, 42, 0.25),
+        0 10px 30px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+
+    color: #0f172a !important;
+
+    isolation: isolate !important;
+
+    animation:
+        fechamentoSistemaEntrada 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+
+/* detalhe superior azul */
+
+.modal-fechamento::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 8% !important;
+    right: 8% !important;
+
+    height: 3px !important;
+
+    border-radius: 0 0 20px 20px !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #1e3a8a,
+            #2563eb,
+            #1e3a8a,
+            transparent) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   GARANTE TEXTOS ESCUROS
+========================================================= */
+
+.modal-fechamento,
+.modal-fechamento p,
+.modal-fechamento label,
+.modal-fechamento div {
+    color: #111827 !important;
+}
+
+
+/* =========================================================
+   BOTÃO X
+========================================================= */
+
+.modal-fechar {
+    align-self: flex-end !important;
+
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    border-radius: 11px !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.12) !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #e5e7eb) !important;
+
+    color: #111827 !important;
+
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease !important;
+}
+
+
+.modal-fechar:hover {
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(145deg,
+            #dc2626,
+            #b91c1c) !important;
+
+    border-color: #dc2626 !important;
+
+    transform: rotate(4deg) scale(1.05) !important;
+}
+
+
+.modal-fechar:active {
+    transform: scale(0.94) !important;
+}
+
+
+/* =========================================================
+   BOTÃO PRINCIPAL FECHAR CAIXA
+========================================================= */
+
+.modal-fechamento .fechar-caixa,
+.modal-fechamento .per-btn.fechar-caixa {
+    width: 100% !important;
+
+    min-height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 20px !important;
+
+    border: none !important;
+
+    border-radius: 13px !important;
+
+    background:
+        linear-gradient(135deg,
+            #172554,
+            #1e3a8a,
+            #2563eb) !important;
+
+    color: #ffffff !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    letter-spacing: 0.2px !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 10px 24px rgba(30, 58, 138, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease !important;
+}
+
+
+.modal-fechamento .fechar-caixa:hover,
+.modal-fechamento .per-btn.fechar-caixa:hover {
+    transform: translateY(-2px) !important;
+
+    filter: brightness(1.08) !important;
+
+    box-shadow:
+        0 15px 32px rgba(30, 58, 138, 0.32) !important;
+}
+
+
+.modal-fechamento .fechar-caixa:active,
+.modal-fechamento .per-btn.fechar-caixa:active {
+    transform: scale(0.98) !important;
+}
+
+
+/* =========================================================
+   LISTA DE COMANDAS
+========================================================= */
+
+.modal-fechamento .lista-comandas {
+    flex: 1 !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 10px !important;
+
+    max-height: 440px !important;
+
+    padding: 4px 7px 4px 2px !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    scrollbar-width: thin !important;
+
+    scrollbar-color:
+        #1e3a8a transparent !important;
+}
+
+
+/* =========================================================
+   COMANDA
+========================================================= */
+
+.modal-fechamento .item-comanda {
+    position: relative !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    margin: 0 !important;
+
+    padding: 15px 17px !important;
+
+    border-radius: 14px !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 249, 0.94)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.10) !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 5px 15px rgba(15, 23, 42, 0.07),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+/* barra lateral */
+
+.modal-fechamento .item-comanda::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+    top: 18% !important;
+    bottom: 18% !important;
+
+    width: 3px !important;
+
+    border-radius: 0 20px 20px 0 !important;
+
+    background:
+        linear-gradient(180deg,
+            #1e3a8a,
+            #2563eb) !important;
+
+    opacity: 0.75 !important;
+
+    transition:
+        top 0.2s ease,
+        bottom 0.2s ease,
+        opacity 0.2s ease !important;
+}
+
+
+.modal-fechamento .item-comanda:hover {
+    transform: translateX(4px) !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #eff6ff) !important;
+
+    border-color:
+        rgba(37, 99, 235, 0.30) !important;
+
+    box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.12),
+        0 0 0 1px rgba(37, 99, 235, 0.04) !important;
+}
+
+
+.modal-fechamento .item-comanda:hover::before {
+    top: 10% !important;
+    bottom: 10% !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   TEXTO DAS COMANDAS
+========================================================= */
+
+.modal-fechamento .item-comanda strong {
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+
+.modal-fechamento .item-comanda span {
+    color: #334155 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    white-space: nowrap !important;
+}
+
+
+.modal-fechamento .item-comanda:hover strong {
+    color: #172554 !important;
+}
+
+
+.modal-fechamento .item-comanda:hover span {
+    color: #1e3a8a !important;
+}
+
+
+/* =========================================================
+   SEM COMANDAS
+========================================================= */
+
+.modal-fechamento .sem-comandas {
+    width: 100% !important;
+
+    margin: 4px 0 !important;
+
+    padding: 28px 20px !important;
+
+    border-radius: 14px !important;
+
+    border:
+        1px dashed rgba(30, 58, 138, 0.24) !important;
+
+    background:
+        rgba(239, 246, 255, 0.75) !important;
+
+    color: #334155 !important;
+
+    text-align: center !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+.modal-fechamento .lista-comandas::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+
+.modal-fechamento .lista-comandas::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+
+.modal-fechamento .lista-comandas::-webkit-scrollbar-thumb {
+    border-radius: 20px !important;
+
+    background:
+        linear-gradient(180deg,
+            #1e3a8a,
+            #2563eb) !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes fechamentoSistemaOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes fechamentoSistemaEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.975);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .modal-overlay {
+        align-items: flex-end !important;
+
+        padding: 0 !important;
+    }
+
+
+    .modal-fechamento {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        max-height: 90vh !important;
+
+        padding: 20px 16px 22px !important;
+
+        border-radius:
+            24px 24px 0 0 !important;
+
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
+    }
+
+
+    .modal-fechamento .lista-comandas {
+        max-height: 55vh !important;
+    }
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .modal-fechamento {
+        padding: 17px 13px 20px !important;
+
+        gap: 14px !important;
+    }
+
+
+    .modal-fechamento .item-comanda {
+        padding: 14px 13px !important;
+    }
+
+
+    .modal-fechamento .item-comanda strong {
+        font-size: 12px !important;
+    }
+
+
+    .modal-fechamento .item-comanda span {
+        font-size: 10px !important;
+    }
+
+
+    .modal-fechamento .fechar-caixa,
+    .modal-fechamento .per-btn.fechar-caixa {
+        min-height: 46px !important;
+    }
+}

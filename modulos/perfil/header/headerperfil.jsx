@@ -18,17 +18,105 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
     const [fade, setFade] = useState(false);
     const [alertaVencimento, setAlertaVencimento] = useState(null);
     const [pwaInstalado, setPwaInstalado] = useState(false);
-
+    const CACHE_HEADER_USUARIO = "fasfdfbgfdg64fsd41f8sdfsdf";
+    const CACHE_HEADER_LOJA = "fsd6f2d69s4f9sd485f1sdf";
+    const CACHE_HEADER_COMANDAS = "4f5sd1f4esdf4658esdf";
     const [secaoAtiva, setSecaoAtiva] = useState(null);
     async function carregarComandas() {
-        const token = localStorage.getItem("token");
 
-        const resp = await fetch(`${API_URL}/caixa/comandas`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
+        const cache = lerCache(
+            CACHE_HEADER_COMANDAS
+        );
 
-        const json = await resp.json();
-        setComandas(json);
+        /* ==============================================
+           MOSTRA CACHE IMEDIATAMENTE
+        ============================================== */
+
+        if (Array.isArray(cache)) {
+
+            setComandas(cache);
+
+            console.log(
+                "[COMANDAS] Cache carregado:",
+                cache.length
+            );
+        }
+
+        try {
+
+            const token =
+                localStorage.getItem("token");
+
+            const resp = await fetch(
+                `${API_URL}/caixa/comandas`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!resp.ok) {
+
+                throw new Error(
+                    `Erro ao buscar comandas: ${resp.status}`
+                );
+            }
+
+            const json = await resp.json();
+
+            const dadosServidor =
+                Array.isArray(json)
+                    ? json
+                    : [];
+
+            /* ==============================================
+               COMPARA SERVIDOR COM CACHE
+            ============================================== */
+
+            if (
+                !dadosCacheIguais(
+                    cache,
+                    dadosServidor
+                )
+            ) {
+
+                console.log(
+                    "[COMANDAS] Dados diferentes. Atualizando cache."
+                );
+
+                setComandas(
+                    dadosServidor
+                );
+
+                salvarCache(
+                    CACHE_HEADER_COMANDAS,
+                    dadosServidor
+                );
+
+            } else {
+
+                console.log(
+                    "[COMANDAS] Cache já atualizado."
+                );
+            }
+
+        } catch (erro) {
+
+            console.error(
+                "[COMANDAS] Erro ao consultar servidor:",
+                erro
+            );
+
+            /*
+                Se a API falhar e existe cache,
+                simplesmente continuamos mostrando o cache.
+            */
+
+            if (!Array.isArray(cache)) {
+                setComandas([]);
+            }
+        }
     }
     useEffect(() => {
         const modoStandalone =
@@ -37,7 +125,63 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
 
         setPwaInstalado(modoStandalone);
     }, []);
+    function dadosCacheIguais(cache, servidor) {
 
+        if (cache === null || servidor === null) {
+            return cache === servidor;
+        }
+
+        try {
+            return JSON.stringify(cache) === JSON.stringify(servidor);
+        } catch {
+            return false;
+        }
+    }
+
+
+    function lerCache(chave) {
+
+        try {
+
+            const salvo = localStorage.getItem(chave);
+
+            if (!salvo) {
+                return null;
+            }
+
+            return JSON.parse(salvo);
+
+        } catch (erro) {
+
+            console.warn(
+                `[CACHE] Cache inválido: ${chave}`,
+                erro
+            );
+
+            localStorage.removeItem(chave);
+
+            return null;
+        }
+    }
+
+
+    function salvarCache(chave, dados) {
+
+        try {
+
+            localStorage.setItem(
+                chave,
+                JSON.stringify(dados)
+            );
+
+        } catch (erro) {
+
+            console.warn(
+                `[CACHE] Não foi possível salvar: ${chave}`,
+                erro
+            );
+        }
+    }
     function gerarSlugEmpresa(nome) {
         if (!nome) return "";
 
@@ -100,42 +244,284 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
 
 
     useEffect(() => {
+
+        let componenteAtivo = true;
+
         async function carregar() {
+
+            /* ==============================================
+               1. CARREGA USUÁRIO DO CACHE
+            ============================================== */
+
+            const usuarioCache =
+                lerCache(CACHE_HEADER_USUARIO);
+
+            const lojaCache =
+                lerCache(CACHE_HEADER_LOJA);
+
+
+            if (
+                componenteAtivo &&
+                usuarioCache
+            ) {
+
+                setDados(
+                    usuarioCache
+                );
+
+                console.log(
+                    "[HEADER] Usuário carregado do cache."
+                );
+            }
+
+
+            if (
+                componenteAtivo &&
+                lojaCache
+            ) {
+
+                setLoja(
+                    lojaCache
+                );
+
+                console.log(
+                    "[HEADER] Loja carregada do cache."
+                );
+            }
+
+
+            /*
+                Se existe cache, o header já aparece
+                imediatamente.
+    
+                A partir daqui verificamos o servidor
+                em segundo plano.
+            */
+
             try {
-                const token = localStorage.getItem("token");
 
-                const resp = await fetch(`${API_URL}/clientes/me`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
+                const token =
+                    localStorage.getItem("token");
+
+                if (!token) {
+
+                    console.warn(
+                        "[HEADER] Token não encontrado."
+                    );
+
+                    return;
+                }
+
+
+                /* ==============================================
+                   2. BUSCA USUÁRIO ATUAL
+                ============================================== */
+
+                const resp = await fetch(
+                    `${API_URL}/clientes/me`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
                     }
-                });
+                );
 
-                const json = await resp.json();
-                setDados(json);
-                localStorage.setItem("usuario", JSON.stringify(json));
+
+                if (!resp.ok) {
+
+                    throw new Error(
+                        `Erro /clientes/me: ${resp.status}`
+                    );
+                }
+
+
+                const json =
+                    await resp.json();
+
+
+                if (!componenteAtivo) {
+                    return;
+                }
+
+
+                /* ==============================================
+                   3. COMPARA USUÁRIO
+                ============================================== */
+
+                if (
+                    !dadosCacheIguais(
+                        usuarioCache,
+                        json
+                    )
+                ) {
+
+                    console.log(
+                        "[HEADER] Usuário mudou. Atualizando cache."
+                    );
+
+                    setDados(
+                        json
+                    );
+
+                    salvarCache(
+                        CACHE_HEADER_USUARIO,
+                        json
+                    );
+
+                } else {
+
+                    console.log(
+                        "[HEADER] Usuário sem alterações."
+                    );
+                }
+
+
+                /*
+                    Mantemos seu localStorage "usuario"
+                    porque outras partes do sistema podem
+                    depender dele.
+                */
+
+                localStorage.setItem(
+                    "usuario",
+                    JSON.stringify(json)
+                );
+
+
+                /* ==============================================
+                   4. CARREGA LOJA
+                ============================================== */
 
                 if (json.comercio_id) {
+
                     try {
-                        const respLoja = await fetch(`${API_URL}/comercios/${json.comercio_id}`);
-                        const lojaJson = await respLoja.json();
-                        setLoja(lojaJson);
-                    } catch {
-                        setLoja(null);
+
+                        const respLoja =
+                            await fetch(
+                                `${API_URL}/comercios/${json.comercio_id}`
+                            );
+
+
+                        if (!respLoja.ok) {
+
+                            throw new Error(
+                                `Erro ao buscar comércio: ${respLoja.status}`
+                            );
+                        }
+
+
+                        const lojaJson =
+                            await respLoja.json();
+
+
+                        if (!componenteAtivo) {
+                            return;
+                        }
+
+
+                        /* ======================================
+                           5. COMPARA LOJA
+                        ====================================== */
+
+                        if (
+                            !dadosCacheIguais(
+                                lojaCache,
+                                lojaJson
+                            )
+                        ) {
+
+                            console.log(
+                                "[HEADER] Loja mudou. Atualizando cache."
+                            );
+
+                            setLoja(
+                                lojaJson
+                            );
+
+                            salvarCache(
+                                CACHE_HEADER_LOJA,
+                                lojaJson
+                            );
+
+                        } else {
+
+                            console.log(
+                                "[HEADER] Loja sem alterações."
+                            );
+                        }
+
+
+                    } catch (erroLoja) {
+
+                        console.error(
+                            "[HEADER] Erro ao atualizar loja:",
+                            erroLoja
+                        );
+
+                        /*
+                            Só remove visualmente a loja
+                            se também não existir cache.
+                        */
+
+                        if (!lojaCache) {
+                            setLoja(null);
+                        }
                     }
+
+
+                    /* ==============================================
+                       ALERTA CONTINUA NORMAL
+                    ============================================== */
 
                     await carregarAlertaVencimento();
                 }
 
-                setFade(false);
-                setTimeout(() => setFade(true), 120);
 
-            } catch {
-                console.log("Erro ao atualizar header");
+                /* ==============================================
+                   ANIMAÇÃO
+                ============================================== */
+
+                if (componenteAtivo) {
+
+                    setFade(false);
+
+                    setTimeout(() => {
+
+                        if (componenteAtivo) {
+                            setFade(true);
+                        }
+
+                    }, 120);
+                }
+
+
+            } catch (erro) {
+
+                console.error(
+                    "[HEADER] Erro ao atualizar header:",
+                    erro
+                );
+
+                /*
+                    Não apagamos os states aqui.
+    
+                    Se o servidor estiver fora,
+                    usuário continua vendo o cache.
+                */
             }
         }
 
+
         carregar();
+
+
+        return () => {
+
+            componenteAtivo = false;
+
+        };
+
     }, [refreshKey]);
 
     useEffect(() => {

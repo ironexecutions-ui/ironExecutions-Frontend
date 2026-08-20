@@ -1,315 +1,1076 @@
-/* =========================
-   CONTAINER PRINCIPAL
-========================= */
+/* =========================================================
+   FORMULÁRIO PRODUTO
+   PREMIUM LIGHT / NAVY / ELECTRIC BLUE
+========================================================= */
+
 .form-produto {
-    background: linear-gradient(180deg, #020975, #0a027c);
-    color: #020617;
-    padding: 34px;
-    border-radius: 26px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    position: relative !important;
+
+    width: 100% !important;
+    min-height: 100vh !important;
+
+    padding: 32px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 24px !important;
+
+    border-radius: 30px !important;
+
+    color: #0f172a !important;
+
+    background:
+        radial-gradient(circle at 5% 0%,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%),
+        radial-gradient(circle at 100% 18%,
+            rgba(14, 165, 233, 0.08),
+            transparent 26%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 48%,
+            #eef2f7 100%) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
     box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    animation: fadeUp 0.35s ease;
+        0 30px 80px rgba(15, 23, 42, 0.12),
+        0 8px 24px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 #ffffff !important;
+
+    overflow: hidden !important;
+
+    animation:
+        formProdutoEntrada 0.55s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
-/* =========================
-   TOPO
-========================= */
-.topo-form {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+
+/* =========================================================
+   LUZ AMBIENTE
+========================================================= */
+
+.form-produto::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 520px !important;
+    height: 300px !important;
+
+    top: -230px !important;
+    left: 8% !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.18),
+            transparent 68%) !important;
+
+    filter: blur(30px) !important;
+
+    pointer-events: none !important;
+
+    animation:
+        formProdutoLuz 9s ease-in-out infinite alternate !important;
 }
+
+
+.form-produto::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 420px !important;
+    height: 420px !important;
+
+    right: -260px !important;
+    bottom: -260px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(14, 165, 233, 0.11),
+            transparent 70%) !important;
+
+    pointer-events: none !important;
+}
+
+
+.form-produto>* {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+.topo-form {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 18px !important;
+
+    padding: 19px 21px !important;
+
+    border-radius: 21px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.97),
+            rgba(241, 245, 249, 0.90)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        0 12px 32px rgba(15, 23, 42, 0.07),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
 
 .topo-form h4 {
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: 0.3px;
-    color: #f8f9fa;
+    position: relative !important;
+
+    margin: 0 !important;
+
+    padding-left: 17px !important;
+
+    font-size: 21px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: -0.4px !important;
+
+    color: #0b1635 !important;
 }
+
+
+.topo-form h4::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+    top: 50% !important;
+
+    transform: translateY(-50%) !important;
+
+    width: 6px !important;
+    height: 30px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #0ea5e9) !important;
+
+    box-shadow:
+        0 0 17px rgba(37, 99, 235, 0.35) !important;
+
+    animation:
+        indicadorFormulario 3s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
+   BOTÃO VOLTAR
+========================================================= */
 
 .topo-form button {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid #0e0e0e;
-    color: #020617;
-    padding: 9px 18px;
-    border-radius: 14px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    transition: all 0.25s ease;
+    position: relative !important;
+
+    min-width: 95px !important;
+    height: 42px !important;
+
+    padding: 0 17px !important;
+
+    border-radius: 13px !important;
+
+    border:
+        1px solid #cbd5e1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f1f5f9) !important;
+
+    color: #334155 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
 }
+
 
 .topo-form button:hover {
-    border-color: #38bdf8;
-    color: #0284c7;
-    box-shadow: 0 8px 22px rgba(56, 189, 248, 0.25);
+    color: #1d4ed8 !important;
+
+    border-color: #2563eb !important;
+
+    transform: translateX(-3px) !important;
+
+    box-shadow:
+        0 9px 22px rgba(37, 99, 235, 0.13) !important;
 }
 
-/* =========================
-   SELETOR DE TIPO
-========================= */
-.tipos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+
+.topo-form button:active {
+    transform: translateX(-1px) scale(0.97) !important;
 }
+
+
+/* =========================================================
+   SELETOR PRODUTO / PACOTE / SERVIÇO
+========================================================= */
+
+.tipos {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, 1fr) !important;
+
+    gap: 7px !important;
+
+    padding: 7px !important;
+
+    border-radius: 19px !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(226, 232, 240, 0.80),
+            rgba(241, 245, 249, 0.96)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        inset 0 2px 5px rgba(15, 23, 42, 0.045),
+        0 6px 18px rgba(15, 23, 42, 0.04) !important;
+}
+
 
 .tipos button {
-    background: linear-gradient(180deg, #ffffff, #f1f5f9);
-    border: 1px solid #051ad6;
-    color: #04011a;
-    padding: 14px;
-    border-radius: 18px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 14px;
-    transition: all 0.25s ease;
+    position: relative !important;
+
+    min-height: 48px !important;
+
+    padding: 0 18px !important;
+
+    border-radius: 13px !important;
+
+    border:
+        1px solid transparent !important;
+
+    background: transparent !important;
+
+    color: #475569 !important;
+
+    font-size: 13px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    transition:
+        transform 0.22s ease,
+        background 0.22s ease,
+        color 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease !important;
 }
+
 
 .tipos button:hover {
-    border-color: #94a3b8;
-    background: #ffffff;
+    background:
+        rgba(255, 255, 255, 0.75) !important;
+
+    color: #1d4ed8 !important;
+
+    transform: translateY(-1px) !important;
 }
+
+
+/* =========================================================
+   TIPO ATIVO
+========================================================= */
 
 .tipos button.ativo {
-    border-color: #38bdf8;
-    color: #fcfcfc;
-    font-size: 20px;
-    margin-bottom: -5px;
-    background: linear-gradient(180deg, #0572bb, #064068);
+    margin: 0 !important;
+
+    font-size: 14px !important;
+
+    color: #ffffff !important;
+
+    border-color: #2563eb !important;
+
+    background:
+        radial-gradient(circle at 20% 0%,
+            rgba(96, 165, 250, 0.35),
+            transparent 50%),
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
     box-shadow:
-        0 10px 26px rgba(56, 189, 248, 0.25),
-        inset 0 0 0 1px rgba(56, 189, 248, 0.35);
-}
+        0 10px 25px rgba(37, 99, 235, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 
-/* =========================
-   GRID DE CAMPOS
-========================= */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 18px;
-}
-
-.grid input {
-    padding: 14px 16px;
-    border-radius: 16px;
-    border: 1px solid #cbd5e1;
-    background: linear-gradient(180deg, #ffffff, #f8fafc);
-    color: #020617;
-    font-size: 14px;
-    transition: all 0.25s ease;
-}
-
-.grid input::placeholder {
-    color: #64748b;
-}
-
-.grid input:focus {
-    outline: none;
-    border-color: #38bdf8;
-    box-shadow:
-        0 0 0 3px rgba(56, 189, 248, 0.25),
-        inset 0 1px 2px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px) !important;
 }
 
 
+/* reflexo botão ativo */
 
-/* =========================
+.tipos button.ativo::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -80% !important;
+
+    width: 45% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.32),
+            transparent) !important;
+
+    transform: skewX(-22deg) !important;
+
+    animation:
+        reflexoTipo 5s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
    AÇÕES
-========================= */
-.acoes {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 18px;
-    gap: 14px;
-    flex-wrap: wrap;
-}
+========================================================= */
 
-/* =========================
-   BOTÃO DISPONÍVEL
-========================= */
-.disponivel {
-    border-radius: 18px;
-    padding: 12px 22px;
-    font-weight: 800;
-    font-size: 13px;
-    cursor: pointer;
-    max-width: 30%;
-    border: 1px solid;
-    transition: all 0.25s ease;
-    letter-spacing: 0.3px;
-}
+.form-produto .acoes {
+    width: 100% !important;
 
-.disponivel.on {
-    border-color: #000000;
-    background-color: #0beb5d !important;
-    color: #070707;
-    box-shadow: 0 6px 18px rgba(34, 197, 94, 0.35);
-}
+    display: flex !important;
 
-.disponivel.off {
-    border-color: #f87171;
-    color: #000000;
-    background: linear-gradient(180deg, #eb0505, #c90303);
-    box-shadow: 0 6px 18px rgba(248, 113, 113, 0.35);
-}
+    justify-content: space-between !important;
+    align-items: center !important;
 
-/* =========================
-   BOTÃO SALVAR
-========================= */
-.salvar {
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #020617;
-    color: #ffffff;
-    padding: 14px 30px;
-    border-radius: 22px;
-    font-weight: 900;
-    font-size: 14px;
-    max-width: 30%;
-    cursor: pointer;
-    letter-spacing: 0.4px;
-    transition: all 0.25s ease;
-}
+    gap: 14px !important;
 
-.salvar:hover {
-    background: linear-gradient(180deg, #020617, #020617);
+    margin: 0 !important;
+
+    padding: 14px !important;
+
+    border-radius: 18px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.92),
+            rgba(241, 245, 249, 0.86)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.07) !important;
+
     box-shadow:
-        0 14px 36px rgba(2, 6, 23, 0.45),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-    transform: translateY(-1px);
+        0 8px 22px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 #ffffff !important;
 }
 
-.salvar:active {
-    transform: translateY(0);
-    box-shadow: none;
+
+/* =========================================================
+   DISPONIBILIDADE
+========================================================= */
+
+.form-produto .disponivel {
+    position: relative !important;
+
+    min-width: 150px !important;
+    max-width: none !important;
+
+    height: 44px !important;
+
+    padding: 0 20px !important;
+
+    border-radius: 13px !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.2px !important;
+
+    cursor: pointer !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease !important;
 }
 
-/* =========================
-   ANIMAÇÃO
-========================= */
-@keyframes fadeUp {
+
+/* =========================================================
+   DISPONÍVEL
+========================================================= */
+
+.form-produto .disponivel.on {
+    border:
+        1px solid rgba(22, 163, 74, 0.35) !important;
+
+    background:
+        linear-gradient(135deg,
+            #dcfce7,
+            #bbf7d0) !important;
+
+    color: #14532d !important;
+
+    box-shadow:
+        0 7px 18px rgba(34, 197, 94, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+}
+
+
+.form-produto .disponivel.on:hover {
+    transform: translateY(-2px) !important;
+
+    background:
+        linear-gradient(135deg,
+            #bbf7d0,
+            #86efac) !important;
+
+    box-shadow:
+        0 11px 24px rgba(34, 197, 94, 0.22) !important;
+}
+
+
+/* =========================================================
+   INDISPONÍVEL
+========================================================= */
+
+.form-produto .disponivel.off {
+    border:
+        1px solid rgba(220, 38, 38, 0.35) !important;
+
+    background:
+        linear-gradient(135deg,
+            #fee2e2,
+            #fecaca) !important;
+
+    color: #991b1b !important;
+
+    box-shadow:
+        0 7px 18px rgba(220, 38, 38, 0.12) !important;
+}
+
+
+.form-produto .disponivel.off:hover {
+    transform: translateY(-2px) !important;
+
+    background:
+        linear-gradient(135deg,
+            #fecaca,
+            #fca5a5) !important;
+
+    box-shadow:
+        0 11px 24px rgba(220, 38, 38, 0.20) !important;
+}
+
+
+/* =========================================================
+   SALVAR
+========================================================= */
+
+.form-produto .salvar {
+    position: relative !important;
+
+    min-width: 145px !important;
+    max-width: none !important;
+
+    height: 46px !important;
+
+    padding: 0 27px !important;
+
+    border-radius: 14px !important;
+
+    border: 1px solid #1d4ed8 !important;
+
+    background:
+        radial-gradient(circle at 20% 0%,
+            rgba(96, 165, 250, 0.40),
+            transparent 52%),
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.3px !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 11px 26px rgba(37, 99, 235, 0.22),
+        0 4px 10px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease !important;
+}
+
+
+.form-produto .salvar::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -80% !important;
+
+    width: 50% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.40),
+            transparent) !important;
+
+    transform: skewX(-22deg) !important;
+
+    transition: left 0.65s ease !important;
+}
+
+
+.form-produto .salvar:hover::before {
+    left: 140% !important;
+}
+
+
+.form-produto .salvar:hover {
+    transform:
+        translateY(-3px) scale(1.015) !important;
+
+    box-shadow:
+        0 17px 35px rgba(37, 99, 235, 0.30),
+        0 5px 13px rgba(15, 23, 42, 0.12) !important;
+}
+
+
+.form-produto .salvar:active {
+    transform: scale(0.97) !important;
+}
+
+
+/* =========================================================
+   GRID DOS CAMPOS
+========================================================= */
+
+.form-produto .grid {
+    position: relative !important;
+
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr)) !important;
+
+    gap: 15px !important;
+
+    padding: 20px !important;
+
+    border-radius: 21px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.04),
+            transparent 35%),
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(248, 250, 252, 0.92)) !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.form-produto .grid input {
+    width: 100% !important;
+
+    height: 49px !important;
+
+    padding: 0 16px !important;
+
+    border-radius: 14px !important;
+
+    border:
+        1px solid #cbd5e1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+
+    outline: none !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035),
+        0 2px 5px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.22s ease,
+        background 0.22s ease,
+        box-shadow 0.22s ease !important;
+}
+
+
+.form-produto .grid input::placeholder {
+    color: #64748b !important;
+
+    font-weight: 500 !important;
+}
+
+
+/* =========================================================
+   INPUT HOVER
+========================================================= */
+
+.form-produto .grid input:hover {
+    border-color: #94a3b8 !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.055) !important;
+}
+
+
+/* =========================================================
+   INPUT FOCUS
+========================================================= */
+
+.form-produto .grid input:focus {
+    border-color: #2563eb !important;
+
+    background: #ffffff !important;
+
+    color: #020617 !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.11),
+        0 11px 25px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+/* =========================================================
+   INPUT DATE
+========================================================= */
+
+.form-produto .grid input[type="date"] {
+    color: #334155 !important;
+
+    cursor: pointer !important;
+}
+
+
+.form-produto .grid input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer !important;
+
+    opacity: 0.65 !important;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.form-produto .grid input[type="date"]:hover::-webkit-calendar-picker-indicator {
+    opacity: 1 !important;
+
+    transform: scale(1.08) !important;
+}
+
+
+/* =========================================================
+   AUTOFILL CHROME
+========================================================= */
+
+.form-produto input:-webkit-autofill,
+.form-produto input:-webkit-autofill:hover,
+.form-produto input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #0f172a !important;
+
+    -webkit-box-shadow:
+        0 0 0 1000px #ffffff inset !important;
+
+    transition:
+        background-color 9999s ease-out 0s !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes formProdutoEntrada {
+
     from {
         opacity: 0;
-        transform: translateY(8px) scale(0.98);
+
+        transform:
+            translateY(15px) scale(0.988);
+
+        filter: blur(3px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0) scale(1);
+
+        filter: blur(0);
     }
 }
 
-/* =========================
+
+@keyframes formProdutoLuz {
+
+    from {
+        transform:
+            translateX(-80px) scale(0.95);
+    }
+
+    to {
+        transform:
+            translateX(170px) scale(1.15);
+    }
+}
+
+
+@keyframes indicadorFormulario {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 12px rgba(37, 99, 235, 0.25);
+    }
+
+    50% {
+        box-shadow:
+            0 0 28px rgba(37, 99, 235, 0.60);
+    }
+}
+
+
+@keyframes reflexoTipo {
+
+    0% {
+        left: -80%;
+    }
+
+    25% {
+        left: 140%;
+    }
+
+    100% {
+        left: 140%;
+    }
+}
+
+
+/* =========================================================
    TABLET
-========================= */
+========================================================= */
+
 @media (max-width: 1024px) {
 
     .form-produto {
-        padding: 26px;
-        border-radius: 22px;
+        padding: 23px !important;
+
+        border-radius: 25px !important;
+
+        gap: 20px !important;
     }
+
+
+    .form-produto .grid {
+        grid-template-columns:
+            repeat(auto-fit,
+                minmax(210px, 1fr)) !important;
+
+        padding: 17px !important;
+    }
+
 
     .tipos {
-        gap: 12px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-
-    .acoes {
-        gap: 12px;
-    }
-
-    .disponivel,
-    .salvar {
-        max-width: 45%;
+        gap: 6px !important;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
+
 @media (max-width: 768px) {
 
     .form-produto {
-        padding: 20px;
-        border-radius: 18px;
+        min-height: 100vh !important;
+
+        padding: 15px !important;
+
+        gap: 15px !important;
+
+        border-radius: 20px !important;
     }
+
+
+    /* =========================
+       TOPO
+    ========================= */
 
     .topo-form {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+
+        gap: 13px !important;
+
+        padding: 16px !important;
+
+        border-radius: 17px !important;
     }
+
+
+    .topo-form h4 {
+        order: -1 !important;
+
+        padding-left: 15px !important;
+
+        font-size: 19px !important;
+    }
+
 
     .topo-form button {
-        width: 100%;
-        text-align: center;
+        width: 100% !important;
+
+        height: 44px !important;
     }
+
+
+    /* =========================
+       TIPOS
+    ========================= */
 
     .tipos {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            repeat(3, 1fr) !important;
+
+        gap: 4px !important;
+
+        padding: 5px !important;
+
+        border-radius: 15px !important;
     }
+
 
     .tipos button {
-        font-size: 15px;
-        padding: 14px;
+        min-height: 44px !important;
+
+        padding: 0 6px !important;
+
+        border-radius: 11px !important;
+
+        font-size: 12px !important;
     }
 
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
+
+    .tipos button.ativo {
+        font-size: 12px !important;
     }
 
-    .acoes {
-        flex-direction: column;
-        align-items: stretch;
+
+    /* =========================
+       AÇÕES
+    ========================= */
+
+    .form-produto .acoes {
+        display: grid !important;
+
+        grid-template-columns:
+            1fr 1fr !important;
+
+        padding: 10px !important;
+
+        gap: 9px !important;
+
+        border-radius: 15px !important;
     }
 
-    .disponivel,
-    .salvar {
-        max-width: 100%;
-        width: 100%;
-        text-align: center;
+
+    .form-produto .disponivel,
+    .form-produto .salvar {
+        width: 100% !important;
+
+        min-width: 0 !important;
+        max-width: none !important;
+
+        height: 45px !important;
+    }
+
+
+    /* =========================
+       GRID
+    ========================= */
+
+    .form-produto .grid {
+        grid-template-columns: 1fr !important;
+
+        gap: 11px !important;
+
+        padding: 14px !important;
+
+        border-radius: 17px !important;
+    }
+
+
+    .form-produto .grid input {
+        height: 48px !important;
+
+        font-size: 13px !important;
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE PEQUENO
-========================= */
+========================================================= */
+
 @media (max-width: 420px) {
 
     .form-produto {
-        padding: 16px;
-        border-radius: 16px;
+        padding: 10px !important;
+
+        gap: 12px !important;
+
+        border-radius: 16px !important;
     }
+
+
+    .topo-form {
+        padding: 13px !important;
+    }
+
 
     .topo-form h4 {
-        font-size: 16px;
-        text-align: center;
-        width: 100%;
+        width: 100% !important;
+
+        font-size: 17px !important;
+
+        text-align: left !important;
     }
+
 
     .tipos button {
-        font-size: 14px;
-        padding: 12px;
+        min-height: 42px !important;
+
+        font-size: 11px !important;
     }
 
-    .grid input {
-        font-size: 13px;
-        padding: 12px 14px;
+
+    .tipos button.ativo {
+        font-size: 11px !important;
     }
 
-    .disponivel,
-    .salvar {
-        font-size: 13px;
-        padding: 12px;
+
+    .form-produto .acoes {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .form-produto .grid {
+        padding: 11px !important;
+
+        gap: 9px !important;
+    }
+
+
+    .form-produto .grid input {
+        height: 46px !important;
+
+        padding: 0 13px !important;
+
+        font-size: 12px !important;
+
+        border-radius: 12px !important;
+    }
+}
+
+
+/* =========================================================
+   REDUZ ANIMAÇÕES PARA QUEM CONFIGUROU ISSO NO SISTEMA
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .form-produto,
+    .form-produto::before,
+    .topo-form h4::before,
+    .tipos button,
+    .tipos button.ativo::before,
+    .form-produto .grid input,
+    .form-produto .salvar,
+    .form-produto .disponivel {
+        animation: none !important;
+        transition: none !important;
     }
 }

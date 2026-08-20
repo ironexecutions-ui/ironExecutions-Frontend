@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./graficovendas.css"
+import "./graficovendas.css";
+
 import GraficoPizzaProdutos from "./graficos/graficopizzaprodutos";
 import GraficoBarrasProdutos from "./graficos/graficolinhasvendas";
 
@@ -8,37 +9,68 @@ export default function GraficosVendas() {
     const [graficoAtivo, setGraficoAtivo] = useState("pizza");
 
     function renderizarGrafico() {
-        if (graficoAtivo === "pizza") return <GraficoPizzaProdutos />;
-        if (graficoAtivo === "barras") return <GraficoBarrasProdutos />;
-        if (graficoAtivo === "linhas") return <GraficoLinhasVendas />;
+        if (graficoAtivo === "pizza") {
+            return <GraficoPizzaProdutos />;
+        }
+
+        if (graficoAtivo === "barras") {
+            return <GraficoBarrasProdutos />;
+        }
+
         return null;
     }
 
     return (
         <div className="graficos-vendas-container">
-            <h4>Gráficos de Vendas</h4>
 
-            <div className="graficos-vendas-botoes">
-                <button
-                    className={graficoAtivo === "pizza" ? "ativo" : ""}
-                    onClick={() => setGraficoAtivo("pizza")}
-                >
-                    Produtos Vendidos (%)
-                </button>
+            <div className="graficos-vendas-cabecalho">
+                <div className="graficos-vendas-titulo-area">
+                    <span className="graficos-vendas-indicador"></span>
 
-                <button
-                    className={graficoAtivo === "barras" ? "ativo" : ""}
-                    onClick={() => setGraficoAtivo("barras")}
-                > Evolução de Vendas
-                </button>
+                    <div>
+                        <h4>Gráficos de Vendas</h4>
+                        <p>
+                            Visualize o desempenho e a distribuição das vendas
+                        </p>
+                    </div>
+                </div>
 
+                <div className="graficos-vendas-botoes">
 
+                    <button
+                        type="button"
+                        className={
+                            graficoAtivo === "pizza"
+                                ? "graficos-vendas-btn ativo"
+                                : "graficos-vendas-btn"
+                        }
+                        onClick={() => setGraficoAtivo("pizza")}
+                    >
+                        Produtos Vendidos (%)
+                    </button>
+
+                    <button
+                        type="button"
+                        className={
+                            graficoAtivo === "barras"
+                                ? "graficos-vendas-btn ativo"
+                                : "graficos-vendas-btn"
+                        }
+                        onClick={() => setGraficoAtivo("barras")}
+                    >
+                        Evolução de Vendas
+                    </button>
+
+                </div>
             </div>
 
-            <div className="graficos-vendas-conteudo">
+            <div
+                key={graficoAtivo}
+                className="graficos-vendas-conteudo"
+            >
                 {renderizarGrafico()}
             </div>
+
         </div>
     );
-
 }
