@@ -608,6 +608,265 @@ export default function FechamentoCaixa() {
         }).reverse();
 
     }, [fechamentosSemDuplicados]);
+    useEffect(() => {
+
+        console.log("==============================================");
+        console.log("🔎 DIAGNÓSTICO COMPLETO FECHAMENTOS");
+        console.log("==============================================");
+
+        // 1. DADOS BRUTOS NO STATE
+        console.log(
+            "[1] FECHAMENTOS NO STATE:",
+            fechamentos.length
+        );
+
+        console.table(
+            fechamentos.map((f) => ({
+                id: f.id,
+                usuario_id: f.usuario_id,
+                nome: f.nome_completo,
+                data: f.data,
+                hora: f.hora,
+                valor: f.valor_total
+            }))
+        );
+
+
+        // 2. VERIFICAR IDs DUPLICADOS
+        const ids = new Map();
+
+        fechamentos.forEach((f) => {
+
+            const id = String(f.id);
+
+            ids.set(
+                id,
+                (ids.get(id) || 0) + 1
+            );
+
+        });
+
+        const idsDuplicados = Array.from(ids.entries())
+            .filter(([, quantidade]) => quantidade > 1);
+
+        console.log(
+            "[2] IDs DUPLICADOS:",
+            idsDuplicados
+        );
+
+
+        // 3. VER EXATAMENTE QUAIS REGISTROS
+        // SUA REGRA DATA + VALOR ESTÁ REMOVENDO
+
+        const mapaDataValor = new Map();
+
+        fechamentos.forEach((f) => {
+
+            const valor = converterValor(
+                f.valor_total
+            );
+
+            const chave =
+                `${f.data || ""}|${valor.toFixed(2)}`;
+
+            if (!mapaDataValor.has(chave)) {
+                mapaDataValor.set(chave, []);
+            }
+
+            mapaDataValor.get(chave).push(f);
+
+        });
+
+        const gruposRemovidos =
+            Array.from(mapaDataValor.entries())
+                .filter(([, registros]) => registros.length > 1);
+
+        console.log(
+            "[3] GRUPOS DATA + VALOR CONSIDERADOS DUPLICADOS:",
+            gruposRemovidos.length
+        );
+
+        gruposRemovidos.forEach(([chave, registros]) => {
+
+            console.log(
+                "❌ CHAVE REMOVIDA:",
+                chave,
+                "QUANTIDADE:",
+                registros.length
+            );
+
+            console.table(
+                registros.map((f) => ({
+                    id: f.id,
+                    usuario_id: f.usuario_id,
+                    nome: f.nome_completo,
+                    data: f.data,
+                    hora: f.hora,
+                    valor: f.valor_total
+                }))
+            );
+
+        });
+
+
+        // 4. RESULTADO DEPOIS DA REMOÇÃO
+        console.log(
+            "[4] ANTES DA REMOÇÃO:",
+            fechamentos.length
+        );
+
+        console.log(
+            "[4] DEPOIS DA REMOÇÃO:",
+            fechamentosSemDuplicados.length
+        );
+
+        console.log(
+            "[4] TOTAL REMOVIDO:",
+            fechamentos.length -
+            fechamentosSemDuplicados.length
+        );
+
+
+        // 5. FUNCIONÁRIOS ENCONTRADOS
+        console.log(
+            "[5] FUNCIONÁRIOS:",
+            funcionariosFechamentos.length
+        );
+
+        console.table(
+            funcionariosFechamentos
+        );
+
+
+        // 6. FILTROS ATIVOS
+        console.log(
+            "[6] FILTROS:",
+            {
+                funcionarioSelecionado,
+                dataInicial,
+                dataFinal,
+                horaInicial,
+                horaFinal
+            }
+        );
+
+
+        // 7. RESULTADO FINAL DEPOIS DOS FILTROS
+        console.log(
+            "[7] FECHAMENTOS APÓS FILTROS:",
+            fechamentosFiltrados.length
+        );
+
+        console.table(
+            fechamentosFiltrados.map((f) => ({
+                id: f.id,
+                usuario_id: f.usuario_id,
+                nome: f.nome_completo,
+                data: f.data,
+                hora: f.hora,
+                valor: f.valor_total
+            }))
+        );
+
+
+        // 8. TOTAL BRUTO
+        const totalBruto = fechamentos.reduce(
+            (total, f) =>
+                total + converterValor(f.valor_total),
+            0
+        );
+
+        console.log(
+            "[8] TOTAL BRUTO DOS 290:",
+            totalBruto
+        );
+
+
+        // 9. TOTAL DEPOIS DE REMOVER DUPLICADOS
+        const totalSemDuplicados =
+            fechamentosSemDuplicados.reduce(
+                (total, f) =>
+                    total + converterValor(f.valor_total),
+                0
+            );
+
+        console.log(
+            "[9] TOTAL SEM DUPLICADOS:",
+            totalSemDuplicados
+        );
+
+
+        // 10. TOTAL FINAL DA TELA
+        console.log(
+            "[10] TOTAL FINAL EXIBIDO:",
+            totalPeriodo
+        );
+
+
+        // 11. RESUMO POR MÊS
+        console.log(
+            "[11] RESUMO MENSAL:"
+        );
+
+        console.table(
+            resumoMensal.map((m) => ({
+                mes: m.mes,
+                quantidade: m.quantidade,
+                total: m.total,
+                percentual: m.percentual,
+                tipo: m.tipo
+            }))
+        );
+
+
+        // 12. CACHE
+        try {
+
+            const cache =
+                JSON.parse(
+                    localStorage.getItem(
+                        CHAVE_CACHE_FECHAMENTOS
+                    ) || "[]"
+                );
+
+            console.log(
+                "[12] REGISTROS NO CACHE:",
+                cache.length
+            );
+
+            console.log(
+                "[12] CACHE IGUAL AO STATE:",
+                JSON.stringify(cache) ===
+                JSON.stringify(fechamentos)
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[12] ERRO AO LER CACHE:",
+                erro
+            );
+
+        }
+
+
+        console.log("==============================================");
+        console.log("🔎 FIM DO DIAGNÓSTICO");
+        console.log("==============================================");
+
+    }, [
+        fechamentos,
+        fechamentosSemDuplicados,
+        funcionariosFechamentos,
+        fechamentosFiltrados,
+        totalPeriodo,
+        resumoMensal,
+        funcionarioSelecionado,
+        dataInicial,
+        dataFinal,
+        horaInicial,
+        horaFinal
+    ]);
     function limparFiltros() {
 
         setDataInicial("");
