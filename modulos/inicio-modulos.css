@@ -550,8 +550,534 @@
 
     margin-bottom: 9px;
 }
+/* =========================================================
+   MODAL IRON EXECUTIONS
+========================================================= */
+
+.inicio-modulos-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(3, 15, 30, 0.52);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    animation: inicioModulosModalOverlayEntrada 0.25s ease;
+}
 
 
+/* =========================================================
+   CAIXA PRINCIPAL
+========================================================= */
+
+.inicio-modulos-modal-caixa {
+    position: relative;
+
+    width: min(100%, 570px);
+
+    padding: 28px;
+
+    border-radius: 24px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(37, 99, 235, 0.08),
+            transparent 35%
+        ),
+        #ffffff;
+
+    border: 1px solid rgba(15, 55, 95, 0.12);
+
+    box-shadow:
+        0 30px 80px rgba(0, 25, 55, 0.22),
+        0 8px 24px rgba(0, 25, 55, 0.10);
+
+    animation: inicioModulosModalCaixaEntrada 0.32s
+        cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+.inicio-modulos-modal-topo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+.inicio-modulos-modal-marca {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.inicio-modulos-modal-icone {
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        145deg,
+        #063a73,
+        #0756a5
+    );
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+
+    box-shadow:
+        0 10px 25px rgba(4, 68, 133, 0.25);
+}
+
+
+.inicio-modulos-modal-etiqueta {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #2466a7;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+
+.inicio-modulos-modal-topo h3 {
+    margin: 0;
+
+    color: #071d35;
+
+    font-size: 23px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   FECHAR
+========================================================= */
+
+.inicio-modulos-modal-fechar {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #dce6ef;
+    border-radius: 11px;
+
+    background: #f5f8fb;
+
+    color: #47627d;
+
+    font-size: 25px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.inicio-modulos-modal-fechar:hover {
+    transform: rotate(5deg);
+
+    background: #eaf1f7;
+    color: #071d35;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.inicio-modulos-modal-descricao {
+    margin: 0 0 24px;
+
+    color: #52687d;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   OPÇÕES
+========================================================= */
+
+.inicio-modulos-modal-opcoes {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.inicio-modulos-modal-opcao {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    border-radius: 17px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+}
+
+
+/* =========================================================
+   CADASTRO
+========================================================= */
+
+.inicio-modulos-modal-opcao-cadastro {
+    background: linear-gradient(
+        135deg,
+        #f5f9ff,
+        #edf5ff
+    );
+
+    border: 1px solid #cfe0f4;
+}
+
+
+.inicio-modulos-modal-opcao-cadastro
+.inicio-modulos-modal-opcao-icone {
+    background: linear-gradient(
+        145deg,
+        #07447f,
+        #0864ba
+    );
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+.inicio-modulos-modal-opcao-whatsapp {
+    background: linear-gradient(
+        135deg,
+        #f3fff8,
+        #eafaf1
+    );
+
+    border: 1px solid #c8ead6;
+}
+
+
+.inicio-modulos-modal-opcao-whatsapp
+.inicio-modulos-modal-opcao-icone {
+    background: linear-gradient(
+        145deg,
+        #169b50,
+        #22c55e
+    );
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   ÍCONE DA OPÇÃO
+========================================================= */
+
+.inicio-modulos-modal-opcao-icone {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 18px rgba(0, 40, 80, 0.14);
+}
+
+
+/* =========================================================
+   CONTEÚDO DA OPÇÃO
+========================================================= */
+
+.inicio-modulos-modal-opcao-conteudo {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.inicio-modulos-modal-opcao-conteudo strong {
+    color: #092440;
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+
+.inicio-modulos-modal-opcao-conteudo span {
+    color: #60758a;
+
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   SETA
+========================================================= */
+
+.inicio-modulos-modal-seta {
+    color: #174f84;
+
+    font-size: 22px;
+    font-weight: 600;
+
+    transition: transform 0.2s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.inicio-modulos-modal-opcao:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 38, 75, 0.10);
+}
+
+
+.inicio-modulos-modal-opcao:hover
+.inicio-modulos-modal-seta {
+    transform: translateX(4px);
+}
+
+
+.inicio-modulos-modal-opcao-cadastro:hover {
+    border-color: #8cb9e6;
+}
+
+
+.inicio-modulos-modal-opcao-whatsapp:hover {
+    border-color: #86d5a6;
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.inicio-modulos-modal-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 22px;
+    padding-top: 18px;
+
+    border-top: 1px solid #e7edf3;
+
+    color: #72869a;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.inicio-modulos-modal-status {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes inicioModulosModalOverlayEntrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes inicioModulosModalCaixaEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .inicio-modulos-modal-overlay {
+        padding: 15px;
+        align-items: flex-end;
+    }
+
+    .inicio-modulos-modal-caixa {
+        width: 100%;
+
+        padding: 22px 18px 20px;
+
+        border-radius: 24px 24px 18px 18px;
+    }
+
+    .inicio-modulos-modal-topo h3 {
+        font-size: 20px;
+    }
+
+    .inicio-modulos-modal-icone {
+        width: 46px;
+        height: 46px;
+
+        border-radius: 13px;
+    }
+
+    .inicio-modulos-modal-descricao {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .inicio-modulos-modal-opcao {
+        padding: 16px 14px;
+    }
+
+    .inicio-modulos-modal-opcao-icone {
+        width: 44px;
+        height: 44px;
+    }
+
+    .inicio-modulos-modal-opcao-conteudo strong {
+        font-size: 15px;
+    }
+
+    .inicio-modulos-modal-opcao-conteudo span {
+        font-size: 12px;
+    }
+}
+.inicio-modulos-modal-icone {
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 7px;
+
+    border-radius: 16px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #edf5ff
+    );
+
+    border: 1px solid rgba(14, 73, 133, 0.12);
+
+    box-shadow:
+        0 8px 22px rgba(5, 53, 102, 0.14);
+}
+
+.inicio-modulos-modal-logo {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+}
 /* =========================================================
    NOME ASSISTENTE IRON
 ========================================================= */

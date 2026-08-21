@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import AreaLogin from "./inicio_modulos/arealogin";
 import LojasAvaliacao from "./inicio_modulos/lojasavaliacao";
@@ -12,6 +12,13 @@ import "./inicio-modulos.css";
 export default function InicioModulos() {
 
     const location = useLocation();
+    const navigate = useNavigate();
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
+
+    const [modalContatoAberto, setModalContatoAberto] = useState(false);
 
     /* =====================================================
        MENSAGENS DO ASSISTENTE
@@ -26,7 +33,7 @@ export default function InicioModulos() {
 
         "Tem alguma dúvida sobre valores, módulos ou funcionamento do sistema?",
 
-        "Clique aqui e fale diretamente com Andy de Oliveira, criador da Iron Executions.",
+        "Clique aqui para começar seu cadastro ou falar diretamente com Andy de Oliveira.",
 
         "Quer modernizar a gestão do seu comércio? Posso te mostrar por onde começar.",
 
@@ -38,17 +45,16 @@ export default function InicioModulos() {
 
         "Seu comércio pode ter um sistema mais rápido, organizado e adaptado à sua rotina.",
 
-        "Quer entender quanto custaria o sistema ideal para o seu negócio? Clique aqui para conversar.",
+        "Quer entender quanto custaria o sistema ideal para o seu negócio? Clique aqui para continuar.",
 
         "Produtividade, Administração e Fiscal podem trabalhar juntos para facilitar sua operação.",
 
-        "Quer começar a usar o Iron Business? Fale diretamente com Andy pelo WhatsApp.",
+        "Quer começar a usar o Iron Business? Você pode realizar seu cadastro agora.",
 
         "Ainda está conhecendo o sistema? Tire suas dúvidas diretamente com quem desenvolveu a plataforma.",
 
         "Cada comércio funciona de uma maneira. Vamos encontrar a configuração ideal para o seu?"
     ];
-
 
     /* =====================================================
        ASSISTENTE
@@ -63,7 +69,6 @@ export default function InicioModulos() {
 
     const [assistenteVisivel, setAssistenteVisivel] =
         useState(true);
-
 
     /* =====================================================
        TROCAR MENSAGEM ALEATORIAMENTE
@@ -96,7 +101,6 @@ export default function InicioModulos() {
                     );
 
                     return novaMensagem;
-
                 });
 
                 setAssistenteVisivel(true);
@@ -104,7 +108,6 @@ export default function InicioModulos() {
             }, 2000);
 
         }, 8000);
-
 
         return () => {
 
@@ -118,6 +121,45 @@ export default function InicioModulos() {
 
     }, []);
 
+    /* =====================================================
+       BLOQUEAR SCROLL QUANDO MODAL ABRIR
+    ===================================================== */
+
+    useEffect(() => {
+
+        if (modalContatoAberto) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+
+    }, [modalContatoAberto]);
+
+    /* =====================================================
+       FECHAR MODAL COM ESC
+    ===================================================== */
+
+    useEffect(() => {
+
+        function fecharComEsc(event) {
+
+            if (event.key === "Escape") {
+                setModalContatoAberto(false);
+            }
+
+        }
+
+        window.addEventListener("keydown", fecharComEsc);
+
+        return () => {
+            window.removeEventListener("keydown", fecharComEsc);
+        };
+
+    }, []);
 
     /* =====================================================
        EMPRESA PELO SLUG
@@ -127,6 +169,29 @@ export default function InicioModulos() {
         .replace("/", "")
         .replace(/^\/+/, "");
 
+    /* =====================================================
+       ABRIR MODAL
+    ===================================================== */
+
+    function abrirModalContato() {
+        setModalContatoAberto(true);
+    }
+
+    function fecharModalContato() {
+        setModalContatoAberto(false);
+    }
+
+    /* =====================================================
+       CADASTRAR COMÉRCIO
+    ===================================================== */
+
+    function cadastrarComercio() {
+
+        setModalContatoAberto(false);
+
+        navigate("/cadastrocomercios");
+
+    }
 
     /* =====================================================
        WHATSAPP
@@ -137,7 +202,7 @@ export default function InicioModulos() {
         const numero = "5511918547818";
 
         const mensagem = encodeURIComponent(
-            "Olá! Conheci a Iron Executions e gostaria de saber mais sobre o sistema comercial."
+            "Olá Andy! Conheci a Iron Executions e gostaria de saber mais sobre o sistema comercial."
         );
 
         window.open(
@@ -146,8 +211,8 @@ export default function InicioModulos() {
             "noopener,noreferrer"
         );
 
+        setModalContatoAberto(false);
     }
-
 
     return (
 
@@ -161,16 +226,13 @@ export default function InicioModulos() {
                 empresaInicial={empresaSlug}
             />
 
-
             {/* =================================================
                 LOGIN
             ================================================= */}
 
             <AreaLogin />
 
-
             <br />
-
 
             {/* =================================================
                 LOJAS
@@ -178,13 +240,11 @@ export default function InicioModulos() {
 
             <LojasAvaliacao />
 
-
             {/* =================================================
                 MÓDULOS
             ================================================= */}
 
             <ExplicacaoModulos />
-
 
             {/* =================================================
                 ASSISTENTE FLUTUANTE
@@ -202,8 +262,8 @@ export default function InicioModulos() {
                                 : "inicio-modulos-whatsapp-assistente--oculto"
                         }
                     `}
-                    onClick={solicitarWhatsapp}
-                    aria-label="Falar com Andy de Oliveira"
+                    onClick={abrirModalContato}
+                    aria-label="Abrir opções da Iron Executions"
                 >
 
                     <div className="inicio-modulos-whatsapp-assistente-topo">
@@ -212,10 +272,11 @@ export default function InicioModulos() {
                             className="inicio-modulos-whatsapp-assistente-status"
                         />
 
-                        
+                        <span className="inicio-modulos-whatsapp-assistente-nome">
+                            Assistente Iron
+                        </span>
 
                     </div>
-
 
                     <span className="inicio-modulos-whatsapp-assistente-texto">
 
@@ -227,25 +288,21 @@ export default function InicioModulos() {
 
                     </span>
 
-
                     <span className="inicio-modulos-whatsapp-assistente-acao">
-
-                        Falar com Andy →
-
+                        Ver opções →
                     </span>
 
                 </button>
 
-
                 {/* =================================================
-                    BOTÃO WHATSAPP
+                    BOTÃO FLUTUANTE
                 ================================================= */}
 
                 <button
                     type="button"
-                    onClick={solicitarWhatsapp}
+                    onClick={abrirModalContato}
                     className="inicio-modulos-whatsapp-button"
-                    aria-label="Falar com Andy de Oliveira pelo WhatsApp"
+                    aria-label="Abrir opções de atendimento"
                 >
 
                     <img
@@ -260,6 +317,155 @@ export default function InicioModulos() {
 
             </div>
 
+            {/* =================================================
+                MODAL
+            ================================================= */}
+
+            {modalContatoAberto && (
+
+                <div
+                    className="inicio-modulos-modal-overlay"
+                    onMouseDown={fecharModalContato}
+                >
+
+                    <div
+                        className="inicio-modulos-modal-caixa"
+                        onMouseDown={e => e.stopPropagation()}
+                    >
+
+                        {/* TOPO */}
+
+                        <div className="inicio-modulos-modal-topo">
+
+                            <div className="inicio-modulos-modal-marca">
+
+                            <div className="inicio-modulos-modal-icone">
+    <img
+        src="/favicon.png"
+        alt="Iron Executions"
+        className="inicio-modulos-modal-logo"
+    />
+</div>
+
+                                <div>
+
+                                    <span className="inicio-modulos-modal-etiqueta">
+                                        IRON EXECUTIONS
+                                    </span>
+
+                                    <h3>
+                                        Como podemos ajudar?
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={fecharModalContato}
+                                className="inicio-modulos-modal-fechar"
+                                aria-label="Fechar"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                        {/* TEXTO */}
+
+                        <p className="inicio-modulos-modal-descricao">
+
+                            Escolha como deseja continuar. Você pode
+                            iniciar agora o cadastro do seu comércio ou
+                            conversar diretamente com o criador da
+                            Iron Executions.
+
+                        </p>
+
+                        {/* OPÇÕES */}
+
+                        <div className="inicio-modulos-modal-opcoes">
+
+                            {/* CADASTRO */}
+
+                            <button
+                                type="button"
+                                onClick={cadastrarComercio}
+                                className="inicio-modulos-modal-opcao inicio-modulos-modal-opcao-cadastro"
+                            >
+
+                                <div className="inicio-modulos-modal-opcao-icone">
+                                    +
+                                </div>
+
+                                <div className="inicio-modulos-modal-opcao-conteudo">
+
+                                    <strong>
+                                        Cadastrar meu comércio
+                                    </strong>
+
+                                    <span>
+                                        Monte seu sistema, escolha os módulos
+                                        e envie seu cadastro.
+                                    </span>
+
+                                </div>
+
+                                <span className="inicio-modulos-modal-seta">
+                                    →
+                                </span>
+
+                            </button>
+
+                            {/* ANDY */}
+
+                            <button
+                                type="button"
+                                onClick={solicitarWhatsapp}
+                                className="inicio-modulos-modal-opcao inicio-modulos-modal-opcao-whatsapp"
+                            >
+
+                                <div className="inicio-modulos-modal-opcao-icone">
+                                    W
+                                </div>
+
+                                <div className="inicio-modulos-modal-opcao-conteudo">
+
+                                    <strong>
+                                        Falar com Andy
+                                    </strong>
+
+                                    <span>
+                                        Converse diretamente com Andy de Oliveira,
+                                        criador da Iron Executions.
+                                    </span>
+
+                                </div>
+
+                                <span className="inicio-modulos-modal-seta">
+                                    →
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                        {/* RODAPÉ MODAL */}
+
+                        <div className="inicio-modulos-modal-rodape">
+
+                            <span className="inicio-modulos-modal-status" />
+
+                            Atendimento direto pela Iron Executions
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            )}
 
             {/* =================================================
                 RODAPÉ
@@ -270,5 +476,4 @@ export default function InicioModulos() {
         </div>
 
     );
-
 }
