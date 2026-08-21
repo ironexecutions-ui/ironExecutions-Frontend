@@ -1689,3 +1689,321 @@
     }
 
 }
+/* =========================================================
+   AJUSTE GERAL DE TIPOGRAFIA
+   AUMENTA TODAS AS LETRAS DO PASSO 3
+========================================================= */
+
+/* TÍTULO PRINCIPAL */
+
+.passo3-modulos-titulo {
+    font-size: 32px !important;
+}
+
+.passo3-modulos-etapa {
+    font-size: 13px !important;
+}
+
+.passo3-modulos-subtitulo {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+
+/* =========================================================
+   INDICADOR DE ETAPA
+========================================================= */
+
+.passo3-modulos-etapa-indicador span {
+    font-size: 12px !important;
+}
+
+.passo3-modulos-etapa-indicador strong {
+    font-size: 18px !important;
+}
+
+
+/* =========================================================
+   INFORMATIVO DE DESCONTO
+========================================================= */
+
+.passo3-modulos-informativo-texto strong {
+    font-size: 15px !important;
+}
+
+.passo3-modulos-informativo-texto span {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+}
+
+.passo3-modulos-informativo-icone {
+    font-size: 18px !important;
+}
+
+
+/* =========================================================
+   CARDS DOS MÓDULOS
+========================================================= */
+
+.passo3-modulos-card-label {
+    font-size: 11px !important;
+}
+
+.passo3-modulos-card-nome {
+    font-size: 21px !important;
+}
+
+.passo3-modulos-card-texto {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+
+.passo3-modulos-card-preco-area span {
+    font-size: 12px !important;
+}
+
+.passo3-modulos-card-preco-area strong {
+    font-size: 22px !important;
+}
+
+.passo3-modulos-card-status {
+    font-size: 11px !important;
+}
+
+
+/* =========================================================
+   OPÇÃO DOS R$ 100
+========================================================= */
+
+.passo3-modulos-permanente-etiqueta {
+    font-size: 11px !important;
+}
+
+.passo3-modulos-permanente-conteudo > strong {
+    font-size: 18px !important;
+}
+
+.passo3-modulos-permanente-conteudo > p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+
+.passo3-modulos-permanente-valores span {
+    font-size: 12px !important;
+}
+
+.passo3-modulos-permanente-valores strong {
+    font-size: 16px !important;
+}
+
+.passo3-modulos-permanente-ativo-texto {
+    font-size: 12px !important;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.passo3-modulos-resumo-label {
+    font-size: 12px !important;
+}
+
+.passo3-modulos-resumo-quantidade {
+    font-size: 19px !important;
+}
+
+.passo3-modulos-resumo-nomes span {
+    font-size: 12px !important;
+}
+
+
+/* =========================================================
+   BENEFÍCIO PERMANENTE
+========================================================= */
+
+.passo3-modulos-resumo-beneficio strong {
+    font-size: 14px !important;
+}
+
+.passo3-modulos-resumo-beneficio span {
+    font-size: 12px !important;
+}
+
+
+/* =========================================================
+   DETALHAMENTO DOS VALORES
+========================================================= */
+
+.passo3-modulos-resumo-linha span,
+.passo3-modulos-resumo-linha strong {
+    font-size: 13px !important;
+}
+
+
+/* =========================================================
+   ECONOMIA MENSAL
+========================================================= */
+
+.passo3-modulos-resumo-economia > span {
+    font-size: 12px !important;
+}
+
+.passo3-modulos-resumo-economia > strong {
+    font-size: 17px !important;
+}
+
+.passo3-modulos-resumo-economia small {
+    font-size: 11px !important;
+}
+
+
+/* =========================================================
+   PAGAMENTO AVULSO E MENSAL
+========================================================= */
+
+.passo3-modulos-pagamento-tipo {
+    font-size: 11px !important;
+}
+
+.passo3-modulos-pagamento-badge {
+    font-size: 10px !important;
+}
+
+.passo3-modulos-pagamento-valor {
+    font-size: 28px !important;
+}
+
+.passo3-modulos-pagamento-valor-area > span {
+    font-size: 13px !important;
+}
+
+.passo3-modulos-pagamento-descricao {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+}
+
+.passo3-modulos-pagamento-observacao {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   FINALIZAÇÃO
+========================================================= */
+
+.passo3-modulos-finalizacao-numero {
+    font-size: 16px !important;
+}
+
+.passo3-modulos-finalizacao-info strong {
+    font-size: 15px !important;
+}
+
+.passo3-modulos-finalizacao-info span {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+}
+
+.passo3-modulos-botao-continuar {
+    font-size: 15px !important;
+}
+
+
+/* =========================================================
+   ERROS E CARREGAMENTO
+========================================================= */
+
+.passo3-modulos-erro strong {
+    font-size: 15px !important;
+}
+
+.passo3-modulos-erro span {
+    font-size: 13px !important;
+}
+
+.passo3-modulos-carregando span {
+    font-size: 14px !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .passo3-modulos-titulo {
+        font-size: 26px !important;
+    }
+
+    .passo3-modulos-etapa {
+        font-size: 11px !important;
+    }
+
+    .passo3-modulos-subtitulo {
+        font-size: 14px !important;
+    }
+
+    .passo3-modulos-informativo-texto strong {
+        font-size: 14px !important;
+    }
+
+    .passo3-modulos-informativo-texto span {
+        font-size: 12px !important;
+    }
+
+    .passo3-modulos-card-nome {
+        font-size: 20px !important;
+    }
+
+    .passo3-modulos-card-texto {
+        font-size: 14px !important;
+    }
+
+    .passo3-modulos-card-preco-area strong {
+        font-size: 21px !important;
+    }
+
+    .passo3-modulos-permanente-conteudo > strong {
+        font-size: 16px !important;
+    }
+
+    .passo3-modulos-permanente-conteudo > p {
+        font-size: 13px !important;
+    }
+
+    .passo3-modulos-resumo-quantidade {
+        font-size: 18px !important;
+    }
+
+    .passo3-modulos-resumo-linha span,
+    .passo3-modulos-resumo-linha strong {
+        font-size: 13px !important;
+    }
+
+    .passo3-modulos-pagamento-valor {
+        font-size: 27px !important;
+    }
+
+    .passo3-modulos-pagamento-descricao {
+        font-size: 12px !important;
+    }
+
+    .passo3-modulos-pagamento-observacao {
+        font-size: 11px !important;
+    }
+
+    .passo3-modulos-finalizacao-info strong {
+        font-size: 14px !important;
+    }
+
+    .passo3-modulos-finalizacao-info span {
+        font-size: 12px !important;
+    }
+
+    .passo3-modulos-botao-continuar {
+        font-size: 14px !important;
+    }
+}
