@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import favicon from "/favicon.png";
 import AreaLogin from "./inicio_modulos/arealogin";
 import LojasAvaliacao from "./inicio_modulos/lojasavaliacao";
 import Rodape from "./inicio_modulos/rodape";
@@ -189,7 +189,7 @@ export default function InicioModulos() {
 
         setModalContatoAberto(false);
 
-        navigate("/cadastrocomercios");
+        navigate("/cadastrocomercio");
 
     }
 
@@ -339,9 +339,9 @@ export default function InicioModulos() {
 
                             <div className="inicio-modulos-modal-marca">
 
-                            <div className="inicio-modulos-modal-icone">
+<div className="inicio-modulos-modal-icone">
     <img
-        src="/favicon.png"
+        src={favicon}
         alt="Iron Executions"
         className="inicio-modulos-modal-logo"
     />
