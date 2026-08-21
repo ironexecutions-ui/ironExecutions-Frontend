@@ -1869,3 +1869,374 @@
         min-height: 46px !important;
     }
 }
+
+/* =========================================================
+   PROCESSAMENTO DO FECHAMENTO DE CAIXA
+========================================================= */
+
+.fechamento-processando-ie {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 16px !important;
+
+    padding: 24px 18px !important;
+
+    border-radius: 16px !important;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(37, 99, 235, 0.12),
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(241, 245, 249, 0.96)
+        ) !important;
+
+    border: 1px solid rgba(30, 58, 138, 0.12) !important;
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 #ffffff !important;
+
+    animation:
+        fechamentoProcessandoEntradaIE 0.3s ease !important;
+}
+
+
+@keyframes fechamentoProcessandoEntradaIE {
+
+    from {
+        opacity: 0;
+        transform: translateY(6px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.fechamento-spinner-area-ie {
+    width: 70px !important;
+    height: 70px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+.fechamento-spinner-ie {
+    position: relative !important;
+
+    width: 58px !important;
+    height: 58px !important;
+
+    border-radius: 50% !important;
+
+    border: 5px solid rgba(37, 99, 235, 0.12) !important;
+    border-top-color: #1e3a8a !important;
+    border-right-color: #2563eb !important;
+
+    animation:
+        fechamentoSpinnerIE 0.8s linear infinite !important;
+
+    box-shadow:
+        0 0 22px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+.fechamento-spinner-centro-ie {
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 50% !important;
+
+    width: 26px !important;
+    height: 26px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #172554,
+            #2563eb
+        ) !important;
+
+    transform:
+        translate(-50%, -50%) !important;
+
+    box-shadow:
+        0 4px 12px rgba(30, 58, 138, 0.25) !important;
+}
+
+
+@keyframes fechamentoSpinnerIE {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   TEXTOS
+========================================================= */
+
+.fechamento-processando-info-ie {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    gap: 5px !important;
+
+    text-align: center !important;
+}
+
+
+.fechamento-processando-titulo-ie {
+    color: #172554 !important;
+
+    font-size: 17px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: -0.2px !important;
+}
+
+
+.fechamento-processando-subtitulo-ie {
+    min-height: 20px !important;
+
+    color: #475569 !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+
+    text-align: center !important;
+
+    animation:
+        fechamentoTextoIE 0.35s ease !important;
+}
+
+
+@keyframes fechamentoTextoIE {
+
+    from {
+        opacity: 0.3;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   ETAPAS
+========================================================= */
+
+.fechamento-etapas-ie {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+
+    padding: 5px 0 !important;
+}
+
+
+.fechamento-etapa-ie {
+    width: 54px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    gap: 6px !important;
+}
+
+
+.fechamento-etapa-ie span {
+    width: 30px !important;
+    height: 30px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    background: #e2e8f0 !important;
+
+    border: 2px solid #cbd5e1 !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        color 0.35s ease,
+        transform 0.35s ease !important;
+}
+
+
+.fechamento-etapa-ie small {
+    color: #64748b !important;
+
+    font-size: 9px !important;
+    font-weight: 700 !important;
+
+    text-align: center !important;
+}
+
+
+/* ETAPA ATIVA */
+
+.fechamento-etapa-ie.ativa span {
+    background:
+        linear-gradient(
+            145deg,
+            #172554,
+            #2563eb
+        ) !important;
+
+    border-color: #2563eb !important;
+
+    color: #ffffff !important;
+
+    transform: scale(1.08) !important;
+
+    box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.25) !important;
+}
+
+
+.fechamento-etapa-ie.ativa small {
+    color: #172554 !important;
+}
+
+
+/* CONCLUÍDO */
+
+.fechamento-etapa-ie.concluida span {
+    background: #15803d !important;
+
+    border-color: #16a34a !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 5px 14px rgba(22, 163, 74, 0.22) !important;
+}
+
+
+/* =========================================================
+   LINHAS ENTRE AS ETAPAS
+========================================================= */
+
+.fechamento-linha-ie {
+    flex: 1 !important;
+
+    max-width: 55px !important;
+    height: 3px !important;
+
+    margin-top: 14px !important;
+
+    border-radius: 20px !important;
+
+    background: #e2e8f0 !important;
+
+    transition:
+        background 0.45s ease !important;
+}
+
+
+.fechamento-linha-ie.ativa {
+    background:
+        linear-gradient(
+            90deg,
+            #1e3a8a,
+            #2563eb
+        ) !important;
+}
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+.fechamento-aviso-espera-ie {
+    max-width: 390px !important;
+
+    margin: 0 !important;
+
+    padding: 10px 14px !important;
+
+    border-radius: 10px !important;
+
+    background: rgba(37, 99, 235, 0.06) !important;
+
+    border: 1px solid rgba(37, 99, 235, 0.10) !important;
+
+    color: #334155 !important;
+
+    font-size: 10px !important;
+    font-weight: 600 !important;
+
+    line-height: 1.5 !important;
+
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .fechamento-processando-ie {
+        padding: 20px 10px !important;
+    }
+
+    .fechamento-etapa-ie {
+        width: 46px !important;
+    }
+
+    .fechamento-etapa-ie span {
+        width: 27px !important;
+        height: 27px !important;
+
+        font-size: 10px !important;
+    }
+
+    .fechamento-etapa-ie small {
+        font-size: 8px !important;
+    }
+
+    .fechamento-linha-ie {
+        margin-top: 12px !important;
+    }
+
+    .fechamento-processando-titulo-ie {
+        font-size: 15px !important;
+    }
+}

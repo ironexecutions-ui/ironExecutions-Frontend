@@ -13,6 +13,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
     const [comandas, setComandas] = useState([]);
     const [tempoLogout, setTempoLogout] = useState(null);
     const [fechandoCaixa, setFechandoCaixa] = useState(false);
+    const [etapaFechamento, setEtapaFechamento] = useState(0);
     const [dados, setDados] = useState(null);
     const [loja, setLoja] = useState(null);
     const [fade, setFade] = useState(false);
@@ -717,54 +718,178 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                         </button>
 
                         {/* BOTÃO FECHAR CAIXA */}
-                        <button
-                            className="per-btn fechar-caixa"
-                            disabled={fechandoCaixa}
-                            onClick={async () => {
+                    {/* BOTÃO FECHAR CAIXA */}
+{!fechandoCaixa ? (
+    <button
+        className="per-btn fechar-caixa fechamento-acao-principal-ie"
+        onClick={async () => {
 
-                                if (fechandoCaixa) return;
+            if (fechandoCaixa) return;
 
-                                try {
+            let intervaloEtapas = null;
 
-                                    setFechandoCaixa(true);
+            try {
 
-                                    const token = localStorage.getItem("token");
+                setFechandoCaixa(true);
+                setEtapaFechamento(1);
 
-                                    const resp = await fetch(`${API_URL}/caixa/fechar`, {
-                                        method: "POST",
-                                        headers: {
-                                            Authorization: `Bearer ${token}`
-                                        }
-                                    });
+                intervaloEtapas = setInterval(() => {
+                    setEtapaFechamento(prev => {
+                        if (prev >= 3) return prev;
+                        return prev + 1;
+                    });
+                }, 1400);
 
-                                    if (!resp.ok) {
+                const token = localStorage.getItem("token");
 
-                                        const erro = await resp.json();
+                const resp = await fetch(`${API_URL}/caixa/fechar`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
-                                        alert(erro.detail || "Erro ao fechar caixa");
+                if (!resp.ok) {
 
-                                        setFechandoCaixa(false);
+                    const erro = await resp.json();
 
-                                        return;
-                                    }
+                    throw new Error(
+                        erro.detail || "Erro ao fechar caixa"
+                    );
+                }
 
-                                    alert("Caixa fechado com sucesso");
+                clearInterval(intervaloEtapas);
 
-                                    carregarComandas();
+                setEtapaFechamento(4);
 
-                                } catch {
+                await carregarComandas();
 
-                                    alert("Erro ao fechar caixa");
+                setTimeout(() => {
+                    setFechandoCaixa(false);
+                    setEtapaFechamento(0);
+                }, 1200);
 
-                                } finally {
+            } catch (erro) {
 
-                                    setFechandoCaixa(false);
+                if (intervaloEtapas) {
+                    clearInterval(intervaloEtapas);
+                }
 
-                                }
-                            }}
-                        >
-                            {fechandoCaixa ? "Fechando caixa..." : "Fechar Caixa"}
-                        </button>
+                setFechandoCaixa(false);
+                setEtapaFechamento(0);
+
+                alert(
+                    erro.message || "Erro ao fechar caixa"
+                );
+            }
+        }}
+    >
+        Fechar Caixa
+    </button>
+) : (
+
+    <div className="fechamento-processando-ie">
+
+        <div className="fechamento-spinner-area-ie">
+
+            <div className="fechamento-spinner-ie">
+                <div className="fechamento-spinner-centro-ie"></div>
+            </div>
+
+        </div>
+
+        <div className="fechamento-processando-info-ie">
+
+            <strong className="fechamento-processando-titulo-ie">
+                {etapaFechamento === 4
+                    ? "Caixa fechado com sucesso!"
+                    : "Fechando o caixa..."}
+            </strong>
+
+            <span className="fechamento-processando-subtitulo-ie">
+                {etapaFechamento === 1 &&
+                    "Conferindo as vendas realizadas..."}
+
+                {etapaFechamento === 2 &&
+                    "Calculando os valores do fechamento..."}
+
+                {etapaFechamento === 3 &&
+                    "Gerando a comanda do caixa..."}
+
+                {etapaFechamento === 4 &&
+                    "Fechamento concluído e comanda registrada."}
+            </span>
+
+        </div>
+
+        <div className="fechamento-etapas-ie">
+
+            <div
+                className={`fechamento-etapa-ie ${
+                    etapaFechamento >= 1 ? "ativa" : ""
+                }`}
+            >
+                <span>1</span>
+                <small>Vendas</small>
+            </div>
+
+            <div
+                className={`fechamento-linha-ie ${
+                    etapaFechamento >= 2 ? "ativa" : ""
+                }`}
+            ></div>
+
+            <div
+                className={`fechamento-etapa-ie ${
+                    etapaFechamento >= 2 ? "ativa" : ""
+                }`}
+            >
+                <span>2</span>
+                <small>Valores</small>
+            </div>
+
+            <div
+                className={`fechamento-linha-ie ${
+                    etapaFechamento >= 3 ? "ativa" : ""
+                }`}
+            ></div>
+
+            <div
+                className={`fechamento-etapa-ie ${
+                    etapaFechamento >= 3 ? "ativa" : ""
+                }`}
+            >
+                <span>3</span>
+                <small>Comanda</small>
+            </div>
+
+            <div
+                className={`fechamento-linha-ie ${
+                    etapaFechamento >= 4 ? "ativa" : ""
+                }`}
+            ></div>
+
+            <div
+                className={`fechamento-etapa-ie ${
+                    etapaFechamento >= 4 ? "ativa concluida" : ""
+                }`}
+            >
+                <span>
+                    {etapaFechamento >= 4 ? "✓" : "4"}
+                </span>
+                <small>Concluído</small>
+            </div>
+
+        </div>
+
+        {etapaFechamento < 4 && (
+            <p className="fechamento-aviso-espera-ie">
+                Aguarde alguns instantes. Não feche esta janela enquanto o fechamento está sendo processado.
+            </p>
+        )}
+
+    </div>
+)}
 
                         {/* LISTA DE COMANDAS */}
                         <div className="lista-comandas">
