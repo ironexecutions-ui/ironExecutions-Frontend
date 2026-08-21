@@ -127,8 +127,6 @@ export default function Passo3Modulos({ onContinuar }) {
 
     /* =====================================================
        VALOR ORIGINAL
-
-       Soma o preço normal de todos os módulos.
     ===================================================== */
 
     const valorOriginal = useMemo(() => {
@@ -145,9 +143,9 @@ export default function Passo3Modulos({ onContinuar }) {
     /* =====================================================
        DESCONTO POR QUANTIDADE
 
-       1 módulo     = 0%
-       2 módulos    = 15%
-       3 ou mais    = 30%
+       1 módulo = 0%
+       2 módulos = 15%
+       3 ou mais = 30%
     ===================================================== */
 
     const percentualDescontoQuantidade = useMemo(() => {
@@ -175,19 +173,16 @@ export default function Passo3Modulos({ onContinuar }) {
 
 
     /* =====================================================
-       VALOR DEPOIS DO DESCONTO POR QUANTIDADE
+       VALOR APÓS DESCONTO POR QUANTIDADE
     ===================================================== */
 
     const valorDepoisDescontoQuantidade =
-        valorOriginal - valorDescontoQuantidade;
+        valorOriginal -
+        valorDescontoQuantidade;
 
 
     /* =====================================================
-       DESCONTO PERMANENTE
-
-       Caso o cliente escolha pagar R$ 100 adicionais
-       por módulo na contratação, recebe mais 50%
-       de desconto permanentemente.
+       DESCONTO PERMANENTE DE 50%
     ===================================================== */
 
     const percentualDescontoPermanente =
@@ -210,9 +205,9 @@ export default function Passo3Modulos({ onContinuar }) {
 
 
     /* =====================================================
-       ADICIONAL DA CONTRATAÇÃO
+       PAGAMENTO AVULSO
 
-       R$ 100 por módulo.
+       R$ 100 por módulo contratado.
     ===================================================== */
 
     const valorAdicionalContratacao =
@@ -222,11 +217,12 @@ export default function Passo3Modulos({ onContinuar }) {
 
 
     /* =====================================================
-       ECONOMIA MENSAL TOTAL
+       ECONOMIA MENSAL
     ===================================================== */
 
     const economiaMensal =
-        valorOriginal - valorMensalFinal;
+        valorOriginal -
+        valorMensalFinal;
 
 
     /* =====================================================
@@ -268,7 +264,9 @@ export default function Passo3Modulos({ onContinuar }) {
                 selecionados.length,
 
             valor_original:
-                Number(valorOriginal.toFixed(2)),
+                Number(
+                    valorOriginal.toFixed(2)
+                ),
 
             percentual_desconto_quantidade:
                 percentualDescontoQuantidade,
@@ -294,9 +292,19 @@ export default function Passo3Modulos({ onContinuar }) {
                     valorDescontoPermanente.toFixed(2)
                 ),
 
+            pagamento_avulso:
+                Number(
+                    valorAdicionalContratacao.toFixed(2)
+                ),
+
             adicional_contratacao:
                 Number(
                     valorAdicionalContratacao.toFixed(2)
+                ),
+
+            pagamento_mensal:
+                Number(
+                    valorMensalFinal.toFixed(2)
                 ),
 
             mensalidade_final:
@@ -318,9 +326,9 @@ export default function Passo3Modulos({ onContinuar }) {
 
         <section className="passo3-modulos-painel">
 
-            {/* =============================================
+            {/* =================================================
                 CABEÇALHO
-            ============================================= */}
+            ================================================= */}
 
             <header className="passo3-modulos-cabecalho">
 
@@ -358,9 +366,9 @@ export default function Passo3Modulos({ onContinuar }) {
             </header>
 
 
-            {/* =============================================
+            {/* =================================================
                 INFORMAÇÃO DE DESCONTOS
-            ============================================= */}
+            ================================================= */}
 
             <div className="passo3-modulos-informativo">
 
@@ -385,9 +393,9 @@ export default function Passo3Modulos({ onContinuar }) {
             </div>
 
 
-            {/* =============================================
+            {/* =================================================
                 ERRO
-            ============================================= */}
+            ================================================= */}
 
             {erro && (
 
@@ -406,9 +414,9 @@ export default function Passo3Modulos({ onContinuar }) {
             )}
 
 
-            {/* =============================================
+            {/* =================================================
                 CARREGAMENTO
-            ============================================= */}
+            ================================================= */}
 
             {carregando ? (
 
@@ -426,9 +434,9 @@ export default function Passo3Modulos({ onContinuar }) {
 
                 <>
 
-                    {/* =====================================
+                    {/* =========================================
                         GRID DOS MÓDULOS
-                    ===================================== */}
+                    ========================================= */}
 
                     <div className="passo3-modulos-grid">
 
@@ -516,9 +524,9 @@ export default function Passo3Modulos({ onContinuar }) {
                     </div>
 
 
-                    {/* =====================================
-                        DESCONTO PERMANENTE
-                    ===================================== */}
+                    {/* =========================================
+                        OPÇÃO DOS R$ 100
+                    ========================================= */}
 
                     {selecionados.length > 0 && (
 
@@ -568,7 +576,7 @@ export default function Passo3Modulos({ onContinuar }) {
                                     <div className="passo3-modulos-permanente-valores">
 
                                         <span>
-                                            Adicional na contratação
+                                            Pagamento único para ativar
                                         </span>
 
                                         <strong>
@@ -584,8 +592,7 @@ export default function Passo3Modulos({ onContinuar }) {
 
                                         <div className="passo3-modulos-permanente-ativo-texto">
 
-                                            Benefício ativado para
-                                            esta contratação
+                                            Benefício de 50% ativado
 
                                         </div>
 
@@ -600,9 +607,9 @@ export default function Passo3Modulos({ onContinuar }) {
                     )}
 
 
-                    {/* =====================================
-                        RESUMO
-                    ===================================== */}
+                    {/* =========================================
+                        RESUMO DA CONFIGURAÇÃO
+                    ========================================= */}
 
                     <div className="passo3-modulos-resumo">
 
@@ -624,6 +631,7 @@ export default function Passo3Modulos({ onContinuar }) {
 
                             </strong>
 
+
                             {selecionados.length > 0 && (
 
                                 <div className="passo3-modulos-resumo-nomes">
@@ -642,6 +650,7 @@ export default function Passo3Modulos({ onContinuar }) {
 
                             )}
 
+
                             {descontoPermanente && (
 
                                 <div className="passo3-modulos-resumo-beneficio">
@@ -651,7 +660,7 @@ export default function Passo3Modulos({ onContinuar }) {
                                     </strong>
 
                                     <span>
-                                        Aplicado após o desconto
+                                        Aplicado depois do desconto
                                         por quantidade.
                                     </span>
 
@@ -662,9 +671,9 @@ export default function Passo3Modulos({ onContinuar }) {
                         </div>
 
 
-                        {/* =================================
-                            VALORES
-                        ================================= */}
+                        {/* =====================================
+                            DETALHAMENTO DOS VALORES
+                        ===================================== */}
 
                         <div className="passo3-modulos-resumo-valores">
 
@@ -673,7 +682,7 @@ export default function Passo3Modulos({ onContinuar }) {
                                 <div className="passo3-modulos-resumo-linha">
 
                                     <span>
-                                        Valor dos módulos
+                                        Valor original
                                     </span>
 
                                     <strong>
@@ -726,31 +735,16 @@ export default function Passo3Modulos({ onContinuar }) {
                             )}
 
 
-                            {descontoPermanente && (
-
-                                <div className="passo3-modulos-resumo-linha passo3-modulos-resumo-adicional">
-
-                                    <span>
-                                        Adicional na contratação
-                                    </span>
-
-                                    <strong>
-                                        {formatarPreco(
-                                            valorAdicionalContratacao
-                                        )}
-                                    </strong>
-
-                                </div>
-
-                            )}
-
+                            {/* =================================
+                                ECONOMIA MENSAL
+                            ================================= */}
 
                             {economiaMensal > 0 && (
 
                                 <div className="passo3-modulos-resumo-economia">
 
                                     <span>
-                                        Sua economia mensal
+                                        Economia mensal
                                     </span>
 
                                     <strong>
@@ -760,11 +754,17 @@ export default function Passo3Modulos({ onContinuar }) {
                                     </strong>
 
                                     {descontoPermanente && (
+
                                         <small>
-                                            Economia total de aproximadamente{" "}
+
+                                            Economia de aproximadamente{" "}
+
                                             {percentualEconomiaEfetiva.toFixed(0)}%
+
                                             {" "}sobre o valor original
+
                                         </small>
+
                                     )}
 
                                 </div>
@@ -772,36 +772,134 @@ export default function Passo3Modulos({ onContinuar }) {
                             )}
 
 
-                            <div className="passo3-modulos-resumo-total">
+                            {/* =================================
+                                PAGAMENTOS SEPARADOS
+                            ================================= */}
 
-                                <span>
-                                    Sua mensalidade
-                                </span>
+                            {selecionados.length > 0 && (
 
-                                <div>
+                                <div className="passo3-modulos-pagamentos-separados">
 
-                                    <strong>
-                                        {formatarPreco(
-                                            valorMensalFinal
-                                        )}
-                                    </strong>
 
-                                    <small>
-                                        / mês
-                                    </small>
+                                    {/* =========================
+                                        PAGAMENTO AVULSO
+                                    ========================= */}
+
+                                    {descontoPermanente && (
+
+                                        <div className="passo3-modulos-pagamento-avulso">
+
+                                            <div className="passo3-modulos-pagamento-cabecalho">
+
+                                                <span className="passo3-modulos-pagamento-tipo">
+                                                    PAGAMENTO AVULSO
+                                                </span>
+
+                                                <span className="passo3-modulos-pagamento-badge">
+                                                    UMA ÚNICA VEZ
+                                                </span>
+
+                                            </div>
+
+
+                                            <strong className="passo3-modulos-pagamento-valor">
+
+                                                {formatarPreco(
+                                                    valorAdicionalContratacao
+                                                )}
+
+                                            </strong>
+
+
+                                            <span className="passo3-modulos-pagamento-descricao">
+
+                                                {selecionados.length}{" "}
+                                                {selecionados.length === 1
+                                                    ? "módulo"
+                                                    : "módulos"}
+                                                {" "}× R$ 100,00
+
+                                            </span>
+
+
+                                            <small className="passo3-modulos-pagamento-observacao">
+
+                                                Pago somente uma vez
+                                                na contratação para ativar
+                                                o desconto permanente
+                                                de 50%.
+
+                                            </small>
+
+                                        </div>
+
+                                    )}
+
+
+                                    {/* =========================
+                                        PAGAMENTO MENSAL
+                                    ========================= */}
+
+                                    <div className="passo3-modulos-pagamento-mensal">
+
+                                        <div className="passo3-modulos-pagamento-cabecalho">
+
+                                            <span className="passo3-modulos-pagamento-tipo">
+                                                PAGAMENTO MENSAL
+                                            </span>
+
+                                            <span className="passo3-modulos-pagamento-badge">
+                                                MENSALIDADE
+                                            </span>
+
+                                        </div>
+
+
+                                        <div className="passo3-modulos-pagamento-valor-area">
+
+                                            <strong className="passo3-modulos-pagamento-valor">
+
+                                                {formatarPreco(
+                                                    valorMensalFinal
+                                                )}
+
+                                            </strong>
+
+                                            <span>
+                                                / mês
+                                            </span>
+
+                                        </div>
+
+
+                                        <span className="passo3-modulos-pagamento-descricao">
+
+                                            {descontoPermanente
+
+                                                ? "Mensalidade final com todos os descontos aplicados."
+
+                                                : percentualDescontoQuantidade > 0
+
+                                                    ? `Mensalidade com ${percentualDescontoQuantidade}% de desconto por quantidade.`
+
+                                                    : "Mensalidade dos módulos selecionados."}
+
+                                        </span>
+
+                                    </div>
 
                                 </div>
 
-                            </div>
+                            )}
 
                         </div>
 
                     </div>
 
 
-                    {/* =====================================
+                    {/* =========================================
                         FINALIZAÇÃO
-                    ===================================== */}
+                    ========================================= */}
 
                     <div className="passo3-modulos-finalizacao">
 
@@ -820,14 +918,21 @@ export default function Passo3Modulos({ onContinuar }) {
                                 <span>
 
                                     {selecionados.length === 0
+
                                         ? "Selecione pelo menos um módulo para continuar."
-                                        : `Sua mensalidade atual é de ${formatarPreco(valorMensalFinal)}.`}
+
+                                        : descontoPermanente
+
+                                            ? `Pagamento avulso de ${formatarPreco(valorAdicionalContratacao)} e mensalidade de ${formatarPreco(valorMensalFinal)}.`
+
+                                            : `Sua mensalidade será de ${formatarPreco(valorMensalFinal)}.`}
 
                                 </span>
 
                             </div>
 
                         </div>
+
 
                         <button
                             type="button"
