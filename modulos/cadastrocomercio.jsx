@@ -550,7 +550,7 @@ export default function CadastroComercio() {
                     onClick={limparCadastro}
                     className="cadastro-comercio-botao-limpar"
                 >
-                    Começar novamente
+                  Começar novamente
                 </button>
 
             </div>
