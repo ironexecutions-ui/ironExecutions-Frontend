@@ -197,7 +197,7 @@ async function enviarImagemVps(arquivo) {
     formData.append("arquivo", arquivo);
 
     const resp = await fetch(
-        `${API_URL}/upload/imagem`,
+        `${API_URL}/arquivos/imagem`,
         {
             method: "POST",
             body: formData
@@ -206,9 +206,18 @@ async function enviarImagemVps(arquivo) {
 
     const json = await resp.json();
 
+    console.log("[UPLOAD VPS] STATUS:", resp.status);
+    console.log("[UPLOAD VPS] RESPOSTA:", json);
+
     if (!resp.ok) {
+
+        const mensagem =
+            typeof json.detail === "string"
+                ? json.detail
+                : JSON.stringify(json.detail);
+
         throw new Error(
-            json.detail || "Erro ao enviar imagem"
+            mensagem || "Erro ao enviar imagem"
         );
     }
 
