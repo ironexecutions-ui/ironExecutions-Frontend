@@ -1004,333 +1004,484 @@
 }
 
 /* =========================================================
-   PASSO 3
-   SELEÇÃO DE MÓDULOS
+   BENEFÍCIO PERMANENTE ATIVO
 ========================================================= */
 
-.passo3-modulos-painel {
-    width: 100%;
-    max-width: 1280px;
+.passo3-modulos-resumo-beneficio {
+    width: fit-content;
+    max-width: 100%;
 
-    margin: 28px auto;
-    padding: 26px;
+    margin-top: 10px;
+    padding: 9px 11px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 
     box-sizing: border-box;
 
     background:
-        radial-gradient(
-            circle at top right,
-            rgba(18, 61, 114, 0.07),
-            transparent 32%
-        ),
         linear-gradient(
-            145deg,
-            #f8fafc 0%,
-            #f1f5f9 100%
+            135deg,
+            rgba(22, 163, 74, 0.07),
+            rgba(34, 197, 94, 0.025)
         );
 
-    border: 1px solid #dfe5ec;
-    border-radius: 18px;
+    border: 1px solid rgba(22, 163, 74, 0.16);
+    border-radius: 8px;
+}
 
-    box-shadow:
-        0 14px 40px rgba(15, 23, 42, 0.07);
+.passo3-modulos-resumo-beneficio strong {
+    color: #15803d !important;
 
-    color: #0f172a;
+    font-size: 10px;
+    font-weight: 850;
+}
 
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+.passo3-modulos-resumo-beneficio span {
+    color: #64748b !important;
+
+    font-size: 9px;
+    font-weight: 550;
+
+    line-height: 1.4;
 }
 
 
 /* =========================================================
-   CABEÇALHO
+   ECONOMIA MENSAL
 ========================================================= */
 
-.passo3-modulos-cabecalho {
-    display: flex;
+.passo3-modulos-resumo-economia {
+    margin-top: 6px;
+    padding: 10px 11px;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
-    justify-content: space-between;
 
-    gap: 24px;
+    gap: 3px 12px;
 
-    margin-bottom: 22px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(22, 163, 74, 0.06),
+            rgba(255, 255, 255, 0.8)
+        );
+
+    border: 1px solid rgba(22, 163, 74, 0.13);
+    border-radius: 9px;
+}
+
+.passo3-modulos-resumo-economia > span {
+    color: #475569 !important;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.passo3-modulos-resumo-economia > strong {
+    color: #15803d !important;
+
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.passo3-modulos-resumo-economia small {
+    grid-column: 1 / -1;
+
+    color: #64748b !important;
+
+    font-size: 8px;
+    font-weight: 550;
+
+    line-height: 1.4;
 }
 
 
-.passo3-modulos-cabecalho-textos {
-    min-width: 0;
+/* =========================================================
+   CONTAINER DOS PAGAMENTOS
+========================================================= */
+
+.passo3-modulos-pagamentos-separados {
+    width: 100%;
+
+    margin-top: 9px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+
+/* =========================================================
+   BASE DOS CARDS DE PAGAMENTO
+========================================================= */
+
+.passo3-modulos-pagamento-avulso,
+.passo3-modulos-pagamento-mensal {
+    width: 100%;
+
+    position: relative;
+
+    padding: 12px 13px;
 
     display: flex;
     flex-direction: column;
 
     gap: 5px;
-}
 
-
-.passo3-modulos-etapa {
-    color: #123d72 !important;
-
-    font-size: 10px;
-    font-weight: 850;
-
-    letter-spacing: 1.7px;
-}
-
-
-.passo3-modulos-titulo {
-    margin: 0;
-
-    color: #0f172a !important;
-
-    font-size: 27px;
-    font-weight: 850;
-
-    letter-spacing: -0.7px;
-}
-
-
-.passo3-modulos-subtitulo {
-    max-width: 720px;
-
-    margin: 2px 0 0;
-
-    color: #64748b !important;
-
-    font-size: 13px;
-    font-weight: 500;
-
-    line-height: 1.55;
-}
-
-
-/* =========================================================
-   INDICADOR
-========================================================= */
-
-.passo3-modulos-etapa-indicador {
-    min-width: 96px;
-
-    padding: 10px 14px;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 2px;
-
-    background: #ffffff;
-
-    border: 1px solid #dce3eb;
-    border-radius: 11px;
-
-    box-shadow:
-        0 4px 12px rgba(15, 23, 42, 0.04);
-}
-
-
-.passo3-modulos-etapa-indicador span {
-    color: #64748b !important;
-
-    font-size: 9px;
-    font-weight: 700;
-
-    text-transform: uppercase;
-}
-
-
-.passo3-modulos-etapa-indicador strong {
-    color: #123d72 !important;
-
-    font-size: 15px;
-    font-weight: 850;
-}
-
-
-/* =========================================================
-   INFORMATIVO DE DESCONTO
-========================================================= */
-
-.passo3-modulos-informativo {
-    display: flex;
-    align-items: center;
-
-    gap: 13px;
-
-    margin-bottom: 18px;
-    padding: 14px 16px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(18, 61, 114, 0.06),
-            rgba(18, 61, 114, 0.025)
-        );
-
-    border: 1px solid
-        rgba(18, 61, 114, 0.12);
-
-    border-radius: 12px;
-}
-
-
-.passo3-modulos-informativo-icone {
-    width: 38px;
-    height: 38px;
-
-    flex: 0 0 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #123d72;
+    box-sizing: border-box;
 
     border-radius: 10px;
 
-    color: #ffffff !important;
+    overflow: hidden;
 
-    font-size: 15px;
-    font-weight: 900;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.passo3-modulos-pagamento-avulso:hover,
+.passo3-modulos-pagamento-mensal:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   PAGAMENTO AVULSO
+========================================================= */
+
+.passo3-modulos-pagamento-avulso {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(180, 83, 9, 0.07),
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            #fffdf8,
+            #ffffff
+        );
+
+    border: 1px solid rgba(180, 83, 9, 0.17);
 
     box-shadow:
-        0 5px 14px rgba(18, 61, 114, 0.16);
+        0 4px 12px rgba(120, 53, 15, 0.04);
+}
+
+.passo3-modulos-pagamento-avulso:hover {
+    border-color: rgba(180, 83, 9, 0.28);
+
+    box-shadow:
+        0 7px 18px rgba(120, 53, 15, 0.07);
 }
 
 
-.passo3-modulos-informativo-texto {
-    display: flex;
-    flex-direction: column;
+/* detalhe lateral */
 
-    gap: 2px;
-}
+.passo3-modulos-pagamento-avulso::before {
+    content: "";
 
+    position: absolute;
 
-.passo3-modulos-informativo-texto strong {
-    color: #0f172a !important;
+    top: 9px;
+    bottom: 9px;
+    left: 0;
 
-    font-size: 12px;
-    font-weight: 800;
-}
+    width: 3px;
 
+    border-radius: 0 4px 4px 0;
 
-.passo3-modulos-informativo-texto span {
-    color: #64748b !important;
-
-    font-size: 10px;
-    font-weight: 500;
-
-    line-height: 1.5;
+    background:
+        linear-gradient(
+            180deg,
+            #d97706,
+            #f59e0b
+        );
 }
 
 
 /* =========================================================
-   GRID
+   PAGAMENTO MENSAL
 ========================================================= */
 
-.passo3-modulos-grid {
+.passo3-modulos-pagamento-mensal {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(18, 61, 114, 0.08),
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            #f8fbff,
+            #ffffff
+        );
+
+    border: 1px solid rgba(18, 61, 114, 0.17);
+
+    box-shadow:
+        0 4px 12px rgba(18, 61, 114, 0.05);
+}
+
+.passo3-modulos-pagamento-mensal:hover {
+    border-color: rgba(18, 61, 114, 0.3);
+
+    box-shadow:
+        0 7px 18px rgba(18, 61, 114, 0.08);
+}
+
+
+/* detalhe lateral */
+
+.passo3-modulos-pagamento-mensal::before {
+    content: "";
+
+    position: absolute;
+
+    top: 9px;
+    bottom: 9px;
+    left: 0;
+
+    width: 3px;
+
+    border-radius: 0 4px 4px 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #123d72,
+            #2563eb
+        );
+}
+
+
+/* =========================================================
+   CABEÇALHO DOS PAGAMENTOS
+========================================================= */
+
+.passo3-modulos-pagamento-cabecalho {
     width: 100%;
 
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
 
-    gap: 16px;
+.passo3-modulos-pagamento-tipo {
+    color: #475569 !important;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
 }
 
 
 /* =========================================================
-   CARD
+   BADGE
 ========================================================= */
 
-.passo3-modulos-card {
-    min-width: 0;
-    min-height: 230px;
+.passo3-modulos-pagamento-badge {
+    padding: 3px 6px;
+
+    border-radius: 5px;
+
+    font-size: 7px;
+    font-weight: 850;
+
+    letter-spacing: 0.5px;
+
+    white-space: nowrap;
+}
+
+.passo3-modulos-pagamento-avulso
+.passo3-modulos-pagamento-badge {
+    background: rgba(217, 119, 6, 0.08);
+
+    border: 1px solid rgba(217, 119, 6, 0.12);
+
+    color: #b45309 !important;
+}
+
+.passo3-modulos-pagamento-mensal
+.passo3-modulos-pagamento-badge {
+    background: rgba(18, 61, 114, 0.07);
+
+    border: 1px solid rgba(18, 61, 114, 0.11);
+
+    color: #123d72 !important;
+}
+
+
+/* =========================================================
+   VALOR
+========================================================= */
+
+.passo3-modulos-pagamento-valor {
+    margin-top: 2px;
+
+    color: #0f172a !important;
+
+    font-size: 21px;
+    font-weight: 900;
+
+    letter-spacing: -0.6px;
+
+    line-height: 1.1;
+}
+
+.passo3-modulos-pagamento-mensal
+.passo3-modulos-pagamento-valor {
+    color: #123d72 !important;
+}
+
+.passo3-modulos-pagamento-avulso
+.passo3-modulos-pagamento-valor {
+    color: #92400e !important;
+}
+
+
+/* =========================================================
+   VALOR + /MÊS
+========================================================= */
+
+.passo3-modulos-pagamento-valor-area {
+    display: flex;
+    align-items: baseline;
+
+    gap: 4px;
+}
+
+.passo3-modulos-pagamento-valor-area > span {
+    color: #64748b !important;
+
+    font-size: 9px;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.passo3-modulos-pagamento-descricao {
+    color: #475569 !important;
+
+    font-size: 9px;
+    font-weight: 650;
+
+    line-height: 1.45;
+}
+
+.passo3-modulos-pagamento-observacao {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #7c8798 !important;
+
+    font-size: 8px;
+    font-weight: 500;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   OPÇÃO DE DESCONTO PERMANENTE
+========================================================= */
+
+.passo3-modulos-permanente {
+    width: 100%;
+
+    margin-top: 18px;
+}
+
+.passo3-modulos-permanente-opcao {
+    width: 100%;
 
     position: relative;
 
     display: flex;
-    flex-direction: column;
+    align-items: flex-start;
 
-    padding: 19px;
+    gap: 13px;
 
-    text-align: left;
+    padding: 16px;
 
     box-sizing: border-box;
 
+    text-align: left;
+
     background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fafbfc
-        );
+        radial-gradient(
+            circle at top right,
+            rgba(18, 61, 114, 0.06),
+            transparent 38%
+        ),
+        #ffffff;
 
     border: 1px solid #dce3eb;
-    border-radius: 14px;
-
-    outline: none;
-
-    cursor: pointer;
+    border-radius: 13px;
 
     font-family: inherit;
+
+    cursor: pointer;
 
     box-shadow:
         0 4px 14px rgba(15, 23, 42, 0.04);
 
     transition:
-        transform 0.22s ease,
-        border-color 0.22s ease,
-        box-shadow 0.22s ease,
-        background 0.22s ease;
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
-
-.passo3-modulos-card:hover {
-    transform: translateY(-3px);
+.passo3-modulos-permanente-opcao:hover {
+    transform: translateY(-2px);
 
     border-color: #aab8c8;
 
     box-shadow:
-        0 12px 28px rgba(15, 23, 42, 0.08);
+        0 9px 22px rgba(15, 23, 42, 0.07);
 }
 
-
-/* =========================================================
-   CARD SELECIONADO
-========================================================= */
-
-.passo3-modulos-card-ativo {
+.passo3-modulos-permanente-opcao-ativa {
     background:
         radial-gradient(
             circle at top right,
-            rgba(18, 61, 114, 0.09),
+            rgba(22, 163, 74, 0.08),
             transparent 40%
         ),
-        #ffffff;
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8fff9
+        );
 
-    border: 2px solid #123d72;
+    border-color: rgba(22, 163, 74, 0.35);
 
     box-shadow:
-        0 10px 26px rgba(18, 61, 114, 0.12);
+        0 8px 22px rgba(22, 163, 74, 0.07);
 }
 
 
 /* =========================================================
-   CHECK
+   CHECK DA OPÇÃO
 ========================================================= */
 
-.passo3-modulos-check {
+.passo3-modulos-permanente-check {
     width: 24px;
     height: 24px;
 
-    position: absolute;
-
-    top: 15px;
-    right: 15px;
+    flex: 0 0 24px;
 
     display: flex;
     align-items: center;
@@ -1343,7 +1494,7 @@
 
     color: #ffffff !important;
 
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 900;
 
     transition:
@@ -1351,571 +1502,123 @@
         border-color 0.2s ease;
 }
 
+.passo3-modulos-permanente-opcao-ativa
+.passo3-modulos-permanente-check {
+    background: #15803d;
 
-.passo3-modulos-card-ativo
-.passo3-modulos-check {
-    background: #123d72;
-
-    border-color: #123d72;
+    border-color: #15803d;
 }
 
 
 /* =========================================================
-   CARD TOPO
+   CONTEÚDO DA OPÇÃO
 ========================================================= */
 
-.passo3-modulos-card-topo {
-    padding-right: 38px;
+.passo3-modulos-permanente-conteudo {
+    min-width: 0;
+    flex: 1;
 
     display: flex;
     flex-direction: column;
 
-    gap: 6px;
+    gap: 4px;
 }
 
-
-.passo3-modulos-card-label {
+.passo3-modulos-permanente-etiqueta {
     width: fit-content;
 
-    padding: 4px 7px;
+    padding: 3px 6px;
 
-    background:
-        rgba(18, 61, 114, 0.07);
+    background: rgba(18, 61, 114, 0.06);
 
-    border-radius: 5px;
+    border-radius: 4px;
 
     color: #123d72 !important;
 
-    font-size: 8px;
+    font-size: 7px;
     font-weight: 900;
 
     letter-spacing: 1px;
 }
 
-
-.passo3-modulos-card-nome {
-    margin: 0;
+.passo3-modulos-permanente-conteudo > strong {
+    margin-top: 2px;
 
     color: #0f172a !important;
-
-    font-size: 17px;
-    font-weight: 850;
-
-    line-height: 1.2;
-}
-
-
-/* =========================================================
-   DESCRIÇÃO
-========================================================= */
-
-.passo3-modulos-card-texto {
-    flex: 1;
-
-    margin: 13px 0 20px;
-
-    color: #64748b !important;
-
-    font-size: 11px;
-    font-weight: 500;
-
-    line-height: 1.6;
-}
-
-
-/* =========================================================
-   RODAPÉ DO CARD
-========================================================= */
-
-.passo3-modulos-card-rodape {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-
-    gap: 12px;
-
-    padding-top: 14px;
-
-    border-top: 1px solid #edf0f3;
-}
-
-
-.passo3-modulos-card-preco-area {
-    display: flex;
-    flex-direction: column;
-
-    gap: 2px;
-}
-
-
-.passo3-modulos-card-preco-area span {
-    color: #7c8798 !important;
-
-    font-size: 9px;
-    font-weight: 600;
-}
-
-
-.passo3-modulos-card-preco-area strong {
-    color: #0f172a !important;
-
-    font-size: 18px;
-    font-weight: 900;
-
-    letter-spacing: -0.4px;
-}
-
-
-.passo3-modulos-card-status {
-    padding: 5px 8px;
-
-    background: #f1f5f9;
-
-    border-radius: 6px;
-
-    color: #64748b !important;
-
-    font-size: 9px;
-    font-weight: 800;
-}
-
-
-.passo3-modulos-card-ativo
-.passo3-modulos-card-status {
-    background:
-        rgba(18, 61, 114, 0.09);
-
-    color: #123d72 !important;
-}
-
-
-/* =========================================================
-   RESUMO
-========================================================= */
-
-.passo3-modulos-resumo {
-    margin-top: 18px;
-    padding: 18px;
-
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr) 280px;
-
-    gap: 25px;
-
-    background: #ffffff;
-
-    border: 1px solid #dce3eb;
-    border-radius: 14px;
-
-    box-shadow:
-        0 5px 16px rgba(15, 23, 42, 0.04);
-}
-
-
-.passo3-modulos-resumo-esquerda {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 6px;
-}
-
-
-.passo3-modulos-resumo-label {
-    color: #123d72 !important;
-
-    font-size: 9px;
-    font-weight: 900;
-
-    letter-spacing: 1.2px;
-}
-
-
-.passo3-modulos-resumo-quantidade {
-    color: #0f172a !important;
-
-    font-size: 15px;
-    font-weight: 850;
-}
-
-
-/* =========================================================
-   NOMES SELECIONADOS
-========================================================= */
-
-.passo3-modulos-resumo-nomes {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 6px;
-
-    margin-top: 3px;
-}
-
-
-.passo3-modulos-resumo-nomes span {
-    padding: 5px 8px;
-
-    background: #f1f5f9;
-
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-
-    color: #475569 !important;
-
-    font-size: 9px;
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   VALORES
-========================================================= */
-
-.passo3-modulos-resumo-valores {
-    display: flex;
-    flex-direction: column;
-
-    gap: 7px;
-}
-
-
-.passo3-modulos-resumo-linha {
-    display: flex;
-    justify-content: space-between;
-
-    gap: 15px;
-}
-
-
-.passo3-modulos-resumo-linha span,
-.passo3-modulos-resumo-linha strong {
-    color: #64748b !important;
-
-    font-size: 10px;
-}
-
-
-.passo3-modulos-resumo-desconto span,
-.passo3-modulos-resumo-desconto strong {
-    color: #15803d !important;
-
-    font-weight: 800;
-}
-
-
-.passo3-modulos-resumo-total {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    margin-top: 4px;
-    padding-top: 10px;
-
-    border-top: 1px solid #e8edf3;
-}
-
-
-.passo3-modulos-resumo-total > span {
-    color: #334155 !important;
-
-    font-size: 11px;
-    font-weight: 750;
-}
-
-
-.passo3-modulos-resumo-total div {
-    display: flex;
-    align-items: baseline;
-
-    gap: 4px;
-}
-
-
-.passo3-modulos-resumo-total strong {
-    color: #123d72 !important;
-
-    font-size: 22px;
-    font-weight: 900;
-}
-
-
-.passo3-modulos-resumo-total small {
-    color: #64748b !important;
-
-    font-size: 9px;
-}
-
-
-/* =========================================================
-   FINALIZAÇÃO
-========================================================= */
-
-.passo3-modulos-finalizacao {
-    margin-top: 16px;
-    padding: 17px 18px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 20px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #eef2f6,
-            #f8fafc
-        );
-
-    border: 1px solid #dfe4ea;
-    border-radius: 13px;
-}
-
-
-.passo3-modulos-finalizacao-info {
-    display: flex;
-    align-items: center;
-
-    gap: 11px;
-}
-
-
-.passo3-modulos-finalizacao-numero {
-    width: 36px;
-    height: 36px;
-
-    flex: 0 0 36px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background:
-        rgba(18, 61, 114, 0.08);
-
-    border: 1px solid
-        rgba(18, 61, 114, 0.14);
-
-    border-radius: 50%;
-
-    color: #123d72 !important;
 
     font-size: 13px;
+    font-weight: 850;
+}
+
+.passo3-modulos-permanente-conteudo > p {
+    max-width: 780px;
+
+    margin: 0;
+
+    color: #64748b !important;
+
+    font-size: 10px;
+    font-weight: 500;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   VALOR DA CONTRATAÇÃO
+========================================================= */
+
+.passo3-modulos-permanente-valores {
+    width: fit-content;
+
+    margin-top: 7px;
+    padding: 7px 9px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+}
+
+.passo3-modulos-permanente-valores span {
+    color: #64748b !important;
+
+    font-size: 8px;
+    font-weight: 650;
+}
+
+.passo3-modulos-permanente-valores strong {
+    color: #123d72 !important;
+
+    font-size: 11px;
     font-weight: 900;
 }
 
 
-.passo3-modulos-finalizacao-info > div:last-child {
-    display: flex;
-    flex-direction: column;
+/* =========================================================
+   BENEFÍCIO ATIVADO
+========================================================= */
 
-    gap: 2px;
-}
+.passo3-modulos-permanente-ativo-texto {
+    width: fit-content;
 
+    margin-top: 4px;
+    padding: 5px 8px;
 
-.passo3-modulos-finalizacao-info strong {
-    color: #0f172a !important;
+    background: rgba(22, 163, 74, 0.07);
 
-    font-size: 12px;
+    border: 1px solid rgba(22, 163, 74, 0.13);
+    border-radius: 6px;
+
+    color: #15803d !important;
+
+    font-size: 8px;
     font-weight: 800;
-}
-
-
-.passo3-modulos-finalizacao-info span {
-    color: #64748b !important;
-
-    font-size: 10px;
-}
-
-
-/* =========================================================
-   BOTÃO CONTINUAR
-========================================================= */
-
-.passo3-modulos-botao-continuar {
-    min-width: 205px;
-    min-height: 46px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 12px;
-
-    padding: 0 18px;
-
-    border: 1px solid #123d72;
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #123d72,
-            #0d315f
-        );
-
-    color: #ffffff !important;
-
-    font-family: inherit;
-
-    font-size: 12px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 7px 17px rgba(18, 61, 114, 0.18);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        filter 0.2s ease;
-}
-
-
-.passo3-modulos-botao-continuar span,
-.passo3-modulos-botao-continuar strong {
-    color: #ffffff !important;
-}
-
-
-.passo3-modulos-botao-continuar strong {
-    font-size: 20px;
-
-    transition:
-        transform 0.2s ease;
-}
-
-
-.passo3-modulos-botao-continuar:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.07);
-
-    box-shadow:
-        0 10px 23px rgba(18, 61, 114, 0.24);
-}
-
-
-.passo3-modulos-botao-continuar:hover strong {
-    transform: translateX(4px);
-}
-
-
-/* =========================================================
-   ERRO
-========================================================= */
-
-.passo3-modulos-erro {
-    margin-bottom: 16px;
-    padding: 13px 15px;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 3px;
-
-    background: #fef3f2;
-
-    border: 1px solid #fecdca;
-    border-left: 4px solid #d92d20;
-    border-radius: 10px;
-}
-
-
-.passo3-modulos-erro strong {
-    color: #b42318 !important;
-
-    font-size: 12px;
-    font-weight: 800;
-}
-
-
-.passo3-modulos-erro span {
-    color: #912018 !important;
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.passo3-modulos-carregando {
-    min-height: 180px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    gap: 12px;
-
-    background: #ffffff;
-
-    border: 1px solid #dce3eb;
-    border-radius: 14px;
-}
-
-
-.passo3-modulos-carregando span {
-    color: #64748b !important;
-
-    font-size: 11px;
-    font-weight: 600;
-}
-
-
-.passo3-modulos-loader {
-    width: 25px;
-    height: 25px;
-
-    border: 3px solid #e2e8f0;
-    border-top-color: #123d72;
-
-    border-radius: 50%;
-
-    animation:
-        passo3ModulosGirar 0.75s linear infinite;
-}
-
-
-@keyframes passo3ModulosGirar {
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .passo3-modulos-painel {
-        padding: 18px;
-    }
-
-
-    .passo3-modulos-grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-
-
-    .passo3-modulos-resumo {
-        grid-template-columns:
-            minmax(0, 1fr) 240px;
-    }
 }
 
 
@@ -1923,87 +1626,66 @@
    MOBILE
 ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
-    .passo3-modulos-painel {
-        width: calc(100% - 16px);
-
-        margin: 10px auto;
-        padding: 11px;
-
-        border-radius: 13px;
+    .passo3-modulos-permanente-opcao {
+        padding: 13px;
+        gap: 10px;
     }
 
-
-    .passo3-modulos-cabecalho {
-        flex-direction: column;
-        align-items: stretch;
-
-        gap: 12px;
+    .passo3-modulos-permanente-conteudo > strong {
+        font-size: 12px;
     }
 
+    .passo3-modulos-permanente-conteudo > p {
+        font-size: 9px;
+    }
 
-    .passo3-modulos-etapa-indicador {
+    .passo3-modulos-permanente-valores {
         width: 100%;
 
-        flex-direction: row;
-        align-items: center;
         justify-content: space-between;
 
         box-sizing: border-box;
     }
 
-
-    .passo3-modulos-titulo {
-        font-size: 21px;
+    .passo3-modulos-resumo-economia {
+        grid-template-columns: 1fr auto;
     }
 
-
-    .passo3-modulos-subtitulo {
-        font-size: 11px;
+    .passo3-modulos-pagamentos-separados {
+        grid-template-columns: 1fr;
     }
 
+    .passo3-modulos-pagamento-avulso,
+    .passo3-modulos-pagamento-mensal {
+        padding: 12px;
+    }
 
-    .passo3-modulos-informativo {
+    .passo3-modulos-pagamento-valor {
+        font-size: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .passo3-modulos-pagamento-cabecalho {
         align-items: flex-start;
-    }
-
-
-    .passo3-modulos-grid {
-        grid-template-columns:
-            minmax(0, 1fr);
-
-        gap: 12px;
-    }
-
-
-    .passo3-modulos-card {
-        min-height: 210px;
-
-        padding: 17px;
-    }
-
-
-    .passo3-modulos-resumo {
-        grid-template-columns:
-            minmax(0, 1fr);
-
-        gap: 17px;
-
-        padding: 15px;
-    }
-
-
-    .passo3-modulos-finalizacao {
         flex-direction: column;
-        align-items: stretch;
-
-        padding: 14px;
     }
 
-
-    .passo3-modulos-botao-continuar {
-        width: 100%;
-        min-width: 0;
+    .passo3-modulos-resumo-economia {
+        grid-template-columns: 1fr;
     }
+
+    .passo3-modulos-resumo-economia > strong {
+        font-size: 14px;
+    }
+
 }
