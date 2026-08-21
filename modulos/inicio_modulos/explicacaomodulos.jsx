@@ -404,7 +404,32 @@ export default function ExplicacaoModulos() {
                     </p>
 
                 </div>
+<div className="passo3-modulos-pagamento-pos-cadastro">
 
+    <div className="passo3-modulos-pagamento-pos-cadastro-icone">
+        ✓
+    </div>
+
+    <div className="passo3-modulos-pagamento-pos-cadastro-conteudo">
+
+        <strong>
+            Nenhum pagamento será realizado agora
+        </strong>
+
+        <p>
+            Primeiro, finalize o cadastro do seu comércio.
+            Após a conclusão, nossa equipe entrará em contato
+            com você e enviará uma mensagem com as informações
+            e instruções necessárias para realizar o pagamento.
+        </p>
+
+        <span>
+            Você poderá revisar os valores antes de efetuar o pagamento.
+        </span>
+
+    </div>
+
+</div>
             </div>
 
         </section>
