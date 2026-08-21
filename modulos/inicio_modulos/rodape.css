@@ -1,66 +1,803 @@
-/* ===============================
-   RODAPÉ
-=============================== */
+/* =========================================================
+   IRON EXECUTIONS
+   FOOTER PREMIUM
+========================================================= */
 
-.rodape-container {
-    margin-top: 120px;
-    padding: 28px 20px;
-    border-radius: 30px;
+.iron-footer {
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    margin-top: 55px;
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        system-ui,
+        -apple-system,
+        sans-serif;
+
+    overflow: hidden;
+
+    border-radius: 34px 34px 0 0;
+
     background:
-        linear-gradient(180deg,
-            #020617 0%,
-            #01030a 100%);
+        radial-gradient(
+            700px 380px at 5% 15%,
+            rgba(59, 130, 246, 0.22),
+            transparent 70%
+        ),
+        radial-gradient(
+            600px 320px at 95% 10%,
+            rgba(96, 165, 250, 0.13),
+            transparent 72%
+        ),
+        linear-gradient(
+            135deg,
+            #071426 0%,
+            #0a1d36 45%,
+            #0c2b50 100%
+        );
 
-    border-top: 1px solid #1e293b;
+    box-shadow:
+        0 -12px 45px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =========================================================
+   DETALHE SUPERIOR
+========================================================= */
+
+.iron-footer::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 7%;
+    right: 7%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(96, 165, 250, 0.55),
+            rgba(255, 255, 255, 0.75),
+            rgba(96, 165, 250, 0.55),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ÁREA PRINCIPAL
+========================================================= */
+
+.iron-footer__principal {
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+
+    padding: 58px 45px 38px;
+
+    background: transparent;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   BRILHO DECORATIVO
+========================================================= */
+
+.iron-footer__principal::before {
+    content: "";
+
+    width: 330px;
+    height: 330px;
+
+    position: absolute;
+
+    left: -170px;
+    bottom: -220px;
+
+    border-radius: 50%;
+
+    background: rgba(59, 130, 246, 0.15);
+
+    filter: blur(55px);
+
+    pointer-events: none;
+}
+
+
+.iron-footer__principal::after {
+    content: "";
+
+    width: 380px;
+    height: 380px;
+
+    position: absolute;
+
+    right: -220px;
+    top: -260px;
+
+    border-radius: 50%;
+
+    background: rgba(96, 165, 250, 0.12);
+
+    filter: blur(60px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.iron-footer__conteudo {
+    width: 100%;
+    max-width: 1200px;
+
+    position: relative;
+    z-index: 2;
+
+    margin: 0 auto;
 
     display: flex;
-    flex-direction: column;
+
     align-items: center;
-    gap: 6px;
+    justify-content: space-between;
 
-    color: #94a3b8;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    gap: 60px;
+}
+
+
+/* =========================================================
+   MARCA
+========================================================= */
+
+.iron-footer__marca {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 23px;
+}
+
+
+/* =========================================================
+   ÁREA DA LOGO
+========================================================= */
+
+.iron-footer__logo-area {
+    width: 105px;
+    height: 105px;
+
+    flex-shrink: 0;
+
     position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
 }
 
 
-/* ===============================
-   TEXTO DO RODAPÉ
-=============================== */
+/* =========================================================
+   BRILHO ATRÁS DA LOGO
+========================================================= */
 
-.rodape-container p {
+.iron-footer__logo-brilho {
+    width: 88px;
+    height: 88px;
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background:
+        rgba(59, 130, 246, 0.40);
+
+    filter: blur(28px);
+
+    opacity: 0.75;
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.iron-footer__logo {
+    width: 88px;
+    height: 88px;
+
+    position: relative;
+    z-index: 2;
+
+    display: block;
+
+    object-fit: contain;
+
+    border-radius: 22px;
+
+    filter:
+        drop-shadow(
+            0 14px 24px rgba(0, 0, 0, 0.30)
+        );
+
+    transition:
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.4s ease;
+}
+
+
+.iron-footer__marca:hover
+.iron-footer__logo {
+    transform:
+        translateY(-4px)
+        scale(1.04);
+
+    filter:
+        drop-shadow(
+            0 19px 30px rgba(0, 0, 0, 0.38)
+        );
+}
+
+
+.iron-footer__marca:hover
+.iron-footer__logo-brilho {
+    transform: scale(1.3);
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA MARCA
+========================================================= */
+
+.iron-footer__marca-info {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+
+/* =========================================================
+   NOME
+========================================================= */
+
+.iron-footer__nome {
     margin: 0;
-    font-size: 13.5px;
-    line-height: 1.5;
-    text-align: center;
-    letter-spacing: 0.2px;
+
+    color: #ffffff;
+
+    font-size: clamp(26px, 3vw, 35px);
+
+    font-weight: 850;
+
+    line-height: 1;
+
+    letter-spacing: -1.1px;
 }
 
 
-/* ===============================
-   DESTAQUE DO NOME
-=============================== */
+.iron-footer__nome span {
+    margin-left: 5px;
 
-.rodape-container p:first-child {
-    color: #e5e7eb;
+    color: #60a5fa;
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.iron-footer__descricao {
+    max-width: 400px;
+
+    margin: 12px 0 0;
+
+    color: #b6c6d9;
+
+    font-size: 12.5px;
+
+    font-weight: 450;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   MENSAGEM LATERAL
+========================================================= */
+
+.iron-footer__mensagem {
+    position: relative;
+
+    flex-shrink: 0;
+
+    padding-left: 38px;
+
+    border-left:
+        1px solid
+        rgba(148, 197, 255, 0.17);
+}
+
+
+/* =========================================================
+   LABEL IRON BUSINESS
+========================================================= */
+
+.iron-footer__mensagem-label {
+    display: block;
+
+    margin-bottom: 11px;
+
+    color: #60a5fa;
+
+    font-size: 8.5px;
+
+    font-weight: 850;
+
+    letter-spacing: 2.3px;
+}
+
+
+/* =========================================================
+   FRASE
+========================================================= */
+
+.iron-footer__mensagem h3 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: 23px;
+
+    font-weight: 730;
+
+    line-height: 1.27;
+
+    letter-spacing: -0.55px;
+}
+
+
+/* =========================================================
+   PARTE INFERIOR
+
+   NÃO POSSUI MAIS FUNDO PRETO
+========================================================= */
+
+.iron-footer__inferior {
+    width: 100%;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    padding: 0 45px 23px;
+
+    background: transparent;
+
+    border: none;
+}
+
+
+/* =========================================================
+   CONTEÚDO INFERIOR
+========================================================= */
+
+.iron-footer__inferior-conteudo {
+    width: 100%;
+    max-width: 1200px;
+
+    box-sizing: border-box;
+
+    margin: 0 auto;
+
+    padding-top: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    border-top:
+        1px solid
+        rgba(148, 197, 255, 0.11);
+}
+
+
+/* =========================================================
+   COPYRIGHT
+========================================================= */
+
+.iron-footer__copyright {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    color: #8297af;
+
+    font-size: 9.5px;
+
     font-weight: 500;
 }
 
 
-/* ===============================
-   DETALHE SUPERIOR SUTIL
-=============================== */
+.iron-footer__copyright strong {
+    color: #a9bdd3;
 
-.rodape-container::before {
+    font-weight: 650;
+}
+
+
+.iron-footer__copyright span {
+    position: relative;
+
+    padding-left: 11px;
+}
+
+
+.iron-footer__copyright span::before {
     content: "";
-    position: absolute;
-    top: 0;
-    left: 20%;
-    right: 20%;
-    height: 1px;
 
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(96, 165, 250, 0.4),
-            transparent);
+    width: 3px;
+    height: 3px;
+
+    position: absolute;
+
+    top: 50%;
+    left: 0;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+
+    background: #5d7691;
+}
+
+
+/* =========================================================
+   STATUS IRON BUSINESS
+========================================================= */
+
+.iron-footer__sistema {
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 7px 11px;
+
+    border-radius: 999px;
+
+    color: #9eb7d1;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    border:
+        1px solid
+        rgba(148, 197, 255, 0.09);
+
+    font-size: 9px;
+
+    font-weight: 650;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   INDICADOR VERDE
+========================================================= */
+
+.iron-footer__sistema-ponto {
+    width: 6px;
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.08),
+        0 0 12px rgba(34, 197, 94, 0.35);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .iron-footer__principal {
+        padding:
+            48px 30px 34px;
+    }
+
+
+    .iron-footer__conteudo {
+        gap: 35px;
+    }
+
+
+    .iron-footer__mensagem {
+        padding-left: 26px;
+    }
+
+
+    .iron-footer__inferior {
+        padding:
+            0 30px 21px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .iron-footer {
+        margin-top: 35px;
+
+        border-radius:
+            27px 27px 0 0;
+    }
+
+
+    .iron-footer__principal {
+        padding:
+            38px 20px 27px;
+    }
+
+
+    /* =============================================
+       CONTEÚDO
+    ============================================= */
+
+    .iron-footer__conteudo {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 29px;
+    }
+
+
+    /* =============================================
+       MARCA
+    ============================================= */
+
+    .iron-footer__marca {
+        width: 100%;
+
+        gap: 16px;
+    }
+
+
+    /* =============================================
+       LOGO
+    ============================================= */
+
+    .iron-footer__logo-area {
+        width: 78px;
+        height: 78px;
+    }
+
+
+    .iron-footer__logo {
+        width: 68px;
+        height: 68px;
+
+        border-radius: 18px;
+    }
+
+
+    .iron-footer__logo-brilho {
+        width: 65px;
+        height: 65px;
+    }
+
+
+    /* =============================================
+       NOME
+    ============================================= */
+
+    .iron-footer__nome {
+        font-size: 25px;
+    }
+
+
+    /* =============================================
+       DESCRIÇÃO
+    ============================================= */
+
+    .iron-footer__descricao {
+        max-width: 280px;
+
+        margin-top: 8px;
+
+        font-size: 10.5px;
+
+        line-height: 1.55;
+    }
+
+
+    /* =============================================
+       MENSAGEM
+    ============================================= */
+
+    .iron-footer__mensagem {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        padding:
+            20px 0 0;
+
+        border-left: none;
+
+        border-top:
+            1px solid
+            rgba(148, 197, 255, 0.12);
+    }
+
+
+    .iron-footer__mensagem h3 {
+        font-size: 19px;
+    }
+
+
+    /* =============================================
+       INFERIOR
+    ============================================= */
+
+    .iron-footer__inferior {
+        padding:
+            0 20px 20px;
+    }
+
+
+    .iron-footer__inferior-conteudo {
+        padding-top: 17px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .iron-footer__principal {
+        padding:
+            32px 15px 25px;
+    }
+
+
+    .iron-footer__marca {
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+
+    .iron-footer__logo-area {
+        width: 63px;
+        height: 63px;
+    }
+
+
+    .iron-footer__logo {
+        width: 57px;
+        height: 57px;
+
+        border-radius: 15px;
+    }
+
+
+    .iron-footer__logo-brilho {
+        width: 55px;
+        height: 55px;
+    }
+
+
+    .iron-footer__nome {
+        font-size: 21px;
+    }
+
+
+    .iron-footer__descricao {
+        font-size: 9.5px;
+    }
+
+
+    .iron-footer__mensagem h3 {
+        font-size: 18px;
+    }
+
+
+    .iron-footer__inferior {
+        padding:
+            0 15px 17px;
+    }
+
+
+    .iron-footer__copyright {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 4px;
+    }
+
+
+    .iron-footer__copyright span {
+        padding-left: 0;
+    }
+
+
+    .iron-footer__copyright span::before {
+        display: none;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .iron-footer__logo,
+    .iron-footer__logo-brilho {
+        transition: none;
+    }
+
 }

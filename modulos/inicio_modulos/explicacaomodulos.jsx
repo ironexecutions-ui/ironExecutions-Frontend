@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import "./explicacaomodulos.css";
 import { API_URL } from "../../config";
 
@@ -6,76 +7,408 @@ export default function ExplicacaoModulos() {
 
     const [modulos, setModulos] = useState([]);
     const [erro, setErro] = useState("");
+    const [carregando, setCarregando] = useState(true);
 
     useEffect(() => {
-        async function carregar() {
+
+        async function carregarModulos() {
+
             try {
-                const resp = await fetch(`${API_URL}/modulos/ativos/publico`);
+
+                setCarregando(true);
+                setErro("");
+
+                const resp = await fetch(
+                    `${API_URL}/modulos/ativos/publico`
+                );
+
+                if (!resp.ok) {
+                    throw new Error("Erro ao carregar módulos");
+                }
+
                 const dados = await resp.json();
-                setModulos(dados);
+
+                setModulos(
+                    Array.isArray(dados)
+                        ? dados
+                        : []
+                );
+
             } catch (err) {
-                setErro("Não foi possível carregar os módulos.");
+
+                console.error(
+                    "[MÓDULOS PÚBLICOS]",
+                    err
+                );
+
+                setErro(
+                    "Não foi possível carregar os módulos."
+                );
+
+            } finally {
+
+                setCarregando(false);
+
             }
+
         }
 
-        carregar();
+        carregarModulos();
+
     }, []);
 
+
+    /* =====================================================
+       TIPO DO MÓDULO
+    ===================================================== */
+
+    function obterTipoModulo(modulo) {
+
+        const nome = String(modulo.nome || "")
+            .trim()
+            .toLowerCase();
+
+        if (nome.includes("produtividade")) {
+            return "caixa";
+        }
+
+        if (nome.includes("administra")) {
+            return "gestao";
+        }
+
+        if (nome.includes("fiscal")) {
+            return "fiscal";
+        }
+
+        return "padrao";
+
+    }
+
+
+    /* =====================================================
+       ÍCONE DO MÓDULO
+    ===================================================== */
+
+    function obterIconeModulo(modulo) {
+
+        const tipo = obterTipoModulo(modulo);
+
+        if (tipo === "caixa") {
+            return "▣";
+        }
+
+        if (tipo === "gestao") {
+            return "◫";
+        }
+
+        if (tipo === "fiscal") {
+            return "✓";
+        }
+
+        return "◆";
+
+    }
+
+
+    /* =====================================================
+       FORMATAR PREÇO
+    ===================================================== */
+
+    function formatarPreco(valor) {
+
+        return Number(valor || 0).toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL",
+                minimumFractionDigits: 2
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       MÓDULOS VISÍVEIS
+    ===================================================== */
+
+    const modulosVisiveis = modulos.filter(
+        modulo => Number(modulo.preco) >= 1
+    );
+
+
     return (
-        <div className="explicacao-container-pub">
 
-            <h2>Conheça os módulos</h2>
+        <section className="exp-modulos-premium">
 
-            <p className="explicacao-texto-pub">
-                Cada módulo possui seu valor individual. Ao contratar
-                <strong className="negrito-azul"> 2 módulos</strong>,
-                você recebe <strong className="negrito-azul">15% de desconto</strong> sobre o valor de cada um.
-                Na contratação de <strong className="negrito-azul">3 módulos</strong>,
-                o desconto passa a ser de <strong className="negrito-azul">30%</strong>.
-                Esses descontos são aplicados automaticamente e reduzem o custo mensal total.
-            </p>
+            {/* =================================================
+                CABEÇALHO
+            ================================================= */}
 
-            <p className="explicacao-texto-pub">
-                Existe ainda a opção de realizar um pagamento inicial de
-                <strong className="negrito-azul"> R$ 100 por módulo contratado</strong>,
-                cobrado uma única vez no início da contratação.
-                Ao optar por esse pagamento antecipado,
-                todas as mensalidades passam a contar com um
-                <strong className="negrito-azul">desconto permanente de 40%</strong>,
-                aplicado de forma adicional aos descontos por quantidade de módulos.
-            </p>
+            <header className="exp-modulos-premium__cabecalho">
 
-            <p className="explicacao-texto-pub">
-                Os descontos mencionados referem-se exclusivamente às mensalidades dos módulos.
-                Os valores não se aplicam nem alteram os preços de serviços adicionais,
-                implementações personalizadas ou demais serviços prestados fora do escopo dos módulos.
-            </p>
+                <span className="exp-modulos-premium__mini-titulo">
+                    MÓDULOS
+                </span>
+
+                <h2 className="exp-modulos-premium__titulo">
+                    Tudo o que seu comércio precisa
+                </h2>
+
+                <p className="exp-modulos-premium__subtitulo">
+                    Escolha os módulos que fazem sentido para
+                    sua operação e monte seu sistema.
+                </p>
+
+            </header>
 
 
+            {/* =================================================
+                ERRO
+            ================================================= */}
 
-            {erro && <p style={{ color: "red" }}>{erro}</p>}
+            {erro && (
 
-            <div className="explicacao-bloco-pub">
-                {modulos.length > 0 ? (
-                    modulos
-                        .filter(m => Number(m.preco) >= 1)
-                        .map((m) => (
-                            <div key={m.id} className="modulo-card-pub">
-                                <h3>{m.nome}</h3>
-                                <p>{m.texto}</p>
+                <div className="exp-modulos-premium__erro">
+                    {erro}
+                </div>
 
-                                <p className="preco-info-pub">
-                                    Preço sugerido, R$ {m.preco},00 mensais
-                                </p>
-                            </div>
-                        ))
-                ) : (
-                    <p className="carregando-pub">
+            )}
+
+
+            {/* =================================================
+                MÓDULOS
+            ================================================= */}
+
+            {carregando ? (
+
+                <div className="exp-modulos-premium__carregando">
+
+                    <div className="exp-modulos-premium__loader" />
+
+                    <span>
                         Carregando módulos...
+                    </span>
+
+                </div>
+
+            ) : (
+
+                <div className="exp-modulos-premium__grade">
+
+                    {modulosVisiveis.map(modulo => {
+
+                        const tipo = obterTipoModulo(modulo);
+
+                        return (
+
+                            <article
+                                key={modulo.id}
+                                className={`exp-modulos-premium__card exp-modulos-premium__card--${tipo}`}
+                            >
+
+                                {/* =============================
+                                    TOPO
+                                ============================= */}
+
+                                <div className="exp-modulos-premium__card-topo">
+
+                                    <div className="exp-modulos-premium__icone">
+                                        {obterIconeModulo(modulo)}
+                                    </div>
+
+                                    <span className="exp-modulos-premium__disponivel">
+                                        Disponível
+                                    </span>
+
+                                </div>
+
+
+                                {/* =============================
+                                    CONTEÚDO
+                                ============================= */}
+
+                                <div className="exp-modulos-premium__conteudo">
+
+                                    <h3 className="exp-modulos-premium__nome">
+                                        {modulo.nome}
+                                    </h3>
+
+                                    <p className="exp-modulos-premium__descricao">
+                                        {modulo.texto}
+                                    </p>
+
+                                </div>
+
+
+                                {/* =============================
+                                    PREÇO
+                                ============================= */}
+
+                                <div className="exp-modulos-premium__preco">
+
+                                    <div className="exp-modulos-premium__preco-texto">
+
+                                        <span>
+                                            Mensalidade
+                                        </span>
+
+                                        <div>
+
+                                            <strong>
+                                                {formatarPreco(modulo.preco)}
+                                            </strong>
+
+                                            <small>
+                                                /mês
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </article>
+
+                        );
+
+                    })}
+
+                </div>
+
+            )}
+
+
+            {/* =================================================
+                DESCONTOS
+            ================================================= */}
+
+            <div className="exp-modulos-premium__oferta">
+
+                <div className="exp-modulos-premium__oferta-cabecalho">
+
+                    <span className="exp-modulos-premium__oferta-mini">
+                        ECONOMIZE MAIS
+                    </span>
+
+                    <h3>
+                        Quanto mais módulos, menor a mensalidade
+                    </h3>
+
+                    <p>
+                        Os descontos são calculados automaticamente
+                        de acordo com sua contratação.
                     </p>
-                )}
+
+                </div>
+
+
+                {/* =================================================
+                    CARDS DOS DESCONTOS
+                ================================================= */}
+
+                <div className="exp-modulos-premium__descontos">
+
+                    {/* 15% */}
+
+                    <div className="exp-modulos-premium__desconto">
+
+                        <div className="exp-modulos-premium__desconto-numero">
+                            15%
+                        </div>
+
+                        <div className="exp-modulos-premium__desconto-info">
+
+                            <strong>
+                                Contratando 2 módulos
+                            </strong>
+
+                            <span>
+                                de desconto em cada mensalidade
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* 30% */}
+
+                    <div className="exp-modulos-premium__desconto">
+
+                        <div className="exp-modulos-premium__desconto-numero">
+                            30%
+                        </div>
+
+                        <div className="exp-modulos-premium__desconto-info">
+
+                            <strong>
+                                Contratando 3 módulos
+                            </strong>
+
+                            <span>
+                                de desconto em cada mensalidade
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* 50% */}
+
+                    <div className="exp-modulos-premium__desconto exp-modulos-premium__desconto--destaque">
+
+                        <div className="exp-modulos-premium__desconto-numero">
+                            50%
+                        </div>
+
+                        <div className="exp-modulos-premium__desconto-info">
+
+                            <strong>
+                                Desconto permanente
+                            </strong>
+
+                            <span>
+                                Ao contratar, pague R$ 100 adicionais
+                                por módulo, além do valor da contratação,
+                                e receba 50% de desconto permanente
+                                nas mensalidades.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {/* =================================================
+                    OBSERVAÇÃO
+                ================================================= */}
+
+                <div className="exp-modulos-premium__observacao">
+
+                    <span className="exp-modulos-premium__observacao-icone">
+                        i
+                    </span>
+
+                    <p>
+                        O desconto permanente de 50% é adicional
+                        aos descontos por quantidade de módulos.
+                        Os descontos são aplicados somente às
+                        mensalidades dos módulos e não incluem
+                        serviços adicionais, implementações
+                        personalizadas ou outros serviços contratados.
+                    </p>
+
+                </div>
 
             </div>
-        </div>
+
+        </section>
+
     );
+
 }

@@ -1,644 +1,993 @@
-/* ===============================
-   CONTAINER GERAL
-=============================== */
-.explicacao-container-pub {
-    max-width: 1200px;
-    margin: 90px auto;
-    padding: 56px 36px;
-
-    background:
-        radial-gradient(1200px 400px at top center,
-            rgba(37, 99, 235, 0.10),
-            transparent 60%),
-        linear-gradient(180deg,
-            #020617 0%,
-            #01030a 100%);
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 40px 80px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-
-    color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    position: relative;
-    overflow: hidden;
-}
-
-
-/* ===============================
-   TÍTULO
-=============================== */
-
-.explicacao-container-pub h2 {
-    text-align: center;
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    margin-bottom: 36px;
-    color: #f8fafc;
-}
-
-
-/* ===============================
-   TEXTOS EXPLICATIVOS
-=============================== */
-
-.explicacao-texto-pub {
-    max-width: 920px;
-    margin: 0 auto 26px auto;
-    font-size: 16px;
-    line-height: 1.75;
-    color: #c7d2fe;
-    text-align: center;
-}
-
-.negrito-azul {
-    color: #60a5fa;
-    font-weight: 600;
-}
-
-
-/* ===============================
-   BLOCO DE MÓDULOS
-=============================== */
-
-.explicacao-bloco-pub {
-    margin-top: 56px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-
-/* ===============================
-   CARD DE MÓDULO
-=============================== */
-
-.modulo-card-pub {
-    position: relative;
-    background: linear-gradient(180deg,
-            #0b1220 0%,
-            #020617 100%);
-    border-radius: 20px;
-    padding: 28px 26px 30px 26px;
-    border: 1px solid #1e293b;
-    box-shadow:
-        0 30px 60px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
-    display: flex;
-    flex-direction: column;
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
-}
-
-.modulo-card-pub:hover {
-    transform: translateY(-8px);
-    border-color: #2563eb;
-    box-shadow:
-        0 40px 80px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-
-/* ===============================
-   DESTAQUE SUPERIOR DO CARD
-=============================== */
-
-.modulo-card-pub::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 20px;
-    right: 20px;
-    height: 1px;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(96, 165, 250, 0.6),
-            transparent);
-}
-
-
-/* ===============================
-   NOME DO MÓDULO
-=============================== */
-
-.modulo-card-pub h3 {
-    font-size: 21px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    color: #f1f5f9;
-    letter-spacing: 0.2px;
-}
-
-
-/* ===============================
-   DESCRIÇÃO DO MÓDULO
-=============================== */
-
-.modulo-card-pub p {
-    font-size: 14.6px;
-    line-height: 1.65;
-    color: #cbd5e1;
-    margin-bottom: 20px;
-}
-
-
-/* ===============================
-   SEPARADOR INTERNO
-=============================== */
-
-.modulo-card-pub p::after {
-    content: "";
-    display: block;
-    margin-top: 18px;
-    height: 1px;
-
-}
-
-
-/* ===============================
-   PREÇO
-=============================== */
-
-.preco-info-pub {
-    margin-top: auto;
-    font-size: 14px;
-    font-weight: 600;
-    color: #22c55e;
-    background: linear-gradient(180deg,
-            rgba(34, 197, 94, 0.12),
-            rgba(34, 197, 94, 0.04));
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    padding: 12px 14px;
-    border-radius: 12px;
-    text-align: center;
-    letter-spacing: 0.2px;
-}
-
-
-/* ===============================
-   ESTADO DE CARREGAMENTO
-=============================== */
-
-.carregando-pub {
-    grid-column: 1 / -1;
-    text-align: center;
-    font-size: 15px;
-    color: #94a3b8;
-    padding: 30px 0;
-}
-
-
-/* ===============================
-   SOMBRA DE FUNDO DECORATIVA
-=============================== */
-
-.explicacao-container-pub::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at top center,
-            rgba(37, 99, 235, 0.08),
-            transparent 60%);
-    pointer-events: none;
-}
-
-/* ===============================
-   RESET BÁSICO
-=============================== */
-
-
-/* ===============================
-   CONTAINER GERAL
-=============================== */
-.explicacao-container-pub {
-    max-width: 1200px;
-    margin: 90px auto;
-    padding: 56px 36px;
-
-    background:
-        radial-gradient(1200px 400px at top center,
-            rgba(37, 99, 235, 0.10),
-            transparent 60%),
-        linear-gradient(180deg,
-            #020617 0%,
-            #01030a 100%);
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 40px 80px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-
-    color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    position: relative;
-    overflow: hidden;
-}
-
-/* ===============================
-   TÍTULO
-=============================== */
-.explicacao-container-pub h2 {
-    text-align: center;
-    font-size: clamp(24px, 4vw, 36px);
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    margin-bottom: 36px;
-    color: #f8fafc;
-}
-
-/* ===============================
-   TEXTOS EXPLICATIVOS
-=============================== */
-.explicacao-texto-pub {
-    max-width: 920px;
-    margin: 0 auto 26px auto;
-    font-size: clamp(14px, 2.5vw, 16px);
-    line-height: 1.75;
-    color: #c7d2fe;
-    text-align: center;
-    padding: 0 6px;
-}
-
-.negrito-azul {
-    color: #60a5fa;
-    font-weight: 600;
-}
-
-/* ===============================
-   BLOCO DE MÓDULOS
-=============================== */
-.explicacao-bloco-pub {
-    margin-top: 56px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-/* ===============================
-   CARD DE MÓDULO
-=============================== */
-.modulo-card-pub {
-    position: relative;
-    background: linear-gradient(180deg,
-            #0b1220 0%,
-            #020617 100%);
-    border-radius: 20px;
-    padding: 28px 26px 30px 26px;
-    border: 1px solid #1e293b;
-
-    box-shadow:
-        0 30px 60px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
-
-    display: flex;
-    flex-direction: column;
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
-}
-
-.modulo-card-pub:hover {
-    transform: translateY(-8px);
-    border-color: #2563eb;
-    box-shadow:
-        0 40px 80px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-/* ===============================
-   DESTAQUE SUPERIOR DO CARD
-=============================== */
-.modulo-card-pub::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 20px;
-    right: 20px;
-    height: 1px;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(96, 165, 250, 0.6),
-            transparent);
-}
-
-/* ===============================
-   NOME DO MÓDULO
-=============================== */
-.modulo-card-pub h3 {
-    font-size: clamp(18px, 3vw, 21px);
-    font-weight: 600;
-    margin-bottom: 14px;
-    color: #f1f5f9;
-    letter-spacing: 0.2px;
-}
-
-/* ===============================
-   DESCRIÇÃO DO MÓDULO
-=============================== */
-.modulo-card-pub p {
-    font-size: clamp(13.5px, 2.4vw, 14.6px);
-    line-height: 1.65;
-    color: #cbd5e1;
-    margin-bottom: 18px;
-}
-
-/* ===============================
-   PREÇO
-=============================== */
-.preco-info-pub {
-    margin-top: auto;
-    font-size: clamp(13px, 2.5vw, 14px);
-    font-weight: 600;
-    color: #22c55e;
-    background: linear-gradient(180deg,
-            rgba(34, 197, 94, 0.12),
-            rgba(34, 197, 94, 0.04));
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    padding: 12px 14px;
-    border-radius: 12px;
-    text-align: center;
-    letter-spacing: 0.2px;
-}
-
-/* ===============================
-   CARREGAMENTO
-=============================== */
-.carregando-pub {
-    grid-column: 1 / -1;
-    text-align: center;
-    font-size: 15px;
-    color: #94a3b8;
-    padding: 30px 0;
-}
-
-/* ===============================
-   RESPONSIVO TABLET
-=============================== */
-@media (max-width: 900px) {
-    .explicacao-container-pub {
-        margin: 70px 16px;
-        padding: 40px 26px;
-    }
-
-    .explicacao-bloco-pub {
-        gap: 22px;
-    }
-}
-
-/* ===============================
-   RESPONSIVO CELULAR
-=============================== */
-@media (max-width: 600px) {
-    .explicacao-container-pub {
-        margin: 50px 12px;
-        padding: 32px 18px;
-        border-radius: 18px;
-    }
-
-    .explicacao-texto-pub {
-        line-height: 1.65;
-    }
-
-    .modulo-card-pub {
-        padding: 22px 20px 24px 20px;
-    }
-
-    .modulo-card-pub:hover {
-        transform: none;
-    }
-}
-
-/* ===============================
-   TELAS MUITO PEQUENAS
-=============================== */
-@media (max-width: 360px) {
-    .explicacao-container-pub {
-        padding: 26px 14px;
-    }
-
-    .explicacao-container-pub h2 {
-        margin-bottom: 24px;
-    }
-
-    .explicacao-bloco-pub {
-        gap: 18px;
-    }
-}
-
-/* ===============================
-   FUNDO DECORATIVO
-=============================== */
-.explicacao-container-pub::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at top center,
-            rgba(37, 99, 235, 0.08),
-            transparent 60%);
-    pointer-events: none;
-}
-
-/* ===============================================
-   RESET LOCAL
-=============================================== */
-.explicacao-container-pub *,
-.explicacao-container-pub *::before,
-.explicacao-container-pub *::after {
-    box-sizing: border-box;
-}
-
-/* ===============================================
+/* =========================================================
    CONTAINER PRINCIPAL
-=============================================== */
-.explicacao-container-pub {
-    width: min(92%, 1280px);
-    margin: clamp(50px, 8vw, 110px) auto;
-    padding: clamp(28px, 4vw, 64px);
+========================================================= */
+
+.exp-modulos-premium {
+    width: 100%;
+margin-top: 30px;
+    position: relative;
+
+    box-sizing: border-box;
+
+    padding: 46px 38px;
+
+    border-radius: 32px;
 
     background:
-        radial-gradient(900px 400px at top center,
-            rgba(37, 99, 235, 0.08),
-            transparent 60%),
-        linear-gradient(180deg, #020617, #01030a);
+        radial-gradient(
+            800px 350px at 50% -160px,
+            rgba(37, 99, 235, 0.10),
+            transparent 70%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.97),
+            rgba(241, 245, 249, 0.90)
+        );
 
-    border-radius: clamp(18px, 3vw, 26px);
+    border: 1px solid rgba(15, 23, 42, 0.07);
 
     box-shadow:
-        0 40px 90px rgba(0, 0, 0, 0.65),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        0 25px 65px rgba(15, 23, 42, 0.08),
+        0 7px 20px rgba(15, 23, 42, 0.035),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
 
-    color: #e5e7eb;
-    position: relative;
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        system-ui,
+        sans-serif;
+
     overflow: hidden;
+
+    isolation: isolate;
 }
 
-/* ===============================================
-   TÍTULO
-=============================================== */
-.explicacao-container-pub h2 {
-    text-align: center;
-    font-size: clamp(22px, 3.5vw, 40px);
-    font-weight: 700;
-    margin-bottom: clamp(24px, 4vw, 48px);
-    color: #f8fafc;
-    letter-spacing: 0.4px;
+
+/* =========================================================
+   LUZ DE FUNDO
+========================================================= */
+
+.exp-modulos-premium::before {
+    content: "";
+
+    width: 520px;
+    height: 250px;
+
+    position: absolute;
+
+    top: -190px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.14);
+
+    filter: blur(65px);
+
+    pointer-events: none;
+
+    z-index: -1;
 }
 
-/* ===============================================
-   BLOCO DE TEXTOS
-=============================================== */
-.explicacao-texto-pub {
-    max-width: 960px;
-    margin: 0 auto clamp(18px, 3vw, 30px);
-    font-size: clamp(14px, 1.2vw, 17px);
-    line-height: 1.8;
-    color: #c7d2fe;
-    text-align: center;
-}
 
-.negrito-azul {
-    color: #60a5fa;
-    font-weight: 600;
-}
+/* =========================================================
+   CABEÇALHO
+========================================================= */
 
-/* ===============================================
-   GRID DE MÓDULOS
-=============================================== */
-.explicacao-bloco-pub {
-    margin-top: clamp(40px, 5vw, 70px);
-    display: grid;
-    gap: clamp(18px, 2.5vw, 36px);
+.exp-modulos-premium__cabecalho {
+    max-width: 700px;
 
-    grid-template-columns: repeat(auto-fit,
-            minmax(clamp(260px, 30vw, 320px), 1fr));
-}
+    margin: 0 auto 38px;
 
-/* ===============================================
-   CARD
-=============================================== */
-.modulo-card-pub {
-    position: relative;
     display: flex;
+
     flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.exp-modulos-premium__mini-titulo {
+    margin-bottom: 10px;
+
+    padding: 6px 13px;
+
+    border-radius: 999px;
+
+    color: #164e8a;
+
+    background: rgba(37, 99, 235, 0.07);
+
+    border: 1px solid rgba(37, 99, 235, 0.10);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+}
+
+
+.exp-modulos-premium__titulo {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: clamp(29px, 4vw, 40px);
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+    letter-spacing: -1.1px;
+}
+
+
+.exp-modulos-premium__subtitulo {
+    max-width: 540px;
+
+    margin: 12px 0 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   GRADE
+========================================================= */
+
+.exp-modulos-premium__grade {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 17px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.exp-modulos-premium__card {
+    min-width: 0;
+    min-height: 310px;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 23px;
+
+    box-sizing: border-box;
+
+    border-radius: 23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(248, 250, 252, 0.88)
+        );
+
+    border: 1px solid rgba(15, 39, 71, 0.08);
+
+    box-shadow:
+        0 9px 25px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+.exp-modulos-premium__card::before {
+    content: "";
+
+    width: 160px;
+    height: 160px;
+
+    position: absolute;
+
+    top: -100px;
+    right: -90px;
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.07);
+
+    filter: blur(10px);
+
+    transition:
+        transform 0.4s ease;
+}
+
+
+.exp-modulos-premium__card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(37, 99, 235, 0.18);
+
+    box-shadow:
+        0 22px 45px rgba(15, 23, 42, 0.09),
+        0 5px 15px rgba(37, 99, 235, 0.04);
+}
+
+
+.exp-modulos-premium__card:hover::before {
+    transform: scale(1.5);
+}
+
+
+/* =========================================================
+   TOPO CARD
+========================================================= */
+
+.exp-modulos-premium__card-topo {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
     justify-content: space-between;
 
-    background: linear-gradient(180deg, #0b1220, #020617);
-    border-radius: clamp(16px, 2vw, 22px);
-    padding: clamp(20px, 2.5vw, 30px);
+    margin-bottom: 25px;
+}
 
-    border: 1px solid #1e293b;
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.exp-modulos-premium__icone {
+    width: 47px;
+    height: 47px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0f315d,
+            #1d5fa6
+        );
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 9px 20px rgba(15, 49, 93, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+
+/* =========================================================
+   DISPONÍVEL
+========================================================= */
+
+.exp-modulos-premium__disponivel {
+    position: relative;
+
+    padding: 6px 10px 6px 21px;
+
+    border-radius: 999px;
+
+    color: #15803d;
+
+    background: rgba(34, 197, 94, 0.07);
+
+    border: 1px solid rgba(34, 197, 94, 0.11);
+
+    font-size: 9px;
+
+    font-weight: 750;
+}
+
+
+.exp-modulos-premium__disponivel::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    position: absolute;
+
+    top: 50%;
+    left: 9px;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.10);
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.exp-modulos-premium__conteudo {
+    position: relative;
+
+    z-index: 2;
+
+    flex: 1;
+}
+
+
+.exp-modulos-premium__nome {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 21px;
+
+    font-weight: 780;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.5px;
+}
+
+
+.exp-modulos-premium__descricao {
+    margin: 12px 0 0;
+
+    color: #64748b;
+
+    font-size: 12.5px;
+
+    font-weight: 500;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PREÇO
+========================================================= */
+
+.exp-modulos-premium__preco {
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 23px;
+
+    padding-top: 17px;
+
+    border-top: 1px solid rgba(15, 23, 42, 0.07);
+}
+
+
+.exp-modulos-premium__preco-texto {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 4px;
+}
+
+
+.exp-modulos-premium__preco-texto > span {
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+}
+
+
+.exp-modulos-premium__preco-texto > div {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 5px;
+}
+
+
+.exp-modulos-premium__preco strong {
+    color: #0f315d;
+
+    font-size: 27px;
+
+    font-weight: 820;
+
+    line-height: 1;
+
+    letter-spacing: -1px;
+}
+
+
+.exp-modulos-premium__preco small {
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   OFERTA
+========================================================= */
+
+.exp-modulos-premium__oferta {
+    width: 100%;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    margin-top: 32px;
+
+    padding: 28px;
+
+    border-radius: 24px;
+
+    background:
+        radial-gradient(
+            500px 220px at 0% 0%,
+            rgba(37, 99, 235, 0.10),
+            transparent 75%
+        ),
+        rgba(248, 250, 252, 0.78);
+
+    border: 1px solid rgba(15, 39, 71, 0.08);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 1),
+        0 8px 25px rgba(15, 23, 42, 0.035);
+}
+
+
+/* =========================================================
+   CABEÇALHO OFERTA
+========================================================= */
+
+.exp-modulos-premium__oferta-cabecalho {
+    margin-bottom: 22px;
+}
+
+
+.exp-modulos-premium__oferta-mini {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #2563eb;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.exp-modulos-premium__oferta-cabecalho h3 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 22px;
+
+    font-weight: 780;
+
+    letter-spacing: -0.5px;
+}
+
+
+.exp-modulos-premium__oferta-cabecalho p {
+    margin: 7px 0 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   DESCONTOS
+========================================================= */
+
+.exp-modulos-premium__descontos {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 11px;
+}
+
+
+/* =========================================================
+   DESCONTO
+========================================================= */
+
+.exp-modulos-premium__desconto {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    box-sizing: border-box;
+
+    padding: 15px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    border: 1px solid rgba(15, 39, 71, 0.07);
+
+    box-shadow:
+        0 5px 15px rgba(15, 23, 42, 0.035);
 
     transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.exp-modulos-premium__desconto:hover {
+    transform: translateY(-2px);
 
     box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
-.modulo-card-pub:hover {
-    transform: translateY(-10px);
-    border-color: #2563eb;
-    box-shadow:
-        0 45px 90px rgba(0, 0, 0, 0.7),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+/* =========================================================
+   DESCONTO DESTACADO
+========================================================= */
+
+.exp-modulos-premium__desconto--destaque {
+    border-color: rgba(37, 99, 235, 0.14);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(239, 246, 255, 0.95),
+            rgba(255, 255, 255, 0.95)
+        );
 }
 
-/* Linha superior decorativa */
-.modulo-card-pub::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 20px;
-    right: 20px;
-    height: 1px;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(96, 165, 250, 0.6),
-            transparent);
+
+/* =========================================================
+   NÚMERO
+========================================================= */
+
+.exp-modulos-premium__desconto-numero {
+    flex-shrink: 0;
+
+    color: #164e8a;
+
+    font-size: 27px;
+
+    font-weight: 850;
+
+    letter-spacing: -1.2px;
 }
 
-/* ===============================================
-   TÍTULO DO MÓDULO
-=============================================== */
-.modulo-card-pub h3 {
-    font-size: clamp(17px, 2vw, 22px);
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.exp-modulos-premium__desconto-info {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.exp-modulos-premium__desconto-info strong {
+    color: #1e293b;
+
+    font-size: 11px;
+
+    font-weight: 750;
+}
+
+
+.exp-modulos-premium__desconto-info span {
+    color: #64748b;
+
+    font-size: 9.5px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   OBSERVAÇÃO
+========================================================= */
+
+.exp-modulos-premium__observacao {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-top: 17px;
+
+    padding-top: 16px;
+
+    border-top: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+
+.exp-modulos-premium__observacao-icone {
+    width: 20px;
+    height: 20px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: #164e8a;
+
+    background: rgba(37, 99, 235, 0.08);
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+.exp-modulos-premium__observacao p {
+    margin: 1px 0 0;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.exp-modulos-premium__erro {
+    margin-bottom: 20px;
+
+    padding: 13px 16px;
+
+    border-radius: 13px;
+
+    color: #991b1b;
+
+    background: #fef2f2;
+
+    border: 1px solid rgba(220, 38, 38, 0.12);
+
+    font-size: 12px;
+
     font-weight: 600;
-    margin-bottom: clamp(10px, 1.5vw, 16px);
-    color: #f1f5f9;
+
+    text-align: center;
 }
 
-/* ===============================================
-   TEXTO DO MÓDULO
-=============================================== */
-.modulo-card-pub p {
-    font-size: clamp(13.5px, 1vw, 15px);
-    line-height: 1.7;
-    color: #cbd5e1;
-    margin-bottom: clamp(14px, 2vw, 22px);
-}
 
-/* ===============================================
-   BLOCO DE PREÇO
-=============================================== */
-.preco-info-pub {
-    margin-top: auto;
-    font-size: clamp(13px, 1vw, 15px);
+/* =========================================================
+   CARREGANDO
+========================================================= */
+
+.exp-modulos-premium__carregando {
+    min-height: 230px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
     font-weight: 600;
-    text-align: center;
-
-    padding: clamp(10px, 1.5vw, 14px);
-    border-radius: clamp(10px, 1vw, 14px);
-
-    background: linear-gradient(180deg,
-            rgba(34, 197, 94, 0.14),
-            rgba(34, 197, 94, 0.06));
-
-    border: 1px solid rgba(34, 197, 94, 0.35);
-    color: #22c55e;
 }
 
-/* ===============================================
-   CARREGAMENTO
-=============================================== */
-.carregando-pub {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 30px 0;
-    font-size: 15px;
-    color: #94a3b8;
+
+.exp-modulos-premium__loader {
+    width: 31px;
+    height: 31px;
+
+    box-sizing: border-box;
+
+    border: 3px solid rgba(37, 99, 235, 0.12);
+
+    border-top-color: #164e8a;
+
+    border-radius: 50%;
+
+    animation:
+        expModulosPremiumLoader
+        0.75s linear infinite;
 }
 
-/* ===============================================
-   TELAS ULTRA LARGAS
-=============================================== */
-@media (min-width: 1600px) {
-    .explicacao-bloco-pub {
-        grid-template-columns: repeat(4, 1fr);
+
+@keyframes expModulosPremiumLoader {
+
+    to {
+        transform: rotate(360deg);
     }
+
 }
 
-/* ===============================================
-   MOBILE
-=============================================== */
-@media (max-width: 640px) {
 
-    .modulo-card-pub:hover {
-        transform: none;
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+    .exp-modulos-premium__grade {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
     }
 
-    .explicacao-texto-pub {
-        text-align: left;
+
+    .exp-modulos-premium__descontos {
+        grid-template-columns: 1fr;
     }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .exp-modulos-premium {
+        padding: 29px 14px;
+
+        border-radius: 23px;
+    }
+
+
+    .exp-modulos-premium__cabecalho {
+        margin-bottom: 27px;
+    }
+
+
+    .exp-modulos-premium__titulo {
+        font-size: 27px;
+    }
+
+
+    .exp-modulos-premium__subtitulo {
+        max-width: 340px;
+
+        font-size: 12px;
+    }
+
+
+    /* -----------------------------------------
+       CARDS
+    ----------------------------------------- */
+
+    .exp-modulos-premium__grade {
+        grid-template-columns: 1fr;
+
+        gap: 11px;
+    }
+
+
+    .exp-modulos-premium__card {
+        min-height: auto;
+
+        padding: 19px;
+
+        border-radius: 19px;
+    }
+
+
+    .exp-modulos-premium__card-topo {
+        margin-bottom: 19px;
+    }
+
+
+    .exp-modulos-premium__icone {
+        width: 43px;
+        height: 43px;
+
+        border-radius: 13px;
+
+        font-size: 18px;
+    }
+
+
+    .exp-modulos-premium__nome {
+        font-size: 20px;
+    }
+
+
+    .exp-modulos-premium__descricao {
+        font-size: 12px;
+
+        line-height: 1.6;
+    }
+
+
+    .exp-modulos-premium__preco {
+        margin-top: 19px;
+
+        padding-top: 15px;
+    }
+
+
+    .exp-modulos-premium__preco strong {
+        font-size: 25px;
+    }
+
+
+    /* -----------------------------------------
+       OFERTA
+    ----------------------------------------- */
+
+    .exp-modulos-premium__oferta {
+        margin-top: 20px;
+
+        padding: 19px 14px;
+
+        border-radius: 19px;
+    }
+
+
+    .exp-modulos-premium__oferta-cabecalho h3 {
+        font-size: 19px;
+
+        line-height: 1.3;
+    }
+
+
+    .exp-modulos-premium__descontos {
+        gap: 8px;
+    }
+
+
+    .exp-modulos-premium__desconto {
+        padding: 13px;
+
+        border-radius: 14px;
+    }
+
+
+    .exp-modulos-premium__desconto-numero {
+        width: 55px;
+
+        font-size: 25px;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .exp-modulos-premium {
+        padding: 25px 10px;
+
+        border-radius: 19px;
+    }
+
+
+    .exp-modulos-premium__titulo {
+        font-size: 24px;
+    }
+
+
+    .exp-modulos-premium__card {
+        padding: 16px;
+    }
+
+
+    .exp-modulos-premium__oferta {
+        padding: 17px 11px;
+    }
+
+
+    .exp-modulos-premium__desconto {
+        gap: 9px;
+    }
+
+
+    .exp-modulos-premium__desconto-numero {
+        width: 50px;
+
+        font-size: 23px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .exp-modulos-premium__card,
+    .exp-modulos-premium__card::before,
+    .exp-modulos-premium__desconto {
+        transition: none;
+    }
+
+
+    .exp-modulos-premium__loader {
+        animation: none;
+    }
+
 }

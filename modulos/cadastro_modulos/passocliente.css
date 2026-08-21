@@ -1,177 +1,885 @@
-/* ===============================
-   CONTAINER PRINCIPAL
-=============================== */
-.passo4-container {
+/* =========================================================
+   PASSO 4 CLIENTE
+   CADASTRO DO RESPONSÁVEL
+========================================================= */
+
+.passo4-cliente-painel {
     width: 100%;
-    margin-top: 24px;
-    padding: 24px 26px;
+    max-width: 980px;
+
+    margin: 28px auto;
+    padding: 26px;
+
     box-sizing: border-box;
 
-    background: linear-gradient(180deg, #0b1f3a, #08172c);
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(18, 61, 114, 0.065),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #f8f9fb 0%,
+            #f1f3f6 100%
+        );
+
+    border: 1px solid #e1e5eb;
+    border-radius: 18px;
+
+    color: #101828;
+
+    box-shadow:
+        0 12px 35px rgba(16, 24, 40, 0.07);
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.passo4-cliente-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-bottom: 24px;
+}
+
+
+.passo4-cliente-cabecalho-textos {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.passo4-cliente-etapa {
+    color: #123d72 !important;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 1.7px;
+}
+
+
+.passo4-cliente-titulo {
+    margin: 0;
+
+    color: #101828 !important;
+
+    font-size: 27px;
+    font-weight: 850;
+
+    letter-spacing: -0.7px;
+}
+
+
+.passo4-cliente-subtitulo {
+    max-width: 620px;
+
+    margin: 2px 0 0;
+
+    color: #667085 !important;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   INDICADOR 4 DE 4
+========================================================= */
+
+.passo4-cliente-etapa-indicador {
+    min-width: 92px;
+
+    padding: 10px 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #dce2e9;
+    border-radius: 11px;
+
+    box-shadow:
+        0 3px 10px rgba(16, 24, 40, 0.04);
+}
+
+
+.passo4-cliente-etapa-indicador span {
+    color: #667085 !important;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+
+.passo4-cliente-etapa-indicador strong {
+    color: #123d72 !important;
+
+    font-size: 15px;
+    font-weight: 850;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
+
+.passo4-cliente-formulario {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+
+/* =========================================================
+   SEÇÕES
+========================================================= */
+
+.passo4-cliente-secao {
+    position: relative;
+
+    width: 100%;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(250, 251, 252, 0.96)
+        );
+
+    border: 1px solid #dfe4ea;
     border-radius: 14px;
 
     box-shadow:
-        0 14px 40px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        0 4px 15px rgba(16, 24, 40, 0.04);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
 }
 
-.senha-status.aviso {
-    color: #b58900;
+
+.passo4-cliente-secao:hover {
+    border-color: #cbd5e1;
+
+    box-shadow:
+        0 8px 22px rgba(16, 24, 40, 0.06);
 }
 
-.senha-status.erro {
-    color: #dc2626;
-}
 
-.senha-status.ok {
-    color: #16a34a;
-}
+/* =========================================================
+   CABEÇALHO DAS SEÇÕES
+========================================================= */
 
-.input-texto.erro {
-    border-color: #dc2626;
-}
-
-.input-texto.ok {
-    border-color: #16a34a;
-}
-
-.senha-status.aviso {
-    color: #b58900;
-}
-
-.senha-status.erro {
-    color: #dc2626;
-}
-
-.senha-status.ok {
-    color: #16a34a;
-}
-
-.input-texto.erro {
-    border-color: #dc2626;
-}
-
-.input-texto.ok {
-    border-color: #16a34a;
-}
-
-/* ===============================
-   TÍTULO
-=============================== */
-.titulo {
-    font-size: 22px;
-    font-weight: 600;
-    color: #f9fafb;
-    margin-bottom: 18px;
-    letter-spacing: 0.4px;
-}
-
-/* ===============================
-   FORMULÁRIO
-=============================== */
-.formulario {
+.passo4-cliente-secao-cabecalho {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 20px;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding-bottom: 16px;
+    margin-bottom: 17px;
+
+    border-bottom: 1px solid #edf0f3;
 }
 
-/* ===============================
-   LABELS
-=============================== */
-.formulario label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #d1d5db;
+
+.passo4-cliente-secao-numero {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #123d72;
+
+    color: #ffffff !important;
+
+    border-radius: 9px;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.5px;
+
+    box-shadow:
+        0 5px 12px rgba(18, 61, 114, 0.16);
 }
 
-/* ===============================
-   INPUT TEXTO
-=============================== */
-.input-texto {
-    width: 100%;
-    padding: 13px 14px;
 
-    border-radius: 10px;
-    border: 1px solid #1f3a63;
+.passo4-cliente-secao-cabecalho h4 {
+    margin: 0 0 3px;
 
-    background: #0f2a4d;
-    color: #f9fafb;
+    color: #101828 !important;
 
     font-size: 15px;
+    font-weight: 800;
+}
+
+
+.passo4-cliente-secao-cabecalho p {
+    margin: 0;
+
+    color: #667085 !important;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.passo4-cliente-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 17px;
+}
+
+
+.passo4-cliente-campo {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.passo4-cliente-campo-total {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.passo4-cliente-campo label {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: #344054 !important;
+
+    font-size: 12px;
+    font-weight: 750;
+}
+
+
+.passo4-cliente-campo label > span:not(.passo4-cliente-opcional) {
+    color: #b42318 !important;
+}
+
+
+/* =========================================================
+   OPCIONAL
+========================================================= */
+
+.passo4-cliente-opcional {
+    padding: 3px 6px;
+
+    background: #eef2f6;
+
+    border-radius: 5px;
+
+    color: #667085 !important;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    letter-spacing: 0.7px;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.passo4-cliente-input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 13px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d5dae2;
+    border-radius: 9px;
 
     outline: none;
 
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background-color 0.25s ease;
-}
+    background: #f9fafb;
 
-.input-texto::placeholder {
-    color: #9ca3af;
-}
+    color: #101828 !important;
 
-.input-texto:focus {
-    background: #12345f;
-    border-color: #60a5fa;
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
-}
+    font-family: inherit;
 
-/* ===============================
-   BOTÃO ENVIAR
-=============================== */
-.botao-enviar {
-    margin-top: 18px;
-    padding: 15px;
-
-    border: none;
-    border-radius: 14px;
-
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    color: #ffffff;
-
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.4px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.passo4-cliente-input::placeholder {
+    color: #98a2b3 !important;
+
+    font-weight: 500;
+}
+
+
+.passo4-cliente-input:hover {
+    background: #ffffff;
+
+    border-color: #aeb8c5;
+}
+
+
+.passo4-cliente-input:focus {
+    background: #ffffff;
+
+    border-color: #123d72;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.09);
+}
+
+
+/* =========================================================
+   TEXTO AUXILIAR
+========================================================= */
+
+.passo4-cliente-campo small {
+    color: #7c8798 !important;
+
+    font-size: 10px;
+    font-weight: 500;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   SENHA
+========================================================= */
+
+.passo4-cliente-input-ok {
+    border-color: #12b76a;
+}
+
+
+.passo4-cliente-input-erro {
+    border-color: #f04438;
+}
+
+
+.passo4-cliente-senha-status {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    min-height: 15px;
+
+    font-size: 10px;
+    font-weight: 650;
+}
+
+
+.passo4-cliente-status-ponto {
+    width: 6px;
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+.passo4-cliente-senha-status-aviso {
+    color: #667085 !important;
+}
+
+
+.passo4-cliente-senha-status-aviso
+.passo4-cliente-status-ponto {
+    background: #98a2b3;
+}
+
+
+.passo4-cliente-senha-status-ok {
+    color: #067647 !important;
+}
+
+
+.passo4-cliente-senha-status-ok
+.passo4-cliente-status-ponto {
+    background: #12b76a;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 183, 106, 0.10);
+}
+
+
+.passo4-cliente-senha-status-erro {
+    color: #b42318 !important;
+}
+
+
+.passo4-cliente-senha-status-erro
+.passo4-cliente-status-ponto {
+    background: #f04438;
+
+    box-shadow:
+        0 0 0 3px rgba(240, 68, 56, 0.09);
+}
+
+
+/* =========================================================
+   FUNÇÃO BLOQUEADA
+========================================================= */
+
+.passo4-cliente-input-bloqueado-area {
+    position: relative;
+}
+
+
+.passo4-cliente-input-bloqueado {
+    padding-right: 145px;
+
+    background: #eef2f6 !important;
+
+    color: #344054 !important;
+
+    cursor: not-allowed;
+
+    opacity: 1;
+}
+
+
+.passo4-cliente-admin-selo {
+    position: absolute;
+
+    top: 50%;
+    right: 10px;
+
+    transform: translateY(-50%);
+
+    padding: 5px 7px;
+
+    background:
+        rgba(18, 61, 114, 0.08);
+
+    color: #123d72 !important;
+
+    border: 1px solid
+        rgba(18, 61, 114, 0.10);
+
+    border-radius: 6px;
+
+    font-size: 7px;
+    font-weight: 850;
+
+    letter-spacing: 0.6px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ERRO GERAL
+========================================================= */
+
+.passo4-cliente-erro {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    padding: 13px 15px;
+
+    background: #fef3f2;
+
+    border: 1px solid #fecdca;
+    border-left: 4px solid #d92d20;
+
+    border-radius: 10px;
+
+    animation:
+        passo4ClienteErroEntrada 0.25s ease;
+}
+
+
+.passo4-cliente-erro strong {
+    color: #b42318 !important;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.passo4-cliente-erro span {
+    color: #912018 !important;
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+
+@keyframes passo4ClienteErroEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   FINALIZAÇÃO
+========================================================= */
+
+.passo4-cliente-finalizacao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 17px 18px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #eef2f6,
+            #f8f9fb
+        );
+
+    border: 1px solid #dfe4ea;
+    border-radius: 13px;
+}
+
+
+/* =========================================================
+   INFO FINAL
+========================================================= */
+
+.passo4-cliente-finalizacao-info {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.passo4-cliente-finalizacao-icone {
+    width: 35px;
+    height: 35px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e7f6ec;
+
+    color: #067647 !important;
+
+    border: 1px solid #c5e9d1;
+    border-radius: 50%;
+
+    font-size: 15px;
+    font-weight: 900;
+}
+
+
+.passo4-cliente-finalizacao-info div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.passo4-cliente-finalizacao-info strong {
+    color: #101828 !important;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.passo4-cliente-finalizacao-info div > span {
+    color: #667085 !important;
+
+    font-size: 10px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   BOTÃO FINAL
+========================================================= */
+
+.passo4-cliente-botao-finalizar {
+    min-width: 205px;
+    min-height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 0 18px;
+
+    border: 1px solid #123d72;
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #123d72,
+            #0d315f
+        );
+
+    color: #ffffff !important;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 800;
 
     cursor: pointer;
 
     box-shadow:
-        0 12px 28px rgba(37, 99, 235, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        0 7px 17px rgba(18, 61, 114, 0.18);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.25s ease,
-        opacity 0.25s ease;
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
 }
 
-.botao-enviar:hover {
-    transform: translateY(-1px);
+
+.passo4-cliente-botao-finalizar span,
+.passo4-cliente-botao-finalizar strong {
+    color: #ffffff !important;
+}
+
+
+.passo4-cliente-botao-finalizar strong {
+    font-size: 19px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.passo4-cliente-botao-finalizar:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.07);
+
     box-shadow:
-        0 18px 38px rgba(37, 99, 235, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        0 10px 23px rgba(18, 61, 114, 0.24);
 }
 
-.botao-enviar:active {
+
+.passo4-cliente-botao-finalizar:hover strong {
+    transform: translateX(4px);
+}
+
+
+.passo4-cliente-botao-finalizar:active {
     transform: translateY(0);
 }
 
-/* ===============================
-   ERRO
-=============================== */
-.erro-box {
-    padding: 12px 14px;
-    border-radius: 10px;
 
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.35);
+/* =========================================================
+   TABLET
+========================================================= */
 
-    color: #fecaca;
-    font-size: 14px;
-    font-weight: 500;
+@media (max-width: 800px) {
 
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    .passo4-cliente-painel {
+        padding: 18px;
+
+        margin: 18px auto;
+    }
+
+    .passo4-cliente-cabecalho {
+        align-items: flex-start;
+    }
+
+    .passo4-cliente-titulo {
+        font-size: 23px;
+    }
+
+    .passo4-cliente-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .passo4-cliente-campo-total {
+        grid-column: auto;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .passo4-cliente-painel {
+        padding: 11px;
+
+        margin: 10px auto;
+
+        border-radius: 12px;
+    }
+
+    .passo4-cliente-cabecalho {
+        flex-direction: column;
+
+        gap: 12px;
+
+        margin-bottom: 17px;
+    }
+
+    .passo4-cliente-etapa-indicador {
+        width: 100%;
+
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .passo4-cliente-titulo {
+        font-size: 21px;
+    }
+
+    .passo4-cliente-subtitulo {
+        font-size: 11px;
+    }
+
+    .passo4-cliente-secao {
+        padding: 14px;
+
+        border-radius: 11px;
+    }
+
+    .passo4-cliente-secao-cabecalho {
+        padding-bottom: 12px;
+        margin-bottom: 14px;
+    }
+
+    .passo4-cliente-grid {
+        gap: 14px;
+    }
+
+    .passo4-cliente-input {
+        height: 44px;
+
+        font-size: 12px;
+    }
+
+    .passo4-cliente-finalizacao {
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 14px;
+    }
+
+    .passo4-cliente-botao-finalizar {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .passo4-cliente-painel {
+        padding: 8px;
+    }
+
+    .passo4-cliente-titulo {
+        font-size: 19px;
+    }
+
+    .passo4-cliente-secao {
+        padding: 12px;
+    }
+
+    .passo4-cliente-input-bloqueado {
+        padding-right: 12px;
+    }
+
+    .passo4-cliente-admin-selo {
+        display: none;
+    }
 }

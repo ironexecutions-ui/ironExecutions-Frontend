@@ -1,499 +1,1360 @@
-/* ===============================
-   CONTAINER GERAL
-=============================== */
+/* =========================================================
+   AREA LOGIN
+   PREMIUM LIGHT GLASS
+========================================================= */
 
 .area-login-container {
+    width: calc(100% - 32px);
     max-width: 540px;
+
+    position: relative;
+
     margin: 70px auto;
-    padding: 32px;
-    background: #0b1220;
-    border-radius: 16px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-    color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
+    padding: 34px;
 
-.area-login-container h2 {
-    text-align: center;
-    margin-bottom: 28px;
-    font-size: 22px;
-    font-weight: 600;
-}
+    border-radius: 28px;
 
-
-/* ===============================
-   BOTÕES DE MODO
-=============================== */
-
-.modo-botoes {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.modo-botoes button {
-    flex: 1;
-    padding: 11px;
-    background: #111827;
-    border: 1px solid #1f2937;
-    border-radius: 10px;
-    color: #e5e7eb;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.modo-botoes button:hover {
-    background: #1f2937;
-}
-
-
-/* ===============================
-   ERRO
-=============================== */
-
-.erro {
-    background: #7f1d1d;
-    color: #fee2e2;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 16px;
-    text-align: center;
-    font-size: 14px;
-}
-
-
-/* ===============================
-   FORM PADRÃO (EMAIL)
-=============================== */
-
-.area-login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.area-login-form label {
-    font-size: 14px;
-    opacity: 0.9;
-}
-
-.area-login-form input {
-    padding: 11px;
-    border-radius: 10px;
-    border: 1px solid #1f2937;
-    background: #020617;
-    color: #e5e7eb;
-    outline: none;
-}
-
-.area-login-form button {
-    margin-top: 10px;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    background: #2563eb;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-
-/* ===============================
-   INPUT OCULTO (BIPADOR / QR)
-=============================== */
-
-.barcode-input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    height: 0;
-    width: 0;
-}
-
-
-/* ===============================
-   CÓDIGO DE BARRAS FALSO
-=============================== */
-
-.barcode-box {
-    position: relative;
-    height: 120px;
-    border-radius: 14px;
-    background: #020617;
-    border: 2px dashed #334155;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    transition: border-color 0.2s ease;
-}
-
-.barcode-box:hover {
-    border-color: #3b82f6;
-}
-
-.barcode-box::before {
-    content: "";
-    width: 85%;
-    height: 55px;
-    background: repeating-linear-gradient(90deg,
-            #e5e7eb 0px,
-            #e5e7eb 2px,
-            transparent 2px,
-            transparent 4px,
-            #e5e7eb 4px,
-            #e5e7eb 7px,
-            transparent 7px,
-            transparent 9px);
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-.barcode-box span {
-    font-size: 13px;
-    color: #94a3b8;
-}
-
-
-/* ===============================
-   QR CODE FALSO
-=============================== */
-
-.qrcode-box {
-    position: relative;
-    height: 180px;
-    border-radius: 16px;
-    background: #020617;
-    border: 2px dashed #334155;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    transition: border-color 0.2s ease;
-}
-
-.qrcode-box:hover {
-    border-color: #22c55e;
-}
-
-.qrcode-desenho {
-    width: 110px;
-    height: 110px;
     background:
-        linear-gradient(90deg, #e5e7eb 10px, transparent 10px),
-        linear-gradient(#e5e7eb 10px, transparent 10px);
-    background-size: 22px 22px;
-    background-position: 0 0;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    position: relative;
+        radial-gradient(
+            500px 260px at 50% -100px,
+            rgba(37, 99, 235, 0.12),
+            transparent 70%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 249, 0.88)
+        );
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+
+    box-shadow:
+        0 28px 70px rgba(15, 23, 42, 0.10),
+        0 8px 24px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    color: #0f172a;
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        system-ui,
+        -apple-system,
+        sans-serif;
+
+    overflow: hidden;
+    isolation: isolate;
 }
 
-.qrcode-desenho::before,
-.qrcode-desenho::after {
+
+/* =========================================================
+   LUZ DECORATIVA
+========================================================= */
+
+.area-login-container::before {
     content: "";
+
     position: absolute;
-    width: 26px;
-    height: 26px;
-    border: 5px solid #020617;
-    background: #e5e7eb;
+
+    width: 420px;
+    height: 200px;
+
+    top: -150px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.15);
+
+    filter: blur(55px);
+
+    pointer-events: none;
+
+    z-index: -1;
 }
 
-.qrcode-desenho::before {
-    top: 4px;
-    left: 4px;
+
+.area-login-container::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 25%,
+            rgba(255, 255, 255, 0.55) 45%,
+            transparent 65%
+        );
+
+    opacity: 0.35;
+
+    pointer-events: none;
+
+    z-index: -1;
 }
 
-.qrcode-desenho::after {
-    bottom: 4px;
-    right: 4px;
-}
 
-.qrcode-box span {
-    font-size: 13px;
-    color: #94a3b8;
-}
-
-/* ===============================
-   CONTAINER GERAL
-=============================== */
-.area-login-container {
-    max-width: 540px;
-    margin: 70px auto;
-    padding: 32px;
-
-    background: #0b1220;
-    border-radius: 16px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-
-    color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-/* ===============================
+/* =========================================================
    TÍTULO
-=============================== */
+========================================================= */
+
 .area-login-container h2 {
+    position: relative;
+
+    margin: 0 0 30px;
+
+    color: #0f172a;
+
+    font-size: clamp(24px, 4vw, 30px);
+
+    font-weight: 780;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.6px;
+
     text-align: center;
-    margin-bottom: 28px;
-    font-size: clamp(20px, 4vw, 22px);
-    font-weight: 600;
 }
 
-/* ===============================
-   BOTÕES DE MODO
-=============================== */
-.modo-botoes {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
+
+.area-login-container h2::after {
+    content: "";
+
+    width: 42px;
+    height: 3px;
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -11px;
+
+    transform: translateX(-50%);
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0f315d,
+            #2563eb
+        );
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.20);
 }
+
+
+/* =========================================================
+   BOTÕES DOS MODOS
+========================================================= */
+
+.modo-botoes {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin-bottom: 26px;
+
+    padding: 6px;
+
+    border-radius: 17px;
+
+    background: rgba(226, 232, 240, 0.58);
+
+    border: 1px solid rgba(15, 23, 42, 0.06);
+
+    box-shadow:
+        inset 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
 
 .modo-botoes button {
-    flex: 1;
-    min-width: 140px;
-    padding: 11px;
+    width: 100%;
+    min-width: 0;
 
-    background: #111827;
-    border: 1px solid #1f2937;
-    border-radius: 10px;
+    min-height: 47px;
 
-    color: #e5e7eb;
+    padding: 10px 9px;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    background: transparent;
+
+    color: #475569;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    line-height: 1.25;
+
     cursor: pointer;
 
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition:
+        transform 0.22s ease,
+        color 0.22s ease,
+        background 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+
+    -webkit-tap-highlight-color: transparent;
 }
+
 
 .modo-botoes button:hover {
-    background: #1f2937;
-    border-color: #334155;
+    color: #0f315d;
+
+    background: rgba(255, 255, 255, 0.70);
+
+    border-color: rgba(15, 49, 93, 0.08);
 }
 
-/* ===============================
+
+/* =========================================================
+   MODO ATIVO
+   FUNCIONA COM O JSX QUE TE PASSEI
+========================================================= */
+
+.modo-botoes button.area-login-modo-ativo {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f315d 0%,
+            #164e8a 55%,
+            #1d5fa6 100%
+        );
+
+    border-color: rgba(15, 49, 93, 0.30);
+
+    box-shadow:
+        0 8px 18px rgba(15, 49, 93, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+
+.modo-botoes button.area-login-modo-ativo:hover {
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
    ERRO
-=============================== */
+========================================================= */
+
 .erro {
-    background: #7f1d1d;
-    color: #fee2e2;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 16px;
+    position: relative;
+
+    margin: 0 0 18px;
+
+    padding: 13px 15px;
+
+    border-radius: 13px;
+
+    color: #991b1b;
+
+    background: rgba(254, 242, 242, 0.94);
+
+    border: 1px solid rgba(220, 38, 38, 0.14);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.45;
+
     text-align: center;
-    font-size: 14px;
+
+    box-shadow:
+        0 7px 18px rgba(127, 29, 29, 0.06);
 }
 
-/* ===============================
-   FORM PADRÃO
-=============================== */
+
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
+
 .area-login-form {
+    width: 100%;
+
     display: flex;
+
     flex-direction: column;
-    gap: 12px;
+
+    gap: 10px;
 }
+
+
+/* =========================================================
+   LABEL
+========================================================= */
 
 .area-login-form label {
-    font-size: 14px;
-    opacity: 0.9;
+    margin-top: 3px;
+
+    color: #1e293b;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    letter-spacing: 0.1px;
 }
 
-.area-login-form input {
-    padding: 11px;
-    border-radius: 10px;
-    border: 1px solid #1f2937;
-    background: #020617;
-    color: #e5e7eb;
-    outline: none;
-}
 
-.area-login-form button {
-    margin-top: 10px;
-    padding: 12px;
+/* =========================================================
+   INPUTS
+========================================================= */
 
-    border-radius: 10px;
-    border: none;
-    background: #2563eb;
+.area-login-form input:not(.barcode-input) {
+    width: 100%;
 
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
+    min-height: 52px;
 
-    transition: background 0.2s ease;
-}
+    padding: 0 16px;
 
-.area-login-form button:hover {
-    background: #1d4ed8;
-}
+    box-sizing: border-box;
 
-/* ===============================
-   INPUT OCULTO (LEITOR)
-=============================== */
-.barcode-input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    height: 0;
-    width: 0;
-}
+    border: 1px solid rgba(15, 39, 71, 0.12);
 
-/* ===============================
-   CÓDIGO DE BARRAS
-=============================== */
-.barcode-box {
-    position: relative;
-    height: 120px;
     border-radius: 14px;
 
-    background: #020617;
-    border: 2px dashed #334155;
+    outline: none;
 
-    cursor: pointer;
+    color: #0f172a;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    background:
+        rgba(255, 255, 255, 0.84);
 
-    transition: border-color 0.2s ease;
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.03),
+        0 4px 12px rgba(15, 23, 42, 0.03);
+
+    transition:
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease;
 }
 
-.barcode-box:hover {
-    border-color: #3b82f6;
-}
 
-.barcode-box::before {
-    content: "";
-    width: 85%;
-    height: 55px;
-    background: repeating-linear-gradient(90deg,
-            #e5e7eb 0px,
-            #e5e7eb 2px,
-            transparent 2px,
-            transparent 4px,
-            #e5e7eb 4px,
-            #e5e7eb 7px,
-            transparent 7px,
-            transparent 9px);
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-.barcode-box span {
-    font-size: 13px;
+.area-login-form input:not(.barcode-input)::placeholder {
     color: #94a3b8;
 }
 
-/* ===============================
-   QR CODE
-=============================== */
-.qrcode-box {
-    position: relative;
-    height: 180px;
-    border-radius: 16px;
 
-    background: #020617;
-    border: 2px dashed #334155;
+.area-login-form input:not(.barcode-input):hover {
+    border-color: rgba(37, 99, 235, 0.22);
+}
+
+
+.area-login-form input:not(.barcode-input):focus {
+    background: #ffffff;
+
+    border-color: rgba(37, 99, 235, 0.55);
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.09),
+        0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================================================
+   BOTÃO ENTRAR
+========================================================= */
+
+.area-login-form > button[type="submit"] {
+    width: 100%;
+
+    min-height: 53px;
+
+    margin-top: 10px;
+
+    padding: 13px 18px;
+
+    border: 1px solid rgba(15, 49, 93, 0.28);
+
+    border-radius: 14px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f315d 0%,
+            #164e8a 55%,
+            #1d5fa6 100%
+        );
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.2px;
 
     cursor: pointer;
 
+    box-shadow:
+        0 13px 28px rgba(15, 49, 93, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        filter 0.22s ease;
+}
+
+
+.area-login-form > button[type="submit"]:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+
+    box-shadow:
+        0 17px 34px rgba(15, 49, 93, 0.27),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+
+.area-login-form > button[type="submit"]:active {
+    transform: scale(0.985);
+}
+
+
+/* =========================================================
+   INPUT OCULTO
+   LEITOR FÍSICO / BIPADOR
+========================================================= */
+
+.barcode-input {
+    position: absolute !important;
+
+    width: 1px !important;
+    height: 1px !important;
+
+    padding: 0 !important;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CÓDIGO DE BARRAS
+========================================================= */
+
+.barcode-box {
+    width: 100%;
+    height: 150px;
+
+    position: relative;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
     flex-direction: column;
 
-    transition: border-color 0.2s ease;
-}
+    box-sizing: border-box;
 
-.qrcode-box:hover {
-    border-color: #22c55e;
-}
+    padding: 20px;
 
-.qrcode-desenho {
-    width: 110px;
-    height: 110px;
+    border: 1px dashed rgba(15, 49, 93, 0.24);
+
+    border-radius: 20px;
 
     background:
-        linear-gradient(90deg, #e5e7eb 10px, transparent 10px),
-        linear-gradient(#e5e7eb 10px, transparent 10px);
+        radial-gradient(
+            300px 130px at 50% 0%,
+            rgba(37, 99, 235, 0.07),
+            transparent 75%
+        ),
+        rgba(255, 255, 255, 0.65);
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 7px 20px rgba(15, 23, 42, 0.04);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.barcode-box:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(37, 99, 235, 0.50);
+
+    background: rgba(255, 255, 255, 0.90);
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =========================================================
+   DESENHO CÓDIGO DE BARRAS
+========================================================= */
+
+.barcode-box::before {
+    content: "";
+
+    width: 82%;
+    max-width: 330px;
+
+    height: 62px;
+
+    margin-bottom: 13px;
+
+    border-radius: 5px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #0f172a 0px,
+            #0f172a 2px,
+            transparent 2px,
+            transparent 5px,
+            #0f315d 5px,
+            #0f315d 8px,
+            transparent 8px,
+            transparent 11px,
+            #0f172a 11px,
+            #0f172a 12px,
+            transparent 12px,
+            transparent 16px
+        );
+
+    opacity: 0.88;
+}
+
+
+.barcode-box span {
+    color: #475569;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   QR CODE
+========================================================= */
+
+.qrcode-box {
+    width: 100%;
+    height: 210px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    box-sizing: border-box;
+
+    padding: 20px;
+
+    border: 1px dashed rgba(15, 49, 93, 0.24);
+
+    border-radius: 20px;
+
+    background:
+        radial-gradient(
+            260px 160px at 50% 15%,
+            rgba(37, 99, 235, 0.07),
+            transparent 75%
+        ),
+        rgba(255, 255, 255, 0.65);
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 7px 20px rgba(15, 23, 42, 0.04);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.qrcode-box:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(37, 99, 235, 0.50);
+
+    background: rgba(255, 255, 255, 0.90);
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =========================================================
+   DESENHO QR CODE
+========================================================= */
+
+.qrcode-desenho {
+    width: 108px;
+    height: 108px;
+
+    position: relative;
+
+    margin-bottom: 14px;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0f172a 10px,
+            transparent 10px
+        ),
+        linear-gradient(
+            #0f172a 10px,
+            transparent 10px
+        );
 
     background-size: 22px 22px;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    position: relative;
+
+    box-shadow:
+        0 7px 18px rgba(15, 23, 42, 0.08);
 }
+
 
 .qrcode-desenho::before,
 .qrcode-desenho::after {
     content: "";
+
     position: absolute;
-    width: 26px;
-    height: 26px;
-    border: 5px solid #020617;
-    background: #e5e7eb;
+
+    width: 27px;
+    height: 27px;
+
+    border: 5px solid #ffffff;
+
+    background: #0f315d;
+
+    box-shadow:
+        0 0 0 2px #0f172a;
 }
+
 
 .qrcode-desenho::before {
-    top: 4px;
-    left: 4px;
+    top: 5px;
+    left: 5px;
 }
+
 
 .qrcode-desenho::after {
-    bottom: 4px;
-    right: 4px;
+    right: 5px;
+    bottom: 5px;
 }
+
 
 .qrcode-box span {
+    color: #475569;
+
     font-size: 13px;
-    color: #94a3b8;
+
+    font-weight: 600;
+
+    text-align: center;
 }
 
-/* ===============================
-   RESPONSIVO TABLET
-=============================== */
+
+/* =========================================================
+   BOTÃO ABRIR CÂMERA
+   ESCONDIDO NO DESKTOP
+========================================================= */
+
+.area-login-camera-botao {
+    display: none;
+}
+
+
+/* =========================================================
+   MODAL / ÁREA DA CÂMERA
+========================================================= */
+
+.area-login-camera-modal {
+    width: 100%;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    margin-top: 18px;
+    padding: 16px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.97),
+            rgba(241, 245, 249, 0.92)
+        );
+
+    border: 1px solid rgba(15, 39, 71, 0.10);
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+
+/* =========================================================
+   CABEÇALHO DA CÂMERA
+========================================================= */
+
+.area-login-camera-cabecalho {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    margin-bottom: 14px;
+}
+
+
+.area-login-camera-cabecalho > div {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.area-login-camera-cabecalho strong {
+    color: #0f2747;
+
+    font-size: 16px;
+
+    font-weight: 750;
+}
+
+
+.area-login-camera-cabecalho span {
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FECHAR CÂMERA
+========================================================= */
+
+.area-login-camera-fechar {
+    width: 39px;
+    height: 39px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 0;
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+
+    border-radius: 50%;
+
+    color: #0f2747;
+
+    background: rgba(226, 232, 240, 0.70);
+
+    font-size: 25px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(15, 23, 42, 0.05);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.area-login-camera-fechar:hover {
+    transform: scale(1.07);
+
+    background: #e2e8f0;
+}
+
+
+/* =========================================================
+   VISOR
+========================================================= */
+
+.area-login-camera-visor {
+    width: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background: #020617;
+
+    aspect-ratio: 4 / 5;
+
+    box-shadow:
+        0 14px 30px rgba(2, 6, 23, 0.18);
+}
+
+
+.area-login-camera-reader {
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #020617;
+}
+
+
+.area-login-camera-reader video {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+
+    border-radius: 18px;
+}
+
+
+.area-login-camera-reader > div {
+    border: none !important;
+}
+
+
+/* =========================================================
+   MIRA DA CÂMERA
+========================================================= */
+
+.area-login-camera-mira {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    z-index: 10;
+
+    transform: translate(-50%, -50%);
+
+    border: 2px solid rgba(255, 255, 255, 0.96);
+
+    box-shadow:
+        0 0 0 9999px rgba(2, 6, 23, 0.25),
+        0 0 28px rgba(255, 255, 255, 0.16);
+
+    pointer-events: none;
+}
+
+
+.area-login-camera-mira-qr {
+    width: 68%;
+
+    aspect-ratio: 1;
+
+    border-radius: 20px;
+}
+
+
+.area-login-camera-mira-barra {
+    width: 86%;
+    height: 125px;
+
+    border-radius: 16px;
+}
+
+
+/* =========================================================
+   LINHA DE SCANNER
+========================================================= */
+
+.area-login-camera-mira-barra::after,
+.area-login-camera-mira-qr::after {
+    content: "";
+
+    position: absolute;
+
+    left: 8%;
+    right: 8%;
+
+    top: 50%;
+
+    height: 2px;
+
+    border-radius: 999px;
+
+    background: #60a5fa;
+
+    box-shadow:
+        0 0 8px rgba(96, 165, 250, 0.9),
+        0 0 18px rgba(96, 165, 250, 0.65);
+
+    animation:
+        areaLoginScannerLinha 2s ease-in-out infinite;
+}
+
+
+@keyframes areaLoginScannerLinha {
+
+    0% {
+        top: 15%;
+        opacity: 0.55;
+    }
+
+    50% {
+        top: 82%;
+        opacity: 1;
+    }
+
+    100% {
+        top: 15%;
+        opacity: 0.55;
+    }
+
+}
+
+
+/* =========================================================
+   CARREGANDO CÂMERA
+========================================================= */
+
+.area-login-camera-carregando {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    color: #ffffff;
+
+    background: rgba(2, 6, 23, 0.76);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   INSTRUÇÃO CÂMERA
+========================================================= */
+
+.area-login-camera-instrucao {
+    margin: 14px 5px 2px;
+
+    color: #475569;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   FOCUS ACESSÍVEL
+========================================================= */
+
+.modo-botoes button:focus-visible,
+.area-login-form button:focus-visible,
+.area-login-camera-botao:focus-visible,
+.area-login-camera-fechar:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.20);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
 @media (max-width: 900px) {
+
     .area-login-container {
-        padding: 28px;
+        margin: 50px auto;
+
+        padding: 30px;
+
+        border-radius: 25px;
     }
+
 }
 
-/* ===============================
-   RESPONSIVO CELULAR
-=============================== */
-@media (max-width: 600px) {
-    .area-login-container {
-        margin: 40px 12px;
-        padding: 24px;
+
+/* =========================================================
+   CÂMERA APARECE SOMENTE ABAIXO DE 700PX
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .area-login-camera-botao {
+        width: 100%;
+        min-height: 54px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 9px;
+
+        box-sizing: border-box;
+
+        margin-top: 12px;
+        padding: 14px 18px;
+
+        border: 1px solid rgba(15, 49, 93, 0.25);
+
         border-radius: 14px;
+
+        color: #ffffff;
+
+        background:
+            linear-gradient(
+                135deg,
+                #0f315d 0%,
+                #164e8a 55%,
+                #1d5fa6 100%
+            );
+
+        font-family: inherit;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 12px 26px rgba(15, 49, 93, 0.20),
+            inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            filter 0.2s ease;
+
+        -webkit-tap-highlight-color: transparent;
     }
 
-    .modo-botoes {
-        gap: 8px;
+
+    .area-login-camera-botao:hover {
+        transform: translateY(-2px);
+
+        filter: brightness(1.05);
+
+        box-shadow:
+            0 16px 32px rgba(15, 49, 93, 0.25);
     }
 
-    .modo-botoes button {
-        min-width: 100%;
+
+    .area-login-camera-botao:active {
+        transform: scale(0.985);
     }
 
-    .barcode-box {
-        height: 110px;
+
+    .area-login-camera-icone {
+        color: #ffffff;
+
+        font-size: 20px;
+
+        line-height: 1;
     }
 
-    .qrcode-box {
-        height: 160px;
-    }
 }
 
-/* ===============================
-   TELAS MUITO PEQUENAS
-=============================== */
-@media (max-width: 360px) {
-    .area-login-container {
-        padding: 20px;
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 701px) {
+
+    .area-login-camera-modal {
+        display: none;
     }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .area-login-container {
+        width: calc(100% - 24px);
+
+        margin: 28px auto;
+
+        padding: 22px 16px;
+
+        border-radius: 22px;
+    }
+
 
     .area-login-container h2 {
-        margin-bottom: 22px;
+        margin-bottom: 27px;
+
+        font-size: 25px;
     }
+
+
+    /* -----------------------------------------
+       MODOS CONTINUAM LADO A LADO
+    ----------------------------------------- */
+
+    .modo-botoes {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        gap: 5px;
+
+        padding: 5px;
+
+        border-radius: 15px;
+    }
+
+
+    .modo-botoes button {
+        min-width: 0;
+        min-height: 45px;
+
+        padding: 8px 5px;
+
+        border-radius: 11px;
+
+        font-size: 10.5px;
+    }
+
+
+    /* -----------------------------------------
+       CÓDIGO
+    ----------------------------------------- */
+
+    .barcode-box {
+        height: 135px;
+
+        padding: 16px;
+
+        border-radius: 17px;
+    }
+
+
+    .barcode-box::before {
+        width: 88%;
+
+        height: 55px;
+    }
+
+
+    /* -----------------------------------------
+       QR CODE
+    ----------------------------------------- */
+
+    .qrcode-box {
+        height: 190px;
+
+        padding: 16px;
+
+        border-radius: 17px;
+    }
+
+
+    .qrcode-desenho {
+        width: 96px;
+        height: 96px;
+
+        background-size: 20px 20px;
+    }
+
+
+    /* -----------------------------------------
+       CÂMERA
+    ----------------------------------------- */
+
+    .area-login-camera-modal {
+        margin-top: 14px;
+
+        padding: 11px;
+
+        border-radius: 18px;
+    }
+
+
+    .area-login-camera-visor {
+        border-radius: 15px;
+
+        aspect-ratio: 3 / 4;
+    }
+
+
+    .area-login-camera-reader video {
+        border-radius: 15px;
+    }
+
+
+    .area-login-camera-mira-barra {
+        width: 88%;
+        height: 105px;
+    }
+
+
+    .area-login-camera-mira-qr {
+        width: 72%;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .area-login-container {
+        width: calc(100% - 16px);
+
+        margin: 20px auto;
+
+        padding: 20px 12px;
+
+        border-radius: 19px;
+    }
+
+
+    .area-login-container h2 {
+        font-size: 23px;
+    }
+
+
+    .modo-botoes button {
+        min-height: 43px;
+
+        padding: 7px 3px;
+
+        font-size: 9.5px;
+    }
+
+
+    .area-login-camera-cabecalho strong {
+        font-size: 14px;
+    }
+
+
+    .area-login-camera-cabecalho span {
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .modo-botoes button,
+    .area-login-form input,
+    .area-login-form button,
+    .barcode-box,
+    .qrcode-box,
+    .area-login-camera-botao,
+    .area-login-camera-fechar {
+        transition: none;
+    }
+
+
+    .area-login-camera-mira-barra::after,
+    .area-login-camera-mira-qr::after {
+        animation: none;
+    }
+
 }
