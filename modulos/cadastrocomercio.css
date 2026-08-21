@@ -1,150 +1,568 @@
-/* ===============================
+/* =========================================================
+   CADASTRO COMÉRCIO
    CONTAINER PRINCIPAL
-   =============================== */
+========================================================= */
 
 .cadastro-comercio-container {
-    max-width: 920px;
-    margin: auto;
-    padding: 28px;
-    border-radius: 14px;
-    font-family: "Montserrat", Arial, sans-serif;
+    width: min(1180px, calc(100% - 40px));
+    min-height: 600px;
+
+    margin: 42px auto 70px;
+    padding: 38px;
+
+    position: relative;
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(
+            circle at 0% 0%,
+            rgba(37, 99, 235, 0.08),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 100% 10%,
+            rgba(14, 165, 233, 0.06),
+            transparent 30%
+        ),
+        rgba(255, 255, 255, 0.84);
+
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 30px;
+
+    box-shadow:
+        0 30px 80px rgba(15, 23, 42, 0.10),
+        0 8px 24px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    font-family:
+        "Montserrat",
+        "Inter",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+
+    color: #0f172a;
+
+    overflow: hidden;
+
+    animation: cadastroComercioEntrada 0.45s ease;
 }
 
-/* ===============================
-   TÍTULO
-   =============================== */
 
-.cadastro-comercio-container h2 {
-    text-align: center;
-    margin-bottom: 28px;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #1f2937;
+/* =========================================================
+   BRILHO DECORATIVO
+========================================================= */
+
+.cadastro-comercio-container::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    top: -270px;
+    right: -150px;
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.08);
+
+    filter: blur(20px);
+
+    pointer-events: none;
 }
 
-/* ===============================
-   PASSOS
-   =============================== */
+.cadastro-comercio-container::after {
+    content: "";
 
-.cadastro-passo {
-    animation: fadeIn 0.3s ease-in-out;
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    bottom: -220px;
+    left: -120px;
+
+    border-radius: 50%;
+
+    background: rgba(14, 165, 233, 0.06);
+
+    filter: blur(25px);
+
+    pointer-events: none;
 }
 
-/* ===============================
-   BOTÕES GERAIS
-   =============================== */
 
-.cadastro-comercio-container button {
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.cadastro-comercio-topo {
     width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
 
-/* Botão principal */
-.cadastro-btn-primary {
-    background-color: #2563eb;
-    color: #ffffff;
-}
-
-.cadastro-btn-primary:hover {
-    background-color: #1d4ed8;
-}
-
-/* Botão secundário */
-.cadastro-btn-secondary {
-    background-color: #f3f4f6;
-    color: #374151;
-}
-
-.cadastro-btn-secondary:hover {
-    background-color: #e5e7eb;
-}
-
-/* ===============================
-   INPUTS PADRÃO
-   =============================== */
-
-.cadastro-comercio-container input,
-.cadastro-comercio-container select {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid #d1d5db;
-    font-size: 0.95rem;
-    margin-bottom: 16px;
-    transition: border-color 0.2s ease;
-}
-
-.cadastro-comercio-container input:focus,
-.cadastro-comercio-container select:focus {
-    outline: none;
-    border-color: #2563eb;
-}
-
-/* ===============================
-   CHECKBOX / MÓDULOS
-   =============================== */
-
-.cadastro-modulos {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.cadastro-modulo-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    background-color: #f9fafb;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    cursor: pointer;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    position: relative;
+    z-index: 2;
+
+    padding-bottom: 28px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid rgba(148, 163, 184, 0.20);
 }
 
-.cadastro-modulo-item input {
-    margin: 0;
-}
 
-/* ===============================
-   FOOTER DOS PASSOS
-   =============================== */
+/* =========================================================
+   TEXTOS DO CABEÇALHO
+========================================================= */
 
-.cadastro-footer {
-    margin-top: 24px;
+.cadastro-comercio-topo-textos {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 8px;
+}
+
+.cadastro-comercio-etapa-geral {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 31px;
+
+    padding: 6px 12px;
+
+    border-radius: 9px;
+
+    background: rgba(37, 99, 235, 0.09);
+
+    border: 1px solid rgba(37, 99, 235, 0.13);
+
+    color: #17458a;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.cadastro-comercio-container
+.cadastro-comercio-topo-textos h2 {
+    margin: 0;
+
+    color: #071a35;
+
+    font-size: clamp(29px, 4vw, 42px);
+    font-weight: 800;
+
+    line-height: 1.1;
+    letter-spacing: -1.2px;
+
+    text-align: left;
+}
+
+.cadastro-comercio-topo-textos p {
+    max-width: 650px;
+
+    margin: 2px 0 0;
+
+    color: #52627a;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   INDICADOR DE ETAPA
+========================================================= */
+
+.cadastro-comercio-progresso {
+    min-width: 120px;
+
+    padding: 14px 18px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0c356d,
+            #124d94
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 28px rgba(12, 53, 109, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    color: #ffffff;
+
+    flex-shrink: 0;
+}
+
+.cadastro-comercio-progresso span {
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cadastro-comercio-progresso strong {
+    color: #ffffff;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    letter-spacing: -0.3px;
+}
+
+
+/* =========================================================
+   CONTROLES
+========================================================= */
+
+.cadastro-comercio-controles {
+    width: 100%;
+
+    margin-bottom: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     gap: 12px;
+
+    position: relative;
+    z-index: 2;
 }
 
-.cadastro-footer button {
-    flex: 1;
+
+/* =========================================================
+   BOTÃO VOLTAR
+========================================================= */
+
+.cadastro-comercio-container
+.cadastro-comercio-botao-voltar {
+    width: auto;
+
+    min-width: 120px;
+
+    margin: 0;
+    padding: 11px 17px;
+
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    color: #19385f;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-/* ===============================
-   RESPONSIVO
-   =============================== */
+.cadastro-comercio-container
+.cadastro-comercio-botao-voltar:hover {
+    transform: translateY(-1px);
 
-@media (max-width: 640px) {
-    .cadastro-comercio-container {
-        margin: 20px 12px;
-        padding: 22px;
+    background: #ffffff;
+
+    border-color: rgba(37, 99, 235, 0.30);
+
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================================
+   COMEÇAR NOVAMENTE
+========================================================= */
+
+.cadastro-comercio-container
+.cadastro-comercio-botao-limpar {
+    width: auto;
+
+    margin: 0 0 0 auto;
+    padding: 11px 17px;
+
+    border: 1px solid rgba(220, 38, 38, 0.12);
+    border-radius: 11px;
+
+    background: rgba(254, 242, 242, 0.70);
+
+    color: #a52323;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.cadastro-comercio-container
+.cadastro-comercio-botao-limpar:hover {
+    transform: translateY(-1px);
+
+    background: #fef2f2;
+
+    border-color: rgba(220, 38, 38, 0.24);
+}
+
+
+/* =========================================================
+   ÁREA INTERNA DOS PASSOS
+========================================================= */
+
+.cadastro-comercio-container > .passo1-container,
+.cadastro-comercio-container > .passo2-container,
+.cadastro-comercio-container > .passo3-container,
+.cadastro-comercio-container > .passo4-container {
+    position: relative;
+    z-index: 2;
+
+    animation: cadastroPassoEntrada 0.35s ease;
+}
+
+
+/* =========================================================
+   TIPOGRAFIA GLOBAL DOS PASSOS
+========================================================= */
+
+.cadastro-comercio-container label {
+    color: #10233f;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+.cadastro-comercio-container input,
+.cadastro-comercio-container select,
+.cadastro-comercio-container textarea {
+    font-family: inherit;
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.cadastro-comercio-container input:not([type="checkbox"]):not([type="radio"]),
+.cadastro-comercio-container select,
+.cadastro-comercio-container textarea {
+    box-sizing: border-box;
+
+    border: 1px solid #cbd5e1;
+
+    color: #0f172a;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.cadastro-comercio-container
+input:not([type="checkbox"]):not([type="radio"]):focus,
+.cadastro-comercio-container select:focus,
+.cadastro-comercio-container textarea:focus {
+    outline: none;
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.10);
+}
+
+.cadastro-comercio-container input::placeholder,
+.cadastro-comercio-container textarea::placeholder {
+    color: #94a3b8;
+}
+
+
+/* =========================================================
+   INPUT DESABILITADO
+========================================================= */
+
+.cadastro-comercio-container input:disabled,
+.cadastro-comercio-container select:disabled {
+    background: #f1f5f9;
+
+    color: #64748b;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   BOTÕES PRINCIPAIS DOS FORMULÁRIOS
+========================================================= */
+
+.cadastro-comercio-container
+form button[type="submit"] {
+    min-height: 52px;
+
+    border: none;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #123f7a,
+            #1d5eaa
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 25px rgba(18, 63, 122, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.cadastro-comercio-container
+form button[type="submit"]:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 16px 32px rgba(18, 63, 122, 0.27),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+.cadastro-comercio-container
+form button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   BOTÃO DESABILITADO
+========================================================= */
+
+.cadastro-comercio-container button:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none !important;
+}
+
+
+/* =========================================================
+   SELEÇÃO
+========================================================= */
+
+.cadastro-comercio-container ::selection {
+    background: rgba(37, 99, 235, 0.18);
+    color: #071a35;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.cadastro-comercio-container * {
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(37, 99, 235, 0.30)
+        transparent;
+}
+
+.cadastro-comercio-container *::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+.cadastro-comercio-container *::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cadastro-comercio-container *::-webkit-scrollbar-thumb {
+    background: rgba(37, 99, 235, 0.24);
+
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DO CONTAINER
+========================================================= */
+
+@keyframes cadastroComercioEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
     }
 
-    .cadastro-comercio-container h2 {
-        font-size: 1.4rem;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* ===============================
-   ANIMAÇÃO
-   =============================== */
 
-@keyframes fadeIn {
+/* =========================================================
+   ANIMAÇÃO DOS PASSOS
+========================================================= */
+
+@keyframes cadastroPassoEntrada {
     from {
         opacity: 0;
         transform: translateY(8px);
@@ -153,5 +571,213 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .cadastro-comercio-container {
+        width: calc(100% - 28px);
+
+        margin: 25px auto 45px;
+
+        padding: 28px;
+
+        border-radius: 25px;
+    }
+
+    .cadastro-comercio-topo {
+        gap: 20px;
+    }
+
+    .cadastro-comercio-container
+    .cadastro-comercio-topo-textos h2 {
+        font-size: 32px;
+    }
+
+    .cadastro-comercio-topo-textos p {
+        font-size: 15px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .cadastro-comercio-container {
+        width: calc(100% - 20px);
+
+        margin: 12px auto 30px;
+
+        padding: 20px 16px 24px;
+
+        border-radius: 21px;
+    }
+
+    .cadastro-comercio-topo {
+        align-items: flex-start;
+
+        gap: 14px;
+
+        padding-bottom: 20px;
+        margin-bottom: 15px;
+    }
+
+    .cadastro-comercio-topo-textos {
+        gap: 6px;
+    }
+
+    .cadastro-comercio-etapa-geral {
+        min-height: 27px;
+
+        padding: 5px 9px;
+
+        font-size: 10px;
+
+        letter-spacing: 1px;
+    }
+
+    .cadastro-comercio-container
+    .cadastro-comercio-topo-textos h2 {
+        font-size: 25px;
+
+        letter-spacing: -0.6px;
+    }
+
+    .cadastro-comercio-topo-textos p {
+        font-size: 14px;
+
+        line-height: 1.5;
+    }
+
+    .cadastro-comercio-progresso {
+        min-width: 82px;
+
+        padding: 10px 11px;
+
+        border-radius: 14px;
+    }
+
+    .cadastro-comercio-progresso span {
+        font-size: 9px;
+    }
+
+    .cadastro-comercio-progresso strong {
+        font-size: 15px;
+    }
+
+    .cadastro-comercio-controles {
+        margin-bottom: 18px;
+
+        gap: 8px;
+    }
+
+    .cadastro-comercio-container
+    .cadastro-comercio-botao-voltar,
+    .cadastro-comercio-container
+    .cadastro-comercio-botao-limpar {
+        min-width: unset;
+
+        padding: 10px 12px;
+
+        font-size: 12px;
+    }
+
+    .cadastro-comercio-container label {
+        font-size: 14px;
+    }
+
+    .cadastro-comercio-container input,
+    .cadastro-comercio-container select,
+    .cadastro-comercio-container textarea {
+        font-size: 16px;
+    }
+
+    .cadastro-comercio-container
+    form button[type="submit"] {
+        min-height: 50px;
+
+        font-size: 15px;
+    }
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .cadastro-comercio-container {
+        width: calc(100% - 12px);
+
+        margin-top: 6px;
+
+        padding: 17px 12px 22px;
+
+        border-radius: 18px;
+    }
+
+    .cadastro-comercio-topo {
+        flex-direction: column;
+    }
+
+    .cadastro-comercio-progresso {
+        width: 100%;
+
+        flex-direction: row;
+
+        gap: 5px;
+
+        box-sizing: border-box;
+    }
+
+    .cadastro-comercio-progresso span {
+        font-size: 11px;
+    }
+
+    .cadastro-comercio-progresso strong {
+        font-size: 15px;
+    }
+
+    .cadastro-comercio-controles {
+        flex-wrap: wrap;
+    }
+
+    .cadastro-comercio-container
+    .cadastro-comercio-botao-voltar,
+    .cadastro-comercio-container
+    .cadastro-comercio-botao-limpar {
+        width: 100%;
+
+        margin: 0;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cadastro-comercio-container,
+    .cadastro-comercio-container > * {
+        animation: none !important;
+    }
+
+    .cadastro-comercio-container button,
+    .cadastro-comercio-container input,
+    .cadastro-comercio-container select,
+    .cadastro-comercio-container textarea {
+        transition: none !important;
     }
 }
