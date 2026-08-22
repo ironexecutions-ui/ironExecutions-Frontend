@@ -81,7 +81,13 @@ export default function AreaLogin() {
                 JSON.stringify(payload)
             );
 
-            window.location.href = "/ironbusiness/perfil";
+            // =====================================================
+            // REDIRECIONAMENTO DEFINIDO PELO BACKEND
+            // =====================================================
+
+            window.location.href =
+                json.redirect || "/ironbusiness/perfil";
+
         } catch (error) {
             console.error("[LOGIN] Erro:", error);
 
@@ -335,7 +341,7 @@ export default function AreaLogin() {
             }
 
             try {
-                leitor.stop().catch(() => {});
+                leitor.stop().catch(() => { });
             } catch {
                 // câmera já estava parada
             }

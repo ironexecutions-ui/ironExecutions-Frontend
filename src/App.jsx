@@ -17,13 +17,12 @@ import IronBusinessPerfil from "../modulos/perfil/ironbusiness";
 import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
-
 import Aulas from "../aulas/aulas";
 import Matricula from "../aulas/matricula/matricula";
 import Perfil from "../aulas/perfil/perfil";
 import Pagos from "..//aulas/pagos/pagos";
 import Aula_pagamentos from "../aulas/pagamentos/aulas_pagamentos";
-
+import PainelGeral from "../painelgeral/painel";
 import ironExecutions from "./imagens/ironexecutions.png";
 import missionaryStoreBrasil from "./imagens/missionarystorebrasil.png";
 import teste from "./imagens/teste.png";
@@ -186,7 +185,10 @@ function RoteamentoComLoading() {
         path="/codigo"
         element={<Codigo />}
       />
-
+      <Route
+        path="/painel"
+        element={<PainelGeral />}
+      />
       <Route
         path="/aulas"
         element={<Aulas />}
