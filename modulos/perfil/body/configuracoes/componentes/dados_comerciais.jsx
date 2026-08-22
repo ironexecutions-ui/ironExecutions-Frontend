@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import CampoEditavel from "./dados_comercias/campoeditavel";
+import React, { useEffect, useRef, useState } from "react"; import CampoEditavel from "./dados_comercias/campoeditavel";
 import BlocoFlags from "./dados_comercias/blocoflags";
 import BlocoModulos from "./dados_comercias/blocomodulos";
 import ModalEndereco from "./dados_comercias/modalendereco";
@@ -17,6 +16,7 @@ export default function DadosComerciais() {
     const [imagemCarregada, setImagemCarregada] = useState(false);
     const [imagemErro, setImagemErro] = useState("");
     const [imagemSucesso, setImagemSucesso] = useState(false);
+    const imagemAtualizadaRef = useRef(null);
     const cliente = JSON.parse(
         localStorage.getItem("cliente") || "{}"
     );
@@ -373,7 +373,7 @@ export default function DadosComerciais() {
 
     /* =========================================================
        CARREGAR DADOS DO COMÉRCIO
-
+    
        Cache primeiro.
        API depois.
     ========================================================= */
@@ -384,8 +384,31 @@ export default function DadosComerciais() {
 
         async function carregarComercio() {
 
+            console.log(
+                "=============================================="
+            );
+
+            console.log(
+                "[DADOS COMERCIAIS] INICIANDO CARREGAMENTO"
+            );
+
+            console.log(
+                "[DADOS COMERCIAIS] Comércio esperado:",
+                obterComercioId()
+            );
+
             const cache =
                 lerCacheComercio();
+
+            console.log(
+                "[DADOS COMERCIAIS] Cache encontrado:",
+                cache
+            );
+
+            console.log(
+                "[DADOS COMERCIAIS] Imagem presente no cache:",
+                cache?.imagem
+            );
 
 
             /* =================================================
@@ -394,11 +417,11 @@ export default function DadosComerciais() {
 
             if (cache && ativo) {
 
-                setDados(cache);
-
                 console.log(
-                    "[DADOS COMERCIAIS] Comércio carregado do cache."
+                    "[DADOS COMERCIAIS] Aplicando cache no React."
                 );
+
+                setDados(cache);
             }
 
 
@@ -408,6 +431,10 @@ export default function DadosComerciais() {
 
             try {
 
+                console.log(
+                    "[DADOS COMERCIAIS] Consultando /comercio/me..."
+                );
+
                 const resp = await fetch(
                     `${URL}/comercio/me`,
                     {
@@ -416,6 +443,11 @@ export default function DadosComerciais() {
                                 "Bearer " + token
                         }
                     }
+                );
+
+                console.log(
+                    "[DADOS COMERCIAIS] Status /comercio/me:",
+                    resp.status
                 );
 
                 if (!resp.ok) {
@@ -428,23 +460,92 @@ export default function DadosComerciais() {
                 const servidor =
                     await resp.json();
 
+
+                console.log(
+                    "[DADOS COMERCIAIS] RESPOSTA COMPLETA DO SERVIDOR:",
+                    servidor
+                );
+
+                console.log(
+                    "[DADOS COMERCIAIS] Imagem retornada pelo banco:",
+                    servidor?.imagem
+                );
+
+                console.log(
+                    "[DADOS COMERCIAIS] Última imagem enviada nesta sessão:",
+                    imagemAtualizadaRef.current
+                );
+
+
                 if (
                     !ativo ||
                     !servidor
                 ) {
+
+                    console.log(
+                        "[DADOS COMERCIAIS] Resposta ignorada porque componente não está ativo."
+                    );
+
                     return;
                 }
 
 
                 /* =================================================
-                   GARANTIA EXTRA CONTRA EMPRESA ERRADA
+                   PROTEGER IMAGEM RECÉM ATUALIZADA
+                ================================================= */
 
-                   Se a API retornar ID e ele for diferente do
-                   comércio atualmente logado, não usamos os dados.
+                if (imagemAtualizadaRef.current) {
+
+                    console.log(
+                        "[DADOS COMERCIAIS] Existe imagem atualizada durante esta sessão."
+                    );
+
+                    console.log(
+                        "[DADOS COMERCIAIS] Imagem servidor:",
+                        servidor.imagem
+                    );
+
+                    console.log(
+                        "[DADOS COMERCIAIS] Imagem atual:",
+                        imagemAtualizadaRef.current
+                    );
+
+                    if (
+                        servidor.imagem !==
+                        imagemAtualizadaRef.current
+                    ) {
+
+                        console.warn(
+                            "[DADOS COMERCIAIS] ATENÇÃO: servidor tentou devolver uma imagem diferente da recém enviada."
+                        );
+
+                        console.warn(
+                            "[DADOS COMERCIAIS] Mantendo imagem nova:",
+                            imagemAtualizadaRef.current
+                        );
+
+                        servidor.imagem =
+                            imagemAtualizadaRef.current;
+                    }
+                }
+
+
+                /* =================================================
+                   GARANTIA CONTRA EMPRESA ERRADA
                 ================================================= */
 
                 const comercioEsperado =
                     obterComercioId();
+
+                console.log(
+                    "[DADOS COMERCIAIS] Comércio esperado:",
+                    comercioEsperado
+                );
+
+                console.log(
+                    "[DADOS COMERCIAIS] Comércio recebido:",
+                    servidor.id
+                );
 
                 if (
                     comercioEsperado &&
@@ -472,12 +573,18 @@ export default function DadosComerciais() {
                    COMPARAR
                 ================================================= */
 
-                if (
+                const iguais =
                     dadosIguais(
                         cache,
                         servidor
-                    )
-                ) {
+                    );
+
+                console.log(
+                    "[DADOS COMERCIAIS] Cache e servidor são iguais?",
+                    iguais
+                );
+
+                if (iguais) {
 
                     console.log(
                         "[DADOS COMERCIAIS] Cache já está atualizado."
@@ -488,11 +595,16 @@ export default function DadosComerciais() {
 
 
                 /* =================================================
-                   MUDOU
+                   ATUALIZAR
                 ================================================= */
 
                 console.log(
-                    "[DADOS COMERCIAIS] Dados diferentes encontrados."
+                    "[DADOS COMERCIAIS] Atualizando React com dados do servidor."
+                );
+
+                console.log(
+                    "[DADOS COMERCIAIS] Imagem que será aplicada:",
+                    servidor.imagem
                 );
 
                 setDados(
@@ -501,6 +613,10 @@ export default function DadosComerciais() {
 
                 salvarCacheComercio(
                     servidor
+                );
+
+                console.log(
+                    "[DADOS COMERCIAIS] State e cache atualizados."
                 );
 
             } catch (erro) {
@@ -515,6 +631,11 @@ export default function DadosComerciais() {
         carregarComercio();
 
         return () => {
+
+            console.log(
+                "[DADOS COMERCIAIS] Desmontando carregamento."
+            );
+
             ativo = false;
         };
 
