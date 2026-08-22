@@ -12,7 +12,11 @@ export default function DadosComerciais() {
     const [tiposLetra, setTiposLetra] = useState([]);
     const [dados, setDados] = useState(null);
     const [abrirEndereco, setAbrirEndereco] = useState(false);
-
+    const [imagemEnviando, setImagemEnviando] = useState(false);
+    const [imagemPreview, setImagemPreview] = useState(null);
+    const [imagemCarregada, setImagemCarregada] = useState(false);
+    const [imagemErro, setImagemErro] = useState("");
+    const [imagemSucesso, setImagemSucesso] = useState(false);
     const cliente = JSON.parse(
         localStorage.getItem("cliente") || "{}"
     );
@@ -22,7 +26,22 @@ export default function DadosComerciais() {
     const podeEditar =
         cliente.funcao === "Administrador(a)";
 
+    function obterUrlImagemComercio(imagem) {
 
+        if (!imagem) {
+            return null;
+        }
+
+        if (
+            imagem.startsWith("http://") ||
+            imagem.startsWith("https://") ||
+            imagem.startsWith("blob:")
+        ) {
+            return imagem;
+        }
+
+        return `${URL}${imagem.startsWith("/") ? "" : "/"}${imagem}`;
+    }
     /* =========================================================
        IDENTIFICAR COMÉRCIO
     ========================================================= */
@@ -569,16 +588,55 @@ export default function DadosComerciais() {
        UPLOAD DA IMAGEM
     ========================================================= */
 
+    /* =========================================================
+      UPLOAD DA IMAGEM
+   ========================================================= */
+
     async function alterarImagem(arquivo) {
 
         if (!arquivo) {
             return;
         }
 
+        if (!arquivo.type.startsWith("image/")) {
+
+            setImagemErro(
+                "Selecione um arquivo de imagem válido."
+            );
+
+            return;
+        }
+
+        const limite = 5 * 1024 * 1024;
+
+        if (arquivo.size > limite) {
+
+            setImagemErro(
+                "A imagem deve ter no máximo 5 MB."
+            );
+
+            return;
+        }
+
+
+        /* =====================================================
+           PREVIEW IMEDIATO
+        ===================================================== */
+
+        const previewLocal =
+            URL.createObjectURL(arquivo);
+
+        setImagemPreview(previewLocal);
+
+        setImagemEnviando(true);
+        setImagemCarregada(false);
+        setImagemErro("");
+        setImagemSucesso(false);
+
+
         try {
 
-            const form =
-                new FormData();
+            const form = new FormData();
 
             form.append(
                 "arquivo",
@@ -601,25 +659,56 @@ export default function DadosComerciais() {
             );
 
 
+            const resposta =
+                await resp.json();
+
+
             if (!resp.ok) {
 
                 throw new Error(
+                    resposta?.detail ||
                     `Erro upload: ${resp.status}`
                 );
             }
 
 
-            const resposta =
-                await resp.json();
+            if (!resposta?.imagem) {
 
-
-            if (resposta?.imagem) {
-
-                atualizarDadosComercio({
-                    imagem:
-                        resposta.imagem
-                });
+                throw new Error(
+                    "O servidor não retornou a imagem."
+                );
             }
+
+
+            /* =================================================
+               ATUALIZA DADOS E CACHE
+            ================================================= */
+
+            atualizarDadosComercio({
+                imagem: resposta.imagem
+            });
+
+
+            /* =================================================
+               REMOVE PREVIEW TEMPORÁRIO
+    
+               Agora passamos a utilizar a imagem da VPS.
+            ================================================= */
+
+            URL.revokeObjectURL(
+                previewLocal
+            );
+
+            setImagemPreview(null);
+            setImagemCarregada(false);
+            setImagemSucesso(true);
+
+
+            setTimeout(() => {
+
+                setImagemSucesso(false);
+
+            }, 3000);
 
 
         } catch (erro) {
@@ -628,9 +717,18 @@ export default function DadosComerciais() {
                 "[DADOS COMERCIAIS] Erro ao alterar imagem:",
                 erro
             );
+
+            setImagemErro(
+                erro.message ||
+                "Não foi possível enviar a imagem."
+            );
+
+
+        } finally {
+
+            setImagemEnviando(false);
         }
     }
-
 
     /* =========================================================
        PERMISSÃO
@@ -849,39 +947,163 @@ export default function DadosComerciais() {
 
             <section className="dc-section">
 
-                <h2 className="dc-title">
-                    Imagem do comércio
-                </h2>
+                <div className="dc-imagem-cabecalho">
+
+                    <div>
+                        <h2 className="dc-title">
+                            Imagem do comércio
+                        </h2>
+
+                        <p className="dc-imagem-descricao">
+                            Logo ou imagem utilizada para identificar o comércio.
+                        </p>
+                    </div>
+
+                    {dados.imagem && !imagemEnviando && (
+                        <span className="dc-imagem-status">
+                            Imagem carregada
+                        </span>
+                    )}
+
+                </div>
 
 
-                <div className="dc-imagem-box">
+                <div className="dc-imagem-area">
 
-                    {dados.imagem && (
+                    <div className="dc-imagem-box">
 
-                        <img
-                            src={dados.imagem}
-                            className="dc-imagem"
-                            alt="Imagem do comércio"
-                        />
+                        {(imagemPreview || dados.imagem) ? (
+                            <>
+
+                                {!imagemCarregada && (
+                                    <div className="dc-imagem-carregando">
+
+                                        <div className="dc-imagem-spinner" />
+
+                                        <span>
+                                            Carregando imagem...
+                                        </span>
+
+                                    </div>
+                                )}
+
+                                <img
+                                    src={
+                                        imagemPreview ||
+                                        obterUrlImagemComercio(dados.imagem)
+                                    }
+                                    className={
+                                        imagemCarregada
+                                            ? "dc-imagem dc-imagem-visivel"
+                                            : "dc-imagem"
+                                    }
+                                    alt={dados.loja || "Imagem do comércio"}
+                                    onLoad={() => {
+                                        setImagemCarregada(true);
+                                        setImagemErro("");
+                                    }}
+                                    onError={() => {
+                                        setImagemCarregada(true);
+                                        setImagemErro(
+                                            "Não foi possível carregar a imagem."
+                                        );
+                                    }}
+                                />
+
+                            </>
+                        ) : (
+
+                            <div className="dc-imagem-sem-foto">
+
+                                <div className="dc-imagem-sem-foto-icone">
+                                    +
+                                </div>
+
+                                <strong>
+                                    Nenhuma imagem
+                                </strong>
+
+                                <span>
+                                    Adicione uma imagem do comércio
+                                </span>
+
+                            </div>
+
+                        )}
+
+                    </div>
+
+
+                    {podeEditar && (
+
+                        <div className="dc-imagem-controles">
+
+                            <label
+                                className={
+                                    imagemEnviando
+                                        ? "dc-imagem-upload-btn dc-imagem-upload-btn-bloqueado"
+                                        : "dc-imagem-upload-btn"
+                                }
+                            >
+
+                                <input
+                                    type="file"
+                                    accept="image/png,image/jpeg,image/webp"
+                                    disabled={imagemEnviando}
+                                    onChange={e => {
+
+                                        const arquivo = e.target.files?.[0];
+
+                                        if (arquivo) {
+                                            alterarImagem(arquivo);
+                                        }
+
+                                        e.target.value = "";
+                                    }}
+                                />
+
+                                {imagemEnviando
+                                    ? "Enviando..."
+                                    : dados.imagem
+                                        ? "Trocar imagem"
+                                        : "Adicionar imagem"
+                                }
+
+                            </label>
+
+                            <span className="dc-imagem-ajuda">
+                                PNG, JPG ou WEBP, máximo 5 MB
+                            </span>
+
+                        </div>
 
                     )}
 
                 </div>
 
 
-                {podeEditar && (
+                {imagemSucesso && (
+                    <div className="dc-imagem-mensagem-sucesso">
+                        Imagem atualizada com sucesso.
+                    </div>
+                )}
 
-                    <input
-                        className="dc-upload"
-                        type="file"
-                        accept="image/*"
-                        onChange={e =>
-                            alterarImagem(
-                                e.target.files?.[0]
-                            )
-                        }
-                    />
 
+                {imagemErro && (
+                    <div className="dc-imagem-mensagem-erro">
+
+                        <span>
+                            {imagemErro}
+                        </span>
+
+                        <button
+                            type="button"
+                            onClick={() => setImagemErro("")}
+                        >
+                            ×
+                        </button>
+
+                    </div>
                 )}
 
             </section>
