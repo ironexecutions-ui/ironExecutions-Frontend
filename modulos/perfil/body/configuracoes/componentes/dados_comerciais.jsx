@@ -1196,6 +1196,13 @@ export default function DadosComerciais() {
                                 PNG, JPG ou WEBP, máximo 5 MB
                             </span>
 
+                            <div className="dc-imagem-aviso-tempo">
+                                <span className="dc-imagem-aviso-icone">!</span>
+
+                                <span>
+                                    Após alterar a imagem, ela pode levar até <strong>1 minuto</strong> para aparecer atualizada em todo o sistema.
+                                </span>
+                            </div>
                         </div>
 
                     )}

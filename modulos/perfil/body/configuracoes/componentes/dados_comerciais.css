@@ -412,6 +412,66 @@
     transform: scale(0.98);
 }
 
+/* =========================================================
+   AVISO DE TEMPO DA IMAGEM
+========================================================= */
+
+.dc-imagem-aviso-tempo {
+    max-width: 420px;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    margin-top: 4px;
+    padding: 10px 12px;
+
+    box-sizing: border-box;
+
+    background: #fff8e8 !important;
+
+    border: 1px solid #f3d58b;
+    border-radius: 9px;
+
+    color: #765714 !important;
+
+    font-size: 10px;
+    font-weight: 550;
+
+    line-height: 1.5;
+}
+
+.dc-imagem-aviso-tempo span {
+    color: #765714 !important;
+}
+
+.dc-imagem-aviso-tempo strong {
+    color: #5c4109 !important;
+    font-weight: 800;
+}
+
+.dc-imagem-aviso-icone {
+    width: 18px;
+    height: 18px;
+
+    flex: 0 0 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 1px;
+
+    background: #f5c451 !important;
+
+    border-radius: 50%;
+
+    color: #5c4109 !important;
+
+    font-size: 11px;
+    font-weight: 900;
+}
 
 /* =========================================================
    ESCONDER INPUT NATIVO

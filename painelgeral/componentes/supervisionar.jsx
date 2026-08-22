@@ -97,6 +97,10 @@ export default function Supervisionar() {
        ENTRAR NO COMÉRCIO
     ===================================================== */
 
+    /* =====================================================
+      ENTRAR NO COMÉRCIO
+   ===================================================== */
+
     async function entrarComercioSupervisao(comercio) {
 
         if (supervisaoEntrandoId !== null) {
@@ -134,12 +138,26 @@ export default function Supervisionar() {
                 );
             }
 
-            navigate(
-                "/ironbusiness/perfil",
-                {
-                    replace: true
-                }
+
+            /* =================================================
+               ABRIR PERFIL EM OUTRA ABA
+            ================================================= */
+
+            const urlPerfil =
+                `${window.location.origin}/ironbusiness/perfil`;
+
+            window.open(
+                urlPerfil,
+                "_blank",
+                "noopener,noreferrer"
             );
+
+
+            /* =================================================
+               LIBERAR BOTÕES
+            ================================================= */
+
+            setSupervisaoEntrandoId(null);
 
         } catch (error) {
 

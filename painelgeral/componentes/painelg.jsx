@@ -15,10 +15,12 @@ export default function PainelG() {
 
     const [painelGCarregando, setPainelGCarregando] = useState(false);
     const [painelGErro, setPainelGErro] = useState("");
-
+    const [painelGFiltroTabela, setPainelGFiltroTabela] = useState("");
     const [painelGSql, setPainelGSql] = useState("");
     const [painelGResultadoSql, setPainelGResultadoSql] = useState(null);
-
+    const [painelGTabelasFixadas, setPainelGTabelasFixadas] = useState([]);
+    const [painelGMostrarTodasTabelas, setPainelGMostrarTodasTabelas] = useState(false);
+    const [painelGAlterandoFixada, setPainelGAlterandoFixada] = useState("");
     const token = localStorage.getItem("token");
 
 
@@ -288,7 +290,170 @@ export default function PainelG() {
 
         }
     }
+    /* =====================================================
+       CARREGAR TABELAS FIXADAS
+    ===================================================== */
 
+    async function carregarTabelasFixadasPainelG() {
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/panel/database/tabelas-fixadas`,
+                {
+                    headers: headersPainelG()
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.detail ||
+                    "Erro ao carregar tabelas fixadas"
+                );
+            }
+
+            setPainelGTabelasFixadas(
+                dados.tabelas || []
+            );
+
+        } catch (error) {
+
+            console.error(
+                "[PAINEL] Erro tabelas fixadas:",
+                error
+            );
+
+            setPainelGErro(
+                error.message
+            );
+        }
+    }
+
+
+    /* =====================================================
+       VERIFICAR SE ESTÁ FIXADA
+    ===================================================== */
+
+    function tabelaEstaFixadaPainelG(nomeTabela) {
+
+        return painelGTabelasFixadas.some(
+            item =>
+                item.tabela_nome === nomeTabela
+        );
+    }
+
+
+    /* =====================================================
+       FIXAR TABELA
+    ===================================================== */
+
+    async function fixarTabelaPainelG(nomeTabela) {
+
+        if (painelGAlterandoFixada) {
+            return;
+        }
+
+        setPainelGAlterandoFixada(nomeTabela);
+        setPainelGErro("");
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/panel/database/tabelas-fixadas`,
+                {
+                    method: "POST",
+
+                    headers: headersPainelG(),
+
+                    body: JSON.stringify({
+                        tabela_nome: nomeTabela
+                    })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.detail ||
+                    "Erro ao fixar tabela"
+                );
+            }
+
+            await carregarTabelasFixadasPainelG();
+
+        } catch (error) {
+
+            console.error(
+                "[PAINEL] Erro ao fixar:",
+                error
+            );
+
+            setPainelGErro(
+                error.message
+            );
+
+        } finally {
+
+            setPainelGAlterandoFixada("");
+        }
+    }
+
+
+    /* =====================================================
+       DESAFIXAR TABELA
+    ===================================================== */
+
+    async function desafixarTabelaPainelG(nomeTabela) {
+
+        if (painelGAlterandoFixada) {
+            return;
+        }
+
+        setPainelGAlterandoFixada(nomeTabela);
+        setPainelGErro("");
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/panel/database/tabelas-fixadas/${encodeURIComponent(nomeTabela)}`,
+                {
+                    method: "DELETE",
+                    headers: headersPainelG()
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.detail ||
+                    "Erro ao desafixar tabela"
+                );
+            }
+
+            await carregarTabelasFixadasPainelG();
+
+        } catch (error) {
+
+            console.error(
+                "[PAINEL] Erro ao desafixar:",
+                error
+            );
+
+            setPainelGErro(
+                error.message
+            );
+
+        } finally {
+
+            setPainelGAlterandoFixada("");
+        }
+    }
     /* =====================================================
        CARREGAMENTO INICIAL
     ===================================================== */
@@ -296,6 +461,7 @@ export default function PainelG() {
     useEffect(() => {
 
         carregarTabelasPainelG();
+        carregarTabelasFixadasPainelG();
 
     }, []);
     /* =====================================================
@@ -318,7 +484,26 @@ export default function PainelG() {
     /* =====================================================
        RETURN
     ===================================================== */
+    const painelGTabelasVisiveis =
+        painelGMostrarTodasTabelas
+            ? painelGTabelas
+            : painelGTabelas.filter(
+                tabela =>
+                    tabelaEstaFixadaPainelG(tabela)
+            );
 
+
+    const painelGTabelasFiltradas =
+        painelGTabelasVisiveis.filter(
+            tabela =>
+                tabela
+                    .toLowerCase()
+                    .includes(
+                        painelGFiltroTabela
+                            .trim()
+                            .toLowerCase()
+                    )
+        );
     return (
 
         <div className="painel-g-administrador-container">
@@ -394,18 +579,34 @@ export default function PainelG() {
             {painelGSecaoAtiva === "tabelas" && (
 
                 <div className="painel-g-area-tabelas">
-
                     <aside className="painel-g-lista-tabelas">
 
                         <div className="painel-g-lista-tabelas-cabecalho">
 
-                            <h2>
-                                Tabelas
-                            </h2>
+                            <div>
+
+                                <h2>
+                                    {painelGMostrarTodasTabelas
+                                        ? "Todas as tabelas"
+                                        : "Tabelas fixadas"
+                                    }
+                                </h2>
+
+                                <span className="painel-g-lista-tabelas-total">
+                                    {painelGTabelasFiltradas.length} tabelas
+                                </span>
+
+                            </div>
+
 
                             <button
                                 type="button"
-                                onClick={carregarTabelasPainelG}
+                                onClick={() => {
+
+                                    carregarTabelasPainelG();
+                                    carregarTabelasFixadasPainelG();
+
+                                }}
                             >
                                 Atualizar
                             </button>
@@ -413,30 +614,183 @@ export default function PainelG() {
                         </div>
 
 
-                        <div className="painel-g-lista-tabelas-conteudo">
+                        {/* =========================================
+        ABRIR / FECHAR TODAS
+    ========================================= */}
 
-                            {painelGTabelas.map(tabela => (
+                        <div className="painel-g-tabelas-modo">
+
+                            <button
+                                type="button"
+                                className={
+                                    painelGMostrarTodasTabelas
+                                        ? "painel-g-tabelas-modo-botao painel-g-tabelas-modo-botao-aberto"
+                                        : "painel-g-tabelas-modo-botao"
+                                }
+                                onClick={() => {
+
+                                    setPainelGMostrarTodasTabelas(
+                                        anterior => !anterior
+                                    );
+
+                                    setPainelGFiltroTabela("");
+
+                                }}
+                            >
+
+                                {painelGMostrarTodasTabelas
+                                    ? "Fechar tabelas"
+                                    : "Abrir tabelas"
+                                }
+
+                            </button>
+
+                        </div>
+
+
+                        {/* =========================================
+        FILTRO
+    ========================================= */}
+
+                        <div className="painel-g-filtro-tabelas">
+
+                            <input
+                                type="text"
+                                value={painelGFiltroTabela}
+                                onChange={e =>
+                                    setPainelGFiltroTabela(
+                                        e.target.value
+                                    )
+                                }
+                                placeholder={
+                                    painelGMostrarTodasTabelas
+                                        ? "Buscar em todas as tabelas..."
+                                        : "Buscar nas fixadas..."
+                                }
+                                autoComplete="off"
+                            />
+
+
+                            {painelGFiltroTabela && (
 
                                 <button
                                     type="button"
-                                    key={tabela}
-                                    className={
-                                        painelGTabelaSelecionada === tabela
-                                            ? "painel-g-tabela-item painel-g-tabela-item-ativo"
-                                            : "painel-g-tabela-item"
-                                    }
+                                    className="painel-g-filtro-tabelas-limpar"
                                     onClick={() =>
-                                        abrirTabelaPainelG(tabela)
+                                        setPainelGFiltroTabela("")
                                     }
                                 >
-
-                                    <span>
-                                        {tabela}
-                                    </span>
-
+                                    ×
                                 </button>
 
-                            ))}
+                            )}
+
+                        </div>
+
+
+                        {/* =========================================
+        LISTA
+    ========================================= */}
+
+                        <div className="painel-g-lista-tabelas-conteudo">
+
+                            {painelGTabelasFiltradas.map(tabela => {
+
+                                const fixada =
+                                    tabelaEstaFixadaPainelG(tabela);
+
+                                const alterando =
+                                    painelGAlterandoFixada === tabela;
+
+                                return (
+
+                                    <div
+                                        key={tabela}
+                                        className={
+                                            painelGTabelaSelecionada === tabela
+                                                ? "painel-g-tabela-linha painel-g-tabela-linha-ativa"
+                                                : "painel-g-tabela-linha"
+                                        }
+                                    >
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-tabela-item"
+                                            onClick={() =>
+                                                abrirTabelaPainelG(tabela)
+                                            }
+                                        >
+
+                                            <span>
+                                                {tabela}
+                                            </span>
+
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className={
+                                                fixada
+                                                    ? "painel-g-tabela-fixar painel-g-tabela-desafixar"
+                                                    : "painel-g-tabela-fixar"
+                                            }
+                                            disabled={alterando}
+                                            onClick={() => {
+
+                                                if (fixada) {
+
+                                                    desafixarTabelaPainelG(
+                                                        tabela
+                                                    );
+
+                                                } else {
+
+                                                    fixarTabelaPainelG(
+                                                        tabela
+                                                    );
+                                                }
+
+                                            }}
+                                        >
+
+                                            {alterando
+                                                ? "..."
+                                                : fixada
+                                                    ? "✖️"
+                                                    : "📌"
+                                            }
+
+                                        </button>
+
+                                    </div>
+
+                                );
+
+                            })}
+
+
+                            {painelGTabelasFiltradas.length === 0 && (
+
+                                <div className="painel-g-filtro-tabelas-vazio">
+
+                                    <strong>
+                                        {painelGMostrarTodasTabelas
+                                            ? "Nenhuma tabela encontrada"
+                                            : "Nenhuma tabela fixada"
+                                        }
+                                    </strong>
+
+                                    <span>
+                                        {painelGMostrarTodasTabelas
+                                            ? "Tente buscar por outro nome."
+                                            : "Clique em Abrir tabelas para escolher quais deseja fixar."
+                                        }
+                                    </span>
+
+                                </div>
+
+                            )}
 
                         </div>
 

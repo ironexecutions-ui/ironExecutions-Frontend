@@ -2211,3 +2211,612 @@
 
     cursor: not-allowed;
 }
+
+/* =========================================================
+   FILTRO DAS TABELAS
+========================================================= */
+
+.painel-g-filtro-tabelas {
+    width: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    padding: 10px 12px;
+
+    box-sizing: border-box;
+
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.painel-g-filtro-tabelas input {
+    width: 100%;
+    height: 40px;
+
+    padding: 0 40px 0 13px;
+
+    box-sizing: border-box;
+
+    background: #ffffff !important;
+
+    border: 1px solid #d6dde7;
+    border-radius: 9px;
+
+    outline: none;
+
+    color: #0f172a !important;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.painel-g-filtro-tabelas input::placeholder {
+    color: #94a3b8 !important;
+}
+
+.painel-g-filtro-tabelas input:focus {
+    border-color: #174f9c;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 79, 156, 0.1);
+}
+
+
+/* =========================================================
+   LIMPAR BUSCA
+========================================================= */
+
+.painel-g-filtro-tabelas-limpar {
+    width: 27px;
+    height: 27px;
+
+    position: absolute;
+
+    right: 19px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: #edf1f6 !important;
+
+    border: none !important;
+    border-radius: 6px;
+
+    color: #475569 !important;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.painel-g-filtro-tabelas-limpar:hover {
+    background: #dfe6ef !important;
+    color: #0f172a !important;
+}
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
+
+.painel-g-lista-tabelas-total {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #64748b !important;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   NENHUM RESULTADO
+========================================================= */
+
+.painel-g-filtro-tabelas-vazio {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 30px 15px;
+
+    text-align: center;
+}
+
+.painel-g-filtro-tabelas-vazio strong {
+    color: #334155 !important;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.painel-g-filtro-tabelas-vazio span {
+    color: #94a3b8 !important;
+
+    font-size: 10px;
+}
+
+/* =========================================================
+   TABELAS FIXADAS
+   ADICIONAR NO FINAL DO CSS
+========================================================= */
+
+
+/* =========================================================
+   ÁREA DO BOTÃO ABRIR TODAS AS TABELAS
+========================================================= */
+
+.painel-g-tabelas-modo {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    border-bottom: 1px solid var(--pg-borda);
+
+    background:
+        linear-gradient(180deg,
+            #f8faff,
+            #ffffff);
+}
+
+
+/* =========================================================
+   BOTÃO ABRIR TABELAS
+========================================================= */
+
+.painel-g-tabelas-modo-botao {
+    width: 100%;
+    min-height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 12px;
+
+    border: 1px solid #d5dfed;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: var(--pg-azul-800);
+
+    font-size: 11px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.15s ease;
+}
+
+.painel-g-tabelas-modo-botao:hover {
+    background: var(--pg-azul-50);
+
+    color: var(--pg-azul-700);
+
+    border-color: #aac5ef;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 197, 0.08);
+
+    transform: translateY(-1px);
+}
+
+.painel-g-tabelas-modo-botao:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================================
+   BOTÃO QUANDO TODAS ESTÃO VISÍVEIS
+========================================================= */
+
+.painel-g-tabelas-modo-botao-aberto {
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            var(--pg-azul-900),
+            var(--pg-azul-700));
+
+    border-color: transparent;
+
+    box-shadow:
+        0 4px 10px rgba(10, 31, 68, 0.16);
+}
+
+.painel-g-tabelas-modo-botao-aberto:hover {
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            var(--pg-azul-850),
+            var(--pg-azul-600));
+
+    border-color: transparent;
+
+    box-shadow:
+        0 6px 14px rgba(10, 31, 68, 0.22);
+}
+
+
+/* =========================================================
+   LINHA QUE CONTÉM TABELA + FIXAR
+========================================================= */
+
+.painel-g-tabela-linha {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    margin-bottom: 3px;
+
+    border-radius: 9px;
+
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+/* =========================================================
+   BOTÃO NORMAL DA TABELA DENTRO DA NOVA LINHA
+========================================================= */
+
+.painel-g-tabela-linha>.painel-g-tabela-item {
+    min-width: 0;
+
+    flex: 1;
+
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   LINHA DA TABELA ATUALMENTE ABERTA
+========================================================= */
+
+.painel-g-tabela-linha-ativa {
+    background: #f4f8ff;
+}
+
+
+/* =========================================================
+   BOTÃO FIXAR / DESAFIXAR
+========================================================= */
+
+.painel-g-tabela-fixar {
+    min-width: 29px;
+    width: 29px;
+    height: 29px;
+
+    flex: 0 0 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #d8e1ee;
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: var(--pg-azul-700);
+
+    font-size: 0;
+
+    cursor: pointer;
+
+    position: relative;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.15s ease;
+}
+
+
+/* =========================================================
+   ÍCONE DO FIXAR
+========================================================= */
+
+.painel-g-tabela-fixar::before {
+
+    font-size: 13px;
+
+    line-height: 1;
+
+    color: #a7b3c4;
+
+    transition:
+        color 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+/* =========================================================
+   HOVER FIXAR
+========================================================= */
+
+.painel-g-tabela-fixar:hover:not(:disabled) {
+    background: var(--pg-azul-50);
+
+    border-color: #aac5ef;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 197, 0.1);
+
+    transform: translateY(-1px);
+}
+
+.painel-g-tabela-fixar:hover:not(:disabled)::before {
+    color: var(--pg-azul-600);
+
+    transform: scale(1.12);
+}
+
+
+/* =========================================================
+   TABELA JÁ FIXADA
+========================================================= */
+
+.painel-g-tabela-desafixar {
+    background: #edf4ff;
+
+    border-color: #b9cef0;
+}
+
+.painel-g-tabela-desafixar::before {
+    color: var(--pg-azul-600);
+}
+
+
+/* =========================================================
+   HOVER PARA DESAFIXAR
+========================================================= */
+
+.painel-g-tabela-desafixar:hover:not(:disabled) {
+    background: #fff5f5;
+
+    border-color: #fecaca;
+
+    box-shadow:
+        0 3px 8px rgba(198, 40, 40, 0.08);
+}
+
+.painel-g-tabela-desafixar:hover:not(:disabled)::before {
+    color: var(--pg-vermelho);
+}
+
+
+/* =========================================================
+   PROCESSANDO FIXAÇÃO
+========================================================= */
+
+.painel-g-tabela-fixar:disabled {
+    opacity: 0.55;
+
+    cursor: wait;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   INDICADOR DE CARREGAMENTO
+========================================================= */
+
+.painel-g-tabela-fixar:disabled::before {
+    content: "";
+
+    width: 12px;
+    height: 12px;
+
+    border: 2px solid #d5dfed;
+    border-top-color: var(--pg-azul-600);
+
+    border-radius: 50%;
+
+    animation:
+        painelGTabelaFixacaoCarregando 0.65s linear infinite;
+}
+
+@keyframes painelGTabelaFixacaoCarregando {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   DIVISÃO VISUAL DAS FIXADAS
+========================================================= */
+
+.painel-g-tabelas-fixadas-titulo {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 10px 5px;
+
+    color: var(--pg-texto-suave);
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+.painel-g-tabelas-fixadas-titulo::before {
+    content: "";
+
+    width: 5px;
+    height: 5px;
+
+    flex: 0 0 5px;
+
+    border-radius: 50%;
+
+    background: var(--pg-azul-500);
+
+    box-shadow:
+        0 0 0 3px rgba(53, 120, 229, 0.1);
+}
+
+
+/* =========================================================
+   TOOLTIP DO BOTÃO FIXAR
+========================================================= */
+
+.painel-g-tabela-fixar::after {
+    content: "Fixar";
+
+    position: absolute;
+
+    right: 0;
+    bottom: calc(100% + 7px);
+
+    z-index: 50;
+
+    padding: 5px 7px;
+
+    border-radius: 5px;
+
+    background: var(--pg-azul-950);
+
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: translateY(3px);
+
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease,
+        visibility 0.15s ease;
+}
+
+.painel-g-tabela-desafixar::after {
+    content: "Desafixar";
+}
+
+.painel-g-tabela-fixar:hover::after {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .painel-g-tabelas-modo {
+        padding: 8px;
+    }
+
+    .painel-g-tabelas-modo-botao {
+        min-height: 36px;
+
+        font-size: 10px;
+    }
+
+    .painel-g-tabela-linha {
+        min-width: 0;
+
+        margin-bottom: 0;
+    }
+
+    .painel-g-tabela-fixar {
+        width: 30px;
+        min-width: 30px;
+        height: 30px;
+
+        flex-basis: 30px;
+    }
+
+    .painel-g-tabela-fixar::after {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .painel-g-tabela-linha {
+        gap: 3px;
+    }
+
+    .painel-g-tabela-fixar {
+        width: 28px;
+        min-width: 28px;
+        height: 28px;
+
+        flex-basis: 28px;
+    }
+
+    .painel-g-tabela-fixar::before {
+        font-size: 12px;
+    }
+}
