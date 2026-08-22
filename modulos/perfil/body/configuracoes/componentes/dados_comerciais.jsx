@@ -624,7 +624,7 @@ export default function DadosComerciais() {
         ===================================================== */
 
         const previewLocal =
-            URL.createObjectURL(arquivo);
+            window.URL.createObjectURL(arquivo);
 
         setImagemPreview(previewLocal);
 
@@ -695,7 +695,7 @@ export default function DadosComerciais() {
                Agora passamos a utilizar a imagem da VPS.
             ================================================= */
 
-            URL.revokeObjectURL(
+            window.URL.revokeObjectURL(
                 previewLocal
             );
 
