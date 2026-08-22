@@ -22,14 +22,55 @@ export default function CuponsFiscais() {
             });
     }, []);
 
-    function imprimirDanfe(id) {
-        window.open(
-            `${API_URL}/fiscal/nfce/${id}/danfe`,
-            "_blank"
-        );
-    }
+    async function imprimirDanfe(id) {
+        try {
+            const resposta = await fetch(
+                `${API_URL}/fiscal/nfce/${id}/danfe`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
 
-    if (carregando) {
+            if (!resposta.ok) {
+                const texto = await resposta.text();
+
+                console.error(
+                    "Erro ao buscar DANFE:",
+                    resposta.status,
+                    texto
+                );
+
+                throw new Error(
+                    `Erro ${resposta.status} ao gerar DANFE`
+                );
+            }
+
+            const blob = await resposta.blob();
+
+            const url = URL.createObjectURL(blob);
+
+            window.open(
+                url,
+                "_blank"
+            );
+
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+            }, 60000);
+
+        } catch (erro) {
+            console.error(
+                "Erro ao imprimir DANFE:",
+                erro
+            );
+
+            alert(
+                "Não foi possível gerar o DANFE da NFC-e."
+            );
+        }
+    } if (carregando) {
         return (
             <div className="cupons-fiscais">
                 <p className="cupons-fiscais-loading">
