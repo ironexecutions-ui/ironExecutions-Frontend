@@ -2,7 +2,198 @@
    PRODUTO ATUAL
    PREMIUM MANTENDO A IDENTIDADE ORIGINAL
 ========================================================= */
+/* =========================================================
+   PRODUTO VENDIDO POR PESO
+========================================================= */
 
+.produto-atual-peso-resumo {
+    width: fit-content;
+    max-width: 100%;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin: 1px 0 0;
+    padding: 8px 10px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.18),
+            rgba(255, 255, 255, 0.08));
+
+    border: 1px solid rgba(255, 255, 255, 0.22);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    animation: produtoPesoAparecer 0.25s ease;
+}
+
+
+/* =========================================================
+   VALOR QUE O CLIENTE VAI PAGAR
+========================================================= */
+
+.produto-atual-peso-cobrar {
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: #050505 !important;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    white-space: nowrap;
+}
+
+
+.produto-atual-peso-cobrar strong {
+    color: #050505 !important;
+
+    font-size: 23px;
+    font-weight: 850;
+
+    letter-spacing: -0.6px;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   QUANTIDADE DE GRAMAS
+========================================================= */
+
+.produto-atual-peso-gramas {
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+
+    padding: 5px 8px;
+
+    border-radius: 7px;
+
+    background: rgba(0, 0, 0, 0.07);
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    color: #050505 !important;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.produto-atual-peso-gramas strong {
+    color: #050505 !important;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO AO INFORMAR O PESO
+========================================================= */
+
+@keyframes produtoPesoAparecer {
+
+    from {
+        opacity: 0;
+        transform: translateY(4px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   PRODUTO POR PESO NO CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .produto-atual-peso-resumo {
+        gap: 5px;
+
+        padding: 6px 7px;
+
+        border-radius: 8px;
+    }
+
+
+    .produto-atual-peso-cobrar {
+        font-size: 10px;
+    }
+
+
+    .produto-atual-peso-cobrar strong {
+        font-size: 18px;
+    }
+
+
+    .produto-atual-peso-gramas {
+        padding: 4px 6px;
+
+        font-size: 9px;
+    }
+
+
+    .produto-atual-peso-gramas strong {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   CELULAR MUITO PEQUENO
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .produto-atual-peso-resumo {
+        padding: 5px 6px;
+    }
+
+
+    .produto-atual-peso-cobrar {
+        font-size: 9px;
+    }
+
+
+    .produto-atual-peso-cobrar strong {
+        font-size: 16px;
+    }
+
+
+    .produto-atual-peso-gramas {
+        font-size: 8px;
+    }
+
+
+    .produto-atual-peso-gramas strong {
+        font-size: 10px;
+    }
+}
 
 /* =========================================================
    CONTAINER PRINCIPAL

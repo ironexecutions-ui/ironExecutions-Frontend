@@ -74,50 +74,108 @@ export default function ListaItens() {
 
             <div className="lista-itens-conteudo">
                 {[...itens].reverse().map((item, index) => (
+
                     <div
-                        key={item.id}
-                        className="item-linha"
-                        style={{ animationDelay: `${index * 40}ms` }}
+                        key={
+                            item.ehProdutoPeso
+                                ? item.itemKey
+                                : item.id
+                        }
+                        className={`item-linha ${item.ehProdutoPeso
+                                ? "item-linha-peso"
+                                : ""
+                            }`}
+                        style={{
+                            animationDelay:
+                                `${index * 40}ms`
+                        }}
                     >
 
-
                         <span className="item-nome">
+
                             {item.nome}
-                            {item.unidade && (
-                                <span className="item-und"> ({item.unidade})</span>
-                            )}
+
+                            {item.ehProdutoPeso ? (
+
+                                <span className="item-und item-und-peso">
+                                    {" "}
+                                    ({Number(item.gramas).toLocaleString("pt-BR")}g)
+                                </span>
+
+                            ) : item.unidade ? (
+
+                                <span className="item-und">
+                                    {" "}
+                                    ({item.unidade})
+                                </span>
+
+                            ) : null}
+
                         </span>
 
+
                         <div className="item-controles">
-                            <button
-                                className="btn-menos"
-                                onClick={() => diminuirQuantidade(item.id)}
-                            >
-                                −
-                            </button>
 
-                            <span className="item-qtd">{item.quantidade}</span>
+                            {!item.ehProdutoPeso && (
+                                <>
+                                    <button
+                                        className="btn-menos"
+                                        onClick={() =>
+                                            diminuirQuantidade(
+                                                item.id
+                                            )
+                                        }
+                                    >
+                                        −
+                                    </button>
 
-                            <button
-                                className="btn-mais"
-                                onClick={() => aumentarQuantidade(item.id)}
-                            >
-                                +
-                            </button>
+                                    <span className="item-qtd">
+                                        {item.quantidade}
+                                    </span>
+
+                                    <button
+                                        className="btn-mais"
+                                        onClick={() =>
+                                            aumentarQuantidade(
+                                                item.id
+                                            )
+                                        }
+                                    >
+                                        +
+                                    </button>
+                                </>
+                            )}
+
+
+                            {item.ehProdutoPeso && (
+                                <span className="item-peso-info">
+                                    {Number(item.gramas).toLocaleString("pt-BR")}g
+                                </span>
+                            )}
+
 
                             <button
                                 className="btn-remover"
-                                onClick={() => removerItem(item.id)}
+                                onClick={() =>
+                                    removerItem(
+                                        item.ehProdutoPeso
+                                            ? item.itemKey
+                                            : item.id
+                                    )
+                                }
                             >
                                 x
                             </button>
+
                         </div>
 
+
                         <strong className="item-preco">
-                            R$ {item.subtotal.toFixed(2)}
+                            R$ {Number(item.subtotal).toFixed(2)}
                         </strong>
 
                     </div>
+
                 ))}
             </div>
 

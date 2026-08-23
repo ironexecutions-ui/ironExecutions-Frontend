@@ -241,7 +241,23 @@ export default function ProdutoAtual() {
         produtoAtual.imagem_url?.split("|")[0] ||
         produtoAtual.imagem_comercio?.split("|")[0] ||
         null;
+    const ehPeso =
+        produtoAtual?.ehProdutoPeso === true;
 
+    const valorPeso =
+        Number(
+            produtoAtual?.valorCalculadoPeso || 0
+        );
+
+    const gramasPeso =
+        Number(
+            produtoAtual?.gramasSelecionadas || 0
+        );
+
+    const pesoBase =
+        Number(
+            produtoAtual?.peso || 0
+        );
     return (
         <div className={`produto-atual-box tema-${tema}`}>
             <div className="produto-atual-conteudo">
@@ -280,50 +296,125 @@ export default function ProdutoAtual() {
                 </div>
 
                 <div className="produto-atual-dir">
+
                     <p className="produto-atual-nome">
                         <strong>{produtoAtual.nome}</strong>
                     </p>
 
+                    {/* =====================================
+        PRODUTO VENDIDO POR PESO
+    ===================================== */}
+
+                    {ehPeso && (
+                        <div className="produto-atual-peso-resumo">
+
+                            <p className="produto-atual-peso-cobrar">
+                                A pagar{" "}
+                                <strong>
+                                    R$ {valorPeso.toFixed(2)}
+                                </strong>
+                            </p>
+
+                            <p className="produto-atual-peso-gramas">
+                                Peso{" "}
+                                <strong>
+                                    {gramasPeso.toLocaleString("pt-BR")}g
+                                </strong>
+                            </p>
+
+                        </div>
+                    )}
+
+                    {/* =====================================
+        PREÇO CADASTRADO
+    ===================================== */}
+
                     {!editando ? (
+
                         <p
-                            className={`produto-atual-preco ${podeEditar ? "clicavel" : ""}`}
+                            className={`produto-atual-preco ${podeEditar ? "clicavel" : ""
+                                }`}
                             onClick={() => {
+
                                 if (!podeEditar) return;
-                                setNovoPreco(produtoAtual.preco.toFixed(2));
+
+                                setNovoPreco(
+                                    produtoAtual.preco.toFixed(2)
+                                );
+
                                 setEditando(true);
                             }}
                         >
-                            Preço R$ <span>{produtoAtual.preco.toFixed(2)}</span>
+
+                            {ehPeso ? (
+                                <>
+                                    Preço por{" "}
+                                    {pesoBase.toLocaleString("pt-BR")}g R${" "}
+                                    <span>
+                                        {produtoAtual.preco.toFixed(2)}
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    Preço R${" "}
+                                    <span>
+                                        {produtoAtual.preco.toFixed(2)}
+                                    </span>
+                                </>
+                            )}
+
                         </p>
+
                     ) : (
+
                         <div className="preco-edicao">
+
                             <input
                                 ref={inputRef}
                                 type="number"
                                 step="0.01"
                                 className="preco-inline-input"
                                 value={novoPreco}
-                                onChange={e => setNovoPreco(e.target.value)}
+                                onChange={e =>
+                                    setNovoPreco(e.target.value)
+                                }
                                 onKeyDown={(e) => {
+
                                     if (e.key === "Enter") {
                                         e.preventDefault();
                                         salvarPreco();
                                     }
+
                                     if (e.key === "Escape") {
                                         e.preventDefault();
                                         setEditando(false);
                                     }
+
                                 }}
                             />
-                            <button className="btn-salvar-preco" onClick={salvarPreco}>
+
+                            <button
+                                className="btn-salvar-preco"
+                                onClick={salvarPreco}
+                            >
                                 Salvar
                             </button>
+
                         </div>
+
                     )}
 
-                    <p className="produto-atual-und">
-                        {produtoAtual.unidade || produtoAtual.tempo_servico}
-                    </p>
+                    {/* =====================================
+        UNIDADE / TEMPO DE SERVIÇO
+    ===================================== */}
+
+                    {!ehPeso && (
+                        <p className="produto-atual-und">
+                            {produtoAtual.unidade ||
+                                produtoAtual.tempo_servico}
+                        </p>
+                    )}
+
                 </div>
 
             </div>

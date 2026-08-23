@@ -144,7 +144,102 @@ export function VendaProvider({ children }) {
             return novaLista;
         });
     }
+    /* ===============================
+       ADICIONAR PRODUTO POR PESO
+    =============================== */
 
+    function adicionarItemPeso(produto, gramas) {
+
+        const pesoBase = Number(produto.peso);
+        const precoBase = Number(produto.preco);
+        const pesoInformado = Number(gramas);
+
+        if (
+            !produto ||
+            !produto.id ||
+            pesoBase <= 0 ||
+            precoBase <= 0 ||
+            pesoInformado <= 0
+        ) {
+            return;
+        }
+
+        const valorCalculado =
+            (pesoInformado / pesoBase) * precoBase;
+
+        /*
+            Produto pesado precisa de uma chave própria.
+    
+            Duas bananas pesadas separadamente não podem
+            virar quantidade 2 do mesmo item.
+        */
+
+        const itemKey =
+            `peso_${produto.id}_${Date.now()}_${Math.random()
+                .toString(36)
+                .slice(2, 8)}`;
+
+        const novoItem = {
+
+            id: produto.id,
+
+            itemKey,
+
+            nome: produto.nome,
+
+            /*
+                preco é o valor efetivamente cobrado
+                por ESTA pesagem.
+            */
+
+            preco: Number(valorCalculado),
+
+            quantidade: 1,
+
+            subtotal: Number(valorCalculado),
+
+            unidade: "",
+
+            /* ===============================
+               INFORMAÇÕES DE PESO
+            =============================== */
+
+            ehProdutoPeso: true,
+
+            gramas: pesoInformado,
+
+            pesoBase,
+
+            precoBase
+        };
+
+        setItens(prev => {
+
+            const novaLista = [
+                ...prev,
+                novoItem
+            ];
+
+            calcularTotal(novaLista);
+
+            return novaLista;
+        });
+
+        /*
+            Produto atual recebe os dados da pesagem,
+            mas mantém o preço original cadastrado.
+        */
+
+        setProdutoAtual({
+            ...produto,
+
+            ehProdutoPeso: true,
+
+            gramasSelecionadas: pesoInformado,
+
+            valorCalculadoPeso: Number(valorCalculado)
+        });
+    }
     /* ===============================
        ATUALIZAR PREÇO DO ITEM
     =============================== */
@@ -155,20 +250,67 @@ export function VendaProvider({ children }) {
 
             const novaLista = prev.map(item => {
 
-                if (item.id === produtoAtualizado.id) {
+                if (item.id !== produtoAtualizado.id) {
+                    return item;
+                }
+
+                const novoPrecoBase =
+                    Number(produtoAtualizado.preco || 0);
+
+                /* =====================================
+                   PRODUTO VENDIDO POR PESO
+                ===================================== */
+
+                if (item.ehProdutoPeso) {
+
+                    const pesoBase =
+                        Number(
+                            item.pesoBase ||
+                            produtoAtualizado.peso ||
+                            0
+                        );
+
+                    const gramas =
+                        Number(item.gramas || 0);
+
+                    const novoSubtotal =
+                        pesoBase > 0
+                            ? (gramas / pesoBase) * novoPrecoBase
+                            : 0;
 
                     return {
                         ...item,
-                        preco: Number(
-                            produtoAtualizado.preco
-                        ),
-                        subtotal:
-                            Number(produtoAtualizado.preco) *
-                            item.quantidade
+
+                        /*
+                            Para produto por peso:
+    
+                            preco = valor cobrado nessa pesagem
+                            precoBase = preço cadastrado por peso-base
+                        */
+
+                        preco: novoSubtotal,
+
+                        precoBase: novoPrecoBase,
+
+                        pesoBase,
+
+                        subtotal: novoSubtotal
                     };
                 }
 
-                return item;
+                /* =====================================
+                   PRODUTO NORMAL
+                ===================================== */
+
+                return {
+                    ...item,
+
+                    preco: novoPrecoBase,
+
+                    subtotal:
+                        novoPrecoBase *
+                        Number(item.quantidade || 1)
+                };
             });
 
             calcularTotal(novaLista);
@@ -254,20 +396,35 @@ export function VendaProvider({ children }) {
        REMOVER ITEM
     =============================== */
 
-    function removerItem(id) {
+    function removerItem(identificador) {
 
         setItens(prev => {
 
-            const novaLista = prev.filter(
-                item => item.id !== id
-            );
+            const novaLista = prev.filter(item => {
+
+                /*
+                    Produto por peso possui itemKey próprio,
+                    porque o mesmo produto pode ser pesado
+                    várias vezes na mesma venda.
+                */
+
+                if (item.ehProdutoPeso) {
+                    return item.itemKey !== identificador;
+                }
+
+                /*
+                    Produto normal continua sendo removido
+                    pelo id.
+                */
+
+                return item.id !== identificador;
+            });
 
             calcularTotal(novaLista);
 
             return novaLista;
         });
     }
-
     /* =====================================================
        NOVO SISTEMA
        VENDAS PROCESSANDO EM SEGUNDO PLANO
@@ -453,6 +610,7 @@ export function VendaProvider({ children }) {
                 setProdutoAtual,
 
                 itens,
+                adicionarItemPeso,
                 adicionarItem,
                 atualizarPrecoItem,
                 aumentarQuantidade,

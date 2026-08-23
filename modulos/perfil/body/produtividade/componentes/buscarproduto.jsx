@@ -13,15 +13,17 @@ export default function BuscarProduto() {
     const {
         setProdutoAtual,
         adicionarItem,
+        adicionarItemPeso,
         limparBusca,
         setLimparBusca,
         setModalAberto
     } = useVenda();
-
     const [abrirCadastro, setAbrirCadastro] = useState(false);
     const [textoCadastro, setTextoCadastro] = useState("");
 
-
+    const [modoPeso, setModoPeso] = useState(false);
+    const [produtoPeso, setProdutoPeso] = useState(null);
+    const [pesoDigitado, setPesoDigitado] = useState("");
 
     const [texto, setTexto] = useState("");
     const [sugestoes, setSugestoes] = useState([]);
@@ -41,7 +43,44 @@ export default function BuscarProduto() {
         mostrarAreaSincronizacao,
         setMostrarAreaSincronizacao
     ] = useState(null);
+    /* ===============================
+       IDENTIFICAR PRODUTO POR PESO
+    =============================== */
 
+    function ehProdutoPorPeso(produto) {
+
+        if (!produto) {
+            return false;
+        }
+
+        const temPeso =
+            produto.peso !== null &&
+            produto.peso !== undefined &&
+            String(produto.peso).trim() !== "" &&
+            Number(produto.peso) > 0;
+
+        const temUnidade =
+            produto.unidade !== null &&
+            produto.unidade !== undefined &&
+            String(produto.unidade).trim() !== "";
+
+        const temProdutoBase =
+            produto.produto_id !== null &&
+            produto.produto_id !== undefined &&
+            String(produto.produto_id).trim() !== "";
+
+        const temTempoServico =
+            produto.tempo_servico !== null &&
+            produto.tempo_servico !== undefined &&
+            String(produto.tempo_servico).trim() !== "";
+
+        return (
+            temPeso &&
+            !temUnidade &&
+            !temProdutoBase &&
+            !temTempoServico
+        );
+    }
     useEffect(() => {
 
         async function verificarSincronizacao() {
@@ -712,57 +751,188 @@ export default function BuscarProduto() {
     /* ===============================
        SELECIONAR PRODUTO
     =============================== */
+    /* ===============================
+       SELECIONAR PRODUTO
+    =============================== */
+
     function selecionar(produto) {
 
         if (!produto || !produto.id) {
             return;
         }
 
-        /* ===============================
-           GARANTIR QUE NENHUMA LIMPEZA
-           PENDENTE APAGUE O PRODUTO
-        =============================== */
-
         setLimparBusca(false);
 
         /* ===============================
-           MOSTRAR PRODUTO
+           PRODUTO POR PESO
+        =============================== */
+
+        if (ehProdutoPorPeso(produto)) {
+
+            console.log(
+                "[PRODUTO PESO] Produto identificado:",
+                produto
+            );
+
+            setProdutoAtual(produto);
+
+            setProdutoPeso(produto);
+
+            setModoPeso(true);
+
+            setPesoDigitado("");
+
+            setTexto("");
+
+            setSugestoes([]);
+
+            setIndiceAtivo(-1);
+
+            requestAnimationFrame(() => {
+
+                if (inputRef.current) {
+
+                    inputRef.current.value = "";
+
+                    inputRef.current.focus();
+                }
+            });
+
+            return;
+        }
+
+        /* ===============================
+           PRODUTO NORMAL
         =============================== */
 
         setProdutoAtual(produto);
 
-        /* ===============================
-           ADICIONAR AO CARRINHO
-        =============================== */
-
         adicionarItem(produto);
 
-        /* ===============================
-           LIMPAR CAMPO
-        =============================== */
-
         setTexto("");
-        setSugestoes([]);
-        setIndiceAtivo(-1);
 
-        /* ===============================
-           VOLTAR FOCO PARA PRÓXIMO PRODUTO
-        =============================== */
+        setSugestoes([]);
+
+        setIndiceAtivo(-1);
 
         requestAnimationFrame(() => {
 
             if (inputRef.current) {
+
                 inputRef.current.value = "";
+
                 inputRef.current.focus();
             }
-
         });
     }
+
+
     /* ===============================
+       CONFIRMAR PESAGEM
+    =============================== */
+
+    function confirmarPeso() {
+
+        if (!produtoPeso) {
+            return;
+        }
+
+        const gramas = Number(
+            String(pesoDigitado)
+                .replace(",", ".")
+        );
+
+        if (
+            !Number.isFinite(gramas) ||
+            gramas <= 0
+        ) {
+            return;
+        }
+
+        const pesoBase =
+            Number(produtoPeso.peso);
+
+        const precoBase =
+            Number(produtoPeso.preco);
+
+        const valor =
+            (gramas / pesoBase) *
+            precoBase;
+
+        console.log(
+            "[PRODUTO PESO]",
+            {
+                produto: produtoPeso.nome,
+                produtoId: produtoPeso.id,
+                pesoBase,
+                precoBase,
+                gramas,
+                valor
+            }
+        );
+
+        adicionarItemPeso(
+            produtoPeso,
+            gramas
+        );
+
+        setModoPeso(false);
+
+        setProdutoPeso(null);
+
+        setPesoDigitado("");
+
+        setTexto("");
+
+        setSugestoes([]);
+
+        setIndiceAtivo(-1);
+
+        requestAnimationFrame(() => {
+
+            inputRef.current?.focus();
+
+        });
+    }/* ===============================
        ENTER / TECLADO
     =============================== */
     async function handleKeyDown(e) {
+        /* ===============================
+           INPUT ESTÁ EM MODO PESAGEM
+        =============================== */
 
+        if (modoPeso) {
+
+            if (e.key === "Escape") {
+
+                e.preventDefault();
+
+                setModoPeso(false);
+
+                setProdutoPeso(null);
+
+                setPesoDigitado("");
+
+                setTexto("");
+
+                requestAnimationFrame(() => {
+                    inputRef.current?.focus();
+                });
+
+                return;
+            }
+
+            if (e.key === "Enter") {
+
+                e.preventDefault();
+
+                confirmarPeso();
+
+                return;
+            }
+
+            return;
+        }
         /* ===============================
            NAVEGAÇÃO DAS SUGESTÕES
         =============================== */
@@ -1122,10 +1292,13 @@ export default function BuscarProduto() {
         <div
             className={`buscar-box tema-${tema}`}
         >
-            <label
-                className="buscar-titulo"
-            >
-                Buscar produto
+            <label className="buscar-titulo">
+
+                {modoPeso
+                    ? `Informe o peso de ${produtoPeso?.nome || "produto"}`
+                    : "Buscar produto"
+                }
+
             </label>
 
             {mostrarAreaSincronizacao && (
@@ -1174,13 +1347,58 @@ export default function BuscarProduto() {
                         inputRef.current = el;
                         buscarInputRef.current = el;
                     }}
-                    className="buscar-inputtttt"
-                    type="text"
-                    placeholder="Digite nome, código de barras ou QRCode"
-                    value={texto}
-                    onChange={(e) =>
-                        buscar(e.target.value)
+
+                    className={`buscar-inputtttt ${modoPeso
+                        ? "buscar-inputtttt-peso"
+                        : ""
+                        }`}
+
+                    type={
+                        modoPeso
+                            ? "number"
+                            : "text"
                     }
+
+                    min={
+                        modoPeso
+                            ? "1"
+                            : undefined
+                    }
+
+                    step={
+                        modoPeso
+                            ? "1"
+                            : undefined
+                    }
+
+                    placeholder={
+                        modoPeso
+                            ? `Peso de ${produtoPeso?.nome || "produto"} em gramas`
+                            : "Digite nome, código de barras ou QRCode"
+                    }
+
+                    value={
+                        modoPeso
+                            ? pesoDigitado
+                            : texto
+                    }
+
+                    onChange={(e) => {
+
+                        if (modoPeso) {
+
+                            setPesoDigitado(
+                                e.target.value
+                            );
+
+                            return;
+                        }
+
+                        buscar(
+                            e.target.value
+                        );
+                    }}
+
                     onKeyDown={handleKeyDown}
                 />
 

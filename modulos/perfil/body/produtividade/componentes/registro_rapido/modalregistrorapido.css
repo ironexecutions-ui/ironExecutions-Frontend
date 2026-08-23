@@ -1,6 +1,6 @@
 /* =========================================================
    MODAL CADASTRO RÁPIDO
-   PREMIUM PDV
+   PDV
 ========================================================= */
 
 
@@ -8,7 +8,7 @@
    BACKDROP
 ========================================================= */
 
-.modal-backdrop {
+.modal-backdrop.modal-cadastro-rapido-backdrop {
     position: fixed;
     inset: 0;
 
@@ -29,10 +29,10 @@
 
     z-index: 9999;
 
-    animation: cadastroBackdropEntrada 0.22s ease;
+    animation: cadastroRapidoBackdropEntrada 0.22s ease;
 }
 
-@keyframes cadastroBackdropEntrada {
+@keyframes cadastroRapidoBackdropEntrada {
     from {
         opacity: 0;
     }
@@ -47,12 +47,12 @@
    MODAL
 ========================================================= */
 
-.modal-box {
+.modal-box.modal-cadastro-rapido-container {
     position: relative;
 
-    width: 420px;
-    max-width: 92%;
-    max-height: 500px;
+    width: 470px;
+    max-width: 94vw;
+    max-height: 82vh;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -74,8 +74,7 @@
             rgba(199, 199, 202, 0.98) 55%,
             rgba(157, 157, 160, 0.98));
 
-    border:
-        1px solid rgba(255, 255, 255, 0.70);
+    border: 1px solid rgba(255, 255, 255, 0.70);
 
     box-shadow:
         0 35px 80px rgba(0, 0, 0, 0.42),
@@ -84,7 +83,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.95);
 
     animation:
-        modalCadastroEntrada 0.28s cubic-bezier(.16, 1, .3, 1);
+        modalCadastroRapidoEntrada 0.28s cubic-bezier(.16, 1, .3, 1);
 }
 
 
@@ -92,7 +91,7 @@
    DETALHE SUPERIOR
 ========================================================= */
 
-.modal-box::before {
+.modal-cadastro-rapido-container::before {
     content: "";
 
     position: absolute;
@@ -126,7 +125,7 @@
    ILUMINAÇÃO
 ========================================================= */
 
-.modal-box::after {
+.modal-cadastro-rapido-container::after {
     content: "";
 
     position: absolute;
@@ -139,8 +138,7 @@
 
     border-radius: 50%;
 
-    background:
-        rgba(255, 255, 255, 0.30);
+    background: rgba(255, 255, 255, 0.30);
 
     filter: blur(25px);
 
@@ -148,11 +146,7 @@
 }
 
 
-/* =========================================================
-   ANIMAÇÃO
-========================================================= */
-
-@keyframes modalCadastroEntrada {
+@keyframes modalCadastroRapidoEntrada {
     from {
         opacity: 0;
 
@@ -173,15 +167,15 @@
    SCROLLBAR
 ========================================================= */
 
-.modal-box::-webkit-scrollbar {
+.modal-cadastro-rapido-container::-webkit-scrollbar {
     width: 7px;
 }
 
-.modal-box::-webkit-scrollbar-track {
+.modal-cadastro-rapido-container::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.modal-box::-webkit-scrollbar-thumb {
+.modal-cadastro-rapido-container::-webkit-scrollbar-thumb {
     background:
         linear-gradient(180deg,
             #01317e,
@@ -189,13 +183,12 @@
 
     border-radius: 20px;
 
-    border:
-        2px solid transparent;
+    border: 2px solid transparent;
 
     background-clip: padding-box;
 }
 
-.modal-box::-webkit-scrollbar-thumb:hover {
+.modal-cadastro-rapido-container::-webkit-scrollbar-thumb:hover {
     background:
         linear-gradient(180deg,
             #2563eb,
@@ -204,7 +197,7 @@
     background-clip: padding-box;
 }
 
-.modal-box {
+.modal-cadastro-rapido-container {
     scrollbar-width: thin;
     scrollbar-color: #01317e transparent;
 }
@@ -214,12 +207,12 @@
    TÍTULO
 ========================================================= */
 
-.modal-box h3 {
+.modal-cadastro-rapido-titulo {
     position: relative;
 
     z-index: 2;
 
-    margin: 0 0 23px;
+    margin: 0 0 18px;
 
     padding-bottom: 14px;
 
@@ -234,10 +227,7 @@
         1px solid rgba(0, 0, 0, 0.12);
 }
 
-
-/* detalhe embaixo do título */
-
-.modal-box h3::after {
+.modal-cadastro-rapido-titulo::after {
     content: "";
 
     position: absolute;
@@ -261,10 +251,154 @@
 
 
 /* =========================================================
+   SELETOR DE TIPO
+========================================================= */
+
+.modal-cadastro-rapido-tipos {
+    position: relative;
+
+    z-index: 3;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+
+    padding: 7px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255, 255, 255, 0.30);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.50);
+
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.65),
+        0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   BOTÕES DOS TIPOS
+========================================================= */
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-tipo {
+    position: relative;
+
+    width: 100%;
+    height: 40px;
+
+    margin: 0;
+
+    padding: 0 8px;
+
+    border-radius: 9px;
+
+    border:
+        1px solid rgba(0, 0, 0, 0.08);
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.90),
+            rgba(220, 220, 223, 0.90));
+
+    color: #0f172a;
+
+    font-size: 12px;
+    font-weight: 750;
+
+    letter-spacing: 0.1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.90);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.20s ease,
+        background 0.20s ease,
+        color 0.20s ease,
+        border-color 0.20s ease;
+}
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-tipo:hover {
+    transform: translateY(-1px);
+
+    border-color:
+        rgba(1, 49, 126, 0.25);
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #e5e7eb);
+
+    box-shadow:
+        0 5px 10px rgba(0, 0, 0, 0.11);
+}
+
+
+/* =========================================================
+   TIPO ATIVO
+========================================================= */
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-tipo.ativo {
+    color: #ffffff;
+
+    border-color:
+        rgba(96, 165, 250, 0.55);
+
+    background:
+        linear-gradient(145deg,
+            #2563eb 0%,
+            #174d9e 40%,
+            #01317e 70%,
+            #010e4b 100%);
+
+    box-shadow:
+        0 7px 16px rgba(1, 49, 126, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   BRILHO DO TIPO ATIVO
+========================================================= */
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-tipo.ativo::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 15%;
+    right: 15%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.70),
+            transparent);
+}
+
+
+/* =========================================================
    FIELD
 ========================================================= */
 
-.field {
+.modal-cadastro-rapido-container .field {
     position: relative;
 
     z-index: 2;
@@ -282,7 +416,7 @@
    LABEL
 ========================================================= */
 
-.field label {
+.modal-cadastro-rapido-container .field label {
     padding-left: 2px;
 
     color: #111827;
@@ -300,7 +434,7 @@
    INPUT
 ========================================================= */
 
-.modal-box input {
+.modal-cadastro-rapido-container input {
     width: 100%;
     height: 45px;
 
@@ -343,7 +477,7 @@
    PLACEHOLDER
 ========================================================= */
 
-.modal-box input::placeholder {
+.modal-cadastro-rapido-container input::placeholder {
     color: #718096;
 
     font-weight: 400;
@@ -354,9 +488,9 @@
    INPUT HOVER
 ========================================================= */
 
-.modal-box input:hover {
+.modal-cadastro-rapido-container input:hover:not(:disabled) {
     border-color:
-        rgba(59, 130, 246, 0.28);
+        rgba(59, 130, 246, 0.35);
 }
 
 
@@ -364,7 +498,7 @@
    INPUT FOCUS
 ========================================================= */
 
-.modal-box input:focus {
+.modal-cadastro-rapido-container input:focus {
     border-color: #3b82f6;
 
     background:
@@ -381,22 +515,80 @@
 
 
 /* =========================================================
-   BOTÕES
+   INPUT DESABILITADO
+   EX: PREÇO ANTES DE INFORMAR PESO
 ========================================================= */
 
-.modal-box button {
+.modal-cadastro-rapido-container input:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.52;
+
+    background:
+        linear-gradient(180deg,
+            #18202c,
+            #111827);
+
+    color: #94a3b8;
+
+    border-color:
+        rgba(255, 255, 255, 0.05);
+
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.30);
+}
+
+
+/* =========================================================
+   REMOVE SETAS DO INPUT NUMBER
+========================================================= */
+
+.modal-cadastro-rapido-container input[type="number"]::-webkit-inner-spin-button,
+.modal-cadastro-rapido-container input[type="number"]::-webkit-outer-spin-button {
+    margin: 0;
+}
+
+
+/* =========================================================
+   ÁREA DE AÇÕES
+========================================================= */
+
+.modal-cadastro-rapido-acoes {
     position: relative;
 
-    z-index: 2;
+    z-index: 3;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.5fr) minmax(0, 1fr);
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   BOTÃO BASE DAS AÇÕES
+========================================================= */
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-acoes button {
+    position: relative;
 
     width: 100%;
     height: 47px;
 
+    margin: 0;
+
     overflow: hidden;
 
     border-radius: 12px;
-
-    border: none;
 
     font-size: 14px;
     font-weight: 750;
@@ -413,9 +605,139 @@
 }
 
 
-/* brilho fino dos botões */
+/* =========================================================
+   BOTÃO SALVAR
+========================================================= */
 
-.modal-box button::before {
+.modal-cadastro-rapido-container .modal-cadastro-rapido-salvar {
+    color: #ffffff;
+
+    background:
+        linear-gradient(145deg,
+            #174d9e 0%,
+            #01317e 45%,
+            #010e4b 100%);
+
+    border:
+        1px solid rgba(59, 130, 246, 0.28);
+
+    box-shadow:
+        0 10px 24px rgba(1, 49, 126, 0.35),
+        0 4px 8px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-salvar:hover:not(:disabled) {
+    background:
+        linear-gradient(145deg,
+            #3478e5,
+            #1554b5 48%,
+            #01317e);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 28px rgba(37, 99, 235, 0.38),
+        0 5px 10px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-salvar:active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.985);
+}
+
+
+/* =========================================================
+   SALVANDO
+========================================================= */
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-salvar:disabled {
+    opacity: 0.60;
+
+    cursor: not-allowed;
+
+    background:
+        linear-gradient(145deg,
+            #174d9e,
+            #01317e,
+            #010e4b);
+
+    box-shadow:
+        0 6px 15px rgba(1, 49, 126, 0.20);
+
+    animation:
+        cadastroRapidoSalvandoPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes cadastroRapidoSalvandoPulse {
+
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+
+    50% {
+        opacity: 0.85;
+    }
+}
+
+
+/* =========================================================
+   BOTÃO CANCELAR
+========================================================= */
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-cancelar {
+    color: #ffffff;
+
+    background:
+        linear-gradient(145deg,
+            #f03b3b,
+            #dc2626 50%,
+            #b91c1c);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        0 7px 16px rgba(185, 28, 28, 0.25),
+        0 3px 7px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-cancelar:hover:not(:disabled) {
+    background:
+        linear-gradient(145deg,
+            #ff5151,
+            #e52e2e 50%,
+            #c31d1d);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(185, 28, 28, 0.30),
+        0 4px 8px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-cancelar:active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.985);
+}
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-cancelar:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   BRILHO NOS BOTÕES PRINCIPAIS
+========================================================= */
+
+.modal-cadastro-rapido-salvar::before,
+.modal-cadastro-rapido-cancelar::before {
     content: "";
 
     position: absolute;
@@ -437,139 +759,10 @@
 
 
 /* =========================================================
-   SALVAR
+   FOCO POR TECLADO
 ========================================================= */
 
-.modal-box button:first-of-type {
-    margin-top: 15px;
-
-    color: #ffffff;
-
-    background:
-        linear-gradient(145deg,
-            #174d9e 0%,
-            #01317e 45%,
-            #010e4b 100%);
-
-    border:
-        1px solid rgba(59, 130, 246, 0.28);
-
-    box-shadow:
-        0 10px 24px rgba(1, 49, 126, 0.35),
-        0 4px 8px rgba(0, 0, 0, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.20);
-}
-
-.modal-box button:first-of-type:hover:not(:disabled) {
-    background:
-        linear-gradient(145deg,
-            #3478e5,
-            #1554b5 48%,
-            #01317e);
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 14px 28px rgba(37, 99, 235, 0.38),
-        0 5px 10px rgba(0, 0, 0, 0.20),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-}
-
-.modal-box button:first-of-type:active:not(:disabled) {
-    transform:
-        translateY(0) scale(0.985);
-
-    box-shadow:
-        0 5px 12px rgba(1, 49, 126, 0.30),
-        inset 0 2px 4px rgba(0, 0, 0, 0.20);
-}
-
-
-/* =========================================================
-   SALVANDO
-========================================================= */
-
-.modal-box button:first-of-type:disabled {
-    opacity: 0.60;
-
-    cursor: not-allowed;
-
-    background:
-        linear-gradient(145deg,
-            #174d9e,
-            #01317e,
-            #010e4b);
-
-    box-shadow:
-        0 6px 15px rgba(1, 49, 126, 0.20);
-
-    animation:
-        cadastroSalvandoPulse 1.2s ease-in-out infinite;
-}
-
-@keyframes cadastroSalvandoPulse {
-
-    0%,
-    100% {
-        opacity: 0.55;
-    }
-
-    50% {
-        opacity: 0.85;
-    }
-}
-
-
-/* =========================================================
-   CANCELAR
-========================================================= */
-
-.modal-box button:last-of-type {
-    margin-top: 10px;
-
-    color: #ffffff;
-
-    background:
-        linear-gradient(145deg,
-            #f03b3b,
-            #dc2626 50%,
-            #b91c1c);
-
-    border:
-        1px solid rgba(255, 255, 255, 0.12);
-
-    box-shadow:
-        0 7px 16px rgba(185, 28, 28, 0.25),
-        0 3px 7px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
-}
-
-.modal-box button:last-of-type:hover {
-    background:
-        linear-gradient(145deg,
-            #ff5151,
-            #e52e2e 50%,
-            #c31d1d);
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 20px rgba(185, 28, 28, 0.30),
-        0 4px 8px rgba(0, 0, 0, 0.16),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
-
-.modal-box button:last-of-type:active {
-    transform:
-        translateY(0) scale(0.985);
-}
-
-
-/* =========================================================
-   ACESSIBILIDADE TECLADO
-========================================================= */
-
-.modal-box button:focus-visible {
+.modal-cadastro-rapido-container button:focus-visible {
     outline:
         2px solid rgba(37, 99, 235, 0.85);
 
@@ -583,27 +776,31 @@
 
 @media (max-width: 1024px) {
 
-    .modal-box {
-        width: 440px;
+    .modal-box.modal-cadastro-rapido-container {
+        width: 450px;
 
-        max-height: 80vh;
+        max-height: 84vh;
 
         padding: 24px 22px 22px;
     }
 
-    .modal-box h3 {
+    .modal-cadastro-rapido-titulo {
         font-size: 20px;
 
-        margin-bottom: 19px;
+        margin-bottom: 17px;
     }
 
-    .modal-box input {
+    .modal-cadastro-rapido-container input {
         height: 43px;
 
         font-size: 14px;
     }
 
-    .modal-box button {
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-tipo {
+        height: 39px;
+    }
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-acoes button {
         height: 45px;
 
         font-size: 13.5px;
@@ -617,61 +814,107 @@
 
 @media (max-width: 768px) {
 
-    .modal-backdrop {
+    .modal-backdrop.modal-cadastro-rapido-backdrop {
         padding: 0;
 
         align-items: flex-end;
     }
 
-    .modal-box {
+    .modal-box.modal-cadastro-rapido-container {
         width: 100%;
         max-width: 100%;
 
         max-height: 92vh;
 
-        padding: 23px 18px 20px;
+        padding:
+            23px 18px calc(20px + env(safe-area-inset-bottom));
 
         border-radius:
             20px 20px 0 0;
 
         animation:
-            modalCadastroMobile 0.28s cubic-bezier(.16, 1, .3, 1);
+            modalCadastroRapidoMobile 0.28s cubic-bezier(.16, 1, .3, 1);
     }
 
-    .modal-box::before {
+    .modal-cadastro-rapido-container::before {
         left: 30%;
         right: 30%;
     }
 
-    .modal-box h3 {
-        margin-bottom: 18px;
+    .modal-cadastro-rapido-titulo {
+        margin-bottom: 17px;
 
         font-size: 19px;
 
         text-align: center;
     }
 
-    .modal-box h3::after {
+    .modal-cadastro-rapido-titulo::after {
         left: 50%;
 
         transform: translateX(-50%);
     }
 
-    .field {
+    .modal-cadastro-rapido-tipos {
+        gap: 7px;
+
+        margin-bottom: 18px;
+
+        padding: 6px;
+    }
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-tipo {
+        min-width: 0;
+
+        height: 41px;
+
+        padding: 0 5px;
+
+        font-size: 11.5px;
+    }
+
+    .modal-cadastro-rapido-container .field {
         margin-bottom: 12px;
     }
 
-    .field label {
+    .modal-cadastro-rapido-container .field label {
         font-size: 11px;
     }
 
-    .modal-box input {
+    .modal-cadastro-rapido-container input {
         height: 45px;
 
         font-size: 15px;
     }
 
-    .modal-box button {
+    .modal-cadastro-rapido-acoes {
+        position: sticky;
+
+        bottom: -20px;
+
+        z-index: 10;
+
+        margin-left: -18px;
+        margin-right: -18px;
+        margin-bottom: -20px;
+
+        padding:
+            15px 18px calc(18px + env(safe-area-inset-bottom));
+
+        background:
+            linear-gradient(180deg,
+                rgba(185, 185, 188, 0),
+                rgba(185, 185, 188, 0.96) 20%,
+                rgba(170, 170, 173, 0.99));
+
+        border-top:
+            1px solid rgba(255, 255, 255, 0.35);
+
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-acoes button {
         height: 48px;
 
         border-radius: 13px;
@@ -687,28 +930,55 @@
 
 @media (max-width: 420px) {
 
-    .modal-box {
+    .modal-box.modal-cadastro-rapido-container {
         max-height: 94vh;
 
-        padding: 19px 14px 18px;
+        padding:
+            19px 14px calc(18px + env(safe-area-inset-bottom));
     }
 
-    .modal-box h3 {
+    .modal-cadastro-rapido-titulo {
         font-size: 17px;
 
         letter-spacing: 0.2px;
     }
 
-    .modal-box input {
+    .modal-cadastro-rapido-tipos {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 6px;
+    }
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-tipo {
+        height: 39px;
+
+        font-size: 11px;
+    }
+
+    .modal-cadastro-rapido-container input {
         height: 46px;
 
         font-size: 15px;
     }
 
-    .modal-box button {
-        height: 49px;
+    .modal-cadastro-rapido-acoes {
+        grid-template-columns: 1fr;
 
-        font-size: 15px;
+        gap: 8px;
+
+        margin-left: -14px;
+        margin-right: -14px;
+        margin-bottom: -18px;
+
+        padding:
+            14px 14px calc(16px + env(safe-area-inset-bottom));
+    }
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-acoes button {
+        height: 47px;
+
+        font-size: 14px;
     }
 }
 
@@ -717,19 +987,17 @@
    ANIMAÇÃO MOBILE
 ========================================================= */
 
-@keyframes modalCadastroMobile {
+@keyframes modalCadastroRapidoMobile {
     from {
         opacity: 0;
 
-        transform:
-            translateY(35px);
+        transform: translateY(35px);
     }
 
     to {
         opacity: 1;
 
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 }
 
@@ -740,14 +1008,14 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-    .modal-backdrop,
-    .modal-box,
-    .modal-box button:first-of-type:disabled {
-        animation: none;
+    .modal-cadastro-rapido-backdrop,
+    .modal-cadastro-rapido-container,
+    .modal-cadastro-rapido-salvar {
+        animation: none !important;
     }
 
-    .modal-box input,
-    .modal-box button {
-        transition: none;
+    .modal-cadastro-rapido-container input,
+    .modal-cadastro-rapido-container button {
+        transition: none !important;
     }
 }
