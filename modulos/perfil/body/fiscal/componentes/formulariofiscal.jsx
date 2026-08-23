@@ -157,154 +157,589 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
     return (
         <div className="formulario-fiscal">
 
-            <h5>{produto.nome}</h5>
+            {/* =====================================================
+            CABEÇALHO
+        ===================================================== */}
 
-            {/* ===============================
-               PRODUTO
-            =============================== */}
+            <div className="formulario-fiscal-cabecalho-premium">
+
+                <div className="formulario-fiscal-cabecalho-textos-premium">
+
+                    <span className="formulario-fiscal-etiqueta-premium">
+                        {tipo === "produto" ? "PRODUTO" : "SERVIÇO"}
+                    </span>
+
+                    <h5>
+                        {produto.nome}
+                    </h5>
+
+                    <p>
+                        Configure as informações fiscais utilizadas na emissão.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {/* =====================================================
+            PRODUTO
+        ===================================================== */}
+
             {tipo === "produto" && (
-                <div className="formulario-fiscal-bloco">
 
-                    <input
-                        placeholder="NCM"
-                        value={form.ncm || ""}
-                        onChange={e => setForm({ ...form, ncm: e.target.value })}
-                    />
+                <>
 
-                    <input
-                        list={`cfop-${sufixo}`}
-                        placeholder="CFOP"
-                        value={form.cfop || ""}
-                        onChange={e => setForm({ ...form, cfop: e.target.value })}
-                    />
-                    <datalist id={`cfop-${sufixo}`}>
-                        {CFOPS_PADRAO.map(v => (
-                            <option key={v} value={v} />
-                        ))}
-                        {sugestoes.cfop.map(v => (
-                            <option key={v} value={v} />
-                        ))}
-                    </datalist>
+                    {/* =================================================
+                    CLASSIFICAÇÃO FISCAL
+                ================================================= */}
 
-                    <input
-                        list={`origem-${sufixo}`}
-                        placeholder="Origem do produto"
-                        value={form.origem || ""}
-                        onChange={e => setForm({ ...form, origem: e.target.value })}
-                    />
-                    <datalist id={`origem-${sufixo}`}>
-                        {ORIGEM_PADRAO.map(o => (
-                            <option key={o.valor} value={o.valor} label={o.label} />
-                        ))}
-                        {sugestoes.origem.map(v => (
-                            <option key={v} value={v} />
-                        ))}
-                    </datalist>
+                    <section className="formulario-fiscal-secao-premium">
 
-                    <input
-                        list={`cst-${sufixo}`}
-                        placeholder="CST ou CSOSN"
-                        value={form.cst_csosn || ""}
-                        onChange={e => setForm({ ...form, cst_csosn: e.target.value })}
-                    />
-                    <datalist id={`cst-${sufixo}`}>
-                        {CST_CSOSN_PADRAO.map(v => (
-                            <option key={v} value={v} />
-                        ))}
-                        {sugestoes.cst_csosn.map(v => (
-                            <option key={v} value={v} />
-                        ))}
-                    </datalist>
+                        <div className="formulario-fiscal-secao-titulo-premium">
 
-                    <input
-                        placeholder="ICMS (%)"
-                        type="number"
-                        step="0.01"
-                        value={form.icms === 0 ? 0 : form.icms || ""}
-                        onChange={e => setForm({ ...form, icms: Number(e.target.value) })}
-                    />
+                            <div>
+                                <h6>Classificação fiscal</h6>
 
-                    <input
-                        placeholder="PIS (%)"
-                        type="number"
-                        step="0.01"
-                        value={form.pis === 0 ? 0 : form.pis || ""}
-                        onChange={e => setForm({ ...form, pis: Number(e.target.value) })}
-                    />
+                                <p>
+                                    Identificação e enquadramento fiscal do produto.
+                                </p>
+                            </div>
 
-                    <input
-                        placeholder="COFINS (%)"
-                        type="number"
-                        step="0.01"
-                        value={form.cofins === 0 ? 0 : form.cofins || ""}
-                        onChange={e => setForm({ ...form, cofins: Number(e.target.value) })}
-                    />
+                        </div>
 
-                    <input
-                        list={`cest-${sufixo}`}
-                        placeholder="CEST (se aplicável)"
-                        value={form.cest || ""}
-                        onChange={e => setForm({ ...form, cest: e.target.value })}
-                    />
-                    <datalist id={`cest-${sufixo}`}>
-                        {sugestoes.cest.map(v => (
-                            <option key={v} value={v} />
-                        ))}
-                    </datalist>
 
-                </div>
+                        <div className="formulario-fiscal-grade-premium">
+
+                            {/* NCM */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    NCM
+                                </label>
+
+                                <input
+                                    placeholder="Ex: 22021000"
+                                    value={form.ncm || ""}
+                                    onChange={(e) =>
+                                        setForm({
+                                            ...form,
+                                            ncm: e.target.value
+                                        })
+                                    }
+                                />
+
+                                <small>
+                                    Nomenclatura Comum do Mercosul
+                                </small>
+
+                            </div>
+
+
+                            {/* CFOP */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    CFOP
+                                </label>
+
+                                <input
+                                    list={`cfop-${sufixo}`}
+                                    placeholder="Ex: 5102"
+                                    value={form.cfop || ""}
+                                    onChange={(e) =>
+                                        setForm({
+                                            ...form,
+                                            cfop: e.target.value
+                                        })
+                                    }
+                                />
+
+                                <small>
+                                    Código fiscal da operação
+                                </small>
+
+                                <datalist id={`cfop-${sufixo}`}>
+
+                                    {CFOPS_PADRAO.map((v) => (
+                                        <option
+                                            key={v}
+                                            value={v}
+                                        />
+                                    ))}
+
+                                    {sugestoes.cfop.map((v) => (
+                                        <option
+                                            key={v}
+                                            value={v}
+                                        />
+                                    ))}
+
+                                </datalist>
+
+                            </div>
+
+
+                            {/* ORIGEM */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    Origem
+                                </label>
+
+                                <input
+                                    list={`origem-${sufixo}`}
+                                    placeholder="Selecione a origem"
+                                    value={form.origem || ""}
+                                    onChange={(e) =>
+                                        setForm({
+                                            ...form,
+                                            origem: e.target.value
+                                        })
+                                    }
+                                />
+
+                                <small>
+                                    Origem fiscal da mercadoria
+                                </small>
+
+                                <datalist id={`origem-${sufixo}`}>
+
+                                    {ORIGEM_PADRAO.map((o) => (
+                                        <option
+                                            key={o.valor}
+                                            value={o.valor}
+                                            label={o.label}
+                                        />
+                                    ))}
+
+                                    {sugestoes.origem.map((v) => (
+                                        <option
+                                            key={v}
+                                            value={v}
+                                        />
+                                    ))}
+
+                                </datalist>
+
+                            </div>
+
+
+                            {/* CST / CSOSN */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    CST / CSOSN
+                                </label>
+
+                                <input
+                                    list={`cst-${sufixo}`}
+                                    placeholder="Ex: 102"
+                                    value={form.cst_csosn || ""}
+                                    onChange={(e) =>
+                                        setForm({
+                                            ...form,
+                                            cst_csosn: e.target.value
+                                        })
+                                    }
+                                />
+
+                                <small>
+                                    Situação tributária do produto
+                                </small>
+
+                                <datalist id={`cst-${sufixo}`}>
+
+                                    {CST_CSOSN_PADRAO.map((v) => (
+                                        <option
+                                            key={v}
+                                            value={v}
+                                        />
+                                    ))}
+
+                                    {sugestoes.cst_csosn.map((v) => (
+                                        <option
+                                            key={v}
+                                            value={v}
+                                        />
+                                    ))}
+
+                                </datalist>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    {/* =================================================
+                    TRIBUTAÇÃO
+                ================================================= */}
+
+                    <section className="formulario-fiscal-secao-premium">
+
+                        <div className="formulario-fiscal-secao-titulo-premium">
+
+                            <div>
+                                <h6>Tributação</h6>
+
+                                <p>
+                                    Alíquotas utilizadas para este produto.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div className="formulario-fiscal-grade-premium formulario-fiscal-grade-impostos-premium">
+
+                            {/* ICMS */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    ICMS
+                                </label>
+
+                                <div className="formulario-fiscal-input-percentual-premium">
+
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        placeholder="0,00"
+                                        value={
+                                            form.icms === 0
+                                                ? 0
+                                                : form.icms || ""
+                                        }
+                                        onChange={(e) =>
+                                            setForm({
+                                                ...form,
+                                                icms: Number(e.target.value)
+                                            })
+                                        }
+                                    />
+
+                                    <span>%</span>
+
+                                </div>
+
+                                <small>
+                                    Imposto sobre circulação
+                                </small>
+
+                            </div>
+
+
+                            {/* PIS */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    PIS
+                                </label>
+
+                                <div className="formulario-fiscal-input-percentual-premium">
+
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        placeholder="0,00"
+                                        value={
+                                            form.pis === 0
+                                                ? 0
+                                                : form.pis || ""
+                                        }
+                                        onChange={(e) =>
+                                            setForm({
+                                                ...form,
+                                                pis: Number(e.target.value)
+                                            })
+                                        }
+                                    />
+
+                                    <span>%</span>
+
+                                </div>
+
+                                <small>
+                                    Alíquota de PIS
+                                </small>
+
+                            </div>
+
+
+                            {/* COFINS */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    COFINS
+                                </label>
+
+                                <div className="formulario-fiscal-input-percentual-premium">
+
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        placeholder="0,00"
+                                        value={
+                                            form.cofins === 0
+                                                ? 0
+                                                : form.cofins || ""
+                                        }
+                                        onChange={(e) =>
+                                            setForm({
+                                                ...form,
+                                                cofins: Number(e.target.value)
+                                            })
+                                        }
+                                    />
+
+                                    <span>%</span>
+
+                                </div>
+
+                                <small>
+                                    Alíquota de COFINS
+                                </small>
+
+                            </div>
+
+
+                            {/* CEST */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    CEST
+                                </label>
+
+                                <input
+                                    list={`cest-${sufixo}`}
+                                    placeholder="Quando aplicável"
+                                    value={form.cest || ""}
+                                    onChange={(e) =>
+                                        setForm({
+                                            ...form,
+                                            cest: e.target.value
+                                        })
+                                    }
+                                />
+
+                                <small>
+                                    Código de substituição tributária
+                                </small>
+
+                                <datalist id={`cest-${sufixo}`}>
+
+                                    {sugestoes.cest.map((v) => (
+                                        <option
+                                            key={v}
+                                            value={v}
+                                        />
+                                    ))}
+
+                                </datalist>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </>
+
             )}
 
-            {/* ===============================
-               SERVIÇO
-            =============================== */}
+
+            {/* =====================================================
+            SERVIÇO
+        ===================================================== */}
+
             {tipo === "servico" && (
-                <div className="formulario-fiscal-bloco">
 
-                    <input
-                        list={`codigo_servico-${sufixo}`}
-                        placeholder="Código do serviço (LC 116)"
-                        value={form.codigo_servico || ""}
-                        onChange={e => setForm({ ...form, codigo_servico: e.target.value })}
-                    />
-                    <datalist id={`codigo_servico-${sufixo}`}>
-                        {sugestoes.codigo_servico.map(v => (
-                            <option key={v} value={v} />
-                        ))}
-                    </datalist>
+                <section className="formulario-fiscal-secao-premium">
 
-                    <input
-                        placeholder="Alíquota ISS (%)"
-                        type="number"
-                        step="0.01"
-                        value={form.aliquota_iss === 0 ? 0 : form.aliquota_iss || ""}
-                        onChange={e => setForm({ ...form, aliquota_iss: Number(e.target.value) })}
-                    />
+                    <div className="formulario-fiscal-secao-titulo-premium">
 
-                    <input
-                        list={`municipio-${sufixo}`}
-                        placeholder="Município"
-                        value={form.municipio || ""}
-                        onChange={e => setForm({ ...form, municipio: e.target.value })}
-                    />
-                    <datalist id={`municipio-${sufixo}`}>
-                        {sugestoes.municipio.map(v => (
-                            <option key={v} value={v} />
-                        ))}
-                    </datalist>
+                        <div>
+                            <h6>Tributação do serviço</h6>
 
-                </div>
+                            <p>
+                                Configure os dados fiscais necessários para o serviço.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div className="formulario-fiscal-grade-premium">
+
+                        <div className="formulario-fiscal-campo-premium">
+
+                            <label>
+                                Código do serviço
+                            </label>
+
+                            <input
+                                list={`codigo_servico-${sufixo}`}
+                                placeholder="Código LC 116"
+                                value={form.codigo_servico || ""}
+                                onChange={(e) =>
+                                    setForm({
+                                        ...form,
+                                        codigo_servico: e.target.value
+                                    })
+                                }
+                            />
+
+                            <small>
+                                Código correspondente na LC 116
+                            </small>
+
+                            <datalist id={`codigo_servico-${sufixo}`}>
+
+                                {sugestoes.codigo_servico.map((v) => (
+                                    <option
+                                        key={v}
+                                        value={v}
+                                    />
+                                ))}
+
+                            </datalist>
+
+                        </div>
+
+
+                        <div className="formulario-fiscal-campo-premium">
+
+                            <label>
+                                Alíquota ISS
+                            </label>
+
+                            <div className="formulario-fiscal-input-percentual-premium">
+
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    placeholder="0,00"
+                                    value={
+                                        form.aliquota_iss === 0
+                                            ? 0
+                                            : form.aliquota_iss || ""
+                                    }
+                                    onChange={(e) =>
+                                        setForm({
+                                            ...form,
+                                            aliquota_iss: Number(e.target.value)
+                                        })
+                                    }
+                                />
+
+                                <span>%</span>
+
+                            </div>
+
+                            <small>
+                                Percentual de ISS aplicado
+                            </small>
+
+                        </div>
+
+
+                        <div className="formulario-fiscal-campo-premium">
+
+                            <label>
+                                Município
+                            </label>
+
+                            <input
+                                list={`municipio-${sufixo}`}
+                                placeholder="Município da tributação"
+                                value={form.municipio || ""}
+                                onChange={(e) =>
+                                    setForm({
+                                        ...form,
+                                        municipio: e.target.value
+                                    })
+                                }
+                            />
+
+                            <small>
+                                Município de incidência do ISS
+                            </small>
+
+                            <datalist id={`municipio-${sufixo}`}>
+
+                                {sugestoes.municipio.map((v) => (
+                                    <option
+                                        key={v}
+                                        value={v}
+                                    />
+                                ))}
+
+                            </datalist>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
             )}
+
+
+            {/* =====================================================
+            MENSAGEM
+        ===================================================== */}
 
             {mensagem && (
+
                 <div className="formulario-fiscal-mensagem">
                     {mensagem}
                 </div>
+
             )}
 
-            <button onClick={enviar} disabled={salvando}>
-                {salvando ? "Salvando..." : "Salvar dados fiscais"}
-            </button>
+
+            {/* =====================================================
+            RODAPÉ
+        ===================================================== */}
+
+            <div className="formulario-fiscal-acoes-premium">
+
+                <div className="formulario-fiscal-aviso-premium">
+
+                    <strong>Importante</strong>
+
+                    <span>
+                        Confira os dados tributários antes de salvar.
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    className="formulario-fiscal-salvar-premium"
+                    onClick={enviar}
+                    disabled={salvando}
+                >
+                    {salvando
+                        ? "Salvando..."
+                        : modo === "editar"
+                            ? "Salvar alterações"
+                            : "Salvar dados fiscais"
+                    }
+                </button>
+
+            </div>
 
         </div>
     );

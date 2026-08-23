@@ -1,168 +1,507 @@
-/* ===============================
-   BLOCO PRINCIPAL
-=============================== */
+/* =========================================================
+   CERTIFICADO DIGITAL A1
+   IRON EXECUTIONS
+========================================================= */
 
 .bloco-certificado {
-    margin-top: 22px;
-    padding: 22px 24px;
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    margin: 6px 0 18px;
+    padding: 22px;
+
+    box-sizing: border-box;
+
+    position: relative;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns:
+        minmax(240px, 1.4fr) minmax(220px, 1fr) auto;
+
+    align-items: end;
     gap: 14px;
-    color: #e5e7eb;
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(18, 61, 114, 0.07),
+            transparent 32%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 100%);
+
+    border: 1px solid #d9e1e9;
+    border-radius: 14px;
+
+    color: #101828;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.025),
+        0 8px 22px rgba(16, 24, 40, 0.04);
 }
 
-/* ===============================
+
+/* =========================================================
+   DETALHE SUPERIOR
+========================================================= */
+
+.bloco-certificado::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 22px;
+    right: 22px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(18, 61, 114, 0.35),
+            transparent);
+}
+
+
+/* =========================================================
    TÍTULO
-=============================== */
+========================================================= */
 
 .bloco-certificado h5 {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    color: #f8fafc;
-    margin-bottom: 6px;
+    grid-column: 1 / -1;
+
+    margin: 0 0 5px;
+    padding: 0 0 14px 17px;
+
+    position: relative;
+
+    border-bottom: 1px solid #e4e9ef;
+
+    color: #0b1f3a !important;
+
+    font-size: 15px;
+    font-weight: 850;
+
+    letter-spacing: -0.2px;
 }
 
-/* ===============================
+
+/* BARRA AO LADO DO TÍTULO */
+
+.bloco-certificado h5::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 4px;
+    height: 20px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(180deg,
+            #2c6bab,
+            #123d72,
+            #09294f);
+
+    box-shadow:
+        0 3px 8px rgba(18, 61, 114, 0.20);
+}
+
+
+/* =========================================================
    INPUT FILE
-=============================== */
+========================================================= */
 
 .bloco-certificado input[type="file"] {
-    background: #020617;
-    border: 1px dashed #1e293b;
-    border-radius: 12px;
-    padding: 12px;
-    font-size: 13px;
-    color: #cbd5f5;
+    width: 100%;
+    height: 46px;
+
+    padding: 5px 7px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #fafbfd);
+
+    border: 1px dashed #b9c5d2;
+    border-radius: 9px;
+
+    color: #667085 !important;
+
+    font-family: inherit;
+
+    font-size: 11px;
+    font-weight: 600;
+
     cursor: pointer;
+
     transition:
-        border-color 0.2s ease,
-        background 0.2s ease;
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
 }
+
+
+.bloco-certificado input[type="file"]:hover {
+    background: #ffffff;
+
+    border-color: #547da6;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.05);
+}
+
+
+/* =========================================================
+   BOTÃO NATIVO ESCOLHER ARQUIVO
+========================================================= */
 
 .bloco-certificado input[type="file"]::file-selector-button {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 10px;
-    padding: 6px 12px;
+    height: 34px;
+
     margin-right: 12px;
-    color: #e5e7eb;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 0 14px;
+
+    border: 1px solid #d3dce6;
+    border-radius: 7px;
+
+    background:
+        linear-gradient(180deg,
+            #f8fafc,
+            #edf1f5);
+
+    color: #123d72 !important;
+
+    font-family: inherit;
+
+    font-size: 10px;
+    font-weight: 800;
+
     cursor: pointer;
+
     transition:
-        border-color 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease;
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
 }
+
 
 .bloco-certificado input[type="file"]::file-selector-button:hover {
-    border-color: #22c55e;
-    color: #22c55e;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+    background: #e9f0f7;
+
+    border-color: #b8c9d9;
+
+    box-shadow:
+        0 2px 5px rgba(18, 61, 114, 0.08);
 }
 
-/* ===============================
-   INPUT PASSWORD
-=============================== */
+
+/* =========================================================
+   SENHA
+========================================================= */
 
 .bloco-certificado input[type="password"] {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 12px;
-    padding: 12px 14px;
-    font-size: 14px;
-    color: #f1f5f9;
+    width: 100%;
+    height: 46px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
     outline: none;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #fafbfd);
+
+    border: 1px solid #d3dce6;
+    border-radius: 9px;
+
+    color: #101828 !important;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 650;
+
     transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
 }
+
 
 .bloco-certificado input[type="password"]::placeholder {
-    color: #64748b;
+    color: #98a2b3 !important;
+
+    font-weight: 500;
 }
+
+
+.bloco-certificado input[type="password"]:hover {
+    border-color: #aebbc9;
+}
+
 
 .bloco-certificado input[type="password"]:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.18);
+    background: #ffffff;
+
+    border-color: #174f88;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.075),
+        0 4px 10px rgba(18, 61, 114, 0.04);
 }
 
-/* ===============================
-   BOTÃO
-=============================== */
 
-.bloco-certificado button {
-    margin-top: 6px;
-    align-self: flex-start;
-    background: linear-gradient(180deg, #16a34a, #15803d);
-    border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    color: #ecfdf5;
+/* =========================================================
+   BOTÃO ENVIAR
+========================================================= */
+
+.bloco-certificado>button {
+    height: 46px;
+    min-width: 170px;
+
+    padding: 0 20px;
+
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid #0d3565;
+    border-radius: 9px;
+
+    outline: none;
+
+    background:
+        linear-gradient(135deg,
+            #1d5a98 0%,
+            #123d72 50%,
+            #092a50 100%);
+
+    color: #ffffff !important;
+
+    font-family: inherit;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.2px;
+
     cursor: pointer;
+
+    box-shadow:
+        0 4px 9px rgba(18, 61, 114, 0.16),
+        0 8px 18px rgba(18, 61, 114, 0.09);
+
     transition:
-        transform 0.1s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease,
+        opacity 0.18s ease;
 }
 
-.bloco-certificado button:hover:not(:disabled) {
-    box-shadow: 0 10px 28px rgba(34, 197, 94, 0.35);
-    transform: translateY(-1px);
+
+/* =========================================================
+   BRILHO DO BOTÃO
+========================================================= */
+
+.bloco-certificado>button::before {
+    content: "";
+
+    position: absolute;
+
+    top: -80%;
+    left: -70%;
+
+    width: 40%;
+    height: 260%;
+
+    transform: rotate(20deg);
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.20),
+            transparent);
+
+    transition: left 0.45s ease;
 }
 
-.bloco-certificado button:active:not(:disabled) {
+
+.bloco-certificado>button:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 7px 14px rgba(18, 61, 114, 0.20),
+        0 12px 23px rgba(18, 61, 114, 0.13);
+}
+
+
+.bloco-certificado>button:hover:not(:disabled)::before {
+    left: 130%;
+}
+
+
+.bloco-certificado>button:active:not(:disabled) {
     transform: translateY(0);
+}
+
+
+.bloco-certificado>button:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
     box-shadow: none;
 }
 
-.bloco-certificado button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
 
-/* ===============================
+/* =========================================================
    MENSAGEM
-=============================== */
+========================================================= */
 
 .mensagem-certificado {
-    font-size: 13px;
-    margin-top: 6px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid #1e293b;
-    color: #e5e7eb;
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    margin: 2px 0 0 !important;
+    padding: 11px 14px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    background:
+        linear-gradient(90deg,
+            #eef5fb,
+            #f7fafc);
+
+    border: 1px solid #d2e1ef;
+    border-left: 4px solid #123d72;
+    border-radius: 8px;
+
+    color: #123d72 !important;
+
+    font-size: 11px !important;
+    font-weight: 700;
+
+    animation:
+        certificadoMensagemEntrada 0.25s ease;
 }
 
-/* ===============================
-   MENSAGEM SUCESSO
-=============================== */
 
-.mensagem-certificado:has(:not(*)) {
-    color: inherit;
-}
+/* =========================================================
+   ANIMAÇÃO MENSAGEM
+========================================================= */
 
-/* ===============================
-   RESPONSIVO
-=============================== */
+@keyframes certificadoMensagemEntrada {
 
-@media (max-width: 768px) {
-    .bloco-certificado {
-        padding: 18px 16px;
-        border-radius: 14px;
+    from {
+        opacity: 0;
+
+        transform: translateY(-4px);
     }
 
-    .bloco-certificado button {
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .bloco-certificado {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+
+    .bloco-certificado>button {
+        grid-column: 1 / -1;
+
         width: 100%;
-        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .bloco-certificado {
+        display: flex;
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 11px;
+
+        margin-top: 4px;
+
+        padding: 15px;
+
+        border-radius: 11px;
+    }
+
+
+    .bloco-certificado h5 {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        margin-bottom: 2px;
+
+        font-size: 14px;
+    }
+
+
+    .bloco-certificado input[type="file"],
+    .bloco-certificado input[type="password"],
+    .bloco-certificado>button {
+        width: 100%;
+    }
+
+
+    .bloco-certificado input[type="file"] {
+        height: auto;
+
+        min-height: 48px;
+    }
+
+
+    .bloco-certificado>button {
+        min-width: 0;
+
+        margin-top: 2px;
+    }
+
+
+    .mensagem-certificado {
+        width: 100%;
     }
 }

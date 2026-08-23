@@ -8,7 +8,11 @@ const CACHE_ETIQUETAS = "dgyahdasd2d62asdsaofaso";
 export default function Etiquetas() {
     const [produtos, setProdutos] = useState([]);
     const [selecionados, setSelecionados] = useState([]);
+    const [fonteNormal, setFonteNormal] = useState("helvetica");
+    const [estiloFonteNormal, setEstiloFonteNormal] = useState("bold");
 
+    const [fontePromocao, setFontePromocao] = useState("helvetica");
+    const [estiloFontePromocao, setEstiloFontePromocao] = useState("bold");
     const [filtroNome, setFiltroNome] = useState("");
     const [filtroPreco, setFiltroPreco] = useState("");
     const [filtroCodigoBarras, setFiltroCodigoBarras] = useState("");
@@ -26,7 +30,39 @@ export default function Etiquetas() {
     const [cambio, setCambio] = useState(null);
     const [abaMobileEtiquetas, setAbaMobileEtiquetas] = useState("lista");
     const token = localStorage.getItem("token");
+    const tiposFonteDisponiveis = [
+        {
+            valor: "helvetica",
+            nome: "Helvetica"
+        },
+        {
+            valor: "times",
+            nome: "Times"
+        },
+        {
+            valor: "courier",
+            nome: "Courier"
+        }
+    ];
 
+    const estilosFonteDisponiveis = [
+        {
+            valor: "normal",
+            nome: "Normal"
+        },
+        {
+            valor: "bold",
+            nome: "Negrito"
+        },
+        {
+            valor: "italic",
+            nome: "Itálico"
+        },
+        {
+            valor: "bolditalic",
+            nome: "Negrito + Itálico"
+        }
+    ];
     // ===============================
     // CARREGAR CACHE + SINCRONIZAR
     // ===============================
@@ -264,13 +300,31 @@ export default function Etiquetas() {
     // ALTERAR QUANTIDADE DE ETIQUETAS
     // ===============================
     function alterarQuantidadeEtiquetas(id, valor) {
-        let quantidade = parseInt(valor, 10);
 
+        // Permite deixar vazio enquanto está digitando
+        if (valor === "") {
+            setSelecionados(listaAtual =>
+                listaAtual.map(item =>
+                    item.id === id
+                        ? {
+                            ...item,
+                            quantidadeEtiquetas: ""
+                        }
+                        : item
+                )
+            );
+
+            return;
+        }
+
+        const quantidade = parseInt(valor, 10);
+
+        // Só aceita números maiores que 0
         if (
             Number.isNaN(quantidade) ||
             quantidade < 1
         ) {
-            quantidade = 1;
+            return;
         }
 
         setSelecionados(listaAtual =>
@@ -278,7 +332,7 @@ export default function Etiquetas() {
                 item.id === id
                     ? {
                         ...item,
-                        quantidadeEtiquetas: quantidade,
+                        quantidadeEtiquetas: quantidade
                     }
                     : item
             )
@@ -463,18 +517,22 @@ export default function Etiquetas() {
     // GERAR PDF
     // ===============================
     function imprimirEtiquetas() {
+
         if (selecionados.length === 0) {
             alert(
                 "Adicione pelo menos um produto para impressão."
             );
             return;
         }
+
+
         // ===============================
         // GERAR LISTA COM AS QUANTIDADES
         // ===============================
         const etiquetasParaImprimir = [];
 
         selecionados.forEach(produto => {
+
             const quantidade = Math.max(
                 1,
                 parseInt(
@@ -484,275 +542,566 @@ export default function Etiquetas() {
             );
 
             for (let i = 0; i < quantidade; i++) {
+
                 etiquetasParaImprimir.push({
                     ...produto,
                 });
+
             }
+
         });
+
+
+        // ===============================
+        // CRIAR PDF
+        // ===============================
         const pdf = new jsPDF({
             orientation: "portrait",
             unit: "mm",
             format: "a4",
         });
 
+
+        // ===============================
+        // FOLHA
+        // ===============================
         const larguraFolha = 210;
         const alturaFolha = 297;
 
         const margemX = 5;
         const margemY = 10;
 
-        const espacoX = 5;
+        const espacoX = 3;
         const espacoY = 5;
 
+
         // ===============================
-        // TAMANHO DAS ETIQUETAS
+        // ETIQUETAS
         // ===============================
         const larguraEtiqueta =
-            larguraFolha * 0.30;
+            larguraFolha * 0.22;
 
-        const alturaEtiqueta = 68;
+        const alturaMinimaEtiqueta = 50;
 
-        const colunas = 3;
+        const colunas = 4;
 
-        const linhasPorPagina =
-            Math.floor(
-                (alturaFolha - margemY * 2) /
-                (alturaEtiqueta + espacoY)
+
+        // ===============================
+        // CONFIGURAÇÃO DO PRODUTO
+        // ===============================
+        function obterConfiguracaoProduto(produto) {
+
+            const corFundo =
+                produto.promocao
+                    ? corFundoPromocao
+                    : corFundoNormal;
+
+            const corTexto =
+                produto.promocao
+                    ? corTextoPromocao
+                    : corTextoNormal;
+
+            const fonteEtiqueta =
+                produto.promocao
+                    ? fontePromocao
+                    : fonteNormal;
+
+            const estiloFonteEtiqueta =
+                produto.promocao
+                    ? estiloFontePromocao
+                    : estiloFonteNormal;
+
+            return {
+                corFundo,
+                corTexto,
+                fonteEtiqueta,
+                estiloFonteEtiqueta,
+            };
+        }
+
+
+        // ===============================
+        // CALCULAR CONTEÚDO DA ETIQUETA
+        // ===============================
+        function calcularEtiqueta(produto) {
+
+            const {
+                fonteEtiqueta,
+                estiloFonteEtiqueta,
+            } = obterConfiguracaoProduto(produto);
+
+
+            let alturaConteudo = 14;
+
+
+            // ===============================
+            // PROMOÇÃO
+            // ===============================
+            if (produto.promocao) {
+                alturaConteudo += 13;
+            }
+
+
+            // ===============================
+            // NOME
+            // ===============================
+            pdf.setFont(
+                fonteEtiqueta,
+                estiloFonteEtiqueta
             );
 
-        const etiquetasPorPagina =
-            linhasPorPagina * colunas;
+            pdf.setFontSize(15);
 
-        etiquetasParaImprimir.forEach(
-            (produto, index) => {
-
-                const indicePagina =
-                    index % etiquetasPorPagina;
-
-                if (
-                    index > 0 &&
-                    indicePagina === 0
-                ) {
-                    pdf.addPage();
-                }
-
-                const colunaPagina =
-                    indicePagina % colunas;
-
-                const linhaPagina =
-                    Math.floor(
-                        indicePagina / colunas
-                    );
-
-                const x =
-                    margemX +
-                    colunaPagina *
-                    (
-                        larguraEtiqueta +
-                        espacoX
-                    );
-
-                const y =
-                    margemY +
-                    linhaPagina *
-                    (
-                        alturaEtiqueta +
-                        espacoY
-                    );
-
-                // ===============================
-                // CORES
-                // ===============================
-                const corFundo =
-                    produto.promocao
-                        ? corFundoPromocao
-                        : corFundoNormal;
-
-                const corTexto =
-                    produto.promocao
-                        ? corTextoPromocao
-                        : corTextoNormal;
-
-                const [
-                    fundoR,
-                    fundoG,
-                    fundoB
-                ] = converterHexParaRgb(
-                    corFundo
+            const nomeQuebrado =
+                pdf.splitTextToSize(
+                    produto.nome || "",
+                    larguraEtiqueta - 8
                 );
 
-                const [
-                    textoR,
-                    textoG,
-                    textoB
-                ] = converterHexParaRgb(
-                    corTexto
+            alturaConteudo +=
+                nomeQuebrado.length * 6;
+
+            alturaConteudo += 7;
+
+
+            // ===============================
+            // PREÇO
+            // ===============================
+            pdf.setFont(
+                fonteEtiqueta,
+                estiloFonteEtiqueta
+            );
+
+            pdf.setFontSize(
+                produto.promocao
+                    ? 27
+                    : 26
+            );
+
+            const precoFormatado =
+                formatarPreco(produto.preco);
+
+            const textoPrecoCompleto =
+                `R$ ${precoFormatado}`;
+
+            const larguraMaximaPreco =
+                larguraEtiqueta - 6;
+
+            const larguraTextoPreco =
+                pdf.getTextWidth(
+                    textoPrecoCompleto
                 );
 
-                // ===============================
-                // FUNDO
-                // ===============================
-                pdf.setFillColor(
-                    fundoR,
-                    fundoG,
-                    fundoB
-                );
+            const precoQuebra =
+                larguraTextoPreco >
+                larguraMaximaPreco;
 
-                pdf.setDrawColor(
-                    0,
-                    0,
-                    0
-                );
 
-                pdf.setLineWidth(0.5);
+            if (precoQuebra) {
 
-                pdf.roundedRect(
-                    x,
-                    y,
-                    larguraEtiqueta,
-                    alturaEtiqueta,
-                    2,
-                    2,
-                    "FD"
-                );
+                // R$ + segunda linha do valor
+                alturaConteudo += 18;
 
-                // ===============================
-                // COR DO TEXTO
-                // ===============================
-                pdf.setTextColor(
-                    textoR,
-                    textoG,
-                    textoB
-                );
+            } else {
 
-                let posicaoY = y + 14;
+                alturaConteudo += 9;
 
-                // ===============================
-                // PROMOÇÃO
-                // ===============================
-                if (produto.promocao) {
-                    pdf.setFont(
-                        "helvetica",
-                        "bold"
-                    );
-
-                    pdf.setFontSize(18);
-
-                    pdf.text(
-                        "PROMOÇÃO",
-                        x +
-                        larguraEtiqueta / 2,
-                        posicaoY,
-                        {
-                            align: "center",
-                        }
-                    );
-
-                    posicaoY += 13;
-                }
-
-                // ===============================
-                // NOME DO PRODUTO
-                // ===============================
-                pdf.setFont(
-                    "helvetica",
-                    "bold"
-                );
-
-                pdf.setFontSize(15);
-
-                const nomeQuebrado =
-                    pdf.splitTextToSize(
-                        produto.nome || "",
-                        larguraEtiqueta - 8
-                    );
-
-                pdf.text(
-                    nomeQuebrado,
-                    x +
-                    larguraEtiqueta / 2,
-                    posicaoY,
-                    {
-                        align: "center",
-                    }
-                );
-
-                // Espaço de acordo com
-                // quantidade de linhas do nome
-                posicaoY +=
-                    (
-                        nomeQuebrado.length *
-                        6
-                    ) + 7;
-
-                // ===============================
-                // PREÇO EM REAL
-                // ===============================
-                pdf.setFont(
-                    "helvetica",
-                    "bold"
-                );
-
-                pdf.setFontSize(
-                    produto.promocao
-                        ? 27
-                        : 26
-                );
-
-                pdf.text(
-                    `R$ ${formatarPreco(
-                        produto.preco
-                    )}`,
-                    x +
-                    larguraEtiqueta / 2,
-                    posicaoY,
-                    {
-                        align: "center",
-                    }
-                );
-
-                // ===============================
-                // PREÇO EM DÓLAR
-                // ===============================
-                const precoDolar =
-                    calcularPrecoDolar(
-                        produto.preco
-                    );
-
-                if (precoDolar !== null) {
-                    posicaoY += 9;
-
-                    pdf.setFont(
-                        "helvetica",
-                        "bold"
-                    );
-
-                    pdf.setFontSize(14);
-
-                    pdf.text(
-                        `US$ ${precoDolar.toFixed(2)}`,
-                        x +
-                        larguraEtiqueta / 2,
-                        posicaoY,
-                        {
-                            align: "center",
-                        }
-                    );
-                }
             }
-        );
 
+
+            // ===============================
+            // DÓLAR
+            // ===============================
+            const precoDolar =
+                calcularPrecoDolar(
+                    produto.preco
+                );
+
+            if (precoDolar !== null) {
+                alturaConteudo += 10;
+            }
+
+
+            // ===============================
+            // MARGEM INFERIOR
+            // ===============================
+            alturaConteudo += 5;
+
+
+            const alturaNecessaria =
+                Math.max(
+                    alturaMinimaEtiqueta,
+                    alturaConteudo
+                );
+
+
+            return {
+                altura: alturaNecessaria,
+                nomeQuebrado,
+                precoFormatado,
+                precoQuebra,
+                precoDolar,
+            };
+        }
+
+
+        // ===============================
+        // SEPARAR EM LINHAS DE 4
+        // ===============================
+        const linhasEtiquetas = [];
+
+        for (
+            let i = 0;
+            i < etiquetasParaImprimir.length;
+            i += colunas
+        ) {
+
+            linhasEtiquetas.push(
+                etiquetasParaImprimir.slice(
+                    i,
+                    i + colunas
+                )
+            );
+
+        }
+
+
+        // ===============================
+        // POSIÇÃO VERTICAL ATUAL
+        // ===============================
+        let yAtual = margemY;
+
+
+        // ===============================
+        // PERCORRER LINHAS
+        // ===============================
+        linhasEtiquetas.forEach(linha => {
+
+
+            // ===============================
+            // CALCULAR TODAS DA LINHA
+            // ===============================
+            const dadosLinha =
+                linha.map(produto =>
+                    calcularEtiqueta(produto)
+                );
+
+
+            // ===============================
+            // MAIOR ALTURA DA LINHA
+            // ===============================
+            const alturaLinha =
+                Math.max(
+                    ...dadosLinha.map(
+                        dados => dados.altura
+                    )
+                );
+
+
+            // ===============================
+            // VERIFICAR SE CABE NA PÁGINA
+            // ===============================
+            if (
+                yAtual +
+                alturaLinha >
+                alturaFolha - margemY
+            ) {
+
+                pdf.addPage();
+
+                yAtual = margemY;
+            }
+
+
+            // ===============================
+            // DESENHAR ETIQUETAS DA LINHA
+            // ===============================
+            linha.forEach(
+                (produto, indiceColuna) => {
+
+
+                    const dadosEtiqueta =
+                        dadosLinha[indiceColuna];
+
+
+                    const {
+                        corFundo,
+                        corTexto,
+                        fonteEtiqueta,
+                        estiloFonteEtiqueta,
+                    } =
+                        obterConfiguracaoProduto(
+                            produto
+                        );
+
+
+                    // ===============================
+                    // POSIÇÃO X
+                    // ===============================
+                    const x =
+                        margemX +
+                        indiceColuna *
+                        (
+                            larguraEtiqueta +
+                            espacoX
+                        );
+
+
+                    const y = yAtual;
+
+
+                    // ===============================
+                    // IMPORTANTE
+                    //
+                    // TODAS AS ETIQUETAS DA MESMA
+                    // LINHA USAM A ALTURA DA MAIOR
+                    // ===============================
+                    const alturaEtiquetaAtual =
+                        dadosEtiqueta.altura;
+
+                    // ===============================
+                    // CORES
+                    // ===============================
+                    const [
+                        fundoR,
+                        fundoG,
+                        fundoB
+                    ] =
+                        converterHexParaRgb(
+                            corFundo
+                        );
+
+
+                    const [
+                        textoR,
+                        textoG,
+                        textoB
+                    ] =
+                        converterHexParaRgb(
+                            corTexto
+                        );
+
+
+                    // ===============================
+                    // FUNDO
+                    // ===============================
+                    pdf.setFillColor(
+                        fundoR,
+                        fundoG,
+                        fundoB
+                    );
+
+                    pdf.setDrawColor(
+                        0,
+                        0,
+                        0
+                    );
+
+                    pdf.setLineWidth(0.5);
+
+
+                    pdf.roundedRect(
+                        x,
+                        y,
+                        larguraEtiqueta,
+                        alturaEtiquetaAtual,
+                        2,
+                        2,
+                        "FD"
+                    );
+
+
+                    // ===============================
+                    // COR DO TEXTO
+                    // ===============================
+                    pdf.setTextColor(
+                        textoR,
+                        textoG,
+                        textoB
+                    );
+
+
+                    let posicaoY =
+                        y + 14;
+
+
+                    // ===============================
+                    // PROMOÇÃO
+                    // ===============================
+                    if (produto.promocao) {
+
+                        pdf.setFont(
+                            fonteEtiqueta,
+                            estiloFonteEtiqueta
+                        );
+
+                        pdf.setFontSize(18);
+
+                        pdf.text(
+                            "PROMOÇÃO",
+                            x +
+                            larguraEtiqueta / 2,
+                            posicaoY,
+                            {
+                                align: "center",
+                            }
+                        );
+
+                        posicaoY += 13;
+                    }
+
+
+                    // ===============================
+                    // NOME DO PRODUTO
+                    // ===============================
+                    pdf.setFont(
+                        fonteEtiqueta,
+                        estiloFonteEtiqueta
+                    );
+
+                    pdf.setFontSize(15);
+
+                    pdf.text(
+                        dadosEtiqueta.nomeQuebrado,
+                        x +
+                        larguraEtiqueta / 2,
+                        posicaoY,
+                        {
+                            align: "center",
+                        }
+                    );
+
+
+                    posicaoY +=
+                        (
+                            dadosEtiqueta
+                                .nomeQuebrado
+                                .length *
+                            6
+                        ) + 7;
+
+
+                    // ===============================
+                    // PREÇO EM REAL
+                    // ===============================
+                    pdf.setFont(
+                        fonteEtiqueta,
+                        estiloFonteEtiqueta
+                    );
+
+                    pdf.setFontSize(
+                        produto.promocao
+                            ? 27
+                            : 26
+                    );
+
+
+                    // ===============================
+                    // CABE EM UMA LINHA
+                    // ===============================
+                    if (
+                        !dadosEtiqueta.precoQuebra
+                    ) {
+
+                        pdf.text(
+                            `R$ ${dadosEtiqueta.precoFormatado}`,
+                            x +
+                            larguraEtiqueta / 2,
+                            posicaoY,
+                            {
+                                align: "center",
+                            }
+                        );
+
+                    } else {
+
+
+                        // ===============================
+                        // R$
+                        // ===============================
+                        pdf.text(
+                            "R$",
+                            x +
+                            larguraEtiqueta / 2,
+                            posicaoY,
+                            {
+                                align: "center",
+                            }
+                        );
+
+
+                        // ===============================
+                        // VALOR NA LINHA DE BAIXO
+                        // ===============================
+                        posicaoY += 9;
+
+
+                        pdf.text(
+                            dadosEtiqueta.precoFormatado,
+                            x +
+                            larguraEtiqueta / 2,
+                            posicaoY,
+                            {
+                                align: "center",
+                            }
+                        );
+
+                    }
+
+
+                    // ===============================
+                    // PREÇO EM DÓLAR
+                    // ===============================
+                    if (
+                        dadosEtiqueta.precoDolar !==
+                        null
+                    ) {
+
+                        posicaoY += 9;
+
+                        pdf.setFont(
+                            fonteEtiqueta,
+                            estiloFonteEtiqueta
+                        );
+
+                        pdf.setFontSize(14);
+
+                        pdf.text(
+                            `US$ ${dadosEtiqueta.precoDolar.toFixed(2)}`,
+                            x +
+                            larguraEtiqueta / 2,
+                            posicaoY,
+                            {
+                                align: "center",
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+
+            // ===============================
+            // DESCER A PRÓXIMA LINHA
+            //
+            // USA A ALTURA DA MAIOR ETIQUETA
+            // ===============================
+            yAtual +=
+                alturaLinha +
+                espacoY;
+
+        });
+
+
+        // ===============================
+        // SALVAR
+        // ===============================
         pdf.save(
             "etiquetas-produtos.pdf"
         );
     }
 
-    // ===============================
-    // CARD PRODUTO
-    // ===============================
-    // ===============================
-    // CARD PRODUTO
-    // ===============================
     // ===============================
     // CARD PRODUTO
     // ===============================
@@ -814,15 +1163,24 @@ export default function Etiquetas() {
                                 type="number"
                                 min="1"
                                 step="1"
-                                value={
-                                    produto.quantidadeEtiquetas ?? 1
-                                }
+                                value={produto.quantidadeEtiquetas ?? ""}
                                 onChange={e =>
                                     alterarQuantidadeEtiquetas(
                                         produto.id,
                                         e.target.value
                                     )
                                 }
+                                onBlur={() => {
+                                    if (
+                                        produto.quantidadeEtiquetas === "" ||
+                                        produto.quantidadeEtiquetas == null
+                                    ) {
+                                        alterarQuantidadeEtiquetas(
+                                            produto.id,
+                                            "1"
+                                        );
+                                    }
+                                }}
                             />
 
                         </div>
@@ -929,8 +1287,8 @@ export default function Etiquetas() {
                 <div className="etiquetas-configuracoes-impressao-area">
 
                     {/* ===============================
-                        CORES ETIQUETA NORMAL
-                    =============================== */}
+        ETIQUETA NORMAL
+    =============================== */}
                     <div className="etiquetas-grupo-cores-normal">
 
                         <span className="etiquetas-grupo-cores-titulo">
@@ -944,9 +1302,7 @@ export default function Etiquetas() {
                                 type="color"
                                 value={corFundoNormal}
                                 onChange={e =>
-                                    setCorFundoNormal(
-                                        e.target.value
-                                    )
+                                    setCorFundoNormal(e.target.value)
                                 }
                             />
                         </label>
@@ -958,18 +1314,125 @@ export default function Etiquetas() {
                                 type="color"
                                 value={corTextoNormal}
                                 onChange={e =>
-                                    setCorTextoNormal(
-                                        e.target.value
-                                    )
+                                    setCorTextoNormal(e.target.value)
                                 }
                             />
                         </label>
 
+
+                        {/* TIPO DA FONTE */}
+                        <label className="etiquetas-seletor-fonte-item">
+
+                            <span>Fonte</span>
+
+                            <input
+                                type="text"
+                                list="etiquetas-fontes-normal-lista"
+                                value={fonteNormal}
+
+                                onFocus={() => {
+                                    setFonteNormal("");
+                                }}
+
+                                onClick={() => {
+                                    setFonteNormal("");
+                                }}
+
+                                onChange={e => {
+                                    setFonteNormal(
+                                        e.target.value
+                                    );
+                                }}
+
+                                onBlur={() => {
+                                    if (!fonteNormal) {
+                                        setFonteNormal(
+                                            "helvetica"
+                                        );
+                                    }
+                                }}
+
+                                placeholder="Escolha a fonte"
+                                autoComplete="off"
+                            />
+
+                            <datalist id="etiquetas-fontes-normal-lista">
+
+                                {tiposFonteDisponiveis.map(
+                                    fonte => (
+                                        <option
+                                            key={fonte.valor}
+                                            value={fonte.valor}
+                                        >
+                                            {fonte.nome}
+                                        </option>
+                                    )
+                                )}
+
+                            </datalist>
+
+                        </label>
+
+
+                        {/* ESTILO */}
+                        <label className="etiquetas-seletor-fonte-item">
+
+                            <span>Estilo</span>
+
+                            <input
+                                type="text"
+                                list="etiquetas-estilos-normal-lista"
+                                value={estiloFonteNormal}
+
+                                onFocus={() => {
+                                    setEstiloFonteNormal("");
+                                }}
+
+                                onClick={() => {
+                                    setEstiloFonteNormal("");
+                                }}
+
+                                onChange={e => {
+                                    setEstiloFonteNormal(
+                                        e.target.value
+                                    );
+                                }}
+
+                                onBlur={() => {
+                                    if (!estiloFonteNormal) {
+                                        setEstiloFonteNormal(
+                                            "bold"
+                                        );
+                                    }
+                                }}
+
+                                placeholder="Escolha o estilo"
+                                autoComplete="off"
+                            />
+
+                            <datalist id="etiquetas-estilos-normal-lista">
+
+                                {estilosFonteDisponiveis.map(
+                                    estilo => (
+                                        <option
+                                            key={estilo.valor}
+                                            value={estilo.valor}
+                                        >
+                                            {estilo.nome}
+                                        </option>
+                                    )
+                                )}
+
+                            </datalist>
+
+                        </label>
+
                     </div>
 
+
                     {/* ===============================
-                        CORES ETIQUETA PROMOÇÃO
-                    =============================== */}
+        ETIQUETA PROMOÇÃO
+    =============================== */}
                     <div className="etiquetas-grupo-cores-promocao">
 
                         <span className="etiquetas-grupo-cores-titulo">
@@ -983,9 +1446,7 @@ export default function Etiquetas() {
                                 type="color"
                                 value={corFundoPromocao}
                                 onChange={e =>
-                                    setCorFundoPromocao(
-                                        e.target.value
-                                    )
+                                    setCorFundoPromocao(e.target.value)
                                 }
                             />
                         </label>
@@ -997,18 +1458,125 @@ export default function Etiquetas() {
                                 type="color"
                                 value={corTextoPromocao}
                                 onChange={e =>
-                                    setCorTextoPromocao(
-                                        e.target.value
-                                    )
+                                    setCorTextoPromocao(e.target.value)
                                 }
                             />
                         </label>
 
+
+                        {/* TIPO DA FONTE */}
+                        <label className="etiquetas-seletor-fonte-item">
+
+                            <span>Fonte</span>
+
+                            <input
+                                type="text"
+                                list="etiquetas-fontes-promocao-lista"
+                                value={fontePromocao}
+
+                                onFocus={() => {
+                                    setFontePromocao("");
+                                }}
+
+                                onClick={() => {
+                                    setFontePromocao("");
+                                }}
+
+                                onChange={e => {
+                                    setFontePromocao(
+                                        e.target.value
+                                    );
+                                }}
+
+                                onBlur={() => {
+                                    if (!fontePromocao) {
+                                        setFontePromocao(
+                                            "helvetica"
+                                        );
+                                    }
+                                }}
+
+                                placeholder="Escolha a fonte"
+                                autoComplete="off"
+                            />
+
+                            <datalist id="etiquetas-fontes-promocao-lista">
+
+                                {tiposFonteDisponiveis.map(
+                                    fonte => (
+                                        <option
+                                            key={fonte.valor}
+                                            value={fonte.valor}
+                                        >
+                                            {fonte.nome}
+                                        </option>
+                                    )
+                                )}
+
+                            </datalist>
+
+                        </label>
+
+
+                        {/* ESTILO */}
+                        <label className="etiquetas-seletor-fonte-item">
+
+                            <span>Estilo</span>
+
+                            <input
+                                type="text"
+                                list="etiquetas-estilos-promocao-lista"
+                                value={estiloFontePromocao}
+
+                                onFocus={() => {
+                                    setEstiloFontePromocao("");
+                                }}
+
+                                onClick={() => {
+                                    setEstiloFontePromocao("");
+                                }}
+
+                                onChange={e => {
+                                    setEstiloFontePromocao(
+                                        e.target.value
+                                    );
+                                }}
+
+                                onBlur={() => {
+                                    if (!estiloFontePromocao) {
+                                        setEstiloFontePromocao(
+                                            "bold"
+                                        );
+                                    }
+                                }}
+
+                                placeholder="Escolha o estilo"
+                                autoComplete="off"
+                            />
+
+                            <datalist id="etiquetas-estilos-promocao-lista">
+
+                                {estilosFonteDisponiveis.map(
+                                    estilo => (
+                                        <option
+                                            key={estilo.valor}
+                                            value={estilo.valor}
+                                        >
+                                            {estilo.nome}
+                                        </option>
+                                    )
+                                )}
+
+                            </datalist>
+
+                        </label>
+
                     </div>
 
+
                     {/* ===============================
-                        IMPRIMIR
-                    =============================== */}
+        IMPRIMIR
+    =============================== */}
                     <button
                         className="etiquetas-botao-imprimir-principal"
                         onClick={imprimirEtiquetas}
@@ -1020,7 +1588,6 @@ export default function Etiquetas() {
                     </button>
 
                 </div>
-
             </div>
             <div className="etiquetas-navegacao-mobile-abas">
                 <button
@@ -1155,8 +1722,8 @@ export default function Etiquetas() {
                 =============================== */}
                 <section
                     className={`etiquetas-coluna-impressao-selecionada ${abaMobileEtiquetas === "etiquetas"
-                            ? "etiquetas-coluna-mobile-visivel"
-                            : "etiquetas-coluna-mobile-oculta"
+                        ? "etiquetas-coluna-mobile-visivel"
+                        : "etiquetas-coluna-mobile-oculta"
                         }`}
                 >
                     <div className="etiquetas-coluna-cabecalho">

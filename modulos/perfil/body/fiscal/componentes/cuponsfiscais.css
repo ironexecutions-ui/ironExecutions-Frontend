@@ -1,129 +1,1150 @@
-/* ===============================
-   CONTAINER GERAL
-=============================== */
+/* =========================================================
+   CUPONS FISCAIS
+   IRON EXECUTIONS PREMIUM
+========================================================= */
+
 .cupons-fiscais {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 16px;
-    padding: 20px;
-    color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-/* ===============================
-   TÍTULO
-=============================== */
-.cupons-fiscais h4 {
-    margin-bottom: 16px;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-/* ===============================
-   TABELA
-=============================== */
-.cupons-fiscais table {
     width: 100%;
-    border-collapse: collapse;
-    background: #020617;
-    border-radius: 12px;
+    min-height: 100%;
+
+    padding: 26px;
+
+    box-sizing: border-box;
+
+    position: relative;
     overflow: hidden;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(18, 61, 114, 0.07),
+            transparent 30%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fafbfd 48%,
+            #f5f7fa 100%);
+
+    border: 1px solid #dfe5ec;
+    border-radius: 17px;
+
+    color: #101828;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.025),
+        0 10px 28px rgba(16, 24, 40, 0.035);
 }
 
-/* ===============================
-   CABEÇALHO
-=============================== */
-.cupons-fiscais thead {
-    background: #020617;
-    border-bottom: 1px solid #1e293b;
+
+/* =========================================================
+   DETALHE SUPERIOR
+========================================================= */
+
+.cupons-fiscais::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 28px;
+    right: 28px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(18, 61, 114, 0.28),
+            transparent);
+
+    pointer-events: none;
 }
 
-.cupons-fiscais thead th {
-    padding: 12px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    color: #9ca3af;
-    text-align: left;
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.cupons-fiscais>h4 {
+    position: relative;
+
+    margin: 0 0 22px;
+
+    padding: 4px 0 17px 19px;
+
+    color: #0b1f3a !important;
+
+    font-size: 24px;
+    line-height: 1.2;
+
+    font-weight: 850;
+
+    letter-spacing: -0.65px;
+
+    border-bottom: 1px solid #e2e7ed;
 }
 
-/* ===============================
-   LINHAS
-=============================== */
-.cupons-fiscais tbody tr {
-    border-bottom: 1px solid #1e293b;
-    transition: background 0.2s ease;
+
+/* =========================================================
+   BARRA DO TÍTULO
+========================================================= */
+
+.cupons-fiscais>h4::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 2px;
+
+    width: 4px;
+    height: 28px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(180deg,
+            #2c6bab 0%,
+            #123d72 55%,
+            #09294f 100%);
+
+    box-shadow:
+        0 3px 9px rgba(18, 61, 114, 0.24);
 }
 
-.cupons-fiscais tbody tr:hover {
-    background: rgba(34, 197, 94, 0.05);
-}
 
-/* ===============================
-   CÉLULAS
-=============================== */
-.cupons-fiscais td {
-    padding: 12px;
-    font-size: 13px;
-    color: #e5e7eb;
-}
+/* =========================================================
+   CONTAINER DOS FILTROS
+========================================================= */
 
-/* ===============================
-   STATUS
-=============================== */
-.cupons-fiscais td:nth-child(3) {
-    font-weight: 600;
-}
+.cupons-fiscais-filtros-premium {
+    width: 100%;
 
-.cupons-fiscais td:nth-child(3):has(span.autorizada),
-.cupons-fiscais .status-autorizada {
-    color: #22c55e;
-}
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
 
-.cupons-fiscais .status-rejeitada {
-    color: #ef4444;
-}
+    gap: 12px;
 
-.cupons-fiscais .status-cancelada {
-    color: #f59e0b;
-}
+    padding: 17px;
 
-/* ===============================
-   BOTÃO
-=============================== */
-.cupons-fiscais button {
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    color: #e5e7eb;
-    border-radius: 12px;
-    padding: 6px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
+    margin-bottom: 12px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(247, 249, 252, 0.98));
+
+    border: 1px solid #dbe2ea;
+    border-radius: 14px;
+
+    box-shadow:
+        0 2px 4px rgba(16, 24, 40, 0.025),
+        0 7px 18px rgba(16, 24, 40, 0.035);
+
     transition:
         border-color 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease;
+        box-shadow 0.2s ease;
 }
 
-.cupons-fiscais button:hover {
-    border-color: #22c55e;
-    color: #22c55e;
-    box-shadow: 0 6px 18px rgba(34, 197, 94, 0.25);
-    transform: translateY(-1px);
+
+.cupons-fiscais-filtros-premium:hover {
+    border-color: #c9d3df;
+
+    box-shadow:
+        0 3px 7px rgba(16, 24, 40, 0.03),
+        0 10px 24px rgba(16, 24, 40, 0.045);
 }
 
-.cupons-fiscais button:active {
+
+/* =========================================================
+   LINHA DECORATIVA DOS FILTROS
+========================================================= */
+
+.cupons-fiscais-filtros-premium::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 20px;
+    right: 20px;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(18, 61, 114, 0.20),
+            transparent);
+}
+
+
+/* =========================================================
+   GRUPOS DE FILTRO
+========================================================= */
+
+.cupons-fiscais-filtro-protocolo-premium,
+.cupons-fiscais-filtro-data-premium,
+.cupons-fiscais-filtro-valor-premium {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+/* =========================================================
+   PROTOCOLO
+========================================================= */
+
+.cupons-fiscais-filtro-protocolo-premium {
+    flex: 1;
+
+    min-width: 250px;
+}
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+.cupons-fiscais-filtro-data-premium {
+    width: 170px;
+}
+
+
+/* =========================================================
+   VALORES
+========================================================= */
+
+.cupons-fiscais-filtro-valor-premium {
+    width: 145px;
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.cupons-fiscais-filtros-premium label {
+    padding-left: 2px;
+
+    color: #475467 !important;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.6px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.cupons-fiscais-filtros-premium input {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 13px;
+
+    box-sizing: border-box;
+
+    outline: none;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #fafbfd);
+
+    border: 1px solid #d4dce6;
+    border-radius: 9px;
+
+    color: #101828 !important;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    box-shadow:
+        inset 0 1px 2px rgba(16, 24, 40, 0.02);
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.cupons-fiscais-filtros-premium input::placeholder {
+    color: #98a2b3 !important;
+
+    font-weight: 500;
+}
+
+
+.cupons-fiscais-filtros-premium input:hover {
+    background: #ffffff;
+
+    border-color: #aebbc9;
+}
+
+
+.cupons-fiscais-filtros-premium input:focus {
+    background: #ffffff;
+
+    border-color: #174f88;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.075),
+        0 4px 10px rgba(18, 61, 114, 0.045);
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.cupons-fiscais-filtros-premium input[type="date"] {
+    color-scheme: light;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   REMOVER SETAS NUMBER
+========================================================= */
+
+.cupons-fiscais-filtros-premium input[type="number"]::-webkit-inner-spin-button,
+.cupons-fiscais-filtros-premium input[type="number"]::-webkit-outer-spin-button {
+    margin: 0;
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR FILTROS
+========================================================= */
+
+.cupons-fiscais-limpar-premium {
+    position: relative;
+
+    height: 43px;
+
+    padding: 0 18px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f2f5f8 100%) !important;
+
+    border: 1px solid #d1d9e3 !important;
+
+    border-radius: 9px !important;
+
+    color: #475467 !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.035) !important;
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.cupons-fiscais-limpar-premium:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #edf2f7) !important;
+
+    border-color: #9aabbd !important;
+
+    color: #123d72 !important;
+
+    box-shadow:
+        0 6px 14px rgba(16, 24, 40, 0.07) !important;
+}
+
+
+.cupons-fiscais-limpar-premium:active {
     transform: translateY(0);
-    box-shadow: none;
 }
 
-/* ===============================
+
+/* =========================================================
+   CONTADOR DE RESULTADOS
+========================================================= */
+
+.cupons-fiscais-resultado-premium {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    min-height: 32px;
+
+    margin-bottom: 10px;
+
+    padding: 0 4px;
+
+    color: #667085 !important;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+
+.cupons-fiscais-resultado-premium span {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 25px;
+    height: 23px;
+
+    padding: 0 6px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(135deg,
+            #eef4fa,
+            #e6eef7);
+
+    border: 1px solid #d5e0eb;
+    border-radius: 6px;
+
+    color: #123d72 !important;
+
+    font-size: 11px;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   TABELA
+========================================================= */
+
+.cupons-fiscais table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 14px;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.025),
+        0 9px 24px rgba(16, 24, 40, 0.04);
+}
+
+
+/* =========================================================
+   CABEÇALHO DA TABELA
+========================================================= */
+
+.cupons-fiscais thead {
+    background:
+        linear-gradient(180deg,
+            #f6f8fa 0%,
+            #edf1f5 100%);
+}
+
+
+.cupons-fiscais thead th {
+    position: relative;
+
+    padding: 16px 17px;
+
+    border: none;
+    border-bottom: 1px solid #d9e1e9;
+
+    color: #475467 !important;
+
+    text-align: left;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+.cupons-fiscais thead th:first-child {
+    padding-left: 22px;
+}
+
+
+/* =========================================================
+   DIVISORES DO CABEÇALHO
+========================================================= */
+
+.cupons-fiscais thead th:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    top: 12px;
+    bottom: 12px;
+
+    width: 1px;
+
+    background: rgba(203, 213, 225, 0.65);
+}
+
+
+/* =========================================================
+   LINHAS
+========================================================= */
+
+.cupons-fiscais tbody tr {
+    background: #ffffff;
+
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.cupons-fiscais tbody tr:nth-child(even) {
+    background: #fcfdfe;
+}
+
+
+.cupons-fiscais tbody tr:hover {
+    background:
+        linear-gradient(90deg,
+            rgba(18, 61, 114, 0.065),
+            rgba(18, 61, 114, 0.012));
+
+    box-shadow:
+        inset 4px 0 0 #123d72;
+}
+
+
+/* =========================================================
+   CÉLULAS
+========================================================= */
+
+.cupons-fiscais td {
+    padding: 16px 17px;
+
+    border: none;
+    border-bottom: 1px solid #edf0f4;
+
+    color: #475467 !important;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    vertical-align: middle;
+}
+
+
+.cupons-fiscais tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   NÚMERO NFC-e
+========================================================= */
+
+.cupons-fiscais td:nth-child(1) {
+    padding-left: 22px;
+
+    color: #123d72 !important;
+
+    font-size: 13px;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   SÉRIE
+========================================================= */
+
+.cupons-fiscais td:nth-child(2) {
+    color: #344054 !important;
+
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.cupons-fiscais td:nth-child(3) {
+    font-size: 11px;
+
+    font-weight: 850;
+
+    text-transform: capitalize;
+}
+
+
+/* =========================================================
+   AUTORIZADA
+========================================================= */
+
+.cupons-fiscais .status-autorizada {
+    color: #067647 !important;
+}
+
+
+/* =========================================================
+   REJEITADA
+========================================================= */
+
+.cupons-fiscais .status-rejeitada {
+    color: #b42318 !important;
+}
+
+
+/* =========================================================
+   CANCELADA
+========================================================= */
+
+.cupons-fiscais .status-cancelada {
+    color: #b54708 !important;
+}
+
+
+/* =========================================================
+   PROCESSANDO
+========================================================= */
+
+.cupons-fiscais .status-processando {
+    color: #9a6700 !important;
+}
+
+
+/* =========================================================
+   AMBIENTE
+========================================================= */
+
+.cupons-fiscais td:nth-child(4) {
+    color: #344054 !important;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+.cupons-fiscais td:nth-child(5) {
+    color: #667085 !important;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   BOTÃO IMPRIMIR
+========================================================= */
+
+.cupons-fiscais-imprimir-premium {
+    position: relative;
+
+    min-width: 96px;
+    height: 37px;
+
+    padding: 0 16px;
+
+    overflow: hidden;
+
+    outline: none;
+
+    border: 1px solid #0d3565 !important;
+    border-radius: 9px !important;
+
+    background:
+        linear-gradient(135deg,
+            #1d5a98 0%,
+            #123d72 50%,
+            #092a50 100%) !important;
+
+    color: #ffffff !important;
+
+    font-size: 11px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 7px rgba(18, 61, 114, 0.15),
+        0 7px 14px rgba(18, 61, 114, 0.10) !important;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease !important;
+}
+
+
+/* =========================================================
+   BRILHO DO BOTÃO
+========================================================= */
+
+.cupons-fiscais-imprimir-premium::before {
+    content: "";
+
+    position: absolute;
+
+    top: -60%;
+    left: -70%;
+
+    width: 42%;
+    height: 220%;
+
+    transform: rotate(20deg);
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.20),
+            transparent);
+
+    transition: left 0.45s ease;
+}
+
+
+/* =========================================================
+   HOVER IMPRIMIR
+========================================================= */
+
+.cupons-fiscais-imprimir-premium:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 5px 11px rgba(18, 61, 114, 0.19),
+        0 11px 22px rgba(18, 61, 114, 0.17) !important;
+}
+
+
+.cupons-fiscais-imprimir-premium:hover::before {
+    left: 130%;
+}
+
+
+.cupons-fiscais-imprimir-premium:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 2px 5px rgba(18, 61, 114, 0.14) !important;
+}
+
+
+/* =========================================================
+   SEM RESULTADOS
+========================================================= */
+
+.cupons-fiscais-vazio-premium {
+    width: 100%;
+    min-height: 210px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    background:
+        radial-gradient(circle at center,
+            rgba(18, 61, 114, 0.035),
+            transparent 42%),
+        linear-gradient(145deg,
+            #ffffff,
+            #fafbfd);
+
+    border: 1px dashed #c8d2dd;
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 16px rgba(16, 24, 40, 0.025);
+}
+
+
+.cupons-fiscais-vazio-premium::before {
+    content: "NFC-e";
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 50px;
+    height: 26px;
+
+    padding: 0 8px;
+
+    background:
+        linear-gradient(135deg,
+            #eef4fa,
+            #e5edf6);
+
+    border: 1px solid #d5e0eb;
+    border-radius: 7px;
+
+    color: #123d72 !important;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.cupons-fiscais-vazio-premium p {
+    margin: 0;
+
+    color: #667085 !important;
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR NO EMPTY STATE
+========================================================= */
+
+.cupons-fiscais-limpar-vazio-premium {
+    min-width: 115px;
+    height: 37px;
+
+    padding: 0 15px;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+
+    background: #ffffff !important;
+
+    color: #123d72 !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.035) !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.cupons-fiscais-limpar-vazio-premium:hover {
+    transform: translateY(-2px);
+
+    background: #123d72 !important;
+
+    border-color: #123d72 !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 7px 16px rgba(18, 61, 114, 0.17) !important;
+}
+
+
+/* =========================================================
    LOADING
-=============================== */
+========================================================= */
+
 .cupons-fiscais-loading {
-    color: #9ca3af;
-    font-size: 14px;
+    width: 100%;
+    min-height: 240px;
+
+    margin: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    color: #123d72 !important;
+
+    font-size: 13px;
+    font-weight: 750;
+
+    letter-spacing: 0.1px;
+
+    animation:
+        cuponsFiscaisLoadingPremium 1.25s ease-in-out infinite;
+}
+
+
+@keyframes cuponsFiscaisLoadingPremium {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.cupons-fiscais::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+
+.cupons-fiscais::-webkit-scrollbar-track {
+    background: #edf1f5;
+
+    border-radius: 20px;
+}
+
+
+.cupons-fiscais::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(#9eacbc,
+            #7c8b9d);
+
+    border-radius: 20px;
+}
+
+
+.cupons-fiscais::-webkit-scrollbar-thumb:hover {
+    background: #68798c;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .cupons-fiscais-filtro-protocolo-premium {
+        min-width: 220px;
+    }
+
+    .cupons-fiscais-filtro-data-premium {
+        width: 160px;
+    }
+
+    .cupons-fiscais-filtro-valor-premium {
+        width: 135px;
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    .cupons-fiscais {
+        padding: 18px;
+
+        overflow-x: auto;
+
+        border-radius: 14px;
+    }
+
+    .cupons-fiscais>h4 {
+        font-size: 21px;
+    }
+
+    .cupons-fiscais-filtros-premium {
+        align-items: flex-end;
+    }
+
+    .cupons-fiscais-filtro-protocolo-premium {
+        min-width: 100%;
+
+        flex-basis: 100%;
+    }
+
+    .cupons-fiscais table {
+        min-width: 720px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .cupons-fiscais {
+        padding: 13px;
+
+        border-radius: 12px;
+    }
+
+
+    /* TÍTULO */
+
+    .cupons-fiscais>h4 {
+        margin-bottom: 16px;
+
+        padding-left: 15px;
+
+        font-size: 19px;
+    }
+
+    .cupons-fiscais>h4::before {
+        height: 23px;
+    }
+
+
+    /* FILTROS */
+
+    .cupons-fiscais-filtros-premium {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 11px;
+
+        padding: 14px;
+
+        border-radius: 11px;
+    }
+
+
+    .cupons-fiscais-filtro-protocolo-premium,
+    .cupons-fiscais-filtro-data-premium,
+    .cupons-fiscais-filtro-valor-premium {
+        width: 100%;
+
+        min-width: 100%;
+    }
+
+
+    .cupons-fiscais-limpar-premium {
+        width: 100%;
+    }
+
+
+    /* RESULTADO */
+
+    .cupons-fiscais-resultado-premium {
+        margin-bottom: 8px;
+    }
+
+
+    /* TABELA */
+
+    .cupons-fiscais table {
+        min-width: 680px;
+
+        border-radius: 11px;
+    }
+
+
+    .cupons-fiscais thead th {
+        padding: 13px 12px;
+
+        font-size: 9px;
+    }
+
+
+    .cupons-fiscais td {
+        padding: 13px 12px;
+
+        font-size: 12px;
+    }
+
+
+    .cupons-fiscais td:first-child,
+    .cupons-fiscais thead th:first-child {
+        padding-left: 15px;
+    }
+
+
+    /* BOTÃO */
+
+    .cupons-fiscais-imprimir-premium {
+        min-width: 85px;
+
+        height: 35px;
+
+        padding: 0 13px;
+    }
+
+
+    /* EMPTY */
+
+    .cupons-fiscais-vazio-premium {
+        min-height: 190px;
+
+        padding: 25px 15px;
+    }
 }

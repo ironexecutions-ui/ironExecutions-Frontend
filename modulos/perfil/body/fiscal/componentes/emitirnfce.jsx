@@ -1,175 +1,1032 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { API_URL } from "../../../../../config";
+
 import "./emitirnfce.css";
 
 export default function EmitirNfce() {
 
     const [vendas, setVendas] = useState([]);
+
+    const [vendasComNfce, setVendasComNfce] = useState(new Set());
+
     const [carregando, setCarregando] = useState(true);
+
+    const [emitindoVendaId, setEmitindoVendaId] = useState(null);
+
     const token = localStorage.getItem("token");
+
     const [dataFiltro, setDataFiltro] = useState("");
+
     const [horaMinima, setHoraMinima] = useState("");
+    const [protocoloFiltroNfce, setProtocoloFiltroNfce] = useState("");
+    const [valorFiltroNfce, setValorFiltroNfce] = useState("");
+    const [quantidadeVisivelNfce, setQuantidadeVisivelNfce] = useState(5);    /*
+     * =====================================================
+     * ALERTA PERSONALIZADO NFC-e
+     * =====================================================
+     */
+
+    const [alertaNfce, setAlertaNfce] = useState(null);
 
     useEffect(() => {
-        carregar();
-    }, []);
 
-    function carregar() {
+        carregar();
+
+    }, []);
+    useEffect(() => {
+
+        setQuantidadeVisivelNfce(5);
+
+    }, [
+        dataFiltro,
+        protocoloFiltroNfce,
+        valorFiltroNfce
+    ]);
+    async function carregar() {
+
         setCarregando(true);
 
-        fetch(`${API_URL}/vendas/nfce-pendentes`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then(r => r.json())
-            .then(d => {
-                if (Array.isArray(d)) {
-                    setVendas(d);
-                } else {
-                    setVendas([]);
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/vendas/nfce-pendentes`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-                setCarregando(false);
-            })
-            .catch(() => {
+            );
+
+            const dados = await resposta.json();
+
+            console.log(
+                "[NFC-e] RESPOSTA:",
+                dados
+            );
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.detail ||
+                    dados.erro ||
+                    "Erro ao carregar vendas pendentes"
+                );
+
+            }
+
+            if (Array.isArray(dados)) {
+
+                setVendas(dados);
+
+            } else {
+
                 setVendas([]);
-                setCarregando(false);
-            });
 
-    }
-
-    function emitir(vendaId) {
-        if (!window.confirm(`Emitir NFC-e da venda ${vendaId}?`)) return;
-
-        fetch(`${API_URL}/vendas/${vendaId}/emitir-nfce`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`
             }
-        })
-            .then(async (response) => {
-                const data = await response.json();
 
-                if (!response.ok) {
-                    throw new Error(data.detail || data.erro || "Erro desconhecido ao emitir NFC-e");
-                }
+        } catch (erro) {
 
-                return data;
-            })
-            .then((data) => {
-                alert(data.mensagem || "NFC-e emitida com sucesso");
-                carregar();
-            })
-            .catch((err) => {
-                alert(`Falha ao emitir NFC-e:\n${err.message}`);
+            console.error(
+                "[NFC-e] Erro ao carregar:",
+                erro
+            );
+
+            setVendas([]);
+
+        } finally {
+
+            setCarregando(false);
+
+        }
+    }
+
+    /*
+     * =====================================================
+     * SOLICITAR EMISSÃO
+     * =====================================================
+     */
+
+    function solicitarEmissao(vendaId) {
+
+        /*
+         * Impede duas emissões simultâneas.
+         */
+
+        if (emitindoVendaId !== null) {
+
+            return;
+
+        }
+
+        /*
+         * =====================================================
+         * VERIFICAR NOVAMENTE SE A VENDA JÁ POSSUI NFC-e
+         * =====================================================
+         */
+
+        if (
+            vendasComNfce.has(
+                Number(vendaId)
+            )
+        ) {
+
+            setAlertaNfce({
+                tipo: "aviso",
+                titulo: "NFC-e já emitida",
+                mensagem: "Esta venda já possui uma NFC-e emitida.",
+                vendaId: null
             });
+
+            return;
+
+        }
+
+        /*
+         * =====================================================
+         * ABRIR CONFIRMAÇÃO PERSONALIZADA
+         * =====================================================
+         */
+
+        setAlertaNfce({
+            tipo: "confirmacao",
+            titulo: "Emitir NFC-e",
+            mensagem: `Confirma a emissão da NFC-e referente à venda #${vendaId}?`,
+            vendaId: vendaId
+        });
     }
-    function formatarHora(hora) {
-        return hora || "—";
+
+    /*
+     * =====================================================
+     * EMITIR NFC-e
+     * =====================================================
+     */
+
+    async function emitir(vendaId) {
+
+        /*
+         * Impede duas emissões simultâneas.
+         */
+
+        if (emitindoVendaId !== null) {
+
+            return;
+
+        }
+
+        /*
+         * =====================================================
+         * VERIFICAR NOVAMENTE SE A VENDA JÁ POSSUI NFC-e
+         * =====================================================
+         */
+
+        if (
+            vendasComNfce.has(
+                Number(vendaId)
+            )
+        ) {
+
+            setAlertaNfce({
+                tipo: "aviso",
+                titulo: "NFC-e já emitida",
+                mensagem: "Esta venda já possui uma NFC-e emitida.",
+                vendaId: null
+            });
+
+            return;
+
+        }
+
+        /*
+         * =====================================================
+         * DESABILITAR IMEDIATAMENTE
+         * =====================================================
+         */
+
+        setEmitindoVendaId(vendaId);
+
+        /*
+         * =====================================================
+         * MODAL DE PROCESSAMENTO
+         * =====================================================
+         */
+
+        setAlertaNfce({
+            tipo: "processando",
+            titulo: "Emitindo NFC-e",
+            mensagem: "Comunicando com a SEFAZ. Aguarde a conclusão da emissão.",
+            vendaId: vendaId
+        });
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/vendas/${vendaId}/emitir-nfce`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            const data =
+                await resposta.json();
+
+            /*
+             * =====================================================
+             * ERRO HTTP
+             * =====================================================
+             */
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    data.detail ||
+                    data.erro ||
+                    data.mensagem ||
+                    "Erro desconhecido ao emitir NFC-e"
+                );
+
+            }
+
+            /*
+             * =====================================================
+             * SUCESSO
+             * =====================================================
+             */
+
+            setAlertaNfce({
+                tipo: "sucesso",
+                titulo: "NFC-e emitida com sucesso",
+                mensagem:
+                    data.mensagem ||
+                    `A NFC-e do protocolo #${vendaId} foi emitida e registrada com sucesso.`,
+                vendaId: vendaId
+            });
+
+            /*
+             * =====================================================
+             * RECARREGAR
+             *
+             * Isso consulta novamente:
+             *
+             * /fiscal/nfce
+             *
+             * e encontra o novo venda_id.
+             * =====================================================
+             */
+
+            await carregar();
+
+        } catch (erro) {
+
+            console.error(
+                "[NFC-e] Erro ao emitir NFC-e:",
+                erro
+            );
+
+            setAlertaNfce({
+                tipo: "erro",
+                titulo: "Falha na emissão da NFC-e",
+                mensagem:
+                    erro.message ||
+                    "Ocorreu um erro inesperado durante a emissão.",
+                vendaId: vendaId
+            });
+
+        } finally {
+
+            setEmitindoVendaId(null);
+
+        }
     }
+
+    /*
+     * =====================================================
+     * FECHAR ALERTA
+     * =====================================================
+     */
+
+    function fecharAlertaNfce() {
+
+        /*
+         * Não permite fechar enquanto estiver processando.
+         */
+
+        if (
+            alertaNfce?.tipo === "processando"
+        ) {
+
+            return;
+
+        }
+
+        setAlertaNfce(null);
+    }
+
+    /*
+     * =====================================================
+     * CONFIRMAR EMISSÃO PELO MODAL
+     * =====================================================
+     */
+
+    function confirmarEmissaoNfce() {
+
+        if (
+            !alertaNfce?.vendaId
+        ) {
+
+            return;
+
+        }
+
+        const vendaId =
+            alertaNfce.vendaId;
+
+        emitir(vendaId);
+    }
+
+    /*
+     * =====================================================
+     * TENTAR NOVAMENTE
+     * =====================================================
+     */
+
+    function tentarNovamenteNfce() {
+
+        if (
+            !alertaNfce?.vendaId
+        ) {
+
+            return;
+
+        }
+
+        const vendaId =
+            alertaNfce.vendaId;
+
+        emitir(vendaId);
+    }
+
+    /*
+     * =====================================================
+     * CONVERTER HORA PARA SEGUNDOS
+     * =====================================================
+     */
+
     function horaParaSegundos(hora) {
-        if (!hora) return 0;
-        const [h, m, s] = hora.split(":").map(Number);
-        return h * 3600 + m * 60 + s;
+
+        if (!hora) {
+
+            return 0;
+
+        }
+
+        const [h, m, s] =
+            hora
+                .split(":")
+                .map(Number);
+
+        return (
+            h * 3600 +
+            m * 60 +
+            s
+        );
     }
 
-
+    /*
+     * =====================================================
+     * CARREGANDO
+     * =====================================================
+     */
 
     if (carregando) {
-        return <p>Carregando vendas pendentes...</p>;
+
+        return (
+            <div className="emitir-nfce-loading">
+
+                <p>
+                    Carregando vendas pendentes...
+                </p>
+
+            </div>
+        );
+
     }
+
+    /*
+     * =====================================================
+     * NENHUMA VENDA
+     * =====================================================
+     */
 
     if (vendas.length === 0) {
-        return <p>Nenhuma venda pendente de NFC-e.</p>;
-    }
-    const vendasFiltradas = vendas.filter(v => {
 
-        // filtro por data exata
-        if (dataFiltro && v.data !== dataFiltro) {
-            return false;
-        }
+        return (
+            <>
+                <div className="emitir-nfce-empty">
 
-        // filtro por hora mínima
-        if (horaMinima) {
-            const horaVenda = horaParaSegundos(v.hora);
-            const horaFiltro = horaParaSegundos(horaMinima);
+                    <p>
+                        Nenhuma venda pendente de NFC-e.
+                    </p>
 
-
-            if (horaVenda < horaFiltro) {
-                return false;
-            }
-        }
-
-        return true;
-    });
-
-    return (
-        <div className="emitir-nfce">
-            <h4>Vendas pendentes de NFC-e</h4>
-            <div className="filtros-nfce">
-                <div>
-                    <label>Data</label>
-                    <input
-                        type="date"
-                        value={dataFiltro}
-                        onChange={e => setDataFiltro(e.target.value)}
-                    />
                 </div>
 
 
 
+
+            </>
+        );
+
+    }
+
+    /*
+     * =====================================================
+     * FILTROS
+     * =====================================================
+     */
+    const vendasFiltradas =
+        vendas.filter(v => {
+
+            /*
+             * =====================================================
+             * FILTRO POR DATA
+             * =====================================================
+             */
+
+            if (dataFiltro) {
+
+                const dataVenda =
+                    String(v.data || "")
+                        .trim();
+
+                if (
+                    dataVenda !== dataFiltro
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+            /*
+             * =====================================================
+             * FILTRO POR PROTOCOLO / ID
+             * =====================================================
+             */
+
+            if (protocoloFiltroNfce.trim()) {
+
+                const protocoloVenda =
+                    String(v.id || "")
+                        .toLowerCase()
+                        .trim();
+
+                const protocoloDigitado =
+                    protocoloFiltroNfce
+                        .toLowerCase()
+                        .trim();
+
+                if (
+                    !protocoloVenda.includes(
+                        protocoloDigitado
+                    )
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+            /*
+             * =====================================================
+             * FILTRO POR VALOR
+             * =====================================================
+             */
+
+            if (valorFiltroNfce.trim()) {
+
+                const valorDigitado =
+                    valorFiltroNfce
+                        .replace(",", ".")
+                        .replace(/[^\d.]/g, "");
+
+                const numeroDigitado =
+                    Number(valorDigitado);
+
+                const valorVenda =
+                    Number(v.valor_pago);
+
+                if (
+                    !Number.isNaN(numeroDigitado) &&
+                    valorVenda !== numeroDigitado
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+            return true;
+
+        });
+
+
+    /*
+     * =====================================================
+     * LIMITAR QUANTIDADE EXIBIDA
+     * =====================================================
+     */
+
+    const vendasVisiveisNfce =
+        vendasFiltradas.slice(
+            0,
+            quantidadeVisivelNfce
+        );
+
+
+    /*
+     * =====================================================
+     * VERIFICAR SE EXISTEM MAIS VENDAS
+     * =====================================================
+     */
+
+    const possuiMaisVendasNfce =
+        quantidadeVisivelNfce <
+        vendasFiltradas.length;
+
+    /*
+     * =====================================================
+     * INTERFACE
+     * =====================================================
+     */
+
+    return (
+
+        <div className="emitir-nfce">
+
+            <h4>
+                Vendas pendentes de NFC-e
+            </h4>
+
+            <div className="filtros-nfce">
+
+                <div className="filtro-nfce-data">
+
+                    <label>
+                        Protocolo
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="Ex: 4306"
+                        value={protocoloFiltroNfce}
+                        onChange={e =>
+                            setProtocoloFiltroNfce(
+                                e.target.value
+                            )
+                        }
+                    />
+
+                </div>
+
+                <div className="filtro-nfce-data">
+
+                    <label>
+                        Data
+                    </label>
+
+                    <input
+                        type="date"
+                        value={dataFiltro}
+                        onChange={e =>
+                            setDataFiltro(
+                                e.target.value
+                            )
+                        }
+                    />
+
+                </div>
+
+                <div className="filtro-nfce-data">
+
+                    <label>
+                        Valor
+                    </label>
+
+                    <input
+                        type="text"
+                        inputMode="decimal"
+                        placeholder="Ex: 49,90"
+                        value={valorFiltroNfce}
+                        onChange={e =>
+                            setValorFiltroNfce(
+                                e.target.value
+                            )
+                        }
+                    />
+
+                </div>
+
                 <button
+                    type="button"
                     className="btn-limpar"
                     onClick={() => {
+
                         setDataFiltro("");
+
                         setHoraMinima("");
+
+                        setProtocoloFiltroNfce("");
+
+                        setValorFiltroNfce("");
+
+                        setQuantidadeVisivelNfce(5);
+
                     }}
                 >
                     Limpar filtros
                 </button>
+
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Valor</th>
-                        <th>Pagamento</th>
-                        <th>Data</th>
-                        <th>Comanda</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {vendasFiltradas.map(v => (
-                        <tr key={v.id}>
-                            <td>{v.id}</td>
-                            <td>R$ {Number(v.valor_pago).toFixed(2)}</td>
-                            <td>{v.pagamento}</td>
-                            <td>{v.data}</td>
+            {vendasFiltradas.length === 0 ? (
 
-                            <td>
-                                {v.comanda ? (
-                                    <button
-                                        className="btn-comanda"
-                                        onClick={() => window.open(v.comanda, "_blank")}
-                                    >
-                                        Ver comanda
-                                    </button>
-                                ) : (
-                                    <span className="sem-comanda">—</span>
-                                )}
-                            </td>
-                            <td>
-                                <button onClick={() => emitir(v.id)}>
+                <div className="emitir-nfce-empty">
+
+                    <p>
+                        Nenhuma venda encontrada com esses filtros.
+                    </p>
+
+                </div>
+
+            ) : (
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Protocolo
+                            </th>
+
+                            <th>
+                                Valor
+                            </th>
+
+                            <th>
+                                Pagamento
+                            </th>
+
+                            <th>
+                                Data
+                            </th>
+
+                            <th>
+                                Comanda
+                            </th>
+
+                            <th>
+                                Ação
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {vendasVisiveisNfce.map(v => {
+                            const possuiNfce =
+                                Number(v.nfce_emitida) === 1;
+
+                            const estaEmitindo =
+                                Number(emitindoVendaId) === Number(v.id);
+
+                            return (
+                                <tr key={v.id}>
+
+                                    <td>
+                                        {v.id}
+                                    </td>
+
+                                    <td>
+                                        R$ {Number(v.valor_pago).toFixed(2)}
+                                    </td>
+
+                                    <td>
+                                        {v.pagamento}
+                                    </td>
+
+                                    <td>
+                                        {v.data}
+                                    </td>
+
+                                    <td>
+
+                                        {v.comanda ? (
+
+                                            <button
+                                                type="button"
+                                                className="btn-comanda"
+                                                onClick={() =>
+                                                    window.open(
+                                                        v.comanda,
+                                                        "_blank"
+                                                    )
+                                                }
+                                            >
+                                                Ver comanda
+                                            </button>
+
+                                        ) : (
+
+                                            <span className="sem-comanda">
+                                                —
+                                            </span>
+
+                                        )}
+
+                                    </td>
+
+                                    <td>
+
+                                        <button
+                                            type="button"
+                                            className={
+                                                possuiNfce
+                                                    ? "btn-nfce-emitida"
+                                                    : estaEmitindo
+                                                        ? "btn-nfce-processando"
+                                                        : "btn-emitir-nfce"
+                                            }
+                                            disabled={
+                                                possuiNfce ||
+                                                estaEmitindo
+                                            }
+                                            onClick={() =>
+                                                solicitarEmissao(v.id)
+                                            }
+                                        >
+
+                                            {possuiNfce
+                                                ? "NFC-e emitida"
+                                                : estaEmitindo
+                                                    ? "Emitindo..."
+                                                    : "Emitir NFC-e"
+                                            }
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+                            );
+
+                        })}
+
+                    </tbody>
+
+                </table>
+
+            )}
+            {possuiMaisVendasNfce && (
+
+                <div className="nfce-carregar-mais-area">
+
+                    <button
+                        type="button"
+                        className="nfce-carregar-mais-btn"
+                        onClick={() =>
+                            setQuantidadeVisivelNfce(
+                                quantidadeAtual =>
+                                    quantidadeAtual + 5
+                            )
+                        }
+                    >
+                        Carregar mais 5
+                    </button>
+
+                    <span className="nfce-carregar-mais-info">
+                        Exibindo{" "}
+                        {Math.min(
+                            quantidadeVisivelNfce,
+                            vendasFiltradas.length
+                        )}{" "}
+                        de{" "}
+                        {vendasFiltradas.length}
+                    </span>
+
+                </div>
+
+            )}
+            {/*
+             * =====================================================
+             * MODAL PERSONALIZADO NFC-e
+             * =====================================================
+             */}
+
+            {alertaNfce && createPortal(
+
+                <div className="nfce-alerta-overlay-premium">
+
+                    <div
+                        className={`nfce-alerta-modal-premium nfce-alerta-modal-${alertaNfce.tipo}`}
+                    >
+
+                        {/*
+                         * =====================================================
+                         * ÍCONE
+                         * =====================================================
+                         */}
+
+                        <div className="nfce-alerta-icone-area-premium">
+
+                            {alertaNfce.tipo === "confirmacao" && (
+
+                                <div className="nfce-alerta-icone-premium nfce-alerta-icone-confirmacao">
+                                    NF
+                                </div>
+
+                            )}
+
+                            {alertaNfce.tipo === "processando" && (
+
+                                <div className="nfce-alerta-spinner-premium"></div>
+
+                            )}
+
+                            {alertaNfce.tipo === "sucesso" && (
+
+                                <div className="nfce-alerta-icone-premium nfce-alerta-icone-sucesso">
+                                    ✓
+                                </div>
+
+                            )}
+
+                            {alertaNfce.tipo === "erro" && (
+
+                                <div className="nfce-alerta-icone-premium nfce-alerta-icone-erro">
+                                    !
+                                </div>
+
+                            )}
+
+                            {alertaNfce.tipo === "aviso" && (
+
+                                <div className="nfce-alerta-icone-premium nfce-alerta-icone-aviso">
+                                    !
+                                </div>
+
+                            )}
+
+                        </div>
+
+                        {/*
+                         * =====================================================
+                         * CONTEÚDO
+                         * =====================================================
+                         */}
+
+                        <div className="nfce-alerta-conteudo-premium">
+
+                            <h3>
+                                {alertaNfce.titulo}
+                            </h3>
+
+                            <p>
+                                {alertaNfce.mensagem}
+                            </p>
+
+                            {alertaNfce.tipo === "processando" && (
+
+                                <span className="nfce-alerta-processando-texto-premium">
+                                    Não feche esta tela durante o processamento.
+                                </span>
+
+                            )}
+
+                        </div>
+
+                        {/*
+                         * =====================================================
+                         * CONFIRMAÇÃO
+                         * =====================================================
+                         */}
+
+                        {alertaNfce.tipo === "confirmacao" && (
+
+                            <div className="nfce-alerta-acoes-premium">
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-cancelar-premium"
+                                    onClick={fecharAlertaNfce}
+                                >
+                                    Cancelar
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-confirmar-premium"
+                                    onClick={confirmarEmissaoNfce}
+                                >
                                     Emitir NFC-e
                                 </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+
+                            </div>
+
+                        )}
+
+                        {/*
+                         * =====================================================
+                         * SUCESSO
+                         * =====================================================
+                         */}
+
+                        {alertaNfce.tipo === "sucesso" && (
+
+                            <div className="nfce-alerta-acoes-premium">
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-sucesso-premium"
+                                    onClick={fecharAlertaNfce}
+                                >
+                                    Entendido
+                                </button>
+
+                            </div>
+
+                        )}
+
+                        {/*
+                         * =====================================================
+                         * ERRO
+                         * =====================================================
+                         */}
+
+                        {alertaNfce.tipo === "erro" && (
+
+                            <div className="nfce-alerta-acoes-premium">
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-cancelar-premium"
+                                    onClick={fecharAlertaNfce}
+                                >
+                                    Fechar
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-erro-premium"
+                                    onClick={tentarNovamenteNfce}
+                                >
+                                    Tentar novamente
+                                </button>
+
+                            </div>
+
+                        )}
+
+                        {/*
+                         * =====================================================
+                         * AVISO
+                         * =====================================================
+                         */}
+
+                        {alertaNfce.tipo === "aviso" && (
+
+                            <div className="nfce-alerta-acoes-premium">
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-principal-premium"
+                                    onClick={fecharAlertaNfce}
+                                >
+                                    Entendido
+                                </button>
+
+                            </div>
+
+                        )}
+
+                    </div>
+
+                </div>,
+
+                document.body
+
+            )}
 
         </div>
+
     );
 }

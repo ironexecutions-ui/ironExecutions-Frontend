@@ -2820,3 +2820,301 @@
         font-size: 12px;
     }
 }
+
+/* =========================================================
+   FERRAMENTAS DA TABELA
+========================================================= */
+
+.painel-g-tabela-ferramentas {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+    padding-left: 24px;
+    border-radius: 30px 0;
+    padding-top: 14px;
+    border-left: 1px solid rgba(15, 23, 42, 0.1);
+    border-top: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+
+/* =========================================================
+   BOTÃO BASE
+========================================================= */
+
+.painel-g-ferramenta-botao {
+    min-height: 36px;
+    padding: 8px 13px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    border: 1px solid #d7dee8;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #172033;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.04),
+        0 2px 6px rgba(15, 23, 42, 0.04);
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.painel-g-ferramenta-botao:hover {
+    transform: translateY(-1px);
+
+    border-color: #94a3b8;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.08),
+        0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+
+.painel-g-ferramenta-botao:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+.painel-g-ferramenta-botao:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   COPIAR DADOS
+========================================================= */
+
+.painel-g-ferramenta-copiar {
+    color: #075985;
+    border-color: #bae6fd;
+    background: #f0f9ff;
+}
+
+.painel-g-ferramenta-copiar:hover {
+    color: #ffffff;
+    border-color: #0284c7;
+    background: #0284c7;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.painel-g-ferramenta-select {
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+    background: #eff6ff;
+}
+
+.painel-g-ferramenta-select:hover {
+    color: #ffffff;
+    border-color: #2563eb;
+    background: #2563eb;
+}
+
+
+/* =========================================================
+   ADICIONAR COLUNA
+========================================================= */
+
+.painel-g-ferramenta-coluna {
+    color: #047857;
+    border-color: #a7f3d0;
+    background: #ecfdf5;
+}
+
+.painel-g-ferramenta-coluna:hover {
+    color: #ffffff;
+    border-color: #059669;
+    background: #059669;
+}
+
+
+/* =========================================================
+   CONTAR LINHAS
+========================================================= */
+
+.painel-g-ferramenta-contar {
+    color: #6d28d9;
+    border-color: #ddd6fe;
+    background: #f5f3ff;
+}
+
+.painel-g-ferramenta-contar:hover {
+    color: #ffffff;
+    border-color: #7c3aed;
+    background: #7c3aed;
+}
+
+
+/* =========================================================
+   RENOMEAR COLUNA
+========================================================= */
+
+.painel-g-ferramenta-renomear {
+    color: #92400e;
+    border-color: #fde68a;
+    background: #fffbeb;
+}
+
+.painel-g-ferramenta-renomear:hover {
+    color: #ffffff;
+    border-color: #d97706;
+    background: #d97706;
+}
+
+
+/* =========================================================
+   AÇÕES DE EXCLUSÃO
+========================================================= */
+
+.painel-g-ferramenta-delete,
+.painel-g-ferramenta-apagar-coluna {
+    color: #b91c1c;
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
+.painel-g-ferramenta-delete:hover,
+.painel-g-ferramenta-apagar-coluna:hover {
+    color: #ffffff;
+    border-color: #dc2626;
+    background: #dc2626;
+}
+
+
+/* =========================================================
+   LIMPAR TABELA
+   AÇÃO MAIS PERIGOSA
+========================================================= */
+
+.painel-g-ferramenta-limpar {
+    color: #991b1b;
+    border-color: #fca5a5;
+    background: #fff1f2;
+    font-weight: 800;
+}
+
+.painel-g-ferramenta-limpar:hover {
+    color: #ffffff;
+    border-color: #991b1b;
+    background: #991b1b;
+
+    box-shadow:
+        0 4px 10px rgba(153, 27, 27, 0.2);
+}
+
+
+/* =========================================================
+   ATUALIZAR
+========================================================= */
+
+.painel-g-ferramenta-atualizar {
+    color: #334155;
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.painel-g-ferramenta-atualizar:hover {
+    color: #ffffff;
+    border-color: #334155;
+    background: #334155;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.painel-g-tabela-identificacao {
+    min-width: 480px !important;
+}
+
+.painel-g-tabela-identificacao>span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.painel-g-tabela-identificacao h2 {
+    margin: 0;
+
+    color: #0f172a;
+    font-size: 21px;
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .painel-g-tabela-ferramentas {
+        gap: 6px;
+    }
+
+    .painel-g-ferramenta-botao {
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .painel-g-tabela-ferramentas {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .painel-g-ferramenta-botao {
+        width: 100%;
+        min-width: 0;
+        white-space: normal;
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 380px) {
+
+    .painel-g-tabela-ferramentas {
+        grid-template-columns: 1fr;
+    }
+}

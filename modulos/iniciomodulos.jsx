@@ -25,7 +25,7 @@ export default function InicioModulos() {
     ===================================================== */
 
     const mensagensAssistenteIron = [
-        "Olá! Posso te ajudar a conhecer melhor o Iron Executions?",
+        "Olá! Posso te ajudar a conhecer melhor a Iron Executions?",
 
         "Quer descobrir quais módulos fazem mais sentido para o seu comércio?",
 
@@ -256,10 +256,9 @@ export default function InicioModulos() {
                     type="button"
                     className={`
                         inicio-modulos-whatsapp-assistente
-                        ${
-                            assistenteVisivel
-                                ? "inicio-modulos-whatsapp-assistente--visivel"
-                                : "inicio-modulos-whatsapp-assistente--oculto"
+                        ${assistenteVisivel
+                            ? "inicio-modulos-whatsapp-assistente--visivel"
+                            : "inicio-modulos-whatsapp-assistente--oculto"
                         }
                     `}
                     onClick={abrirModalContato}
@@ -272,9 +271,7 @@ export default function InicioModulos() {
                             className="inicio-modulos-whatsapp-assistente-status"
                         />
 
-                        <span className="inicio-modulos-whatsapp-assistente-nome">
-                            Assistente Iron
-                        </span>
+
 
                     </div>
 
@@ -282,7 +279,7 @@ export default function InicioModulos() {
 
                         {
                             mensagensAssistenteIron[
-                                mensagemAssistenteAtual
+                            mensagemAssistenteAtual
                             ]
                         }
 
@@ -339,13 +336,13 @@ export default function InicioModulos() {
 
                             <div className="inicio-modulos-modal-marca">
 
-<div className="inicio-modulos-modal-icone">
-    <img
-        src={favicon}
-        alt="Iron Executions"
-        className="inicio-modulos-modal-logo"
-    />
-</div>
+                                <div className="inicio-modulos-modal-icone">
+                                    <img
+                                        src={favicon}
+                                        alt="Iron Executions"
+                                        className="inicio-modulos-modal-logo"
+                                    />
+                                </div>
 
                                 <div>
 

@@ -789,7 +789,7 @@ export default function HistoricoVendas() {
                             <th>Operador</th>
                             <th>Maquininha</th>
                             <th>Módulo</th>
-                            <th>Ação</th>
+                            <th>Comprovante</th>
 
                         </tr>
 

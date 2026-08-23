@@ -1,126 +1,485 @@
-/* ===============================
-   CONTAINER PRINCIPAL
-=============================== */
+/* =========================================================
+   CONTAINER
+========================================================= */
+
 .formulario-fiscal {
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    border-radius: 20px;
-    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
     gap: 18px;
-    color: #e5e7eb;
+
+    color: #101828;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
-/* ===============================
-   TÍTULO DO PRODUTO / SERVIÇO
-=============================== */
-.formulario-fiscal h5 {
-    font-size: 14px;
-    font-weight: 600;
-    color: #38bdf8;
-    letter-spacing: 0.3px;
-}
 
-/* ===============================
-   BLOCO DE CAMPOS
-=============================== */
-.formulario-fiscal-bloco {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 14px;
-}
+/* =========================================================
+   CABEÇALHO
+========================================================= */
 
-/* ===============================
-   INPUTS E SELECT
-=============================== */
-.formulario-fiscal input,
-.formulario-fiscal select {
-    background: #020617;
-    border: 1px solid #1e293b;
+.formulario-fiscal-cabecalho-premium {
+    padding: 20px 22px;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(18, 61, 114, 0.10),
+            transparent 35%),
+        linear-gradient(135deg,
+            #ffffff,
+            #f4f7fa);
+
+    border: 1px solid #dce3eb;
     border-radius: 14px;
-    padding: 11px 15px;
-    font-size: 13px;
-    color: #e5e7eb;
+
+    box-shadow:
+        0 4px 15px rgba(16, 24, 40, 0.04);
+}
+
+
+.formulario-fiscal-cabecalho-textos-premium {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 5px;
+}
+
+
+.formulario-fiscal-etiqueta-premium {
+    display: inline-flex;
+
+    padding: 4px 8px;
+
+    background: #eaf1f8;
+
+    border: 1px solid #d5e0eb;
+    border-radius: 5px;
+
+    color: #123d72 !important;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 0.8px;
+}
+
+
+.formulario-fiscal-cabecalho-premium h5 {
+    margin: 2px 0 0;
+
+    color: #0b1f3a !important;
+
+    font-size: 22px;
+    font-weight: 850;
+
+    letter-spacing: -0.6px;
+}
+
+
+.formulario-fiscal-cabecalho-premium p {
+    margin: 0;
+
+    color: #667085 !important;
+
+    font-size: 12px;
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   SEÇÕES
+========================================================= */
+
+.formulario-fiscal-secao-premium {
+    padding: 20px;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #fafbfd);
+
+    border: 1px solid #dce3eb;
+    border-radius: 14px;
+
+    box-shadow:
+        0 3px 12px rgba(16, 24, 40, 0.03);
+}
+
+
+/* =========================================================
+   TÍTULO DA SEÇÃO
+========================================================= */
+
+.formulario-fiscal-secao-titulo-premium {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 17px;
+    padding-bottom: 14px;
+
+    border-bottom: 1px solid #e7ebf0;
+}
+
+
+.formulario-fiscal-secao-titulo-premium h6 {
+    margin: 0 0 3px;
+
+    color: #0b1f3a !important;
+
+    font-size: 14px;
+    font-weight: 850;
+}
+
+
+.formulario-fiscal-secao-titulo-premium p {
+    margin: 0;
+
+    color: #7b8794 !important;
+
+    font-size: 11px;
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.formulario-fiscal-grade-premium {
+    display: grid;
+    height: 75px;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
+.formulario-fiscal-campo-premium {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+
+.formulario-fiscal-campo-premium label {
+    color: #344054 !important;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.4px;
+
+    text-transform: uppercase;
+}
+
+
+.formulario-fiscal-campo-premium small {
+    min-height: 14px;
+
+    color: #98a2b3 !important;
+
+    font-size: 9px;
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.formulario-fiscal-campo-premium input {
+    width: 100%;
+    height: 44px;
+
+    padding: 0 13px;
+
+    box-sizing: border-box;
+
     outline: none;
+
+    background: #ffffff;
+
+    border: 1px solid #d3dce6;
+    border-radius: 9px;
+
+    color: #101828 !important;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    box-shadow:
+        inset 0 1px 2px rgba(16, 24, 40, 0.025);
+
     transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
 }
 
-/* Placeholder */
-.formulario-fiscal input::placeholder {
-    color: #94a3b8;
+
+.formulario-fiscal-campo-premium input::placeholder {
+    color: #a1aab6 !important;
+
+    font-weight: 500;
 }
 
-/* Focus */
-.formulario-fiscal input:focus,
-.formulario-fiscal select:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+
+.formulario-fiscal-campo-premium input:hover {
+    border-color: #aab7c5;
 }
 
-/* Select aparência consistente */
-.formulario-fiscal select {
-    appearance: none;
-    background-image:
-        linear-gradient(45deg, transparent 50%, #94a3b8 50%),
-        linear-gradient(135deg, #94a3b8 50%, transparent 50%);
-    background-position:
-        calc(100% - 20px) 50%,
-        calc(100% - 14px) 50%;
-    background-size: 6px 6px;
-    background-repeat: no-repeat;
-    padding-right: 36px;
+
+.formulario-fiscal-campo-premium input:focus {
+    border-color: #174f88;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.075),
+        0 4px 10px rgba(18, 61, 114, 0.04);
+}
+
+
+/* =========================================================
+   INPUT COM %
+========================================================= */
+
+.formulario-fiscal-input-percentual-premium {
+    width: 100%;
+
+    position: relative;
+}
+
+
+.formulario-fiscal-input-percentual-premium input {
+    padding-right: 40px;
+}
+
+
+.formulario-fiscal-input-percentual-premium span {
+    position: absolute;
+
+    top: 50%;
+    right: 13px;
+
+    transform: translateY(-50%);
+
+    color: #123d72 !important;
+
+    font-size: 12px;
+    font-weight: 850;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+.formulario-fiscal-mensagem {
+    padding: 13px 15px;
+
+    background: #eef5fb;
+
+    border: 1px solid #d2e2f0;
+    border-left: 4px solid #123d72;
+
+    border-radius: 9px;
+
+    color: #123d72 !important;
+
+    font-size: 12px;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.formulario-fiscal-acoes-premium {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 17px 19px;
+
+    background:
+        linear-gradient(145deg,
+            #f8fafc,
+            #f3f6f9);
+
+    border: 1px solid #dce3eb;
+    border-radius: 12px;
+}
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+.formulario-fiscal-aviso-premium {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.formulario-fiscal-aviso-premium strong {
+    color: #344054 !important;
+
+    font-size: 11px;
+    font-weight: 850;
+}
+
+
+.formulario-fiscal-aviso-premium span {
+    color: #7b8794 !important;
+
+    font-size: 10px;
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   SALVAR
+========================================================= */
+
+.formulario-fiscal-salvar-premium {
+    min-width: 190px;
+    height: 44px;
+
+    padding: 0 22px;
+
+    flex-shrink: 0;
+
+    border: 1px solid #0c3565;
+    border-radius: 9px;
+
+    outline: none;
+
+    background:
+        linear-gradient(135deg,
+            #1d5a98,
+            #123d72 50%,
+            #092a50);
+
+    color: #ffffff !important;
+
+    font-size: 11px;
+    font-weight: 850;
+
     cursor: pointer;
-}
 
-/* ===============================
-   BOTÃO SALVAR
-=============================== */
-.formulario-fiscal button {
-    margin-top: 6px;
-    align-self: flex-start;
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #22c55e;
-    color: #22c55e;
-    border-radius: 18px;
-    padding: 11px 26px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
+    box-shadow:
+        0 4px 9px rgba(18, 61, 114, 0.16),
+        0 8px 18px rgba(18, 61, 114, 0.10);
+
     transition:
-        box-shadow 0.2s ease,
-        transform 0.1s ease,
-        background 0.2s ease;
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
 }
 
-/* Hover */
-.formulario-fiscal button:hover {
-    box-shadow: 0 10px 26px rgba(34, 197, 94, 0.28);
-    transform: translateY(-1px);
+
+.formulario-fiscal-salvar-premium:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 7px 14px rgba(18, 61, 114, 0.20),
+        0 12px 24px rgba(18, 61, 114, 0.14);
 }
 
-/* Active */
-.formulario-fiscal button:active {
+
+.formulario-fiscal-salvar-premium:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: none;
 }
 
-/* ===============================
-   RESPONSIVO
-=============================== */
+
+.formulario-fiscal-salvar-premium:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .formulario-fiscal-grade-premium {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 600px) {
+
     .formulario-fiscal {
+        gap: 13px;
+    }
+
+
+    .formulario-fiscal-cabecalho-premium {
         padding: 16px;
     }
 
-    .formulario-fiscal-bloco {
-        grid-template-columns: 1fr;
+
+    .formulario-fiscal-cabecalho-premium h5 {
+        font-size: 19px;
     }
 
-    .formulario-fiscal button {
+
+    .formulario-fiscal-secao-premium {
+        padding: 14px;
+    }
+
+
+    .formulario-fiscal-grade-premium {
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+    }
+
+
+    .formulario-fiscal-acoes-premium {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        padding: 14px;
+    }
+
+
+    .formulario-fiscal-salvar-premium {
         width: 100%;
-        text-align: center;
     }
 }

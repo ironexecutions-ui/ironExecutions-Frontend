@@ -1,172 +1,755 @@
-/* ===============================
-   CONTAINER GERAL
-=============================== */
+/* =========================================================
+   DADOS COMERCIAIS E FISCAIS
+   IRON EXECUTIONS PREMIUM
+========================================================= */
 
 .dados-comercio {
     width: 100%;
-    max-width: 980px;
+    max-width: 1100px;
+
     margin: 0 auto;
-    padding: 28px 32px;
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    border-radius: 18px;
-    color: #e5e7eb;
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 28px;
+
+    box-sizing: border-box;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(18, 61, 114, 0.07),
+            transparent 28%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fafbfd 55%,
+            #f5f7fa 100%);
+
+    border: 1px solid #dfe5ec;
+    border-radius: 17px;
+
+    color: #101828;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.025),
+        0 12px 30px rgba(16, 24, 40, 0.04);
 }
 
-/* ===============================
-   TÍTULOS
-=============================== */
 
-.dados-comercio h4 {
-    margin: 32px 0 18px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    color: #f8fafc;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #1e293b;
+/* =========================================================
+   DETALHE SUPERIOR
+========================================================= */
+
+.dados-comercio::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 30px;
+    right: 30px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(18, 61, 114, 0.32),
+            transparent);
+
+    pointer-events: none;
 }
 
-.dados-comercio h4:first-of-type {
+
+/* =========================================================
+   TÍTULOS DAS SEÇÕES
+========================================================= */
+
+.dados-comercio>h4 {
+    position: relative;
+
+    margin: 34px 0 18px;
+
+    padding:
+        5px 0 14px 18px;
+
+    color: #0b1f3a !important;
+
+    font-size: 17px;
+    line-height: 1.2;
+
+    font-weight: 850;
+
+    letter-spacing: -0.3px;
+
+    border-bottom: 1px solid #e2e7ed;
+}
+
+
+/* PRIMEIRO TÍTULO */
+
+.dados-comercio>h4:first-of-type {
     margin-top: 0;
+
+    font-size: 23px;
+
+    letter-spacing: -0.6px;
 }
 
-/* ===============================
-   CAMPOS INLINE
-=============================== */
+
+/* =========================================================
+   BARRA DOS TÍTULOS
+========================================================= */
+
+.dados-comercio>h4::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 3px;
+
+    width: 4px;
+    height: 22px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(180deg,
+            #2c6bab 0%,
+            #123d72 55%,
+            #09294f 100%);
+
+    box-shadow:
+        0 3px 8px rgba(18, 61, 114, 0.20);
+}
+
+
+.dados-comercio>h4:first-of-type::before {
+    height: 27px;
+}
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
 
 .campo-inline {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 18px;
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 220px minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 20px;
+
+    min-height: 65px;
+
+    padding: 10px 14px;
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    position: relative;
+
+    border-bottom: 1px solid #edf0f4;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease;
 }
 
-/* ===============================
+
+/* =========================================================
+   HOVER DA LINHA
+========================================================= */
+
+.campo-inline:hover {
+    background:
+        linear-gradient(90deg,
+            rgba(18, 61, 114, 0.035),
+            rgba(18, 61, 114, 0.008));
+
+    border-bottom-color: #dce3eb;
+}
+
+
+/* =========================================================
    LABEL
-=============================== */
+========================================================= */
 
 .campo-inline label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #94a3b8;
-    letter-spacing: 0.3px;
+    margin: 0;
+
+    color: #475467 !important;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.15px;
+
+    line-height: 1.35;
 }
 
-/* ===============================
-   VISUALIZAÇÃO (P)
-=============================== */
+
+/* =========================================================
+   VALOR DO CAMPO
+========================================================= */
 
 .campo-visual {
-    background: #020617;
-    border: 1px dashed #1e293b;
-    border-radius: 12px;
-    padding: 12px 14px;
-    font-size: 14px;
-    color: #e5e7eb;
+    width: 100%;
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    margin: 0;
+
+    padding: 0 42px 0 14px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #fafbfd);
+
+    border: 1px solid #d7dee7;
+    border-radius: 9px;
+
+    color: #101828 !important;
+
+    font-size: 12px !important;
+    font-weight: 650;
+
     cursor: pointer;
+
+    box-shadow:
+        inset 0 1px 2px rgba(16, 24, 40, 0.02);
+
     transition:
-        border-color 0.2s ease,
-        background 0.2s ease,
-        color 0.2s ease;
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
 }
+
+
+/* =========================================================
+   ÍCONE DE EDIÇÃO
+========================================================= */
+
+.campo-visual::after {
+    content: "✎";
+
+    position: absolute;
+
+    right: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f0f4f8;
+
+    border: 1px solid #dde5ed;
+    border-radius: 6px;
+
+    color: #667085 !important;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    transition:
+        color 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease;
+}
+
+
+/* =========================================================
+   HOVER VALOR
+========================================================= */
 
 .campo-visual:hover {
-    border-color: #22c55e;
-    background: rgba(34, 197, 94, 0.05);
-    color: #22c55e;
+    background: #ffffff;
+
+    border-color: #8da6bf;
+
+    color: #123d72 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.045),
+        0 4px 10px rgba(16, 24, 40, 0.04);
 }
 
-/* ===============================
-   INPUT
-=============================== */
+
+.campo-visual:hover::after {
+    background: #e8f0f8;
+
+    border-color: #c3d3e3;
+
+    color: #123d72 !important;
+}
+
+
+/* =========================================================
+   INPUT EM EDIÇÃO
+========================================================= */
 
 .campo-inline input {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 12px;
-    padding: 12px 14px;
-    font-size: 14px;
-    color: #f1f5f9;
+    width: 100%;
+    height: 42px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
     outline: none;
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+
+    background: #ffffff;
+
+    border: 1px solid #174f88;
+    border-radius: 9px;
+
+    color: #101828 !important;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.075),
+        0 4px 10px rgba(18, 61, 114, 0.045);
+
+    animation:
+        dadosComercioCampoEntrada 0.18s ease;
 }
 
-.campo-inline input::placeholder {
-    color: #64748b;
-}
+
+/* =========================================================
+   FOCUS
+========================================================= */
 
 .campo-inline input:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.18);
-    background: #020617;
+    border-color: #123d72;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.10),
+        0 5px 12px rgba(18, 61, 114, 0.06);
 }
 
-/* ===============================
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.campo-inline input::placeholder {
+    color: #98a2b3 !important;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
    INPUT NUMBER
-=============================== */
+========================================================= */
 
 .campo-inline input[type="number"]::-webkit-inner-spin-button,
 .campo-inline input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
+
     margin: 0;
 }
+
 
 .campo-inline input[type="number"] {
     appearance: textfield;
 }
 
-/* ===============================
-   DATALIST
-=============================== */
 
-input[list] {
+/* =========================================================
+   DATALIST
+========================================================= */
+
+.campo-inline input[list] {
     cursor: text;
 }
 
-/* ===============================
+
+/* =========================================================
+   DESTAQUE DADOS FISCAIS
+========================================================= */
+
+.dados-comercio>h4:nth-of-type(2) {
+    margin-top: 40px;
+}
+
+
+/* =========================================================
+   SEGURANÇA FISCAL
+========================================================= */
+
+.dados-comercio>h4:nth-of-type(3) {
+    margin-top: 40px;
+}
+
+
+/* =========================================================
+   CONFIGURAÇÃO NFC-E
+========================================================= */
+
+.dados-comercio>h4:nth-of-type(4) {
+    margin-top: 40px;
+}
+
+
+/* =========================================================
    UPLOAD CERTIFICADO
-=============================== */
+========================================================= */
 
-.upload-certificado,
-.upload-certificado-a1 {
-    margin-top: 16px;
-    padding: 18px;
-    border: 1px solid #1e293b;
-    border-radius: 14px;
-    background: linear-gradient(180deg, #020617, #020617);
+.dados-comercio .upload-certificado,
+.dados-comercio .upload-certificado-a1 {
+    width: 100%;
+
+    margin: 4px 0 16px;
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(18, 61, 114, 0.06),
+            transparent 35%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f7f9fb);
+
+    border: 1px solid #d8e0e8;
+    border-radius: 12px;
+
+    color: #101828 !important;
+
+    box-shadow:
+        0 3px 10px rgba(16, 24, 40, 0.035);
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
 }
 
-/* ===============================
-   TEXTO DE CARREGAMENTO
-=============================== */
 
-.dados-comercio p {
-    font-size: 14px;
-    color: #94a3b8;
+.dados-comercio .upload-certificado:hover,
+.dados-comercio .upload-certificado-a1:hover {
+    border-color: #b8c7d6;
+
+    box-shadow:
+        0 5px 16px rgba(16, 24, 40, 0.05);
 }
 
-/* ===============================
-   RESPONSIVO
-=============================== */
 
-@media (max-width: 768px) {
+/* =========================================================
+   TEXTOS DO UPLOAD
+========================================================= */
+
+.dados-comercio .upload-certificado *,
+.dados-comercio .upload-certificado-a1 * {
+    color: #344054;
+}
+
+
+/* =========================================================
+   BOTÕES DO UPLOAD
+========================================================= */
+
+.dados-comercio .upload-certificado button,
+.dados-comercio .upload-certificado-a1 button {
+    min-height: 40px;
+
+    padding: 0 18px;
+
+    border: 1px solid #0d3565;
+    border-radius: 8px;
+
+    background:
+        linear-gradient(135deg,
+            #1d5a98 0%,
+            #123d72 50%,
+            #092a50 100%);
+
+    color: #ffffff !important;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 8px rgba(18, 61, 114, 0.14);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+
+.dados-comercio .upload-certificado button:hover,
+.dados-comercio .upload-certificado-a1 button:hover {
+    transform: translateY(-1px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 6px 14px rgba(18, 61, 114, 0.18);
+}
+
+
+/* =========================================================
+   BLOQUEADO
+========================================================= */
+
+.dados-comercio-bloqueado {
+    width: 100%;
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(circle at center,
+            rgba(180, 35, 24, 0.035),
+            transparent 40%),
+        linear-gradient(145deg,
+            #ffffff,
+            #fafbfd);
+
+    border: 1px solid #e4e7ec;
+    border-radius: 16px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 18px rgba(16, 24, 40, 0.035);
+}
+
+
+/* =========================================================
+   ÍCONE BLOQUEADO
+========================================================= */
+
+.dados-comercio-bloqueado::before {
+    content: "!";
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 7px;
+
+    background: #fff1f0;
+
+    border: 1px solid #fecdca;
+    border-radius: 11px;
+
+    color: #b42318;
+
+    font-size: 19px;
+    font-weight: 900;
+}
+
+
+.dados-comercio-bloqueado h4 {
+    margin: 0;
+
+    color: #101828 !important;
+
+    font-size: 20px;
+    font-weight: 850;
+}
+
+
+.dados-comercio-bloqueado p {
+    margin: 0;
+
+    color: #667085 !important;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO EDIÇÃO
+========================================================= */
+
+@keyframes dadosComercioCampoEntrada {
+
+    from {
+        opacity: 0.65;
+
+        transform: scale(0.995);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
     .dados-comercio {
-        padding: 22px 20px;
+        padding: 20px;
+
         border-radius: 14px;
     }
 
-    .campo-visual,
-    .campo-inline input {
-        font-size: 13px;
-        padding: 10px 12px;
+
+    .campo-inline {
+        grid-template-columns: 180px minmax(0, 1fr);
+
+        gap: 15px;
     }
 
-    .dados-comercio h4 {
-        font-size: 14px;
+
+    .dados-comercio>h4:first-of-type {
+        font-size: 21px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .dados-comercio {
+        padding: 14px;
+
+        border-radius: 12px;
+    }
+
+
+    /* =====================================================
+       TÍTULOS
+    ===================================================== */
+
+    .dados-comercio>h4 {
+        margin-top: 28px;
+
+        padding-left: 15px;
+
+        font-size: 15px;
+    }
+
+
+    .dados-comercio>h4:first-of-type {
+        margin-top: 0;
+
+        font-size: 19px;
+    }
+
+
+    /* =====================================================
+       CAMPOS
+    ===================================================== */
+
+    .campo-inline {
+        display: flex;
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 7px;
+
+        min-height: auto;
+
+        padding: 11px 0;
+
+        border-bottom: 1px solid #e7ebf0;
+    }
+
+
+    .campo-inline label {
+        font-size: 10px;
+
+        color: #667085 !important;
+    }
+
+
+    .campo-visual,
+    .campo-inline input {
+        width: 100%;
+
+        min-height: 43px;
+
+        font-size: 12px !important;
+    }
+
+
+    /* =====================================================
+       UPLOAD
+    ===================================================== */
+
+    .dados-comercio .upload-certificado,
+    .dados-comercio .upload-certificado-a1 {
+        padding: 15px;
+
+        border-radius: 10px;
+    }
+
+
+    /* =====================================================
+       BLOQUEADO
+    ===================================================== */
+
+    .dados-comercio-bloqueado {
+        min-height: 250px;
+
+        padding: 25px 15px;
     }
 }

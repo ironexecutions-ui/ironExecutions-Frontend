@@ -1,180 +1,1920 @@
-/* ===============================
-   CONTAINER PRINCIPAL
-=============================== */
+/* =========================================================
+   IRON EXECUTIONS
+   NFC-e PREMIUM FINANCIAL INTERFACE
+========================================================= */
+
 .emitir-nfce {
     width: 100%;
-    padding: 20px;
-    background: #0f172a;
-    border-radius: 10px;
-    color: #e5e7eb;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-}
+    min-height: 100%;
+    padding: 30px;
 
-/* ===============================
-   TÍTULO
-=============================== */
-.emitir-nfce h4 {
-    margin-bottom: 16px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #38bdf8;
-}
+    box-sizing: border-box;
 
-/* ===============================
-   TABELA
-=============================== */
-.emitir-nfce table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #020617;
-    border-radius: 8px;
+    position: relative;
     overflow: hidden;
+
+    background:
+        radial-gradient(circle at 95% 0%,
+            rgba(18, 61, 114, 0.10),
+            transparent 28%),
+        radial-gradient(circle at 0% 100%,
+            rgba(30, 73, 130, 0.045),
+            transparent 30%),
+        linear-gradient(145deg,
+            #fafbfd 0%,
+            #f4f6f9 45%,
+            #eef2f6 100%);
+
+    border: 1px solid rgba(203, 213, 225, 0.65);
+    border-radius: 22px;
+
+    color: #0f172a !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.02),
+        0 12px 40px rgba(15, 23, 42, 0.035);
 }
 
-/* ===============================
-   CABEÇALHO
-=============================== */
-.emitir-nfce thead {
-    background: #020617;
+
+/* =========================================================
+   DETALHE DECORATIVO SUPERIOR
+========================================================= */
+
+.emitir-nfce::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 30px;
+    right: 30px;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(18, 61, 114, 0.20),
+            transparent);
+
+    pointer-events: none;
 }
 
-.emitir-nfce thead th {
-    padding: 12px;
-    text-align: left;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #94a3b8;
-    border-bottom: 1px solid #1e293b;
+
+/* =========================================================
+   TÍTULO PRINCIPAL
+========================================================= */
+
+.emitir-nfce>h4 {
+    position: relative;
+
+    margin: 0 0 28px;
+
+    padding:
+        4px 0 19px 22px;
+
+    color: #0b1f3a !important;
+
+    font-size: 28px;
+    line-height: 1.15;
+
+    font-weight: 850;
+
+    letter-spacing: -0.8px;
+
+    border-bottom:
+        1px solid rgba(203, 213, 225, 0.8);
 }
 
-/* ===============================
-   LINHAS
-=============================== */
-.emitir-nfce tbody tr {
-    transition: background 0.2s ease;
+
+/* BARRA PREMIUM */
+
+.emitir-nfce>h4::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 3px;
+
+    width: 5px;
+    height: 31px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(180deg,
+            #1f5b9d,
+            #123d72,
+            #09284e);
+
+    box-shadow:
+        0 3px 10px rgba(18, 61, 114, 0.25);
 }
 
-.emitir-nfce tbody tr:hover {
-    background: #020617;
+
+/* PONTO DECORATIVO */
+
+.emitir-nfce>h4::after {
+    content: "";
+
+    position: absolute;
+
+    left: 9px;
+    top: 12px;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #8eaed0;
+
+    box-shadow:
+        0 0 0 4px rgba(18, 61, 114, 0.06);
 }
 
-.emitir-nfce tbody td {
-    padding: 12px;
-    font-size: 14px;
-    color: #e5e7eb;
-    border-bottom: 1px solid #1e293b;
-}
 
-/* ===============================
-   COLUNAS ESPECÍFICAS
-=============================== */
-.emitir-nfce tbody td:nth-child(1) {
-    font-weight: 600;
-    color: #f8fafc;
-}
-
-.emitir-nfce tbody td:nth-child(2) {
-    color: #22c55e;
-    font-weight: 600;
-}
-
-.emitir-nfce tbody td:nth-child(3) {
-    text-transform: capitalize;
-    color: #cbd5f5;
-}
-
-/* ===============================
-   BOTÃO
-=============================== */
-.emitir-nfce button {
-    padding: 8px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #020617;
-    background: #38bdf8;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.emitir-nfce button:hover {
-    background: #0ea5e9;
-    transform: translateY(-1px);
-}
-
-.emitir-nfce button:active {
-    transform: translateY(0);
-}
-
-/* ===============================
-   MENSAGENS DE ESTADO
-=============================== */
-.emitir-nfce p {
-    padding: 20px;
-    text-align: center;
-    color: #94a3b8;
-    font-size: 14px;
-}
-
-.btn-comanda {
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 600;
-    background: #22c55e;
-    color: #020617;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.btn-comanda:hover {
-    background: #16a34a;
-}
-
-.sem-comanda {
-    color: #64748b;
-    font-size: 12px;
-}
+/* =========================================================
+   ÁREA DOS FILTROS
+========================================================= */
 
 .filtros-nfce {
+    width: 100%;
+
     display: flex;
-    gap: 16px;
     align-items: flex-end;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
+
+    gap: 16px;
+
+    padding: 20px;
+
+    margin-bottom: 22px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(249, 250, 252, 0.96));
+
+    border:
+        1px solid rgba(209, 217, 227, 0.9);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.02),
+        0 8px 25px rgba(16, 24, 40, 0.045);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-.filtros-nfce div {
+.filtros-nfce:hover {
+    border-color: #c4cfdb;
+
+    box-shadow:
+        0 2px 4px rgba(16, 24, 40, 0.025),
+        0 12px 30px rgba(16, 24, 40, 0.055);
+}
+
+
+/* =========================================================
+   DETALHE SUPERIOR FILTROS
+========================================================= */
+
+.filtros-nfce::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 18px;
+    right: 18px;
+
+    height: 2px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(18, 61, 114, 0.22),
+            transparent);
+}
+
+
+/* =========================================================
+   FILTRO DATA
+========================================================= */
+
+.filtro-nfce-data {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+
+    gap: 8px;
+
+    min-width: 240px;
 }
 
-.filtros-nfce label {
-    font-size: 12px;
-    color: #94a3b8;
+.filtro-nfce-data label {
+    color: #475467 !important;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.45px;
+
+    text-transform: uppercase;
 }
 
-.filtros-nfce input {
-    padding: 6px 10px;
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 6px;
-    color: #e5e7eb;
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.filtro-nfce-data input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    outline: none;
+
+    border:
+        1px solid #d6dde7;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #fafbfc);
+
+    color: #101828 !important;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    box-shadow:
+        inset 0 1px 2px rgba(16, 24, 40, 0.025);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
 }
+
+.filtro-nfce-data input:hover {
+    background: #ffffff;
+
+    border-color: #aebccc;
+}
+
+.filtro-nfce-data input:focus {
+    background: #ffffff;
+
+    border-color: #1d5795;
+
+    box-shadow:
+        0 0 0 4px rgba(18, 61, 114, 0.075),
+        0 4px 12px rgba(18, 61, 114, 0.055);
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR
+========================================================= */
 
 .btn-limpar {
-    padding: 8px 14px;
-    background: #475569;
-    color: #e5e7eb;
-    border: none;
-    border-radius: 6px;
+    height: 45px;
+
+    padding: 0 19px;
+
+    border:
+        1px solid #d4dbe4;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f4f6f8);
+
+    color: #344054 !important;
+
+    font-size: 12px;
+
+    font-weight: 750;
+
     cursor: pointer;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.035);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease;
 }
 
 .btn-limpar:hover {
-    background: #64748b;
+    transform: translateY(-2px);
+
+    border-color: #b7c2cf;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #edf1f5);
+
+    color: #123d72 !important;
+
+    box-shadow:
+        0 7px 16px rgba(16, 24, 40, 0.075);
+}
+
+.btn-limpar:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.04);
+}
+
+
+/* =========================================================
+   TABELA PRINCIPAL
+========================================================= */
+
+.emitir-nfce>table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border:
+        1px solid #dce3eb;
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.025),
+        0 12px 35px rgba(16, 24, 40, 0.055);
+}
+
+
+/* =========================================================
+   CABEÇALHO TABELA
+========================================================= */
+
+.emitir-nfce>table thead {
+    background:
+        linear-gradient(180deg,
+            #f5f7fa 0%,
+            #edf1f5 100%);
+}
+
+.emitir-nfce>table th {
+    position: relative;
+
+    padding: 17px 18px;
+
+    border: none;
+
+    border-bottom:
+        1px solid #d9e0e8;
+
+    color: #475467 !important;
+
+    text-align: left;
+
+    font-size: 10px;
+
+    font-weight: 850;
+
+    letter-spacing: 0.75px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+.emitir-nfce>table th:first-child {
+    padding-left: 23px;
+}
+
+
+/* DIVISÃO CABEÇALHO */
+
+.emitir-nfce>table th:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    top: 13px;
+    bottom: 13px;
+
+    width: 1px;
+
+    background:
+        rgba(203, 213, 225, 0.65);
+}
+
+
+/* =========================================================
+   LINHAS
+========================================================= */
+
+.emitir-nfce>table tbody tr {
+    position: relative;
+
+    background: #ffffff;
+
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.emitir-nfce>table tbody tr:nth-child(even) {
+    background: #fcfdfe;
+}
+
+.emitir-nfce>table tbody tr:hover {
+    background:
+        linear-gradient(90deg,
+            rgba(18, 61, 114, 0.065),
+            rgba(18, 61, 114, 0.018));
+
+    box-shadow:
+        inset 4px 0 0 #123d72;
+}
+
+
+/* =========================================================
+   CÉLULAS
+========================================================= */
+
+.emitir-nfce>table td {
+    padding: 17px 18px;
+
+    border: none;
+
+    border-bottom:
+        1px solid #edf0f4;
+
+    color: #475467 !important;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    vertical-align: middle;
+
+    transition:
+        color 0.18s ease;
+}
+
+.emitir-nfce>table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   ID
+========================================================= */
+
+.emitir-nfce>table td:first-child {
+    padding-left: 23px;
+
+    color: #123d72 !important;
+
+    font-size: 12px;
+
+    font-weight: 850;
+}
+
+
+/* =========================================================
+   VALOR
+========================================================= */
+
+.emitir-nfce>table td:nth-child(2) {
+    color: #0c3564 !important;
+
+    font-size: 15px;
+
+    font-weight: 850;
+
+    letter-spacing: -0.2px;
+}
+
+
+/* =========================================================
+   PAGAMENTO
+========================================================= */
+
+.emitir-nfce>table td:nth-child(3) {
+    color: #1d2939 !important;
+
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+.emitir-nfce>table td:nth-child(4) {
+    color: #667085 !important;
+
+    font-size: 12px;
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   BOTÃO VER COMANDA
+========================================================= */
+
+.btn-comanda {
+    min-width: 105px;
+    height: 37px;
+
+    padding: 0 14px;
+
+    border:
+        1px solid #ccd6e1;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f7f9fb);
+
+    color: #123d72 !important;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.035);
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.btn-comanda:hover {
+    transform: translateY(-2px);
+
+    border-color: #123d72;
+
+    background:
+        linear-gradient(135deg,
+            #174c86,
+            #0d315c);
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 7px 16px rgba(18, 61, 114, 0.20);
+}
+
+.btn-comanda:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   SEM COMANDA
+========================================================= */
+
+.sem-comanda {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 28px;
+
+    background: #f2f4f7;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius: 7px;
+
+    color: #98a2b3 !important;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   BOTÃO EMITIR NFC-e
+========================================================= */
+
+.btn-emitir-nfce {
+    position: relative;
+
+    min-width: 138px;
+    height: 39px;
+
+    padding: 0 18px;
+
+    overflow: hidden;
+
+    border:
+        1px solid #0d3565;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(135deg,
+            #174f8d 0%,
+            #123d72 45%,
+            #0a2d56 100%);
+
+    color: #ffffff !important;
+
+    font-size: 11px;
+
+    font-weight: 850;
+
+    letter-spacing: 0.1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 7px rgba(18, 61, 114, 0.16),
+        0 7px 16px rgba(18, 61, 114, 0.10);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+
+/* BRILHO */
+
+.btn-emitir-nfce::before {
+    content: "";
+
+    position: absolute;
+
+    top: -50%;
+    left: -70%;
+
+    width: 45%;
+    height: 200%;
+
+    transform: rotate(20deg);
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.16),
+            transparent);
+
+    transition:
+        left 0.45s ease;
+}
+
+.btn-emitir-nfce:hover:not(:disabled)::before {
+    left: 130%;
+}
+
+.btn-emitir-nfce:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+
+    box-shadow:
+        0 5px 10px rgba(18, 61, 114, 0.18),
+        0 11px 22px rgba(18, 61, 114, 0.18);
+}
+
+.btn-emitir-nfce:active:not(:disabled) {
+    transform: translateY(0);
+
+    box-shadow:
+        0 3px 7px rgba(18, 61, 114, 0.16);
+}
+
+
+/* =========================================================
+   PROCESSANDO NFC-e
+========================================================= */
+
+.btn-nfce-processando {
+    min-width: 138px;
+    height: 39px;
+
+    padding: 0 18px;
+
+    border:
+        1px solid #e2bd46;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(135deg,
+            #fff9e8,
+            #fff1bc);
+
+    color: #765900 !important;
+
+    font-size: 11px;
+
+    font-weight: 850;
+
+    cursor: wait;
+
+    box-shadow:
+        0 3px 9px rgba(166, 125, 0, 0.08);
+
+    animation:
+        nfcePremiumProcessando 1.3s ease-in-out infinite;
+}
+
+@keyframes nfcePremiumProcessando {
+
+    0%,
+    100% {
+        box-shadow:
+            0 3px 9px rgba(166, 125, 0, 0.08),
+            0 0 0 0 rgba(226, 189, 70, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 4px 12px rgba(166, 125, 0, 0.12),
+            0 0 0 4px rgba(226, 189, 70, 0.12);
+    }
+}
+
+
+/* =========================================================
+   NFC-e EMITIDA
+========================================================= */
+
+.btn-nfce-emitida {
+    min-width: 138px;
+    height: 39px;
+
+    padding: 0 18px;
+
+    border:
+        1px solid #a6e5c0;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(135deg,
+            #f0fdf5,
+            #e5f9ed);
+
+    color: #067647 !important;
+
+    font-size: 11px;
+
+    font-weight: 850;
+
+    cursor: default;
+
+    box-shadow:
+        0 2px 6px rgba(6, 118, 71, 0.06);
+}
+
+
+/* =========================================================
+   DESABILITADO
+========================================================= */
+
+.btn-emitir-nfce:disabled {
+    opacity: 0.42;
+
+    cursor: not-allowed;
+
+    transform: none !important;
+
+    filter: grayscale(0.15);
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.emitir-nfce-empty {
+    width: 100%;
+    min-height: 230px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #fafbfc);
+
+    border:
+        1px dashed #c5cfda;
+
+    border-radius: 17px;
+
+    text-align: center;
+
+    box-shadow:
+        0 5px 20px rgba(16, 24, 40, 0.035);
+}
+
+.emitir-nfce-empty::before {
+    content: "NFC-e";
+
+    position: absolute;
+
+    top: 50px;
+
+    padding: 6px 10px;
+
+    border-radius: 6px;
+
+    background: #eef3f8;
+
+    color: #123d72 !important;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+}
+
+.emitir-nfce-empty p {
+    margin: 35px 0 0;
+
+    color: #667085 !important;
+
+    font-size: 13px;
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.emitir-nfce-loading {
+    width: 100%;
+    min-height: 280px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(18, 61, 114, 0.08),
+            transparent 30%),
+        linear-gradient(145deg,
+            #fafbfd,
+            #f2f5f8);
+
+    border:
+        1px solid #dce3eb;
+
+    border-radius: 18px;
+
+    color: #123d72 !important;
+}
+
+.emitir-nfce-loading p {
+    position: relative;
+    z-index: 2;
+
+    margin: 0;
+
+    padding: 17px 24px;
+
+    background:
+        rgba(255, 255, 255, 0.95);
+
+    border:
+        1px solid #dce3eb;
+
+    border-radius: 11px;
+
+    color: #123d72 !important;
+
+    font-size: 13px;
+
+    font-weight: 750;
+
+    box-shadow:
+        0 5px 18px rgba(16, 24, 40, 0.06);
+
+    animation:
+        nfcePremiumLoading 1.4s ease-in-out infinite;
+}
+
+@keyframes nfcePremiumLoading {
+
+    0%,
+    100% {
+        opacity: 0.65;
+
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform: translateY(-2px);
+    }
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.emitir-nfce::-webkit-scrollbar,
+.emitir-nfce *::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+.emitir-nfce::-webkit-scrollbar-track,
+.emitir-nfce *::-webkit-scrollbar-track {
+    background: #edf1f5;
+
+    border-radius: 20px;
+}
+
+.emitir-nfce::-webkit-scrollbar-thumb,
+.emitir-nfce *::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(#9caaba,
+            #7f8d9e);
+
+    border-radius: 20px;
+}
+
+.emitir-nfce::-webkit-scrollbar-thumb:hover,
+.emitir-nfce *::-webkit-scrollbar-thumb:hover {
+    background: #66788c;
+}
+
+
+/* =========================================================
+   RESPONSIVO TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .emitir-nfce {
+        padding: 20px;
+
+        overflow-x: auto;
+
+        border-radius: 17px;
+    }
+
+    .emitir-nfce>h4 {
+        font-size: 24px;
+    }
+
+    .filtros-nfce {
+        flex-wrap: wrap;
+    }
+
+    .filtro-nfce-data {
+        flex: 1;
+
+        min-width: 190px;
+    }
+
+    .emitir-nfce>table {
+        min-width: 780px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .emitir-nfce {
+        padding: 14px;
+
+        border-radius: 14px;
+    }
+
+    .emitir-nfce>h4 {
+        margin-bottom: 18px;
+
+        padding-left: 18px;
+
+        font-size: 21px;
+    }
+
+    .emitir-nfce>h4::before {
+        height: 25px;
+    }
+
+    .emitir-nfce>h4::after {
+        top: 10px;
+    }
+
+    .filtros-nfce {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        padding: 15px;
+
+        border-radius: 13px;
+    }
+
+    .filtro-nfce-data {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    .btn-limpar {
+        width: 100%;
+    }
+
+    .emitir-nfce>table {
+        min-width: 730px;
+
+        border-radius: 13px;
+    }
+
+    .emitir-nfce>table th {
+        padding: 14px 13px;
+    }
+
+    .emitir-nfce>table td {
+        padding: 14px 13px;
+    }
+
+    .emitir-nfce>table th:first-child,
+    .emitir-nfce>table td:first-child {
+        padding-left: 16px;
+    }
+
+    .btn-emitir-nfce,
+    .btn-nfce-processando,
+    .btn-nfce-emitida {
+        min-width: 120px;
+    }
+}
+
+/* =========================================================
+   NFC-e
+   MODAL GLOBAL PREMIUM
+========================================================= */
+
+.nfce-alerta-overlay-premium {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    margin: 0 !important;
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    z-index: 2147483647 !important;
+
+    background: rgba(4, 15, 30, 0.58) !important;
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    animation: nfceOverlayPremiumEntrada 0.2s ease-out;
+}
+
+@keyframes nfceOverlayPremiumEntrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   CAIXA PRINCIPAL
+========================================================= */
+
+.nfce-alerta-modal-premium {
+    position: relative !important;
+
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    transform: none;
+
+    width: min(430px, calc(100vw - 40px)) !important;
+    max-width: 430px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid rgba(207, 216, 226, 0.95) !important;
+
+    border-radius: 18px !important;
+
+    box-shadow:
+        0 30px 70px rgba(0, 12, 30, 0.28),
+        0 8px 25px rgba(0, 12, 30, 0.14) !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    animation:
+        nfceModalPremiumEntrada 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes nfceModalPremiumEntrada {
+
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+/* =========================================================
+   BARRA SUPERIOR
+========================================================= */
+
+.nfce-alerta-modal-premium::before {
+    content: "";
+
+    display: block;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(90deg,
+            #1b5b9e,
+            #123d72,
+            #08284e);
+}
+
+
+/* =========================================================
+   ÁREA DO ÍCONE
+========================================================= */
+
+.nfce-alerta-icone-area-premium {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 27px 24px 0 !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   ÍCONE BASE
+========================================================= */
+
+.nfce-alerta-icone-premium {
+    width: 58px !important;
+    height: 58px !important;
+
+    flex: 0 0 58px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 50% !important;
+
+    font-size: 18px !important;
+    font-weight: 900 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CONFIRMAÇÃO
+========================================================= */
+
+.nfce-alerta-icone-confirmacao {
+    color: #123d72 !important;
+
+    background:
+        linear-gradient(145deg,
+            #edf5fd,
+            #dceafb) !important;
+
+    border: 1px solid #bfd5ed !important;
+
+    box-shadow:
+        0 0 0 7px rgba(18, 61, 114, 0.05),
+        0 8px 20px rgba(18, 61, 114, 0.10) !important;
+}
+
+
+/* =========================================================
+   SUCESSO
+========================================================= */
+
+.nfce-alerta-modal-sucesso::before {
+    background:
+        linear-gradient(90deg,
+            #15945f,
+            #067647,
+            #045b37) !important;
+}
+
+.nfce-alerta-icone-sucesso {
+    color: #067647 !important;
+
+    background: #ecfdf3 !important;
+
+    border: 1px solid #a9e8c3 !important;
+
+    font-size: 25px !important;
+
+    box-shadow:
+        0 0 0 7px rgba(6, 118, 71, 0.055),
+        0 8px 20px rgba(6, 118, 71, 0.10) !important;
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.nfce-alerta-modal-erro::before {
+    background:
+        linear-gradient(90deg,
+            #e23b2e,
+            #b42318,
+            #861a12) !important;
+}
+
+.nfce-alerta-icone-erro {
+    color: #b42318 !important;
+
+    background: #fff0ee !important;
+
+    border: 1px solid #f3b5af !important;
+
+    font-size: 27px !important;
+
+    box-shadow:
+        0 0 0 7px rgba(180, 35, 24, 0.05),
+        0 8px 20px rgba(180, 35, 24, 0.10) !important;
+}
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+.nfce-alerta-modal-aviso::before {
+    background:
+        linear-gradient(90deg,
+            #f2bb25,
+            #c68a00,
+            #976600) !important;
+}
+
+.nfce-alerta-icone-aviso {
+    color: #8b6100 !important;
+
+    background: #fff9e8 !important;
+
+    border: 1px solid #ecd486 !important;
+
+    font-size: 27px !important;
+
+    box-shadow:
+        0 0 0 7px rgba(198, 138, 0, 0.05),
+        0 8px 20px rgba(198, 138, 0, 0.10) !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.nfce-alerta-conteudo-premium {
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 20px 30px 0 !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+}
+
+.nfce-alerta-conteudo-premium h3 {
+    margin: 0 0 9px 0 !important;
+    padding: 0 !important;
+
+    color: #0b1f3a !important;
+
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+
+    font-weight: 850 !important;
+
+    letter-spacing: -0.45px !important;
+}
+
+.nfce-alerta-conteudo-premium p {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+
+    font-weight: 600 !important;
+
+    white-space: pre-line !important;
+    overflow-wrap: anywhere !important;
+}
+
+
+/* =========================================================
+   PROCESSANDO
+========================================================= */
+
+.nfce-alerta-modal-processando::before {
+    background:
+        linear-gradient(90deg,
+            #245f9e,
+            #123d72,
+            #09294f) !important;
+}
+
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.nfce-alerta-spinner-premium {
+    width: 55px !important;
+    height: 55px !important;
+
+    flex: 0 0 55px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 50% !important;
+
+    border:
+        4px solid rgba(18, 61, 114, 0.12) !important;
+
+    border-top-color: #123d72 !important;
+
+    animation:
+        nfceSpinnerPremiumGirar 0.75s linear infinite !important;
+}
+
+@keyframes nfceSpinnerPremiumGirar {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   TEXTO AUXILIAR PROCESSANDO
+========================================================= */
+
+.nfce-alerta-processando-texto-premium {
+    display: block !important;
+
+    width: fit-content !important;
+
+    margin: 16px auto 0 !important;
+
+    padding: 7px 11px !important;
+
+    box-sizing: border-box !important;
+
+    color: #667085 !important;
+
+    background: #f5f7fa !important;
+
+    border: 1px solid #e1e7ee !important;
+
+    border-radius: 7px !important;
+
+    font-size: 10px !important;
+
+    line-height: 1.4 !important;
+
+    font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.nfce-alerta-acoes-premium {
+    width: calc(100% - 48px) !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    gap: 9px !important;
+
+    margin: 25px 24px 0 !important;
+
+    padding: 18px 0 22px !important;
+
+    box-sizing: border-box !important;
+
+    border-top:
+        1px solid #e8edf2 !important;
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.nfce-alerta-acoes-premium button {
+    min-width: 105px !important;
+    height: 41px !important;
+
+    margin: 0 !important;
+
+    padding: 0 17px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 9px !important;
+
+    font-family: inherit !important;
+
+    font-size: 11px !important;
+
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    outline: none !important;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease !important;
+}
+
+.nfce-alerta-acoes-premium button:hover {
+    transform: translateY(-1px) !important;
+}
+
+.nfce-alerta-acoes-premium button:active {
+    transform: translateY(0) !important;
+}
+
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.nfce-alerta-btn-cancelar-premium {
+    color: #344054 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f5f6f8) !important;
+
+    border:
+        1px solid #d0d7e0 !important;
+
+    box-shadow:
+        0 2px 4px rgba(16, 24, 40, 0.04) !important;
+}
+
+.nfce-alerta-btn-cancelar-premium:hover {
+    color: #123d72 !important;
+
+    border-color: #abb8c7 !important;
+
+    box-shadow:
+        0 5px 12px rgba(16, 24, 40, 0.08) !important;
+}
+
+
+/* =========================================================
+   BOTÃO AZUL
+========================================================= */
+
+.nfce-alerta-btn-confirmar-premium,
+.nfce-alerta-btn-principal-premium {
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(135deg,
+            #18518f,
+            #123d72 50%,
+            #092c55) !important;
+
+    border:
+        1px solid #0c3565 !important;
+
+    box-shadow:
+        0 4px 10px rgba(18, 61, 114, 0.17) !important;
+}
+
+.nfce-alerta-btn-confirmar-premium:hover,
+.nfce-alerta-btn-principal-premium:hover {
+    filter: brightness(1.08) !important;
+
+    box-shadow:
+        0 7px 16px rgba(18, 61, 114, 0.22) !important;
+}
+
+
+/* =========================================================
+   BOTÃO SUCESSO
+========================================================= */
+
+.nfce-alerta-btn-sucesso-premium {
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(135deg,
+            #11955e,
+            #067647,
+            #055d39) !important;
+
+    border:
+        1px solid #056c41 !important;
+
+    box-shadow:
+        0 4px 10px rgba(6, 118, 71, 0.17) !important;
+}
+
+
+/* =========================================================
+   BOTÃO ERRO
+========================================================= */
+
+.nfce-alerta-btn-erro-premium {
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(135deg,
+            #d92d20,
+            #b42318,
+            #8e1b14) !important;
+
+    border:
+        1px solid #a11f16 !important;
+
+    box-shadow:
+        0 4px 10px rgba(180, 35, 24, 0.17) !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .nfce-alerta-overlay-premium {
+        padding: 14px !important;
+    }
+
+    .nfce-alerta-modal-premium {
+        width: calc(100vw - 28px) !important;
+        max-width: none !important;
+
+        border-radius: 16px !important;
+    }
+
+    .nfce-alerta-icone-area-premium {
+        padding-top: 24px !important;
+    }
+
+    .nfce-alerta-conteudo-premium {
+        padding:
+            18px 20px 0 !important;
+    }
+
+    .nfce-alerta-conteudo-premium h3 {
+        font-size: 18px !important;
+    }
+
+    .nfce-alerta-acoes-premium {
+        width: calc(100% - 36px) !important;
+
+        margin:
+            22px 18px 0 !important;
+
+        padding-bottom: 18px !important;
+
+        flex-direction: column-reverse !important;
+    }
+
+    .nfce-alerta-acoes-premium button {
+        width: 100% !important;
+
+        height: 44px !important;
+    }
+}
+
+/* =========================================================
+   NFC-e
+   CARREGAR MAIS RESULTADOS
+========================================================= */
+
+.nfce-carregar-mais-area {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    padding: 22px 0 5px;
+
+    box-sizing: border-box;
+}
+
+.nfce-carregar-mais-btn {
+    min-width: 170px;
+    height: 43px;
+
+    padding: 0 20px;
+
+    border:
+        1px solid #cbd6e2;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f4f7fa 100%);
+
+    color: #123d72 !important;
+
+    font-size: 11px;
+
+    font-weight: 850;
+
+    letter-spacing: 0.15px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.04),
+        0 6px 14px rgba(16, 24, 40, 0.035);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
+}
+
+.nfce-carregar-mais-btn:hover {
+    transform: translateY(-2px);
+
+    border-color: #123d72;
+
+    background:
+        linear-gradient(135deg,
+            #174f8d,
+            #123d72,
+            #0a2d56);
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 7px 17px rgba(18, 61, 114, 0.18);
+}
+
+.nfce-carregar-mais-btn:active {
+    transform: translateY(0);
+}
+
+.nfce-carregar-mais-info {
+    color: #7b8797 !important;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.15px;
+}
+
+@media (max-width: 600px) {
+
+    .nfce-carregar-mais-area {
+        padding-top: 18px;
+    }
+
+    .nfce-carregar-mais-btn {
+        width: 100%;
+
+        height: 45px;
+    }
+}
+
+/* =========================================================
+   CORREÇÃO FINAL
+   ALERTA NFC-e CENTRALIZADO NA ÁREA VISÍVEL
+========================================================= */
+
+.nfce-alerta-overlay-premium {
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    z-index: 2147483647 !important;
+
+    background: rgba(4, 15, 30, 0.58) !important;
+
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+
+    display: grid !important;
+
+    place-items: center !important;
+
+    overflow: hidden !important;
+}
+
+
+.nfce-alerta-modal-premium {
+    position: static !important;
+
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    width: 430px !important;
+    max-width: calc(100vw - 40px) !important;
+
+    margin: 0 !important;
+
+    transform: none !important;
+
+    align-self: center !important;
+    justify-self: center !important;
+
+    animation: nfceModalCentralizadoEntrada 0.25s ease-out !important;
+}
+
+
+@keyframes nfceModalCentralizadoEntrada {
+
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

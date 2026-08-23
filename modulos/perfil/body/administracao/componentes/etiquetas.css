@@ -1397,3 +1397,55 @@
         min-height: 500px;
     }
 }
+
+/* =====================================================
+   SELETOR DE FONTES DAS ETIQUETAS
+===================================================== */
+
+.etiquetas-seletor-fonte-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 110px;
+}
+
+.etiquetas-seletor-fonte-item>span {
+    font-size: 11px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.etiquetas-seletor-fonte-item input {
+    width: 125px;
+    height: 34px;
+
+    padding: 0 10px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: 600;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.etiquetas-seletor-fonte-item input:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+
+.etiquetas-seletor-fonte-item input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}

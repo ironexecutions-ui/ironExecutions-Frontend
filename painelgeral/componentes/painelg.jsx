@@ -504,6 +504,185 @@ export default function PainelG() {
                             .toLowerCase()
                     )
         );
+
+
+    /* =====================================================
+ATALHOS SQL DA TABELA
+===================================================== */
+
+    function abrirSqlProntoPainelG(sql) {
+        setPainelGSql(sql);
+        setPainelGSecaoAtiva("sql");
+    }
+
+
+    /* =====================================================
+       COPIAR DADOS DA TABELA
+    ===================================================== */
+
+    async function copiarDadosTabelaPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        const colunas = painelGColunas.map(coluna => coluna.Field);
+
+        const dados = painelGLinhas.map(linha => {
+
+            const objeto = {};
+
+            colunas.forEach(coluna => {
+                objeto[coluna] = linha[coluna];
+            });
+
+            return objeto;
+        });
+
+        const conteudo = JSON.stringify(
+            {
+                tabela: painelGTabelaSelecionada,
+                colunas: colunas,
+                dados: dados
+            },
+            null,
+            2
+        );
+
+        try {
+
+            await navigator.clipboard.writeText(conteudo);
+
+        } catch (error) {
+
+            console.error(
+                "[PAINEL] Erro ao copiar dados:",
+                error
+            );
+
+            setPainelGErro("Não foi possível copiar os dados.");
+        }
+    }
+
+
+    /* =====================================================
+       SELECT * FROM
+    ===================================================== */
+
+    function gerarSelectTabelaPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        abrirSqlProntoPainelG(
+            `SELECT * FROM \`${painelGTabelaSelecionada}\`;`
+        );
+    }
+
+
+    /* =====================================================
+       APAGAR LINHA PELO ID
+    ===================================================== */
+
+    function gerarDeleteLinhaPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        const colunaPrimaria = painelGColunas.find(
+            coluna => coluna.Key === "PRI"
+        );
+
+        const colunaId = colunaPrimaria
+            ? colunaPrimaria.Field
+            : "id";
+
+        abrirSqlProntoPainelG(
+            `DELETE FROM \`${painelGTabelaSelecionada}\`\nWHERE \`${colunaId}\` = 00;`
+        );
+    }
+
+
+    /* =====================================================
+       ADICIONAR COLUNA TEXT
+    ===================================================== */
+
+    function gerarAdicionarColunaPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        abrirSqlProntoPainelG(
+            `ALTER TABLE \`${painelGTabelaSelecionada}\`\nADD COLUMN \`nova\` TEXT;`
+        );
+    }
+
+
+    /* =====================================================
+       APAGAR COLUNA
+    ===================================================== */
+
+    function gerarApagarColunaPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        abrirSqlProntoPainelG(
+            `ALTER TABLE \`${painelGTabelaSelecionada}\`\nDROP COLUMN \`nome_coluna\`;`
+        );
+    }
+
+
+    /* =====================================================
+       RENOMEAR COLUNA
+    ===================================================== */
+
+    function gerarRenomearColunaPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        abrirSqlProntoPainelG(
+            `ALTER TABLE \`${painelGTabelaSelecionada}\`\nRENAME COLUMN \`nome_atual\` TO \`novo_nome\`;`
+        );
+    }
+
+
+    /* =====================================================
+       CONTAR LINHAS
+    ===================================================== */
+
+    function gerarContarLinhasPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        abrirSqlProntoPainelG(
+            `SELECT COUNT(*) AS total FROM \`${painelGTabelaSelecionada}\`;`
+        );
+    }
+
+
+    /* =====================================================
+       LIMPAR TODAS AS LINHAS
+    ===================================================== */
+
+    function gerarLimparTabelaPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        abrirSqlProntoPainelG(
+            `DELETE FROM \`${painelGTabelaSelecionada}\`;`
+        );
+    }
     return (
 
         <div className="painel-g-administrador-container">
@@ -824,7 +1003,7 @@ export default function PainelG() {
 
                                 <div className="painel-g-tabela-cabecalho">
 
-                                    <div>
+                                    <div className="painel-g-tabela-identificacao">
 
                                         <span>
                                             Tabela
@@ -837,17 +1016,90 @@ export default function PainelG() {
                                     </div>
 
 
-                                    <div className="painel-g-tabela-acoes">
+                                    <div className="painel-g-tabela-ferramentas">
 
                                         <button
                                             type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-copiar"
+                                            onClick={copiarDadosTabelaPainelG}
+                                        >
+                                            📋 Copiar dados
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-select"
+                                            onClick={gerarSelectTabelaPainelG}
+                                        >
+                                            SELECT *
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-delete"
+                                            onClick={gerarDeleteLinhaPainelG}
+                                        >
+                                            Apagar linha
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-coluna"
+                                            onClick={gerarAdicionarColunaPainelG}
+                                        >
+                                            + Coluna
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-apagar-coluna"
+                                            onClick={gerarApagarColunaPainelG}
+                                        >
+                                            Apagar coluna
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-renomear"
+                                            onClick={gerarRenomearColunaPainelG}
+                                        >
+                                            Renomear coluna
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-contar"
+                                            onClick={gerarContarLinhasPainelG}
+                                        >
+                                            Contar linhas
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-limpar"
+                                            onClick={gerarLimparTabelaPainelG}
+                                        >
+                                            Limpar tabela
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-atualizar"
                                             onClick={() =>
                                                 abrirTabelaPainelG(
                                                     painelGTabelaSelecionada
                                                 )
                                             }
                                         >
-                                            Atualizar
+                                            ↻ Atualizar
                                         </button>
 
                                     </div>
