@@ -1200,6 +1200,26 @@ RESPONDA SOMENTE COM O JSON.
                             produto={selecionado}
                             produtoPorPeso={tipo === "peso"}
                             dadosIa={dadosIa}
+                            onSalvo={() => {
+
+                                // Remove o produto atual
+                                setSelecionado(null);
+
+                                // Limpa a busca para receber outro código
+                                setBuscaProduto("");
+
+                                // Fecha a ajuda da IA
+                                setMostrarAjudaIa(false);
+
+                                // Limpa os dados temporários da IA
+                                setJsonIa("");
+                                setDadosIa(null);
+                                setMensagemIa("");
+                                setPromptCopiado(false);
+
+                                // Não limpamos configFiscalIa
+                                // porque são as respostas salvas do comércio
+                            }}
                         />
 
                     </div>
