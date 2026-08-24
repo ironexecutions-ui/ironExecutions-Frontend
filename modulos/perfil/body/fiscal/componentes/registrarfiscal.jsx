@@ -136,7 +136,9 @@ export default function RegistrarFiscal() {
                     <FormularioFiscal
                         tipo={tipo === "peso" ? "produto" : tipo}
                         produto={selecionado}
-                    />                </div>
+                        produtoPorPeso={tipo === "peso"}
+                    />
+                </div>
             )}
 
         </div>

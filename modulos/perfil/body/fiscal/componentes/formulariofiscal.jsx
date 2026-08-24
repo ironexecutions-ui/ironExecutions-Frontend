@@ -2,22 +2,36 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../../config";
 import "./formulariofiscal.css";
 
-export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo }) {
-
+export default function FormularioFiscal({
+    tipo,
+    produto,
+    produtoPorPeso = false,
+    modo = "novo",
+    onSalvo
+}) {
     const token = localStorage.getItem("token");
     const [salvando, setSalvando] = useState(false);
     const [mensagem, setMensagem] = useState("");
 
     const [form, setForm] = useState({
         produto_id: produto.id,
+
         ncm: "",
         cfop: "",
         origem: "",
         cst_csosn: "",
+
         icms: "",
         pis: "",
         cofins: "",
         cest: "",
+
+        cst_ibscbs: "",
+        cclass_trib: "",
+        aliquota_ibs_uf: "",
+        aliquota_ibs_mun: "",
+        aliquota_cbs: "",
+
         codigo_servico: "",
         aliquota_iss: "",
         municipio: ""
@@ -553,7 +567,244 @@ export default function FormularioFiscal({ tipo, produto, modo = "novo", onSalvo
 
                     </section>
 
+
+                    {/* =================================================
+                        IBS / CBS
+                    ================================================= */}
+
+                    <section
+                        className={`formulario-fiscal-secao-premium formulario-fiscal-secao-ibscbs-premium ${produtoPorPeso
+                                ? "formulario-fiscal-secao-ibscbs-peso-premium"
+                                : "formulario-fiscal-secao-ibscbs-produto-premium"
+                            }`}
+                    >
+
+                        <div className="formulario-fiscal-secao-titulo-premium">
+
+                            <div>
+
+                                <h6>Tributação IBS / CBS</h6>
+
+                                <p>
+                                    {produtoPorPeso
+                                        ? "Configure a tributação IBS/CBS deste produto vendido por peso."
+                                        : "Configure a tributação IBS/CBS aplicável a este produto."
+                                    }
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {produtoPorPeso && (
+
+                            <div className="formulario-fiscal-aviso-peso-ibscbs-premium">
+
+                                <strong>
+                                    Produto vendido por peso
+                                </strong>
+
+                                <span>
+                                    {produto.nome}
+                                </span>
+
+                            </div>
+
+                        )}
+
+
+                        <div className="formulario-fiscal-grade-premium">
+
+
+                            {/* CST IBS/CBS */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    CST IBS/CBS
+                                </label>
+
+                                <input
+                                    type="text"
+                                    inputMode="numeric"
+                                    placeholder="Ex: 200"
+                                    value={form.cst_ibscbs || ""}
+                                    onChange={(e) =>
+                                        setForm({
+                                            ...form,
+                                            cst_ibscbs: e.target.value
+                                        })
+                                    }
+                                />
+
+                                <small>
+                                    Código de situação tributária do IBS/CBS
+                                </small>
+
+                            </div>
+
+
+                            {/* CLASSIFICAÇÃO TRIBUTÁRIA */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    cClassTrib
+                                </label>
+
+                                <input
+                                    type="text"
+                                    inputMode="numeric"
+                                    placeholder="Ex: 200014"
+                                    value={form.cclass_trib || ""}
+                                    onChange={(e) =>
+                                        setForm({
+                                            ...form,
+                                            cclass_trib: e.target.value
+                                        })
+                                    }
+                                />
+
+                                <small>
+                                    Código de classificação tributária
+                                </small>
+
+                            </div>
+
+
+                            {/* IBS ESTADUAL */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    Alíquota IBS UF
+                                </label>
+
+                                <div className="formulario-fiscal-input-percentual-premium">
+
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        min="0"
+                                        placeholder="0,00"
+                                        value={
+                                            form.aliquota_ibs_uf === 0
+                                                ? 0
+                                                : form.aliquota_ibs_uf || ""
+                                        }
+                                        onChange={(e) =>
+                                            setForm({
+                                                ...form,
+                                                aliquota_ibs_uf:
+                                                    e.target.value === ""
+                                                        ? ""
+                                                        : Number(e.target.value)
+                                            })
+                                        }
+                                    />
+
+                                    <span>%</span>
+
+                                </div>
+
+                                <small>
+                                    Alíquota estadual do IBS
+                                </small>
+
+                            </div>
+
+
+                            {/* IBS MUNICIPAL */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    Alíquota IBS Município
+                                </label>
+
+                                <div className="formulario-fiscal-input-percentual-premium">
+
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        min="0"
+                                        placeholder="0,00"
+                                        value={
+                                            form.aliquota_ibs_mun === 0
+                                                ? 0
+                                                : form.aliquota_ibs_mun || ""
+                                        }
+                                        onChange={(e) =>
+                                            setForm({
+                                                ...form,
+                                                aliquota_ibs_mun:
+                                                    e.target.value === ""
+                                                        ? ""
+                                                        : Number(e.target.value)
+                                            })
+                                        }
+                                    />
+
+                                    <span>%</span>
+
+                                </div>
+
+                                <small>
+                                    Alíquota municipal do IBS
+                                </small>
+
+                            </div>
+
+
+                            {/* CBS */}
+
+                            <div className="formulario-fiscal-campo-premium">
+
+                                <label>
+                                    Alíquota CBS
+                                </label>
+
+                                <div className="formulario-fiscal-input-percentual-premium">
+
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        min="0"
+                                        placeholder="0,00"
+                                        value={
+                                            form.aliquota_cbs === 0
+                                                ? 0
+                                                : form.aliquota_cbs || ""
+                                        }
+                                        onChange={(e) =>
+                                            setForm({
+                                                ...form,
+                                                aliquota_cbs:
+                                                    e.target.value === ""
+                                                        ? ""
+                                                        : Number(e.target.value)
+                                            })
+                                        }
+                                    />
+
+                                    <span>%</span>
+
+                                </div>
+
+                                <small>
+                                    Alíquota da CBS
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
                 </>
+
+
 
             )}
 
