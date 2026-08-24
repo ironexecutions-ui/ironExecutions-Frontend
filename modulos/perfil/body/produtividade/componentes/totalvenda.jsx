@@ -8,6 +8,7 @@ import ModalPagamento from "./modalpagamento";
 
 import "./totalvenda.css";
 
+
 export default function TotalVenda() {
 
     const {
@@ -19,21 +20,43 @@ export default function TotalVenda() {
         setEmitirNota
     } = useVenda();
 
+
     const [tema, setTema] = useState("escuro");
 
-    const [abrirPagamento, setAbrirPagamento] = useState(false);
+    const [abrirPagamento, setAbrirPagamento] =
+        useState(false);
 
-    const [mostrarUSD, setMostrarUSD] = useState(false);
+    const [mostrarUSD, setMostrarUSD] =
+        useState(false);
 
-    const [converte, setConverte] = useState(0);
+    const [converte, setConverte] =
+        useState(0);
 
-    const [cambio, setCambio] = useState(null);
+    const [cambio, setCambio] =
+        useState(null);
 
-    const vendaVazia = itens.length === 0;
 
-    // ===============================
-    // DEFINIR TEMA
-    // ===============================
+    /* ===============================
+       CONFIGURAÇÃO NFC-e
+    =============================== */
+
+    const [podeEmitirNfce, setPodeEmitirNfce] =
+        useState(false);
+
+    const [comercioFiscalId, setComercioFiscalId] =
+        useState(null);
+
+    const [verificandoFiscal, setVerificandoFiscal] =
+        useState(true);
+
+
+    const vendaVazia =
+        itens.length === 0;
+
+
+    /* ===============================
+       DEFINIR TEMA
+    =============================== */
 
     useEffect(() => {
 
@@ -43,7 +66,8 @@ export default function TotalVenda() {
 
             try {
 
-                const token = localStorage.getItem("token");
+                const token =
+                    localStorage.getItem("token");
 
                 if (token) {
 
@@ -51,34 +75,47 @@ export default function TotalVenda() {
                         `${API_URL}/api/clientes/modo`,
                         {
                             headers: {
-                                Authorization: `Bearer ${token}`
+                                Authorization:
+                                    `Bearer ${token}`
                             }
                         }
                     );
 
                     if (resp.ok) {
 
-                        const data = await resp.json();
+                        const data =
+                            await resp.json();
 
-                        modoCliente = data.modo;
+                        modoCliente =
+                            data.modo;
                     }
                 }
 
             } catch {
+
                 modoCliente = null;
             }
 
+
             if (modoCliente === 1) {
+
                 setTema("escuro");
+
                 return;
             }
+
 
             if (modoCliente === 2) {
+
                 setTema("claro");
+
                 return;
             }
 
-            const hora = new Date().getHours();
+
+            const hora =
+                new Date().getHours();
+
 
             setTema(
                 hora >= 18 || hora < 6
@@ -87,13 +124,298 @@ export default function TotalVenda() {
             );
         }
 
+
         definirTema();
 
     }, []);
 
-    // ===============================
-    // BUSCAR CONFIG DE CAMBIO
-    // ===============================
+
+    /* ===============================
+       VERIFICAR SE PODE EMITIR NFC-e
+    =============================== */
+
+    useEffect(() => {
+
+        let componenteAtivo = true;
+
+
+        async function verificarFiscal() {
+
+            setVerificandoFiscal(true);
+
+
+            try {
+
+                const token =
+                    localStorage.getItem("token");
+
+
+                if (!token) {
+
+                    if (componenteAtivo) {
+
+                        setPodeEmitirNfce(false);
+
+                        setComercioFiscalId(null);
+
+                        setEmitirNota(false);
+
+                        setVerificandoFiscal(false);
+                    }
+
+                    return;
+                }
+
+
+                const resp = await fetch(
+                    `${API_URL}/fiscal/comercio/fiscal/pode-emitir-nfce`,
+                    {
+                        method: "GET",
+
+                        headers: {
+                            Authorization:
+                                `Bearer ${token}`
+                        }
+                    }
+                );
+
+
+                if (!resp.ok) {
+
+                    console.error(
+                        "[NFC-e] Erro ao verificar configuração fiscal:",
+                        resp.status
+                    );
+
+
+                    if (componenteAtivo) {
+
+                        setPodeEmitirNfce(false);
+
+                        setComercioFiscalId(null);
+
+                        setEmitirNota(false);
+
+                        setVerificandoFiscal(false);
+                    }
+
+                    return;
+                }
+
+
+                const data =
+                    await resp.json();
+
+
+                console.log(
+                    "[NFC-e] Verificação fiscal:",
+                    data
+                );
+
+
+                if (!componenteAtivo) {
+                    return;
+                }
+
+
+                /* ===============================
+                   NÃO PODE EMITIR
+                =============================== */
+
+                if (data.pode_emitir !== true) {
+
+                    setPodeEmitirNfce(false);
+
+                    setComercioFiscalId(
+                        data.comercio_id ?? null
+                    );
+
+                    /*
+                        Fundamental.
+
+                        Se o comércio não estiver
+                        configurado, emitirNota
+                        obrigatoriamente será false.
+                    */
+
+                    setEmitirNota(false);
+
+                    setVerificandoFiscal(false);
+
+                    return;
+                }
+
+
+                /* ===============================
+                   PODE EMITIR
+                =============================== */
+
+                const comercioId =
+                    data.comercio_id;
+
+
+                if (!comercioId) {
+
+                    setPodeEmitirNfce(false);
+
+                    setComercioFiscalId(null);
+
+                    setEmitirNota(false);
+
+                    setVerificandoFiscal(false);
+
+                    return;
+                }
+
+
+                setPodeEmitirNfce(true);
+
+                setComercioFiscalId(
+                    comercioId
+                );
+
+
+                /* ===============================
+                   LER PREFERÊNCIA DO CACHE
+                =============================== */
+
+                const chaveCache =
+                    `nfce_emitir_padrao_${comercioId}`;
+
+
+                const preferencia =
+                    localStorage.getItem(
+                        chaveCache
+                    );
+
+
+                console.log(
+                    "[NFC-e] Preferência salva:",
+                    preferencia
+                );
+
+
+                /*
+                    Só "sim" ativa.
+
+                    Se não existir cache,
+                    o padrão será NÃO.
+                */
+
+                if (preferencia === "sim") {
+
+                    setEmitirNota(true);
+
+                } else {
+
+                    setEmitirNota(false);
+                }
+
+
+                setVerificandoFiscal(false);
+
+
+            } catch (erro) {
+
+                console.error(
+                    "[NFC-e] Erro ao verificar disponibilidade:",
+                    erro
+                );
+
+
+                if (componenteAtivo) {
+
+                    setPodeEmitirNfce(false);
+
+                    setComercioFiscalId(null);
+
+                    setEmitirNota(false);
+
+                    setVerificandoFiscal(false);
+                }
+            }
+        }
+
+
+        verificarFiscal();
+
+
+        return () => {
+
+            componenteAtivo = false;
+        };
+
+    }, [setEmitirNota]);
+
+
+    /* ===============================
+       SELECIONAR SIM
+    =============================== */
+
+    function selecionarEmitirNota() {
+
+        if (!podeEmitirNfce) {
+            return;
+        }
+
+
+        if (!comercioFiscalId) {
+            return;
+        }
+
+
+        setEmitirNota(true);
+
+
+        const chaveCache =
+            `nfce_emitir_padrao_${comercioFiscalId}`;
+
+
+        localStorage.setItem(
+            chaveCache,
+            "sim"
+        );
+
+
+        console.log(
+            "[NFC-e] Preferência salva: SIM"
+        );
+    }
+
+
+    /* ===============================
+       SELECIONAR NÃO
+    =============================== */
+
+    function selecionarNaoEmitirNota() {
+
+        setEmitirNota(false);
+
+
+        if (!comercioFiscalId) {
+            return;
+        }
+
+
+        const chaveCache =
+            `nfce_emitir_padrao_${comercioFiscalId}`;
+
+
+        localStorage.setItem(
+            chaveCache,
+            "nao"
+        );
+
+
+        console.log(
+            "[NFC-e] Preferência salva: NÃO"
+        );
+    }
+
+
+    /* ===============================
+       BUSCAR CONFIG DE CÂMBIO
+    =============================== */
 
     useEffect(() => {
 
@@ -104,42 +426,53 @@ export default function TotalVenda() {
                 const token =
                     localStorage.getItem("token");
 
-                console.log("TOKEN:", token);
 
                 const headers = token
                     ? {
-                        Authorization: `Bearer ${token}`
+                        Authorization:
+                            `Bearer ${token}`
                     }
                     : {};
 
+
                 const resp = await fetch(
                     `${API_URL}/comercio/cambio`,
-                    { headers }
+                    {
+                        headers
+                    }
                 );
+
 
                 console.log(
                     "STATUS CAMBIO:",
                     resp.status
                 );
 
+
                 if (!resp.ok) {
                     return;
                 }
 
-                const data = await resp.json();
+
+                const data =
+                    await resp.json();
+
 
                 console.log(
                     "DADOS CAMBIO:",
                     data
                 );
 
+
                 setConverte(
                     Number(data.converte)
                 );
 
+
                 setCambio(
                     Number(data.cambio)
                 );
+
 
             } catch (e) {
 
@@ -148,19 +481,22 @@ export default function TotalVenda() {
                     e
                 );
 
+
                 setConverte(0);
 
                 setCambio(null);
             }
         }
 
+
         buscarCambio();
 
     }, []);
 
-    // ===============================
-    // ESC = CANCELAR
-    // ===============================
+
+    /* ===============================
+       ESC = CANCELAR
+    =============================== */
 
     useEffect(() => {
 
@@ -170,14 +506,17 @@ export default function TotalVenda() {
                 e.key === "Escape" &&
                 !vendaVazia
             ) {
+
                 limparVenda();
             }
         }
+
 
         window.addEventListener(
             "keydown",
             escCancelar
         );
+
 
         return () =>
             window.removeEventListener(
@@ -185,11 +524,15 @@ export default function TotalVenda() {
                 escCancelar
             );
 
-    }, [vendaVazia, limparVenda]);
+    }, [
+        vendaVazia,
+        limparVenda
+    ]);
 
-    // ===============================
-    // VALOR FORMATADO
-    // ===============================
+
+    /* ===============================
+       VALOR FORMATADO
+    =============================== */
 
     function valorExibido() {
 
@@ -203,33 +546,66 @@ export default function TotalVenda() {
             const convertido =
                 total / cambio;
 
+
             const inteiro =
                 Math.floor(convertido);
 
+
             const centavos =
                 convertido - inteiro;
+
 
             const valorArredondado =
                 centavos > 0.30
                     ? Math.ceil(convertido)
                     : Math.floor(convertido);
 
-            return `US$ ${valorArredondado.toFixed(2)}`;
+
+            return (
+                `US$ ${valorArredondado.toFixed(2)}`
+            );
         }
 
-        return `R$ ${total.toFixed(2)}`;
+
+        return (
+            `R$ ${total.toFixed(2)}`
+        );
     }
 
-    // ===============================
-    // CANCELAR VENDA
-    // ===============================
+
+    /* ===============================
+       CANCELAR VENDA
+    =============================== */
 
     function cancelarVenda() {
 
-        limparVenda();
+        /*
+            Não alteramos emitirNota aqui.
 
-        setEmitirNota(false);
+            A escolha SIM/NÃO é uma
+            preferência persistente.
+        */
+
+        limparVenda();
     }
+
+
+    /* ===============================
+       ABRIR PAGAMENTO
+    =============================== */
+
+    function abrirModalPagamento() {
+
+        if (vendaVazia) {
+            return;
+        }
+
+
+        setLimparBusca(true);
+
+        setAbrirPagamento(true);
+    }
+
 
     return (
 
@@ -242,7 +618,8 @@ export default function TotalVenda() {
             ========================= */}
 
             <div
-                className={`cob-valor ${total > 0 && converte === 1
+                className={`cob-valor ${total > 0 &&
+                    converte === 1
                     ? "clicavel"
                     : ""
                     }`}
@@ -253,6 +630,7 @@ export default function TotalVenda() {
                         converte === 1 &&
                         cambio
                     ) {
+
                         setMostrarUSD(
                             valor => !valor
                         );
@@ -265,92 +643,109 @@ export default function TotalVenda() {
                         : ""
                 }
             >
+
                 {valorExibido()}
+
             </div>
+
 
             {/* =========================
                 EMITIR NOTA
+
+                Só existe visualmente
+                quando o comércio está
+                configurado.
             ========================= */}
 
-            <div
-                className={`cob-nfce-escolha ${vendaVazia
-                    ? "cob-nfce-escolha-desabilitada"
-                    : ""
-                    }`}
-            >
+            {/* =========================
+    EMITIR NFC-e
+========================= */}
 
-                <span className="cob-nfce-pergunta">
-                    Emitir nota?
-                </span>
+            {!verificandoFiscal && podeEmitirNfce && (
 
-                <div className="cob-nfce-opcoes">
+                <div
+                    className={`cob-fiscal-toggle-container ${vendaVazia
+                            ? "cob-fiscal-toggle-container-inativo"
+                            : ""
+                        }`}
+                >
+                    <div className="cob-fiscal-toggle-info">
+                        <span className="cob-fiscal-toggle-titulo">
+                            Emitir NFC-e
+                        </span>
+
+                        <span className="cob-fiscal-toggle-status">
+                            {emitirNota
+                                ? "Emissão ativada"
+                                : "Não emitir nesta venda"}
+                        </span>
+                    </div>
 
                     <button
                         type="button"
-                        className={`cob-nfce-opcao cob-nfce-opcao-sim ${emitirNota
-                            ? "cob-nfce-opcao-ativa"
-                            : ""
-                            }`}
+                        role="switch"
+                        aria-checked={emitirNota}
+                        aria-label="Ativar ou desativar emissão de NFC-e"
                         disabled={vendaVazia}
-                        onClick={() =>
-                            setEmitirNota(true)
-                        }
-                    >
-                        Sim
-                    </button>
-
-                    <button
-                        type="button"
-                        className={`cob-nfce-opcao cob-nfce-opcao-nao ${!emitirNota
-                            ? "cob-nfce-opcao-ativa"
-                            : ""
+                        className={`cob-fiscal-toggle-controle ${emitirNota
+                                ? "cob-fiscal-toggle-controle-ativo"
+                                : "cob-fiscal-toggle-controle-desligado"
                             }`}
-                        disabled={vendaVazia}
-                        onClick={() =>
-                            setEmitirNota(false)
-                        }
+                        onClick={() => {
+                            if (emitirNota) {
+                                selecionarNaoEmitirNota();
+                            } else {
+                                selecionarEmitirNota();
+                            }
+                        }}
                     >
-                        Não
+                        <span className="cob-fiscal-toggle-indicador" />
                     </button>
-
                 </div>
 
-            </div>
+            )}
 
             {/* =========================
                 AÇÕES
             ========================= */}
 
-            <div className="cob-acoes">
+            <div
+                className="cob-acoes"
+            >
 
                 <button
                     className={`cob-botao-cancelar ${vendaVazia
                         ? "desabilitado"
                         : ""
                         }`}
-                    disabled={vendaVazia}
-                    onClick={cancelarVenda}
+                    disabled={
+                        vendaVazia
+                    }
+                    onClick={
+                        cancelarVenda
+                    }
                 >
                     Cancelar
                 </button>
+
 
                 <button
                     className={`cob-botao ${vendaVazia
                         ? "cob-botao-desabilitado"
                         : ""
                         }`}
-                    disabled={vendaVazia}
-                    onClick={() => {
-
-                        setLimparBusca(true);
-
-                        setAbrirPagamento(true);
-                    }}
+                    disabled={
+                        vendaVazia
+                    }
+                    onClick={
+                        abrirModalPagamento
+                    }
                 >
                     Cobrar
                 </button>
 
             </div>
+
 
             {/* =========================
                 MODAL PAGAMENTO
@@ -360,8 +755,14 @@ export default function TotalVenda() {
 
                 <ModalPagamento
                     total={total}
-                    emitirNota={emitirNota}
-                    fechar={() => setAbrirPagamento(false)}
+                    emitirNota={
+                        podeEmitirNfce
+                            ? emitirNota
+                            : false
+                    }
+                    fechar={() =>
+                        setAbrirPagamento(false)
+                    }
                 />
 
             )}
