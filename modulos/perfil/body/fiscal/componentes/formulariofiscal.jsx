@@ -13,7 +13,7 @@ export default function FormularioFiscal({
     const token = localStorage.getItem("token");
     const [salvando, setSalvando] = useState(false);
     const [mensagem, setMensagem] = useState("");
-
+    const [possuiCadastroFiscal, setPossuiCadastroFiscal] = useState(false);
     const [form, setForm] = useState({
         produto_id: produto.id,
 
@@ -187,19 +187,124 @@ export default function FormularioFiscal({
        CARREGAR DADOS PARA EDIÇÃO
     =============================== */
     useEffect(() => {
-        if (modo !== "editar") return;
 
-        fetch(`${API_URL}/fiscal/dados/${produto.produto_id || produto.id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then(r => r.json())
-            .then(dados => {
-                setForm({
+        const produtoId = produto.produto_id || produto.id;
+
+        // Sempre limpa primeiro ao trocar de produto.
+        // Isso evita mostrar por alguns milissegundos
+        // os dados fiscais do produto anterior.
+        setForm({
+            produto_id: produtoId,
+
+            ncm: "",
+            cfop: "",
+            origem: "",
+            cst_csosn: "",
+
+            icms: "",
+            pis: "",
+            cofins: "",
+            cest: "",
+
+            cst_ibscbs: "",
+            cclass_trib: "",
+            aliquota_ibs_uf: "",
+            aliquota_ibs_mun: "",
+            aliquota_cbs: "",
+
+            codigo_servico: "",
+            aliquota_iss: "",
+            municipio: ""
+        });
+
+        async function carregarDadosFiscais() {
+
+            try {
+
+                const resp = await fetch(
+                    `${API_URL}/fiscal/dados/${produtoId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                // Produto ainda não possui cadastro fiscal.
+                // Continua com o formulário vazio.
+                if (resp.status === 404) {
+
+                    console.log(
+                        `[FormularioFiscal] Produto ${produtoId} ainda não possui cadastro fiscal.`
+                    );
+
+                    setPossuiCadastroFiscal(false);
+
+                    return;
+                }
+
+                if (!resp.ok) {
+
+                    let detalhe = "";
+
+                    try {
+                        const erro = await resp.json();
+                        detalhe = erro.detail || "";
+                    } catch {
+                        // resposta sem JSON
+                    }
+
+                    throw new Error(
+                        detalhe ||
+                        `Erro ao carregar dados fiscais. HTTP ${resp.status}`
+                    );
+                }
+
+                const dados = await resp.json();
+                setPossuiCadastroFiscal(true);
+                console.log(
+                    "[FormularioFiscal] Dados fiscais existentes:",
+                    dados
+                );
+
+                setForm(anterior => ({
+                    ...anterior,
                     ...dados,
-                    produto_id: produto.produto_id || produto.id
-                });
-            });
-    }, [modo, produto, token]);
+                    produto_id: produtoId,
+
+                    ncm: dados.ncm ?? "",
+                    cfop: dados.cfop ?? "",
+                    origem: dados.origem ?? "",
+                    cst_csosn: dados.cst_csosn ?? "",
+
+                    icms: dados.icms ?? "",
+                    pis: dados.pis ?? "",
+                    cofins: dados.cofins ?? "",
+                    cest: dados.cest ?? "",
+
+                    cst_ibscbs: dados.cst_ibscbs ?? "",
+                    cclass_trib: dados.cclass_trib ?? "",
+                    aliquota_ibs_uf: dados.aliquota_ibs_uf ?? "",
+                    aliquota_ibs_mun: dados.aliquota_ibs_mun ?? "",
+                    aliquota_cbs: dados.aliquota_cbs ?? "",
+
+                    codigo_servico: dados.codigo_servico ?? "",
+                    aliquota_iss: dados.aliquota_iss ?? "",
+                    municipio: dados.municipio ?? ""
+                }));
+
+            } catch (erro) {
+
+                console.error(
+                    "[FormularioFiscal] Erro ao carregar cadastro fiscal:",
+                    erro
+                );
+            }
+        }
+
+        carregarDadosFiscais();
+
+    }, [produto.id, produto.produto_id, token]);
 
     /* ===============================
        LISTAS PADRÃO (LEGAIS)
@@ -252,12 +357,18 @@ export default function FormularioFiscal({
         setSalvando(true);
         setMensagem("");
 
-        const url =
-            modo === "editar"
-                ? `${API_URL}/fiscal/atualizar/${produto.produto_id || produto.id}`
-                : `${API_URL}/fiscal/registrar`;
+        const produtoId = produto.produto_id || produto.id;
 
-        const method = modo === "editar" ? "PUT" : "POST";
+        const deveAtualizar =
+            modo === "editar" || possuiCadastroFiscal;
+
+        const url = deveAtualizar
+            ? `${API_URL}/fiscal/atualizar/${produtoId}`
+            : `${API_URL}/fiscal/registrar`;
+
+        const method = deveAtualizar
+            ? "PUT"
+            : "POST";
 
         const dadosLimpos = normalizarFormulario({
             ...form,
@@ -776,8 +887,8 @@ export default function FormularioFiscal({
 
                     <section
                         className={`formulario-fiscal-secao-premium formulario-fiscal-secao-ibscbs-premium ${produtoPorPeso
-                                ? "formulario-fiscal-secao-ibscbs-peso-premium"
-                                : "formulario-fiscal-secao-ibscbs-produto-premium"
+                            ? "formulario-fiscal-secao-ibscbs-peso-premium"
+                            : "formulario-fiscal-secao-ibscbs-produto-premium"
                             }`}
                     >
 
