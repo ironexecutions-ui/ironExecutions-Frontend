@@ -28,7 +28,7 @@ export default function ModalPagamento({
     const API_ONLINE_VENDAS = API_URL;
 
     const [apiPronta, setApiPronta] = useState(false);
-    const [apiVendas, setApiVendas] = useState(null);
+    const [apiLocalDisponivel, setApiLocalDisponivel] = useState(false);
 
     const [carregandoConfirmacao, setCarregandoConfirmacao] = useState(false);
     const [processando, setProcessando] = useState(false);
@@ -258,16 +258,16 @@ export default function ModalPagamento({
         // =========================================================
 
         console.log(
-            "[NFC-E] API de impressão atual:",
-            apiVendas
+            "[NFC-E] Servidor local disponível:",
+            apiLocalDisponivel
         );
 
         console.log(
-            "[NFC-E] API local esperada:",
+            "[NFC-E] API local:",
             API_LOCAL
         );
 
-        if (apiVendas !== API_LOCAL) {
+        if (!apiLocalDisponivel) {
             console.error(
                 "[NFC-E] Servidor local de impressão indisponível."
             );
@@ -662,7 +662,7 @@ INICIALIZAR PIX RÁPIDO
                         "[VENDA] NFC-e não selecionada. Imprimindo comanda."
                     );
 
-                    if (apiVendas !== API_LOCAL) {
+                    if (!apiLocalDisponivel) {
                         erroImpressao = true;
 
                         mensagemErroImpressao =
@@ -915,29 +915,53 @@ INICIALIZAR PIX RÁPIDO
     // ===============================
     // DEFINIR API
     // ===============================
+    // ===============================
+    // VERIFICAR API LOCAL DE IMPRESSÃO
+    // ===============================
     useEffect(() => {
-        async function definirApiVendas() {
+        async function verificarApiLocal() {
             try {
-                const r = await fetch(`${API_LOCAL}/health`, {
-                    method: "GET"
-                });
+                console.log(
+                    "[IMPRESSÃO LOCAL] Verificando:",
+                    `${API_LOCAL}/health`
+                );
 
-                if (r.ok) {
-                    console.log("API LOCAL ativa, usando 8888");
-                    setApiVendas(API_LOCAL);
-                    return;
+                const resp = await fetch(
+                    `${API_LOCAL}/health`,
+                    {
+                        method: "GET"
+                    }
+                );
+
+                if (resp.ok) {
+                    console.log(
+                        "[IMPRESSÃO LOCAL] Servidor disponível."
+                    );
+
+                    setApiLocalDisponivel(true);
+                } else {
+                    console.warn(
+                        "[IMPRESSÃO LOCAL] Servidor respondeu:",
+                        resp.status
+                    );
+
+                    setApiLocalDisponivel(false);
                 }
-            } catch {
-                // silencioso
-            }
 
-            console.log("API LOCAL indisponível, usando ONLINE");
-            setApiVendas(API_ONLINE_VENDAS);
+            } catch (erro) {
+                console.warn(
+                    "[IMPRESSÃO LOCAL] Servidor indisponível:",
+                    erro
+                );
+
+                setApiLocalDisponivel(false);
+            } finally {
+                setApiPronta(true);
+            }
         }
 
-        definirApiVendas().finally(() => setApiPronta(true));
+        verificarApiLocal();
     }, []);
-
     // ===============================
     // STATUS MAQUININHA
     // ===============================
