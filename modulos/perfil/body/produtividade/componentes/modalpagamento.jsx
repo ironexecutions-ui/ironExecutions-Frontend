@@ -481,7 +481,10 @@ INICIALIZAR PIX RÁPIDO
                                     method: "POST",
                                     headers: {
                                         "Content-Type": "application/json"
-                                    }
+                                    },
+                                    body: JSON.stringify({
+                                        token: localStorage.getItem("token")
+                                    })
                                 }
                             );
 
