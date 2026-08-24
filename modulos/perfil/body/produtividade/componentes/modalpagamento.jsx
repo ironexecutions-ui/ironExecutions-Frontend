@@ -416,7 +416,7 @@ INICIALIZAR PIX RÁPIDO
             //
             // ==========================================
 
-            if (deveEmitirNota) {
+            if (emitirNota) {
                 console.log(
                     "[NFC-e] Venda configurada para emitir nota."
                 );
@@ -680,13 +680,12 @@ INICIALIZAR PIX RÁPIDO
                 "[VENDA] Processo finalizado.",
                 {
                     vendaId,
-                    deveEmitirNota,
+                    emitirNota,
                     nfceEmitida,
                     erroNfce,
                     erroImpressao
                 }
             );
-
             setSucesso(true);
 
             setTimeout(() => {
