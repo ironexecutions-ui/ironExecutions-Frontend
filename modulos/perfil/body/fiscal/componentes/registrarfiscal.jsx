@@ -10,7 +10,7 @@ export default function RegistrarFiscal() {
     const [selecionado, setSelecionado] = useState(null);
     const [funcao, setFuncao] = useState(null);
     const [bloqueado, setBloqueado] = useState(false);
-
+    const [buscaProduto, setBuscaProduto] = useState("");
     // ===============================
     // IA
     // ===============================
@@ -151,7 +151,110 @@ export default function RegistrarFiscal() {
         return false;
 
     });
+    // ===============================
+    // SELECIONAR PRODUTO
+    // ID, NOME OU CÓDIGO DE BARRAS
+    // ===============================
 
+    function selecionarProduto(item) {
+
+        setSelecionado(item || null);
+
+        setMostrarAjudaIa(false);
+        setJsonIa("");
+        setDadosIa(null);
+        setMensagemIa("");
+    }
+
+
+    function buscarProduto(valor) {
+
+        setBuscaProduto(valor);
+
+        const texto = String(valor || "").trim();
+
+        if (!texto) {
+            setSelecionado(null);
+            return;
+        }
+
+        // Primeiro procura código de barras EXATO.
+        // Isso é importante para leitor de código de barras.
+        const porCodigoBarras = filtrados.find(produto =>
+            String(produto.codigo_barras || "").trim() === texto
+        );
+
+        if (porCodigoBarras) {
+
+            selecionarProduto(porCodigoBarras);
+
+            setBuscaProduto(
+                porCodigoBarras.codigo_barras || ""
+            );
+
+            return;
+        }
+
+        // Depois procura pelo ID exato.
+        const porId = filtrados.find(produto =>
+            String(produto.id) === texto
+        );
+
+        if (porId) {
+            selecionarProduto(porId);
+            return;
+        }
+
+        // Se ainda estiver digitando, não seleciona
+        // um produto aleatório.
+        setSelecionado(null);
+    }
+
+
+    // ===============================
+    // ENTER DO LEITOR DE CÓDIGO
+    // ===============================
+
+    function buscarProdutoEnter() {
+
+        const texto = String(buscaProduto || "").trim();
+
+        if (!texto) return;
+
+        const item = filtrados.find(produto => {
+
+            const codigo = String(
+                produto.codigo_barras || ""
+            ).trim();
+
+            const id = String(produto.id);
+
+            const nome = String(
+                produto.nome || ""
+            )
+                .trim()
+                .toLowerCase();
+
+            return (
+                codigo === texto ||
+                id === texto ||
+                nome === texto.toLowerCase()
+            );
+        });
+
+        if (item) {
+
+            selecionarProduto(item);
+
+            return;
+        }
+
+        setSelecionado(null);
+
+        setMensagemIa(
+            `Nenhum produto encontrado para "${texto}".`
+        );
+    }
     // ===============================
     // GERAR PROMPT PARA IA
     // ===============================
@@ -620,14 +723,12 @@ RESPONDA SOMENTE COM O JSON.
 
                         setTipo(e.target.value);
 
+                        setBuscaProduto("");
                         setSelecionado(null);
 
                         setMostrarAjudaIa(false);
-
                         setJsonIa("");
-
                         setDadosIa(null);
-
                         setMensagemIa("");
 
                     }}
@@ -645,27 +746,53 @@ RESPONDA SOMENTE COM O JSON.
                     </option>
                 </select>
 
-                <input
-                    list="produtos"
-                    placeholder="Escolha o item"
-                    onChange={e => {
+                <div className="registrar-fiscal-busca-produto">
 
-                        const item = filtrados.find(
-                            i => i.id === Number(e.target.value)
-                        );
+                    <input
+                        list="produtos"
+                        value={buscaProduto}
+                        placeholder="Nome, ID ou código de barras"
+                        autoComplete="off"
 
-                        setSelecionado(item || null);
+                        onChange={e => {
+                            buscarProduto(e.target.value);
+                        }}
 
-                        setMostrarAjudaIa(false);
+                        onKeyDown={e => {
 
-                        setJsonIa("");
+                            if (e.key === "Enter") {
 
-                        setDadosIa(null);
+                                e.preventDefault();
 
-                        setMensagemIa("");
+                                buscarProdutoEnter();
+                            }
 
-                    }}
-                />
+                        }}
+                    />
+
+                    {buscaProduto && (
+
+                        <button
+                            type="button"
+                            className="registrar-fiscal-busca-limpar"
+                            onClick={() => {
+
+                                setBuscaProduto("");
+                                setSelecionado(null);
+
+                                setMostrarAjudaIa(false);
+                                setJsonIa("");
+                                setDadosIa(null);
+                                setMensagemIa("");
+
+                            }}
+                        >
+                            ×
+                        </button>
+
+                    )}
+
+                </div>
 
             </div>
 
@@ -675,11 +802,15 @@ RESPONDA SOMENTE COM O JSON.
 
                     <option
                         key={p.id}
-                        value={p.id}
+                        value={
+                            p.codigo_barras
+                                ? String(p.codigo_barras)
+                                : String(p.id)
+                        }
                         label={
                             Number(p.peso) > 0
-                                ? `${p.nome} | Produto por peso | ${p.peso}g`
-                                : `${p.nome} | ${p.unidade || ""} ${p.unidades || ""} ${p.tempo_servico || ""}`
+                                ? `${p.nome} | Produto por peso | ${p.peso}g | Código: ${p.codigo_barras || "Sem código"}`
+                                : `${p.nome} | Código: ${p.codigo_barras || "Sem código"} | ID: ${p.id}`
                         }
                     />
 

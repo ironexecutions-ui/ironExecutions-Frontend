@@ -1566,3 +1566,293 @@
     }
 
 }
+
+/* =========================================================
+   BUSCA DE PRODUTO / CÓDIGO DE BARRAS
+========================================================= */
+
+.registrar-fiscal-busca-produto {
+    width: 100%;
+    min-width: 0;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   INPUT DE BUSCA
+========================================================= */
+
+.registrar-fiscal-busca-produto input {
+    width: 100%;
+    height: 46px;
+
+    box-sizing: border-box;
+
+    padding: 0 48px 0 15px;
+
+    outline: none;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #fbfcfe);
+
+    border: 1px solid #d3dce6;
+    border-radius: 10px;
+
+    color: #101828 !important;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    box-shadow:
+        inset 0 1px 2px rgba(16, 24, 40, 0.025),
+        0 2px 5px rgba(16, 24, 40, 0.025);
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+
+.registrar-fiscal-busca-produto input::placeholder {
+    color: #98a2b3 !important;
+
+    font-size: 11px;
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.registrar-fiscal-busca-produto input:hover {
+    border-color: #aab7c5;
+}
+
+
+/* =========================================================
+   FOCO
+========================================================= */
+
+.registrar-fiscal-busca-produto input:focus {
+    background: #ffffff;
+
+    border-color: #174f88;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.08),
+        0 5px 13px rgba(18, 61, 114, 0.06);
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR
+========================================================= */
+
+.registrar-fiscal-busca-limpar {
+    width: 30px;
+    height: 30px;
+
+    position: absolute;
+
+    top: 50%;
+    right: 8px;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: #f1f5f9;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+
+    color: #64748b !important;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 2;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+/* =========================================================
+   HOVER BOTÃO LIMPAR
+========================================================= */
+
+.registrar-fiscal-busca-limpar:hover {
+    background: #e8eef5;
+
+    border-color: #cbd5e1;
+
+    color: #0b1f3a !important;
+
+    transform:
+        translateY(-50%) scale(1.05);
+}
+
+
+.registrar-fiscal-busca-limpar:active {
+    transform:
+        translateY(-50%) scale(0.96);
+}
+
+
+/* =========================================================
+   TOPO, SELECT + BUSCA
+========================================================= */
+
+.registrar-fiscal-topo {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(160px, 220px) minmax(280px, 1fr);
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   SELECT DE TIPO
+========================================================= */
+
+.registrar-fiscal-topo>select {
+    width: 100%;
+    height: 46px;
+
+    box-sizing: border-box;
+
+    padding: 0 12px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    border: 1px solid #d3dce6;
+    border-radius: 10px;
+
+    color: #0b1f3a !important;
+
+    font-size: 11px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.registrar-fiscal-topo>select:hover {
+    border-color: #aab7c5;
+}
+
+
+.registrar-fiscal-topo>select:focus {
+    border-color: #174f88;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.08);
+}
+
+
+/* =========================================================
+   LEITOR DE CÓDIGO DE BARRAS
+
+   Dá um destaque sutil quando o campo está em foco,
+   facilitando saber onde o leitor vai escrever.
+========================================================= */
+
+.registrar-fiscal-busca-produto:focus-within::before {
+    content: "CÓDIGO / PRODUTO";
+
+    position: absolute;
+
+    top: -7px;
+    left: 11px;
+
+    padding: 0 5px;
+
+    background: #ffffff;
+
+    color: #174f88 !important;
+
+    font-size: 7px;
+    font-weight: 900;
+
+    letter-spacing: 0.6px;
+
+    z-index: 3;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .registrar-fiscal-topo {
+        grid-template-columns:
+            minmax(130px, 180px) minmax(0, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .registrar-fiscal-topo {
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+    }
+
+
+    .registrar-fiscal-topo>select {
+        height: 44px;
+    }
+
+
+    .registrar-fiscal-busca-produto input {
+        height: 46px;
+
+        font-size: 13px;
+    }
+
+
+    .registrar-fiscal-busca-limpar {
+        width: 30px;
+        height: 30px;
+    }
+
+}
