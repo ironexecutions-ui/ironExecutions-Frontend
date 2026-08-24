@@ -11,7 +11,7 @@ export default function RegistradosFiscal() {
 
     const [filtroNome, setFiltroNome] = useState("");
     const [filtroCodigo, setFiltroCodigo] = useState("");
-
+    const [limiteVisivel, setLimiteVisivel] = useState(8);
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState("");
 
@@ -90,7 +90,6 @@ export default function RegistradosFiscal() {
     // =====================================================
     // RECARREGAR QUANDO TROCAR O TIPO
     // =====================================================
-
     useEffect(() => {
 
         carregar();
@@ -98,6 +97,7 @@ export default function RegistradosFiscal() {
         setEditando(null);
         setFiltroNome("");
         setFiltroCodigo("");
+        setLimiteVisivel(8);
 
     }, [tipo]);
 
@@ -131,28 +131,36 @@ export default function RegistradosFiscal() {
     function abrirEdicao(item) {
 
         console.log(
-            "[RegistradosFiscal] Item selecionado para edição:",
+            "[RegistradosFiscal] CLICOU EM EDITAR:",
             item
         );
 
-        const produtoId =
-            item.produto_id ||
-            item.id;
+        const produtoId = item.produto_id;
 
         console.log(
-            "[RegistradosFiscal] produto_id que será usado:",
+            "[RegistradosFiscal] fiscal_id:",
+            item.fiscal_id
+        );
+
+        console.log(
+            "[RegistradosFiscal] produto_id:",
             produtoId
+        );
+
+        console.log(
+            "[RegistradosFiscal] id:",
+            item.id
         );
 
         if (!produtoId) {
 
             console.error(
-                "[RegistradosFiscal] O registro não possui produto_id:",
+                "[RegistradosFiscal] ERRO: produto_id não veio do backend.",
                 item
             );
 
             setErro(
-                "Não foi possível editar. O registro fiscal não possui produto_id."
+                "Este registro fiscal não possui produto_id. A rota /fiscal/registrados precisa retornar o produto_id."
             );
 
             return;
@@ -160,14 +168,25 @@ export default function RegistradosFiscal() {
 
         setErro("");
 
-        /*
-         * Garantimos que FormularioFiscal receba
-         * produto_id corretamente.
-         */
         setEditando({
             ...item,
             produto_id: produtoId
         });
+
+        setTimeout(() => {
+
+            const formulario = document.getElementById(
+                "registrados-fiscal-formulario-edicao"
+            );
+
+            if (formulario) {
+                formulario.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+
+        }, 100);
     }
 
 
@@ -196,7 +215,16 @@ export default function RegistradosFiscal() {
         return nomeOk && codigoOk;
     });
 
+    const listaVisivel = listaFiltrada.slice(
+        0,
+        limiteVisivel
+    );
 
+    const temMaisRegistros =
+        limiteVisivel < listaFiltrada.length;
+
+    const quantidadeRestante =
+        listaFiltrada.length - limiteVisivel;
     // =====================================================
     // RETURN
     // =====================================================
@@ -237,18 +265,20 @@ export default function RegistradosFiscal() {
                 <input
                     placeholder="Filtrar por nome"
                     value={filtroNome}
-                    onChange={e =>
-                        setFiltroNome(e.target.value)
-                    }
+                    onChange={e => {
+                        setFiltroNome(e.target.value);
+                        setLimiteVisivel(8);
+                    }}
                 />
 
 
                 <input
                     placeholder="Filtrar por código de barras"
                     value={filtroCodigo}
-                    onChange={e =>
-                        setFiltroCodigo(e.target.value)
-                    }
+                    onChange={e => {
+                        setFiltroCodigo(e.target.value);
+                        setLimiteVisivel(8);
+                    }}
                 />
 
             </div>
@@ -319,8 +349,7 @@ export default function RegistradosFiscal() {
 
                     <tbody>
 
-                        {listaFiltrada.map(item => (
-
+                        {listaVisivel.map(item => (
                             <tr
                                 key={
                                     item.fiscal_id ||
@@ -386,15 +415,39 @@ export default function RegistradosFiscal() {
 
             )}
 
+            {temMaisRegistros && (
 
+                <div className="registrados-fiscal-ver-mais-area">
+
+                    <button
+                        type="button"
+                        className="registrados-fiscal-ver-mais"
+                        onClick={() =>
+                            setLimiteVisivel(anterior =>
+                                anterior + 8
+                            )
+                        }
+                    >
+                        Ver mais 8
+                    </button>
+
+                    <span>
+                        Exibindo {listaVisivel.length} de {listaFiltrada.length}
+                    </span>
+
+                </div>
+
+            )}
             {/* =================================================
                 FORMULÁRIO DE EDIÇÃO
             ================================================= */}
 
             {editando && (
 
-                <div className="registrados-fiscal-edicao">
-
+                <div
+                    id="registrados-fiscal-formulario-edicao"
+                    className="registrados-fiscal-edicao"
+                >
                     <div className="registrados-fiscal-edicao-topo">
 
                         <div>
