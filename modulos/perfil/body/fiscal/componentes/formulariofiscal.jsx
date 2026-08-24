@@ -7,7 +7,8 @@ export default function FormularioFiscal({
     produto,
     produtoPorPeso = false,
     modo = "novo",
-    onSalvo
+    onSalvo,
+    dadosIa = null
 }) {
     const token = localStorage.getItem("token");
     const [salvando, setSalvando] = useState(false);
@@ -47,7 +48,141 @@ export default function FormularioFiscal({
     });
 
     const sufixo = produto.id;
+    /* ===============================
+       PREENCHER COM DADOS DA IA
+    =============================== */
 
+    useEffect(() => {
+
+        if (!dadosIa) return;
+
+        console.log(
+            "[FormularioFiscal] Dados recebidos da IA:",
+            dadosIa
+        );
+
+        setForm(anterior => {
+
+            const atualizado = {
+                ...anterior
+            };
+
+            // ===============================
+            // PRODUTO
+            // ===============================
+
+            if (tipo === "produto") {
+
+                if (dadosIa.ncm !== undefined) {
+                    atualizado.ncm = dadosIa.ncm;
+                }
+
+                if (dadosIa.cfop !== undefined) {
+                    atualizado.cfop = dadosIa.cfop;
+                }
+
+                if (dadosIa.origem !== undefined) {
+                    atualizado.origem = dadosIa.origem;
+                }
+
+                if (dadosIa.cst_csosn !== undefined) {
+                    atualizado.cst_csosn = dadosIa.cst_csosn;
+                }
+
+                if (dadosIa.icms !== undefined) {
+                    atualizado.icms =
+                        dadosIa.icms === ""
+                            ? ""
+                            : Number(dadosIa.icms);
+                }
+
+                if (dadosIa.pis !== undefined) {
+                    atualizado.pis =
+                        dadosIa.pis === ""
+                            ? ""
+                            : Number(dadosIa.pis);
+                }
+
+                if (dadosIa.cofins !== undefined) {
+                    atualizado.cofins =
+                        dadosIa.cofins === ""
+                            ? ""
+                            : Number(dadosIa.cofins);
+                }
+
+                if (dadosIa.cest !== undefined) {
+                    atualizado.cest = dadosIa.cest;
+                }
+
+                // ===============================
+                // IBS / CBS
+                // ===============================
+
+                if (dadosIa.cst_ibscbs !== undefined) {
+                    atualizado.cst_ibscbs =
+                        dadosIa.cst_ibscbs;
+                }
+
+                if (dadosIa.cclass_trib !== undefined) {
+                    atualizado.cclass_trib =
+                        dadosIa.cclass_trib;
+                }
+
+                if (dadosIa.aliquota_ibs_uf !== undefined) {
+                    atualizado.aliquota_ibs_uf =
+                        dadosIa.aliquota_ibs_uf === ""
+                            ? ""
+                            : Number(dadosIa.aliquota_ibs_uf);
+                }
+
+                if (dadosIa.aliquota_ibs_mun !== undefined) {
+                    atualizado.aliquota_ibs_mun =
+                        dadosIa.aliquota_ibs_mun === ""
+                            ? ""
+                            : Number(dadosIa.aliquota_ibs_mun);
+                }
+
+                if (dadosIa.aliquota_cbs !== undefined) {
+                    atualizado.aliquota_cbs =
+                        dadosIa.aliquota_cbs === ""
+                            ? ""
+                            : Number(dadosIa.aliquota_cbs);
+                }
+            }
+
+            // ===============================
+            // SERVIÇO
+            // ===============================
+
+            if (tipo === "servico") {
+
+                if (dadosIa.codigo_servico !== undefined) {
+                    atualizado.codigo_servico =
+                        dadosIa.codigo_servico;
+                }
+
+                if (dadosIa.aliquota_iss !== undefined) {
+                    atualizado.aliquota_iss =
+                        dadosIa.aliquota_iss === ""
+                            ? ""
+                            : Number(dadosIa.aliquota_iss);
+                }
+
+                if (dadosIa.municipio !== undefined) {
+                    atualizado.municipio =
+                        dadosIa.municipio;
+                }
+            }
+
+            console.log(
+                "[FormularioFiscal] Formulário após IA:",
+                atualizado
+            );
+
+            return atualizado;
+        });
+
+    }, [dadosIa, tipo]);
     /* ===============================
        CARREGAR DADOS PARA EDIÇÃO
     =============================== */
@@ -167,7 +302,21 @@ export default function FormularioFiscal({
 
         return copia;
     }
+    function campoVazioIa(campo) {
 
+        // Só destaca depois que a IA foi aplicada
+        if (!dadosIa) {
+            return false;
+        }
+
+        const valor = form[campo];
+
+        return (
+            valor === "" ||
+            valor === null ||
+            valor === undefined
+        );
+    }
     return (
         <div className="formulario-fiscal">
 
@@ -213,11 +362,13 @@ export default function FormularioFiscal({
                         <div className="formulario-fiscal-secao-titulo-premium">
 
                             <div>
+
                                 <h6>Classificação fiscal</h6>
 
                                 <p>
                                     Identificação e enquadramento fiscal do produto.
                                 </p>
+
                             </div>
 
                         </div>
@@ -234,6 +385,11 @@ export default function FormularioFiscal({
                                 </label>
 
                                 <input
+                                    className={
+                                        campoVazioIa("ncm")
+                                            ? "formulario-fiscal-input-ia-vazio"
+                                            : ""
+                                    }
                                     placeholder="Ex: 22021000"
                                     value={form.ncm || ""}
                                     onChange={(e) =>
@@ -260,6 +416,11 @@ export default function FormularioFiscal({
                                 </label>
 
                                 <input
+                                    className={
+                                        campoVazioIa("cfop")
+                                            ? "formulario-fiscal-input-ia-vazio"
+                                            : ""
+                                    }
                                     list={`cfop-${sufixo}`}
                                     placeholder="Ex: 5102"
                                     value={form.cfop || ""}
@@ -305,6 +466,11 @@ export default function FormularioFiscal({
                                 </label>
 
                                 <input
+                                    className={
+                                        campoVazioIa("origem")
+                                            ? "formulario-fiscal-input-ia-vazio"
+                                            : ""
+                                    }
                                     list={`origem-${sufixo}`}
                                     placeholder="Selecione a origem"
                                     value={form.origem || ""}
@@ -351,6 +517,11 @@ export default function FormularioFiscal({
                                 </label>
 
                                 <input
+                                    className={
+                                        campoVazioIa("cst_csosn")
+                                            ? "formulario-fiscal-input-ia-vazio"
+                                            : ""
+                                    }
                                     list={`cst-${sufixo}`}
                                     placeholder="Ex: 102"
                                     value={form.cst_csosn || ""}
@@ -400,11 +571,13 @@ export default function FormularioFiscal({
                         <div className="formulario-fiscal-secao-titulo-premium">
 
                             <div>
+
                                 <h6>Tributação</h6>
 
                                 <p>
                                     Alíquotas utilizadas para este produto.
                                 </p>
+
                             </div>
 
                         </div>
@@ -423,6 +596,11 @@ export default function FormularioFiscal({
                                 <div className="formulario-fiscal-input-percentual-premium">
 
                                     <input
+                                        className={
+                                            campoVazioIa("icms")
+                                                ? "formulario-fiscal-input-ia-vazio"
+                                                : ""
+                                        }
                                         type="number"
                                         step="0.01"
                                         placeholder="0,00"
@@ -434,7 +612,10 @@ export default function FormularioFiscal({
                                         onChange={(e) =>
                                             setForm({
                                                 ...form,
-                                                icms: Number(e.target.value)
+                                                icms:
+                                                    e.target.value === ""
+                                                        ? ""
+                                                        : Number(e.target.value)
                                             })
                                         }
                                     />
@@ -461,6 +642,11 @@ export default function FormularioFiscal({
                                 <div className="formulario-fiscal-input-percentual-premium">
 
                                     <input
+                                        className={
+                                            campoVazioIa("pis")
+                                                ? "formulario-fiscal-input-ia-vazio"
+                                                : ""
+                                        }
                                         type="number"
                                         step="0.01"
                                         placeholder="0,00"
@@ -472,7 +658,10 @@ export default function FormularioFiscal({
                                         onChange={(e) =>
                                             setForm({
                                                 ...form,
-                                                pis: Number(e.target.value)
+                                                pis:
+                                                    e.target.value === ""
+                                                        ? ""
+                                                        : Number(e.target.value)
                                             })
                                         }
                                     />
@@ -499,6 +688,11 @@ export default function FormularioFiscal({
                                 <div className="formulario-fiscal-input-percentual-premium">
 
                                     <input
+                                        className={
+                                            campoVazioIa("cofins")
+                                                ? "formulario-fiscal-input-ia-vazio"
+                                                : ""
+                                        }
                                         type="number"
                                         step="0.01"
                                         placeholder="0,00"
@@ -510,7 +704,10 @@ export default function FormularioFiscal({
                                         onChange={(e) =>
                                             setForm({
                                                 ...form,
-                                                cofins: Number(e.target.value)
+                                                cofins:
+                                                    e.target.value === ""
+                                                        ? ""
+                                                        : Number(e.target.value)
                                             })
                                         }
                                     />
@@ -535,6 +732,11 @@ export default function FormularioFiscal({
                                 </label>
 
                                 <input
+                                    className={
+                                        campoVazioIa("cest")
+                                            ? "formulario-fiscal-input-ia-vazio"
+                                            : ""
+                                    }
                                     list={`cest-${sufixo}`}
                                     placeholder="Quando aplicável"
                                     value={form.cest || ""}
@@ -569,8 +771,8 @@ export default function FormularioFiscal({
 
 
                     {/* =================================================
-                        IBS / CBS
-                    ================================================= */}
+                    IBS / CBS
+                ================================================= */}
 
                     <section
                         className={`formulario-fiscal-secao-premium formulario-fiscal-secao-ibscbs-premium ${produtoPorPeso
@@ -616,7 +818,6 @@ export default function FormularioFiscal({
 
                         <div className="formulario-fiscal-grade-premium">
 
-
                             {/* CST IBS/CBS */}
 
                             <div className="formulario-fiscal-campo-premium">
@@ -626,6 +827,11 @@ export default function FormularioFiscal({
                                 </label>
 
                                 <input
+                                    className={
+                                        campoVazioIa("cst_ibscbs")
+                                            ? "formulario-fiscal-input-ia-vazio"
+                                            : ""
+                                    }
                                     type="text"
                                     inputMode="numeric"
                                     placeholder="Ex: 200"
@@ -654,6 +860,11 @@ export default function FormularioFiscal({
                                 </label>
 
                                 <input
+                                    className={
+                                        campoVazioIa("cclass_trib")
+                                            ? "formulario-fiscal-input-ia-vazio"
+                                            : ""
+                                    }
                                     type="text"
                                     inputMode="numeric"
                                     placeholder="Ex: 200014"
@@ -684,6 +895,11 @@ export default function FormularioFiscal({
                                 <div className="formulario-fiscal-input-percentual-premium">
 
                                     <input
+                                        className={
+                                            campoVazioIa("aliquota_ibs_uf")
+                                                ? "formulario-fiscal-input-ia-vazio"
+                                                : ""
+                                        }
                                         type="number"
                                         step="0.01"
                                         min="0"
@@ -726,6 +942,11 @@ export default function FormularioFiscal({
                                 <div className="formulario-fiscal-input-percentual-premium">
 
                                     <input
+                                        className={
+                                            campoVazioIa("aliquota_ibs_mun")
+                                                ? "formulario-fiscal-input-ia-vazio"
+                                                : ""
+                                        }
                                         type="number"
                                         step="0.01"
                                         min="0"
@@ -768,6 +989,11 @@ export default function FormularioFiscal({
                                 <div className="formulario-fiscal-input-percentual-premium">
 
                                     <input
+                                        className={
+                                            campoVazioIa("aliquota_cbs")
+                                                ? "formulario-fiscal-input-ia-vazio"
+                                                : ""
+                                        }
                                         type="number"
                                         step="0.01"
                                         min="0"
@@ -804,8 +1030,6 @@ export default function FormularioFiscal({
 
                 </>
 
-
-
             )}
 
 
@@ -820,17 +1044,21 @@ export default function FormularioFiscal({
                     <div className="formulario-fiscal-secao-titulo-premium">
 
                         <div>
+
                             <h6>Tributação do serviço</h6>
 
                             <p>
                                 Configure os dados fiscais necessários para o serviço.
                             </p>
+
                         </div>
 
                     </div>
 
 
                     <div className="formulario-fiscal-grade-premium">
+
+                        {/* CÓDIGO SERVIÇO */}
 
                         <div className="formulario-fiscal-campo-premium">
 
@@ -839,6 +1067,11 @@ export default function FormularioFiscal({
                             </label>
 
                             <input
+                                className={
+                                    campoVazioIa("codigo_servico")
+                                        ? "formulario-fiscal-input-ia-vazio"
+                                        : ""
+                                }
                                 list={`codigo_servico-${sufixo}`}
                                 placeholder="Código LC 116"
                                 value={form.codigo_servico || ""}
@@ -868,6 +1101,8 @@ export default function FormularioFiscal({
                         </div>
 
 
+                        {/* ISS */}
+
                         <div className="formulario-fiscal-campo-premium">
 
                             <label>
@@ -877,6 +1112,11 @@ export default function FormularioFiscal({
                             <div className="formulario-fiscal-input-percentual-premium">
 
                                 <input
+                                    className={
+                                        campoVazioIa("aliquota_iss")
+                                            ? "formulario-fiscal-input-ia-vazio"
+                                            : ""
+                                    }
                                     type="number"
                                     step="0.01"
                                     placeholder="0,00"
@@ -888,7 +1128,10 @@ export default function FormularioFiscal({
                                     onChange={(e) =>
                                         setForm({
                                             ...form,
-                                            aliquota_iss: Number(e.target.value)
+                                            aliquota_iss:
+                                                e.target.value === ""
+                                                    ? ""
+                                                    : Number(e.target.value)
                                         })
                                     }
                                 />
@@ -904,6 +1147,8 @@ export default function FormularioFiscal({
                         </div>
 
 
+                        {/* MUNICÍPIO */}
+
                         <div className="formulario-fiscal-campo-premium">
 
                             <label>
@@ -911,6 +1156,11 @@ export default function FormularioFiscal({
                             </label>
 
                             <input
+                                className={
+                                    campoVazioIa("municipio")
+                                        ? "formulario-fiscal-input-ia-vazio"
+                                        : ""
+                                }
                                 list={`municipio-${sufixo}`}
                                 placeholder="Município da tributação"
                                 value={form.municipio || ""}

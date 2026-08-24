@@ -11,55 +11,66 @@ export default function RegistrarFiscal() {
     const [funcao, setFuncao] = useState(null);
     const [bloqueado, setBloqueado] = useState(false);
 
+    // ===============================
+    // IA
+    // ===============================
+
+    const [mostrarAjudaIa, setMostrarAjudaIa] = useState(false);
+    const [jsonIa, setJsonIa] = useState("");
+    const [dadosIa, setDadosIa] = useState(null);
+    const [mensagemIa, setMensagemIa] = useState("");
+    const [promptCopiado, setPromptCopiado] = useState(false);
+
     const token = localStorage.getItem("token");
 
     // ===============================
     // VERIFICAR FUNÇÃO DO USUÁRIO
     // ===============================
+
     useEffect(() => {
         fetch(`${API_URL}/clientes/me`, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
             .then(r => r.json())
             .then(dados => {
-                if (
-                    dados.funcao !== "Administrador(a)"
-                ) {
+
+                if (dados.funcao !== "Administrador(a)") {
                     setBloqueado(true);
                 } else {
                     setFuncao(dados.funcao);
                 }
+
             })
             .catch(() => setBloqueado(true));
-    }, []);
+
+    }, [token]);
 
     // ===============================
     // CARREGAR PRODUTOS
     // ===============================
+
     useEffect(() => {
+
         if (!funcao) return;
 
         fetch(`${API_URL}/fiscal/produtos-servicos`, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
             .then(r => r.json())
             .then(setLista);
-    }, [funcao]);
 
-    if (bloqueado) {
-        return (
-            <div className="registrar-fiscal-bloqueado">
-                <h4>Acesso restrito</h4>
-                <p>Somente administradores podem registrar dados fiscais.</p>
-            </div>
-        );
-    }
+    }, [funcao, token]);
 
-    if (!funcao) {
-        return <p>Carregando...</p>;
-    }
+    // ===============================
+    // PRODUTO POR PESO
+    // ===============================
 
     function ehProdutoPorPeso(produto) {
+
         return (
             produto.peso !== null &&
             produto.peso !== undefined &&
@@ -69,7 +80,12 @@ export default function RegistrarFiscal() {
             !produto.produto_id &&
             !produto.tempo_servico
         );
+
     }
+
+    // ===============================
+    // FILTRAR PRODUTOS
+    // ===============================
 
     const filtrados = lista.filter(p => {
 
@@ -86,40 +102,505 @@ export default function RegistrarFiscal() {
         }
 
         return false;
+
     });
 
+    // ===============================
+    // GERAR PROMPT PARA IA
+    // ===============================
+
+    function gerarPromptIa() {
+
+        if (!selecionado) return "";
+
+        const nome = selecionado.nome || "";
+
+        // ===============================
+        // SERVIÇO
+        // ===============================
+
+        if (tipo === "servico") {
+
+            return `
+Você é um especialista brasileiro em tributação de serviços, NFS-e, ISS e Lei Complementar 116/2003.
+
+Preciso preencher o cadastro fiscal do seguinte serviço:
+
+NOME DO SERVIÇO:
+${nome}
+
+TEMPO DO SERVIÇO:
+${selecionado.tempo_servico || "Não informado"}
+
+Analise especificamente o serviço informado.
+
+Preciso que determine:
+
+1. codigo_servico
+Código correspondente ao serviço na lista da LC 116/2003.
+
+2. aliquota_iss
+Alíquota de ISS normalmente aplicável ao serviço.
+Retorne somente o número, sem o símbolo %.
+
+3. municipio
+Município de incidência do ISS somente se puder ser determinado pelas informações fornecidas.
+Se não puder ser determinado, retorne "".
+
+REGRAS OBRIGATÓRIAS:
+
+- Não invente informações.
+- Não escreva explicações.
+- Não escreva Markdown.
+- Não utilize bloco de código.
+- Não escreva nada antes do JSON.
+- Não escreva nada depois do JSON.
+- Retorne somente JSON válido.
+- Todos os valores devem ser strings.
+- Se não for possível determinar algum dado com segurança, utilize "".
+- Não adicione nenhuma propriedade diferente das solicitadas.
+
+FORMATO EXATO:
+
+{
+    "codigo_servico": "",
+    "aliquota_iss": "",
+    "municipio": ""
+}
+
+RESPONDA SOMENTE COM O JSON.
+`.trim();
+
+        }
+
+        // ===============================
+        // PRODUTO
+        // ===============================
+
+        const descricaoTipo =
+            tipo === "peso"
+                ? "PRODUTO VENDIDO POR PESO"
+                : "PRODUTO";
+
+        return `
+Você é um especialista brasileiro em classificação fiscal de mercadorias, NFC-e, NF-e, ICMS, PIS, COFINS, NCM, CEST, CFOP e na tributação IBS/CBS da reforma tributária brasileira.
+
+Preciso preencher o cadastro fiscal de uma mercadoria.
+
+DADOS DO ITEM:
+
+Nome:
+${nome}
+
+Tipo:
+${descricaoTipo}
+
+Peso:
+${selecionado.peso || "Não informado"}
+
+Unidade:
+${selecionado.unidade || "Não informada"}
+
+Quantidade/unidades:
+${selecionado.unidades || "Não informado"}
+
+Analise especificamente o produto "${nome}".
+
+Você deve retornar os dados fiscais mais adequados e prováveis para esse produto.
+
+CAMPOS:
+
+ncm:
+NCM brasileiro válido de exatamente 8 dígitos.
+
+cfop:
+CFOP considerando venda normal dentro do mesmo estado para consumidor final.
+
+origem:
+Código de origem da mercadoria.
+Exemplo:
+0 = nacional
+1 = importação direta
+2 = estrangeira adquirida no mercado interno.
+
+Não presuma que o produto é importado sem informação que indique isso.
+
+cst_csosn:
+Código CST ou CSOSN apropriado.
+
+icms:
+Alíquota percentual do ICMS.
+Somente número, sem %.
+
+pis:
+Alíquota percentual do PIS.
+Somente número, sem %.
+
+cofins:
+Alíquota percentual da COFINS.
+Somente número, sem %.
+
+cest:
+Código CEST somente quando realmente aplicável.
+Caso não se aplique, retorne "".
+
+cst_ibscbs:
+CST correspondente ao IBS/CBS aplicável ao produto, considerando as regras vigentes.
+
+cclass_trib:
+Código cClassTrib correspondente à classificação tributária IBS/CBS.
+
+aliquota_ibs_uf:
+Alíquota percentual IBS estadual aplicável.
+Somente número, sem %.
+
+aliquota_ibs_mun:
+Alíquota percentual IBS municipal aplicável.
+Somente número, sem %.
+
+aliquota_cbs:
+Alíquota percentual CBS aplicável.
+Somente número, sem %.
+
+REGRAS CRÍTICAS:
+
+- Não invente códigos fiscais.
+- Analise o produto pelo nome e características informadas.
+- O NCM precisa ter exatamente 8 dígitos.
+- O CFOP precisa ter exatamente 4 dígitos.
+- CEST somente deve ser preenchido quando aplicável.
+- Não escreva justificativas.
+- Não escreva observações.
+- Não escreva Markdown.
+- Não utilize bloco de código.
+- Não coloque \`\`\`json.
+- Não escreva texto antes do JSON.
+- Não escreva texto depois do JSON.
+- Todos os valores devem ser strings.
+- Quando uma informação depender de características que não foram fornecidas e não puder ser determinada com segurança, utilize "".
+- Não adicione propriedades.
+- Retorne obrigatoriamente JSON válido.
+
+A resposta deve possuir EXATAMENTE esta estrutura:
+
+{
+    "ncm": "",
+    "cfop": "",
+    "origem": "",
+    "cst_csosn": "",
+    "icms": "",
+    "pis": "",
+    "cofins": "",
+    "cest": "",
+    "cst_ibscbs": "",
+    "cclass_trib": "",
+    "aliquota_ibs_uf": "",
+    "aliquota_ibs_mun": "",
+    "aliquota_cbs": ""
+}
+
+RESPONDA SOMENTE COM O JSON.
+`.trim();
+    }
+
+    // ===============================
+    // COPIAR PROMPT
+    // ===============================
+
+    async function copiarPromptIa() {
+
+        const prompt = gerarPromptIa();
+
+        try {
+
+            await navigator.clipboard.writeText(prompt);
+
+            setPromptCopiado(true);
+            setMensagemIa("Prompt copiado. Agora envie para sua IA favorita.");
+
+            setTimeout(() => {
+                setPromptCopiado(false);
+            }, 3000);
+
+        } catch (erro) {
+
+            console.error(
+                "[RegistrarFiscal] Erro ao copiar prompt:",
+                erro
+            );
+
+            setMensagemIa(
+                "Não foi possível copiar automaticamente."
+            );
+
+        }
+
+    }
+
+    // ===============================
+    // LIMPAR JSON DA IA
+    // ===============================
+
+    function limparJsonIa(texto) {
+
+        if (!texto) return "";
+
+        let limpo = texto.trim();
+
+        limpo = limpo
+            .replace(/^```json/i, "")
+            .replace(/^```/i, "")
+            .replace(/```$/i, "")
+            .trim();
+
+        const inicio = limpo.indexOf("{");
+        const fim = limpo.lastIndexOf("}");
+
+        if (inicio !== -1 && fim !== -1) {
+            limpo = limpo.substring(inicio, fim + 1);
+        }
+
+        return limpo;
+
+    }
+
+    // ===============================
+    // VALIDAR JSON DA IA
+    // ===============================
+
+    function validarDadosIa(dados) {
+
+        if (
+            !dados ||
+            typeof dados !== "object" ||
+            Array.isArray(dados)
+        ) {
+            throw new Error(
+                "A resposta não contém um objeto JSON válido."
+            );
+        }
+
+        const camposProduto = [
+            "ncm",
+            "cfop",
+            "origem",
+            "cst_csosn",
+            "icms",
+            "pis",
+            "cofins",
+            "cest",
+            "cst_ibscbs",
+            "cclass_trib",
+            "aliquota_ibs_uf",
+            "aliquota_ibs_mun",
+            "aliquota_cbs"
+        ];
+
+        const camposServico = [
+            "codigo_servico",
+            "aliquota_iss",
+            "municipio"
+        ];
+
+        const camposPermitidos =
+            tipo === "servico"
+                ? camposServico
+                : camposProduto;
+
+        const resultado = {};
+
+        camposPermitidos.forEach(campo => {
+
+            if (
+                dados[campo] === null ||
+                dados[campo] === undefined
+            ) {
+                resultado[campo] = "";
+                return;
+            }
+
+            resultado[campo] =
+                String(dados[campo]).trim();
+        });
+
+        if (tipo !== "servico") {
+
+            if (
+                resultado.ncm &&
+                !/^\d{8}$/.test(resultado.ncm)
+            ) {
+                throw new Error(
+                    "O NCM informado pela IA não possui 8 dígitos."
+                );
+            }
+
+            if (
+                resultado.cfop &&
+                !/^\d{4}$/.test(resultado.cfop)
+            ) {
+                throw new Error(
+                    "O CFOP informado pela IA não possui 4 dígitos."
+                );
+            }
+        }
+
+        return resultado;
+    }
+
+    // ===============================
+    // APLICAR JSON
+    // ===============================
+
+    function aplicarJsonIa() {
+
+        setMensagemIa("");
+
+        if (!jsonIa.trim()) {
+
+            setMensagemIa(
+                "Cole primeiro o JSON retornado pela IA."
+            );
+
+            return;
+
+        }
+
+        try {
+
+            const textoLimpo = limparJsonIa(jsonIa);
+
+            const convertido = JSON.parse(textoLimpo);
+
+            const validado = validarDadosIa(convertido);
+
+            console.log(
+                "[RegistrarFiscal] JSON recebido da IA:",
+                convertido
+            );
+
+            console.log(
+                "[RegistrarFiscal] JSON validado:",
+                validado
+            );
+
+            setDadosIa(validado);
+
+            setMensagemIa(
+                "Dados reconhecidos. O formulário foi preenchido."
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[RegistrarFiscal] JSON inválido:",
+                erro
+            );
+
+            setMensagemIa(
+                erro.message || "O JSON informado é inválido."
+            );
+
+        }
+
+    }
+
+    // ===============================
+    // BLOQUEADO
+    // ===============================
+
+    if (bloqueado) {
+
+        return (
+            <div className="registrar-fiscal-bloqueado">
+                <h4>Acesso restrito</h4>
+
+                <p>
+                    Somente administradores podem registrar dados fiscais.
+                </p>
+            </div>
+        );
+
+    }
+
+    // ===============================
+    // CARREGANDO
+    // ===============================
+
+    if (!funcao) {
+        return <p>Carregando...</p>;
+    }
+
+    // ===============================
+    // RETURN
+    // ===============================
+
     return (
+
         <div className="registrar-fiscal">
 
             <h4>Registrar Dados Fiscais</h4>
 
             <div className="registrar-fiscal-topo">
+
                 <select
                     value={tipo}
                     onChange={e => {
+
                         setTipo(e.target.value);
+
                         setSelecionado(null);
+
+                        setMostrarAjudaIa(false);
+
+                        setJsonIa("");
+
+                        setDadosIa(null);
+
+                        setMensagemIa("");
+
                     }}
                 >
-                    <option value="produto">Produto</option>
-                    <option value="peso">Produto por peso</option>
-                    <option value="servico">Serviço</option>
+                    <option value="produto">
+                        Produto
+                    </option>
+
+                    <option value="peso">
+                        Produto por peso
+                    </option>
+
+                    <option value="servico">
+                        Serviço
+                    </option>
                 </select>
 
                 <input
                     list="produtos"
                     placeholder="Escolha o item"
                     onChange={e => {
+
                         const item = filtrados.find(
                             i => i.id === Number(e.target.value)
                         );
-                        setSelecionado(item);
+
+                        setSelecionado(item || null);
+
+                        setMostrarAjudaIa(false);
+
+                        setJsonIa("");
+
+                        setDadosIa(null);
+
+                        setMensagemIa("");
+
                     }}
                 />
+
             </div>
 
             <datalist id="produtos">
+
                 {filtrados.map(p => (
+
                     <option
                         key={p.id}
                         value={p.id}
@@ -127,18 +608,189 @@ export default function RegistrarFiscal() {
                             Number(p.peso) > 0
                                 ? `${p.nome} | Produto por peso | ${p.peso}g`
                                 : `${p.nome} | ${p.unidade || ""} ${p.unidades || ""} ${p.tempo_servico || ""}`
-                        } />
+                        }
+                    />
+
                 ))}
+
             </datalist>
 
             {selecionado && (
-                <div className="registrar-fiscal-form">
-                    <FormularioFiscal
-                        tipo={tipo === "peso" ? "produto" : tipo}
-                        produto={selecionado}
-                        produtoPorPeso={tipo === "peso"}
-                    />
-                </div>
+
+                <>
+                    <div className="registrar-fiscal-ajuda-ia">
+
+                        <div className="registrar-fiscal-ajuda-ia-info">
+
+                            <span className="registrar-fiscal-ajuda-ia-icone">
+                                ✦
+                            </span>
+
+                            <div>
+                                <strong>
+                                    Não sabe como preencher?
+                                </strong>
+
+                                <p>
+                                    Use uma IA para sugerir os dados fiscais
+                                    deste item.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            className="registrar-fiscal-ajuda-ia-botao"
+                            onClick={() =>
+                                setMostrarAjudaIa(
+                                    anterior => !anterior
+                                )
+                            }
+                        >
+                            Ajuda com IA
+                        </button>
+
+                    </div>
+
+                    {mostrarAjudaIa && (
+
+                        <div className="registrar-fiscal-ia-painel">
+
+                            <div className="registrar-fiscal-ia-etapa">
+
+                                <span className="registrar-fiscal-ia-numero">
+                                    1
+                                </span>
+
+                                <div className="registrar-fiscal-ia-conteudo">
+
+                                    <strong>
+                                        Copie as instruções
+                                    </strong>
+
+                                    <p>
+                                        O prompt já contém o produto selecionado
+                                        e explica exatamente quais informações
+                                        fiscais a IA deve retornar.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="registrar-fiscal-ia-copiar"
+                                        onClick={copiarPromptIa}
+                                    >
+                                        {promptCopiado
+                                            ? "✓ Prompt copiado"
+                                            : "Copiar prompt para IA"
+                                        }
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            <div className="registrar-fiscal-ia-etapa">
+
+                                <span className="registrar-fiscal-ia-numero">
+                                    2
+                                </span>
+
+                                <div className="registrar-fiscal-ia-conteudo">
+
+                                    <strong>
+                                        Envie para sua IA favorita
+                                    </strong>
+
+                                    <p>
+                                        Cole o prompt no ChatGPT, Gemini,
+                                        Claude ou outra IA e copie somente
+                                        o JSON retornado.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div className="registrar-fiscal-ia-etapa">
+
+                                <span className="registrar-fiscal-ia-numero">
+                                    3
+                                </span>
+
+                                <div className="registrar-fiscal-ia-conteudo">
+
+                                    <strong>
+                                        Cole a resposta aqui
+                                    </strong>
+
+                                    <p>
+                                        O sistema vai validar o JSON antes
+                                        de preencher o formulário.
+                                    </p>
+
+                                    <textarea
+                                        className="registrar-fiscal-ia-json"
+                                        value={jsonIa}
+                                        onChange={e =>
+                                            setJsonIa(e.target.value)
+                                        }
+                                        placeholder={`{
+  "ncm": "00000000",
+  "cfop": "5102",
+  "cest": "",
+  "unidade_tributavel": "UN",
+  "origem": "0",
+  "cst_icms": "",
+  "csosn": "",
+  "aliquota_icms": "",
+  "cst_pis": "",
+  "aliquota_pis": "",
+  "cst_cofins": "",
+  "aliquota_cofins": ""
+}`}
+                                    />
+
+                                    <button
+                                        type="button"
+                                        className="registrar-fiscal-ia-aplicar"
+                                        onClick={aplicarJsonIa}
+                                    >
+                                        Aplicar dados ao formulário
+                                    </button>
+
+                                    {mensagemIa && (
+                                        <div className="registrar-fiscal-ia-mensagem">
+                                            {mensagemIa}
+                                        </div>
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                            <div className="registrar-fiscal-ia-aviso">
+                                <strong>Importante:</strong>{" "}
+                                dados tributários sugeridos por IA devem ser
+                                conferidos antes da emissão fiscal.
+                            </div>
+
+                        </div>
+
+                    )}
+
+                    <div className="registrar-fiscal-form">
+
+                        <FormularioFiscal
+                            tipo={tipo === "peso" ? "produto" : tipo}
+                            produto={selecionado}
+                            produtoPorPeso={tipo === "peso"}
+                            dadosIa={dadosIa}
+                        />
+
+                    </div>
+                </>
+
             )}
 
         </div>

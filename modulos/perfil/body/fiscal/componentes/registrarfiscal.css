@@ -664,3 +664,564 @@
         font-size: 18px;
     }
 }
+
+/* =========================================================
+   ASSISTENTE IA FISCAL
+========================================================= */
+
+.registrar-fiscal-ajuda-ia {
+    width: 100%;
+    margin-top: 22px;
+    margin-bottom: 18px;
+    padding: 18px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background:
+        radial-gradient(circle at top left,
+            rgba(37, 99, 235, 0.10),
+            transparent 42%),
+        #ffffff;
+
+    border: 1px solid #dbe4f0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 30px rgba(15, 23, 42, 0.06),
+        0 2px 8px rgba(15, 23, 42, 0.03);
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.registrar-fiscal-ajuda-ia:hover {
+    border-color: #bfdbfe;
+
+    box-shadow:
+        0 12px 35px rgba(15, 23, 42, 0.09),
+        0 3px 10px rgba(37, 99, 235, 0.05);
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA AJUDA
+========================================================= */
+
+.registrar-fiscal-ajuda-ia-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    min-width: 0;
+}
+
+.registrar-fiscal-ajuda-ia-icone {
+    width: 44px;
+    height: 44px;
+
+    flex: 0 0 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: linear-gradient(135deg,
+            #0f172a,
+            #1e3a8a);
+
+    color: #ffffff !important;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    box-shadow:
+        0 6px 18px rgba(15, 23, 42, 0.18);
+}
+
+.registrar-fiscal-ajuda-ia-info strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #0f172a !important;
+
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.registrar-fiscal-ajuda-ia-info p {
+    margin: 0;
+
+    color: #64748b !important;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   BOTÃO ABRIR AJUDA
+========================================================= */
+
+.registrar-fiscal-ajuda-ia-botao {
+    flex-shrink: 0;
+
+    min-height: 43px;
+
+    padding: 0 18px;
+
+    border: 0;
+    border-radius: 11px;
+
+    background: linear-gradient(135deg,
+            #0f172a,
+            #1e3a8a);
+
+    color: #ffffff !important;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 18px rgba(15, 23, 42, 0.16);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+.registrar-fiscal-ajuda-ia-botao:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 24px rgba(15, 23, 42, 0.22);
+
+    filter: brightness(1.08);
+}
+
+.registrar-fiscal-ajuda-ia-botao:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   PAINEL PRINCIPAL IA
+========================================================= */
+
+.registrar-fiscal-ia-painel {
+    width: 100%;
+
+    margin-top: -4px;
+    margin-bottom: 24px;
+
+    padding: 22px;
+
+    background: #f8fafc;
+
+    border: 1px solid #dbe4f0;
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 35px rgba(15, 23, 42, 0.06);
+
+    box-sizing: border-box;
+
+    animation: registrarFiscalIaEntrada 0.28s ease;
+}
+
+@keyframes registrarFiscalIaEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   ETAPAS
+========================================================= */
+
+.registrar-fiscal-ia-etapa {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+
+    padding: 18px;
+
+    margin-bottom: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    box-shadow:
+        0 3px 12px rgba(15, 23, 42, 0.035);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.registrar-fiscal-ia-etapa:hover {
+    border-color: #cbd5e1;
+
+    box-shadow:
+        0 6px 18px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================================
+   NÚMERO DA ETAPA
+========================================================= */
+
+.registrar-fiscal-ia-numero {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #0f172a;
+
+    color: #ffffff !important;
+
+    border-radius: 50%;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+
+/* =========================================================
+   CONTEÚDO DAS ETAPAS
+========================================================= */
+
+.registrar-fiscal-ia-conteudo {
+    width: 100%;
+    min-width: 0;
+}
+
+.registrar-fiscal-ia-conteudo>strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #0f172a !important;
+
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.registrar-fiscal-ia-conteudo>p {
+    margin: 0 0 13px 0;
+
+    color: #64748b !important;
+
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   BOTÃO COPIAR PROMPT
+========================================================= */
+
+.registrar-fiscal-ia-copiar {
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    background: #ffffff;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    color: #0f172a !important;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.registrar-fiscal-ia-copiar:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =========================================================
+   ÁREA PARA COLAR JSON
+========================================================= */
+
+.registrar-fiscal-ia-json {
+    display: block;
+
+    width: 100%;
+    min-height: 220px;
+
+    padding: 16px;
+
+    margin-top: 12px;
+    margin-bottom: 13px;
+
+    resize: vertical;
+
+    box-sizing: border-box;
+
+    background: #0f172a !important;
+
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+
+    color: #e2e8f0 !important;
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        Menlo,
+        monospace;
+
+    font-size: 13px;
+    line-height: 1.65;
+
+    outline: none;
+
+    box-shadow:
+        inset 0 1px 5px rgba(0, 0, 0, 0.16);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.registrar-fiscal-ia-json::placeholder {
+    color: #64748b !important;
+    opacity: 1;
+}
+
+.registrar-fiscal-ia-json:focus {
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.12),
+        inset 0 1px 5px rgba(0, 0, 0, 0.16);
+}
+
+
+/* =========================================================
+   BOTÃO APLICAR
+========================================================= */
+
+.registrar-fiscal-ia-aplicar {
+    width: 100%;
+    min-height: 46px;
+
+    padding: 0 20px;
+
+    border: 0;
+    border-radius: 11px;
+
+    background: linear-gradient(135deg,
+            #1d4ed8,
+            #2563eb);
+
+    color: #ffffff !important;
+
+    font-size: 13px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.20);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+.registrar-fiscal-ia-aplicar:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.28);
+
+    filter: brightness(1.05);
+}
+
+.registrar-fiscal-ia-aplicar:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   MENSAGEM DE RETORNO
+========================================================= */
+
+.registrar-fiscal-ia-mensagem {
+    margin-top: 12px;
+
+    padding: 11px 13px;
+
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+
+    color: #1e3a8a !important;
+
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   AVISO FINAL
+========================================================= */
+
+.registrar-fiscal-ia-aviso {
+    margin-top: 17px;
+
+    padding: 14px 16px;
+
+    background: #fffbeb;
+
+    border: 1px solid #fde68a;
+    border-radius: 11px;
+
+    color: #78350f !important;
+
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.registrar-fiscal-ia-aviso strong {
+    color: #78350f !important;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .registrar-fiscal-ajuda-ia {
+        padding: 16px;
+
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 15px;
+    }
+
+    .registrar-fiscal-ajuda-ia-botao {
+        width: 100%;
+    }
+
+    .registrar-fiscal-ia-painel {
+        padding: 13px;
+        border-radius: 14px;
+    }
+
+    .registrar-fiscal-ia-etapa {
+        padding: 14px;
+        gap: 11px;
+    }
+
+    .registrar-fiscal-ia-numero {
+        width: 30px;
+        height: 30px;
+
+        flex-basis: 30px;
+
+        font-size: 12px;
+    }
+
+    .registrar-fiscal-ia-json {
+        min-height: 260px;
+
+        padding: 13px;
+
+        font-size: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .registrar-fiscal-ajuda-ia-info {
+        align-items: flex-start;
+    }
+
+    .registrar-fiscal-ajuda-ia-icone {
+        width: 38px;
+        height: 38px;
+
+        flex-basis: 38px;
+
+        font-size: 17px;
+    }
+
+    .registrar-fiscal-ia-etapa {
+        flex-direction: column;
+    }
+
+    .registrar-fiscal-ia-numero {
+        border-radius: 9px;
+    }
+
+    .registrar-fiscal-ia-copiar,
+    .registrar-fiscal-ia-aplicar {
+        width: 100%;
+    }
+
+}

@@ -149,6 +149,154 @@
     font-weight: 550;
 }
 
+/* =========================================================
+   IA, CAMPOS NÃO PREENCHIDOS
+========================================================= */
+
+.formulario-fiscal-input-ia-vazio {
+    background: #fff7c2 !important;
+    border: 2px solid #eab308 !important;
+    color: #713f12 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(234, 179, 8, 0.12),
+        inset 0 1px 2px rgba(161, 98, 7, 0.04) !important;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+/* =========================================================
+   PLACEHOLDER DO CAMPO VAZIO
+========================================================= */
+
+.formulario-fiscal-input-ia-vazio::placeholder {
+    color: #a16207 !important;
+    opacity: 0.75 !important;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.formulario-fiscal-input-ia-vazio:hover {
+    background: #fff3ad !important;
+    border-color: #ca8a04 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(234, 179, 8, 0.16) !important;
+}
+
+
+/* =========================================================
+   FOCO
+========================================================= */
+
+.formulario-fiscal-input-ia-vazio:focus {
+    background: #fffbea !important;
+    border-color: #ca8a04 !important;
+
+    box-shadow:
+        0 0 0 4px rgba(234, 179, 8, 0.20) !important;
+
+    outline: none !important;
+}
+
+
+/* =========================================================
+   CAMPOS PERCENTUAIS
+   ICMS, PIS, COFINS, IBS E CBS
+========================================================= */
+
+.formulario-fiscal-input-percentual-premium .formulario-fiscal-input-ia-vazio {
+    background: #fff7c2 !important;
+    border-color: #eab308 !important;
+    color: #713f12 !important;
+}
+
+
+/* =========================================================
+   DEIXAR O % DESTACADO QUANDO INPUT ESTIVER VAZIO
+========================================================= */
+
+.formulario-fiscal-input-percentual-premium:has(.formulario-fiscal-input-ia-vazio) {
+    position: relative;
+}
+
+.formulario-fiscal-input-percentual-premium:has(.formulario-fiscal-input-ia-vazio) span {
+    color: #a16207 !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   LABEL DO CAMPO VAZIO
+========================================================= */
+
+.formulario-fiscal-campo-premium:has(.formulario-fiscal-input-ia-vazio) label {
+    color: #a16207 !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   TEXTO EXPLICATIVO DO CAMPO VAZIO
+========================================================= */
+
+.formulario-fiscal-campo-premium:has(.formulario-fiscal-input-ia-vazio) small {
+    color: #92400e !important;
+}
+
+
+/* =========================================================
+   INDICADOR VISUAL
+========================================================= */
+
+.formulario-fiscal-campo-premium:has(.formulario-fiscal-input-ia-vazio) label::after {
+    content: "  • não preenchido pela IA";
+
+    color: #ca8a04 !important;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+
+/* =========================================================
+   AO DIGITAR O CAMPO VOLTA AO NORMAL AUTOMATICAMENTE
+
+   O React remove a classe quando o valor deixa de estar vazio.
+========================================================= */
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .formulario-fiscal-input-ia-vazio {
+        border-width: 2px !important;
+
+        box-shadow:
+            0 0 0 2px rgba(234, 179, 8, 0.12) !important;
+    }
+
+    .formulario-fiscal-campo-premium:has(.formulario-fiscal-input-ia-vazio) label::after {
+        display: block;
+
+        margin-top: 3px;
+
+        font-size: 9px;
+    }
+}
 
 /* =========================================================
    GRID
