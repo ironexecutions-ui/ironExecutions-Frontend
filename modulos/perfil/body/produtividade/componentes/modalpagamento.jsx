@@ -6,7 +6,6 @@ import { useVenda } from "./vendaprovider";
 export default function ModalPagamento({
     total,
     fechar,
-    imprimirNfce = false,
     modoPixRapido = false,
     dadosPixRapido = null
 }) {
@@ -28,7 +27,7 @@ export default function ModalPagamento({
     const API_ONLINE_VENDAS = API_URL;
 
     const [apiPronta, setApiPronta] = useState(false);
-    const [apiLocalDisponivel, setApiLocalDisponivel] = useState(false);
+    const [apiVendas, setApiVendas] = useState(null);
 
     const [carregandoConfirmacao, setCarregandoConfirmacao] = useState(false);
     const [processando, setProcessando] = useState(false);
@@ -63,304 +62,7 @@ export default function ModalPagamento({
     /* ===============================
    DADOS DO PIX RÁPIDO
 =============================== */
-    async function emitirEImprimirNfce(vendaIdAtual) {
-        const token = localStorage.getItem("token");
 
-        console.log("==================================================");
-        console.log("[NFC-E] INICIANDO PROCESSO");
-        console.log("[NFC-E] venda_id:", vendaIdAtual);
-        console.log("[NFC-E] API_URL:", API_URL);
-        console.log("==================================================");
-
-        if (!vendaIdAtual) {
-            throw new Error("Venda sem ID para emissão da NFC-e.");
-        }
-
-        // =========================================================
-        // 1. EMITIR NFC-E
-        // =========================================================
-
-        const urlEmissao =
-            `${API_URL}/vendas/${vendaIdAtual}/emitir-nfce`;
-
-        console.log("[NFC-E] Chamando rota:");
-        console.log(urlEmissao);
-
-        let respEmissao;
-
-        try {
-            respEmissao = await fetch(
-                urlEmissao,
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    }
-                }
-            );
-        } catch (erro) {
-            console.error(
-                "[NFC-E] Não foi possível acessar a rota de emissão:",
-                erro
-            );
-
-            throw new Error(
-                "Não foi possível conectar ao servidor para emitir a NFC-e."
-            );
-        }
-
-        console.log(
-            "[NFC-E] HTTP emissão:",
-            respEmissao.status
-        );
-
-        // =========================================================
-        // 2. LER RESPOSTA
-        // =========================================================
-
-        let dadosEmissao = null;
-        let textoResposta = "";
-
-        try {
-            textoResposta = await respEmissao.text();
-
-            console.log(
-                "[NFC-E] Resposta BRUTA:",
-                textoResposta
-            );
-
-            if (textoResposta) {
-                try {
-                    dadosEmissao = JSON.parse(textoResposta);
-                } catch {
-                    dadosEmissao = null;
-                }
-            }
-        } catch (erro) {
-            console.error(
-                "[NFC-E] Erro lendo resposta:",
-                erro
-            );
-        }
-
-        console.log(
-            "[NFC-E] Resposta convertida:",
-            dadosEmissao
-        );
-
-        // =========================================================
-        // 3. VERIFICAR ERRO DE EMISSÃO
-        // =========================================================
-
-        if (!respEmissao.ok) {
-            console.error(
-                "[NFC-E] EMISSÃO RECUSADA/ERRO"
-            );
-
-            console.error(
-                "[NFC-E] Status:",
-                respEmissao.status
-            );
-
-            console.error(
-                "[NFC-E] Dados:",
-                dadosEmissao
-            );
-
-            const detalhe =
-                dadosEmissao?.detail ||
-                dadosEmissao?.erro ||
-                dadosEmissao?.mensagem ||
-                textoResposta ||
-                `Erro HTTP ${respEmissao.status}`;
-
-            throw new Error(detalhe);
-        }
-
-        console.log(
-            "[NFC-E] Emissão retornou sucesso."
-        );
-
-        console.log(
-            "[NFC-E] fiscal:",
-            dadosEmissao?.fiscal
-        );
-
-        // =========================================================
-        // 4. DESCOBRIR ID DA NFC-E
-        // =========================================================
-        //
-        // O backend principal retorna:
-        //
-        // {
-        //     ok: true,
-        //     venda_id: ...,
-        //     mensagem: "...",
-        //     fiscal: resposta_da_api_fiscal
-        // }
-        //
-        // Portanto precisamos procurar também dentro de "fiscal".
-        // =========================================================
-
-        const fiscal =
-            dadosEmissao?.fiscal || {};
-
-        const nfceId =
-            fiscal?.nfce_id ??
-            fiscal?.id ??
-            fiscal?.nota_id ??
-            dadosEmissao?.nfce_id ??
-            dadosEmissao?.id ??
-            dadosEmissao?.nota_id ??
-            null;
-
-        console.log(
-            "[NFC-E] ID encontrado:",
-            nfceId
-        );
-
-        console.log(
-            "[NFC-E] Estrutura fiscal completa:",
-            fiscal
-        );
-
-        if (!nfceId) {
-            console.error(
-                "[NFC-E] A nota aparentemente foi emitida, " +
-                "mas nenhum ID da nfce foi encontrado."
-            );
-
-            console.error(
-                "[NFC-E] Resposta completa:",
-                dadosEmissao
-            );
-
-            throw new Error(
-                "NFC-e emitida, mas não foi possível identificar o ID da nota."
-            );
-        }
-
-        // =========================================================
-        // 5. MONTAR URL DO DANFE
-        // =========================================================
-
-        const danfeUrl =
-            `${API_URL}/fiscal/nfce/${nfceId}/danfe`;
-
-        console.log(
-            "[NFC-E] URL DANFE:",
-            danfeUrl
-        );
-
-        // =========================================================
-        // 6. VERIFICAR SERVIDOR LOCAL DE IMPRESSÃO
-        // =========================================================
-
-        console.log(
-            "[NFC-E] Servidor local disponível:",
-            apiLocalDisponivel
-        );
-
-        console.log(
-            "[NFC-E] API local:",
-            API_LOCAL
-        );
-
-        if (!apiLocalDisponivel) {
-            console.error(
-                "[NFC-E] Servidor local de impressão indisponível."
-            );
-
-            throw new Error(
-                "NFC-e emitida, mas o servidor local de impressão não está disponível."
-            );
-        }
-
-        // =========================================================
-        // 7. ENVIAR DANFE PARA SERVIDOR LOCAL
-        // =========================================================
-
-        console.log(
-            "[NFC-E] Enviando DANFE para impressão..."
-        );
-
-        let impResp;
-
-        try {
-            impResp = await fetch(
-                `${API_LOCAL}/imprimir`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        venda_id: vendaIdAtual,
-                        nfce_id: nfceId,
-                        url: danfeUrl,
-                        tipo: "nfce"
-                    })
-                }
-            );
-        } catch (erro) {
-            console.error(
-                "[NFC-E] Erro conectando à impressora:",
-                erro
-            );
-
-            throw new Error(
-                "NFC-e foi emitida, mas não foi possível conectar ao servidor de impressão."
-            );
-        }
-
-        console.log(
-            "[NFC-E] HTTP impressão:",
-            impResp.status
-        );
-
-        // =========================================================
-        // 8. LER RESPOSTA DA IMPRESSORA
-        // =========================================================
-
-        let respostaImpressao = "";
-
-        try {
-            respostaImpressao =
-                await impResp.text();
-        } catch {
-            respostaImpressao = "";
-        }
-
-        console.log(
-            "[NFC-E] Resposta impressão:",
-            respostaImpressao
-        );
-
-        if (!impResp.ok) {
-            console.error(
-                "[NFC-E] DANFE NÃO FOI IMPRESSO"
-            );
-
-            throw new Error(
-                respostaImpressao ||
-                "NFC-e emitida, mas ocorreu erro ao imprimir o DANFE."
-            );
-        }
-
-        console.log("==================================================");
-        console.log("[NFC-E] PROCESSO FINALIZADO");
-        console.log("[NFC-E] venda_id:", vendaIdAtual);
-        console.log("[NFC-E] nfce_id:", nfceId);
-        console.log("[NFC-E] DANFE:", danfeUrl);
-        console.log("==================================================");
-
-        return {
-            ...dadosEmissao,
-            nfceId,
-            danfeUrl
-        };
-    }
     const vendaRapidaSnapshot =
         dadosPixRapido?.venda || null;
 
@@ -423,61 +125,35 @@ INICIALIZAR PIX RÁPIDO
         vendaRapidaQr
     ]);
     async function criarVendaInicial(tipoPagamento) {
-        console.log(
-            "[VENDA] Criando venda. imprimirNfce:",
-            imprimirNfce
-        );
 
-        const resp = await fetch(
-            `${API_ONLINE_VENDAS}/vendas/finalizar`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization:
-                        `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify({
-                    pagamento: tipoPagamento,
-                    valor: total,
-                    produtos: itens,
-                    forcar_manual: forcarManual,
-                    cpf: usarCpf ? cpf : null,
 
-                    // IMPORTANTE
-                    emitir_nfce: imprimirNfce === true
-                })
-            }
-        );
-
-        let dados;
-
-        try {
-            dados = await resp.json();
-        } catch {
-            dados = null;
-        }
-
-        console.log(
-            "[VENDA] Resposta /vendas/finalizar:",
-            resp.status,
-            dados
-        );
+        const resp = await fetch(`${API_ONLINE_VENDAS}/vendas/finalizar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({
+                pagamento: tipoPagamento,
+                valor: total,
+                produtos: itens,
+                forcar_manual: forcarManual,
+                cpf: usarCpf ? cpf : null
+            })
+        });
 
         if (!resp.ok) {
             criandoVendaRef.current = false;
-
-            throw new Error(
-                dados?.detail ||
-                "Erro ao criar venda"
-            );
+            throw new Error("Erro ao criar venda");
         }
+
+        const dados = await resp.json();
 
         setVendaId(dados.venda_id);
         setComandaUrl(dados.comanda);
         setStatusVenda(dados.status);
 
-        return dados;
+        return dados; // 🔥 ESSENCIAL
     }
 
 
@@ -574,9 +250,7 @@ INICIALIZAR PIX RÁPIDO
 
     async function confirmarPagamento() {
         if (imprimindoRef.current) {
-            console.warn(
-                "Impressão já em andamento, ignorando chamada duplicada"
-            );
+            console.warn("Impressão já em andamento, ignorando chamada duplicada");
             return;
         }
 
@@ -584,13 +258,9 @@ INICIALIZAR PIX RÁPIDO
         setProcessando(true);
 
         let erroImpressao = false;
-        let mensagemErroImpressao = null;
 
         try {
-            // ==========================================
-            // 1. CONFIRMAR VENDA
-            // ==========================================
-
+            // 1️⃣ CONFIRMA VENDA
             const confResp = await fetch(
                 `${API_ONLINE_VENDAS}/vendas/${vendaId}/confirmar`,
                 {
@@ -607,109 +277,32 @@ INICIALIZAR PIX RÁPIDO
 
             const confData = await confResp.json();
 
-            console.log(
-                "[VENDA] Venda confirmada:",
-                confData
-            );
-
-            console.log(
-                "[VENDA] imprimirNfce:",
-                imprimirNfce
-            );
-
-            console.log(
-                "[VENDA] impressão local permitida:",
-                confData.imprimir
-            );
-
-            // ==========================================
-            // 2. DECIDIR O DOCUMENTO
-            // ==========================================
-
+            // 2️⃣ TENTA IMPRIMIR SE NODE = 1
             if (confData.imprimir === true) {
 
-                // ======================================
-                // NFC-E
-                // ======================================
-
-                if (imprimirNfce === true) {
-                    console.log(
-                        "[VENDA] NFC-e selecionada. Comanda NÃO será impressa."
-                    );
-
+                if (apiVendas !== API_LOCAL) {
+                    erroImpressao = true;
+                } else {
                     try {
-                        await emitirEImprimirNfce(vendaId);
-                    } catch (e) {
-                        console.error(
-                            "[NFC-E] Falha:",
-                            e
-                        );
+                        const impResp = await fetch(`${API_LOCAL}/imprimir`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                venda_id: vendaId,
+                                url: comandaUrl
+                            })
+                        });
 
-                        erroImpressao = true;
-
-                        mensagemErroImpressao =
-                            e?.message ||
-                            "Erro ao emitir ou imprimir NFC-e";
-                    }
-                }
-
-                // ======================================
-                // COMANDA NORMAL
-                // ======================================
-
-                else {
-                    console.log(
-                        "[VENDA] NFC-e não selecionada. Imprimindo comanda."
-                    );
-
-                    if (!apiLocalDisponivel) {
-                        erroImpressao = true;
-
-                        mensagemErroImpressao =
-                            "Servidor local de impressão indisponível.";
-                    } else {
-                        try {
-                            const impResp = await fetch(
-                                `${API_LOCAL}/imprimir`,
-                                {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        venda_id: vendaId,
-                                        url: comandaUrl,
-                                        tipo: "comanda"
-                                    })
-                                }
-                            );
-
-                            if (!impResp.ok) {
-                                erroImpressao = true;
-
-                                mensagemErroImpressao =
-                                    "Erro ao imprimir comanda.";
-                            }
-
-                        } catch (e) {
-                            console.error(
-                                "[COMANDA] Erro:",
-                                e
-                            );
-
+                        if (!impResp.ok) {
                             erroImpressao = true;
-
-                            mensagemErroImpressao =
-                                "Erro ao comunicar com a impressora.";
                         }
+                    } catch {
+                        erroImpressao = true;
                     }
                 }
             }
 
-            // ==========================================
-            // 3. VENDA SEMPRE CONCLUÍDA
-            // ==========================================
-
+            // 3️⃣ VENDA SEMPRE CONCLUÍDA
             setSucesso(true);
 
             setTimeout(() => {
@@ -726,10 +319,9 @@ INICIALIZAR PIX RÁPIDO
                 setPixPago(false);
                 setEtapa("metodo");
 
-                // ======================================
-                // PIX RÁPIDO
-                // ======================================
-
+                /* ===============================
+                   PIX RÁPIDO
+                =============================== */
                 if (modoPixRapido) {
 
                     if (vendaRapidaLocalId) {
@@ -740,14 +332,7 @@ INICIALIZAR PIX RÁPIDO
                                 pixAprovado: true,
                                 concluidaEm: new Date().toISOString(),
                                 aviso: erroImpressao
-                                    ? (
-                                        mensagemErroImpressao ||
-                                        (
-                                            imprimirNfce
-                                                ? "Erro ao imprimir NFC-e"
-                                                : "Erro ao imprimir comanda"
-                                        )
-                                    )
+                                    ? "Erro ao imprimir comanda"
                                     : null
                             }
                         );
@@ -759,26 +344,17 @@ INICIALIZAR PIX RÁPIDO
 
                 } else {
 
-                    // ==================================
-                    // VENDA NORMAL
-                    // ==================================
-
+                    /* ===============================
+                       VENDA NORMAL
+                    =============================== */
                     limparVenda();
                     setModalAberto(false);
                     fechar();
                 }
 
-                // ======================================
-                // AVISO DE ERRO
-                // ======================================
-
                 if (erroImpressao) {
                     alert(
-                        "Venda concluída com sucesso, mas ocorreu um problema com o documento fiscal/impressão.\n\n" +
-                        (
-                            mensagemErroImpressao ||
-                            "Verifique a impressora."
-                        )
+                        "Venda concluída com sucesso, mas ocorreu um erro na impressão. Verifique a impressora."
                     );
                 }
 
@@ -786,18 +362,14 @@ INICIALIZAR PIX RÁPIDO
 
         } catch (e) {
 
-            console.error(
-                "[VENDA] Erro ao confirmar:",
-                e
-            );
+            console.error(e);
 
             imprimindoRef.current = false;
             setProcessando(false);
 
-            // ==========================================
-            // PIX RÁPIDO
-            // ==========================================
-
+            /* ===============================
+               PIX RÁPIDO
+            =============================== */
             if (modoPixRapido) {
 
                 if (vendaRapidaLocalId) {
@@ -820,12 +392,11 @@ INICIALIZAR PIX RÁPIDO
                 return;
             }
 
-            // ==========================================
-            // VENDA NORMAL
-            // ==========================================
-
+            /* ===============================
+               VENDA NORMAL
+            =============================== */
             alert(
-                e?.message ||
+                e.message ||
                 "Erro ao confirmar pagamento"
             );
 
@@ -915,53 +486,29 @@ INICIALIZAR PIX RÁPIDO
     // ===============================
     // DEFINIR API
     // ===============================
-    // ===============================
-    // VERIFICAR API LOCAL DE IMPRESSÃO
-    // ===============================
     useEffect(() => {
-        async function verificarApiLocal() {
+        async function definirApiVendas() {
             try {
-                console.log(
-                    "[IMPRESSÃO LOCAL] Verificando:",
-                    `${API_LOCAL}/health`
-                );
+                const r = await fetch(`${API_LOCAL}/health`, {
+                    method: "GET"
+                });
 
-                const resp = await fetch(
-                    `${API_LOCAL}/health`,
-                    {
-                        method: "GET"
-                    }
-                );
-
-                if (resp.ok) {
-                    console.log(
-                        "[IMPRESSÃO LOCAL] Servidor disponível."
-                    );
-
-                    setApiLocalDisponivel(true);
-                } else {
-                    console.warn(
-                        "[IMPRESSÃO LOCAL] Servidor respondeu:",
-                        resp.status
-                    );
-
-                    setApiLocalDisponivel(false);
+                if (r.ok) {
+                    console.log("API LOCAL ativa, usando 8888");
+                    setApiVendas(API_LOCAL);
+                    return;
                 }
-
-            } catch (erro) {
-                console.warn(
-                    "[IMPRESSÃO LOCAL] Servidor indisponível:",
-                    erro
-                );
-
-                setApiLocalDisponivel(false);
-            } finally {
-                setApiPronta(true);
+            } catch {
+                // silencioso
             }
+
+            console.log("API LOCAL indisponível, usando ONLINE");
+            setApiVendas(API_ONLINE_VENDAS);
         }
 
-        verificarApiLocal();
+        definirApiVendas().finally(() => setApiPronta(true));
     }, []);
+
     // ===============================
     // STATUS MAQUININHA
     // ===============================

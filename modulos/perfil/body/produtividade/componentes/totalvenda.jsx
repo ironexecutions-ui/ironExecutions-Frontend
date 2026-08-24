@@ -589,47 +589,52 @@ export default function TotalVenda() {
                 PERGUNTA NFC-E
                 SOMENTE PARA "NA HORA"
             =============================== */}
-            {permissaoNfce === "na hora" && (
-                <div className="cob-nfce-pergunta-venda">
 
-                    <span className="cob-nfce-pergunta-texto-venda">
-                        Nota fiscal?
-                    </span>
+            {!vendaVazia &&
+                !carregandoPermissaoNfce &&
+                permissaoNfce === "na hora" && (
 
-                    <div className="cob-nfce-opcoes-venda">
+                    <div className="cob-nfce-pergunta-venda">
 
-                        <button
-                            type="button"
-                            className={`
-                    cob-nfce-opcao-sim-venda
-                    ${imprimirNfce
-                                    ? "cob-nfce-opcao-selecionada-venda"
-                                    : ""
-                                }
-                `}
-                            onClick={selecionarNfceSim}
-                        >
-                            SIM
-                        </button>
+                        <span className="cob-nfce-pergunta-texto-venda">
+                            Nota fiscal?
+                        </span>
 
-                        <button
-                            type="button"
-                            className={`
-                    cob-nfce-opcao-nao-venda
-                    ${!imprimirNfce
-                                    ? "cob-nfce-opcao-selecionada-venda"
-                                    : ""
-                                }
-                `}
-                            onClick={selecionarNfceNao}
-                        >
-                            NÃO
-                        </button>
+                        <div className="cob-nfce-opcoes-venda">
+
+                            <button
+                                type="button"
+                                className={`
+                                cob-nfce-opcao-sim-venda
+                                ${imprimirNfce
+                                        ? "cob-nfce-opcao-selecionada-venda"
+                                        : ""
+                                    }
+                            `}
+                                onClick={selecionarNfceSim}
+                            >
+                                SIM
+                            </button>
+
+                            <button
+                                type="button"
+                                className={`
+                                cob-nfce-opcao-nao-venda
+                                ${!imprimirNfce
+                                        ? "cob-nfce-opcao-selecionada-venda"
+                                        : ""
+                                    }
+                            `}
+                                onClick={selecionarNfceNao}
+                            >
+                                NÃO
+                            </button>
+
+                        </div>
 
                     </div>
 
-                </div>
-            )}
+                )}
 
             {/* ===============================
                 AÇÕES
