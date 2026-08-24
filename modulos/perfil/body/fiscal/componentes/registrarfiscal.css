@@ -1225,3 +1225,344 @@
     }
 
 }
+
+/* =========================================================
+   CONFIGURAÇÃO FISCAL PARA IA
+========================================================= */
+
+.registrar-fiscal-ia-config {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-bottom: 20px;
+    padding: 18px;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(18, 61, 114, 0.08),
+            transparent 38%),
+        linear-gradient(145deg,
+            #f8fbff,
+            #ffffff);
+
+    border: 1px solid #d8e3ee;
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 14px rgba(16, 24, 40, 0.04);
+}
+
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+.registrar-fiscal-ia-config-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+}
+
+
+.registrar-fiscal-ia-config-topo>div {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.registrar-fiscal-ia-config-topo strong {
+    color: #0b1f3a !important;
+
+    font-size: 13px;
+    font-weight: 850;
+}
+
+
+.registrar-fiscal-ia-config-topo p {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: #667085 !important;
+
+    font-size: 11px;
+    font-weight: 550;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   BOTÃO ABRIR / FECHAR
+========================================================= */
+
+.registrar-fiscal-ia-config-abrir {
+    min-width: 155px;
+    height: 39px;
+
+    padding: 0 15px;
+
+    flex-shrink: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #b9c9da;
+    border-radius: 8px;
+
+    color: #123d72 !important;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.04);
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.registrar-fiscal-ia-config-abrir:hover {
+    background: #123d72;
+
+    border-color: #123d72;
+
+    color: #ffffff !important;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(18, 61, 114, 0.16);
+}
+
+
+.registrar-fiscal-ia-config-abrir:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   ÁREA DAS PERGUNTAS
+========================================================= */
+
+.registrar-fiscal-ia-config-campos {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+
+    margin-top: 17px;
+    padding-top: 17px;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+
+/* =========================================================
+   CADA PERGUNTA
+========================================================= */
+
+.registrar-fiscal-ia-config-campo {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.registrar-fiscal-ia-config-campo label {
+    color: #344054 !important;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.15px;
+}
+
+
+/* =========================================================
+   SELECTS
+========================================================= */
+
+.registrar-fiscal-ia-config-campo select {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 38px 0 12px;
+
+    box-sizing: border-box;
+
+    appearance: auto;
+
+    outline: none;
+
+    background: #ffffff;
+
+    border: 1px solid #d0dae5;
+    border-radius: 9px;
+
+    color: #101828 !important;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 1px 2px rgba(16, 24, 40, 0.025);
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+
+.registrar-fiscal-ia-config-campo select:hover {
+    border-color: #9fb1c4;
+}
+
+
+.registrar-fiscal-ia-config-campo select:focus {
+    background: #ffffff;
+
+    border-color: #174f88;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.08);
+}
+
+
+/* =========================================================
+   VALOR JÁ SALVO
+========================================================= */
+
+.registrar-fiscal-ia-config-campo select:not([value=""]) {
+    border-color: #b9cadb;
+}
+
+
+/* =========================================================
+   INDICAÇÃO DE CACHE
+========================================================= */
+
+.registrar-fiscal-ia-config-topo p::after {
+    content: " As respostas ficam salvas automaticamente.";
+
+    color: #123d72 !important;
+
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DAS PERGUNTAS
+========================================================= */
+
+.registrar-fiscal-ia-config-campos {
+    animation:
+        registrarFiscalIaAbrirConfig 0.22s ease;
+}
+
+
+@keyframes registrarFiscalIaAbrirConfig {
+
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .registrar-fiscal-ia-config-campos {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .registrar-fiscal-ia-config {
+        padding: 14px;
+
+        margin-bottom: 15px;
+
+        border-radius: 11px;
+    }
+
+
+    .registrar-fiscal-ia-config-topo {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 12px;
+    }
+
+
+    .registrar-fiscal-ia-config-topo strong {
+        font-size: 12px;
+    }
+
+
+    .registrar-fiscal-ia-config-topo p {
+        font-size: 10px;
+    }
+
+
+    .registrar-fiscal-ia-config-abrir {
+        width: 100%;
+        min-width: 0;
+
+        height: 42px;
+    }
+
+
+    .registrar-fiscal-ia-config-campos {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+        margin-top: 14px;
+        padding-top: 14px;
+    }
+
+
+    .registrar-fiscal-ia-config-campo select {
+        height: 44px;
+
+        font-size: 12px;
+    }
+
+}
