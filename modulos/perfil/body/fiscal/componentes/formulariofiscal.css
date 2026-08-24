@@ -49,7 +49,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
     gap: 5px;
 }
 
@@ -68,7 +67,6 @@
 
     font-size: 9px;
     font-weight: 900;
-
     letter-spacing: 0.8px;
 }
 
@@ -80,7 +78,6 @@
 
     font-size: 22px;
     font-weight: 850;
-
     letter-spacing: -0.6px;
 }
 
@@ -149,154 +146,6 @@
     font-weight: 550;
 }
 
-/* =========================================================
-   IA, CAMPOS NÃO PREENCHIDOS
-========================================================= */
-
-.formulario-fiscal-input-ia-vazio {
-    background: #fff7c2 !important;
-    border: 2px solid #eab308 !important;
-    color: #713f12 !important;
-
-    box-shadow:
-        0 0 0 3px rgba(234, 179, 8, 0.12),
-        inset 0 1px 2px rgba(161, 98, 7, 0.04) !important;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease !important;
-}
-
-
-/* =========================================================
-   PLACEHOLDER DO CAMPO VAZIO
-========================================================= */
-
-.formulario-fiscal-input-ia-vazio::placeholder {
-    color: #a16207 !important;
-    opacity: 0.75 !important;
-}
-
-
-/* =========================================================
-   HOVER
-========================================================= */
-
-.formulario-fiscal-input-ia-vazio:hover {
-    background: #fff3ad !important;
-    border-color: #ca8a04 !important;
-
-    box-shadow:
-        0 0 0 3px rgba(234, 179, 8, 0.16) !important;
-}
-
-
-/* =========================================================
-   FOCO
-========================================================= */
-
-.formulario-fiscal-input-ia-vazio:focus {
-    background: #fffbea !important;
-    border-color: #ca8a04 !important;
-
-    box-shadow:
-        0 0 0 4px rgba(234, 179, 8, 0.20) !important;
-
-    outline: none !important;
-}
-
-
-/* =========================================================
-   CAMPOS PERCENTUAIS
-   ICMS, PIS, COFINS, IBS E CBS
-========================================================= */
-
-.formulario-fiscal-input-percentual-premium .formulario-fiscal-input-ia-vazio {
-    background: #fff7c2 !important;
-    border-color: #eab308 !important;
-    color: #713f12 !important;
-}
-
-
-/* =========================================================
-   DEIXAR O % DESTACADO QUANDO INPUT ESTIVER VAZIO
-========================================================= */
-
-.formulario-fiscal-input-percentual-premium:has(.formulario-fiscal-input-ia-vazio) {
-    position: relative;
-}
-
-.formulario-fiscal-input-percentual-premium:has(.formulario-fiscal-input-ia-vazio) span {
-    color: #a16207 !important;
-    font-weight: 800 !important;
-}
-
-
-/* =========================================================
-   LABEL DO CAMPO VAZIO
-========================================================= */
-
-.formulario-fiscal-campo-premium:has(.formulario-fiscal-input-ia-vazio) label {
-    color: #a16207 !important;
-    font-weight: 800 !important;
-}
-
-
-/* =========================================================
-   TEXTO EXPLICATIVO DO CAMPO VAZIO
-========================================================= */
-
-.formulario-fiscal-campo-premium:has(.formulario-fiscal-input-ia-vazio) small {
-    color: #92400e !important;
-}
-
-
-/* =========================================================
-   INDICADOR VISUAL
-========================================================= */
-
-.formulario-fiscal-campo-premium:has(.formulario-fiscal-input-ia-vazio) label::after {
-    content: "  • não preenchido pela IA";
-
-    color: #ca8a04 !important;
-
-    font-size: 10px;
-    font-weight: 700;
-
-    text-transform: none;
-    letter-spacing: 0;
-}
-
-
-/* =========================================================
-   AO DIGITAR O CAMPO VOLTA AO NORMAL AUTOMATICAMENTE
-
-   O React remove a classe quando o valor deixa de estar vazio.
-========================================================= */
-
-
-/* =========================================================
-   RESPONSIVO
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .formulario-fiscal-input-ia-vazio {
-        border-width: 2px !important;
-
-        box-shadow:
-            0 0 0 2px rgba(234, 179, 8, 0.12) !important;
-    }
-
-    .formulario-fiscal-campo-premium:has(.formulario-fiscal-input-ia-vazio) label::after {
-        display: block;
-
-        margin-top: 3px;
-
-        font-size: 9px;
-    }
-}
 
 /* =========================================================
    GRID
@@ -304,11 +153,18 @@
 
 .formulario-fiscal-grade-premium {
     display: grid;
-    height: 75px;
+
     grid-template-columns:
         repeat(4, minmax(0, 1fr));
 
     gap: 15px;
+
+    /*
+       Não usamos height fixo.
+       Isso evita campos cortados quando aparecem avisos
+       como "não preenchido pela IA".
+    */
+    min-height: 75px;
 }
 
 
@@ -333,8 +189,10 @@
     font-weight: 850;
 
     letter-spacing: 0.4px;
-
     text-transform: uppercase;
+
+    transition:
+        color 0.18s ease;
 }
 
 
@@ -345,6 +203,9 @@
 
     font-size: 9px;
     font-weight: 550;
+
+    transition:
+        color 0.18s ease;
 }
 
 
@@ -378,13 +239,13 @@
     transition:
         border-color 0.18s ease,
         box-shadow 0.18s ease,
-        background 0.18s ease;
+        background 0.18s ease,
+        color 0.18s ease;
 }
 
 
 .formulario-fiscal-campo-premium input::placeholder {
     color: #a1aab6 !important;
-
     font-weight: 500;
 }
 
@@ -409,7 +270,6 @@
 
 .formulario-fiscal-input-percentual-premium {
     width: 100%;
-
     position: relative;
 }
 
@@ -433,6 +293,132 @@
     font-weight: 850;
 
     pointer-events: none;
+
+    transition:
+        color 0.18s ease;
+}
+
+
+/* =========================================================
+   IA, CAMPO NÃO PREENCHIDO
+
+   Essa classe só existe depois que dadosIa foi aplicado
+   e o campo continuou vazio.
+========================================================= */
+
+.formulario-fiscal-campo-premium input.formulario-fiscal-input-ia-vazio {
+
+    background:
+        linear-gradient(135deg,
+            #fffdf0,
+            #fff7c2) !important;
+
+    border: 2px solid #eab308 !important;
+
+    color: #713f12 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(234, 179, 8, 0.11),
+        inset 0 1px 2px rgba(161, 98, 7, 0.05) !important;
+}
+
+
+/* =========================================================
+   PLACEHOLDER AMARELO
+========================================================= */
+
+.formulario-fiscal-campo-premium input.formulario-fiscal-input-ia-vazio::placeholder {
+
+    color: #a16207 !important;
+
+    font-weight: 650;
+
+    opacity: 0.78;
+}
+
+
+/* =========================================================
+   HOVER CAMPO VAZIO
+========================================================= */
+
+.formulario-fiscal-campo-premium input.formulario-fiscal-input-ia-vazio:hover {
+
+    background:
+        linear-gradient(135deg,
+            #fffbea,
+            #fff1a8) !important;
+
+    border-color: #ca8a04 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(234, 179, 8, 0.15) !important;
+}
+
+
+/* =========================================================
+   FOCO CAMPO VAZIO
+========================================================= */
+
+.formulario-fiscal-campo-premium input.formulario-fiscal-input-ia-vazio:focus {
+
+    background: #fffef5 !important;
+
+    border-color: #ca8a04 !important;
+
+    box-shadow:
+        0 0 0 4px rgba(234, 179, 8, 0.18),
+        0 5px 14px rgba(161, 98, 7, 0.08) !important;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   LABEL QUANDO IA NÃO PREENCHEU
+========================================================= */
+
+.formulario-fiscal-campo-premium:has(input.formulario-fiscal-input-ia-vazio) label {
+
+    color: #9a6700 !important;
+}
+
+
+/* =========================================================
+   INDICADOR NO LABEL
+========================================================= */
+
+.formulario-fiscal-campo-premium:has(input.formulario-fiscal-input-ia-vazio) label::after {
+
+    content: " • NÃO PREENCHIDO";
+
+    margin-left: 4px;
+
+    color: #d18b00 !important;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 0.25px;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO DO CAMPO VAZIO
+========================================================= */
+
+.formulario-fiscal-campo-premium:has(input.formulario-fiscal-input-ia-vazio) small {
+
+    color: #a16207 !important;
+}
+
+
+/* =========================================================
+   % QUANDO CAMPO ESTIVER VAZIO
+========================================================= */
+
+.formulario-fiscal-input-percentual-premium:has(input.formulario-fiscal-input-ia-vazio) span {
+
+    color: #a16207 !important;
 }
 
 
@@ -447,7 +433,6 @@
 
     border: 1px solid #d2e2f0;
     border-left: 4px solid #123d72;
-
     border-radius: 9px;
 
     color: #123d72 !important;
@@ -463,6 +448,7 @@
 
 .formulario-fiscal-acoes-premium {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
 
@@ -509,7 +495,7 @@
 
 
 /* =========================================================
-   SALVAR
+   BOTÃO SALVAR
 ========================================================= */
 
 .formulario-fiscal-salvar-premium {
@@ -567,7 +553,6 @@
 
 .formulario-fiscal-salvar-premium:disabled {
     opacity: 0.55;
-
     cursor: not-allowed;
 }
 
@@ -581,6 +566,9 @@
     .formulario-fiscal-grade-premium {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
+
+        height: auto;
+        min-height: 0;
     }
 }
 
@@ -614,13 +602,15 @@
     .formulario-fiscal-grade-premium {
         grid-template-columns: 1fr;
 
+        height: auto;
+        min-height: 0;
+
         gap: 13px;
     }
 
 
     .formulario-fiscal-acoes-premium {
         flex-direction: column;
-
         align-items: stretch;
 
         padding: 14px;
@@ -629,5 +619,15 @@
 
     .formulario-fiscal-salvar-premium {
         width: 100%;
+        min-width: 0;
+    }
+
+
+    .formulario-fiscal-campo-premium:has(input.formulario-fiscal-input-ia-vazio) label::after {
+
+        display: block;
+
+        margin-top: 3px;
+        margin-left: 0;
     }
 }
