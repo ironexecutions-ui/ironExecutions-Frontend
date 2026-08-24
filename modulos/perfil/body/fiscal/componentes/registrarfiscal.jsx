@@ -37,21 +37,18 @@ export default function RegistrarFiscal() {
         } catch (erro) {
 
             console.error(
-                "[RegistrarFiscal] Erro ao carregar configuração fiscal da IA:",
+                "[RegistrarFiscal] Erro ao carregar configuração da IA:",
                 erro
             );
-
         }
 
         return {
-            regime: "",
-            origem_padrao: "",
-            uf: "",
-            finalidade: "",
-            operacao_produto: "",
-            permitir_inferencia: "sim"
+            situacao_especial: "nao_sei"
         };
     });
+
+    const [contextoFiscalBanco, setContextoFiscalBanco] = useState(null);
+    const [carregandoContextoFiscal, setCarregandoContextoFiscal] = useState(false);
 
     const [mostrarConfigIa, setMostrarConfigIa] = useState(false);
     // ===============================
@@ -93,7 +90,59 @@ export default function RegistrarFiscal() {
             .catch(() => setBloqueado(true));
 
     }, [token]);
+    useEffect(() => {
 
+        if (!funcao) return;
+
+        async function carregarContextoFiscal() {
+
+            setCarregandoContextoFiscal(true);
+
+            try {
+
+                const resp = await fetch(
+                    `${API_URL}/fiscal/contexto-ia`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                const dados = await resp.json();
+
+                if (!resp.ok) {
+                    throw new Error(
+                        dados.detail ||
+                        "Erro ao carregar contexto fiscal"
+                    );
+                }
+
+                console.log(
+                    "[RegistrarFiscal] Contexto fiscal do banco:",
+                    dados
+                );
+
+                setContextoFiscalBanco(dados);
+
+            } catch (erro) {
+
+                console.error(
+                    "[RegistrarFiscal] Erro ao carregar contexto fiscal:",
+                    erro
+                );
+
+                setContextoFiscalBanco(null);
+
+            } finally {
+
+                setCarregandoContextoFiscal(false);
+            }
+        }
+
+        carregarContextoFiscal();
+
+    }, [funcao, token]);
     // ===============================
     // CARREGAR PRODUTOS
     // ===============================
@@ -268,25 +317,38 @@ export default function RegistrarFiscal() {
 DADOS DO COMÉRCIO:
 
 Regime tributário:
-${configFiscalIa.regime || "Não informado"}
+${contextoFiscalBanco?.regime_tributario || "Não informado"}
+
+CRT:
+${contextoFiscalBanco?.crt || "Não informado"}
+
+CNAE:
+${contextoFiscalBanco?.cnae || "Não informado"}
 
 UF do estabelecimento:
-${configFiscalIa.uf || "Não informada"}
+${contextoFiscalBanco?.estado?.toUpperCase() || "Não informada"}
 
-Origem padrão das mercadorias:
-${configFiscalIa.origem_padrao || "Não informada"}
+Código da UF:
+${contextoFiscalBanco?.codigo_uf || "Não informado"}
 
-Finalidade normal das vendas:
-${configFiscalIa.finalidade || "Não informada"}
+Município:
+${contextoFiscalBanco?.cidade || "Não informado"}
 
-Operação normal dos produtos:
-${configFiscalIa.operacao_produto || "Não informada"}
+Código IBGE do município:
+${contextoFiscalBanco?.codigo_municipio || "Não informado"}
 
-Quando faltarem características específicas do produto:
-${configFiscalIa.permitir_inferencia === "sim"
-                ? "Utilize a classificação fiscal mais provável considerando o produto informado e o contexto do comércio. Não deixe um campo vazio apenas porque existem várias possibilidades, quando houver uma opção claramente mais provável."
-                : 'Quando não for possível determinar com segurança, retorne "".'
+Situação tributária especial informada pelo comerciante:
+${configFiscalIa.situacao_especial === "nao"
+                ? "Não possui"
+                : configFiscalIa.situacao_especial === "sim"
+                    ? "Possui"
+                    : configFiscalIa.situacao_especial === "varia"
+                        ? "Varia conforme o produto"
+                        : "Não sabe informar"
             }
+
+Quando informações como origem da mercadoria, destinação da venda ou natureza da operação não estiverem disponíveis:
+Utilize o cenário fiscal mais provável considerando os dados cadastrais do comércio e as características do produto. Não invente informações quando a característica específica do produto for indispensável.
 `;
         // ===============================
         // SERVIÇO
@@ -867,9 +929,8 @@ RESPONDA SOMENTE COM O JSON.
                                         <strong>Antes de usar a IA</strong>
 
                                         <p>
-                                            Responda algumas informações do comércio.
-                                            Elas serão salvas neste dispositivo e você não
-                                            precisará responder novamente nos próximos produtos.
+                                            Os dados cadastrais do comércio são carregados
+                                            automaticamente. Responda apenas esta informação adicional.
                                         </p>
                                     </div>
 
@@ -895,179 +956,40 @@ RESPONDA SOMENTE COM O JSON.
                                         <div className="registrar-fiscal-ia-config-campo">
 
                                             <label>
-                                                Qual é o regime tributário?
+                                                A empresa possui mercadorias sujeitas à substituição
+                                                tributária, tributação monofásica ou algum benefício
+                                                fiscal específico?
                                             </label>
 
                                             <select
-                                                value={configFiscalIa.regime}
+                                                value={configFiscalIa.situacao_especial}
                                                 onChange={e =>
                                                     alterarConfigFiscalIa(
-                                                        "regime",
+                                                        "situacao_especial",
                                                         e.target.value
                                                     )
                                                 }
                                             >
-                                                <option value="">Selecione</option>
-                                                <option value="Simples Nacional">
-                                                    Simples Nacional
-                                                </option>
-                                                <option value="MEI">
-                                                    MEI
-                                                </option>
-                                                <option value="Lucro Presumido">
-                                                    Lucro Presumido
-                                                </option>
-                                                <option value="Lucro Real">
-                                                    Lucro Real
-                                                </option>
-                                            </select>
-
-                                        </div>
-
-
-                                        <div className="registrar-fiscal-ia-config-campo">
-
-                                            <label>
-                                                Em qual estado fica o comércio?
-                                            </label>
-
-                                            <select
-                                                value={configFiscalIa.uf}
-                                                onChange={e =>
-                                                    alterarConfigFiscalIa(
-                                                        "uf",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                <option value="">Selecione</option>
-
-                                                {[
-                                                    "AC", "AL", "AP", "AM", "BA", "CE",
-                                                    "DF", "ES", "GO", "MA", "MT", "MS",
-                                                    "MG", "PA", "PB", "PR", "PE", "PI",
-                                                    "RJ", "RN", "RS", "RO", "RR", "SC",
-                                                    "SP", "SE", "TO"
-                                                ].map(uf => (
-                                                    <option key={uf} value={uf}>
-                                                        {uf}
-                                                    </option>
-                                                ))}
-
-                                            </select>
-
-                                        </div>
-
-
-                                        <div className="registrar-fiscal-ia-config-campo">
-
-                                            <label>
-                                                De onde normalmente vêm os produtos?
-                                            </label>
-
-                                            <select
-                                                value={configFiscalIa.origem_padrao}
-                                                onChange={e =>
-                                                    alterarConfigFiscalIa(
-                                                        "origem_padrao",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                <option value="">
-                                                    Varia / não sei
+                                                <option value="nao_sei">
+                                                    Não sei
                                                 </option>
 
-                                                <option value="0 - Nacional">
-                                                    Nacional
+                                                <option value="nao">
+                                                    Não
                                                 </option>
 
-                                                <option value="1 - Importação direta">
-                                                    Importação direta
+                                                <option value="sim">
+                                                    Sim
                                                 </option>
 
-                                                <option value="2 - Estrangeira adquirida no mercado interno">
-                                                    Importado comprado no Brasil
+                                                <option value="varia">
+                                                    Varia conforme o produto
                                                 </option>
-
-                                            </select>
-
-                                        </div>
-
-
-                                        <div className="registrar-fiscal-ia-config-campo">
-
-                                            <label>
-                                                Os produtos são normalmente:
-                                            </label>
-
-                                            <select
-                                                value={configFiscalIa.operacao_produto}
-                                                onChange={e =>
-                                                    alterarConfigFiscalIa(
-                                                        "operacao_produto",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                <option value="">
-                                                    Selecione
-                                                </option>
-
-                                                <option value="Mercadoria adquirida de terceiros para revenda">
-                                                    Comprados para revenda
-                                                </option>
-
-                                                <option value="Mercadoria de fabricação própria">
-                                                    Fabricação própria
-                                                </option>
-
-                                                <option value="Varia conforme o produto">
-                                                    Varia
-                                                </option>
-
-                                            </select>
-
-                                        </div>
-
-
-                                        <div className="registrar-fiscal-ia-config-campo">
-
-                                            <label>
-                                                Normalmente vende para:
-                                            </label>
-
-                                            <select
-                                                value={configFiscalIa.finalidade}
-                                                onChange={e =>
-                                                    alterarConfigFiscalIa(
-                                                        "finalidade",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                <option value="">
-                                                    Selecione
-                                                </option>
-
-                                                <option value="Consumidor final">
-                                                    Consumidor final
-                                                </option>
-
-                                                <option value="Revenda">
-                                                    Outros comércios para revenda
-                                                </option>
-
-                                                <option value="Varia conforme a venda">
-                                                    Varia
-                                                </option>
-
                                             </select>
 
                                         </div>
 
                                     </div>
-
                                 )}
 
                             </div>
