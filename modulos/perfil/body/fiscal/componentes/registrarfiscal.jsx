@@ -22,11 +22,58 @@ export default function RegistrarFiscal() {
     const [promptCopiado, setPromptCopiado] = useState(false);
 
     const token = localStorage.getItem("token");
+    const [configFiscalIa, setConfigFiscalIa] = useState(() => {
 
+        try {
+
+            const salvo = localStorage.getItem(
+                "registrar_fiscal_config_ia"
+            );
+
+            if (salvo) {
+                return JSON.parse(salvo);
+            }
+
+        } catch (erro) {
+
+            console.error(
+                "[RegistrarFiscal] Erro ao carregar configuração fiscal da IA:",
+                erro
+            );
+
+        }
+
+        return {
+            regime: "",
+            origem_padrao: "",
+            uf: "",
+            finalidade: "",
+            operacao_produto: "",
+            permitir_inferencia: "sim"
+        };
+    });
+
+    const [mostrarConfigIa, setMostrarConfigIa] = useState(false);
     // ===============================
     // VERIFICAR FUNÇÃO DO USUÁRIO
     // ===============================
+    function alterarConfigFiscalIa(campo, valor) {
 
+        setConfigFiscalIa(anterior => {
+
+            const atualizado = {
+                ...anterior,
+                [campo]: valor
+            };
+
+            localStorage.setItem(
+                "registrar_fiscal_config_ia",
+                JSON.stringify(atualizado)
+            );
+
+            return atualizado;
+        });
+    }
     useEffect(() => {
         fetch(`${API_URL}/clientes/me`, {
             headers: {
@@ -114,7 +161,30 @@ export default function RegistrarFiscal() {
         if (!selecionado) return "";
 
         const nome = selecionado.nome || "";
+        const contextoFiscalComercio = `
+DADOS DO COMÉRCIO:
 
+Regime tributário:
+${configFiscalIa.regime || "Não informado"}
+
+UF do estabelecimento:
+${configFiscalIa.uf || "Não informada"}
+
+Origem padrão das mercadorias:
+${configFiscalIa.origem_padrao || "Não informada"}
+
+Finalidade normal das vendas:
+${configFiscalIa.finalidade || "Não informada"}
+
+Operação normal dos produtos:
+${configFiscalIa.operacao_produto || "Não informada"}
+
+Quando faltarem características específicas do produto:
+${configFiscalIa.permitir_inferencia === "sim"
+                ? "Utilize a classificação fiscal mais provável considerando o produto informado e o contexto do comércio. Não deixe um campo vazio apenas porque existem várias possibilidades, quando houver uma opção claramente mais provável."
+                : 'Quando não for possível determinar com segurança, retorne "".'
+            }
+`;
         // ===============================
         // SERVIÇO
         // ===============================
@@ -186,6 +256,8 @@ RESPONDA SOMENTE COM O JSON.
 Você é um especialista brasileiro em classificação fiscal de mercadorias, NFC-e, NF-e, ICMS, PIS, COFINS, NCM, CEST, CFOP e na tributação IBS/CBS da reforma tributária brasileira.
 
 Preciso preencher o cadastro fiscal de uma mercadoria.
+
+${contextoFiscalComercio}
 
 DADOS DO ITEM:
 
@@ -656,7 +728,218 @@ RESPONDA SOMENTE COM O JSON.
                     {mostrarAjudaIa && (
 
                         <div className="registrar-fiscal-ia-painel">
+                            <div className="registrar-fiscal-ia-config">
 
+                                <div className="registrar-fiscal-ia-config-topo">
+
+                                    <div>
+                                        <strong>Antes de usar a IA</strong>
+
+                                        <p>
+                                            Responda algumas informações do comércio.
+                                            Elas serão salvas neste dispositivo e você não
+                                            precisará responder novamente nos próximos produtos.
+                                        </p>
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        className="registrar-fiscal-ia-config-abrir"
+                                        onClick={() =>
+                                            setMostrarConfigIa(anterior => !anterior)
+                                        }
+                                    >
+                                        {mostrarConfigIa
+                                            ? "Fechar perguntas"
+                                            : "Responder perguntas"
+                                        }
+                                    </button>
+
+                                </div>
+
+                                {mostrarConfigIa && (
+
+                                    <div className="registrar-fiscal-ia-config-campos">
+
+                                        <div className="registrar-fiscal-ia-config-campo">
+
+                                            <label>
+                                                Qual é o regime tributário?
+                                            </label>
+
+                                            <select
+                                                value={configFiscalIa.regime}
+                                                onChange={e =>
+                                                    alterarConfigFiscalIa(
+                                                        "regime",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option value="">Selecione</option>
+                                                <option value="Simples Nacional">
+                                                    Simples Nacional
+                                                </option>
+                                                <option value="MEI">
+                                                    MEI
+                                                </option>
+                                                <option value="Lucro Presumido">
+                                                    Lucro Presumido
+                                                </option>
+                                                <option value="Lucro Real">
+                                                    Lucro Real
+                                                </option>
+                                            </select>
+
+                                        </div>
+
+
+                                        <div className="registrar-fiscal-ia-config-campo">
+
+                                            <label>
+                                                Em qual estado fica o comércio?
+                                            </label>
+
+                                            <select
+                                                value={configFiscalIa.uf}
+                                                onChange={e =>
+                                                    alterarConfigFiscalIa(
+                                                        "uf",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option value="">Selecione</option>
+
+                                                {[
+                                                    "AC", "AL", "AP", "AM", "BA", "CE",
+                                                    "DF", "ES", "GO", "MA", "MT", "MS",
+                                                    "MG", "PA", "PB", "PR", "PE", "PI",
+                                                    "RJ", "RN", "RS", "RO", "RR", "SC",
+                                                    "SP", "SE", "TO"
+                                                ].map(uf => (
+                                                    <option key={uf} value={uf}>
+                                                        {uf}
+                                                    </option>
+                                                ))}
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div className="registrar-fiscal-ia-config-campo">
+
+                                            <label>
+                                                De onde normalmente vêm os produtos?
+                                            </label>
+
+                                            <select
+                                                value={configFiscalIa.origem_padrao}
+                                                onChange={e =>
+                                                    alterarConfigFiscalIa(
+                                                        "origem_padrao",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option value="">
+                                                    Varia / não sei
+                                                </option>
+
+                                                <option value="0 - Nacional">
+                                                    Nacional
+                                                </option>
+
+                                                <option value="1 - Importação direta">
+                                                    Importação direta
+                                                </option>
+
+                                                <option value="2 - Estrangeira adquirida no mercado interno">
+                                                    Importado comprado no Brasil
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div className="registrar-fiscal-ia-config-campo">
+
+                                            <label>
+                                                Os produtos são normalmente:
+                                            </label>
+
+                                            <select
+                                                value={configFiscalIa.operacao_produto}
+                                                onChange={e =>
+                                                    alterarConfigFiscalIa(
+                                                        "operacao_produto",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option value="">
+                                                    Selecione
+                                                </option>
+
+                                                <option value="Mercadoria adquirida de terceiros para revenda">
+                                                    Comprados para revenda
+                                                </option>
+
+                                                <option value="Mercadoria de fabricação própria">
+                                                    Fabricação própria
+                                                </option>
+
+                                                <option value="Varia conforme o produto">
+                                                    Varia
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div className="registrar-fiscal-ia-config-campo">
+
+                                            <label>
+                                                Normalmente vende para:
+                                            </label>
+
+                                            <select
+                                                value={configFiscalIa.finalidade}
+                                                onChange={e =>
+                                                    alterarConfigFiscalIa(
+                                                        "finalidade",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option value="">
+                                                    Selecione
+                                                </option>
+
+                                                <option value="Consumidor final">
+                                                    Consumidor final
+                                                </option>
+
+                                                <option value="Revenda">
+                                                    Outros comércios para revenda
+                                                </option>
+
+                                                <option value="Varia conforme a venda">
+                                                    Varia
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                )}
+
+                            </div>
                             <div className="registrar-fiscal-ia-etapa">
 
                                 <span className="registrar-fiscal-ia-numero">
