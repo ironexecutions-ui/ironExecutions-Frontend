@@ -6,6 +6,7 @@ import { useVenda } from "./vendaprovider";
 export default function ModalPagamento({
     total,
     fechar,
+    imprimirNfce = false,
     modoPixRapido = false,
     dadosPixRapido = null
 }) {
@@ -62,7 +63,152 @@ export default function ModalPagamento({
     /* ===============================
    DADOS DO PIX RÁPIDO
 =============================== */
+    async function emitirEImprimirNfce(vendaIdAtual) {
+        const token = localStorage.getItem("token");
 
+        console.log(
+            "[NFC-E] Iniciando emissão da NFC-e para venda:",
+            vendaIdAtual
+        );
+
+        // ==========================================
+        // 1. EMITIR NFC-E
+        // ==========================================
+
+        const respEmissao = await fetch(
+            `${API_URL}/vendas/${vendaIdAtual}/emitir-nfce`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        let dadosEmissao = null;
+
+        try {
+            dadosEmissao = await respEmissao.json();
+        } catch {
+            dadosEmissao = null;
+        }
+
+        console.log(
+            "[NFC-E] STATUS EMISSÃO:",
+            respEmissao.status
+        );
+
+        console.log(
+            "[NFC-E] RESPOSTA EMISSÃO:",
+            dadosEmissao
+        );
+
+        if (!respEmissao.ok) {
+            const detalhe =
+                dadosEmissao?.detail ||
+                dadosEmissao?.mensagem ||
+                "Erro ao emitir NFC-e";
+
+            throw new Error(detalhe);
+        }
+
+        // ==========================================
+        // 2. DESCOBRIR ID DA NFC-E
+        // ==========================================
+
+        const nfceId =
+            dadosEmissao?.nfce_id ??
+            dadosEmissao?.id ??
+            dadosEmissao?.nota_id ??
+            null;
+
+        if (!nfceId) {
+            console.error(
+                "[NFC-E] Resposta não contém nfce_id:",
+                dadosEmissao
+            );
+
+            throw new Error(
+                "NFC-e foi emitida, mas o servidor não retornou o ID da nota."
+            );
+        }
+
+        console.log(
+            "[NFC-E] NFC-e autorizada. ID:",
+            nfceId
+        );
+
+        // ==========================================
+        // 3. URL DO DANFE
+        // ==========================================
+
+        const danfeUrl =
+            `${API_URL}/fiscal/nfce/${nfceId}/danfe`;
+
+        console.log(
+            "[NFC-E] DANFE:",
+            danfeUrl
+        );
+
+        // ==========================================
+        // 4. VERIFICAR API LOCAL
+        // ==========================================
+
+        if (apiVendas !== API_LOCAL) {
+            throw new Error(
+                "Servidor local de impressão não está disponível."
+            );
+        }
+
+        // ==========================================
+        // 5. IMPRIMIR DANFE
+        // ==========================================
+
+        console.log(
+            "[NFC-E] Enviando DANFE para impressão"
+        );
+
+        const impResp = await fetch(
+            `${API_LOCAL}/imprimir`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    venda_id: vendaIdAtual,
+                    url: danfeUrl,
+                    tipo: "nfce"
+                })
+            }
+        );
+
+        if (!impResp.ok) {
+            let erroLocal = "";
+
+            try {
+                erroLocal = await impResp.text();
+            } catch {
+                erroLocal = "";
+            }
+
+            console.error(
+                "[NFC-E] Erro impressão:",
+                impResp.status,
+                erroLocal
+            );
+
+            throw new Error(
+                "NFC-e emitida, mas ocorreu erro ao imprimir o DANFE."
+            );
+        }
+
+        console.log(
+            "[NFC-E] DANFE enviado para impressão com sucesso"
+        );
+
+        return dadosEmissao;
+    }
     const vendaRapidaSnapshot =
         dadosPixRapido?.venda || null;
 
@@ -250,7 +396,9 @@ INICIALIZAR PIX RÁPIDO
 
     async function confirmarPagamento() {
         if (imprimindoRef.current) {
-            console.warn("Impressão já em andamento, ignorando chamada duplicada");
+            console.warn(
+                "Impressão já em andamento, ignorando chamada duplicada"
+            );
             return;
         }
 
@@ -258,9 +406,13 @@ INICIALIZAR PIX RÁPIDO
         setProcessando(true);
 
         let erroImpressao = false;
+        let mensagemErroImpressao = null;
 
         try {
-            // 1️⃣ CONFIRMA VENDA
+            // ==========================================
+            // 1. CONFIRMAR VENDA
+            // ==========================================
+
             const confResp = await fetch(
                 `${API_ONLINE_VENDAS}/vendas/${vendaId}/confirmar`,
                 {
@@ -277,32 +429,109 @@ INICIALIZAR PIX RÁPIDO
 
             const confData = await confResp.json();
 
-            // 2️⃣ TENTA IMPRIMIR SE NODE = 1
+            console.log(
+                "[VENDA] Venda confirmada:",
+                confData
+            );
+
+            console.log(
+                "[VENDA] imprimirNfce:",
+                imprimirNfce
+            );
+
+            console.log(
+                "[VENDA] impressão local permitida:",
+                confData.imprimir
+            );
+
+            // ==========================================
+            // 2. DECIDIR O DOCUMENTO
+            // ==========================================
+
             if (confData.imprimir === true) {
 
-                if (apiVendas !== API_LOCAL) {
-                    erroImpressao = true;
-                } else {
-                    try {
-                        const impResp = await fetch(`${API_LOCAL}/imprimir`, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                venda_id: vendaId,
-                                url: comandaUrl
-                            })
-                        });
+                // ======================================
+                // NFC-E
+                // ======================================
 
-                        if (!impResp.ok) {
-                            erroImpressao = true;
-                        }
-                    } catch {
+                if (imprimirNfce === true) {
+                    console.log(
+                        "[VENDA] NFC-e selecionada. Comanda NÃO será impressa."
+                    );
+
+                    try {
+                        await emitirEImprimirNfce(vendaId);
+                    } catch (e) {
+                        console.error(
+                            "[NFC-E] Falha:",
+                            e
+                        );
+
                         erroImpressao = true;
+
+                        mensagemErroImpressao =
+                            e?.message ||
+                            "Erro ao emitir ou imprimir NFC-e";
+                    }
+                }
+
+                // ======================================
+                // COMANDA NORMAL
+                // ======================================
+
+                else {
+                    console.log(
+                        "[VENDA] NFC-e não selecionada. Imprimindo comanda."
+                    );
+
+                    if (apiVendas !== API_LOCAL) {
+                        erroImpressao = true;
+
+                        mensagemErroImpressao =
+                            "Servidor local de impressão indisponível.";
+                    } else {
+                        try {
+                            const impResp = await fetch(
+                                `${API_LOCAL}/imprimir`,
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        venda_id: vendaId,
+                                        url: comandaUrl,
+                                        tipo: "comanda"
+                                    })
+                                }
+                            );
+
+                            if (!impResp.ok) {
+                                erroImpressao = true;
+
+                                mensagemErroImpressao =
+                                    "Erro ao imprimir comanda.";
+                            }
+
+                        } catch (e) {
+                            console.error(
+                                "[COMANDA] Erro:",
+                                e
+                            );
+
+                            erroImpressao = true;
+
+                            mensagemErroImpressao =
+                                "Erro ao comunicar com a impressora.";
+                        }
                     }
                 }
             }
 
-            // 3️⃣ VENDA SEMPRE CONCLUÍDA
+            // ==========================================
+            // 3. VENDA SEMPRE CONCLUÍDA
+            // ==========================================
+
             setSucesso(true);
 
             setTimeout(() => {
@@ -319,9 +548,10 @@ INICIALIZAR PIX RÁPIDO
                 setPixPago(false);
                 setEtapa("metodo");
 
-                /* ===============================
-                   PIX RÁPIDO
-                =============================== */
+                // ======================================
+                // PIX RÁPIDO
+                // ======================================
+
                 if (modoPixRapido) {
 
                     if (vendaRapidaLocalId) {
@@ -332,7 +562,14 @@ INICIALIZAR PIX RÁPIDO
                                 pixAprovado: true,
                                 concluidaEm: new Date().toISOString(),
                                 aviso: erroImpressao
-                                    ? "Erro ao imprimir comanda"
+                                    ? (
+                                        mensagemErroImpressao ||
+                                        (
+                                            imprimirNfce
+                                                ? "Erro ao imprimir NFC-e"
+                                                : "Erro ao imprimir comanda"
+                                        )
+                                    )
                                     : null
                             }
                         );
@@ -344,17 +581,26 @@ INICIALIZAR PIX RÁPIDO
 
                 } else {
 
-                    /* ===============================
-                       VENDA NORMAL
-                    =============================== */
+                    // ==================================
+                    // VENDA NORMAL
+                    // ==================================
+
                     limparVenda();
                     setModalAberto(false);
                     fechar();
                 }
 
+                // ======================================
+                // AVISO DE ERRO
+                // ======================================
+
                 if (erroImpressao) {
                     alert(
-                        "Venda concluída com sucesso, mas ocorreu um erro na impressão. Verifique a impressora."
+                        "Venda concluída com sucesso, mas ocorreu um problema com o documento fiscal/impressão.\n\n" +
+                        (
+                            mensagemErroImpressao ||
+                            "Verifique a impressora."
+                        )
                     );
                 }
 
@@ -362,14 +608,18 @@ INICIALIZAR PIX RÁPIDO
 
         } catch (e) {
 
-            console.error(e);
+            console.error(
+                "[VENDA] Erro ao confirmar:",
+                e
+            );
 
             imprimindoRef.current = false;
             setProcessando(false);
 
-            /* ===============================
-               PIX RÁPIDO
-            =============================== */
+            // ==========================================
+            // PIX RÁPIDO
+            // ==========================================
+
             if (modoPixRapido) {
 
                 if (vendaRapidaLocalId) {
@@ -392,11 +642,12 @@ INICIALIZAR PIX RÁPIDO
                 return;
             }
 
-            /* ===============================
-               VENDA NORMAL
-            =============================== */
+            // ==========================================
+            // VENDA NORMAL
+            // ==========================================
+
             alert(
-                e.message ||
+                e?.message ||
                 "Erro ao confirmar pagamento"
             );
 
