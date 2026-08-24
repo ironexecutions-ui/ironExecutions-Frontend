@@ -38,6 +38,8 @@ function ProdutividadeConteudo() {
         limparVenda,
         setLimparBusca,
 
+        emitirNota,
+
         criarSnapshotVenda,
         adicionarVendaProcessando,
         atualizarVendaProcessando,
@@ -46,7 +48,6 @@ function ProdutividadeConteudo() {
         abrirPixRapido,
         fecharPixRapido
     } = useVenda();
-
     /* ===============================
        VENDA RÁPIDA EM ANDAMENTO
 
@@ -352,6 +353,29 @@ function ProdutividadeConteudo() {
         }
     }
     /* ===============================
+   ABRIR PAGAMENTO PARA NFC-e
+=============================== */
+    function abrirPagamentoComNota() {
+
+        if (!itens || itens.length === 0) {
+            return;
+        }
+
+        if (!total || total <= 0) {
+            return;
+        }
+
+        const btnCobrar =
+            document.querySelector(".cob-botao");
+
+        if (
+            btnCobrar &&
+            !btnCobrar.disabled
+        ) {
+            btnCobrar.click();
+        }
+    }
+    /* ===============================
        TECLADO GLOBAL
     =============================== */
     useEffect(() => {
@@ -366,8 +390,8 @@ function ProdutividadeConteudo() {
                 return;
             }
             /* ===============================
-               CTRL + 1 = DÉBITO
-            =============================== */
+      CTRL + 1 = DÉBITO
+   =============================== */
 
             if (
                 e.ctrlKey &&
@@ -381,10 +405,16 @@ function ProdutividadeConteudo() {
                     return;
                 }
 
+                if (emitirNota) {
+                    abrirPagamentoComNota();
+                    return;
+                }
+
                 executarVendaRapida("debito");
 
                 return;
             }
+
 
             /* ===============================
                CTRL + 2 = CRÉDITO
@@ -402,10 +432,16 @@ function ProdutividadeConteudo() {
                     return;
                 }
 
+                if (emitirNota) {
+                    abrirPagamentoComNota();
+                    return;
+                }
+
                 executarVendaRapida("credito");
 
                 return;
             }
+
 
             /* ===============================
                CTRL + 3 = PIX
@@ -423,10 +459,17 @@ function ProdutividadeConteudo() {
                     return;
                 }
 
+                if (emitirNota) {
+                    abrirPagamentoComNota();
+                    return;
+                }
+
                 executarPixRapido();
 
                 return;
             }
+
+
             /* ===============================
                CTRL + 4 = DINHEIRO
             =============================== */
@@ -443,11 +486,15 @@ function ProdutividadeConteudo() {
                     return;
                 }
 
+                if (emitirNota) {
+                    abrirPagamentoComNota();
+                    return;
+                }
+
                 executarVendaRapida("dinheiro");
 
                 return;
             }
-
             /* ===============================
                FOCO AUTOMÁTICO NO BUSCADOR
             =============================== */
@@ -583,6 +630,7 @@ function ProdutividadeConteudo() {
         itens,
         total,
         modalAberto,
+        emitirNota,
         aumentarQuantidade,
         diminuirQuantidade,
         criarSnapshotVenda,
