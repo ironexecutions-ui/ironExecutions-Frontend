@@ -321,123 +321,104 @@ INICIALIZAR PIX RÁPIDO
             );
 
             // ==========================================
-            // 2. IMPRIMIR COMPROVANTE
+            // 2. IMPRIMIR COMANDA NORMAL
             // ==========================================
 
-            if (confData.imprimir === true) {
+            console.log("[IMPRESSÃO] Iniciando impressão da comanda.");
+            console.log("[IMPRESSÃO] API local disponível:", apiLocalDisponivel);
+            console.log("[IMPRESSÃO] Venda:", vendaId);
+            console.log("[IMPRESSÃO] URL da comanda:", comandaUrl);
 
-                console.log(
-                    "[IMPRESSÃO] Venda configurada para impressão."
+            if (!apiLocalDisponivel) {
+
+                console.warn(
+                    "[IMPRESSÃO] API local não está disponível."
                 );
 
-                if (!apiLocalDisponivel) {
+                erroImpressao = true;
 
-                    console.warn(
-                        "[IMPRESSÃO] API local não está disponível."
+                mensagemErroImpressao =
+                    "O servidor local de impressão não está disponível.";
+
+            } else if (!comandaUrl) {
+
+                console.error(
+                    "[IMPRESSÃO] URL da comanda não encontrada."
+                );
+
+                erroImpressao = true;
+
+                mensagemErroImpressao =
+                    "O comprovante não possui URL para impressão.";
+
+            } else {
+
+                try {
+
+                    console.log(
+                        "[IMPRESSÃO] Enviando comanda para:",
+                        `${API_LOCAL}/imprimir`
                     );
 
-                    erroImpressao = true;
+                    const impResp = await fetch(
+                        `${API_LOCAL}/imprimir`,
+                        {
+                            method: "POST",
 
-                    mensagemErroImpressao =
-                        "O servidor local de impressão não está disponível.";
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
 
-                } else if (!comandaUrl) {
-
-                    console.error(
-                        "[IMPRESSÃO] URL da comanda não encontrada."
-                    );
-
-                    erroImpressao = true;
-
-                    mensagemErroImpressao =
-                        "O comprovante não possui URL para impressão.";
-
-                } else {
-
-                    try {
-
-                        console.log(
-                            "[IMPRESSÃO] Enviando para:",
-                            `${API_LOCAL}/imprimir`
-                        );
-
-                        console.log(
-                            "[IMPRESSÃO] Venda:",
-                            vendaId
-                        );
-
-                        console.log(
-                            "[IMPRESSÃO] PDF:",
-                            comandaUrl
-                        );
-
-                        const impResp = await fetch(
-                            `${API_LOCAL}/imprimir`,
-                            {
-                                method: "POST",
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body: JSON.stringify({
-                                    venda_id: vendaId,
-                                    url: comandaUrl
-                                })
-                            }
-                        );
-
-                        console.log(
-                            "[IMPRESSÃO] STATUS:",
-                            impResp.status
-                        );
-
-                        if (!impResp.ok) {
-
-                            const resposta =
-                                await impResp.text();
-
-                            console.error(
-                                "[IMPRESSÃO] Erro:",
-                                resposta
-                            );
-
-                            erroImpressao = true;
-
-                            mensagemErroImpressao =
-                                "O servidor local não conseguiu imprimir o comprovante.";
-
-                        } else {
-
-                            const resposta =
-                                await impResp.json();
-
-                            console.log(
-                                "[IMPRESSÃO] SUCESSO:",
-                                resposta
-                            );
+                            body: JSON.stringify({
+                                venda_id: vendaId,
+                                url: comandaUrl
+                            })
                         }
+                    );
 
-                    } catch (erro) {
+                    console.log(
+                        "[IMPRESSÃO] STATUS:",
+                        impResp.status
+                    );
+
+                    const respostaTexto = await impResp.text();
+
+                    console.log(
+                        "[IMPRESSÃO] RESPOSTA LOCAL:",
+                        respostaTexto
+                    );
+
+                    if (!impResp.ok) {
 
                         console.error(
-                            "[IMPRESSÃO] Falha de comunicação:",
-                            erro
+                            "[IMPRESSÃO] Servidor local recusou impressão:",
+                            respostaTexto
                         );
 
                         erroImpressao = true;
 
                         mensagemErroImpressao =
-                            "Não foi possível comunicar com a impressora.";
+                            "O servidor local não conseguiu imprimir a comanda.";
+
+                    } else {
+
+                        console.log(
+                            "[IMPRESSÃO] COMANDA ENVIADA COM SUCESSO"
+                        );
                     }
+
+                } catch (erro) {
+
+                    console.error(
+                        "[IMPRESSÃO] Falha de comunicação:",
+                        erro
+                    );
+
+                    erroImpressao = true;
+
+                    mensagemErroImpressao =
+                        "Não foi possível comunicar com a impressora.";
                 }
-
-            } else {
-
-                console.log(
-                    "[IMPRESSÃO] Backend informou que esta venda não deve ser impressa."
-                );
             }
 
             // ==========================================
