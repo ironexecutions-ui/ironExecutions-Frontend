@@ -27,8 +27,7 @@ export default function ModalPagamento({
     const API_ONLINE_VENDAS = API_URL;
 
     const [apiPronta, setApiPronta] = useState(false);
-    const [apiVendas, setApiVendas] = useState(null);
-
+    const [apiLocalDisponivel, setApiLocalDisponivel] = useState(false);
     const [carregandoConfirmacao, setCarregandoConfirmacao] = useState(false);
     const [processando, setProcessando] = useState(false);
     const [fechando, setFechando] = useState(false);
@@ -249,8 +248,11 @@ INICIALIZAR PIX RÁPIDO
     }
 
     async function confirmarPagamento() {
+
         if (imprimindoRef.current) {
-            console.warn("Impressão já em andamento, ignorando chamada duplicada");
+            console.warn(
+                "[VENDA] Finalização já em andamento."
+            );
             return;
         }
 
@@ -258,51 +260,190 @@ INICIALIZAR PIX RÁPIDO
         setProcessando(true);
 
         let erroImpressao = false;
+        let mensagemErroImpressao = null;
 
         try {
-            // 1️⃣ CONFIRMA VENDA
+
+            // ==========================================
+            // 1. CONFIRMAR VENDA NO BACKEND ONLINE
+            // ==========================================
+
+            console.log(
+                "[VENDA] Confirmando venda:",
+                vendaId
+            );
+
             const confResp = await fetch(
                 `${API_ONLINE_VENDAS}/vendas/${vendaId}/confirmar`,
                 {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                        Authorization:
+                            `Bearer ${localStorage.getItem("token")}`
                     }
                 }
             );
 
+            console.log(
+                "[VENDA] STATUS CONFIRMAÇÃO:",
+                confResp.status
+            );
+
             if (!confResp.ok && confResp.status !== 409) {
-                throw new Error("Erro ao confirmar venda");
+
+                const texto = await confResp.text();
+
+                console.error(
+                    "[VENDA] Erro confirmação:",
+                    texto
+                );
+
+                throw new Error(
+                    "Erro ao confirmar venda"
+                );
             }
 
             const confData = await confResp.json();
 
-            // 2️⃣ TENTA IMPRIMIR SE NODE = 1
+            console.log(
+                "[VENDA] Confirmação recebida:",
+                confData
+            );
+
+            console.log(
+                "[VENDA] Deve imprimir:",
+                confData.imprimir
+            );
+
+            console.log(
+                "[VENDA] URL comprovante:",
+                comandaUrl
+            );
+
+            // ==========================================
+            // 2. IMPRIMIR COMPROVANTE
+            // ==========================================
+
             if (confData.imprimir === true) {
 
-                if (apiVendas !== API_LOCAL) {
+                console.log(
+                    "[IMPRESSÃO] Venda configurada para impressão."
+                );
+
+                if (!apiLocalDisponivel) {
+
+                    console.warn(
+                        "[IMPRESSÃO] API local não está disponível."
+                    );
+
                     erroImpressao = true;
+
+                    mensagemErroImpressao =
+                        "O servidor local de impressão não está disponível.";
+
+                } else if (!comandaUrl) {
+
+                    console.error(
+                        "[IMPRESSÃO] URL da comanda não encontrada."
+                    );
+
+                    erroImpressao = true;
+
+                    mensagemErroImpressao =
+                        "O comprovante não possui URL para impressão.";
+
                 } else {
+
                     try {
-                        const impResp = await fetch(`${API_LOCAL}/imprimir`, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                venda_id: vendaId,
-                                url: comandaUrl
-                            })
-                        });
+
+                        console.log(
+                            "[IMPRESSÃO] Enviando para:",
+                            `${API_LOCAL}/imprimir`
+                        );
+
+                        console.log(
+                            "[IMPRESSÃO] Venda:",
+                            vendaId
+                        );
+
+                        console.log(
+                            "[IMPRESSÃO] PDF:",
+                            comandaUrl
+                        );
+
+                        const impResp = await fetch(
+                            `${API_LOCAL}/imprimir`,
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+                                    venda_id: vendaId,
+                                    url: comandaUrl
+                                })
+                            }
+                        );
+
+                        console.log(
+                            "[IMPRESSÃO] STATUS:",
+                            impResp.status
+                        );
 
                         if (!impResp.ok) {
+
+                            const resposta =
+                                await impResp.text();
+
+                            console.error(
+                                "[IMPRESSÃO] Erro:",
+                                resposta
+                            );
+
                             erroImpressao = true;
+
+                            mensagemErroImpressao =
+                                "O servidor local não conseguiu imprimir o comprovante.";
+
+                        } else {
+
+                            const resposta =
+                                await impResp.json();
+
+                            console.log(
+                                "[IMPRESSÃO] SUCESSO:",
+                                resposta
+                            );
                         }
-                    } catch {
+
+                    } catch (erro) {
+
+                        console.error(
+                            "[IMPRESSÃO] Falha de comunicação:",
+                            erro
+                        );
+
                         erroImpressao = true;
+
+                        mensagemErroImpressao =
+                            "Não foi possível comunicar com a impressora.";
                     }
                 }
+
+            } else {
+
+                console.log(
+                    "[IMPRESSÃO] Backend informou que esta venda não deve ser impressa."
+                );
             }
 
-            // 3️⃣ VENDA SEMPRE CONCLUÍDA
+            // ==========================================
+            // 3. VENDA CONCLUÍDA
+            // ==========================================
+
             setSucesso(true);
 
             setTimeout(() => {
@@ -319,84 +460,115 @@ INICIALIZAR PIX RÁPIDO
                 setPixPago(false);
                 setEtapa("metodo");
 
-                /* ===============================
-                   PIX RÁPIDO
-                =============================== */
+                // ======================================
+                // PIX RÁPIDO
+                // ======================================
+
                 if (modoPixRapido) {
 
                     if (vendaRapidaLocalId) {
+
                         atualizarVendaProcessando(
                             vendaRapidaLocalId,
                             {
                                 status: "concluida",
                                 pixAprovado: true,
-                                concluidaEm: new Date().toISOString(),
-                                aviso: erroImpressao
-                                    ? "Erro ao imprimir comanda"
-                                    : null
+
+                                concluidaEm:
+                                    new Date().toISOString(),
+
+                                aviso:
+                                    erroImpressao
+                                        ? (
+                                            mensagemErroImpressao ||
+                                            "Erro ao imprimir comprovante"
+                                        )
+                                        : null
                             }
                         );
                     }
 
                     fecharPixRapido();
+
                     setModalAberto(false);
+
                     fechar();
 
                 } else {
 
-                    /* ===============================
-                       VENDA NORMAL
-                    =============================== */
+                    // ==================================
+                    // VENDA NORMAL
+                    // ==================================
+
                     limparVenda();
+
                     setModalAberto(false);
+
                     fechar();
                 }
 
+                // ======================================
+                // AVISO DE IMPRESSÃO
+                // ======================================
+
                 if (erroImpressao) {
+
                     alert(
-                        "Venda concluída com sucesso, mas ocorreu um erro na impressão. Verifique a impressora."
+                        "Venda concluída com sucesso, mas ocorreu um problema na impressão.\n\n" +
+                        (
+                            mensagemErroImpressao ||
+                            "Verifique a impressora."
+                        )
                     );
                 }
 
             }, 1500);
 
-        } catch (e) {
+        } catch (erro) {
 
-            console.error(e);
+            console.error(
+                "[VENDA] Erro ao confirmar pagamento:",
+                erro
+            );
 
             imprimindoRef.current = false;
+
             setProcessando(false);
 
-            /* ===============================
-               PIX RÁPIDO
-            =============================== */
+            // ==========================================
+            // PIX RÁPIDO
+            // ==========================================
+
             if (modoPixRapido) {
 
                 if (vendaRapidaLocalId) {
+
                     atualizarVendaProcessando(
                         vendaRapidaLocalId,
                         {
                             status: "erro",
+
                             erro:
-                                e?.message ||
+                                erro?.message ||
                                 "Pix pago, mas ocorreu erro ao finalizar a venda"
                         }
                     );
                 }
 
                 alert(
-                    e?.message ||
+                    erro?.message ||
                     "Pix pago, mas ocorreu erro ao finalizar a venda"
                 );
 
                 return;
             }
 
-            /* ===============================
-               VENDA NORMAL
-            =============================== */
+            // ==========================================
+            // VENDA NORMAL
+            // ==========================================
+
             alert(
-                e.message ||
+                erro?.message ||
                 "Erro ao confirmar pagamento"
             );
 
@@ -484,29 +656,56 @@ INICIALIZAR PIX RÁPIDO
     }, [etapa, pixId, pixPago]);
 
     // ===============================
-    // DEFINIR API
+    // VERIFICAR API LOCAL DE IMPRESSÃO
     // ===============================
     useEffect(() => {
-        async function definirApiVendas() {
+        async function verificarApiLocal() {
             try {
-                const r = await fetch(`${API_LOCAL}/health`, {
-                    method: "GET"
-                });
+                console.log(
+                    "[IMPRESSÃO LOCAL] Verificando:",
+                    `${API_LOCAL}/health`
+                );
 
-                if (r.ok) {
-                    console.log("API LOCAL ativa, usando 8888");
-                    setApiVendas(API_LOCAL);
-                    return;
+                const resp = await fetch(
+                    `${API_LOCAL}/health`,
+                    {
+                        method: "GET"
+                    }
+                );
+
+                console.log(
+                    "[IMPRESSÃO LOCAL] STATUS:",
+                    resp.status
+                );
+
+                if (resp.ok) {
+                    console.log(
+                        "[IMPRESSÃO LOCAL] Servidor de impressão disponível."
+                    );
+
+                    setApiLocalDisponivel(true);
+                } else {
+                    console.warn(
+                        "[IMPRESSÃO LOCAL] Servidor respondeu, mas não está OK."
+                    );
+
+                    setApiLocalDisponivel(false);
                 }
-            } catch {
-                // silencioso
-            }
 
-            console.log("API LOCAL indisponível, usando ONLINE");
-            setApiVendas(API_ONLINE_VENDAS);
+            } catch (erro) {
+                console.warn(
+                    "[IMPRESSÃO LOCAL] Servidor indisponível:",
+                    erro
+                );
+
+                setApiLocalDisponivel(false);
+
+            } finally {
+                setApiPronta(true);
+            }
         }
 
-        definirApiVendas().finally(() => setApiPronta(true));
+        verificarApiLocal();
     }, []);
 
     // ===============================
