@@ -20,7 +20,7 @@ export function VendaProvider({ children }) {
 
     const [limparBusca, setLimparBusca] = useState(false);
     const [modalAberto, setModalAberto] = useState(false);
-
+    const [emitirNota, setEmitirNota] = useState(false);
     /* ===============================
        VENDAS SENDO PROCESSADAS
 
@@ -473,14 +473,6 @@ export function VendaProvider({ children }) {
                 return null;
             }
 
-            /*
-                Fazemos uma NOVA cópia dos produtos.
-
-                Depois que limparmos o carrinho,
-                esta venda continuará tendo seus
-                próprios produtos.
-            */
-
             const itensSnapshot = itens.map(item => ({
                 ...item
             }));
@@ -496,6 +488,8 @@ export function VendaProvider({ children }) {
 
                 itens: itensSnapshot,
 
+                emitirNota: emitirNota === true,
+
                 status: "aguardando",
 
                 erro: null,
@@ -503,9 +497,9 @@ export function VendaProvider({ children }) {
                 criadoEm: new Date().toISOString()
             };
         },
-        [itens, total]
-    );
 
+        [itens, total, emitirNota]
+    );
     /* ===============================
        ADICIONAR VENDA À FILA
     =============================== */
@@ -626,7 +620,8 @@ export function VendaProvider({ children }) {
 
                 modalAberto,
                 setModalAberto,
-
+                emitirNota,
+                setEmitirNota,
                 /* =====================
                    VENDA RÁPIDA
                 ===================== */

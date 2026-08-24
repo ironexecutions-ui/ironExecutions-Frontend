@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
 import { API_URL } from "../../../../../config";
 import PreviewProdutosVenda from "./previewprodutosvendas";
+
 import "./historicovendas.css";
 
 export default function HistoricoVendas() {
 
     const [previewAtivo, setPreviewAtivo] = useState(false);
-
+    const [podeApagar, setPodeApagar] = useState(false);
+    const [apagandoVenda, setApagandoVenda] = useState(null);
+    const [modalExcluirVenda, setModalExcluirVenda] = useState(null);
+    const [modalResultadoExclusao, setModalResultadoExclusao] = useState(null);
     const [vendas, setVendas] = useState([]);
     const [limite, setLimite] = useState(20);
     const [carregando, setCarregando] = useState(true);
@@ -21,7 +27,42 @@ export default function HistoricoVendas() {
 
     const token = localStorage.getItem("token");
 
+    async function carregarPermissoes() {
+        try {
+            const resp = await fetch(
+                `${API_URL}/admin/vendas/permissoes`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
 
+            if (!resp.ok) {
+                setPodeApagar(false);
+                return;
+            }
+
+            const dados = await resp.json();
+
+            console.log(
+                "[HISTORICO VENDAS] Permissões:",
+                dados
+            );
+
+            setPodeApagar(
+                dados?.pode_apagar === true
+            );
+
+        } catch (erro) {
+            console.error(
+                "[HISTORICO VENDAS] Erro ao carregar permissões:",
+                erro
+            );
+
+            setPodeApagar(false);
+        }
+    }
     /* =========================================================
        IDENTIFICAR COMÉRCIO
     ========================================================= */
@@ -427,12 +468,89 @@ export default function HistoricoVendas() {
     ========================================================= */
 
     useEffect(() => {
-
         carregar();
-
+        carregarPermissoes();
     }, []);
 
+    async function apagarVenda(venda) {
 
+        if (!podeApagar) {
+            return;
+        }
+
+        try {
+
+            setApagandoVenda(venda.id);
+
+            const resp = await fetch(
+                `${API_URL}/admin/vendas/${venda.id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            const dados = await resp.json();
+
+            if (!resp.ok) {
+                throw new Error(
+                    dados?.detail ||
+                    "Erro ao apagar venda"
+                );
+            }
+
+            const novasVendas = vendas.filter(
+                item =>
+                    String(item.id) !==
+                    String(venda.id)
+            );
+
+            setVendas(novasVendas);
+
+            salvarCache(novasVendas);
+
+            if (
+                String(vendaAtiva?.id) ===
+                String(venda.id)
+            ) {
+                setVendaAtiva(null);
+            }
+
+            // Fecha confirmação
+            setModalExcluirVenda(null);
+
+            // Abre modal de sucesso
+            setModalResultadoExclusao({
+                tipo: "sucesso",
+                titulo: "Venda apagada",
+                mensagem: `A venda #${venda.id} foi apagada com sucesso.`
+            });
+
+        } catch (erro) {
+
+            console.error(
+                "[HISTORICO VENDAS] Erro ao apagar venda:",
+                erro
+            );
+
+            setModalExcluirVenda(null);
+
+            setModalResultadoExclusao({
+                tipo: "erro",
+                titulo: "Não foi possível apagar",
+                mensagem:
+                    erro.message ||
+                    "Ocorreu um erro ao apagar a venda."
+            });
+
+        } finally {
+
+            setApagandoVenda(null);
+
+        }
+    }
     /* =========================================================
        FORMATAR HORA
     ========================================================= */
@@ -790,7 +908,9 @@ export default function HistoricoVendas() {
                             <th>Maquininha</th>
                             <th>Módulo</th>
                             <th>Comprovante</th>
-
+                            {podeApagar && (
+                                <th>Ações</th>
+                            )}
                         </tr>
 
                     </thead>
@@ -902,7 +1022,21 @@ export default function HistoricoVendas() {
                                         )}
 
                                     </td>
-
+                                    {podeApagar && (
+                                        <td>
+                                            <button
+                                                type="button"
+                                                className="hv-botao-apagar-venda"
+                                                disabled={apagandoVenda === v.id}
+                                                onClick={e => {
+                                                    e.stopPropagation();
+                                                    setModalExcluirVenda(v);
+                                                }}
+                                            >
+                                                Apagar
+                                            </button>
+                                        </td>
+                                    )}
                                 </tr>
 
                             ))
@@ -950,7 +1084,160 @@ export default function HistoricoVendas() {
                 />
 
             )}
+            {/* =========================================================
+    MODAL CONFIRMAR EXCLUSÃO
+========================================================= */}
 
+            {modalExcluirVenda && createPortal(
+
+                <div
+                    className="hv-modal-exclusao-overlay"
+                    onMouseDown={() => {
+                        if (!apagandoVenda) {
+                            setModalExcluirVenda(null);
+                        }
+                    }}
+                >
+
+                    <div
+                        className="hv-modal-exclusao"
+                        onMouseDown={e => e.stopPropagation()}
+                    >
+
+                        <div className="hv-modal-exclusao-icone">
+                            !
+                        </div>
+
+                        <h3>
+                            Apagar venda?
+                        </h3>
+
+                        <p>
+                            Você realmente deseja apagar a venda
+                            <strong>
+                                {" "}#{modalExcluirVenda.id}
+                            </strong>?
+                        </p>
+
+                        <p className="hv-modal-exclusao-aviso">
+                            Essa ação não poderá ser desfeita.
+                        </p>
+
+                        <div className="hv-modal-exclusao-detalhes">
+
+                            <div>
+                                <span>Valor</span>
+
+                                <strong>
+                                    R$ {Number(
+                                        modalExcluirVenda.valor_pago
+                                    ).toFixed(2)}
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Operador</span>
+
+                                <strong>
+                                    {modalExcluirVenda.operador || "-"}
+                                </strong>
+                            </div>
+
+                        </div>
+
+                        <div className="hv-modal-exclusao-acoes">
+
+                            <button
+                                type="button"
+                                className="hv-modal-exclusao-cancelar"
+                                disabled={apagandoVenda !== null}
+                                onClick={() =>
+                                    setModalExcluirVenda(null)
+                                }
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="button"
+                                className="hv-modal-exclusao-confirmar"
+                                disabled={apagandoVenda !== null}
+                                onClick={() =>
+                                    apagarVenda(modalExcluirVenda)
+                                }
+                            >
+                                {apagandoVenda !== null
+                                    ? "Apagando..."
+                                    : "Sim, apagar"
+                                }
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>,
+
+                document.body
+
+            )}
+
+
+            {/* =========================================================
+    MODAL RESULTADO DA EXCLUSÃO
+========================================================= */}
+
+            {modalResultadoExclusao && createPortal(
+
+                <div
+                    className="hv-modal-resultado-overlay"
+                    onMouseDown={() =>
+                        setModalResultadoExclusao(null)
+                    }
+                >
+
+                    <div
+                        className={
+                            `hv-modal-resultado ` +
+                            `hv-modal-resultado-${modalResultadoExclusao.tipo}`
+                        }
+                        onMouseDown={e => e.stopPropagation()}
+                    >
+
+                        <div className="hv-modal-resultado-icone">
+
+                            {modalResultadoExclusao.tipo === "sucesso"
+                                ? "✓"
+                                : "!"
+                            }
+
+                        </div>
+
+                        <h3>
+                            {modalResultadoExclusao.titulo}
+                        </h3>
+
+                        <p>
+                            {modalResultadoExclusao.mensagem}
+                        </p>
+
+                        <button
+                            type="button"
+                            className="hv-modal-resultado-fechar"
+                            onClick={() =>
+                                setModalResultadoExclusao(null)
+                            }
+                        >
+                            Entendido
+                        </button>
+
+                    </div>
+
+                </div>,
+
+                document.body
+
+            )}
         </div>
     );
 }

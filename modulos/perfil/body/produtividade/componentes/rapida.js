@@ -314,6 +314,81 @@ async function imprimirComanda(
 /* =========================================
    FINALIZAR VENDA JÁ CONFIRMADA
 ========================================= */
+/* =========================================
+   EMITIR NFC-e
+========================================= */
+
+async function emitirNfce(vendaId) {
+
+    if (!vendaId) {
+        return {
+            sucesso: false,
+            erro: "ID da venda não informado para emissão da NFC-e"
+        };
+    }
+
+    try {
+
+        const resp = await fetch(
+            `${API_ONLINE_VENDAS}/vendas/${vendaId}/emitir-nfce`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization:
+                        `Bearer ${pegarToken()}`
+                }
+            }
+        );
+
+        if (!resp.ok) {
+
+            const mensagem =
+                await extrairErroResposta(
+                    resp,
+                    "Erro ao emitir NFC-e"
+                );
+
+            console.error(
+                `[NFC-e] Venda ${vendaId}:`,
+                mensagem
+            );
+
+            return {
+                sucesso: false,
+                erro: mensagem
+            };
+        }
+
+        const dados = await resp.json();
+
+        console.log(
+            `[NFC-e] Venda ${vendaId} emitida com sucesso:`,
+            dados
+        );
+
+        return {
+            sucesso: true,
+            dados
+        };
+
+    } catch (erro) {
+
+        console.error(
+            `[NFC-e] Erro de conexão na venda ${vendaId}:`,
+            erro
+        );
+
+        return {
+            sucesso: false,
+            erro:
+                erro?.message ||
+                "Erro de conexão ao emitir NFC-e"
+        };
+    }
+}
+/* =========================================
+   FINALIZAR VENDA JÁ CONFIRMADA
+========================================= */
 
 async function finalizarVendaConfirmada({
     venda,
@@ -322,13 +397,19 @@ async function finalizarVendaConfirmada({
     atualizar
 }) {
 
+    /* =====================================
+       1. CONFIRMAR VENDA
+    ===================================== */
+
     const confirmacao =
         await confirmarVenda(vendaId);
 
     let erroImpressao = null;
+    let erroNfce = null;
+    let nfceEmitida = false;
 
     /* =====================================
-       IMPRESSÃO
+       2. IMPRESSÃO
     ===================================== */
 
     if (confirmacao.imprimir === true) {
@@ -351,7 +432,59 @@ async function finalizarVendaConfirmada({
     }
 
     /* =====================================
-       CONCLUÍDA
+       3. EMITIR NFC-e
+
+       Só acontece quando esta venda
+       foi congelada com emitirNota = true.
+    ===================================== */
+
+    if (venda.emitirNota === true) {
+
+        atualizar({
+            status: "emitindo_nfce"
+        });
+
+        const resultadoNfce =
+            await emitirNfce(vendaId);
+
+        if (resultadoNfce.sucesso) {
+
+            nfceEmitida = true;
+
+        } else {
+
+            erroNfce =
+                resultadoNfce.erro ||
+                "Não foi possível emitir a NFC-e";
+        }
+    }
+
+    /* =====================================
+       4. MONTAR AVISO
+
+       Erro fiscal NÃO transforma uma
+       venda paga em venda com erro.
+    ===================================== */
+
+    const avisos = [];
+
+    if (erroImpressao) {
+        avisos.push(erroImpressao);
+    }
+
+    if (erroNfce) {
+        avisos.push(
+            `Venda concluída, mas a NFC-e não foi emitida: ${erroNfce}`
+        );
+    }
+
+    const avisoFinal =
+        avisos.length > 0
+            ? avisos.join(" | ")
+            : null;
+
+    /* =====================================
+       5. CONCLUÍDA
     ===================================== */
 
     atualizar({
@@ -361,17 +494,36 @@ async function finalizarVendaConfirmada({
             new Date().toISOString(),
 
         aviso:
-            erroImpressao || null
+            avisoFinal,
+
+        emitirNota:
+            venda.emitirNota === true,
+
+        nfceEmitida,
+
+        erroNfce:
+            erroNfce || null
     });
 
     return {
         ok: true,
+
         vendaId,
+
         comandaUrl,
-        aviso: erroImpressao
+
+        aviso:
+            avisoFinal,
+
+        emitirNota:
+            venda.emitirNota === true,
+
+        nfceEmitida,
+
+        erroNfce:
+            erroNfce || null
     };
 }
-
 
 /* =========================================================
    DÉBITO / CRÉDITO / FLUXO RÁPIDO TRADICIONAL

@@ -241,13 +241,126 @@ export default function EmitirNfce() {
 
             if (!resposta.ok) {
 
+                // ============================================================
+                // PRODUTOS SEM CADASTRO FISCAL
+                // ============================================================
+                const detalheEstruturado =
+                    data?.detail &&
+                        typeof data.detail === "object"
+                        ? data.detail
+                        : null;
+
+                const codigoErro =
+                    detalheEstruturado?.codigo ??
+                    data?.codigo ??
+                    null;
+
+                const produtosErro =
+                    Array.isArray(detalheEstruturado?.produtos)
+                        ? detalheEstruturado.produtos
+                        : Array.isArray(data?.produtos)
+                            ? data.produtos
+                            : [];
+
+                const mensagemErro =
+                    detalheEstruturado?.mensagem ??
+                    (
+                        typeof data?.detail === "string"
+                            ? data.detail
+                            : null
+                    ) ??
+                    data?.erro ??
+                    data?.mensagem ??
+                    "";
+
+                const detalheErro =
+                    String(mensagemErro || "");
+
+                const matchProdutoSemFiscal =
+                    detalheErro.match(
+                        /Produto\s+(\d+)\s+sem dados fiscais cadastrados/i
+                    );
+
+                if (
+                    (
+                        codigoErro === "PRODUTOS_SEM_DADOS_FISCAIS" &&
+                        produtosErro.length > 0
+                    ) ||
+                    matchProdutoSemFiscal
+                ) {
+
+                    let produtosSemFiscal = [];
+
+                    if (produtosErro.length > 0) {
+
+                        produtosSemFiscal =
+                            produtosErro.map(produto => ({
+
+                                produto_id:
+                                    produto.produto_id ??
+                                    produto.id,
+
+                                id:
+                                    produto.produto_id ??
+                                    produto.id,
+
+                                nome:
+                                    produto.nome ??
+                                    `Produto ${produto.produto_id ??
+                                    produto.id
+                                    }`
+                            }));
+
+                    } else if (matchProdutoSemFiscal) {
+
+                        const produtoId =
+                            Number(matchProdutoSemFiscal[1]);
+
+                        produtosSemFiscal = [
+                            {
+                                produto_id: produtoId,
+                                id: produtoId,
+                                nome: `Produto ${produtoId}`
+                            }
+                        ];
+                    }
+                    // Salva temporariamente quais produtos precisam
+                    // ser cadastrados na tela Fiscal em Massa.
+                    sessionStorage.setItem(
+                        "fiscal_massa_produtos_pendentes",
+                        JSON.stringify(produtosSemFiscal)
+                    );
+
+                    // Também guardamos a venda que originou o problema.
+                    // Depois podemos usar isso para voltar e tentar emitir
+                    // exatamente a mesma NFC-e.
+                    sessionStorage.setItem(
+                        "fiscal_massa_venda_pendente",
+                        String(vendaId)
+                    );
+
+                    setAlertaNfce({
+                        tipo: "fiscal_pendente",
+                        titulo: "Produtos sem dados fiscais",
+                        mensagem:
+                            produtosSemFiscal.length === 1
+                                ? `${produtosSemFiscal[0].nome} precisa do cadastro fiscal antes da emissão.`
+                                : `${produtosSemFiscal.length} produtos precisam do cadastro fiscal antes da emissão.`,
+                        vendaId,
+                        produtos: produtosSemFiscal
+                    });
+
+                    return;
+                }
+
+                // ============================================================
+                // DEMAIS ERROS
+                // ============================================================
+
                 throw new Error(
-                    data.detail ||
-                    data.erro ||
-                    data.mensagem ||
+                    mensagemErro ||
                     "Erro desconhecido ao emitir NFC-e"
                 );
-
             }
 
             /*
@@ -870,6 +983,18 @@ export default function EmitirNfce() {
 
                             )}
 
+
+
+
+                            {alertaNfce.tipo === "fiscal_pendente" && (
+
+                                <div className="nfce-alerta-icone-premium nfce-alerta-icone-aviso">
+                                    !
+                                </div>
+
+                            )}
+
+
                             {alertaNfce.tipo === "erro" && (
 
                                 <div className="nfce-alerta-icone-premium nfce-alerta-icone-erro">
@@ -877,6 +1002,8 @@ export default function EmitirNfce() {
                                 </div>
 
                             )}
+
+
 
                             {alertaNfce.tipo === "aviso" && (
 
@@ -965,7 +1092,57 @@ export default function EmitirNfce() {
                             </div>
 
                         )}
+                        {/*
+ * =====================================================
+ * FISCAL PENDENTE
+ * =====================================================
+ */}
 
+                        {alertaNfce.tipo === "fiscal_pendente" && (
+
+                            <div className="nfce-alerta-acoes-premium">
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-cancelar-premium"
+                                    onClick={fecharAlertaNfce}
+                                >
+                                    Fechar
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-confirmar-premium"
+                                    onClick={() => {
+
+                                        const produtos =
+                                            alertaNfce.produtos || [];
+
+                                        const vendaId =
+                                            alertaNfce.vendaId;
+
+                                        setAlertaNfce(null);
+
+                                        window.dispatchEvent(
+                                            new CustomEvent(
+                                                "abrir-fiscal-massa",
+                                                {
+                                                    detail: {
+                                                        produtos,
+                                                        vendaId
+                                                    }
+                                                }
+                                            )
+                                        );
+
+                                    }}
+                                >
+                                    Cadastrar dados fiscais
+                                </button>
+
+                            </div>
+
+                        )}
                         {/*
                          * =====================================================
                          * ERRO

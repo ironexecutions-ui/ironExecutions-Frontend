@@ -6,6 +6,7 @@ import { useVenda } from "./vendaprovider";
 export default function ModalPagamento({
     total,
     fechar,
+    emitirNota = false,
     modoPixRapido = false,
     dadosPixRapido = null
 }) {
@@ -22,7 +23,89 @@ export default function ModalPagamento({
     const pixAutomatico = false; // enquanto não tem QR configurado
     const [metodoProcessando, setMetodoProcessando] = useState(null);
     const [bloqueandoMetodo, setBloqueandoMetodo] = useState(false);
+    /* ===============================
+       EMITIR NFC-e
+    =============================== */
 
+    async function emitirNfceVenda(idVenda) {
+
+        if (!idVenda) {
+            return {
+                sucesso: false,
+                erro: "Venda sem ID para emissão da NFC-e"
+            };
+        }
+
+        try {
+
+            console.log(
+                "[NFC-e] Iniciando emissão da venda:",
+                idVenda
+            );
+
+            const resp = await fetch(
+                `${API_ONLINE_VENDAS}/vendas/${idVenda}/emitir-nfce`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization:
+                            `Bearer ${localStorage.getItem("token")}`
+                    }
+                }
+            );
+
+            console.log(
+                "[NFC-e] STATUS:",
+                resp.status
+            );
+
+            let dados = null;
+
+            try {
+                dados = await resp.json();
+            } catch {
+                dados = null;
+            }
+
+            console.log(
+                "[NFC-e] RESPOSTA:",
+                dados
+            );
+
+            if (!resp.ok) {
+
+                const mensagem =
+                    dados?.detail ||
+                    dados?.error ||
+                    dados?.message ||
+                    "Erro ao emitir NFC-e";
+
+                return {
+                    sucesso: false,
+                    erro: mensagem
+                };
+            }
+
+            return {
+                sucesso: true,
+                dados
+            };
+
+        } catch (erro) {
+
+            console.error(
+                "[NFC-e] ERRO:",
+                erro
+            );
+
+            return {
+                sucesso: false,
+                erro:
+                    erro?.message ||
+                    "Erro de conexão ao emitir NFC-e"
+            };
+        }
+    }
 
     const API_ONLINE_VENDAS = API_URL;
 
@@ -262,6 +345,10 @@ INICIALIZAR PIX RÁPIDO
         let erroImpressao = false;
         let mensagemErroImpressao = null;
 
+        let erroNfce = false;
+        let mensagemErroNfce = null;
+        let nfceEmitida = false;
+
         try {
 
             // ==========================================
@@ -420,7 +507,53 @@ INICIALIZAR PIX RÁPIDO
                         "Não foi possível comunicar com a impressora.";
                 }
             }
+            // ==========================================
+            // 3. EMITIR NFC-e
+            // ==========================================
 
+            if (deveEmitirNota) {
+                console.log(
+                    "[NFC-e] Venda configurada para emitir nota."
+                );
+
+                /*
+                    No Pix rápido usamos a escolha congelada
+                    no snapshot da venda.
+            
+                    Na venda normal usamos emitirNota recebido
+                    do TotalVenda.
+                */
+                const resultadoNfce =
+                    await emitirNfceVenda(vendaId);
+
+                if (resultadoNfce.sucesso) {
+
+                    nfceEmitida = true;
+
+                    console.log(
+                        "[NFC-e] Nota emitida com sucesso."
+                    );
+
+                } else {
+
+                    erroNfce = true;
+
+                    mensagemErroNfce =
+                        resultadoNfce.erro ||
+                        "Não foi possível emitir a NFC-e";
+
+                    console.error(
+                        "[NFC-e] Falha na emissão:",
+                        mensagemErroNfce
+                    );
+                }
+
+            } else {
+
+                console.log(
+                    "[NFC-e] Emissão não solicitada para esta venda."
+                );
+            }
             // ==========================================
             // 3. VENDA CONCLUÍDA
             // ==========================================
@@ -492,14 +625,30 @@ INICIALIZAR PIX RÁPIDO
                 // AVISO DE IMPRESSÃO
                 // ======================================
 
+                const avisos = [];
+
                 if (erroImpressao) {
+                    avisos.push(
+                        mensagemErroImpressao ||
+                        "Ocorreu um problema na impressão."
+                    );
+                }
+
+                if (erroNfce) {
+                    avisos.push(
+                        "A NFC-e não foi emitida.\n" +
+                        (
+                            mensagemErroNfce ||
+                            "Verifique os dados fiscais."
+                        )
+                    );
+                }
+
+                if (avisos.length > 0) {
 
                     alert(
-                        "Venda concluída com sucesso, mas ocorreu um problema na impressão.\n\n" +
-                        (
-                            mensagemErroImpressao ||
-                            "Verifique a impressora."
-                        )
+                        "Venda concluída com sucesso.\n\n" +
+                        avisos.join("\n\n")
                     );
                 }
 

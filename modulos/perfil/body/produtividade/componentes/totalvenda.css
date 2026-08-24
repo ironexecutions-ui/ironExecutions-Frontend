@@ -1091,3 +1091,183 @@
         transition: none;
     }
 }
+
+/* =========================================================
+   ESCOLHA DE EMISSÃO DA NFC-e
+========================================================= */
+
+.cob-nfce-escolha {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 8px 0 14px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* =========================================================
+   ESTADO DESABILITADO
+========================================================= */
+
+.cob-nfce-escolha-desabilitada {
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   PERGUNTA
+========================================================= */
+
+.cob-nfce-pergunta {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CONTAINER DAS OPÇÕES
+========================================================= */
+
+.cob-nfce-opcoes {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+
+/* =========================================================
+   BOTÃO BASE
+========================================================= */
+
+.cob-nfce-opcao {
+    min-width: 58px;
+    height: 32px;
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    border-radius: 7px;
+
+    background: transparent;
+
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.12s ease,
+        box-shadow 0.18s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.cob-nfce-opcao:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: rgba(148, 163, 184, 0.8);
+}
+
+
+/* =========================================================
+   SIM
+========================================================= */
+
+.cob-nfce-opcao-sim {
+    color: #16a34a;
+}
+
+.cob-nfce-opcao-sim:hover:not(:disabled) {
+    background: rgba(22, 163, 74, 0.1);
+    border-color: rgba(22, 163, 74, 0.55);
+}
+
+
+/* =========================================================
+   NÃO
+========================================================= */
+
+.cob-nfce-opcao-nao {
+    color: #dc2626;
+}
+
+.cob-nfce-opcao-nao:hover:not(:disabled) {
+    background: rgba(220, 38, 38, 0.1);
+    border-color: rgba(220, 38, 38, 0.55);
+}
+
+
+/* =========================================================
+   OPÇÃO SELECIONADA
+========================================================= */
+
+.cob-nfce-opcao-sim.cob-nfce-opcao-ativa {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: #ffffff;
+
+    box-shadow:
+        0 2px 8px rgba(22, 163, 74, 0.25);
+}
+
+.cob-nfce-opcao-nao.cob-nfce-opcao-ativa {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #ffffff;
+
+    box-shadow:
+        0 2px 8px rgba(220, 38, 38, 0.22);
+}
+
+
+/* =========================================================
+   BOTÃO DESABILITADO
+========================================================= */
+
+.cob-nfce-opcao:disabled {
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TEMA ESCURO
+========================================================= */
+
+.cob-tema-escuro .cob-nfce-pergunta {
+    color: #e5e7eb;
+}
+
+.cob-tema-escuro .cob-nfce-opcao {
+    border-color: rgba(148, 163, 184, 0.3);
+}
+
+
+/* =========================================================
+   TEMA CLARO
+========================================================= */
+
+.cob-tema-claro .cob-nfce-pergunta {
+    color: #0f172a;
+}
+
+.cob-tema-claro .cob-nfce-opcao {
+    border-color: rgba(15, 23, 42, 0.2);
+}

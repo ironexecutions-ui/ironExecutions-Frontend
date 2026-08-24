@@ -190,6 +190,14 @@ export default function FormularioFiscal({
 
         const produtoId = produto.produto_id || produto.id;
 
+        // SE O FORMULÁRIO FOI ABERTO COM DADOS DA IA,
+        // NÃO LIMPA OS CAMPOS E NÃO BUSCA O CADASTRO ANTIGO
+        if (dadosIa) {
+            return;
+        }
+
+        // Sempre limpa primeiro ao trocar de produto.
+
         // Sempre limpa primeiro ao trocar de produto.
         // Isso evita mostrar por alguns milissegundos
         // os dados fiscais do produto anterior.
@@ -304,8 +312,12 @@ export default function FormularioFiscal({
 
         carregarDadosFiscais();
 
-    }, [produto.id, produto.produto_id, token]);
-
+    }, [
+        produto.id,
+        produto.produto_id,
+        token,
+        dadosIa
+    ]);
     /* ===============================
        LISTAS PADRÃO (LEGAIS)
     =============================== */

@@ -1,0 +1,1158 @@
+/* ============================================================
+   CONTAINER PRINCIPAL
+============================================================ */
+
+.registrar-massa-container {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+    box-sizing: border-box !important;
+    color: #0f172a !important;
+    font-family: inherit !important;
+    font-size: 16px !important;
+}
+
+
+/* ============================================================
+   CABEÇALHO
+============================================================ */
+
+.registrar-massa-cabecalho {
+    width: 100% !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 24px !important;
+    padding: 24px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-cabecalho>div:first-child {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.registrar-massa-etiqueta {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin-bottom: 8px !important;
+    color: #64748b !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+}
+
+.registrar-massa-cabecalho h4 {
+    margin: 0 !important;
+    color: #0f172a !important;
+    font-size: 30px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+}
+
+.registrar-massa-cabecalho p {
+    max-width: 760px !important;
+    margin: 9px 0 0 !important;
+    color: #64748b !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+
+/* ============================================================
+   CONTADOR
+============================================================ */
+
+.registrar-massa-contador {
+    min-width: 105px !important;
+    min-height: 76px !important;
+    display: flex !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    padding: 14px 18px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 13px !important;
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-contador strong {
+    color: #0f172a !important;
+    font-size: 30px !important;
+    font-weight: 800 !important;
+}
+
+.registrar-massa-contador span {
+    color: #64748b !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ============================================================
+   SEÇÕES
+============================================================ */
+
+.registrar-massa-secao {
+    width: 100% !important;
+    padding: 22px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 15px !important;
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-secao-topo {
+    width: 100% !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+    margin-bottom: 18px !important;
+}
+
+.registrar-massa-secao-topo>div:first-child {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.registrar-massa-secao-topo h5 {
+    margin: 0 !important;
+    color: #0f172a !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+}
+
+.registrar-massa-secao-topo p {
+    margin: 6px 0 0 !important;
+    color: #64748b !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+}
+
+
+/* ============================================================
+   CONFIGURAÇÃO FISCAL
+============================================================ */
+
+.registrar-massa-configuracao-ia {
+    width: 100% !important;
+}
+
+.registrar-massa-config-grid {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.registrar-massa-config-campo {
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 7px !important;
+}
+
+.registrar-massa-config-campo-largo {
+    grid-column: 1 / -1 !important;
+}
+
+.registrar-massa-config-campo>span {
+    color: #334155 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+.registrar-massa-config-campo select {
+    width: 100% !important;
+    min-height: 48px !important;
+    padding: 0 13px !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 9px !important;
+    color: #0f172a !important;
+    font-family: inherit !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-config-campo select:focus {
+    border-color: #64748b !important;
+    box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.10) !important;
+}
+
+
+/* ============================================================
+   AÇÕES DA SELEÇÃO
+============================================================ */
+
+.registrar-massa-acoes-selecao {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    flex-wrap: wrap !important;
+}
+
+
+/* ============================================================
+   BUSCA
+============================================================ */
+
+.registrar-massa-busca-area {
+    width: 100% !important;
+    margin-bottom: 18px !important;
+}
+
+.registrar-massa-busca {
+    width: 100% !important;
+    height: 50px !important;
+    padding: 0 16px !important;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    color: #0f172a !important;
+    font-family: inherit !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-busca::placeholder {
+    color: #94a3b8 !important;
+    font-size: 16px !important;
+}
+
+.registrar-massa-busca:focus {
+    background: #ffffff !important;
+    border-color: #64748b !important;
+    box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.10) !important;
+}
+
+
+/* ============================================================
+   LISTA DE PRODUTOS
+============================================================ */
+
+.registrar-massa-produtos {
+    width: 160%;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    padding: 2px !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    max-height: none !important;
+    box-sizing: border-box !important;
+}
+
+
+/* ============================================================
+   CARD DO PRODUTO
+============================================================ */
+
+.registrar-massa-produto {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 88px !important;
+    height: auto !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
+
+    padding: 16px 18px !important;
+    margin: 0 !important;
+
+    background: #ffffff !important;
+    border: 1px solid #dbe2ea !important;
+    border-radius: 12px !important;
+
+    color: #0f172a !important;
+    text-align: left !important;
+    font-family: inherit !important;
+
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+
+    transition:
+        background 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        transform 0.1s ease !important;
+}
+
+.registrar-massa-produto:hover {
+    background: #f8fafc !important;
+    border-color: #94a3b8 !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.07) !important;
+}
+
+.registrar-massa-produto:active {
+    transform: scale(0.99) !important;
+}
+
+
+/* ============================================================
+   CHECK DO PRODUTO
+============================================================ */
+
+.registrar-massa-produto-check {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    flex: 0 0 28px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 7px !important;
+
+    color: #ffffff !important;
+
+    font-size: 15px !important;
+    font-weight: 900 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ============================================================
+   INFORMAÇÕES DO PRODUTO
+============================================================ */
+
+.registrar-massa-produto-info {
+    flex: 1 !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 5px !important;
+}
+
+.registrar-massa-produto-info strong {
+    display: block !important;
+    width: 100% !important;
+
+    overflow: hidden !important;
+
+    color: #0f172a !important;
+
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.registrar-massa-produto-info span {
+    display: block !important;
+    width: 100% !important;
+
+    overflow: hidden !important;
+
+    color: #64748b !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+
+/* ============================================================
+   PRODUTO SELECIONADO
+============================================================ */
+
+.registrar-massa-produto-selecionado {
+    background: #f0fdf4 !important;
+    border-color: #86efac !important;
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.08) !important;
+}
+
+.registrar-massa-produto-selecionado:hover {
+    background: #ecfdf5 !important;
+    border-color: #4ade80 !important;
+}
+
+.registrar-massa-produto-selecionado .registrar-massa-produto-check {
+    background: #16a34a !important;
+    border-color: #16a34a !important;
+    color: #ffffff !important;
+}
+
+
+/* ============================================================
+   CARREGAR MAIS 20
+   SEMPRE EMBAIXO DOS PRODUTOS
+============================================================ */
+
+.registrar-massa-carregar-mais-produtos {
+    grid-column: 1 / -1 !important;
+
+    width: 50% !important;
+    min-width: 50% !important;
+    max-width: 100% !important;
+
+    height: 52px !important;
+    min-height: 52px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 16px 0 0 0 !important;
+    padding: 0 20px !important;
+
+    position: relative !important;
+    inset: auto !important;
+
+    float: none !important;
+
+    background: #f8fafc !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+
+    color: #334155 !important;
+
+    font-family: inherit !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+
+    line-height: 1 !important;
+    text-align: center !important;
+
+    cursor: pointer !important;
+
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-carregar-mais-produtos:hover {
+    background: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+}
+
+.registrar-massa-carregar-mais-produtos:active {
+    transform: scale(0.995) !important;
+}
+
+/* ============================================================
+   BOTÕES
+============================================================ */
+
+.registrar-massa-botao-principal,
+.registrar-massa-botao-secundario,
+.registrar-massa-botao-limpar,
+.registrar-massa-botao-ver,
+.registrar-massa-botao-individual,
+.registrar-massa-enviar-todos,
+.registrar-massa-fechar {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 17px !important;
+    border-radius: 9px !important;
+    font-family: inherit !important;
+    font-size: 15px !important;
+    font-weight: 750 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-botao-principal {
+    background: #0f172a !important;
+    border: 1px solid #0f172a !important;
+    color: #ffffff !important;
+}
+
+.registrar-massa-botao-principal:hover {
+    background: #1e293b !important;
+    border-color: #1e293b !important;
+}
+
+.registrar-massa-botao-secundario {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #334155 !important;
+}
+
+.registrar-massa-botao-secundario:hover {
+    background: #f8fafc !important;
+    border-color: #94a3b8 !important;
+}
+
+.registrar-massa-botao-limpar {
+    background: #fff7ed !important;
+    border: 1px solid #fed7aa !important;
+    color: #c2410c !important;
+}
+
+.registrar-massa-botao-limpar:hover {
+    background: #ffedd5 !important;
+}
+
+.registrar-massa-botao-principal:disabled,
+.registrar-massa-botao-secundario:disabled,
+.registrar-massa-botao-limpar:disabled,
+.registrar-massa-botao-ver:disabled,
+.registrar-massa-botao-individual:disabled,
+.registrar-massa-enviar-todos:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+
+/* ============================================================
+   CARREGAMENTO E ERROS
+============================================================ */
+
+.registrar-massa-carregando {
+    width: 100% !important;
+    padding: 18px !important;
+    margin: 8px 0 !important;
+
+    background: #f8fafc !important;
+    border: 1px dashed #cbd5e1 !important;
+    border-radius: 10px !important;
+
+    color: #64748b !important;
+
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-erro {
+    width: 100% !important;
+    margin-top: 12px !important;
+    padding: 13px 15px !important;
+
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    border-radius: 9px !important;
+
+    color: #b91c1c !important;
+
+    font-size: 15px !important;
+    font-weight: 650 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ============================================================
+   JSON
+============================================================ */
+
+.registrar-massa-json {
+    width: 100% !important;
+    min-height: 250px !important;
+
+    display: block !important;
+
+    margin-bottom: 15px !important;
+    padding: 16px !important;
+
+    resize: vertical !important;
+
+    background: #0f172a !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 11px !important;
+
+    color: #e2e8f0 !important;
+
+    font-family: Consolas, Monaco, monospace !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+
+    outline: none !important;
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-json::placeholder {
+    color: #64748b !important;
+    font-size: 15px !important;
+}
+
+
+/* ============================================================
+   RESUMO
+============================================================ */
+
+.registrar-massa-resumo {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    margin-bottom: 18px !important;
+}
+
+.registrar-massa-resumo>div {
+    min-height: 85px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-resumo strong {
+    color: #0f172a !important;
+    font-size: 26px !important;
+    font-weight: 850 !important;
+}
+
+.registrar-massa-resumo span {
+    color: #64748b !important;
+    font-size: 14px !important;
+    font-weight: 650 !important;
+}
+
+
+/* ============================================================
+   RESULTADOS
+============================================================ */
+
+.registrar-massa-resultados {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+}
+
+.registrar-massa-resultado {
+    width: 100% !important;
+    padding: 18px !important;
+
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-resultado-topo {
+    width: 100% !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    margin-bottom: 15px !important;
+}
+
+.registrar-massa-resultado-topo>div {
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+}
+
+.registrar-massa-resultado-topo strong {
+    color: #0f172a !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+}
+
+.registrar-massa-resultado-topo div>span {
+    color: #64748b !important;
+    font-size: 14px !important;
+}
+
+
+/* ============================================================
+   STATUS
+============================================================ */
+
+.registrar-massa-status {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 30px !important;
+    padding: 5px 11px !important;
+
+    border-radius: 999px !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+}
+
+.registrar-massa-status-pronto {
+    background: #ecfdf5 !important;
+    color: #15803d !important;
+}
+
+.registrar-massa-status-registrado {
+    background: #dcfce7 !important;
+    color: #166534 !important;
+}
+
+.registrar-massa-status-enviando {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+}
+
+.registrar-massa-status-erro {
+    background: #fef2f2 !important;
+    color: #b91c1c !important;
+}
+
+.registrar-massa-status-incompleto {
+    background: #fff7ed !important;
+    color: #c2410c !important;
+}
+
+
+/* ============================================================
+   CAMPOS FISCAIS
+============================================================ */
+
+.registrar-massa-campos {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+}
+
+.registrar-massa-campo {
+    min-width: 0 !important;
+    min-height: 70px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 4px !important;
+
+    padding: 10px 12px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 9px !important;
+
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-campo span {
+    color: #64748b !important;
+    font-size: 13px !important;
+    font-weight: 650 !important;
+}
+
+.registrar-massa-campo strong {
+    overflow: hidden !important;
+
+    color: #0f172a !important;
+
+    font-size: 15px !important;
+    font-weight: 800 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.registrar-massa-campo-ok {
+    background: #f8fafc !important;
+}
+
+.registrar-massa-campo-vazio {
+    background: #fff7ed !important;
+    border-color: #fed7aa !important;
+}
+
+
+/* ============================================================
+   AVISOS
+============================================================ */
+
+.registrar-massa-aviso-faltando,
+.registrar-massa-aviso-opcional,
+.registrar-massa-erro-item {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+
+    margin-top: 12px !important;
+    padding: 12px 14px !important;
+
+    border-radius: 9px !important;
+
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-aviso-faltando {
+    background: #fff7ed !important;
+    border: 1px solid #fed7aa !important;
+    color: #9a3412 !important;
+}
+
+.registrar-massa-aviso-opcional {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #475569 !important;
+}
+
+.registrar-massa-erro-item {
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    color: #b91c1c !important;
+}
+
+
+/* ============================================================
+   AÇÕES DO RESULTADO
+============================================================ */
+
+.registrar-massa-resultado-acoes {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 9px !important;
+    margin-top: 15px !important;
+}
+
+.registrar-massa-botao-ver {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #334155 !important;
+}
+
+.registrar-massa-botao-ver:hover {
+    background: #f8fafc !important;
+}
+
+.registrar-massa-botao-individual {
+    background: #0f172a !important;
+    border: 1px solid #0f172a !important;
+    color: #ffffff !important;
+}
+
+.registrar-massa-botao-individual:hover {
+    background: #1e293b !important;
+}
+
+
+/* ============================================================
+   CONFERÊNCIA
+============================================================ */
+
+.registrar-massa-conferencia {
+    width: 100% !important;
+    padding: 22px !important;
+
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 15px !important;
+
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-conferencia-topo {
+    width: 100% !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 18px !important;
+    margin-bottom: 18px !important;
+}
+
+.registrar-massa-conferencia-topo>div {
+    min-width: 0 !important;
+}
+
+.registrar-massa-conferencia-topo span {
+    color: #64748b !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+}
+
+.registrar-massa-conferencia-topo h5 {
+    margin: 4px 0 0 !important;
+    color: #0f172a !important;
+    font-size: 23px !important;
+    font-weight: 800 !important;
+}
+
+.registrar-massa-fechar {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #475569 !important;
+}
+
+
+/* ============================================================
+   ENVIO FINAL
+============================================================ */
+
+.registrar-massa-envio-final {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+
+    padding: 22px !important;
+
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 15px !important;
+
+    box-sizing: border-box !important;
+}
+
+.registrar-massa-envio-final-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+
+.registrar-massa-envio-final-info strong {
+    color: #0f172a !important;
+    font-size: 21px !important;
+    font-weight: 800 !important;
+}
+
+.registrar-massa-envio-final-info span {
+    color: #64748b !important;
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+}
+
+.registrar-massa-enviar-todos {
+    width: 100% !important;
+    min-height: 50px !important;
+
+    background: #16a34a !important;
+    border: 1px solid #16a34a !important;
+
+    color: #ffffff !important;
+
+    font-size: 16px !important;
+    font-weight: 800 !important;
+}
+
+.registrar-massa-enviar-todos:hover {
+    background: #15803d !important;
+    border-color: #15803d !important;
+}
+
+
+/* ============================================================
+   PROGRESSO
+============================================================ */
+
+.registrar-massa-progresso {
+    width: 100% !important;
+}
+
+.registrar-massa-progresso-texto {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    margin-bottom: 8px !important;
+
+    color: #475569 !important;
+
+    font-size: 14px !important;
+    font-weight: 650 !important;
+}
+
+.registrar-massa-progresso-texto strong {
+    color: #0f172a !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+.registrar-massa-progresso-barra {
+    width: 100% !important;
+    height: 10px !important;
+
+    overflow: hidden !important;
+
+    background: #e2e8f0 !important;
+    border-radius: 999px !important;
+}
+
+.registrar-massa-progresso-preenchimento {
+    height: 100% !important;
+
+    background: #16a34a !important;
+    border-radius: 999px !important;
+
+    transition: width 0.25s ease !important;
+}
+
+
+/* ============================================================
+   RESPONSIVO TABLET
+============================================================ */
+
+@media (max-width: 1000px) {
+
+    .registrar-massa-produtos {
+        width: 140%;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .registrar-massa-campos {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+
+@media (max-width: 760px) {
+
+    .registrar-massa-container {
+        gap: 16px !important;
+    }
+
+    .registrar-massa-cabecalho {
+        flex-direction: column !important;
+        padding: 18px !important;
+    }
+
+    .registrar-massa-cabecalho h4 {
+        font-size: 25px !important;
+    }
+
+    .registrar-massa-cabecalho p {
+        font-size: 15px !important;
+    }
+
+    .registrar-massa-contador {
+        width: 100% !important;
+    }
+
+    .registrar-massa-secao {
+        padding: 17px !important;
+    }
+
+    .registrar-massa-secao-topo {
+        flex-direction: column !important;
+    }
+
+    .registrar-massa-secao-topo h5 {
+        font-size: 20px !important;
+    }
+
+    .registrar-massa-config-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .registrar-massa-config-campo-largo {
+        grid-column: auto !important;
+    }
+
+    .registrar-massa-produtos {
+        width: 100%;
+        grid-template-columns: 1fr !important;
+    }
+
+    .registrar-massa-produto {
+        min-height: 82px !important;
+        padding: 14px 16px !important;
+    }
+
+    .registrar-massa-resumo {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .registrar-massa-campos {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .registrar-massa-resultado-topo {
+        flex-direction: column !important;
+    }
+
+    .registrar-massa-resultado-acoes {
+        flex-direction: column !important;
+    }
+
+    .registrar-massa-botao-ver,
+    .registrar-massa-botao-individual {
+        width: 100% !important;
+    }
+
+    .registrar-massa-conferencia {
+        padding: 17px !important;
+    }
+
+    .registrar-massa-envio-final {
+        padding: 17px !important;
+    }
+}
+
+
+/* ============================================================
+   CELULAR PEQUENO
+============================================================ */
+
+@media (max-width: 480px) {
+
+    .registrar-massa-acoes-selecao {
+        width: 100% !important;
+    }
+
+    .registrar-massa-botao-secundario,
+    .registrar-massa-botao-limpar {
+        flex: 1 !important;
+    }
+
+    .registrar-massa-produto-info strong {
+        font-size: 16px !important;
+    }
+
+    .registrar-massa-produto-info span {
+        font-size: 14px !important;
+    }
+
+    .registrar-massa-campos {
+        grid-template-columns: 1fr !important;
+    }
+
+    .registrar-massa-conferencia-topo {
+        flex-direction: column !important;
+    }
+
+    .registrar-massa-fechar {
+        width: 100% !important;
+    }
+}

@@ -13,6 +13,15 @@
         0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
+.infos-venda-mensagem-aviso {
+    width: 100%;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #d97706;
+}
+
 /* Linha do funcionário */
 .infos-linha {
     display: flex;

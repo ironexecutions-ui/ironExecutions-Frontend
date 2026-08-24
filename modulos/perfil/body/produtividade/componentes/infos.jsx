@@ -134,6 +134,10 @@ export default function Infos() {
             return "Imprimindo";
         }
 
+        if (status === "emitindo_nfce") {
+            return "Emitindo nota fiscal";
+        }
+
         if (status === "concluida") {
             return "Venda concluída";
         }
@@ -252,11 +256,15 @@ export default function Infos() {
                                 </div>
 
                                 {venda.status === "erro" && venda.erro && (
-
                                     <div className="infos-venda-mensagem-erro">
                                         {venda.erro}
                                     </div>
+                                )}
 
+                                {venda.status === "concluida" && venda.aviso && (
+                                    <div className="infos-venda-mensagem-aviso">
+                                        {venda.aviso}
+                                    </div>
                                 )}
 
                             </div>
