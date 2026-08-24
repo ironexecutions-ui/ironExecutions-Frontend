@@ -66,148 +66,300 @@ export default function ModalPagamento({
     async function emitirEImprimirNfce(vendaIdAtual) {
         const token = localStorage.getItem("token");
 
-        console.log(
-            "[NFC-E] Iniciando emissão da NFC-e para venda:",
-            vendaIdAtual
-        );
+        console.log("==================================================");
+        console.log("[NFC-E] INICIANDO PROCESSO");
+        console.log("[NFC-E] venda_id:", vendaIdAtual);
+        console.log("[NFC-E] API_URL:", API_URL);
+        console.log("==================================================");
 
-        // ==========================================
+        if (!vendaIdAtual) {
+            throw new Error("Venda sem ID para emissão da NFC-e.");
+        }
+
+        // =========================================================
         // 1. EMITIR NFC-E
-        // ==========================================
+        // =========================================================
 
-        const respEmissao = await fetch(
-            `${API_URL}/vendas/${vendaIdAtual}/emitir-nfce`,
-            {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
+        const urlEmissao =
+            `${API_URL}/vendas/${vendaIdAtual}/emitir-nfce`;
 
-        let dadosEmissao = null;
+        console.log("[NFC-E] Chamando rota:");
+        console.log(urlEmissao);
+
+        let respEmissao;
 
         try {
-            dadosEmissao = await respEmissao.json();
-        } catch {
-            dadosEmissao = null;
+            respEmissao = await fetch(
+                urlEmissao,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+        } catch (erro) {
+            console.error(
+                "[NFC-E] Não foi possível acessar a rota de emissão:",
+                erro
+            );
+
+            throw new Error(
+                "Não foi possível conectar ao servidor para emitir a NFC-e."
+            );
         }
 
         console.log(
-            "[NFC-E] STATUS EMISSÃO:",
+            "[NFC-E] HTTP emissão:",
             respEmissao.status
         );
 
+        // =========================================================
+        // 2. LER RESPOSTA
+        // =========================================================
+
+        let dadosEmissao = null;
+        let textoResposta = "";
+
+        try {
+            textoResposta = await respEmissao.text();
+
+            console.log(
+                "[NFC-E] Resposta BRUTA:",
+                textoResposta
+            );
+
+            if (textoResposta) {
+                try {
+                    dadosEmissao = JSON.parse(textoResposta);
+                } catch {
+                    dadosEmissao = null;
+                }
+            }
+        } catch (erro) {
+            console.error(
+                "[NFC-E] Erro lendo resposta:",
+                erro
+            );
+        }
+
         console.log(
-            "[NFC-E] RESPOSTA EMISSÃO:",
+            "[NFC-E] Resposta convertida:",
             dadosEmissao
         );
 
+        // =========================================================
+        // 3. VERIFICAR ERRO DE EMISSÃO
+        // =========================================================
+
         if (!respEmissao.ok) {
+            console.error(
+                "[NFC-E] EMISSÃO RECUSADA/ERRO"
+            );
+
+            console.error(
+                "[NFC-E] Status:",
+                respEmissao.status
+            );
+
+            console.error(
+                "[NFC-E] Dados:",
+                dadosEmissao
+            );
+
             const detalhe =
                 dadosEmissao?.detail ||
+                dadosEmissao?.erro ||
                 dadosEmissao?.mensagem ||
-                "Erro ao emitir NFC-e";
+                textoResposta ||
+                `Erro HTTP ${respEmissao.status}`;
 
             throw new Error(detalhe);
         }
 
-        // ==========================================
-        // 2. DESCOBRIR ID DA NFC-E
-        // ==========================================
+        console.log(
+            "[NFC-E] Emissão retornou sucesso."
+        );
+
+        console.log(
+            "[NFC-E] fiscal:",
+            dadosEmissao?.fiscal
+        );
+
+        // =========================================================
+        // 4. DESCOBRIR ID DA NFC-E
+        // =========================================================
+        //
+        // O backend principal retorna:
+        //
+        // {
+        //     ok: true,
+        //     venda_id: ...,
+        //     mensagem: "...",
+        //     fiscal: resposta_da_api_fiscal
+        // }
+        //
+        // Portanto precisamos procurar também dentro de "fiscal".
+        // =========================================================
+
+        const fiscal =
+            dadosEmissao?.fiscal || {};
 
         const nfceId =
+            fiscal?.nfce_id ??
+            fiscal?.id ??
+            fiscal?.nota_id ??
             dadosEmissao?.nfce_id ??
             dadosEmissao?.id ??
             dadosEmissao?.nota_id ??
             null;
 
+        console.log(
+            "[NFC-E] ID encontrado:",
+            nfceId
+        );
+
+        console.log(
+            "[NFC-E] Estrutura fiscal completa:",
+            fiscal
+        );
+
         if (!nfceId) {
             console.error(
-                "[NFC-E] Resposta não contém nfce_id:",
+                "[NFC-E] A nota aparentemente foi emitida, " +
+                "mas nenhum ID da nfce foi encontrado."
+            );
+
+            console.error(
+                "[NFC-E] Resposta completa:",
                 dadosEmissao
             );
 
             throw new Error(
-                "NFC-e foi emitida, mas o servidor não retornou o ID da nota."
+                "NFC-e emitida, mas não foi possível identificar o ID da nota."
             );
         }
 
-        console.log(
-            "[NFC-E] NFC-e autorizada. ID:",
-            nfceId
-        );
-
-        // ==========================================
-        // 3. URL DO DANFE
-        // ==========================================
+        // =========================================================
+        // 5. MONTAR URL DO DANFE
+        // =========================================================
 
         const danfeUrl =
             `${API_URL}/fiscal/nfce/${nfceId}/danfe`;
 
         console.log(
-            "[NFC-E] DANFE:",
+            "[NFC-E] URL DANFE:",
             danfeUrl
         );
 
-        // ==========================================
-        // 4. VERIFICAR API LOCAL
-        // ==========================================
+        // =========================================================
+        // 6. VERIFICAR SERVIDOR LOCAL DE IMPRESSÃO
+        // =========================================================
+
+        console.log(
+            "[NFC-E] API de impressão atual:",
+            apiVendas
+        );
+
+        console.log(
+            "[NFC-E] API local esperada:",
+            API_LOCAL
+        );
 
         if (apiVendas !== API_LOCAL) {
+            console.error(
+                "[NFC-E] Servidor local de impressão indisponível."
+            );
+
             throw new Error(
-                "Servidor local de impressão não está disponível."
+                "NFC-e emitida, mas o servidor local de impressão não está disponível."
             );
         }
 
-        // ==========================================
-        // 5. IMPRIMIR DANFE
-        // ==========================================
+        // =========================================================
+        // 7. ENVIAR DANFE PARA SERVIDOR LOCAL
+        // =========================================================
 
         console.log(
-            "[NFC-E] Enviando DANFE para impressão"
+            "[NFC-E] Enviando DANFE para impressão..."
         );
 
-        const impResp = await fetch(
-            `${API_LOCAL}/imprimir`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    venda_id: vendaIdAtual,
-                    url: danfeUrl,
-                    tipo: "nfce"
-                })
-            }
-        );
+        let impResp;
 
-        if (!impResp.ok) {
-            let erroLocal = "";
-
-            try {
-                erroLocal = await impResp.text();
-            } catch {
-                erroLocal = "";
-            }
-
+        try {
+            impResp = await fetch(
+                `${API_LOCAL}/imprimir`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        venda_id: vendaIdAtual,
+                        nfce_id: nfceId,
+                        url: danfeUrl,
+                        tipo: "nfce"
+                    })
+                }
+            );
+        } catch (erro) {
             console.error(
-                "[NFC-E] Erro impressão:",
-                impResp.status,
-                erroLocal
+                "[NFC-E] Erro conectando à impressora:",
+                erro
             );
 
             throw new Error(
+                "NFC-e foi emitida, mas não foi possível conectar ao servidor de impressão."
+            );
+        }
+
+        console.log(
+            "[NFC-E] HTTP impressão:",
+            impResp.status
+        );
+
+        // =========================================================
+        // 8. LER RESPOSTA DA IMPRESSORA
+        // =========================================================
+
+        let respostaImpressao = "";
+
+        try {
+            respostaImpressao =
+                await impResp.text();
+        } catch {
+            respostaImpressao = "";
+        }
+
+        console.log(
+            "[NFC-E] Resposta impressão:",
+            respostaImpressao
+        );
+
+        if (!impResp.ok) {
+            console.error(
+                "[NFC-E] DANFE NÃO FOI IMPRESSO"
+            );
+
+            throw new Error(
+                respostaImpressao ||
                 "NFC-e emitida, mas ocorreu erro ao imprimir o DANFE."
             );
         }
 
-        console.log(
-            "[NFC-E] DANFE enviado para impressão com sucesso"
-        );
+        console.log("==================================================");
+        console.log("[NFC-E] PROCESSO FINALIZADO");
+        console.log("[NFC-E] venda_id:", vendaIdAtual);
+        console.log("[NFC-E] nfce_id:", nfceId);
+        console.log("[NFC-E] DANFE:", danfeUrl);
+        console.log("==================================================");
 
-        return dadosEmissao;
+        return {
+            ...dadosEmissao,
+            nfceId,
+            danfeUrl
+        };
     }
     const vendaRapidaSnapshot =
         dadosPixRapido?.venda || null;
@@ -271,35 +423,61 @@ INICIALIZAR PIX RÁPIDO
         vendaRapidaQr
     ]);
     async function criarVendaInicial(tipoPagamento) {
+        console.log(
+            "[VENDA] Criando venda. imprimirNfce:",
+            imprimirNfce
+        );
 
+        const resp = await fetch(
+            `${API_ONLINE_VENDAS}/vendas/finalizar`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization:
+                        `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({
+                    pagamento: tipoPagamento,
+                    valor: total,
+                    produtos: itens,
+                    forcar_manual: forcarManual,
+                    cpf: usarCpf ? cpf : null,
 
-        const resp = await fetch(`${API_ONLINE_VENDAS}/vendas/finalizar`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify({
-                pagamento: tipoPagamento,
-                valor: total,
-                produtos: itens,
-                forcar_manual: forcarManual,
-                cpf: usarCpf ? cpf : null
-            })
-        });
+                    // IMPORTANTE
+                    emitir_nfce: imprimirNfce === true
+                })
+            }
+        );
+
+        let dados;
+
+        try {
+            dados = await resp.json();
+        } catch {
+            dados = null;
+        }
+
+        console.log(
+            "[VENDA] Resposta /vendas/finalizar:",
+            resp.status,
+            dados
+        );
 
         if (!resp.ok) {
             criandoVendaRef.current = false;
-            throw new Error("Erro ao criar venda");
-        }
 
-        const dados = await resp.json();
+            throw new Error(
+                dados?.detail ||
+                "Erro ao criar venda"
+            );
+        }
 
         setVendaId(dados.venda_id);
         setComandaUrl(dados.comanda);
         setStatusVenda(dados.status);
 
-        return dados; // 🔥 ESSENCIAL
+        return dados;
     }
 
 
