@@ -1290,7 +1290,8 @@ export default function BuscarProduto() {
 
     return (
         <div
-            className={`buscar-box tema-${tema}`}
+            className={`buscar-box tema-${tema} ${modoPeso ? "buscar-box-modo-peso" : ""
+                }`}
         >
             <label className="buscar-titulo">
 
@@ -1509,31 +1510,37 @@ export default function BuscarProduto() {
                         limparInputBusca();
                     }}
                     onCriado={(produto) => {
+
+                        console.log(
+                            "[CADASTRO RÁPIDO] Produto recebido no BuscarProduto:",
+                            produto
+                        );
+
                         /*
-                            Produto recém-criado já entra
-                            no cache também.
+                            Produto recém-criado entra no cache.
                         */
-                        salvarProdutoNoCache(
-                            produto
-                        );
+                        salvarProdutoNoCache(produto);
 
-                        setProdutoAtual(
-                            produto
-                        );
+                        /*
+                            Fecha o modal.
+                        */
+                        setAbrirCadastro(false);
+                        setModalAberto(false);
 
-                        adicionarItem(
-                            produto
-                        );
-
-                        setAbrirCadastro(
-                            false
-                        );
-
-                        setModalAberto(
-                            false
-                        );
-
-                        limparInputBusca();
+                        /*
+                            IMPORTANTE:
+                    
+                            Não adicionamos diretamente com adicionarItem().
+                    
+                            Mandamos para selecionar(), porque selecionar()
+                            já sabe diferenciar:
+                    
+                            produto normal -> adiciona normalmente
+                    
+                            produto por peso -> transforma o input
+                            de busca em input de peso
+                        */
+                        selecionar(produto);
                     }}
                 />
             )}

@@ -59,9 +59,33 @@ export default function RegistrarFiscal() {
         return <p>Carregando...</p>;
     }
 
+    function ehProdutoPorPeso(produto) {
+        return (
+            produto.peso !== null &&
+            produto.peso !== undefined &&
+            produto.peso !== "" &&
+            Number(produto.peso) > 0 &&
+            !produto.unidade &&
+            !produto.produto_id &&
+            !produto.tempo_servico
+        );
+    }
+
     const filtrados = lista.filter(p => {
-        if (tipo === "servico") return p.tempo_servico;
-        return p.unidade || p.unidades;
+
+        if (tipo === "servico") {
+            return Boolean(p.tempo_servico);
+        }
+
+        if (tipo === "peso") {
+            return ehProdutoPorPeso(p);
+        }
+
+        if (tipo === "produto") {
+            return !p.tempo_servico && !ehProdutoPorPeso(p);
+        }
+
+        return false;
     });
 
     return (
@@ -78,6 +102,7 @@ export default function RegistrarFiscal() {
                     }}
                 >
                     <option value="produto">Produto</option>
+                    <option value="peso">Produto por peso</option>
                     <option value="servico">Serviço</option>
                 </select>
 
@@ -98,15 +123,20 @@ export default function RegistrarFiscal() {
                     <option
                         key={p.id}
                         value={p.id}
-                        label={`${p.nome} | ${p.unidade || ""} ${p.unidades || ""} ${p.tempo_servico || ""}`}
-                    />
+                        label={
+                            Number(p.peso) > 0
+                                ? `${p.nome} | Produto por peso | ${p.peso}g`
+                                : `${p.nome} | ${p.unidade || ""} ${p.unidades || ""} ${p.tempo_servico || ""}`
+                        } />
                 ))}
             </datalist>
 
             {selecionado && (
                 <div className="registrar-fiscal-form">
-                    <FormularioFiscal tipo={tipo} produto={selecionado} />
-                </div>
+                    <FormularioFiscal
+                        tipo={tipo === "peso" ? "produto" : tipo}
+                        produto={selecionado}
+                    />                </div>
             )}
 
         </div>
