@@ -390,6 +390,34 @@ export default function App() {
           );
 
 
+        /* =================================================
+           TOKEN EXPIRADO / SESSÃO INVÁLIDA
+        ================================================= */
+
+        if (
+          resposta.status === 401 ||
+          resposta.status === 403
+        ) {
+
+          console.warn(
+            "[AUTH] Token expirado ou inválido. Encerrando sessão."
+          );
+
+          localStorage.removeItem("token");
+          localStorage.removeItem("usuario");
+
+          removerCacheFundo();
+
+          window.location.replace("/");
+
+          return;
+        }
+
+
+        /* =================================================
+           OUTROS ERROS DA API
+        ================================================= */
+
         if (!resposta.ok) {
 
           throw new Error(
