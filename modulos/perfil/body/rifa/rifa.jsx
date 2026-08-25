@@ -62,18 +62,24 @@ export default function Rifa() {
 
         for (const foto of fotos) {
             const formData = new FormData();
-            formData.append("arquivo", foto);
-            formData.append("pasta", "rifas");
 
-            const res = await fetch(`${API_URL}/upload/imagem`, {
-                method: "POST",
-                body: formData
-            });
+            formData.append("arquivo", foto);
+
+            const res = await fetch(
+                `${API_URL}/rifa/upload-imagem`,
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
 
             const json = await res.json();
 
             if (!res.ok || !json.url) {
-                throw new Error("Erro ao enviar imagem");
+                throw new Error(
+                    json.detail ||
+                    "Erro ao enviar imagem da rifa"
+                );
             }
 
             urls.push(json.url);
@@ -81,7 +87,6 @@ export default function Rifa() {
 
         return urls;
     }
-
     async function salvarRifa(e) {
         e.preventDefault();
         setErro("");
