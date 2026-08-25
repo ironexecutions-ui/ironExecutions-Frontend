@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../config";
 import RifaPreview from "./preview";
 import "./rifa.css";
-
+import RegistrarCompraManual from "./modal";
 export default function Rifa() {
     const [autorizado, setAutorizado] = useState(false);
     const [carregando, setCarregando] = useState(true);
     const [avisoIntervalo, setAvisoIntervalo] = useState("");
 
     const [rifas, setRifas] = useState([]);
-
+    const [modalCompraManual, setModalCompraManual] = useState(false);
     const [nomeRifa, setNomeRifa] = useState("");
     const [premio, setPremio] = useState("");
     const [inicio, setInicio] = useState(1);
@@ -69,6 +69,9 @@ export default function Rifa() {
                 `${API_URL}/rifa/upload-imagem`,
                 {
                     method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
                     body: formData
                 }
             );
@@ -187,7 +190,15 @@ export default function Rifa() {
     return (
         <div className="rifa-container">
             <h3>Registro de Rifa</h3>
-
+            <div className="rifa-acoes-administrativas">
+                <button
+                    type="button"
+                    className="rifa-botao-compra-manual"
+                    onClick={() => setModalCompraManual(true)}
+                >
+                    Registrar compra manual
+                </button>
+            </div>
             <form onSubmit={salvarRifa} className="rifa-form">
                 <label>
                     Nome da rifa<span className="obrigatorio" >*</span>
@@ -327,6 +338,12 @@ export default function Rifa() {
             </form>
 
             <RifaPreview rifas={rifas} />
+            <RegistrarCompraManual
+                aberto={modalCompraManual}
+                onClose={() => setModalCompraManual(false)}
+                rifas={rifas}
+                onRegistrado={carregarRifas}
+            />
         </div>
     );
 }

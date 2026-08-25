@@ -25,13 +25,63 @@ export default function RifaPreview({ rifas = [], onSalvarNome }) {
     // BUSCAR NÚMEROS COMPRADOS
     // ===============================
     useEffect(() => {
-        if (!rifa?.id) return;
+        if (!rifa?.id) {
+            setCompras([]);
+            return;
+        }
 
-        fetch(`${API_URL}/rifa/${rifa.id}/compras-detalhadas`)
-            .then(r => r.json())
-            .then(data => setCompras(Array.isArray(data) ? data : []))
-            .catch(() => setCompras([]));
-    }, [rifa]);
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            console.error("[RIFA] Token não encontrado");
+            setCompras([]);
+            return;
+        }
+
+        async function buscarComprasDetalhadas() {
+            try {
+                const resposta = await fetch(
+                    `${API_URL}/rifa/${rifa.id}/compras-detalhadas`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                const dados = await resposta.json();
+
+                if (!resposta.ok) {
+                    console.error(
+                        "[RIFA] Erro ao buscar compras:",
+                        resposta.status,
+                        dados
+                    );
+
+                    setCompras([]);
+                    return;
+                }
+
+                setCompras(
+                    Array.isArray(dados)
+                        ? dados
+                        : []
+                );
+
+            } catch (erro) {
+                console.error(
+                    "[RIFA] Falha ao buscar compras:",
+                    erro
+                );
+
+                setCompras([]);
+            }
+        }
+
+        buscarComprasDetalhadas();
+
+    }, [rifa?.id]);
 
     // ===============================
     // INTERVALO
