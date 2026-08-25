@@ -2,6 +2,25 @@
    PAINEL GERAL
    ADMINISTRAÇÃO DO BANCO DE DADOS
 ========================================================= */
+/* =========================================================
+   BOTÃO COPIAR ESTRUTURA DA TABELA
+========================================================= */
+
+.painel-g-ferramenta-estrutura {
+    border-color: #7c3aed !important;
+    background: #f5f3ff !important;
+    color: #6d28d9 !important;
+}
+
+.painel-g-ferramenta-estrutura:hover {
+    border-color: #6d28d9 !important;
+    background: #ede9fe !important;
+    color: #5b21b6 !important;
+}
+
+.painel-g-ferramenta-estrutura:active {
+    transform: scale(0.97);
+}
 
 .painel-g-administrador-container {
     --pg-bg-principal: #f3f6fb;

@@ -34,7 +34,10 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
         "Produtividade": Produtividade,
         "Administracao": Administracao,
         "Administração": Administracao,
+
         "Delivery e vendas online": DeliveryEVendasOnline,
+        "IronStore": DeliveryEVendasOnline,
+
         "Mesas, salão e cozinha": MesasSalaoECozinha,
         "Rifa": Rifa,
         "Agendamentos": Agendamentos,
@@ -715,7 +718,9 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
                                 }
                             >
                                 <span>
-                                    {m.modulo}
+                                    {m.modulo === "Delivery e vendas online"
+                                        ? "IronStore"
+                                        : m.modulo}
                                 </span>
                             </button>
                         ))}

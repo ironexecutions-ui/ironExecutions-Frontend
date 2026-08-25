@@ -208,7 +208,57 @@ export default function PainelG() {
         );
     }
 
+    /* =====================================================
+       COPIAR ESTRUTURA DA TABELA
+    ===================================================== */
 
+    async function copiarEstruturaTabelaPainelG() {
+
+        if (!painelGTabelaSelecionada) {
+            return;
+        }
+
+        if (!painelGColunas.length) {
+            setPainelGErro("A tabela não possui colunas carregadas.");
+            return;
+        }
+
+        const estruturaColunas = painelGColunas
+            .map(coluna => {
+
+                let descricao = `${coluna.Field}: ${coluna.Type}`;
+
+                if (coluna.Key === "PRI") {
+                    descricao += " PRIMARY KEY";
+                }
+
+                return descricao;
+            })
+            .join("\n");
+
+        const conteudo = [
+            `Tabela: ${painelGTabelaSelecionada}`,
+            "",
+            "Colunas:",
+            estruturaColunas
+        ].join("\n");
+
+        try {
+
+            await navigator.clipboard.writeText(conteudo);
+
+        } catch (error) {
+
+            console.error(
+                "[PAINEL] Erro ao copiar estrutura:",
+                error
+            );
+
+            setPainelGErro(
+                "Não foi possível copiar a estrutura da tabela."
+            );
+        }
+    }
     /* =====================================================
        CANCELAR EDIÇÃO
     ===================================================== */
@@ -1026,7 +1076,13 @@ ATALHOS SQL DA TABELA
                                             📋 Copiar dados
                                         </button>
 
-
+                                        <button
+                                            type="button"
+                                            className="painel-g-ferramenta-botao painel-g-ferramenta-estrutura"
+                                            onClick={copiarEstruturaTabelaPainelG}
+                                        >
+                                            Copiar estrutura
+                                        </button>
                                         <button
                                             type="button"
                                             className="painel-g-ferramenta-botao painel-g-ferramenta-select"
