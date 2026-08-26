@@ -1073,3 +1073,714 @@
         transition: none;
     }
 }
+
+
+/* =========================================================
+   CARTÃO MERCADO PAGO
+   ÁREA PREMIUM
+========================================================= */
+
+.rif-mp-form-cartao {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-sizing: border-box;
+    margin-top: 3px;
+}
+
+
+/* =========================================================
+   CAMPO / LABEL
+========================================================= */
+
+.rif-mp-campo-cartao {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    box-sizing: border-box;
+}
+
+.rif-mp-campo-cartao>span {
+    display: block;
+
+    margin-left: 2px;
+
+    color: #34475c !important;
+
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.2;
+
+    letter-spacing: -0.1px;
+}
+
+
+/* =========================================================
+   INPUT SEGURO MERCADO PAGO
+   NÚMERO / VALIDADE / CVV
+========================================================= */
+
+.rif-mp-input-seguro {
+    position: relative;
+
+    width: 100%;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border: 1px solid #aeb9c5;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f8fafc 100%);
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.04),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* iframe criado pelo Mercado Pago */
+
+.rif-mp-input-seguro iframe {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    border: 0 !important;
+
+    background: transparent !important;
+}
+
+
+/* =========================================================
+   HOVER DOS CAMPOS SEGUROS
+========================================================= */
+
+.rif-mp-input-seguro:hover {
+    border-color: #899aaa;
+
+    background: #ffffff;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.03),
+        0 4px 10px rgba(15, 23, 42, 0.055);
+}
+
+
+/* =========================================================
+   TITULAR / CPF / EMAIL
+========================================================= */
+
+.rif-mp-form-cartao input {
+    width: 100%;
+
+    height: 52px;
+
+    box-sizing: border-box;
+
+    padding: 0 15px;
+
+    outline: none;
+
+    border: 1px solid #aeb9c5;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc);
+
+    color: #17283b !important;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.rif-mp-form-cartao input::placeholder {
+    color: #8190a0 !important;
+    opacity: 1 !important;
+    font-weight: 500;
+}
+
+.rif-mp-form-cartao input:focus {
+    border-color: #4676a4;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(52, 104, 155, 0.1),
+        0 7px 17px rgba(15, 23, 42, 0.07);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   SELECTS
+   EMISSOR / PARCELAS / DOCUMENTO
+========================================================= */
+
+.rif-mp-form-cartao select {
+    width: 100%;
+    height: 52px;
+
+    box-sizing: border-box;
+
+    padding: 0 42px 0 15px;
+
+    outline: none;
+
+    border: 1px solid #aeb9c5;
+    border-radius: 11px;
+
+    background-color: #ffffff;
+
+    color: #25374a !important;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background-image:
+        linear-gradient(45deg,
+            transparent 50%,
+            #63778b 50%),
+        linear-gradient(135deg,
+            #63778b 50%,
+            transparent 50%),
+        linear-gradient(180deg,
+            #ffffff,
+            #f7f9fb);
+
+    background-position:
+        calc(100% - 19px) 22px,
+        calc(100% - 14px) 22px,
+        0 0;
+
+    background-size:
+        5px 5px,
+        5px 5px,
+        100% 100%;
+
+    background-repeat: no-repeat;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.rif-mp-form-cartao select:hover {
+    border-color: #899aaa;
+}
+
+.rif-mp-form-cartao select:focus {
+    border-color: #4676a4;
+
+    box-shadow:
+        0 0 0 3px rgba(52, 104, 155, 0.1),
+        0 7px 17px rgba(15, 23, 42, 0.06);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   VALIDADE + CVV
+========================================================= */
+
+.rif-mp-linha-cartao {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.6fr) minmax(0, 1fr);
+
+    gap: 12px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DOCUMENTO + NÚMERO
+========================================================= */
+
+.rif-mp-linha-documento {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns:
+        minmax(115px, 0.75fr) minmax(0, 1.65fr);
+
+    gap: 12px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   EMAIL SOMENTE LEITURA
+========================================================= */
+
+#rif-mp-card-email:read-only {
+    border-color: #c0cad4;
+
+    background:
+        linear-gradient(180deg,
+            #eef2f5,
+            #e8edf1);
+
+    color: #657487 !important;
+
+    cursor: default;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035);
+}
+
+
+/* =========================================================
+   CARREGANDO FORMULÁRIO SEGURO
+========================================================= */
+
+.rif-mp-cartao-carregando {
+    position: relative;
+
+    width: 100%;
+    min-height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 10px 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #b9c5d0;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(135deg,
+            #edf3f8,
+            #f8fafc);
+
+    color: #4c6278 !important;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    overflow: hidden;
+}
+
+.rif-mp-cartao-carregando::before {
+    content: "";
+
+    width: 16px;
+    height: 16px;
+
+    flex: 0 0 auto;
+
+    box-sizing: border-box;
+
+    border: 2px solid #c1ced9;
+    border-top-color: #376b9b;
+
+    border-radius: 50%;
+
+    animation:
+        rifMpCartaoSpinner 0.75s linear infinite;
+}
+
+@keyframes rifMpCartaoSpinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   TOTAL DO CARTÃO
+========================================================= */
+
+.rif-mp-total-cartao {
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 3px;
+
+    padding: 16px 17px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border: 1px solid #9eafbf;
+    border-radius: 13px;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(69, 118, 163, 0.11),
+            transparent 45%),
+        linear-gradient(135deg,
+            #f1f6fa,
+            #e7eef4);
+
+    box-shadow:
+        0 5px 13px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.rif-mp-total-cartao::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 18px;
+
+    width: 45px;
+    height: 2px;
+
+    border-radius: 999px;
+
+    background: #4777a4;
+}
+
+.rif-mp-total-cartao span {
+    color: #5b6c7e !important;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.rif-mp-total-cartao strong {
+    color: #173f66 !important;
+
+    font-size: 21px;
+    font-weight: 900;
+
+    letter-spacing: -0.6px;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+
+/* =========================================================
+   ERRO CARTÃO
+========================================================= */
+
+.rif-mp-erro-cartao {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e2a3a3;
+    border-radius: 10px;
+
+    background:
+        linear-gradient(135deg,
+            #fff4f4,
+            #fbe8e8);
+
+    color: #9f2424 !important;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    line-height: 1.45;
+
+    box-shadow:
+        inset 3px 0 0 #c83e3e;
+}
+
+
+/* =========================================================
+   BOTÃO PAGAR
+========================================================= */
+
+#rif-mp-card-submit {
+    position: relative;
+
+    width: 100%;
+    min-height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 2px;
+
+    padding: 12px 20px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border: 1px solid #164873;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(180deg,
+            #3979b2 0%,
+            #286293 52%,
+            #225680 100%);
+
+    color: #ffffff !important;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 850;
+
+    letter-spacing: -0.15px;
+
+    cursor: pointer;
+
+    text-shadow:
+        0 1px 1px rgba(0, 25, 50, 0.28);
+
+    box-shadow:
+        0 10px 23px rgba(31, 78, 122, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+#rif-mp-card-submit::after {
+    content: "";
+
+    position: absolute;
+
+    top: -90%;
+    left: -50%;
+
+    width: 22%;
+    height: 280%;
+
+    transform: rotate(22deg);
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.32),
+            transparent);
+
+    pointer-events: none;
+
+    transition:
+        left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#rif-mp-card-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    filter: brightness(1.055);
+
+    box-shadow:
+        0 14px 28px rgba(31, 78, 122, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+#rif-mp-card-submit:hover:not(:disabled)::after {
+    left: 140%;
+}
+
+#rif-mp-card-submit:active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.987);
+}
+
+#rif-mp-card-submit:disabled {
+    border-color: #b4bec8;
+
+    background:
+        linear-gradient(180deg,
+            #dce2e7,
+            #cbd3da);
+
+    color: #7c8996 !important;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+    text-shadow: none;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================================
+   CARTÃO APROVADO
+========================================================= */
+
+.rif-mp-cartao-sucesso {
+    text-align: center;
+}
+
+.rif-mp-cartao-sucesso::before {
+    content: "✓";
+
+    width: 68px;
+    height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 7px;
+
+    border: 1px solid #8bbba1;
+    border-radius: 50%;
+
+    background:
+        linear-gradient(145deg,
+            #eef9f3,
+            #dcefe5);
+
+    color: #23744a !important;
+
+    font-size: 31px;
+    font-weight: 900;
+
+    box-shadow:
+        0 10px 24px rgba(35, 116, 74, 0.12),
+        inset 0 1px 0 #ffffff;
+
+    animation:
+        rifMpSucessoEntrada 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rifMpSucessoEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.7) rotate(-8deg);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1) rotate(0);
+    }
+}
+
+
+/* =========================================================
+   MOBILE CARTÃO
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .rif-mp-form-cartao {
+        gap: 13px;
+    }
+
+    .rif-mp-input-seguro,
+    .rif-mp-form-cartao input,
+    .rif-mp-form-cartao select {
+        height: 50px;
+    }
+
+    .rif-mp-linha-cartao {
+        grid-template-columns:
+            minmax(0, 1.45fr) minmax(90px, 0.8fr);
+
+        gap: 9px;
+    }
+
+    .rif-mp-linha-documento {
+        grid-template-columns:
+            minmax(100px, 0.75fr) minmax(0, 1.5fr);
+
+        gap: 9px;
+    }
+
+    .rif-mp-total-cartao {
+        padding:
+            14px 15px;
+    }
+
+    .rif-mp-total-cartao strong {
+        font-size: 19px;
+    }
+
+    #rif-mp-card-submit {
+        min-height: 52px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE MUITO PEQUENO
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .rif-mp-linha-cartao,
+    .rif-mp-linha-documento {
+        grid-template-columns: 1fr;
+    }
+
+    .rif-mp-campo-cartao>span {
+        font-size: 12.5px;
+    }
+
+    .rif-mp-total-cartao strong {
+        font-size: 18px;
+    }
+}

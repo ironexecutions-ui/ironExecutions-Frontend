@@ -18,7 +18,7 @@ export default function RifaCompras() {
     const [modalAberto, setModalAberto] = useState(false);
     const [etapa, setEtapa] = useState("dados"); // dados | confirmacao | pix
     const [pix, setPix] = useState(null);
-
+    const [compraId, setCompraId] = useState(null);
     const [form, setForm] = useState({
         nome: "",
         email: "",
@@ -164,57 +164,185 @@ export default function RifaCompras() {
     // ===============================
     // CONFIRMAR PAGAMENTO
     // ===============================
-    async function confirmarPagamento() {
-        if (!validarFormulario()) return;
+    // ===============================
+    // CRIAR COMPRA
+    // ===============================
 
-        try {
-            setLoading(true);
+    async function criarCompra() {
 
-            const r = await fetch(`${API_URL}/rifa/${rifa.id}/comprar`, {
+        if (!validarFormulario()) {
+            return null;
+        }
+
+        // Se a compra já foi criada neste fluxo,
+        // não cria outra novamente.
+        if (compraId) {
+            return {
+                compra_id: compraId,
+                total: Number(total)
+            };
+        }
+
+        const resposta = await fetch(
+            `${API_URL}/rifa/${rifa.id}/comprar`,
+            {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
                 body: JSON.stringify({
                     numeros: selecionados,
                     ...form
                 })
-            });
+            }
+        );
 
-            const compra = await r.json();
+        const json = await resposta.json();
 
-            if (!r.ok) {
-                alert(
-                    compra?.numeros
-                        ? `Números indisponíveis: ${compra.numeros.join(", ")}`
-                        : "Erro ao criar compra"
+        if (!resposta.ok) {
+
+            const detail = json?.detail;
+
+            if (
+                detail &&
+                typeof detail === "object" &&
+                detail.erro === "NUMEROS_INDISPONIVEIS"
+            ) {
+
+                throw new Error(
+                    `Números indisponíveis: ${(detail.numeros || []).join(", ")
+                    }`
                 );
+            }
+
+            throw new Error(
+                typeof detail === "string"
+                    ? detail
+                    : "Não foi possível criar a compra"
+            );
+        }
+
+        setCompraId(
+            json.compra_id
+        );
+
+        return json;
+    }
+
+
+    // ===============================
+    // PAGAMENTO PIX
+    // ===============================
+
+    async function confirmarPagamento() {
+
+        try {
+
+            setLoading(true);
+
+            const compra =
+                await criarCompra();
+
+            if (!compra) {
                 return;
             }
 
-            const p = await fetch(
+            const resposta = await fetch(
                 `${API_URL}/rifa/${rifa.id}/pagamento/pix`,
                 {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
                     body: JSON.stringify({
-                        compra_id: compra.compra_id,
-                        total: Number(compra.total),
-                        email: form.email
+                        compra_id:
+                            compra.compra_id
                     })
                 }
             );
 
-            const pixData = await p.json();
+            const json =
+                await resposta.json();
 
-            if (!p.ok) {
-                alert(pixData?.erro || "Erro ao gerar PIX");
-                return;
+            if (!resposta.ok) {
+
+                throw new Error(
+                    typeof json?.detail === "string"
+                        ? json.detail
+                        : "Erro ao gerar PIX"
+                );
             }
 
-            setPix(pixData);
-            setEtapa("pix");
-        } catch {
-            alert("Erro ao iniciar pagamento");
+            setPix(json);
+
+            setEtapa(
+                "pix"
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[PAGAMENTO PIX]",
+                erro
+            );
+
+            alert(
+                erro.message ||
+                "Erro ao iniciar pagamento"
+            );
+
         } finally {
+
+            setLoading(false);
+        }
+    }
+    // ===============================
+    // PREPARAR PAGAMENTO COM CARTÃO
+    // ===============================
+
+    async function prepararPagamentoCartao() {
+
+        try {
+
+            setLoading(true);
+
+            const compra =
+                await criarCompra();
+
+            if (!compra) {
+                return false;
+            }
+
+            setCompraId(
+                compra.compra_id
+            );
+
+            setEtapa(
+                "cartao"
+            );
+
+            return true;
+
+        } catch (erro) {
+
+            console.error(
+                "[PAGAMENTO CARTÃO]",
+                erro
+            );
+
+            alert(
+                erro.message ||
+                "Não foi possível iniciar o pagamento com cartão"
+            );
+
+            return false;
+
+        } finally {
+
             setLoading(false);
         }
     }
@@ -392,14 +520,43 @@ export default function RifaCompras() {
                 aberto={modalAberto}
                 etapa={etapa}
                 setEtapa={setEtapa}
+
                 pix={pix}
-                onFechar={() => setModalAberto(false)}
-                onConfirmarPagamento={confirmarPagamento}
-                selecionados={selecionados}
-                total={total}
-                form={form}
-                setForm={setForm}
-                loading={loading}
+
+                rifaId={rifa?.id}
+                compraId={compraId}
+
+                onFechar={() => {
+                    setModalAberto(false);
+                }}
+
+                onConfirmarPagamento={
+                    confirmarPagamento
+                }
+
+                onPrepararCartao={
+                    prepararPagamentoCartao
+                }
+
+                selecionados={
+                    selecionados
+                }
+
+                total={
+                    total
+                }
+
+                form={
+                    form
+                }
+
+                setForm={
+                    setForm
+                }
+
+                loading={
+                    loading
+                }
             />
         </div>
     );
