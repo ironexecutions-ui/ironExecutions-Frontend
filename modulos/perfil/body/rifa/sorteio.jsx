@@ -12,7 +12,7 @@ export default function SorteioRifa({ rifa, premio }) {
     const [verificandoResultado, setVerificandoResultado] = useState(true);
     const [liberadoParaSorteio, setLiberadoParaSorteio] = useState(false);
     const [comemorar, setComemorar] = useState(false);
-
+    const [dadosGanhadorVisiveis, setDadosGanhadorVisiveis] = useState(false);
 
     // =========================================================
     // VERIFICAR SE O SORTEIO JÁ ESTÁ LIBERADO
@@ -878,18 +878,34 @@ export default function SorteioRifa({ rifa, premio }) {
 
                     ) : (
 
-                        <div className="sorteioRifa-ganhadorPremium">
-
-
+                        <div
+                            className={`sorteioRifa-ganhadorPremium ${dadosGanhadorVisiveis
+                                    ? "sorteioRifa-ganhadorRevelado"
+                                    : ""
+                                }`}
+                            onClick={() => {
+                                setDadosGanhadorVisiveis(
+                                    anterior => !anterior
+                                );
+                            }}
+                        >
                             <div className="sorteioRifa-ganhadorCabecalho">
 
                                 <span className="sorteioRifa-ganhadorEtiqueta">
                                     GANHADOR
                                 </span>
 
-                                <h3>
-                                    {resultado.nome}
-                                </h3>
+                                <div className="sorteioRifa-dadoPrivadoWrapper">
+
+                                    <h3 className="sorteioRifa-dadoPrivado">
+                                        {resultado.nome}
+                                    </h3>
+
+                                    <span className="sorteioRifa-dadoOcultoIndicador">
+                                        Passe o mouse para visualizar
+                                    </span>
+
+                                </div>
 
                                 <p>
                                     Ganhador do prêmio
@@ -906,7 +922,7 @@ export default function SorteioRifa({ rifa, premio }) {
                                     <div>
                                         <span>Email</span>
 
-                                        <strong>
+                                        <strong className="sorteioRifa-dadoPrivado">
                                             {resultado.email}
                                         </strong>
                                     </div>
@@ -919,7 +935,7 @@ export default function SorteioRifa({ rifa, premio }) {
                                     <div>
                                         <span>WhatsApp</span>
 
-                                        <strong>
+                                        <strong className="sorteioRifa-dadoPrivado">
                                             {resultado.whatsapp}
                                         </strong>
                                     </div>
@@ -929,8 +945,10 @@ export default function SorteioRifa({ rifa, premio }) {
                             </div>
 
 
-                            <div className="sorteioRifa-acoesContato">
-
+                            <div
+                                className="sorteioRifa-acoesContato"
+                                onClick={e => e.stopPropagation()}
+                            >
 
                                 {resultado.whatsapp && (
 
@@ -974,7 +992,6 @@ export default function SorteioRifa({ rifa, premio }) {
                                 )}
 
                             </div>
-
                         </div>
 
                     )}

@@ -2414,3 +2414,159 @@
         animation: none !important;
     }
 }
+
+/* =========================================================
+   PRIVACIDADE DOS DADOS DO GANHADOR
+========================================================= */
+
+.sorteioRifa-dadoPrivadoWrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   DADO OCULTO
+========================================================= */
+
+.sorteioRifa-dadoPrivado {
+    position: relative;
+
+    display: inline-block;
+
+    max-width: 100%;
+
+    filter: blur(7px);
+
+    opacity: 0.72;
+
+    user-select: none;
+
+    transition:
+        filter 0.3s ease,
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* camada adicional para dificultar leitura */
+
+.sorteioRifa-dadoPrivado::selection {
+    background: transparent;
+}
+
+
+/* =========================================================
+   REVELAR NO HOVER
+========================================================= */
+
+.sorteioRifa-ganhadorPremium:hover .sorteioRifa-dadoPrivado {
+    filter: blur(0);
+
+    opacity: 1;
+
+    user-select: text;
+}
+
+
+/* =========================================================
+   REVELAÇÃO POR CLIQUE
+========================================================= */
+
+.sorteioRifa-ganhadorRevelado .sorteioRifa-dadoPrivado {
+    filter: blur(0);
+
+    opacity: 1;
+
+    user-select: text;
+}
+
+
+/* =========================================================
+   TEXTO DE PRIVACIDADE
+========================================================= */
+
+.sorteioRifa-dadoOcultoIndicador {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    z-index: 5;
+
+    transform:
+        translate(-50%, -50%);
+
+    padding: 5px 9px;
+
+    border: 1px solid rgba(70, 88, 106, 0.22);
+
+    border-radius: 999px;
+
+    background: rgba(247, 249, 251, 0.92);
+
+    color: #506172 !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    box-shadow:
+        0 3px 10px rgba(20, 35, 50, 0.08);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* some quando revelar */
+
+.sorteioRifa-ganhadorPremium:hover .sorteioRifa-dadoOcultoIndicador,
+.sorteioRifa-ganhadorRevelado .sorteioRifa-dadoOcultoIndicador {
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%) scale(0.94);
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.sorteioRifa-ganhadorPremium {
+    cursor: default;
+}
+
+.sorteioRifa-dadoPrivado {
+    cursor: privacy-screen;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .sorteioRifa-ganhadorPremium {
+        cursor: pointer;
+    }
+
+    .sorteioRifa-dadoOcultoIndicador {
+        font-size: 9px !important;
+    }
+
+    .sorteioRifa-dadoOcultoIndicador::after {
+        content: "";
+    }
+
+}
