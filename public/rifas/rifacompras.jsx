@@ -16,7 +16,7 @@ export default function RifaCompras() {
     const [selecionados, setSelecionados] = useState([]);
     const [erro, setErro] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const [resultadoRifa, setResultadoRifa] = useState(null);
     const [modalAberto, setModalAberto] = useState(false);
     const [etapa, setEtapa] = useState("dados"); // dados | confirmacao | pix
     const [pix, setPix] = useState(null);
@@ -99,6 +99,7 @@ export default function RifaCompras() {
     async function buscarRifa() {
         setErro("");
         setRifa(null);
+        setResultadoRifa(null);
         setSelecionados([]);
         setComprados([]);
 
@@ -110,18 +111,77 @@ export default function RifaCompras() {
         try {
             setLoading(true);
 
-            const r = await fetch(`${API_URL}/rifa/${rifaId}`);
-            if (!r.ok) throw new Error();
+            // ===============================
+            // RIFA
+            // ===============================
+
+            const r = await fetch(
+                `${API_URL}/rifa/${rifaId}`
+            );
+
+            if (!r.ok) {
+                throw new Error();
+            }
 
             const data = await r.json();
+
             setRifa(data);
 
-            const c = await fetch(`${API_URL}/rifa/${rifaId}/comprados`);
-            const nums = await c.json();
-            setComprados(nums);
-        } catch {
-            setErro("Rifa não encontrada");
+
+            // ===============================
+            // NÚMEROS COMPRADOS
+            // ===============================
+
+            const c = await fetch(
+                `${API_URL}/rifa/${rifaId}/comprados`
+            );
+
+            if (c.ok) {
+                const nums = await c.json();
+
+                setComprados(
+                    Array.isArray(nums)
+                        ? nums
+                        : []
+                );
+            }
+
+
+            // ===============================
+            // RESULTADO OFICIAL
+            // ===============================
+
+            const respostaResultado = await fetch(
+                `${API_URL}/rifa/${rifaId}/resultado`
+            );
+
+            if (respostaResultado.ok) {
+                const resultado =
+                    await respostaResultado.json();
+
+                console.log(
+                    "[RIFA] Resultado oficial:",
+                    resultado
+                );
+
+                if (resultado?.sorteado) {
+                    setResultadoRifa(resultado);
+                }
+            }
+
+        } catch (erro) {
+
+            console.error(
+                "[RIFA] Erro ao carregar:",
+                erro
+            );
+
+            setErro(
+                "Rifa não encontrada"
+            );
+
         } finally {
+
             setLoading(false);
         }
     }
@@ -423,31 +483,57 @@ export default function RifaCompras() {
 
             {rifa && estaFinalizada && (
                 <div className="rif-resultado">
-                    {rifa.ganhador && rifa.ganhador.nome ? (
-                        <>
-                            <h3 className="rif-ganhador-titulo">
-                                Ganhador da Rifa
-                            </h3>
 
-                            <p className="rif-ganhador-nome">
-                                {rifa.ganhador.nome}
-                            </p>
+                    {resultadoRifa?.sorteado ? (
 
-                            <p className="rif-ganhador-numero">
-                                Número sorteado: {rifa.ganhador.numero}
-                            </p>
-                        </>
+                        resultadoRifa.sem_ganhador ? (
+
+                            <>
+                                <h3 className="rif-ganhador-titulo">
+                                    Resultado da Rifa
+                                </h3>
+
+                                <p className="rif-ganhador-numero">
+                                    Número sorteado: {resultadoRifa.numero}
+                                </p>
+
+                                <p className="rif-ganhador-sem">
+                                    O número sorteado não havia sido adquirido, portanto não houve ganhador nesta rifa.
+                                </p>
+                            </>
+
+                        ) : (
+
+                            <>
+                                <h3 className="rif-ganhador-titulo">
+                                    Ganhador da Rifa
+                                </h3>
+
+                                <p className="rif-ganhador-nome">
+                                    {resultadoRifa.nome}
+                                </p>
+
+                                <p className="rif-ganhador-numero">
+                                    Número sorteado: {resultadoRifa.numero}
+                                </p>
+                            </>
+
+                        )
+
                     ) : (
+
                         <>
                             <h3 className="rif-ganhador-titulo">
-                                Resultado da Rifa
+                                Rifa encerrada
                             </h3>
 
                             <p className="rif-ganhador-sem">
-                                O sorteio foi realizado, mas não houve ganhador nesta rifa.
+                                A rifa foi encerrada e o resultado do sorteio ainda não está disponível.
                             </p>
                         </>
+
                     )}
+
                 </div>
             )}
 
