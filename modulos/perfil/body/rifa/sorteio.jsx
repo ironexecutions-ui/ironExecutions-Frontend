@@ -58,29 +58,89 @@ export default function SorteioRifa({ rifa, premio }) {
     // =========================================================
     // VERIFICAR SE JÁ FOI SORTEADA
     // =========================================================
-
     useEffect(() => {
 
-        if (!rifa?.id) return;
+        if (!rifa?.id) {
+            return;
+        }
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            console.error(
+                "[SORTEIO] Token não encontrado."
+            );
+
+            setVerificandoResultado(false);
+            return;
+        }
 
         setVerificandoResultado(true);
 
-        fetch(`${API_URL}/rifa/${rifa.id}/resultado`)
-            .then(r => r.json())
+        fetch(
+            `${API_URL}/rifa/${rifa.id}/resultado-admin`,
+            {
+                method: "GET",
+
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+            .then(async resposta => {
+
+                const data = await resposta.json();
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        data?.detail ||
+                        "Não foi possível consultar o resultado da rifa."
+                    );
+                }
+
+                return data;
+            })
+
             .then(data => {
 
+                console.log(
+                    "[SORTEIO] Resultado administrativo:",
+                    data
+                );
+
                 if (data?.sorteado) {
+
                     setResultado(data);
-                    setNumeroAnimado(data.numero);
+
+                    setNumeroAnimado(
+                        data.numero
+                    );
+
+                } else {
+
+                    setResultado(null);
+
+                    setNumeroAnimado(null);
                 }
 
             })
-            .catch(() => { })
+
+            .catch(error => {
+
+                console.error(
+                    "[SORTEIO] Erro ao carregar resultado:",
+                    error
+                );
+
+            })
+
             .finally(() => {
+
                 setVerificandoResultado(false);
+
             });
 
-    }, [rifa]);
+    }, [rifa?.id]);
 
 
     // =========================================================
@@ -213,7 +273,83 @@ export default function SorteioRifa({ rifa, premio }) {
     // =========================================================
     // FINALIZAR
     // =========================================================
+    // =========================================================
+    // MASCARAR DADOS DO GANHADOR
+    // =========================================================
 
+    function mascararNome(nome) {
+
+        if (!nome) {
+            return "";
+        }
+
+        return nome
+            .trim()
+            .split(/\s+/)
+            .map(parte => {
+
+                if (parte.length <= 1) {
+                    return "*";
+                }
+
+                return (
+                    parte.charAt(0) +
+                    "*".repeat(
+                        Math.max(
+                            parte.length - 1,
+                            3
+                        )
+                    )
+                );
+            })
+            .join(" ");
+    }
+
+
+    function mascararEmail(email) {
+
+        if (!email || !email.includes("@")) {
+            return "********";
+        }
+
+        const [
+            usuario,
+            dominio
+        ] = email.split("@");
+
+        const usuarioMascarado =
+            usuario.length <= 2
+                ? usuario.charAt(0) + "***"
+                : usuario.slice(0, 2) + "***";
+
+        return `${usuarioMascarado}@${dominio}`;
+    }
+
+
+    function mascararWhatsapp(whatsapp) {
+
+        if (!whatsapp) {
+            return "***********";
+        }
+
+        const numeros =
+            String(whatsapp)
+                .replace(/\D/g, "");
+
+        const ultimos =
+            numeros.slice(-4);
+
+        const ddd =
+            numeros.length >= 10
+                ? numeros.slice(-11, -9)
+                : "";
+
+        if (ddd) {
+            return `(${ddd}) *****-${ultimos}`;
+        }
+
+        return `*****-${ultimos}`;
+    }
     async function finalizar() {
 
         const token = localStorage.getItem("token");
@@ -275,7 +411,52 @@ export default function SorteioRifa({ rifa, premio }) {
     // =========================================================
     // VERIFICANDO STATUS
     // =========================================================
+    // =========================================================
+    // WHATSAPP DO GANHADOR
+    // =========================================================
 
+    function montarTelefoneWhatsapp(whatsapp) {
+
+        let numero = String(
+            whatsapp || ""
+        ).replace(/\D/g, "");
+
+        // Remove 55 caso já tenha vindo com código do Brasil
+        if (
+            numero.length >= 12 &&
+            numero.startsWith("55")
+        ) {
+            numero = numero.slice(2);
+        }
+
+        return `55${numero}`;
+    }
+
+
+    function montarMensagemGanhador() {
+
+        const nome =
+            resultado?.nome?.trim() ||
+            "ganhador";
+
+        const nomeDestaque =
+            nome.toUpperCase();
+
+        return (
+            ` PARABÉNS, ${nomeDestaque}! \n\n` +
+
+            `Temos uma excelente notícia: você é o grande ganhador da nossa rifa! \n\n` +
+
+            ` Prêmio: ${premio || "Prêmio da rifa"}\n` +
+            ` Número sorteado: ${resultado?.numero}\n\n` +
+
+            `Seu número foi o sorteado e o prêmio é oficialmente seu! \n\n` +
+
+            `Entre em contato conosco por aqui para combinarmos os próximos passos para a entrega do seu prêmio.\n\n` +
+
+            `Parabéns pela conquista e muito obrigado por participar! `
+        );
+    }
     if (verificandoResultado) {
 
         return (
@@ -975,7 +1156,13 @@ export default function SorteioRifa({ rifa, premio }) {
                                         <span>Email</span>
 
                                         <strong className="sorteioRifa-dadoPrivado">
-                                            {resultado.email}
+
+                                            <span className="sorteioRifa-dadoMascarado">
+                                                {mascararEmail(resultado.email)}
+                                            </span>
+
+
+
                                         </strong>
                                     </div>
 
@@ -988,7 +1175,13 @@ export default function SorteioRifa({ rifa, premio }) {
                                         <span>WhatsApp</span>
 
                                         <strong className="sorteioRifa-dadoPrivado">
-                                            {resultado.whatsapp}
+
+                                            <span className="sorteioRifa-dadoMascarado">
+                                                {mascararWhatsapp(resultado.whatsapp)}
+                                            </span>
+
+
+
                                         </strong>
                                     </div>
 
@@ -1006,9 +1199,13 @@ export default function SorteioRifa({ rifa, premio }) {
 
                                     <a
                                         className="sorteioRifa-linkWhatsapp"
-                                        href={`https://wa.me/55${resultado.whatsapp}?text=${encodeURIComponent(
-                                            `Parabéns ${resultado.nome}!\n\nVocê foi o ganhador do prêmio "${premio}".`
+
+                                        href={`https://wa.me/${montarTelefoneWhatsapp(
+                                            resultado.whatsapp
+                                        )}?text=${encodeURIComponent(
+                                            montarMensagemGanhador()
                                         )}`}
+
                                         target="_blank"
                                         rel="noreferrer"
                                     >
