@@ -2570,3 +2570,100 @@
     }
 
 }
+
+/* =========================================================
+   CÓPIAS RÁPIDAS DO GANHADOR
+========================================================= */
+
+.sorteioRifa-copiasRapidasGanhador {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 11px;
+    margin-bottom: 4px;
+}
+
+
+.sorteioRifa-botaoCopiaRapida {
+    min-height: 34px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 13px;
+
+    border: 1px solid rgba(74, 96, 116, 0.32);
+    border-radius: 8px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f1f4f6 100%);
+
+    color: #354b5f !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(20, 38, 54, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.sorteioRifa-botaoCopiaRapida:hover {
+    transform: translateY(-1px);
+
+    border-color: rgba(42, 92, 136, 0.55);
+
+    background:
+        linear-gradient(180deg,
+            #f8fbfd,
+            #e9f0f5);
+
+    box-shadow:
+        0 5px 12px rgba(20, 48, 72, 0.11),
+        inset 0 1px 0 #ffffff;
+}
+
+
+.sorteioRifa-botaoCopiaRapida:active {
+    transform:
+        translateY(0) scale(0.97);
+}
+
+
+@media (max-width: 520px) {
+
+    .sorteioRifa-copiasRapidasGanhador {
+        gap: 6px;
+    }
+
+    .sorteioRifa-botaoCopiaRapida {
+        flex: 1;
+
+        min-width: 120px;
+
+        padding:
+            8px 10px;
+    }
+
+}

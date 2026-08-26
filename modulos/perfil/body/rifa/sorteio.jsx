@@ -880,8 +880,8 @@ export default function SorteioRifa({ rifa, premio }) {
 
                         <div
                             className={`sorteioRifa-ganhadorPremium ${dadosGanhadorVisiveis
-                                    ? "sorteioRifa-ganhadorRevelado"
-                                    : ""
+                                ? "sorteioRifa-ganhadorRevelado"
+                                : ""
                                 }`}
                             onClick={() => {
                                 setDadosGanhadorVisiveis(
@@ -894,7 +894,6 @@ export default function SorteioRifa({ rifa, premio }) {
                                 <span className="sorteioRifa-ganhadorEtiqueta">
                                     GANHADOR
                                 </span>
-
                                 <div className="sorteioRifa-dadoPrivadoWrapper">
 
                                     <h3 className="sorteioRifa-dadoPrivado">
@@ -904,6 +903,59 @@ export default function SorteioRifa({ rifa, premio }) {
                                     <span className="sorteioRifa-dadoOcultoIndicador">
                                         Passe o mouse para visualizar
                                     </span>
+
+                                </div>
+
+
+                                <div
+                                    className="sorteioRifa-copiasRapidasGanhador"
+                                    onClick={e => e.stopPropagation()}
+                                >
+
+                                    {resultado.email && (
+                                        <button
+                                            type="button"
+                                            className="sorteioRifa-botaoCopiaRapida"
+                                            onClick={async () => {
+                                                try {
+                                                    await navigator.clipboard.writeText(
+                                                        resultado.email
+                                                    );
+
+                                                    alert("Email copiado.");
+                                                } catch {
+                                                    alert(
+                                                        "Não foi possível copiar o email."
+                                                    );
+                                                }
+                                            }}
+                                        >
+                                            Copiar email
+                                        </button>
+                                    )}
+
+
+                                    {resultado.whatsapp && (
+                                        <button
+                                            type="button"
+                                            className="sorteioRifa-botaoCopiaRapida"
+                                            onClick={async () => {
+                                                try {
+                                                    await navigator.clipboard.writeText(
+                                                        resultado.whatsapp
+                                                    );
+
+                                                    alert("Celular copiado.");
+                                                } catch {
+                                                    alert(
+                                                        "Não foi possível copiar o celular."
+                                                    );
+                                                }
+                                            }}
+                                        >
+                                            Copiar celular
+                                        </button>
+                                    )}
 
                                 </div>
 
