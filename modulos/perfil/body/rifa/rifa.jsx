@@ -190,29 +190,23 @@ export default function Rifa() {
     return (
         <div className="rifa-container">
             <h3>Registro de Rifa</h3>
-            <div className="rifa-acoes-administrativas">
-                <button
-                    type="button"
-                    className="rifa-botao-compra-manual"
-                    onClick={() => setModalCompraManual(true)}
-                >
-                    Registrar compra manual
-                </button>
-            </div>
+
             <form onSubmit={salvarRifa} className="rifa-form">
                 <label>
-                    Nome da rifa<span className="obrigatorio" >*</span>
+                    Nome da rifa<span className="obrigatorio">*</span>
                     <input
                         type="text"
+                        placeholder="Ex: Rifa de Dia das Mães"
                         value={nomeRifa}
                         onChange={e => setNomeRifa(e.target.value)}
                     />
                 </label>
 
                 <label>
-                    Prêmio<span className="obrigatorio" >*</span>
+                    Prêmio<span className="obrigatorio">*</span>
                     <input
                         type="text"
+                        placeholder="Ex: iPhone 16 Pro 256GB"
                         value={premio}
                         onChange={e => setPremio(e.target.value)}
                     />
@@ -259,18 +253,20 @@ export default function Rifa() {
                     </div>
                 )}
 
-
                 <label>
-                    Número inicial<span className="obrigatorio" >*</span>
+                    Número inicial<span className="obrigatorio">*</span>
                     <input
                         type="number"
+                        placeholder="Ex: 1"
                         value={inicio}
                         onChange={e => {
                             const valor = Number(e.target.value);
 
                             if (valor > fim) {
                                 setInicio(fim);
-                                setAvisoIntervalo("O número inicial não pode ser maior que o número final");
+                                setAvisoIntervalo(
+                                    "O número inicial não pode ser maior que o número final"
+                                );
                                 return;
                             }
 
@@ -281,9 +277,10 @@ export default function Rifa() {
                 </label>
 
                 <label>
-                    Número final<span className="obrigatorio" >*</span>
+                    Número final<span className="obrigatorio">*</span>
                     <input
                         type="number"
+                        placeholder="Ex: 100"
                         value={fim}
                         max={150}
                         onChange={e => {
@@ -291,13 +288,17 @@ export default function Rifa() {
 
                             if (valor > 150) {
                                 setFim(150);
-                                setAvisoIntervalo("O número final máximo permitido é 150");
+                                setAvisoIntervalo(
+                                    "O número final máximo permitido é 150"
+                                );
                                 return;
                             }
 
                             if (valor < inicio) {
                                 setFim(inicio);
-                                setAvisoIntervalo("O número final não pode ser menor que o número inicial");
+                                setAvisoIntervalo(
+                                    "O número final não pode ser menor que o número inicial"
+                                );
                                 return;
                             }
 
@@ -311,12 +312,12 @@ export default function Rifa() {
 
                 {avisoFim && <p className="aviso">{avisoFim}</p>}
 
-
                 <label>
-                    Preço por número (R$)<span className="obrigatorio" >*</span>
+                    Preço por número (R$)<span className="obrigatorio">*</span>
                     <input
                         type="number"
                         step="0.01"
+                        placeholder="Ex: 10,00"
                         value={preco}
                         onChange={e => setPreco(e.target.value)}
                     />
@@ -336,7 +337,15 @@ export default function Rifa() {
                 {erro && <p className="erro">{erro}</p>}
                 {ok && <p className="ok">{ok}</p>}
             </form>
-
+            <div className="rifa-acoes-administrativas">
+                <button
+                    type="button"
+                    className="rifa-botao-compra-manual"
+                    onClick={() => setModalCompraManual(true)}
+                >
+                    Registrar compra manual
+                </button>
+            </div>
             <RifaPreview rifas={rifas} />
             <RegistrarCompraManual
                 aberto={modalCompraManual}

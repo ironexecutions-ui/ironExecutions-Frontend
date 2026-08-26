@@ -1,117 +1,788 @@
-/* OVERLAY */
-.story-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(2, 6, 23, 0.85);
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* =========================================================
+   STORY RIFA PREMIUM
+   FORMATO VERTICAL 9:16
+========================================================= */
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.story-portal-overlay-premium {
+    position: fixed !important;
+    inset: 0 !important;
+
+    z-index: 9999999 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 5dvh 20px !important;
+
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+
+    background:
+        radial-gradient(circle at 50% 18%,
+            rgba(62, 96, 137, 0.25),
+            transparent 34%),
+        radial-gradient(circle at 15% 85%,
+            rgba(20, 47, 78, 0.22),
+            transparent 32%),
+        linear-gradient(145deg,
+            rgba(3, 8, 16, 0.96),
+            rgba(8, 17, 29, 0.94)) !important;
+
+    backdrop-filter:
+        blur(14px) saturate(0.85) !important;
+
+    -webkit-backdrop-filter:
+        blur(14px) saturate(0.85) !important;
+
+    animation:
+        storyOverlayEntradaPremium 0.28s ease-out both !important;
 }
 
-/* MODAL */
-.story-modal {
-    position: relative;
-    width: 390px;
-    max-height: 90vh;
-    background: #020617;
-    border-radius: 16px;
-    padding: 16px;
-    overflow-y: auto;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+@keyframes storyOverlayEntradaPremium {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-/* BOTÃO FECHAR */
-.story-close {
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 26px;
-    cursor: pointer;
+
+/* =========================================================
+   STORY / CELULAR
+========================================================= */
+
+.story-container-celular-premium {
+    position: relative !important;
+
+    height: 90dvh !important;
+
+    width:
+        calc(90dvh * 0.5625) !important;
+
+    max-width:
+        calc(100vw - 32px) !important;
+
+    display: grid !important;
+
+    grid-template-rows:
+        auto minmax(0, 1fr) !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid rgba(179, 192, 207, 0.78) !important;
+
+    border-radius: 30px !important;
+
+    background:
+        radial-gradient(circle at 50% -8%,
+            rgba(60, 111, 164, 0.16),
+            transparent 35%),
+        radial-gradient(circle at 100% 100%,
+            rgba(55, 76, 100, 0.09),
+            transparent 40%),
+        linear-gradient(160deg,
+            #f8fafc 0%,
+            #eef2f6 48%,
+            #e5eaf0 100%) !important;
+
+    box-shadow:
+        0 50px 130px rgba(0, 0, 0, 0.64),
+        0 18px 50px rgba(0, 0, 0, 0.32),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.98) !important;
+
+    isolation: isolate !important;
+
+    animation:
+        storyCelularEntradaPremium 0.46s cubic-bezier(0.16, 1, 0.3, 1) both !important;
 }
 
-/* LOGO */
-.story-logo-wrap {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
+@keyframes storyCelularEntradaPremium {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(28px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
 }
 
-.story-logo-wrap img {
-    max-height: 60px;
-    object-fit: contain;
+
+/* =========================================================
+   BORDA INTERNA
+========================================================= */
+
+.story-container-celular-premium::after {
+    content: "" !important;
+
+    position: absolute !important;
+    inset: 6px !important;
+
+    z-index: 50 !important;
+
+    pointer-events: none !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.76) !important;
+
+    border-radius: 24px !important;
+
+    box-shadow:
+        inset 0 0 18px rgba(255, 255, 255, 0.12) !important;
 }
 
-/* LOJA */
-.story-loja {
-    text-align: center;
-    font-size: 18px;
-    font-weight: 700;
-    color: #f8fafc;
-    margin-bottom: 12px;
+
+/* =========================================================
+   DETALHE SUPERIOR
+========================================================= */
+
+.story-container-celular-premium::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 10px !important;
+    left: 50% !important;
+
+    z-index: 60 !important;
+
+    width: 44px !important;
+    height: 4px !important;
+
+    transform:
+        translateX(-50%) !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(90deg,
+            rgba(38, 54, 73, 0.18),
+            rgba(38, 54, 73, 0.42),
+            rgba(38, 54, 73, 0.18)) !important;
+
+    box-shadow:
+        0 1px 2px rgba(255, 255, 255, 0.4) !important;
 }
 
-/* CARD */
-.story-card {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 14px;
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.story-cabecalho-premio-premium {
+    position: relative !important;
+    z-index: 5 !important;
+
+    min-height: 95px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 6px !important;
+
+    padding:
+        28px 24px 18px 24px !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+
+    border-bottom:
+        1px solid rgba(116, 132, 151, 0.5) !important;
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(255, 255, 255, 0.95),
+            transparent 70%),
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 248, 0.87)) !important;
+
+    box-shadow:
+        0 5px 18px rgba(15, 23, 42, 0.055) !important;
 }
 
-/* FOTOS */
-.story-fotos {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 10px;
+
+/* =========================================================
+   DETALHE ABAIXO DO CABEÇALHO
+========================================================= */
+
+.story-cabecalho-premio-premium::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    bottom: -1px !important;
+    left: 50% !important;
+
+    width: 42% !important;
+    height: 2px !important;
+
+    transform:
+        translateX(-50%) !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #456d98,
+            transparent) !important;
+
+    opacity: 0.8 !important;
 }
 
-.story-fotos img {
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    object-fit: cover;
-    border: 1px solid #1e293b;
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.story-label-premio-premium {
+    position: relative !important;
+
+    color: #68788b !important;
+
+    font-size: 9px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+
+    letter-spacing: 2.5px !important;
+
+    text-transform: uppercase !important;
 }
 
-/* TEXTO */
-.story-premio {
-    font-size: 14px;
-    font-weight: 600;
-    color: #e5e7eb;
-    text-align: center;
+
+/* =========================================================
+   PRÊMIO
+========================================================= */
+
+.story-titulo-premio-premium {
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    color: #111d2e !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size:
+        clamp(19px,
+            2.5dvh,
+            28px) !important;
+
+    font-weight: 950 !important;
+
+    line-height: 1.08 !important;
+
+    letter-spacing: -0.8px !important;
+
+    text-wrap: balance !important;
+
+    overflow-wrap: anywhere !important;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.85) !important;
 }
 
-.story-data {
-    font-size: 12px;
-    color: #94a3b8;
-    text-align: center;
+
+/* =========================================================
+   ÁREA DA GRADE
+========================================================= */
+
+.story-area-grade-premium {
+    position: relative !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding:
+        16px 14px 18px 14px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background:
+        radial-gradient(circle at 50% 40%,
+            rgba(255, 255, 255, 0.45),
+            transparent 52%) !important;
 }
 
-/* GRID */
-.story-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 6px;
+
+/* =========================================================
+   TEXTURA MUITO SUAVE
+========================================================= */
+
+.story-area-grade-premium::before {
+    content: "" !important;
+
+    position: absolute !important;
+    inset: 0 !important;
+
+    pointer-events: none !important;
+
+    opacity: 0.22 !important;
+
+    background-image:
+        linear-gradient(rgba(70, 88, 108, 0.055) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(70, 88, 108, 0.055) 1px,
+            transparent 1px) !important;
+
+    background-size:
+        20px 20px !important;
 }
 
-.story-numero {
-    padding: 6px 0;
-    font-size: 12px;
-    text-align: center;
-    border-radius: 6px;
-    background: #020617;
-    border: 1px solid #1e293b;
-    color: #cbd5f5;
+
+/* =========================================================
+   GRADE DINÂMICA
+========================================================= */
+
+.story-grade-numeros-premium {
+    position: relative !important;
+    z-index: 5 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(var(--story-colunas),
+            minmax(0, 1fr)) !important;
+
+    grid-auto-rows:
+        minmax(0, 1fr) !important;
+
+    gap:
+        var(--story-gap) !important;
+
+    align-content: stretch !important;
+    justify-content: stretch !important;
+
+    overflow: hidden !important;
+
+    perspective: 800px !important;
 }
 
-.story-numero.vendido {
-    background: #7f1d1d;
-    border-color: #dc2626;
-    color: #fee2e2;
+
+/* =========================================================
+   TODOS OS NÚMEROS
+========================================================= */
+
+.story-numero-premium {
+    position: relative !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border-radius:
+        clamp(2px,
+            calc(var(--story-tamanho-numero) * 0.17),
+            8px) !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size:
+        var(--story-fonte-numero) !important;
+
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+
+    font-variant-numeric:
+        tabular-nums !important;
+
+    user-select: none !important;
+
+    transform:
+        translateZ(0) !important;
+
+    transition:
+        transform 0.22s ease,
+        filter 0.22s ease,
+        box-shadow 0.22s ease !important;
+
+    animation:
+        storyNumeroEntrada 0.38s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@keyframes storyNumeroEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.82) translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1) translateY(0);
+    }
+}
+
+
+/* =========================================================
+   DISPONÍVEL
+   MANTÉM A COR CLARA
+========================================================= */
+
+.story-numero-premium-disponivel {
+    border:
+        1px solid rgba(110, 129, 150, 0.72) !important;
+
+    background:
+        linear-gradient(155deg,
+            #ffffff 0%,
+            #f3f6f8 48%,
+            #e7ecf1 100%) !important;
+
+    color: #26374a !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 1),
+        inset 0 -1px 0 rgba(90, 108, 128, 0.06),
+        0 2px 4px rgba(15, 23, 42, 0.075) !important;
+
+    text-shadow:
+        0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   BRILHO NOS DISPONÍVEIS
+========================================================= */
+
+.story-numero-premium-disponivel::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 45% !important;
+
+    pointer-events: none !important;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.72),
+            transparent) !important;
+}
+
+
+/* =========================================================
+   COMPRADO
+   VERMELHO PREMIUM
+========================================================= */
+
+.story-numero-premium-vendido {
+    border:
+        1px solid #8f1717 !important;
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(255, 120, 120, 0.28),
+            transparent 55%),
+        linear-gradient(145deg,
+            #ef4444 0%,
+            #dc2626 38%,
+            #b91c1c 72%,
+            #991b1b 100%) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.30),
+        inset 0 -2px 3px rgba(90, 0, 0, 0.18),
+        0 2px 5px rgba(153, 27, 27, 0.25),
+        0 0 8px rgba(220, 38, 38, 0.13) !important;
+
+    text-shadow:
+        0 1px 2px rgba(80, 0, 0, 0.45) !important;
+}
+
+
+/* =========================================================
+   BRILHO SUPERIOR DO COMPRADO
+========================================================= */
+
+.story-numero-premium-vendido::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 42% !important;
+
+    pointer-events: none !important;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.26),
+            transparent) !important;
+}
+
+
+/* =========================================================
+   LUZ DO COMPRADO
+========================================================= */
+
+.story-numero-premium-vendido::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: -40% !important;
+    left: -80% !important;
+
+    width: 45% !important;
+    height: 180% !important;
+
+    pointer-events: none !important;
+
+    transform:
+        rotate(22deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.24),
+            transparent) !important;
+
+    animation:
+        storyBrilhoVendido 5.5s ease-in-out infinite !important;
+}
+
+@keyframes storyBrilhoVendido {
+
+    0%,
+    70% {
+        left: -80%;
+        opacity: 0;
+    }
+
+    76% {
+        opacity: 1;
+    }
+
+    88% {
+        left: 145%;
+        opacity: 0.75;
+    }
+
+    100% {
+        left: 145%;
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   PROFUNDIDADE EXTRA NOS VENDIDOS
+========================================================= */
+
+.story-numero-premium-vendido {
+    animation:
+        storyNumeroEntrada 0.38s cubic-bezier(0.16, 1, 0.3, 1) both,
+        storyVendidoRespirar 4s ease-in-out infinite !important;
+}
+
+@keyframes storyVendidoRespirar {
+
+    0%,
+    100% {
+        filter:
+            brightness(1) saturate(1);
+    }
+
+    50% {
+        filter:
+            brightness(1.07) saturate(1.08);
+    }
+}
+
+
+/* =========================================================
+   SEM NÚMEROS
+========================================================= */
+
+.story-sem-numeros-premium {
+    position: relative !important;
+    z-index: 5 !important;
+
+    width:
+        calc(100% - 20px) !important;
+
+    padding:
+        25px 20px !important;
+
+    box-sizing: border-box !important;
+
+    border:
+        1px dashed #97a6b6 !important;
+
+    border-radius: 12px !important;
+
+    background:
+        rgba(255, 255, 255, 0.62) !important;
+
+    color: #596b7e !important;
+
+    text-align: center !important;
+
+    font-size: 13px !important;
+    font-weight: 750 !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+
+/* =========================================================
+   TELAS ESTREITAS
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .story-portal-overlay-premium {
+        padding:
+            5dvh 10px !important;
+    }
+
+    .story-container-celular-premium {
+        height: 90dvh !important;
+
+        width:
+            min(calc(90dvh * 0.5625),
+                calc(100vw - 20px)) !important;
+
+        border-radius:
+            25px !important;
+    }
+
+    .story-container-celular-premium::after {
+        border-radius:
+            20px !important;
+    }
+
+    .story-cabecalho-premio-premium {
+        min-height:
+            80px !important;
+
+        padding:
+            23px 18px 14px 18px !important;
+    }
+
+    .story-area-grade-premium {
+        padding:
+            11px 10px 13px 10px !important;
+    }
+}
+
+
+/* =========================================================
+   TELAS BAIXAS
+========================================================= */
+
+@media (max-height: 650px) {
+
+    .story-cabecalho-premio-premium {
+        min-height:
+            65px !important;
+
+        padding:
+            20px 18px 10px 18px !important;
+    }
+
+    .story-label-premio-premium {
+        font-size:
+            8px !important;
+    }
+
+    .story-titulo-premio-premium {
+        font-size:
+            17px !important;
+    }
+
+    .story-area-grade-premium {
+        padding:
+            9px 10px 11px 10px !important;
+    }
+}
+
+
+/* =========================================================
+   REDUZIR MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .story-portal-overlay-premium,
+    .story-container-celular-premium,
+    .story-numero-premium,
+    .story-numero-premium-vendido,
+    .story-numero-premium-vendido::after {
+        animation:
+            none !important;
+    }
 }

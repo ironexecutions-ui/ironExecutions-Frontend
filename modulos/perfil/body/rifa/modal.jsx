@@ -1,4 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+    useEffect,
+    useMemo,
+    useRef,
+    useState
+} from "react";
+
+import { createPortal } from "react-dom";
+
 import { API_URL } from "../../../../config";
 
 import "./modal.css";
@@ -26,7 +34,12 @@ export default function RegistrarCompraManual({
     const [sucesso, setSucesso] = useState("");
 
     const token = localStorage.getItem("token");
-
+    const rifaRef = useRef(null);
+    const nomeRef = useRef(null);
+    const whatsappRef = useRef(null);
+    const emailRef = useRef(null);
+    const mensagemRef = useRef(null);
+    const botaoRegistrarRef = useRef(null);
     const rifaSelecionada = useMemo(() => {
         return rifas.find(
             rifa => Number(rifa.id) === Number(rifaId)
@@ -84,7 +97,87 @@ export default function RegistrarCompraManual({
 
         carregarNumerosVendidos();
     }, [aberto, rifaId]);
+    function formatarNome(valor) {
+        return valor
+            .replace(/\s+/g, " ")
+            .replace(/(^|\s)\S/g, letra =>
+                letra.toUpperCase()
+            );
+    }
 
+
+    function formatarWhatsapp(valor) {
+        const numeros = valor
+            .replace(/\D/g, "")
+            .slice(0, 11);
+
+        if (numeros.length === 0) {
+            return "";
+        }
+
+        if (numeros.length <= 2) {
+            return `(${numeros}`;
+        }
+
+        if (numeros.length <= 6) {
+            return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+        }
+
+        if (numeros.length <= 10) {
+            return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 6)}-${numeros.slice(6)}`;
+        }
+
+        return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7)}`;
+    }
+
+
+    function proximoCampo(e, proximoRef) {
+        if (e.key !== "Enter") {
+            return;
+        }
+
+        e.preventDefault();
+
+        proximoRef?.current?.focus();
+    }
+
+
+    function tentarRegistrarComEnter(e) {
+        if (e.key !== "Enter") {
+            return;
+        }
+
+        /*
+            Shift + Enter continua permitindo
+            quebrar linha na observação.
+        */
+        if (e.shiftKey) {
+            return;
+        }
+
+        e.preventDefault();
+
+        if (!rifaId) {
+            setErro("Selecione uma rifa.");
+            rifaRef.current?.focus();
+            return;
+        }
+
+        if (!nome.trim()) {
+            setErro("Informe o nome do comprador.");
+            nomeRef.current?.focus();
+            return;
+        }
+
+        if (numerosSelecionados.length === 0) {
+            setErro(
+                "Selecione pelo menos um número antes de registrar."
+            );
+            return;
+        }
+
+        botaoRegistrarRef.current?.click();
+    }
     async function carregarNumerosVendidos() {
         setCarregandoNumeros(true);
         setErro("");
@@ -260,7 +353,7 @@ export default function RegistrarCompraManual({
         return null;
     }
 
-    return (
+    return createPortal(
         <div
             className="rcm-overlay-seguranca-rifa"
             onMouseDown={e => {
@@ -306,12 +399,16 @@ export default function RegistrarCompraManual({
                         <span>Rifa</span>
 
                         <select
+                            ref={rifaRef}
                             value={rifaId}
                             onChange={e => {
                                 setRifaId(e.target.value);
                                 setErro("");
                                 setSucesso("");
                             }}
+                            onKeyDown={e =>
+                                proximoCampo(e, nomeRef)
+                            }
                             disabled={salvando}
                         >
                             <option value="">
@@ -319,7 +416,11 @@ export default function RegistrarCompraManual({
                             </option>
 
                             {rifas
-                                .filter(rifa => rifa.ganhador == null || Number(rifa.ganhador) === 0)
+                                .filter(
+                                    rifa =>
+                                        rifa.ganhador == null ||
+                                        Number(rifa.ganhador) === 0
+                                )
                                 .map(rifa => (
                                     <option
                                         key={rifa.id}
@@ -333,18 +434,25 @@ export default function RegistrarCompraManual({
 
                     <div className="rcm-linha-dados-comprador">
                         <label className="rcm-campo-nome-comprador">
-                            <span>
-                                Nome do comprador
-                            </span>
+                            <span>Nome do comprador</span>
 
                             <input
+                                ref={nomeRef}
                                 type="text"
                                 value={nome}
                                 maxLength={120}
-                                onChange={e =>
-                                    setNome(e.target.value)
+                                onChange={e => {
+                                    setNome(
+                                        formatarNome(e.target.value)
+                                    );
+
+                                    setErro("");
+                                }}
+                                onKeyDown={e =>
+                                    proximoCampo(e, whatsappRef)
                                 }
                                 placeholder="Nome completo"
+                                autoComplete="name"
                                 disabled={salvando}
                             />
                         </label>
@@ -353,11 +461,21 @@ export default function RegistrarCompraManual({
                             <span>WhatsApp</span>
 
                             <input
-                                type="text"
+                                ref={whatsappRef}
+                                type="tel"
                                 value={whatsapp}
-                                maxLength={20}
-                                onChange={e =>
-                                    setWhatsapp(e.target.value)
+                                maxLength={15}
+                                inputMode="numeric"
+                                autoComplete="tel"
+                                onChange={e => {
+                                    setWhatsapp(
+                                        formatarWhatsapp(e.target.value)
+                                    );
+
+                                    setErro("");
+                                }}
+                                onKeyDown={e =>
+                                    proximoCampo(e, emailRef)
                                 }
                                 placeholder="(11) 99999-9999"
                                 disabled={salvando}
@@ -369,11 +487,17 @@ export default function RegistrarCompraManual({
                         <span>Email</span>
 
                         <input
+                            ref={emailRef}
                             type="email"
                             value={email}
                             maxLength={120}
-                            onChange={e =>
-                                setEmail(e.target.value)
+                            autoComplete="email"
+                            onChange={e => {
+                                setEmail(e.target.value);
+                                setErro("");
+                            }}
+                            onKeyDown={e =>
+                                proximoCampo(e, mensagemRef)
                             }
                             placeholder="cliente@email.com"
                             disabled={salvando}
@@ -384,11 +508,14 @@ export default function RegistrarCompraManual({
                         <span>Observação</span>
 
                         <textarea
+                            ref={mensagemRef}
                             value={mensagem}
                             maxLength={1000}
-                            onChange={e =>
-                                setMensagem(e.target.value)
-                            }
+                            onChange={e => {
+                                setMensagem(e.target.value);
+                                setErro("");
+                            }}
+                            onKeyDown={tentarRegistrarComEnter}
                             placeholder="Ex.: pagamento recebido via Pix diretamente pelo comércio"
                             disabled={salvando}
                         />
@@ -445,9 +572,7 @@ export default function RegistrarCompraManual({
                                                     salvando
                                                 }
                                                 onClick={() =>
-                                                    selecionarNumero(
-                                                        numero
-                                                    )
+                                                    selecionarNumero(numero)
                                                 }
                                                 className={[
                                                     "rcm-numero-rifa-manual",
@@ -512,6 +637,7 @@ export default function RegistrarCompraManual({
                         </button>
 
                         <button
+                            ref={botaoRegistrarRef}
                             type="submit"
                             className="rcm-botao-confirmar-registro"
                             disabled={
@@ -527,6 +653,7 @@ export default function RegistrarCompraManual({
                     </div>
                 </form>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }

@@ -232,7 +232,8 @@ export default function RifaCompras() {
         <div className="rif-compra-container">
             <h2 className="rif-titulo">Comprar Rifa</h2>
 
-            <div className="rif-busca">
+            <div
+                style={{ display: "none" }} className="rif-busca">
                 <input
                     type="number"
                     className="rif-busca-input"
@@ -280,7 +281,7 @@ export default function RifaCompras() {
                             </h3>
 
                             <p className="rif-ganhador-sem">
-                                Nenhum ganhador foi definido para esta rifa.
+                                O sorteio foi realizado, mas não houve ganhador nesta rifa.
                             </p>
                         </>
                     )}

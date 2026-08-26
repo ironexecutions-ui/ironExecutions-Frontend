@@ -1,416 +1,1075 @@
-/* ===============================
+/* =========================================================
+   MODAL PAGAMENTO RIFA
+   CHECKOUT PREMIUM
+========================================================= */
+
+
+/* =========================================================
    OVERLAY
-================================ */
+========================================================= */
+
 .rif-mp-overlay {
     position: fixed;
     inset: 0;
-    background:
-        radial-gradient(1200px 600px at 50% -10%, rgba(56, 189, 248, 0.08), transparent 60%),
-        rgba(2, 6, 23, 0.78);
+
+    z-index: 999999;
+
+    width: 100vw;
+    height: 100dvh;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
-    padding: 16px;
-}
 
-/* ===============================
-   MODAL
-================================ */
-.rif-mp-modal {
-    width: 100%;
-    max-width: 520px;
+    padding: 24px;
 
-    max-height: 80vh;
-    /* 🔹 limite de altura */
-    overflow: hidden;
-    /* 🔹 impede scroll externo */
-
-    background:
-        linear-gradient(180deg, #ffffff, #f8fafc);
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow:
-        0 40px 120px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.65),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-    animation: rifFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
-    display: flex;
-    flex-direction: column;
-    /* 🔹 necessário para scroll interno */
-}
-
-.rif-mp-etapa {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    box-sizing: border-box;
 
     overflow-y: auto;
-    /* 🔹 barra de rolagem */
-    padding-right: 6px;
-    /* 🔹 evita cortar sombra */
+    overscroll-behavior: contain;
+
+    background:
+        radial-gradient(circle at 50% 15%,
+            rgba(43, 92, 142, 0.18),
+            transparent 35%),
+        rgba(8, 15, 25, 0.78);
+
+    backdrop-filter:
+        blur(12px) saturate(0.9);
+
+    -webkit-backdrop-filter:
+        blur(12px) saturate(0.9);
+
+    animation:
+        rifMpOverlayEntrada 0.22s ease-out both;
 }
 
-
-/* ===============================
-   ANIMAÇÃO
-================================ */
-@keyframes rifFadeIn {
+@keyframes rifMpOverlayEntrada {
     from {
         opacity: 0;
-        transform: scale(0.94) translateY(10px);
     }
 
     to {
         opacity: 1;
-        transform: scale(1) translateY(0);
     }
 }
 
-/* ===============================
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.rif-mp-modal {
+    position: relative;
+
+    width: min(520px, 100%);
+    max-height: calc(100dvh - 48px);
+
+    margin: auto;
+
+    box-sizing: border-box;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    border: 1px solid #aeb9c5;
+    border-radius: 24px;
+
+    background:
+        radial-gradient(circle at 50% -5%,
+            rgba(72, 118, 164, 0.1),
+            transparent 32%),
+        linear-gradient(160deg,
+            #ffffff 0%,
+            #f7f9fb 48%,
+            #eef2f5 100%);
+
+    box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.38),
+        0 15px 35px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+
+    scrollbar-width: thin;
+    scrollbar-color: #9eabb8 transparent;
+
+    isolation: isolate;
+
+    animation:
+        rifMpModalEntrada 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rifMpModalEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px) scale(0.965);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.rif-mp-modal::-webkit-scrollbar {
+    width: 7px;
+}
+
+.rif-mp-modal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.rif-mp-modal::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+
+    background: #9eabb8;
+    background-clip: padding-box;
+}
+
+
+/* =========================================================
+   LUZ SUPERIOR
+========================================================= */
+
+.rif-mp-modal::before {
+    content: "";
+
+    position: absolute;
+
+    top: -130px;
+    left: 50%;
+
+    z-index: -1;
+
+    width: 380px;
+    height: 230px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(57, 106, 154, 0.11);
+
+    filter: blur(42px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LINHA SUPERIOR
+========================================================= */
+
+.rif-mp-modal::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 72px;
+    height: 3px;
+
+    transform: translateX(-50%);
+
+    border-radius:
+        0 0 999px 999px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #416f9d,
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
    ETAPA
-================================ */
+========================================================= */
+
 .rif-mp-etapa {
+    position: relative;
+
+    width: 100%;
+
     display: flex;
     flex-direction: column;
-    gap: 18px;
+
+    gap: 13px;
+
+    padding: 34px;
+
+    box-sizing: border-box;
+
+    animation:
+        rifMpEtapaEntrada 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ===============================
-   TÍTULOS
-================================ */
-.rif-mp-etapa h3 {
-    margin: 0 0 2px 0;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.4px;
-    color: #0f172a;
+@keyframes rifMpEtapaEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
 }
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.rif-mp-etapa h3 {
+    position: relative;
+
+    margin:
+        0 0 3px;
+
+    color: #152438 !important;
+
+    font-size: 25px;
+    font-weight: 850;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.7px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   SUBTÍTULO
+========================================================= */
 
 .rif-mp-etapa h4 {
-    color: black;
+    max-width: 390px;
+
+    margin:
+        0 auto 10px;
+
+    color: #657487 !important;
+
+    font-size: 13px;
+    font-weight: 550;
+
+    line-height: 1.5;
+
+    text-align: center;
 }
 
-/* ===============================
-   TEXTOS
-================================ */
-.rif-mp-etapa p {
-    margin: 0;
-    font-size: 14.5px;
-    color: #475569;
-    line-height: 1.55;
-}
 
-.rif-mp-etapa p b {
-    color: #020617;
-    font-weight: 700;
-}
+/* =========================================================
+   INPUTS E TEXTAREA
+========================================================= */
 
-/* ===============================
-   INPUTS
-================================ */
 .rif-mp-etapa input,
 .rif-mp-etapa textarea {
     width: 100%;
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid #d1d5db;
-    background: linear-gradient(180deg, #ffffff, #f9fafb);
-    font-size: 14.5px;
-    font-weight: 500;
-    color: #0f172a;
+
+    box-sizing: border-box;
+
     outline: none;
+
+    border: 1px solid #aeb9c5;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafb);
+
+    color: #1d2b3d !important;
+
     font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035),
+        0 1px 2px rgba(15, 23, 42, 0.025);
+
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease,
-        background 0.2s ease;
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
-.rif-mp-etapa textarea {
-    min-height: 90px;
-    resize: vertical;
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.rif-mp-etapa input {
+    height: 50px;
+
+    padding:
+        0 15px;
 }
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.rif-mp-etapa textarea {
+    min-height: 92px;
+    max-height: 170px;
+
+    padding:
+        13px 15px;
+
+    resize: vertical;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
 
 .rif-mp-etapa input::placeholder,
 .rif-mp-etapa textarea::placeholder {
-    color: #9ca3af;
+    color: #8491a0 !important;
+
+    opacity: 1;
+
+    font-weight: 500;
 }
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
 
 .rif-mp-etapa input:focus,
 .rif-mp-etapa textarea:focus {
-    border-color: #2563eb;
+    border-color: #547ca3;
+
     background: #ffffff;
+
     box-shadow:
-        0 0 0 4px rgba(37, 99, 235, 0.18),
-        0 10px 24px rgba(0, 0, 0, 0.12);
+        0 0 0 3px rgba(52, 104, 155, 0.09),
+        0 5px 14px rgba(15, 23, 42, 0.055);
+
+    transform:
+        translateY(-1px);
 }
 
-/* ===============================
-   BOTÕES GERAIS
-================================ */
-.rif-mp-etapa button {
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: none;
-    font-size: 14.5px;
-    font-weight: 700;
-    letter-spacing: -0.1px;
+
+/* =========================================================
+   INPUT DESABILITADO
+========================================================= */
+
+.rif-mp-etapa input:disabled,
+.rif-mp-etapa input:read-only {
+    border-color: #c1cad3;
+
+    background:
+        #edf1f4;
+
+    color: #687687 !important;
+
+    cursor: default;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   MENSAGENS SMALL
+========================================================= */
+
+.rif-mp-etapa small {
+    display: block;
+
+    margin:
+        -5px 3px 0;
+
+    color: #b42323 !important;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   GOOGLE
+========================================================= */
+
+.rif-mp-google {
+    position: relative;
+
+    width: 100%;
+    min-height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 3px;
+
+    padding:
+        0 18px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border: 1px solid #aeb9c5;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f5f7f9);
+
+    color: #28384b !important;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 750;
+
     cursor: pointer;
+
+    box-shadow:
+        0 3px 9px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff;
+
     transition:
-        background 0.2s ease,
-        transform 0.12s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
 }
 
-.rif-mp-etapa button:active {
-    transform: scale(0.96);
+
+/* =========================================================
+   ÍCONE VISUAL GOOGLE
+========================================================= */
+
+.rif-mp-google::before {
+    content: "G";
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    border: 1px solid #d1d7de;
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #4285f4 !important;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.06);
 }
+
+.rif-mp-google:hover {
+    transform:
+        translateY(-2px);
+
+    border-color: #8f9eae;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.09);
+}
+
+.rif-mp-google:active {
+    transform:
+        translateY(0) scale(0.99);
+}
+
+
+/* =========================================================
+   BOTÕES GERAIS
+   NÃO PEGA O GOOGLE
+========================================================= */
+
+.rif-mp-etapa>button:not(.rif-mp-google) {
+    position: relative;
+
+    width: 100%;
+    min-height: 50px;
+
+    padding:
+        12px 18px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border: 1px solid #1d4d79;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(180deg,
+            #3674ac,
+            #275b8b);
+
+    color: #ffffff !important;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    text-shadow:
+        0 1px 1px rgba(0, 28, 56, 0.25);
+
+    box-shadow:
+        0 7px 17px rgba(31, 78, 122, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+
+/* =========================================================
+   REFLEXO BOTÃO
+========================================================= */
+
+.rif-mp-etapa>button:not(.rif-mp-google)::after {
+    content: "";
+
+    position: absolute;
+
+    top: -80%;
+    left: -70%;
+
+    width: 28%;
+    height: 260%;
+
+    transform:
+        rotate(22deg);
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.28),
+            transparent);
+
+    transition:
+        left 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rif-mp-etapa>button:not(.rif-mp-google):hover:not(:disabled)::after {
+    left: 145%;
+}
+
+.rif-mp-etapa>button:not(.rif-mp-google):hover:not(:disabled) {
+    transform:
+        translateY(-2px);
+
+    filter:
+        brightness(1.045);
+
+    box-shadow:
+        0 11px 23px rgba(31, 78, 122, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.rif-mp-etapa>button:not(.rif-mp-google):active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.985);
+}
+
+
+/* =========================================================
+   BOTÃO SECUNDÁRIO
+   ÚLTIMO BOTÃO DE CADA ETAPA
+========================================================= */
+
+.rif-mp-etapa>button:last-child:not(.rif-mp-google) {
+    border-color: #b2bdc8;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #edf1f4);
+
+    color: #4c5d70 !important;
+
+    text-shadow: none;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 #ffffff;
+}
+
+.rif-mp-etapa>button:last-child:not(.rif-mp-google):hover:not(:disabled) {
+    border-color: #929fad;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 15px rgba(15, 23, 42, 0.075);
+}
+
+
+/* =========================================================
+   BOTÃO DESABILITADO
+========================================================= */
 
 .rif-mp-etapa button:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-    box-shadow: none;
-}
+    border-color: #bdc6cf;
 
-/* ===============================
-   BOTÃO PRINCIPAL
-================================ */
-.rif-mp-etapa button:not(.ativo):not([disabled]) {
-    background: linear-gradient(135deg, #2563eb, #1e40af);
-    color: #ffffff;
-    box-shadow:
-        0 14px 36px rgba(37, 99, 235, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-.rif-mp-etapa button:not(.ativo):not([disabled]):hover {
-    background: linear-gradient(135deg, #1e40af, #1d4ed8);
-    box-shadow:
-        0 22px 60px rgba(37, 99, 235, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.45);
-}
-
-/* ===============================
-   BOTÃO CANCELAR
-================================ */
-.rif-mp-etapa button:last-child {
-    background: #f8fafc;
-    color: #475569;
-    border: 1px solid #e5e7eb;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-
-.rif-mp-etapa button:last-child:hover {
-    background: #f1f5f9;
-}
-
-/* ===============================
-   MÉTODO DE PAGAMENTO
-================================ */
-.rif-mp-metodo {
-    display: flex;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-/* ===============================
-   MÉTODO DE PAGAMENTO
-================================ */
-.rif-mp-metodo button {
-    flex: 1;
-    padding: 14px 16px;
-    border-radius: 12px;
-    background: linear-gradient(180deg, #f8fafc, #f1f5f9);
-    color: #475569;
-    font-weight: 700;
-    border: 1px solid #e5e7eb;
-    cursor: pointer;
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.12s ease;
-}
-
-.rif-mp-metodo button:active {
-    transform: scale(0.96);
-}
-
-/* ATIVO */
-.rif-mp-metodo button.ativo {
-    background: linear-gradient(135deg, #16a34a, #15803d);
-    color: #ffffff;
-    border-color: transparent;
-    box-shadow:
-        0 14px 36px rgba(22, 163, 74, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-/* HOVER NÃO ATIVO */
-.rif-mp-metodo button:not(.ativo):hover {
-    background: #e5e7eb;
-    box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.03);
-}
-
-/* ===============================
-   PIX
-================================ */
-.rif-mp-etapa img {
-    width: 100%;
-    max-width: 260px;
-    margin: 14px auto;
-    display: block;
-    border-radius: 14px;
-    border: 1px solid #e5e7eb;
-    padding: 10px;
     background:
-        linear-gradient(180deg, #ffffff, #f9fafb);
+        linear-gradient(180deg,
+            #dce2e7,
+            #cfd6dc);
+
+    color: #7d8995 !important;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+    text-shadow: none;
+
+    opacity: 0.78;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   CONFIRMAÇÃO
+   PARÁGRAFOS VIRAM LINHAS DE RESUMO
+========================================================= */
+
+.rif-mp-etapa>p {
+    position: relative;
+
+    margin: 0;
+    padding:
+        12px 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #c2cbd4;
+    border-radius: 9px;
+
+    background:
+        rgba(255, 255, 255, 0.62);
+
+    color: #536477 !important;
+
+    font-size: 13px;
+    font-weight: 550;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+.rif-mp-etapa>p:hover {
+    transform:
+        translateX(2px);
+
+    border-color: #abb8c5;
+
+    background: #ffffff;
+}
+
+.rif-mp-etapa>p b {
+    color: #21364d !important;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   TOTAL
+   ÚLTIMO PARÁGRAFO NA CONFIRMAÇÃO
+========================================================= */
+
+.rif-mp-etapa>p:last-of-type {
+    border-color: #9eb2c6;
+
+    background:
+        linear-gradient(135deg,
+            #edf4fa,
+            #e4edf5);
+
+    color: #204a73 !important;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.rif-mp-etapa>p:last-of-type b {
+    color: #173f66 !important;
+}
+
+
+/* =========================================================
+   SELETOR PIX / CARTÃO
+========================================================= */
+
+.rif-mp-metodo {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 5px;
+
+    margin:
+        6px 0 3px;
+
+    padding: 5px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #b7c2cd;
+    border-radius: 12px;
+
+    background:
+        #e8edf1;
+
     box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+        inset 0 1px 2px rgba(15, 23, 42, 0.045);
 }
 
-/* ===============================
-   TEXTAREA PIX
-================================ */
-.rif-mp-etapa textarea[readonly] {
-    background: linear-gradient(180deg, #f9fafb, #f1f5f9);
-    font-size: 13.5px;
-    font-weight: 500;
-    color: #475569;
-    cursor: text;
-    border: 1px solid #e5e7eb;
+
+/* =========================================================
+   MÉTODOS
+========================================================= */
+
+.rif-mp-metodo button {
+    min-height: 43px;
+
+    padding:
+        0 14px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #657487 !important;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.rif-mp-metodo button:hover {
+    color: #294c70 !important;
+
+    background:
+        rgba(255, 255, 255, 0.52);
+}
+
+
+/* =========================================================
+   MÉTODO ATIVO
+========================================================= */
+
+.rif-mp-metodo button.ativo {
+    border-color: #a6b6c5;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f5f7f9);
+
+    color: #1d4e7c !important;
+
     box-shadow:
-        inset 0 1px 2px rgba(0, 0, 0, 0.04);
+        0 3px 8px rgba(15, 23, 42, 0.075),
+        inset 0 1px 0 #ffffff;
+
+    transform:
+        translateY(-1px);
 }
 
-/* ===============================
-   RESPONSIVO – TABLET
-================================ */
-@media (max-width: 900px) {
 
-    .rif-mp-modal {
-        max-width: 480px;
-        padding: 24px;
-        border-radius: 18px;
+/* =========================================================
+   QR CODE PIX
+========================================================= */
+
+.rif-mp-etapa img {
+    display: block;
+
+    width: min(245px, 78%);
+    height: auto;
+
+    margin:
+        5px auto 7px;
+
+    padding: 13px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #aeb9c5;
+    border-radius: 17px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 15px 32px rgba(15, 23, 42, 0.12),
+        0 4px 10px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 #ffffff;
+
+    animation:
+        rifMpQrEntrada 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rifMpQrEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.94);
     }
 
-    .rif-mp-etapa {
-        gap: 16px;
-    }
+    to {
+        opacity: 1;
 
-    .rif-mp-etapa h3 {
-        font-size: 20px;
-    }
-
-    .rif-mp-etapa p {
-        font-size: 14px;
+        transform:
+            scale(1);
     }
 }
 
-/* ===============================
-   RESPONSIVO – MOBILE
-================================ */
+
+/* =========================================================
+   PIX COPIA E COLA
+========================================================= */
+
+.rif-mp-etapa img+textarea {
+    min-height: 82px;
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+    font-size: 11px;
+    font-weight: 550;
+
+    line-height: 1.45;
+
+    background:
+        #edf1f4;
+
+    color: #536274 !important;
+
+    resize: none;
+}
+
+
+/* =========================================================
+   PAGAMENTO CONFIRMADO
+========================================================= */
+
+.rif-mp-etapa:has(h3:first-child:nth-last-child(3)) {
+    text-align: center;
+}
+
+
+/* =========================================================
+   CARTÃO
+========================================================= */
+
+.rif-mp-etapa input[placeholder="Número do cartão"] {
+    letter-spacing: 1px;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+.rif-mp-etapa input[placeholder="CVV"] {
+    letter-spacing: 3px;
+}
+
+
+/* =========================================================
+   FOCUS VISIBLE
+========================================================= */
+
+.rif-mp-etapa button:focus-visible {
+    outline:
+        3px solid rgba(45, 100, 153, 0.2);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 600px) {
 
     .rif-mp-overlay {
-        align-items: flex-start;
-        padding: 12px;
+        align-items:
+            flex-end;
+
+        padding:
+            12px;
     }
 
     .rif-mp-modal {
-        max-width: 100%;
-        margin-top: 24px;
-        padding: 20px;
-        border-radius: 16px;
+        width: 100%;
+        max-height:
+            calc(100dvh - 24px);
+
+        border-radius:
+            22px;
     }
 
     .rif-mp-etapa {
-        gap: 14px;
+        gap: 12px;
+
+        padding:
+            29px 20px 22px;
     }
 
     .rif-mp-etapa h3 {
-        font-size: 18px;
+        font-size:
+            23px;
     }
 
-    .rif-mp-etapa p {
-        font-size: 13.5px;
+    .rif-mp-etapa h4 {
+        font-size:
+            12px;
     }
 
-    .rif-mp-etapa input,
+    .rif-mp-etapa input {
+        height:
+            49px;
+    }
+
     .rif-mp-etapa textarea {
-        padding: 13px 14px;
-        font-size: 14px;
-    }
-
-    .rif-mp-etapa button {
-        padding: 13px 14px;
-        font-size: 14px;
-    }
-
-    .rif-mp-metodo {
-        gap: 10px;
+        min-height:
+            84px;
     }
 
     .rif-mp-etapa img {
-        max-width: 220px;
+        width:
+            min(225px, 80%);
     }
 }
 
-/* ===============================
-   RESPONSIVO – MOBILE PEQUENO
-================================ */
-@media (max-width: 400px) {
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .rif-mp-overlay {
+        padding:
+            7px;
+    }
 
     .rif-mp-modal {
-        padding: 18px;
-        border-radius: 14px;
+        max-height:
+            calc(100dvh - 14px);
+
+        border-radius:
+            18px;
+    }
+
+    .rif-mp-etapa {
+        padding:
+            25px 15px 18px;
     }
 
     .rif-mp-etapa h3 {
-        font-size: 17px;
+        font-size:
+            21px;
     }
 
-    .rif-mp-etapa p {
-        font-size: 13px;
+    .rif-mp-metodo button {
+        min-height:
+            41px;
+    }
+}
+
+
+/* =========================================================
+   REDUZIR ANIMAÇÕES
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .rif-mp-overlay,
+    .rif-mp-modal,
+    .rif-mp-etapa,
+    .rif-mp-etapa img {
+        animation: none;
     }
 
     .rif-mp-etapa input,
-    .rif-mp-etapa textarea {
-        padding: 12px 13px;
-        font-size: 13.5px;
-    }
-
-    .rif-mp-etapa button {
-        padding: 12px 13px;
-        font-size: 13.5px;
-    }
-
-    .rif-mp-etapa img {
-        max-width: 200px;
-    }
-}
-
-/* ===============================
-   RESPONSIVO – MOBILE MUITO PEQUENO
-================================ */
-@media (max-width: 340px) {
-
-    .rif-mp-modal {
-        padding: 16px;
-        border-radius: 12px;
-    }
-
-    .rif-mp-etapa h3 {
-        font-size: 16px;
-    }
-
-    .rif-mp-etapa p {
-        font-size: 12.8px;
+    .rif-mp-etapa textarea,
+    .rif-mp-etapa button,
+    .rif-mp-google,
+    .rif-mp-metodo button,
+    .rif-mp-etapa>p {
+        transition: none;
     }
 }

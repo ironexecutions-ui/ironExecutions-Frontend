@@ -1,314 +1,1211 @@
 .rcm-overlay-seguranca-rifa {
     position: fixed !important;
     inset: 0 !important;
-    z-index: 9999 !important;
+    z-index: 999999 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 24px !important;
-    background: rgba(2, 6, 23, 0.72) !important;
-    backdrop-filter: blur(5px) !important;
+
+    padding: 28px !important;
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background:
+        radial-gradient(circle at 50% 15%,
+            rgba(45, 92, 145, 0.16),
+            transparent 35%),
+        rgba(8, 15, 27, 0.78) !important;
+
+    backdrop-filter: blur(9px) saturate(0.85) !important;
+    -webkit-backdrop-filter: blur(9px) saturate(0.85) !important;
 }
 
-.rcm-modal-registro-administrativo {
-    width: min(760px, 100%) !important;
-    max-height: 90vh !important;
-    overflow-y: auto !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 18px !important;
-    background: #ffffff !important;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28) !important;
+@keyframes rcmOverlayEntrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+.rcm-modal-registro-administrativo {
+    position: relative !important;
+
+    width: min(920px, 100%) !important;
+    height: min(850px, calc(100dvh - 56px)) !important;
+
+    display: grid !important;
+    grid-template-rows: auto minmax(0, 1fr) !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #9ca9b8 !important;
+    border-radius: 18px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(35, 91, 151, 0.07),
+            transparent 25%),
+        linear-gradient(145deg,
+            #f9fafb 0%,
+            #f1f4f7 100%) !important;
+
+    color: #152033 !important;
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.38),
+        0 10px 30px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+@keyframes rcmModalEntradaPremium {
+    from {
+        opacity: 0;
+        transform:
+            translateY(18px) scale(0.975);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   LINHA PREMIUM SUPERIOR
+========================================================= */
+
+.rcm-modal-registro-administrativo::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    z-index: 20 !important;
+
+    height: 4px !important;
+
+    background:
+        linear-gradient(90deg,
+            #0c2e56,
+            #1d5793,
+            #3978b8,
+            #1d5793,
+            #0c2e56) !important;
+
+    background-size: 200% 100% !important;
+
+    animation:
+        rcmLinhaPremium 5s ease-in-out infinite !important;
+}
+
+@keyframes rcmLinhaPremium {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
 
 .rcm-cabecalho-registro {
+    position: relative !important;
+    z-index: 10 !important;
+
+    flex-shrink: 0 !important;
+
     display: flex !important;
-    align-items: flex-start !important;
+    align-items: center !important;
     justify-content: space-between !important;
-    gap: 20px !important;
-    padding: 24px 26px 20px !important;
-    border-bottom: 1px solid #e2e8f0 !important;
+
+    gap: 24px !important;
+
+    padding: 24px 26px 20px 26px !important;
+
+    box-sizing: border-box !important;
+
+    border-bottom: 1px solid #aeb8c4 !important;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.94),
+            rgba(244, 247, 250, 0.92)) !important;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.04) !important;
+}
+
+.rcm-cabecalho-textos {
+    position: relative !important;
+
+    padding-left: 16px !important;
+}
+
+.rcm-cabecalho-textos::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 2px !important;
+    bottom: 2px !important;
+    left: 0 !important;
+
+    width: 5px !important;
+
+    border-radius: 20px !important;
+
+    background:
+        linear-gradient(180deg,
+            #3475b6,
+            #123d72) !important;
+
+    box-shadow:
+        0 2px 7px rgba(18, 61, 114, 0.25) !important;
 }
 
 .rcm-cabecalho-textos h2 {
-    margin: 0 !important;
-    color: #0f172a !important;
-    font-size: 22px !important;
-    font-weight: 750 !important;
+    margin: 0 0 5px 0 !important;
+
+    color: #101c2d !important;
+
+    font-size: 23px !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.45px !important;
 }
 
 .rcm-cabecalho-textos p {
-    margin: 6px 0 0 !important;
-    color: #64748b !important;
-    font-size: 14px !important;
+    margin: 0 !important;
+
+    color: #566477 !important;
+
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
 }
+
+
+/* =========================================================
+   FECHAR
+========================================================= */
 
 .rcm-botao-fechar-registro {
-    width: 38px !important;
-    height: 38px !important;
+    width: 40px !important;
+    height: 40px !important;
+
     flex-shrink: 0 !important;
-    border: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 0 3px 0 !important;
+
+    border: 1px solid #aeb8c4 !important;
     border-radius: 10px !important;
-    background: #f1f5f9 !important;
-    color: #475569 !important;
-    font-size: 25px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #eef1f4) !important;
+
+    color: #526174 !important;
+
+    font-size: 26px !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+
     cursor: pointer !important;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.06) !important;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease !important;
 }
+
+.rcm-botao-fechar-registro:hover:not(:disabled) {
+    transform: rotate(4deg) scale(1.04) !important;
+
+    border-color: #cf7e79 !important;
+
+    background: #fff1f0 !important;
+    color: #b42318 !important;
+
+    box-shadow:
+        0 5px 12px rgba(180, 35, 24, 0.10) !important;
+}
+
+.rcm-botao-fechar-registro:active:not(:disabled) {
+    transform: scale(0.94) !important;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
 
 .rcm-formulario-compra-manual {
+    flex: 1 !important;
+
     display: flex !important;
     flex-direction: column !important;
-    gap: 18px !important;
-    padding: 24px 26px 26px !important;
+
+    gap: 17px !important;
+
+    padding: 24px 26px 26px 26px !important;
+
+    box-sizing: border-box !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color:
+        #8796a7 #e2e7ec !important;
 }
 
-.rcm-campo-selecao-rifa,
-.rcm-campo-nome-comprador,
-.rcm-campo-whatsapp-comprador,
-.rcm-campo-email-comprador,
-.rcm-campo-observacao-compra {
+.rcm-formulario-compra-manual::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+.rcm-formulario-compra-manual::-webkit-scrollbar-track {
+    background: #e2e7ec !important;
+}
+
+.rcm-formulario-compra-manual::-webkit-scrollbar-thumb {
+    border: 2px solid #e2e7ec !important;
+    border-radius: 20px !important;
+
+    background: #8796a7 !important;
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.rcm-formulario-compra-manual label {
+    min-width: 0 !important;
+
     display: flex !important;
     flex-direction: column !important;
+
     gap: 7px !important;
 }
 
-.rcm-campo-selecao-rifa span,
-.rcm-campo-nome-comprador span,
-.rcm-campo-whatsapp-comprador span,
-.rcm-campo-email-comprador span,
-.rcm-campo-observacao-compra span {
-    color: #334155 !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-}
+.rcm-formulario-compra-manual label>span {
+    color: #344054 !important;
 
-.rcm-campo-selecao-rifa select,
-.rcm-campo-nome-comprador input,
-.rcm-campo-whatsapp-comprador input,
-.rcm-campo-email-comprador input,
-.rcm-campo-observacao-compra textarea {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    border: 1px solid #cbd5e1 !important;
-    border-radius: 10px !important;
-    outline: none !important;
-    background: #ffffff !important;
-    color: #0f172a !important;
-    font: inherit !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+
     transition:
-        border-color 0.15s ease,
-        box-shadow 0.15s ease !important;
+        color 0.18s ease !important;
 }
 
-.rcm-campo-selecao-rifa select,
-.rcm-campo-nome-comprador input,
-.rcm-campo-whatsapp-comprador input,
-.rcm-campo-email-comprador input {
-    height: 44px !important;
-    padding: 0 13px !important;
+.rcm-formulario-compra-manual label:focus-within>span {
+    color: #123d72 !important;
 }
 
-.rcm-campo-observacao-compra textarea {
-    min-height: 82px !important;
-    padding: 12px 13px !important;
+
+/* =========================================================
+   INPUT / SELECT / TEXTAREA
+========================================================= */
+
+.rcm-formulario-compra-manual input,
+.rcm-formulario-compra-manual select,
+.rcm-formulario-compra-manual textarea {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    outline: none !important;
+
+    border: 1px solid #98a6b5 !important;
+    border-radius: 10px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f9fafb) !important;
+
+    color: #101828 !important;
+
+    font-family: inherit !important;
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035),
+        0 1px 2px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+.rcm-formulario-compra-manual input,
+.rcm-formulario-compra-manual select {
+    height: 48px !important;
+
+    padding: 0 14px !important;
+}
+
+.rcm-formulario-compra-manual textarea {
+    min-height: 92px !important;
+    max-height: 180px !important;
+
+    padding: 13px 14px !important;
+
     resize: vertical !important;
+
+    line-height: 1.5 !important;
 }
 
-.rcm-campo-selecao-rifa select:focus,
-.rcm-campo-nome-comprador input:focus,
-.rcm-campo-whatsapp-comprador input:focus,
-.rcm-campo-email-comprador input:focus,
-.rcm-campo-observacao-compra textarea:focus {
-    border-color: #2563eb !important;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+.rcm-formulario-compra-manual input:hover:not(:disabled),
+.rcm-formulario-compra-manual select:hover:not(:disabled),
+.rcm-formulario-compra-manual textarea:hover:not(:disabled) {
+    border-color: #77889a !important;
+
+    background: #ffffff !important;
 }
+
+.rcm-formulario-compra-manual input:focus,
+.rcm-formulario-compra-manual select:focus,
+.rcm-formulario-compra-manual textarea:focus {
+    transform: translateY(-1px) !important;
+
+    border-color: #174d85 !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 77, 133, 0.12),
+        0 6px 14px rgba(15, 23, 42, 0.065) !important;
+}
+
+
+/* =========================================================
+   PLACEHOLDERS
+========================================================= */
+
+.rcm-formulario-compra-manual input::placeholder,
+.rcm-formulario-compra-manual textarea::placeholder {
+    color: #748195 !important;
+
+    opacity: 1 !important;
+
+    font-weight: 500 !important;
+
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+.rcm-formulario-compra-manual input:focus::placeholder,
+.rcm-formulario-compra-manual textarea:focus::placeholder {
+    opacity: 0.55 !important;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.rcm-formulario-compra-manual select {
+    cursor: pointer !important;
+
+    appearance: auto !important;
+}
+
+.rcm-formulario-compra-manual select option {
+    background: #ffffff !important;
+    color: #182230 !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   LINHA NOME + WHATSAPP
+========================================================= */
 
 .rcm-linha-dados-comprador {
     display: grid !important;
-    grid-template-columns: 1fr 220px !important;
+    grid-template-columns:
+        minmax(0, 1.5fr) minmax(220px, 0.8fr) !important;
+
     gap: 14px !important;
 }
 
+
+/* =========================================================
+   ÁREA DOS NÚMEROS
+========================================================= */
+
 .rcm-area-numeros-rifa {
+    position: relative !important;
+
     padding: 18px !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 14px !important;
-    background: #f8fafc !important;
+    min-height: fit-content !important;
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #9eabb9 !important;
+    border-radius: 13px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(35, 91, 151, 0.055),
+            transparent 28%),
+        linear-gradient(145deg,
+            #e7ebef,
+            #eef1f4) !important;
+
+    box-shadow:
+        inset 0 1px 3px rgba(15, 23, 42, 0.04),
+        0 3px 9px rgba(15, 23, 42, 0.035) !important;
 }
+
+.rcm-area-numeros-rifa::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: 4px !important;
+
+    background:
+        linear-gradient(180deg,
+            #3979b9,
+            #123d72) !important;
+}
+
+
+/* =========================================================
+   TOPO DA SELEÇÃO
+========================================================= */
 
 .rcm-topo-selecao-numeros {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
+
     gap: 15px !important;
-    margin-bottom: 16px !important;
+
+    margin-bottom: 15px !important;
 }
 
 .rcm-topo-selecao-numeros>div {
     display: flex !important;
     flex-direction: column !important;
+
     gap: 3px !important;
 }
 
 .rcm-topo-selecao-numeros strong {
-    color: #0f172a !important;
+    color: #172235 !important;
+
     font-size: 15px !important;
+    font-weight: 850 !important;
 }
 
 .rcm-topo-selecao-numeros span {
-    color: #64748b !important;
+    color: #5d6b7c !important;
+
     font-size: 12px !important;
+    font-weight: 650 !important;
 }
 
+
+/* =========================================================
+   LIMPAR SELEÇÃO
+========================================================= */
+
 .rcm-botao-limpar-selecao {
-    border: 0 !important;
-    background: transparent !important;
-    color: #2563eb !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
+    min-height: 34px !important;
+
+    padding: 0 12px !important;
+
+    border: 1px solid #a4afbc !important;
+    border-radius: 8px !important;
+
+    background: #f8fafc !important;
+    color: #526174 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
     cursor: pointer !important;
+
+    transition:
+        transform 0.16s ease,
+        border-color 0.16s ease,
+        background 0.16s ease,
+        color 0.16s ease !important;
 }
+
+.rcm-botao-limpar-selecao:hover:not(:disabled) {
+    transform: translateY(-1px) !important;
+
+    border-color: #cc7c77 !important;
+
+    background: #fff1f0 !important;
+    color: #b42318 !important;
+}
+
+
+/* =========================================================
+   GRADE DE NÚMEROS
+========================================================= */
 
 .rcm-grade-numeros-disponiveis {
     display: grid !important;
-    grid-template-columns: repeat(10, minmax(42px, 1fr)) !important;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(52px, 1fr)) !important;
+
     gap: 8px !important;
+
+    max-height: 270px !important;
+
+    padding: 3px 5px 5px 3px !important;
+
+    overflow-y: auto !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color:
+        #8392a3 transparent !important;
 }
 
+.rcm-grade-numeros-disponiveis::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+.rcm-grade-numeros-disponiveis::-webkit-scrollbar-thumb {
+    border-radius: 20px !important;
+
+    background: #8392a3 !important;
+}
+
+
+/* =========================================================
+   NÚMERO NORMAL
+========================================================= */
+
 .rcm-numero-rifa-manual {
-    aspect-ratio: 1 !important;
+    position: relative !important;
+
     min-width: 0 !important;
-    border: 1px solid #cbd5e1 !important;
+    height: 47px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 5px !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #9aa8b7 !important;
     border-radius: 9px !important;
-    background: #ffffff !important;
-    color: #334155 !important;
-    font-size: 13px !important;
-    font-weight: 750 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f1f4f7) !important;
+
+    color: #263548 !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+
+    font-variant-numeric: tabular-nums !important;
+
     cursor: pointer !important;
-    transition: 0.15s ease !important;
+
+    box-shadow:
+        0 2px 4px rgba(15, 23, 42, 0.045) !important;
+
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        background 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease !important;
 }
 
 .rcm-numero-rifa-manual:hover:not(:disabled) {
-    border-color: #2563eb !important;
-    color: #2563eb !important;
+    z-index: 2 !important;
+
+    transform: translateY(-2px) !important;
+
+    border-color: #315f91 !important;
+
+    background:
+        linear-gradient(180deg,
+            #f7fbff,
+            #e7f0f9) !important;
+
+    color: #123d72 !important;
+
+    box-shadow:
+        0 5px 11px rgba(18, 61, 114, 0.12) !important;
+}
+
+.rcm-numero-rifa-manual:active:not(:disabled) {
+    transform: translateY(0) scale(0.96) !important;
+}
+
+
+/* =========================================================
+   NÚMERO SELECIONADO
+========================================================= */
+
+.rcm-numero-rifa-manual.rcm-numero-selecionado {
+    border-color: #0c315d !important;
+
+    background:
+        linear-gradient(180deg,
+            #235f9d,
+            #123d72) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 4px 10px rgba(18, 61, 114, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+
     transform: translateY(-1px) !important;
 }
 
-.rcm-numero-selecionado {
-    border-color: #2563eb !important;
-    background: #2563eb !important;
-    color: #ffffff !important;
+.rcm-numero-rifa-manual.rcm-numero-selecionado::after {
+    content: "✓" !important;
+
+    position: absolute !important;
+
+    top: 2px !important;
+    right: 4px !important;
+
+    color: rgba(255, 255, 255, 0.72) !important;
+
+    font-size: 8px !important;
+    font-weight: 900 !important;
 }
 
-.rcm-numero-selecionado:hover:not(:disabled) {
-    color: #ffffff !important;
-}
 
-.rcm-numero-ja-vendido {
-    border-color: #fecaca !important;
-    background: #fef2f2 !important;
-    color: #dc2626 !important;
-    text-decoration: line-through !important;
+/* =========================================================
+   NÚMERO VENDIDO
+========================================================= */
+
+.rcm-numero-rifa-manual.rcm-numero-ja-vendido {
+    border-color: #c5a3a0 !important;
+
+    background:
+        repeating-linear-gradient(-45deg,
+            #eee4e3,
+            #eee4e3 5px,
+            #e8dcdb 5px,
+            #e8dcdb 10px) !important;
+
+    color: #95645f !important;
+
+    opacity: 0.82 !important;
+
     cursor: not-allowed !important;
-    opacity: 0.7 !important;
+
+    box-shadow: none !important;
+
+    text-decoration: line-through !important;
 }
+
+
+/* =========================================================
+   CARREGANDO NÚMEROS
+========================================================= */
 
 .rcm-carregando-numeros {
-    padding: 30px 10px !important;
-    color: #64748b !important;
-    text-align: center !important;
-    font-size: 14px !important;
+    min-height: 110px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px dashed #9ba9b7 !important;
+    border-radius: 10px !important;
+
+    background: rgba(255, 255, 255, 0.55) !important;
+
+    color: #506075 !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    animation:
+        rcmCarregandoPulse 1.3s ease-in-out infinite !important;
 }
+
+@keyframes rcmCarregandoPulse {
+
+    0%,
+    100% {
+        opacity: 0.65;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   LEGENDA
+========================================================= */
 
 .rcm-legenda-numeros {
     display: flex !important;
+    align-items: center !important;
     flex-wrap: wrap !important;
-    gap: 16px !important;
-    margin-top: 15px !important;
-    color: #64748b !important;
-    font-size: 12px !important;
+
+    gap: 15px !important;
+
+    margin-top: 14px !important;
+    padding-top: 12px !important;
+
+    border-top: 1px solid #b4bec9 !important;
 }
 
-.rcm-legenda-disponivel::before,
-.rcm-legenda-selecionado::before,
-.rcm-legenda-vendido::before {
+.rcm-legenda-numeros>span {
+    position: relative !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    color: #536174 !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+.rcm-legenda-numeros>span::before {
     content: "" !important;
-    display: inline-block !important;
-    width: 9px !important;
-    height: 9px !important;
-    margin-right: 6px !important;
-    border-radius: 50% !important;
+
+    width: 10px !important;
+    height: 10px !important;
+
+    flex-shrink: 0 !important;
+
+    border-radius: 3px !important;
 }
 
 .rcm-legenda-disponivel::before {
-    background: #cbd5e1 !important;
+    border: 1px solid #8998a8 !important;
+
+    background: #ffffff !important;
 }
 
 .rcm-legenda-selecionado::before {
-    background: #2563eb !important;
+    border: 1px solid #123d72 !important;
+
+    background: #174d85 !important;
 }
 
 .rcm-legenda-vendido::before {
-    background: #dc2626 !important;
+    border: 1px solid #bb8e89 !important;
+
+    background: #e6d6d4 !important;
 }
 
-.rcm-mensagem-erro-registro,
-.rcm-mensagem-sucesso-registro {
-    padding: 11px 13px !important;
-    border-radius: 9px !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-}
+
+/* =========================================================
+   ERRO
+========================================================= */
 
 .rcm-mensagem-erro-registro {
-    border: 1px solid #fecaca !important;
-    background: #fef2f2 !important;
-    color: #b91c1c !important;
+    position: relative !important;
+
+    padding: 13px 15px 13px 42px !important;
+
+    border: 1px solid #d78f89 !important;
+    border-left: 4px solid #c9362b !important;
+    border-radius: 9px !important;
+
+    background:
+        linear-gradient(90deg,
+            #fff0ef,
+            #fff7f6) !important;
+
+    color: #a32820 !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+
+    animation:
+        rcmMensagemEntrada 0.28s ease both !important;
 }
+
+.rcm-mensagem-erro-registro::before {
+    content: "!" !important;
+
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 14px !important;
+
+    width: 19px !important;
+    height: 19px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    transform: translateY(-50%) !important;
+
+    border-radius: 50% !important;
+
+    background: #c9362b !important;
+    color: #ffffff !important;
+
+    font-size: 11px !important;
+    font-weight: 900 !important;
+}
+
+
+/* =========================================================
+   SUCESSO
+========================================================= */
 
 .rcm-mensagem-sucesso-registro {
-    border: 1px solid #bbf7d0 !important;
-    background: #f0fdf4 !important;
-    color: #15803d !important;
+    position: relative !important;
+
+    padding: 13px 15px 13px 42px !important;
+
+    border: 1px solid #7eb79c !important;
+    border-left: 4px solid #168552 !important;
+    border-radius: 9px !important;
+
+    background:
+        linear-gradient(90deg,
+            #eaf8f1,
+            #f5fcf8) !important;
+
+    color: #12643d !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+
+    animation:
+        rcmMensagemEntrada 0.28s ease both !important;
 }
+
+.rcm-mensagem-sucesso-registro::before {
+    content: "✓" !important;
+
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 13px !important;
+
+    width: 21px !important;
+    height: 21px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    transform: translateY(-50%) !important;
+
+    border-radius: 50% !important;
+
+    background: #168552 !important;
+    color: #ffffff !important;
+
+    font-size: 11px !important;
+    font-weight: 900 !important;
+}
+
+@keyframes rcmMensagemEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
 
 .rcm-acoes-registro-manual {
-    display: flex !important;
-    justify-content: flex-end !important;
+    position: sticky !important;
+
+    bottom: -26px !important;
+    z-index: 15 !important;
+
+    display: grid !important;
+    grid-template-columns:
+        minmax(130px, 0.38fr) minmax(220px, 1fr) !important;
+
     gap: 10px !important;
-    padding-top: 4px !important;
+
+    margin:
+        3px -26px -26px -26px !important;
+
+    padding: 18px 26px 20px 26px !important;
+
+    border-top: 1px solid #aeb8c4 !important;
+
+    background:
+        linear-gradient(180deg,
+            rgba(245, 247, 249, 0.96),
+            #eef1f4) !important;
+
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+
+    box-shadow:
+        0 -7px 20px rgba(15, 23, 42, 0.055) !important;
 }
 
-.rcm-botao-cancelar-registro,
-.rcm-botao-confirmar-registro {
-    min-height: 42px !important;
-    padding: 0 18px !important;
-    border-radius: 9px !important;
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-}
+
+/* =========================================================
+   CANCELAR
+========================================================= */
 
 .rcm-botao-cancelar-registro {
-    border: 1px solid #cbd5e1 !important;
-    background: #ffffff !important;
-    color: #475569 !important;
+    min-height: 50px !important;
+
+    padding: 0 18px !important;
+
+    border: 1px solid #9ba8b6 !important;
+    border-radius: 10px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #edf1f4) !important;
+
+    color: #455468 !important;
+
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.05) !important;
+
+    transition:
+        transform 0.17s ease,
+        border-color 0.17s ease,
+        background 0.17s ease,
+        color 0.17s ease,
+        box-shadow 0.17s ease !important;
 }
+
+.rcm-botao-cancelar-registro:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+
+    border-color: #7f8d9d !important;
+
+    background: #ffffff !important;
+    color: #263548 !important;
+
+    box-shadow:
+        0 6px 13px rgba(15, 23, 42, 0.09) !important;
+}
+
+
+/* =========================================================
+   CONFIRMAR
+========================================================= */
 
 .rcm-botao-confirmar-registro {
-    border: 1px solid #2563eb !important;
-    background: #2563eb !important;
+    position: relative !important;
+
+    min-height: 50px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 22px !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #092b52 !important;
+    border-radius: 10px !important;
+
+    background:
+        linear-gradient(180deg,
+            #205b98 0%,
+            #123d72 55%,
+            #0d315c 100%) !important;
+
     color: #ffffff !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.1px !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 3px 5px rgba(15, 23, 42, 0.13),
+        0 8px 18px rgba(18, 61, 114, 0.23) !important;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease !important;
 }
+
+.rcm-botao-confirmar-registro::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -40% !important;
+
+    width: 30% !important;
+    height: 100% !important;
+
+    transform: skewX(-20deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.23),
+            transparent) !important;
+
+    transition:
+        left 0.58s ease !important;
+}
+
+.rcm-botao-confirmar-registro:hover:not(:disabled)::before {
+    left: 120% !important;
+}
+
+.rcm-botao-confirmar-registro:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+
+    filter: brightness(1.05) !important;
+
+    box-shadow:
+        0 5px 8px rgba(15, 23, 42, 0.15),
+        0 12px 24px rgba(18, 61, 114, 0.29) !important;
+}
+
+.rcm-botao-confirmar-registro:active:not(:disabled) {
+    transform: translateY(0) scale(0.99) !important;
+}
+
+
+/* =========================================================
+   DISABLED
+========================================================= */
 
 .rcm-botao-confirmar-registro:disabled,
-.rcm-botao-cancelar-registro:disabled {
+.rcm-botao-cancelar-registro:disabled,
+.rcm-botao-fechar-registro:disabled,
+.rcm-botao-limpar-selecao:disabled {
+    opacity: 0.52 !important;
+
     cursor: not-allowed !important;
-    opacity: 0.55 !important;
+
+    transform: none !important;
+
+    box-shadow: none !important;
 }
 
-@media (max-width: 700px) {
+.rcm-formulario-compra-manual input:disabled,
+.rcm-formulario-compra-manual select:disabled,
+.rcm-formulario-compra-manual textarea:disabled {
+    opacity: 0.68 !important;
+
+    cursor: not-allowed !important;
+
+    background: #e9edf1 !important;
+}
+
+
+/* =========================================================
+   FOCO POR TECLADO
+========================================================= */
+
+.rcm-botao-fechar-registro:focus-visible,
+.rcm-botao-limpar-selecao:focus-visible,
+.rcm-numero-rifa-manual:focus-visible,
+.rcm-botao-cancelar-registro:focus-visible,
+.rcm-botao-confirmar-registro:focus-visible {
+    outline: 3px solid rgba(36, 93, 156, 0.28) !important;
+    outline-offset: 2px !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 760px) {
+
     .rcm-overlay-seguranca-rifa {
-        padding: 12px !important;
+        padding: 16px !important;
+    }
+
+    .rcm-modal-registro-administrativo {
+        max-height: calc(100vh - 32px) !important;
     }
 
     .rcm-linha-dados-comprador {
@@ -316,6 +1213,252 @@
     }
 
     .rcm-grade-numeros-disponiveis {
-        grid-template-columns: repeat(6, minmax(38px, 1fr)) !important;
+        grid-template-columns:
+            repeat(auto-fill, minmax(48px, 1fr)) !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .rcm-overlay-seguranca-rifa {
+        align-items: flex-end !important;
+
+        padding: 0 !important;
+    }
+
+    .rcm-modal-registro-administrativo {
+        width: 100% !important;
+        max-height: 94vh !important;
+
+        border-left: 0 !important;
+        border-right: 0 !important;
+        border-bottom: 0 !important;
+
+        border-radius:
+            18px 18px 0 0 !important;
+
+        animation:
+            rcmModalEntradaMobile 0.34s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    @keyframes rcmModalEntradaMobile {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .rcm-cabecalho-registro {
+        padding:
+            21px 17px 17px 17px !important;
+    }
+
+    .rcm-cabecalho-textos h2 {
+        font-size: 20px !important;
+    }
+
+    .rcm-cabecalho-textos p {
+        font-size: 12px !important;
+    }
+
+    .rcm-formulario-compra-manual {
+        padding: 18px 16px 20px 16px !important;
+    }
+
+    .rcm-area-numeros-rifa {
+        padding: 15px 12px !important;
+    }
+
+    .rcm-grade-numeros-disponiveis {
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr)) !important;
+
+        gap: 6px !important;
+    }
+
+    .rcm-numero-rifa-manual {
+        height: 44px !important;
+
+        border-radius: 8px !important;
+
+        font-size: 13px !important;
+    }
+
+    .rcm-acoes-registro-manual {
+        bottom: -20px !important;
+
+        grid-template-columns: 1fr !important;
+
+        margin:
+            3px -16px -20px -16px !important;
+
+        padding:
+            14px 16px 16px 16px !important;
+    }
+
+    .rcm-botao-confirmar-registro {
+        grid-row: 1 !important;
+    }
+
+    .rcm-botao-cancelar-registro {
+        grid-row: 2 !important;
+    }
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .rcm-grade-numeros-disponiveis {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr)) !important;
+    }
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .rcm-overlay-seguranca-rifa,
+    .rcm-modal-registro-administrativo,
+    .rcm-modal-registro-administrativo::before,
+    .rcm-carregando-numeros {
+        animation: none !important;
+    }
+
+    .rcm-botao-fechar-registro,
+    .rcm-botao-limpar-selecao,
+    .rcm-numero-rifa-manual,
+    .rcm-botao-cancelar-registro,
+    .rcm-botao-confirmar-registro,
+    .rcm-formulario-compra-manual input,
+    .rcm-formulario-compra-manual select,
+    .rcm-formulario-compra-manual textarea {
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   CORREÇÃO DEFINITIVA DO SCROLL DO MODAL
+========================================================= */
+
+.rcm-modal-registro-administrativo {
+    height: calc(100dvh - 56px) !important;
+    max-height: calc(100dvh - 56px) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO SEMPRE VISÍVEL
+========================================================= */
+
+.rcm-cabecalho-registro {
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+
+    position: relative !important;
+    z-index: 30 !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO COM SCROLL
+========================================================= */
+
+.rcm-formulario-compra-manual {
+    flex: 1 1 auto !important;
+
+    min-height: 0 !important;
+    max-height: none !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    overscroll-behavior: contain !important;
+
+    scrollbar-gutter: stable !important;
+
+    -webkit-overflow-scrolling: touch !important;
+}
+
+
+/* =========================================================
+   SCROLL PREMIUM
+========================================================= */
+
+.rcm-formulario-compra-manual::-webkit-scrollbar {
+    width: 10px !important;
+}
+
+.rcm-formulario-compra-manual::-webkit-scrollbar-track {
+    margin: 8px 0 !important;
+
+    border-radius: 999px !important;
+
+    background: #e3e8ee !important;
+}
+
+.rcm-formulario-compra-manual::-webkit-scrollbar-thumb {
+    border: 2px solid #e3e8ee !important;
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(180deg,
+            #71849a,
+            #52677e) !important;
+}
+
+.rcm-formulario-compra-manual::-webkit-scrollbar-thumb:hover {
+    background:
+        linear-gradient(180deg,
+            #536b84,
+            #344e69) !important;
+}
+
+
+/* FIREFOX */
+
+.rcm-formulario-compra-manual {
+    scrollbar-width: thin !important;
+    scrollbar-color: #60758b #e3e8ee !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .rcm-modal-registro-administrativo {
+        height: 94dvh !important;
+        max-height: 94dvh !important;
+    }
+
+    .rcm-formulario-compra-manual {
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
     }
 }

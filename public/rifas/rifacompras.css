@@ -1,668 +1,904 @@
-/* ===============================
-   CONTAINER PRINCIPAL
-================================ */
+/* =========================================================
+   RIFA COMPRAS
+   PREMIUM CLEAN
+========================================================= */
+
 .rif-compra-container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 40px;
-    background:
-        radial-gradient(1200px 600px at 50% -10%, rgba(56, 189, 248, 0.08), transparent 55%),
-        radial-gradient(800px 400px at 90% 10%, rgba(34, 197, 94, 0.04), transparent 60%),
-        linear-gradient(180deg, #020617, #020617);
-    color: #e5e7eb;
-    border-radius: 26px;
-    box-shadow:
-        0 50px 120px rgba(0, 0, 0, 0.75),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.6);
-    font-family: Inter, system-ui, sans-serif;
     position: relative;
-    overflow: hidden;
-}
+    width: min(1120px, calc(100% - 40px));
+    min-height: 100vh;
 
-/* linha de luz sutil */
-.rif-compra-container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
+    margin: 0 auto;
+    padding: 48px 38px 70px;
+
+    box-sizing: border-box;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
     background:
+        radial-gradient(circle at 50% 0%,
+            rgba(43, 92, 143, 0.08),
+            transparent 30%),
         linear-gradient(180deg,
-            rgba(255, 255, 255, 0.06),
-            transparent 20%,
-            transparent 80%,
-            rgba(255, 255, 255, 0.03));
-    pointer-events: none;
+            #f8fafc 0%,
+            #f3f6f9 45%,
+            #eef2f5 100%);
 }
 
-/* ===============================
-   TÍTULO
-================================ */
+
+/* =========================================================
+   TÍTULO PRINCIPAL
+========================================================= */
+
 .rif-titulo {
-    text-align: center;
+    margin: 0 0 30px;
+
+    color: #142033 !important;
+
     font-size: 34px;
-    font-weight: 900;
-    margin-bottom: 34px;
-    letter-spacing: -0.7px;
-    display: none;
-    color: #f8fafc;
-    text-rendering: optimizeLegibility;
+    font-weight: 800;
+
+    line-height: 1.1;
+    letter-spacing: -1px;
+
+    text-align: center;
 }
 
-/* ===============================
+
+/* =========================================================
    BUSCA
-================================ */
+========================================================= */
+
 .rif-busca {
+    width: min(570px, 100%);
+
     display: flex;
-    gap: 18px;
-    justify-content: center;
-    display: none;
-    margin-bottom: 32px;
+    align-items: center;
+
+    gap: 8px;
+
+    margin: 0 auto 42px;
+    padding: 6px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #b9c3ce;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.06),
+        0 2px 6px rgba(15, 23, 42, 0.04);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
+
+.rif-busca:focus-within {
+    border-color: #6684a3;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08),
+        0 0 0 3px rgba(47, 94, 142, 0.08);
+}
+
+
+/* =========================================================
+   INPUT BUSCA
+========================================================= */
 
 .rif-busca-input {
-    width: 280px;
-    padding: 16px 20px;
-    border-radius: 16px;
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
-        rgba(2, 6, 23, 0.85);
-    color: #f8fafc;
-    outline: none;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease,
-        transform 0.15s ease;
-}
+    flex: 1;
+    min-width: 0;
 
-.rif-busca-input::placeholder {
-    color: rgba(148, 163, 184, 0.65);
+    height: 48px;
+
+    padding: 0 15px;
+
+    box-sizing: border-box;
+
+    border: 0;
+    outline: none;
+
+    border-radius: 9px;
+
+    background: #f5f7f9;
+
+    color: #1e2c3e !important;
+
+    font-size: 15px;
+    font-weight: 650;
+
+    transition: background 0.2s ease;
 }
 
 .rif-busca-input:focus {
-    border-color: rgba(56, 189, 248, 0.9);
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent),
-        rgba(2, 6, 23, 0.95);
-    box-shadow:
-        0 0 0 6px rgba(56, 189, 248, 0.22),
-        0 12px 30px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    transform: translateY(-1px);
+    background: #f9fafb;
 }
+
+.rif-busca-input::placeholder {
+    color: #8793a1 !important;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   BOTÃO BUSCAR
+========================================================= */
 
 .rif-busca-btn {
-    padding: 16px 26px;
-    border-radius: 16px;
-    border: none;
+    height: 48px;
+
+    padding: 0 22px;
+
+    border: 1px solid #244d76;
+    border-radius: 9px;
+
     background:
-        linear-gradient(135deg, #38bdf8, #0ea5e9);
-    color: #020617;
-    font-weight: 800;
+        linear-gradient(180deg,
+            #356b9f,
+            #285986);
+
+    color: #ffffff !important;
+
     font-size: 14px;
-    letter-spacing: 0.2px;
+    font-weight: 750;
+
     cursor: pointer;
-    transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        opacity 0.18s ease,
-        filter 0.18s ease;
+
     box-shadow:
-        0 14px 35px rgba(14, 165, 233, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
+        0 4px 10px rgba(32, 76, 117, 0.16);
 
-.rif-busca-btn:hover {
-    transform: translateY(-3px);
-    box-shadow:
-        0 24px 55px rgba(14, 165, 233, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.45);
-    filter: brightness(1.05);
-}
-
-.rif-busca-btn:active {
-    transform: translateY(-1px);
-    box-shadow:
-        0 14px 30px rgba(14, 165, 233, 0.45),
-        inset 0 2px 6px rgba(0, 0, 0, 0.25);
-}
-
-.rif-busca-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-    filter: grayscale(0.2);
-}
-
-/* ===============================
-   ERRO
-================================ */
-.rif-erro {
-    text-align: center;
-    margin-top: 18px;
-    padding: 14px 16px;
-    background:
-        linear-gradient(180deg, rgba(248, 113, 113, 0.12), transparent),
-        rgba(2, 6, 23, 0.9);
-    border: 1px solid rgba(248, 113, 113, 0.35);
-    border-radius: 14px;
-    color: #fca5a5;
-    font-weight: 700;
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.03),
-        0 10px 25px rgba(0, 0, 0, 0.35);
-}
-
-/* ===============================
-   INFORMAÇÕES DA RIFA
-================================ */
-.rif-nome {
-    text-align: center;
-    font-size: 26px;
-    font-weight: 900;
-    margin-top: 30px;
-    letter-spacing: -0.5px;
-    color: #f8fafc;
-}
-
-.rif-premio {
-    margin: 22px auto;
-    padding: 20px;
-    max-width: 680px;
-    background:
-        linear-gradient(180deg, rgba(56, 189, 248, 0.08), transparent),
-        rgba(2, 6, 23, 0.95);
-    border: 1px solid #1e293b;
-    border-radius: 18px;
-    text-align: center;
-    font-size: 16px;
-    color: #e5e7eb;
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04),
-        0 18px 45px rgba(0, 0, 0, 0.45);
-}
-
-/* ===============================
-   RESULTADO DA RIFA
-================================ */
-
-.rif-resultado {
-    margin-top: 32px;
-    padding: 28px;
-    border-radius: 16px;
-    background: linear-gradient(180deg, #020617 0%, #020617 60%, #01030f 100%);
-    border: 1px solid #1e293b;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-}
-
-/* Título principal */
-.rif-ganhador-titulo {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-    color: #e5e7eb;
-}
-
-/* Nome do ganhador */
-.rif-ganhador-nome {
-    font-size: 26px;
-    font-weight: 800;
-    margin-bottom: 6px;
-    color: #22c55e;
-}
-
-/* Número sorteado */
-.rif-ganhador-numero {
-    font-size: 14px;
-    font-weight: 500;
-    color: #94a3b8;
-}
-
-/* Mensagem sem ganhador */
-.rif-ganhador-sem {
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.5;
-    color: #9ca3af;
-}
-
-/* Selo visual sutil */
-.rif-resultado::after {
-    content: "";
-    display: block;
-    width: 80px;
-    height: 2px;
-    margin: 18px auto 0;
-    background: linear-gradient(90deg,
-            transparent,
-            #334155,
-            transparent);
-}
-
-/* ===============================
-   INFO
-================================ */
-.rif-info {
-    text-align: center;
-    margin-top: 18px;
-    font-size: 26px;
-    font-weight: 600;
-    color: #cbd5f5;
-    letter-spacing: -0.3px;
-}
-
-/* ===============================
-   FOTOS
-================================ */
-.rif-fotos {
-    display: flex;
-    gap: 18px;
-    overflow-x: auto;
-    padding: 20px 6px;
-    margin: 18px 0 30px;
-}
-
-.rif-foto {
-    height: 180px;
-    min-width: 240px;
-    border-radius: 18px;
-    object-fit: cover;
-    border: 1px solid #1e293b;
-    background: #020617;
-    box-shadow:
-        0 14px 36px rgba(0, 0, 0, 0.45),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-    transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        filter 0.18s ease;
-}
-
-.rif-foto:hover {
-    transform: translateY(-6px) scale(1.035);
-    box-shadow:
-        0 26px 70px rgba(0, 0, 0, 0.65),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-    filter: brightness(1.05);
-}
-
-/* ===============================
-   NÚMEROS
-================================ */
-.rif-numeros {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
-    gap: 14px;
-    margin-top: 28px;
-}
-
-/* BASE */
-.rif-numero {
-    padding: 18px 0;
-    text-align: center;
-    border-radius: 16px;
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    font-weight: 800;
-    font-size: 15px;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    user-select: none;
-    color: #e5e7eb;
-    box-shadow:
-        0 8px 22px rgba(0, 0, 0, 0.35),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.03);
-    transition:
-        transform 0.14s ease,
-        box-shadow 0.14s ease,
-        background 0.14s ease,
-        border-color 0.14s ease;
-}
-
-.rif-numero:hover {
-    border-color: #38bdf8;
-    background: linear-gradient(180deg, #020617, #020617);
-    box-shadow:
-        0 14px 34px rgba(56, 189, 248, 0.28),
-        inset 0 0 0 1px rgba(56, 189, 248, 0.15);
-    transform: translateY(-3px);
-}
-
-/* ===============================
-   COMPRADO
-================================ */
-.rif-comprado {
-    background: linear-gradient(180deg, #7f0f1f, #a00217);
-    border-color: #7f0f1f;
-    color: rgba(0, 0, 0, 0.45);
-    cursor: not-allowed;
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-    transform: none;
-}
-
-/* ===============================
-   SELECIONADO
-================================ */
-.rif-selecionado {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color: #022c22;
-    border-color: transparent;
-    box-shadow:
-        0 18px 48px rgba(34, 197, 94, 0.55),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.18);
-    transform: translateY(-2px);
-}
-
-/* ===============================
-   BOTÃO COMPRAR
-================================ */
-.rif-comprar-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 38px auto 12px;
-    padding: 20px 44px;
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing: -0.3px;
-    border-radius: 20px;
-    border: none;
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-    color: #022c22;
-    cursor: pointer;
-    box-shadow:
-        0 22px 60px rgba(34, 197, 94, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
     transition:
         transform 0.16s ease,
         box-shadow 0.16s ease,
         filter 0.16s ease;
 }
 
-.rif-comprar-btn:hover {
-    transform: translateY(-4px);
-    box-shadow:
-        0 34px 90px rgba(34, 197, 94, 0.75),
-        inset 0 1px 0 rgba(255, 255, 255, 0.45);
-    filter: brightness(1.05);
-}
-
-.rif-comprar-btn:active {
+.rif-busca-btn:hover:not(:disabled) {
     transform: translateY(-1px);
+
+    filter: brightness(1.04);
+
     box-shadow:
-        0 18px 45px rgba(34, 197, 94, 0.5),
-        inset 0 2px 4px rgba(0, 0, 0, 0.25);
+        0 7px 16px rgba(32, 76, 117, 0.22);
 }
 
-/* ===============================
-   BLOCO COMÉRCIO
-================================ */
+.rif-busca-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.rif-busca-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.rif-erro {
+    width: min(570px, 100%);
+
+    margin: -22px auto 30px;
+    padding: 12px 15px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e2a8a8;
+    border-radius: 10px;
+
+    background: #fff4f4;
+
+    color: #a42a2a !important;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   NOME DA RIFA
+========================================================= */
+
+.rif-nome {
+    max-width: 800px;
+
+    margin: 0 auto 10px;
+
+    color: #111d2d !important;
+
+    font-size: clamp(27px, 3vw, 38px);
+    font-weight: 850;
+
+    line-height: 1.08;
+    letter-spacing: -1.2px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   PRÊMIO
+========================================================= */
+
+.rif-premio {
+    max-width: 700px;
+
+    margin: 0 auto 8px;
+
+    color: #566679 !important;
+
+    font-size: 16px;
+    font-weight: 550;
+
+    line-height: 1.45;
+
+    text-align: center;
+}
+
+.rif-premio strong {
+    color: #203b59 !important;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+.rif-data-fim {
+    margin: 0 auto 30px;
+
+    color: #738091 !important;
+
+    font-size: 13px;
+    font-weight: 550;
+
+    text-align: center;
+}
+
+.rif-data-fim strong {
+    color: #526174 !important;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FOTOS
+   PARTE PRINCIPAL DA NOVA APARÊNCIA
+========================================================= */
+
+.rif-fotos {
+    width: min(600px, 70%) !important;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit,
+            minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin: 0 auto 24px;
+
+    overflow: hidden;
+
+
+    background: transparent !important;
+
+}
+
+
+/* =========================================================
+   IMAGEM
+========================================================= */
+
+.rif-foto {
+    display: block;
+
+    width: 100%;
+    height: fit-content !important;
+
+    min-width: 0;
+
+    object-fit: cover;
+
+    background: #e3e8ed;
+
+    transition:
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.35s ease;
+}
+
+.rif-foto:hover {
+    transform: scale(1.025);
+
+    filter:
+        brightness(1.02) contrast(1.02);
+}
+
+
+/* =========================================================
+   UMA ÚNICA FOTO
+========================================================= */
+
+.rif-fotos:has(.rif-foto:only-child) {
+    width: min(720px, 100%);
+}
+
+.rif-fotos:has(.rif-foto:only-child) .rif-foto {
+    height: 430px;
+}
+
+
+/* =========================================================
+   PREÇO
+========================================================= */
+
+.rif-info {
+    width: fit-content;
+
+    margin: 0 auto 28px;
+    padding: 10px 17px;
+
+    border: 1px solid #b0becb;
+    border-radius: 999px;
+
+    background: #ffffff;
+
+    color: #23496f !important;
+
+    font-size: 15px;
+    font-weight: 750;
+
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================================
+   COMÉRCIO
+========================================================= */
+
 .rif-comercio {
+    width: min(720px, 100%);
+
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin: 24px 0;
-    padding: 18px;
-    background: linear-gradient(180deg, #020617, #020617);
-    border: 1px solid #1e293b;
-    border-radius: 16px;
-    box-shadow:
-        0 12px 36px rgba(0, 0, 0, 0.45),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+    gap: 15px;
+
+    margin: 0 auto 36px;
+    padding: 14px 17px;
+
+    box-sizing: border-box;
+
+    border-top: 1px solid #c4ccd5;
+    border-bottom: 1px solid #c4ccd5;
+
+    transition:
+        background 0.2s ease;
 }
 
-/* ===============================
-   LOGO DO COMÉRCIO
-================================ */
+.rif-comercio:hover {
+    background: rgba(255, 255, 255, 0.42);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
 .rif-comercio-logo {
-    width: 64px;
-    height: 64px;
+    flex: 0 0 auto;
+
+    width: 58px;
+    height: 58px;
+
     object-fit: cover;
-    border-radius: 14px;
-    background: #0f172a;
-    border: 1px solid #1e293b;
+
+    border: 1px solid #b1bcc7;
+    border-radius: 50%;
+
+    background: #ffffff;
+
     box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.45);
+        0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
-/* ===============================
-   INFO DO COMÉRCIO
-================================ */
+
+/* =========================================================
+   INFORMAÇÕES COMÉRCIO
+========================================================= */
+
 .rif-comercio-info {
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
-    gap: 6px;
+
+    gap: 3px;
 }
 
 .rif-comercio-nome {
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: -0.2px;
-    color: #e5e7eb;
-}
+    margin: 0;
 
-/* ===============================
-   CONTATO DO COMÉRCIO
-================================ */
-.rif-comercio-contato {
-    font-size: 14px;
-    font-weight: 500;
-    color: #94a3b8;
+    color: #596879 !important;
+
+    font-size: 13px;
+    font-weight: 550;
+
     line-height: 1.4;
 }
 
-/* ===============================
-   LINK DO COMÉRCIO
-================================ */
+.rif-comercio-nome strong {
+    color: #1b2d42 !important;
+
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.rif-comercio-contato {
+    margin: 0;
+
+    color: #68798b !important;
+
+    font-size: 12px;
+    font-weight: 550;
+
+    line-height: 1.45;
+}
+
 .rif-comercio-link {
+    width: fit-content;
+
     cursor: pointer;
-    font-weight: 600;
-    color: #cbd5f5;
-    text-decoration: none;
+
     transition:
-        color 0.18s ease,
-        text-shadow 0.18s ease;
+        color 0.16s ease,
+        transform 0.16s ease;
 }
 
 .rif-comercio-link:hover {
-    color: #22c55e;
-    text-shadow: 0 0 10px rgba(34, 197, 94, 0.35);
+    color: #275f93 !important;
+
+    transform: translateX(2px);
 }
 
-/* ===============================
-   RIFA FINALIZADA
-================================ */
-.rif-finalizada-only {
-    margin-top: 44px;
-    padding: 22px;
-    text-align: center;
-    font-size: 23px;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-    color: #fecaca;
-    background: linear-gradient(180deg,
-            rgba(127, 15, 31, 0.25),
-            rgba(160, 2, 23, 0.35));
-    border: 1px solid #7f0f1f;
-    border-radius: 18px;
-    box-shadow:
-        0 18px 50px rgba(160, 2, 23, 0.35),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-}
 
 /* =========================================================
-   TABLETS E NOTEBOOKS PEQUENOS
+   GRADE DOS NÚMEROS
 ========================================================= */
-@media (max-width: 1024px) {
+
+.rif-numeros {
+    width: min(940px, 100%);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill,
+            minmax(58px, 1fr));
+
+    gap: 8px;
+
+    margin: 0 auto 28px;
+    padding: 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #b7c1cc;
+    border-radius: 17px;
+
+    background:
+        linear-gradient(180deg,
+            #e9edf1,
+            #e3e8ed);
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+
+/* =========================================================
+   NÚMERO DISPONÍVEL
+========================================================= */
+
+.rif-numero {
+    position: relative;
+
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border: 1px solid #aab5c0;
+    border-radius: 9px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f1f4f6);
+
+    color: #2a394b !important;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    font-variant-numeric: tabular-nums;
+
+    cursor: pointer;
+    user-select: none;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff;
+
+    transition:
+        transform 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        background 0.16s ease;
+}
+
+
+/* =========================================================
+   HOVER DISPONÍVEL
+========================================================= */
+
+.rif-numero:hover:not(.rif-comprado):not(.rif-selecionado) {
+    z-index: 2;
+
+    transform: translateY(-2px);
+
+    border-color: #6f8daa;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #e9f0f6);
+
+    color: #1f4e7a !important;
+
+    box-shadow:
+        0 7px 14px rgba(31, 78, 122, 0.12);
+}
+
+
+/* =========================================================
+   SELECIONADO
+========================================================= */
+
+.rif-numero.rif-selecionado {
+    z-index: 3;
+
+    transform: translateY(-2px);
+
+    border-color: #194e7f;
+
+    background:
+        linear-gradient(145deg,
+            #3b7bb5,
+            #245d91);
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 7px 16px rgba(31, 83, 132, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+
+/* =========================================================
+   CHECK VISUAL DO SELECIONADO
+========================================================= */
+
+.rif-numero.rif-selecionado::after {
+    content: "";
+
+    position: absolute;
+
+    top: 4px;
+    right: 4px;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.16);
+}
+
+
+/* =========================================================
+   COMPRADO
+========================================================= */
+
+.rif-numero.rif-comprado {
+    border-color: #c49b9b;
+
+    background:
+        linear-gradient(180deg,
+            #f8eaea,
+            #efdcdc);
+
+    color: #a14a4a !important;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   MARCA DE INDISPONÍVEL
+========================================================= */
+
+.rif-numero.rif-comprado::after {
+    content: "";
+
+    position: absolute;
+
+    width: 70%;
+    height: 1px;
+
+    background: rgba(148, 59, 59, 0.48);
+
+    transform: rotate(-35deg);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BOTÃO COMPRAR
+========================================================= */
+
+.rif-comprar-btn {
+    position: sticky;
+
+    bottom: 18px;
+    z-index: 50;
+
+    display: block;
+
+    width: min(500px, calc(100% - 20px));
+    min-height: 58px;
+
+    margin: 30px auto 0;
+    padding: 15px 24px;
+
+    border: 1px solid #174c7d;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(180deg,
+            #3678b4,
+            #255e93);
+
+    color: #ffffff !important;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 28px rgba(26, 77, 124, 0.25),
+        0 0 0 5px rgba(241, 245, 249, 0.88),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+.rif-comprar-btn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.04);
+
+    box-shadow:
+        0 16px 32px rgba(26, 77, 124, 0.3),
+        0 0 0 5px rgba(241, 245, 249, 0.95),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.rif-comprar-btn:active {
+    transform: translateY(0) scale(0.99);
+}
+
+
+/* =========================================================
+   RIFA FINALIZADA
+========================================================= */
+
+.rif-resultado {
+    width: min(620px, 100%);
+
+    margin: 40px auto 0;
+    padding: 38px 30px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #b7c2cd;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f1f4f7);
+
+    text-align: center;
+
+    box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.09);
+}
+
+.rif-ganhador-titulo {
+    margin: 0 0 15px;
+
+    color: #17273a !important;
+
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.rif-ganhador-nome {
+    margin: 0 0 10px;
+
+    color: #245c90 !important;
+
+    font-size: 30px;
+    font-weight: 850;
+
+    line-height: 1.1;
+}
+
+.rif-ganhador-numero {
+    width: fit-content;
+
+    margin: 15px auto 0;
+    padding: 9px 16px;
+
+    border: 1px solid #aab9c8;
+    border-radius: 999px;
+
+    background: #edf4fa;
+
+    color: #234d75 !important;
+
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.rif-ganhador-sem {
+    margin: 0;
+
+    color: #697789 !important;
+
+    font-size: 14px;
+    font-weight: 550;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 760px) {
 
     .rif-compra-container {
-        padding: 28px;
-        border-radius: 22px;
-    }
+        width: calc(100% - 20px);
 
-    .rif-nome {
-        font-size: 24px;
-    }
-
-    .rif-info {
-        font-size: 22px;
-    }
-
-    .rif-premio {
-        font-size: 15px;
-        padding: 18px;
+        padding:
+            32px 18px 55px;
     }
 
     .rif-foto {
-        height: 160px;
-        min-width: 210px;
+        height: 310px;
+    }
+
+    .rif-fotos:has(.rif-foto:only-child) .rif-foto {
+        height: 350px;
     }
 
     .rif-numeros {
-        grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-        gap: 12px;
+        grid-template-columns:
+            repeat(auto-fill,
+                minmax(52px, 1fr));
+
+        padding: 14px;
+
+        gap: 7px;
     }
 
     .rif-numero {
-        padding: 16px 0;
-        font-size: 14px;
-    }
-
-    .rif-comprar-btn {
-        padding: 18px 38px;
-        font-size: 17px;
-    }
-
-    .rif-comercio {
-        padding: 16px;
+        height: 47px;
     }
 }
 
+
 /* =========================================================
-   CELULARES GRANDES
+   MOBILE
 ========================================================= */
-@media (max-width: 768px) {
+
+@media (max-width: 520px) {
 
     .rif-compra-container {
-        padding: 22px;
-        border-radius: 20px;
+        width: 100%;
+
+        padding:
+            26px 12px 50px;
+    }
+
+    .rif-titulo {
+        font-size: 28px;
+    }
+
+    .rif-busca {
+        margin-bottom: 32px;
+    }
+
+    .rif-busca-input {
+        height: 46px;
+
+        font-size: 14px;
+    }
+
+    .rif-busca-btn {
+        height: 46px;
+
+        padding: 0 16px;
     }
 
     .rif-nome {
-        font-size: 22px;
-        margin-top: 24px;
-    }
-
-    .rif-info {
-        font-size: 20px;
-        margin-top: 16px;
-    }
-
-    .rif-premio {
-        font-size: 14px;
-        margin: 18px auto;
+        font-size: 26px;
     }
 
     .rif-fotos {
-        padding: 16px 4px;
-        gap: 14px;
-    }
-
-    .rif-foto {
-        height: 150px;
-        min-width: 190px;
-    }
-
-    .rif-numeros {
-        grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
-        gap: 10px;
-    }
-
-    .rif-numero {
-        padding: 14px 0;
-        font-size: 13px;
         border-radius: 14px;
-    }
 
-    .rif-comprar-btn {
-        width: 100%;
-        max-width: 100%;
-        padding: 18px;
-        font-size: 16px;
-        border-radius: 18px;
-    }
-
-    .rif-comercio {
-        gap: 14px;
-        padding: 14px;
-    }
-
-    .rif-comercio-logo {
-        width: 56px;
-        height: 56px;
-    }
-
-    .rif-comercio-nome {
-        font-size: 15px;
-    }
-
-    .rif-finalizada-only {
-        font-size: 20px;
-        padding: 18px;
-    }
-}
-
-/* =========================================================
-   CELULARES MÉDIOS
-========================================================= */
-@media (max-width: 480px) {
-
-    .rif-compra-container {
-        padding: 18px;
-        border-radius: 18px;
-    }
-
-    .rif-nome {
-        font-size: 20px;
-    }
-
-    .rif-info {
-        font-size: 18px;
-    }
-
-    .rif-premio {
-        font-size: 14px;
-        padding: 16px;
+        gap: 5px;
     }
 
     .rif-foto {
-        height: 140px;
-        min-width: 170px;
-        border-radius: 16px;
+        height: 240px;
     }
 
-    .rif-numeros {
-        grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
-        gap: 9px;
-    }
-
-    .rif-numero {
-        padding: 13px 0;
-        font-size: 13px;
+    .rif-fotos:has(.rif-foto:only-child) .rif-foto {
+        height: 290px;
     }
 
     .rif-comercio {
-        flex-direction: column;
-        align-items: flex-start;
+        gap: 11px;
+
+        padding:
+            12px 4px;
     }
 
     .rif-comercio-logo {
@@ -670,37 +906,863 @@
         height: 52px;
     }
 
+    .rif-numeros {
+        grid-template-columns:
+            repeat(auto-fill,
+                minmax(44px, 1fr));
+
+        gap: 6px;
+
+        padding: 10px;
+
+        border-radius: 13px;
+    }
+
+    .rif-numero {
+        height: 44px;
+
+        border-radius: 7px;
+
+        font-size: 13px;
+    }
+
     .rif-comprar-btn {
+        bottom: 10px;
+
+        width: calc(100% - 10px);
+
+        min-height: 56px;
+
         font-size: 15px;
-        padding: 16px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .rif-busca {
+        display: grid;
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .rif-busca-btn {
+        width: 100%;
+    }
+
+    .rif-numeros {
+        grid-template-columns:
+            repeat(auto-fill,
+                minmax(40px, 1fr));
+    }
+
+    .rif-numero {
+        height: 41px;
+
+        font-size: 12px;
     }
 }
 
 /* =========================================================
-   CELULARES PEQUENOS
+   CAMADA EXTRA DE ACABAMENTO PREMIUM
+   ADICIONAR NO FINAL DO CSS
 ========================================================= */
-@media (max-width: 360px) {
 
-    .rif-compra-container {
-        padding: 14px;
+
+/* =========================================================
+   1. CONTAINER COM MAIS PROFUNDIDADE
+========================================================= */
+
+.rif-compra-container {
+    isolation: isolate;
+}
+
+.rif-compra-container::before {
+    content: "";
+
+    position: absolute;
+    top: -220px;
+    left: 50%;
+
+    width: 720px;
+    height: 430px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(62, 110, 158, 0.13) 0%,
+            rgba(62, 110, 158, 0.045) 48%,
+            transparent 72%);
+
+    filter: blur(18px);
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   2. TÍTULO COM DETALHE PREMIUM
+========================================================= */
+
+.rif-titulo {
+    position: relative;
+}
+
+.rif-titulo::after {
+    content: "";
+
+    display: block;
+
+    width: 48px;
+    height: 3px;
+
+    margin: 13px auto 0;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #32689c,
+            #5b88b2,
+            #32689c,
+            transparent);
+
+    box-shadow:
+        0 4px 12px rgba(42, 92, 141, 0.18);
+}
+
+
+/* =========================================================
+   3. BUSCA MAIS VIVA
+========================================================= */
+
+.rif-busca {
+    position: relative;
+
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.rif-busca:hover {
+    border-color: #9caab8;
+
+    box-shadow:
+        0 11px 27px rgba(15, 23, 42, 0.075),
+        0 2px 6px rgba(15, 23, 42, 0.035);
+}
+
+.rif-busca:focus-within {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   4. BOTÃO BUSCAR COM REFLEXO
+========================================================= */
+
+.rif-busca-btn {
+    position: relative;
+
+    overflow: hidden;
+
+    isolation: isolate;
+}
+
+.rif-busca-btn::after {
+    content: "";
+
+    position: absolute;
+
+    top: -70%;
+    left: -80%;
+
+    width: 34%;
+    height: 240%;
+
+    transform: rotate(22deg);
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.28),
+            transparent);
+
+    pointer-events: none;
+
+    transition:
+        left 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rif-busca-btn:hover::after {
+    left: 145%;
+}
+
+
+/* =========================================================
+   5. NOME DA RIFA
+========================================================= */
+
+.rif-nome {
+    position: relative;
+
+    text-wrap: balance;
+
+    animation:
+        rifEntradaTitulo 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rifEntradaTitulo {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(8px);
     }
 
-    .rif-nome {
-        font-size: 18px;
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   6. PRÊMIO COM DESTAQUE SUAVE
+========================================================= */
+
+.rif-premio {
+    position: relative;
+
+    transition:
+        transform 0.2s ease;
+}
+
+.rif-premio:hover {
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   7. GALERIA COM ACABAMENTO
+========================================================= */
+
+.rif-fotos {
+    position: relative;
+
+    isolation: isolate;
+
+    transition:
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.3s ease;
+}
+
+.rif-fotos:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 23px 48px rgba(15, 23, 42, 0.15);
+}
+
+
+/* =========================================================
+   8. SOMBREAMENTO CINEMATOGRÁFICO NA GALERIA
+========================================================= */
+
+.rif-fotos::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    border-radius: inherit;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -25px 45px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =========================================================
+   9. IMAGENS MAIS PREMIUM
+========================================================= */
+
+.rif-foto {
+    will-change: transform;
+
+    transition:
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.4s ease;
+}
+
+.rif-fotos:hover .rif-foto {
+    filter:
+        saturate(1.035) contrast(1.025);
+}
+
+.rif-foto:hover {
+    transform:
+        scale(1.035);
+}
+
+
+/* =========================================================
+   10. PREÇO COM MICRO DESTAQUE
+========================================================= */
+
+.rif-info {
+    position: relative;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.rif-info:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 9px 21px rgba(15, 23, 42, 0.09);
+}
+
+
+/* =========================================================
+   11. COMÉRCIO MAIS INTERATIVO
+========================================================= */
+
+.rif-comercio {
+    position: relative;
+
+    transition:
+        transform 0.22s ease,
+        background 0.22s ease,
+        border-color 0.22s ease;
+}
+
+.rif-comercio:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        #aab6c2;
+
+    background:
+        rgba(255, 255, 255, 0.52);
+}
+
+
+/* =========================================================
+   12. LOGO COM PROFUNDIDADE
+========================================================= */
+
+.rif-comercio-logo {
+    transition:
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.3s ease;
+}
+
+.rif-comercio:hover .rif-comercio-logo {
+    transform:
+        scale(1.045);
+
+    box-shadow:
+        0 7px 17px rgba(15, 23, 42, 0.13);
+}
+
+
+/* =========================================================
+   13. GRADE COM PROFUNDIDADE
+========================================================= */
+
+.rif-numeros {
+    position: relative;
+
+    isolation: isolate;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.rif-numeros:hover {
+    border-color:
+        #a8b5c2;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.04),
+        0 9px 26px rgba(15, 23, 42, 0.055);
+}
+
+
+/* =========================================================
+   14. LUZ INTERNA DA GRADE
+========================================================= */
+
+.rif-numeros::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+
+    width: 80%;
+    height: 90px;
+
+    z-index: -1;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(ellipse at top,
+            rgba(255, 255, 255, 0.72),
+            transparent 70%);
+}
+
+
+/* =========================================================
+   15. NÚMEROS COM EFEITO DE BOTÃO FÍSICO
+========================================================= */
+
+.rif-numero {
+    isolation: isolate;
+
+    transform:
+        translateZ(0);
+
+    will-change:
+        transform;
+}
+
+.rif-numero::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 43%;
+
+    z-index: -1;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.72),
+            transparent);
+}
+
+
+/* =========================================================
+   16. HOVER MAIS FORTE NOS DISPONÍVEIS
+========================================================= */
+
+.rif-numero:hover:not(.rif-comprado):not(.rif-selecionado) {
+    transform:
+        translateY(-3px) scale(1.035);
+
+    box-shadow:
+        0 9px 18px rgba(28, 68, 107, 0.14),
+        0 0 0 3px rgba(45, 91, 136, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+
+/* =========================================================
+   17. CLICK FÍSICO
+========================================================= */
+
+.rif-numero:active:not(.rif-comprado) {
+    transform:
+        translateY(1px) scale(0.97);
+
+    transition-duration:
+        0.07s;
+}
+
+
+/* =========================================================
+   18. SELECIONADO COM GLOW
+========================================================= */
+
+.rif-numero.rif-selecionado {
+    box-shadow:
+        0 9px 20px rgba(27, 76, 121, 0.27),
+        0 0 0 3px rgba(45, 105, 160, 0.1),
+        0 0 18px rgba(41, 102, 159, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+
+/* =========================================================
+   19. SELECIONADO COM PONTO DE CONFIRMAÇÃO
+========================================================= */
+
+.rif-numero.rif-selecionado::after {
+    content: "";
+
+    position: absolute;
+
+    top: 5px;
+    right: 5px;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.17),
+        0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+
+/* =========================================================
+   20. COMPRADOS MAIS REFINADOS
+========================================================= */
+
+.rif-numero.rif-comprado {
+    position: relative;
+
+    filter:
+        saturate(0.92);
+
+    transition:
+        filter 0.2s ease;
+}
+
+.rif-numero.rif-comprado:hover {
+    filter:
+        saturate(1) brightness(0.98);
+}
+
+
+/* =========================================================
+   21. LINHA DO NÚMERO COMPRADO
+========================================================= */
+
+.rif-numero.rif-comprado::after {
+    content: "";
+
+    position: absolute;
+
+    width: 68%;
+    height: 1px;
+
+    background:
+        rgba(135, 50, 50, 0.5);
+
+    transform:
+        rotate(-34deg);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   22. BOTÃO COMPRAR COM REFLEXO
+========================================================= */
+
+.rif-comprar-btn {
+    position: sticky;
+
+    isolation: isolate;
+
+    overflow: hidden;
+}
+
+.rif-comprar-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: -80%;
+    left: -65%;
+
+    width: 30%;
+    height: 260%;
+
+    transform:
+        rotate(22deg);
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.31),
+            transparent);
+
+    transition:
+        left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rif-comprar-btn:hover::before {
+    left: 140%;
+}
+
+
+/* =========================================================
+   23. BOTÃO COMPRAR COM MOVIMENTO
+========================================================= */
+
+.rif-comprar-btn:hover {
+    transform:
+        translateY(-3px) scale(1.008);
+}
+
+.rif-comprar-btn:active {
+    transform:
+        translateY(1px) scale(0.985);
+
+    transition-duration:
+        0.08s;
+}
+
+
+/* =========================================================
+   24. ENTRADA DO BOTÃO
+========================================================= */
+
+.rif-comprar-btn {
+    animation:
+        rifComprarEntrada 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rifComprarEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(14px) scale(0.97);
     }
 
-    .rif-info {
-        font-size: 16px;
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   25. RESULTADO COM MAIS PRESENÇA
+========================================================= */
+
+.rif-resultado {
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.3s ease;
+}
+
+.rif-resultado:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 23px 48px rgba(15, 23, 42, 0.12);
+}
+
+
+/* =========================================================
+   26. LUZ DO RESULTADO
+========================================================= */
+
+.rif-resultado::before {
+    content: "";
+
+    position: absolute;
+
+    top: -100px;
+    left: 50%;
+
+    width: 300px;
+    height: 180px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        rgba(49, 102, 154, 0.09);
+
+    filter:
+        blur(35px);
+}
+
+
+/* =========================================================
+   27. NÚMERO GANHADOR
+========================================================= */
+
+.rif-ganhador-numero {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.rif-ganhador-numero:hover {
+    transform:
+        scale(1.04);
+
+    box-shadow:
+        0 7px 17px rgba(27, 76, 121, 0.11);
+}
+
+
+/* =========================================================
+   28. SELEÇÃO DE TEXTO
+========================================================= */
+
+.rif-compra-container ::selection {
+    background:
+        rgba(42, 94, 145, 0.2);
+}
+
+
+/* =========================================================
+   29. SCROLLBAR DA PÁGINA
+========================================================= */
+
+.rif-compra-container {
+    scrollbar-width: thin;
+    scrollbar-color:
+        #91a0af transparent;
+}
+
+.rif-compra-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.rif-compra-container::-webkit-scrollbar-track {
+    background:
+        transparent;
+}
+
+.rif-compra-container::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+
+    background:
+        #91a0af;
+
+    background-clip:
+        padding-box;
+}
+
+
+/* =========================================================
+   30. FOCO ACESSÍVEL NOS BOTÕES
+========================================================= */
+
+.rif-numero:focus-visible,
+.rif-busca-btn:focus-visible,
+.rif-comprar-btn:focus-visible {
+    outline:
+        3px solid rgba(41, 98, 153, 0.23);
+
+    outline-offset:
+        3px;
+}
+
+
+/* =========================================================
+   31. MOBILE
+   REMOVE EFEITOS QUE NÃO AJUDAM NO TOUCH
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .rif-fotos:hover {
+        transform: none;
     }
 
-    .rif-numero {
-        padding: 12px 0;
-        font-size: 12px;
+    .rif-fotos:hover .rif-foto {
+        filter: none;
     }
 
+    .rif-foto:hover {
+        transform: none;
+    }
+
+    .rif-comercio:hover {
+        transform: none;
+    }
+
+    .rif-numero:hover:not(.rif-comprado):not(.rif-selecionado) {
+        transform: none;
+    }
+
+    .rif-numero:active:not(.rif-comprado) {
+        transform:
+            scale(0.95);
+    }
+}
+
+
+/* =========================================================
+   32. REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .rif-nome,
     .rif-comprar-btn {
-        font-size: 14px;
-        padding: 14px;
-        border-radius: 16px;
+        animation: none;
+    }
+
+    .rif-foto,
+    .rif-fotos,
+    .rif-numero,
+    .rif-busca,
+    .rif-busca-btn,
+    .rif-busca-btn::after,
+    .rif-comercio,
+    .rif-comercio-logo,
+    .rif-info,
+    .rif-comprar-btn,
+    .rif-comprar-btn::before,
+    .rif-resultado,
+    .rif-ganhador-numero {
+        transition: none;
     }
 }

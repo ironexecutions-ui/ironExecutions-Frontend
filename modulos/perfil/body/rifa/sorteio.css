@@ -1,742 +1,2416 @@
-/* ======================================================
-   BASE GLOBAL
-====================================================== */
+/* =========================================================
+   CENTRAL DE SORTEIO
+   PREMIUM UI
+========================================================= */
+
 .sorteioRifa-container {
-    max-width: 860px;
-    margin: 56px auto;
-    padding: 42px 36px;
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 1180px !important;
+
+    margin: 26px auto !important;
+    padding: 28px !important;
+
+    box-sizing: border-box !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    color: #0f172a !important;
+
     background:
-        linear-gradient(180deg,
-            rgba(15, 23, 42, 0.92),
-            rgba(2, 6, 23, 0.98)),
-        radial-gradient(circle at top,
-            rgba(56, 189, 248, 0.14),
-            transparent 60%);
-    border-radius: 26px;
-    border: 1px solid rgba(148, 163, 184, 0.22);
+        radial-gradient(circle at 100% 0%,
+            rgba(18, 61, 114, 0.09),
+            transparent 30%),
+        radial-gradient(circle at 0% 100%,
+            rgba(15, 23, 42, 0.045),
+            transparent 28%),
+        linear-gradient(145deg,
+            #e7ebf0 0%,
+            #eef1f4 48%,
+            #e3e8ed 100%) !important;
+
+    border: 1px solid #aab5c2 !important;
+    border-radius: 22px !important;
+
     box-shadow:
-        0 60px 160px rgba(0, 0, 0, 0.85),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    color: #e5e7eb;
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    position: relative;
-    overflow: hidden;
+        0 2px 5px rgba(15, 23, 42, 0.05),
+        0 14px 38px rgba(15, 23, 42, 0.09) !important;
+
+    overflow: hidden !important;
+
+    animation:
+        sorteioRifaEntradaTela 0.5s cubic-bezier(0.22, 1, 0.36, 1) both !important;
 }
 
-/* ======================================================
-   GLOW SUPERIOR SUTIL
-====================================================== */
-.sorteioRifa-container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at top,
-            rgba(56, 189, 248, 0.18),
-            transparent 55%);
-    pointer-events: none;
-}
+@keyframes sorteioRifaEntradaTela {
 
-/* ======================================================
-   ALERTAS E TEXTOS
-====================================================== */
-.sorteioRifa-alertaDefinitivo {
-    padding: 18px 22px;
-    border-radius: 16px;
-    background:
-        linear-gradient(180deg,
-            rgba(234, 179, 8, 0.18),
-            rgba(234, 179, 8, 0.08));
-    border: 1px solid rgba(234, 179, 8, 0.45);
-    color: #fde68a;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.6;
-    text-align: center;
-    box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.35);
-}
-
-/* ======================================================
-   ETAPA INICIAL
-====================================================== */
-.sorteioRifa-etapaInicial {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
-
-/* ======================================================
-   CONTROLE DE TEMPO
-====================================================== */
-.sorteioRifa-controleTempo {
-    display: flex;
-    gap: 18px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 8px 0;
-}
-
-/* ======================================================
-   INPUT DE TEMPO
-====================================================== */
-.sorteioRifa-inputTempo {
-    width: 260px;
-    padding: 16px 18px;
-    border-radius: 16px;
-    background:
-        linear-gradient(180deg,
-            rgba(2, 6, 23, 0.98),
-            rgba(2, 6, 23, 0.9));
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    color: #f8fafc;
-    font-size: 15px;
-    font-weight: 500;
-    outline: none;
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease,
-        transform 0.15s ease;
-}
-
-.sorteioRifa-inputTempo::placeholder {
-    color: #94a3b8;
-    font-weight: 400;
-}
-
-/* ======================================================
-   FOCO
-====================================================== */
-.sorteioRifa-inputTempo:focus {
-    border-color: #38bdf8;
-    background:
-        linear-gradient(180deg,
-            rgba(2, 6, 23, 1),
-            rgba(2, 6, 23, 0.92));
-    box-shadow:
-        0 0 0 3px rgba(56, 189, 248, 0.25),
-        0 10px 28px rgba(56, 189, 248, 0.35);
-    transform: translateY(-1px);
-}
-
-/* ======================================================
-   BOTÃO INICIAR
-====================================================== */
-.sorteioRifa-botaoIniciar {
-    padding: 16px 30px;
-    border-radius: 16px;
-    border: none;
-    background:
-        linear-gradient(135deg, #38bdf8, #2563eb),
-        radial-gradient(circle at top, rgba(255, 255, 255, 0.25), transparent 60%);
-    color: #020617;
-    font-size: 15px;
-    font-weight: 900;
-    letter-spacing: 0.4px;
-    cursor: pointer;
-    box-shadow:
-        0 22px 55px rgba(37, 99, 235, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        filter 0.18s ease,
-        opacity 0.18s ease;
-}
-
-.sorteioRifa-botaoIniciar:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.1);
-    box-shadow:
-        0 34px 80px rgba(37, 99, 235, 0.75);
-}
-
-.sorteioRifa-botaoIniciar:active {
-    transform: translateY(0);
-    box-shadow:
-        0 20px 45px rgba(37, 99, 235, 0.55);
-    opacity: 0.95;
-}
-
-/* ======================================================
-   BOTÃO INATIVO
-====================================================== */
-.sorteioRifa-botaoInativo {
-    opacity: 0.55;
-    cursor: not-allowed;
-    box-shadow: none;
-    filter: grayscale(0.2);
-}
-
-/* ======================================================
-   ÁREA DA ANIMAÇÃO
-====================================================== */
-.sorteioRifa-animacaoNumero {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    min-height: 200px;
-}
-
-/* ======================================================
-   EMOJIS FLUTUANTES
-====================================================== */
-.sorteioRifa-emojis {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.sorteioRifa-emoji {
-    position: absolute;
-    bottom: -40px;
-    animation: emojiSubir 3.8s ease-in forwards;
-    opacity: 0.9;
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45));
-}
-
-/* ======================================================
-   ANIMAÇÃO
-====================================================== */
-@keyframes emojiSubir {
     from {
-        transform: translateY(0) scale(0.7) rotate(0deg);
         opacity: 0;
-    }
-
-    20% {
-        opacity: 1;
+        transform: translateY(12px) scale(0.992);
     }
 
     to {
-        transform: translateY(-160%) scale(1.25) rotate(12deg);
-        opacity: 0;
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
-/* ======================================================
-   NÚMERO CENTRAL
-====================================================== */
-.sorteioRifa-numeroAtual {
-    min-width: 200px;
-    padding: 26px 0;
-    text-align: center;
-    font-size: 56px;
-    font-weight: 900;
-    letter-spacing: 8px;
-    border-radius: 22px;
-    z-index: 2;
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        filter 0.25s ease;
-}
 
-/* ======================================================
-   ESTADO RODANDO
-====================================================== */
-.sorteioRifa-numeroRodando {
-    color: #38bdf8;
+/* =========================================================
+   LINHA SUPERIOR
+========================================================= */
+
+.sorteioRifa-container::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 28px !important;
+    right: 28px !important;
+
+    height: 4px !important;
+
+    border-radius: 0 0 8px 8px !important;
+
     background:
-        linear-gradient(#020617, #020617) padding-box,
-        linear-gradient(135deg, #38bdf8, #2563eb) border-box;
-    border: 2px solid transparent;
-    box-shadow:
-        inset 0 0 28px rgba(56, 189, 248, 0.45),
-        0 0 60px rgba(56, 189, 248, 0.65);
-    animation: pulsoNumero 1.1s infinite alternate;
-    filter: brightness(1.05);
+        linear-gradient(90deg,
+            #0c2f59,
+            #1d5793,
+            #2b6aac,
+            #1d5793,
+            #0c2f59) !important;
+
+    background-size: 200% 100% !important;
+
+    animation:
+        sorteioRifaLinhaPremium 5s ease-in-out infinite !important;
 }
 
-/* ======================================================
-   ESTADO FINAL
-====================================================== */
-.sorteioRifa-numeroFinal {
-    color: #22c55e;
-    background:
-        linear-gradient(#020617, #020617) padding-box,
-        linear-gradient(135deg, #22c55e, #16a34a) border-box;
-    border: 2px solid transparent;
-    box-shadow:
-        inset 0 0 32px rgba(34, 197, 94, 0.55),
-        0 0 70px rgba(34, 197, 94, 0.75);
-    transform: scale(1.06);
+@keyframes sorteioRifaLinhaPremium {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-/* ======================================================
-   ANIMAÇÃO DO PULSO
-====================================================== */
-@keyframes pulsoNumero {
-    from {
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+.sorteioRifa-topoPremium {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 25px !important;
+
+    margin-bottom: 18px !important;
+    padding: 4px 3px 23px 3px !important;
+
+    border-bottom: 1px solid #aeb8c4 !important;
+}
+
+.sorteioRifa-topoTitulo {
+    min-width: 0 !important;
+}
+
+.sorteioRifa-topoEtiqueta {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    min-height: 26px !important;
+
+    padding: 0 10px !important;
+    margin-bottom: 8px !important;
+
+    border: 1px solid #b3c1d0 !important;
+    border-radius: 6px !important;
+
+    background: #e5edf6 !important;
+    color: #123d72 !important;
+
+    font-size: 11px !important;
+    font-weight: 850 !important;
+    letter-spacing: 1.25px !important;
+}
+
+.sorteioRifa-topoTitulo h2 {
+    margin: 0 0 6px 0 !important;
+
+    color: #0b1829 !important;
+
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.8px !important;
+}
+
+.sorteioRifa-topoTitulo p {
+    max-width: 650px !important;
+
+    margin: 0 !important;
+
+    color: #526174 !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.sorteioRifa-topoStatus {
+    flex-shrink: 0 !important;
+}
+
+.sorteioRifa-statusPronto,
+.sorteioRifa-statusExecutando,
+.sorteioRifa-statusConcluido {
+    min-height: 38px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 9px !important;
+
+    padding: 0 14px !important;
+
+    border-radius: 50px !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    white-space: nowrap !important;
+}
+
+.sorteioRifa-statusPronto {
+    border: 1px solid #9eb2c9 !important;
+
+    background: #e8eff7 !important;
+    color: #123d72 !important;
+}
+
+.sorteioRifa-statusExecutando {
+    border: 1px solid #c6a76a !important;
+
+    background: #fff7e6 !important;
+    color: #8a5710 !important;
+}
+
+.sorteioRifa-statusConcluido {
+    border: 1px solid #86bca1 !important;
+
+    background: #eaf7f0 !important;
+    color: #12633d !important;
+}
+
+.sorteioRifa-statusPronto i,
+.sorteioRifa-statusExecutando i,
+.sorteioRifa-statusConcluido i {
+    width: 8px !important;
+    height: 8px !important;
+
+    display: block !important;
+
+    border-radius: 50% !important;
+}
+
+.sorteioRifa-statusPronto i {
+    background: #245d9c !important;
+
+    box-shadow:
+        0 0 0 4px rgba(36, 93, 156, 0.12) !important;
+}
+
+.sorteioRifa-statusExecutando i {
+    background: #d38b1f !important;
+
+    box-shadow:
+        0 0 0 4px rgba(211, 139, 31, 0.13) !important;
+
+    animation:
+        sorteioRifaStatusPulse 1.2s ease infinite !important;
+}
+
+.sorteioRifa-statusConcluido i {
+    background: #168552 !important;
+
+    box-shadow:
+        0 0 0 4px rgba(22, 133, 82, 0.12) !important;
+}
+
+@keyframes sorteioRifaStatusPulse {
+
+    0%,
+    100% {
+        opacity: 1;
         transform: scale(1);
     }
 
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.sorteioRifa-resumoPremium {
+    display: grid !important;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 11px !important;
+
+    margin-bottom: 18px !important;
+}
+
+.sorteioRifa-resumoItem {
+    position: relative !important;
+
+    min-height: 82px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    padding: 15px 17px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f6f8fa) !important;
+
+    border: 1px solid #aeb8c5 !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 2px 4px rgba(15, 23, 42, 0.04),
+        0 5px 12px rgba(15, 23, 42, 0.045) !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.sorteioRifa-resumoItem::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(180deg,
+            #2a67a7,
+            #123d72) !important;
+}
+
+.sorteioRifa-resumoItem:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: #8999ab !important;
+
+    box-shadow:
+        0 9px 19px rgba(15, 23, 42, 0.085) !important;
+}
+
+.sorteioRifa-resumoLabel {
+    color: #68778a !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+    letter-spacing: 1px !important;
+}
+
+.sorteioRifa-resumoItem strong {
+    color: #152236 !important;
+
+    font-size: 16px !important;
+    font-weight: 850 !important;
+    line-height: 1.25 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+
+/* =========================================================
+   PALCO
+========================================================= */
+
+.sorteioRifa-palcoPremium {
+    position: relative !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #dce2e8 0%,
+            #e5e9ed 100%) !important;
+
+    border: 1px solid #a8b3c0 !important;
+    border-radius: 16px !important;
+
+    box-shadow:
+        inset 0 1px 3px rgba(15, 23, 42, 0.05) !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+.sorteioRifa-avisoPremium {
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 13px !important;
+
+    margin-bottom: 13px !important;
+    padding: 14px 16px !important;
+
+    background:
+        linear-gradient(90deg,
+            #fff8e8,
+            #fffaf0) !important;
+
+    border: 1px solid #d5b56e !important;
+    border-left: 4px solid #c98318 !important;
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.045) !important;
+}
+
+.sorteioRifa-avisoIcone {
+    width: 29px !important;
+    height: 29px !important;
+
+    flex-shrink: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 8px !important;
+
+    background: #c98318 !important;
+    color: #ffffff !important;
+
+    font-size: 15px !important;
+    font-weight: 900 !important;
+}
+
+.sorteioRifa-avisoPremium strong {
+    display: block !important;
+
+    margin-bottom: 3px !important;
+
+    color: #70430c !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+}
+
+.sorteioRifa-avisoPremium p {
+    margin: 0 !important;
+
+    color: #765826 !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   CONFIGURAÇÃO
+========================================================= */
+
+.sorteioRifa-configuracaoPremium {
+    display: grid !important;
+    grid-template-columns:
+        minmax(0, 1fr) minmax(360px, 0.8fr) !important;
+
+    gap: 24px !important;
+
+    padding: 25px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f7f9fb 100%) !important;
+
+    border: 1px solid #aab5c2 !important;
+    border-radius: 14px !important;
+
+    box-shadow:
+        0 5px 15px rgba(15, 23, 42, 0.06) !important;
+}
+
+.sorteioRifa-configuracaoTexto {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+.sorteioRifa-configuracaoTexto>span {
+    margin-bottom: 7px !important;
+
+    color: #245d9c !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.2px !important;
+}
+
+.sorteioRifa-configuracaoTexto h3 {
+    margin: 0 0 7px 0 !important;
+
+    color: #101c2e !important;
+
+    font-size: 23px !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.4px !important;
+}
+
+.sorteioRifa-configuracaoTexto p {
+    max-width: 530px !important;
+
+    margin: 0 !important;
+
+    color: #5b697a !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   CONTROLE DE TEMPO
+========================================================= */
+
+.sorteioRifa-controleTempoPremium {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 11px !important;
+}
+
+.sorteioRifa-campoTempo label {
+    display: block !important;
+
+    margin-bottom: 7px !important;
+
+    color: #344054 !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+}
+
+.sorteioRifa-inputTempoWrapper {
+    position: relative !important;
+}
+
+.sorteioRifa-inputTempo {
+    width: 100% !important;
+    height: 51px !important;
+
+    padding: 0 105px 0 15px !important;
+
+    box-sizing: border-box !important;
+
+    outline: none !important;
+
+    border: 1px solid #9eabb9 !important;
+    border-radius: 10px !important;
+
+    background: #f8fafc !important;
+    color: #101828 !important;
+
+    font-size: 15px !important;
+    font-weight: 750 !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035) !important;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease !important;
+}
+
+.sorteioRifa-inputTempo:focus {
+    border-color: #123d72 !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.12),
+        0 5px 12px rgba(15, 23, 42, 0.06) !important;
+}
+
+.sorteioRifa-inputTempo::placeholder {
+    color: #7a8797 !important;
+
+    opacity: 1 !important;
+}
+
+.sorteioRifa-inputTempoWrapper>span {
+    position: absolute !important;
+
+    top: 50% !important;
+    right: 14px !important;
+
+    transform: translateY(-50%) !important;
+
+    color: #667487 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   BOTÃO INICIAR
+========================================================= */
+
+.sorteioRifa-botaoIniciar {
+    position: relative !important;
+
+    width: 100% !important;
+    min-height: 62px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 13px !important;
+
+    padding: 0 20px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #092a50 !important;
+    border-radius: 11px !important;
+
+    background:
+        linear-gradient(180deg,
+            #194f8b 0%,
+            #123d72 50%,
+            #0c315e 100%) !important;
+
+    color: #ffffff !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 3px 5px rgba(15, 23, 42, 0.13),
+        0 9px 20px rgba(18, 61, 114, 0.25) !important;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease !important;
+}
+
+.sorteioRifa-botaoIniciar::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -40% !important;
+
+    width: 28% !important;
+    height: 100% !important;
+
+    transform: skewX(-20deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.20),
+            transparent) !important;
+
+    transition: left 0.6s ease !important;
+}
+
+.sorteioRifa-botaoIniciar:hover:not(:disabled)::before {
+    left: 120% !important;
+}
+
+.sorteioRifa-botaoIniciar:hover:not(:disabled) {
+    transform: translateY(-3px) !important;
+
+    box-shadow:
+        0 4px 7px rgba(15, 23, 42, 0.14),
+        0 14px 28px rgba(18, 61, 114, 0.31) !important;
+}
+
+.sorteioRifa-botaoIniciar:active:not(:disabled) {
+    transform: translateY(0) scale(0.99) !important;
+}
+
+.sorteioRifa-botaoIniciar:disabled {
+    opacity: 0.52 !important;
+
+    cursor: not-allowed !important;
+
+    box-shadow: none !important;
+}
+
+.sorteioRifa-botaoIniciarIcone {
+    width: 34px !important;
+    height: 34px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-radius: 50% !important;
+
+    background: rgba(255, 255, 255, 0.10) !important;
+
+    font-size: 12px !important;
+}
+
+.sorteioRifa-botaoIniciarTexto {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    gap: 2px !important;
+}
+
+.sorteioRifa-botaoIniciarTexto small {
+    color: rgba(255, 255, 255, 0.72) !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+}
+
+.sorteioRifa-botaoIniciarTexto strong {
+    color: #ffffff !important;
+
+    font-size: 15px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   MÁQUINA DE SORTEIO
+========================================================= */
+
+.sorteioRifa-maquinaPremium {
+    position: relative !important;
+
+    min-height: 550px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    padding: 22px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #263c57 !important;
+    border-radius: 17px !important;
+
+    background:
+        radial-gradient(circle at 50% 44%,
+            rgba(49, 111, 176, 0.19),
+            transparent 23%),
+        radial-gradient(circle at 50% 50%,
+            #172b44 0%,
+            #0e1e32 45%,
+            #091523 100%) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        inset 0 -40px 80px rgba(0, 0, 0, 0.18),
+        0 10px 30px rgba(15, 23, 42, 0.16) !important;
+}
+
+
+/* GRID DE FUNDO */
+
+.sorteioRifa-maquinaPremium::before {
+    content: "" !important;
+
+    position: absolute !important;
+    inset: 0 !important;
+
+    opacity: 0.12 !important;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.10) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.10) 1px,
+            transparent 1px) !important;
+
+    background-size: 38px 38px !important;
+
+    mask-image:
+        radial-gradient(circle at center,
+            black,
+            transparent 75%) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO DA MÁQUINA
+========================================================= */
+
+.sorteioRifa-maquinaCabecalho {
+    position: relative !important;
+    z-index: 5 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    padding-bottom: 16px !important;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10) !important;
+}
+
+.sorteioRifa-maquinaIndicador {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 9px !important;
+
+    color: #dbeafe !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+    letter-spacing: 1.3px !important;
+}
+
+.sorteioRifa-maquinaIndicador i {
+    width: 8px !important;
+    height: 8px !important;
+
+    border-radius: 50% !important;
+
+    background: #67a6e7 !important;
+
+    box-shadow:
+        0 0 0 5px rgba(103, 166, 231, 0.10),
+        0 0 15px rgba(103, 166, 231, 0.65) !important;
+
+    animation:
+        sorteioRifaMaquinaLed 0.8s ease infinite !important;
+}
+
+@keyframes sorteioRifaMaquinaLed {
+
+    50% {
+        opacity: 0.45;
+    }
+}
+
+.sorteioRifa-maquinaIntervalo {
+    color: #9fb2c8 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   CENTRO DA MÁQUINA
+========================================================= */
+
+.sorteioRifa-maquinaCentro {
+    position: relative !important;
+    z-index: 3 !important;
+
+    flex: 1 !important;
+
+    min-height: 350px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+/* =========================================================
+   ANEL EXTERNO
+========================================================= */
+
+.sorteioRifa-anelExterno {
+    position: relative !important;
+    z-index: 5 !important;
+
+    width: 285px !important;
+    height: 285px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    background:
+        conic-gradient(from 0deg,
+            rgba(84, 153, 222, 0.15),
+            #4c91d4,
+            rgba(84, 153, 222, 0.12),
+            #8ab9e7,
+            rgba(84, 153, 222, 0.15)) !important;
+
+    padding: 2px !important;
+
+    box-shadow:
+        0 0 35px rgba(67, 137, 207, 0.17),
+        0 0 80px rgba(67, 137, 207, 0.10) !important;
+
+    animation:
+        sorteioRifaAnelRotacao 7s linear infinite !important;
+}
+
+@keyframes sorteioRifaAnelRotacao {
+
     to {
-        transform: scale(1.08);
+        transform: rotate(360deg);
     }
 }
 
-/* ======================================================
-   RESULTADO FINAL
-====================================================== */
-.sorteioRifa-resultadoFinal {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    align-items: center;
-    text-align: center;
-    margin-top: 12px;
-}
 
-.sorteioRifa-numeroSorteado {
-    font-size: 30px;
-    font-weight: 900;
-    color: #f8fafc;
-    letter-spacing: -0.3px;
-}
+/* =========================================================
+   ANEL MÉDIO
+========================================================= */
 
-.sorteioRifa-numeroSorteado span {
-    color: #38bdf8;
-}
+.sorteioRifa-anelMedio {
+    width: 255px !important;
+    height: 255px !important;
 
-/* ======================================================
-   SEM GANHADOR
-====================================================== */
-.sorteioRifa-blocoSemGanhador {
-    padding: 26px 28px;
-    border-radius: 18px;
-    background:
-        linear-gradient(180deg,
-            rgba(148, 163, 184, 0.12),
-            rgba(148, 163, 184, 0.06));
-    border: 1px solid rgba(148, 163, 184, 0.35);
-    box-shadow:
-        0 14px 40px rgba(0, 0, 0, 0.45);
-}
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-/* ======================================================
-   TEXTO · SEM GANHADOR
-====================================================== */
-.sorteioRifa-textoSemGanhador {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #f8fafc !important;
-    text-align: center;
-    max-width: 520px;
-}
-
-/* ======================================================
-   GANHADOR
-====================================================== */
-.sorteioRifa-blocoGanhador {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    align-items: center;
-    text-align: center;
-}
-
-/* ======================================================
-   NOME DO GANHADOR
-====================================================== */
-.sorteioRifa-nomeGanhador {
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: -0.4px;
-    color: #22c55e !important;
-    text-shadow: 0 0 18px rgba(34, 197, 94, 0.45);
-}
-
-/* ======================================================
-   AÇÕES
-====================================================== */
-.sorteioRifa-acoesContato {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-/* ======================================================
-   WHATSAPP
-====================================================== */
-.sorteioRifa-linkWhatsapp {
-    padding: 14px 24px;
-    border-radius: 16px;
-    background:
-        linear-gradient(135deg, #22c55e, #16a34a),
-        radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 60%);
-    color: #052e16;
-    font-weight: 900;
-    letter-spacing: 0.3px;
-    text-decoration: none;
-    box-shadow:
-        0 20px 45px rgba(34, 197, 94, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        filter 0.18s ease;
-}
-
-.sorteioRifa-linkWhatsapp:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.08);
-    box-shadow:
-        0 30px 70px rgba(34, 197, 94, 0.75);
-}
-
-/* ======================================================
-   COPIAR EMAIL
-====================================================== */
-.sorteioRifa-botaoCopiarEmail {
-    padding: 14px 24px;
-    border-radius: 16px;
-    border: 1px solid rgba(148, 163, 184, 0.35);
-    background:
-        linear-gradient(180deg,
-            rgba(2, 6, 23, 0.98),
-            rgba(2, 6, 23, 0.9));
-    color: #e5e7eb;
-    font-weight: 800;
-    letter-spacing: 0.2px;
-    cursor: pointer;
-    box-shadow:
-        0 14px 30px rgba(0, 0, 0, 0.35);
-    transition:
-        background 0.18s ease,
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        color 0.18s ease;
-}
-
-.sorteioRifa-botaoCopiarEmail:hover {
-    background:
-        linear-gradient(180deg,
-            rgba(15, 23, 42, 0.95),
-            rgba(2, 6, 23, 0.98));
-    transform: translateY(-2px);
-    box-shadow:
-        0 22px 48px rgba(0, 0, 0, 0.45);
-    color: #f9fafb;
-}
-
-/* ======================================================
-   ERRO
-====================================================== */
-.sorteioRifa-mensagemErro {
-    margin-top: 26px;
-    padding: 14px 18px;
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
-
-    text-align: center;
-    font-size: 14px;
-    font-weight: 800;
-    line-height: 1.5;
-    letter-spacing: 0.2px;
-
-    color: #fecaca;
+    border: 1px solid rgba(132, 181, 229, 0.25) !important;
+    border-radius: 50% !important;
 
     background:
-        linear-gradient(180deg,
-            rgba(239, 68, 68, 0.22),
-            rgba(239, 68, 68, 0.12));
-    border: 1px solid rgba(239, 68, 68, 0.45);
-    border-radius: 16px;
+        radial-gradient(circle,
+            #142b45,
+            #0b1b2d) !important;
 
     box-shadow:
-        0 14px 36px rgba(239, 68, 68, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        inset 0 0 35px rgba(80, 148, 215, 0.10) !important;
+
+    animation:
+        sorteioRifaAnelContraRotacao 7s linear infinite !important;
 }
 
-/* ======================================================
-   ESTADO COMEMORATIVO · RESULTADO FINAL
-====================================================== */
+@keyframes sorteioRifaAnelContraRotacao {
 
-.sorteioRifa-numeroFinal {
-    color: #22c55e;
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+
+/* =========================================================
+   VISOR
+========================================================= */
+
+.sorteioRifa-visorNumero {
+    width: 190px !important;
+    height: 190px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 4px !important;
+
+    border: 1px solid rgba(130, 183, 235, 0.30) !important;
+    border-radius: 50% !important;
+
     background:
-        linear-gradient(#020617, #020617) padding-box,
-        linear-gradient(135deg, #22c55e, #16a34a) border-box;
-    border: 2px solid transparent;
+        radial-gradient(circle at 50% 38%,
+            #193b5e,
+            #102a44 50%,
+            #0b2035) !important;
 
     box-shadow:
-        inset 0 0 40px rgba(34, 197, 94, 0.55),
-        0 0 90px rgba(34, 197, 94, 0.75),
-        0 0 140px rgba(34, 197, 94, 0.45);
+        inset 0 0 30px rgba(93, 160, 226, 0.12),
+        0 0 25px rgba(69, 140, 211, 0.14) !important;
 
-    transform: scale(1.08);
-    animation: numeroFinalEntrada 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: rotate(0deg) !important;
 }
 
-/* ======================================================
-   ANIMAÇÃO DE ENTRADA DO RESULTADO
-====================================================== */
-@keyframes numeroFinalEntrada {
+.sorteioRifa-visorLegenda {
+    color: #82a9d0 !important;
+
+    font-size: 9px !important;
+    font-weight: 850 !important;
+    letter-spacing: 2px !important;
+}
+
+
+/* =========================================================
+   NÚMERO RODANDO
+========================================================= */
+
+.sorteioRifa-numeroAtual {
+    display: block !important;
+
+    min-width: 130px !important;
+
+    color: #ffffff !important;
+
+    text-align: center !important;
+
+    font-size: 74px !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    letter-spacing: -4px !important;
+
+    font-variant-numeric: tabular-nums !important;
+
+    text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.25),
+        0 0 25px rgba(93, 166, 236, 0.42) !important;
+}
+
+.sorteioRifa-numeroRodando {
+    animation:
+        sorteioRifaNumeroTroca 0.08s ease both !important;
+}
+
+@keyframes sorteioRifaNumeroTroca {
+
     0% {
-        transform: scale(0.85);
-        opacity: 0;
-        filter: blur(6px);
-    }
-
-    60% {
-        transform: scale(1.12);
-        opacity: 1;
-        filter: blur(0);
+        opacity: 0.25;
+        transform: translateY(-8px) scale(0.94);
+        filter: blur(3px);
     }
 
     100% {
-        transform: scale(1.08);
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
-/* ======================================================
-   FUNDO COMEMORATIVO QUANDO FINALIZA
-====================================================== */
-.sorteioRifa-container:has(.sorteioRifa-numeroFinal) {
-    background:
-        linear-gradient(180deg,
-            rgba(2, 6, 23, 0.96),
-            rgba(2, 6, 23, 1)),
-        radial-gradient(circle at top,
-            rgba(34, 197, 94, 0.18),
-            transparent 60%);
+
+/* =========================================================
+   PULSOS
+========================================================= */
+
+.sorteioRifa-pulso {
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 50% !important;
+
+    width: 280px !important;
+    height: 280px !important;
+
+    border: 1px solid rgba(87, 153, 218, 0.20) !important;
+    border-radius: 50% !important;
+
+    transform:
+        translate(-50%, -50%) scale(0.8) !important;
+
+    opacity: 0 !important;
+
+    animation:
+        sorteioRifaPulsoMaquina 2.8s ease-out infinite !important;
 }
 
-/* ===============================
-   COMEMORAÇÃO FINAL
-================================ */
-
-.sorteioRifa-comemoracao {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9999;
-    overflow: hidden;
+.sorteioRifa-pulso.pulsoDois {
+    animation-delay: 0.9s !important;
 }
 
-.sorteioRifa-fogo {
-    position: absolute;
-    bottom: -40px;
-    animation: subirExplodir 3.5s ease-out forwards;
-    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
+.sorteioRifa-pulso.pulsoTres {
+    animation-delay: 1.8s !important;
 }
 
-@keyframes subirExplodir {
+@keyframes sorteioRifaPulsoMaquina {
+
     0% {
-        transform: translateY(0) scale(0.6);
+        opacity: 0.6;
+        transform:
+            translate(-50%, -50%) scale(0.75);
+    }
+
+    100% {
         opacity: 0;
+        transform:
+            translate(-50%, -50%) scale(1.65);
+    }
+}
+
+
+/* =========================================================
+   RODAPÉ DA MÁQUINA
+========================================================= */
+
+.sorteioRifa-maquinaRodape {
+    position: relative !important;
+    z-index: 5 !important;
+
+    width: 100% !important;
+    max-width: 650px !important;
+
+    margin: auto !important;
+}
+
+.sorteioRifa-processando {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    margin-bottom: 10px !important;
+}
+
+.sorteioRifa-processando>span {
+    width: 7px !important;
+    height: 7px !important;
+
+    border-radius: 50% !important;
+
+    background: #70aee9 !important;
+
+    box-shadow:
+        0 0 12px rgba(112, 174, 233, 0.65) !important;
+
+    animation:
+        sorteioRifaProcessandoLed 0.75s ease infinite !important;
+}
+
+@keyframes sorteioRifaProcessandoLed {
+
+    50% {
+        opacity: 0.25;
+    }
+}
+
+.sorteioRifa-processando p {
+    margin: 0 !important;
+
+    color: #c4d3e2 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+}
+
+.sorteioRifa-barraSorteando {
+    position: relative !important;
+
+    width: 100% !important;
+    height: 5px !important;
+
+    overflow: hidden !important;
+
+    border-radius: 50px !important;
+
+    background: rgba(255, 255, 255, 0.09) !important;
+}
+
+.sorteioRifa-barraSorteando span {
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -35% !important;
+
+    width: 35% !important;
+    height: 100% !important;
+
+    border-radius: inherit !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #71afea,
+            #b7dafb,
+            transparent) !important;
+
+    box-shadow:
+        0 0 12px rgba(113, 175, 234, 0.65) !important;
+
+    animation:
+        sorteioRifaBarraProcessamento 1.2s ease-in-out infinite !important;
+}
+
+@keyframes sorteioRifaBarraProcessamento {
+
+    from {
+        left: -35%;
+    }
+
+    to {
+        left: 105%;
+    }
+}
+
+.sorteioRifa-maquinaRodape small {
+    display: block !important;
+
+    margin-top: 9px !important;
+
+    color: #7f94aa !important;
+
+    text-align: center !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+}
+
+
+/* =========================================================
+   PARTÍCULAS
+========================================================= */
+
+.sorteioRifa-particulas {
+    position: absolute !important;
+    inset: 0 !important;
+
+    z-index: 2 !important;
+
+    pointer-events: none !important;
+
+    overflow: hidden !important;
+}
+
+.sorteioRifa-particula {
+    position: absolute !important;
+
+    left: var(--particula-x) !important;
+    bottom: -10px !important;
+
+    width: var(--particula-tamanho) !important;
+    height: var(--particula-tamanho) !important;
+
+    border-radius: 50% !important;
+
+    background: #75afe6 !important;
+
+    opacity: 0 !important;
+
+    box-shadow:
+        0 0 8px rgba(117, 175, 230, 0.65) !important;
+
+    animation:
+        sorteioRifaParticulaSubindo 4s linear infinite !important;
+
+    animation-delay:
+        var(--particula-delay) !important;
+}
+
+@keyframes sorteioRifaParticulaSubindo {
+
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5);
     }
 
     20% {
-        opacity: 1;
+        opacity: 0.7;
     }
 
-    60% {
-        transform: translateY(-70vh) scale(1.2);
-        opacity: 1;
+    80% {
+        opacity: 0.35;
     }
 
     100% {
-        transform: translateY(-100vh) scale(1.6);
         opacity: 0;
+        transform: translateY(-500px) scale(1.2);
     }
 }
 
-/* ===============================
-   FOGOS ARTIFICIAIS · REAL
-================================ */
+
+/* =========================================================
+   RESULTADO FINAL
+========================================================= */
+
+.sorteioRifa-resultadoPremium {
+    position: relative !important;
+
+    padding: 28px !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #a7b3c0 !important;
+    border-radius: 17px !important;
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(32, 91, 151, 0.09),
+            transparent 33%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f2f5f8) !important;
+
+    box-shadow:
+        0 7px 20px rgba(15, 23, 42, 0.07) !important;
+
+    animation:
+        sorteioRifaResultadoEntrada 0.7s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@keyframes sorteioRifaResultadoEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.975);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.sorteioRifa-resultadoCabecalho {
+    text-align: center !important;
+}
+
+.sorteioRifa-resultadoCabecalho>span {
+    display: inline-flex !important;
+
+    margin-bottom: 8px !important;
+
+    color: #18724a !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.4px !important;
+}
+
+.sorteioRifa-resultadoCabecalho h3 {
+    margin: 0 0 5px 0 !important;
+
+    color: #101c2d !important;
+
+    font-size: 27px !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.5px !important;
+}
+
+.sorteioRifa-resultadoCabecalho p {
+    margin: 0 !important;
+
+    color: #5d6979 !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   NÚMERO VENCEDOR
+========================================================= */
+
+.sorteioRifa-numeroVencedorPremium {
+    position: relative !important;
+
+    width: 230px !important;
+    height: 230px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 6px !important;
+
+    margin: 28px auto !important;
+
+    border: 1px solid #6d8fb2 !important;
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle at 50% 35%,
+            #214f7f,
+            #123d72 55%,
+            #0b2c55) !important;
+
+    box-shadow:
+        0 0 0 10px #e5ebf1,
+        0 0 0 11px #aab8c7,
+        0 15px 35px rgba(18, 61, 114, 0.25) !important;
+
+    animation:
+        sorteioRifaNumeroVencedor 0.85s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@keyframes sorteioRifaNumeroVencedor {
+
+    from {
+        opacity: 0;
+        transform: scale(0.65) rotate(-8deg);
+    }
+
+    65% {
+        transform: scale(1.06) rotate(2deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+.sorteioRifa-numeroVencedorPremium>span {
+    color: #a9c7e4 !important;
+
+    font-size: 9px !important;
+    font-weight: 850 !important;
+    letter-spacing: 1.7px !important;
+}
+
+.sorteioRifa-numeroVencedorPremium>strong {
+    color: #ffffff !important;
+
+    font-size: 75px !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    letter-spacing: -4px !important;
+
+    font-variant-numeric: tabular-nums !important;
+
+    text-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.18),
+        0 0 22px rgba(255, 255, 255, 0.13) !important;
+}
+
+
+/* =========================================================
+   GANHADOR
+========================================================= */
+
+.sorteioRifa-ganhadorPremium {
+    max-width: 760px !important;
+
+    margin: 0 auto !important;
+    padding: 22px !important;
+
+    border: 1px solid #9eb8ab !important;
+    border-radius: 14px !important;
+
+    background:
+        linear-gradient(145deg,
+            #f3fbf7,
+            #ffffff) !important;
+
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.05) !important;
+}
+
+.sorteioRifa-ganhadorCabecalho {
+    text-align: center !important;
+}
+
+.sorteioRifa-ganhadorEtiqueta {
+    display: inline-flex !important;
+
+    margin-bottom: 7px !important;
+
+    color: #147447 !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.4px !important;
+}
+
+.sorteioRifa-ganhadorCabecalho h3 {
+    margin: 0 0 5px 0 !important;
+
+    color: #10291f !important;
+
+    font-size: 25px !important;
+    font-weight: 900 !important;
+}
+
+.sorteioRifa-ganhadorCabecalho p {
+    margin: 0 !important;
+
+    color: #53685f !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.sorteioRifa-ganhadorCabecalho p strong {
+    color: #12653e !important;
+
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   DADOS GANHADOR
+========================================================= */
+
+.sorteioRifa-ganhadorDados {
+    display: grid !important;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 9px !important;
+
+    margin-top: 18px !important;
+}
+
+.sorteioRifa-ganhadorDados>div {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    padding: 13px 14px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #b8c5bf !important;
+    border-radius: 9px !important;
+}
+
+.sorteioRifa-ganhadorDados span {
+    color: #708079 !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    text-transform: uppercase !important;
+}
+
+.sorteioRifa-ganhadorDados strong {
+    color: #1f352c !important;
+
+    font-size: 13px !important;
+    font-weight: 750 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+
+/* =========================================================
+   CONTATO
+========================================================= */
+
+.sorteioRifa-acoesContato {
+    display: grid !important;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 9px !important;
+
+    margin-top: 12px !important;
+}
+
+.sorteioRifa-linkWhatsapp,
+.sorteioRifa-botaoCopiarEmail {
+    min-height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 17px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 9px !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    text-decoration: none !important;
+
+    cursor: pointer !important;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease !important;
+}
+
+.sorteioRifa-linkWhatsapp {
+    border: 1px solid #14794a !important;
+
+    background: #14794a !important;
+    color: #ffffff !important;
+
+    box-shadow:
+        0 5px 12px rgba(20, 121, 74, 0.16) !important;
+}
+
+.sorteioRifa-linkWhatsapp:hover {
+    background: #10663e !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 8px 17px rgba(20, 121, 74, 0.23) !important;
+}
+
+.sorteioRifa-botaoCopiarEmail {
+    border: 1px solid #9ba8b6 !important;
+
+    background: #ffffff !important;
+    color: #344054 !important;
+}
+
+.sorteioRifa-botaoCopiarEmail:hover {
+    border-color: #123d72 !important;
+
+    background: #123d72 !important;
+    color: #ffffff !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 7px 15px rgba(18, 61, 114, 0.19) !important;
+}
+
+
+/* =========================================================
+   SEM GANHADOR
+========================================================= */
+
+.sorteioRifa-semGanhadorPremium {
+    max-width: 720px !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 15px !important;
+
+    margin: 0 auto !important;
+    padding: 20px !important;
+
+    border: 1px solid #d1b36f !important;
+    border-radius: 13px !important;
+
+    background:
+        linear-gradient(145deg,
+            #fff9eb,
+            #fffdf7) !important;
+}
+
+.sorteioRifa-semGanhadorIcone {
+    width: 40px !important;
+    height: 40px !important;
+
+    flex-shrink: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 10px !important;
+
+    background: #b97716 !important;
+    color: #ffffff !important;
+
+    font-size: 18px !important;
+    font-weight: 900 !important;
+}
+
+.sorteioRifa-semGanhadorPremium span {
+    color: #a2620b !important;
+
+    font-size: 9px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.3px !important;
+}
+
+.sorteioRifa-semGanhadorPremium h4 {
+    margin: 4px 0 5px 0 !important;
+
+    color: #68420d !important;
+
+    font-size: 17px !important;
+    font-weight: 850 !important;
+}
+
+.sorteioRifa-semGanhadorPremium p {
+    margin: 0 !important;
+
+    color: #755a31 !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.sorteioRifa-mensagemErro {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+
+    margin-top: 13px !important;
+    padding: 14px 16px !important;
+
+    border: 1px solid #e29b96 !important;
+    border-left: 4px solid #c9362b !important;
+    border-radius: 9px !important;
+
+    background: #fff1f0 !important;
+}
+
+.sorteioRifa-mensagemErro strong {
+    color: #a3231b !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+}
+
+.sorteioRifa-mensagemErro span {
+    color: #a9443d !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   CARREGAMENTO PREMIUM
+========================================================= */
+
+.sorteioRifa-carregamentoPremium {
+    min-height: 540px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #9faebd !important;
+    border-radius: 17px !important;
+
+    background:
+        radial-gradient(circle at 50% 45%,
+            rgba(35, 91, 148, 0.10),
+            transparent 25%),
+        linear-gradient(145deg,
+            #f9fafb,
+            #edf1f5) !important;
+
+    box-shadow:
+        0 8px 22px rgba(15, 23, 42, 0.07) !important;
+}
+
+.sorteioRifa-carregamentoCabecalho {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    padding: 17px 20px !important;
+
+    border-bottom: 1px solid #bcc6d1 !important;
+}
+
+.sorteioRifa-carregamentoStatus {
+    color: #123d72 !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.4px !important;
+}
+
+.sorteioRifa-carregamentoSeguro {
+    color: #677587 !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   CENTRO DO CARREGAMENTO
+========================================================= */
+
+.sorteioRifa-carregamentoCentro {
+    flex: 1 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 35px 25px !important;
+}
+
+.sorteioRifa-loaderPrincipal {
+    position: relative !important;
+
+    width: 155px !important;
+    height: 155px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 24px !important;
+}
+
+.sorteioRifa-loaderOrbita {
+    position: absolute !important;
+
+    border-radius: 50% !important;
+}
+
+.sorteioRifa-loaderOrbitaUm {
+    inset: 0 !important;
+
+    border:
+        2px solid rgba(18, 61, 114, 0.10) !important;
+
+    border-top-color: #245d9c !important;
+    border-right-color: #245d9c !important;
+
+    animation:
+        sorteioRifaLoaderGirar 1.5s linear infinite !important;
+}
+
+.sorteioRifa-loaderOrbitaDois {
+    inset: 14px !important;
+
+    border:
+        1px dashed rgba(18, 61, 114, 0.35) !important;
+
+    animation:
+        sorteioRifaLoaderGirarReverso 3s linear infinite !important;
+}
+
+@keyframes sorteioRifaLoaderGirar {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes sorteioRifaLoaderGirarReverso {
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.sorteioRifa-loaderNucleo {
+    width: 98px !important;
+    height: 98px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px solid #a1b1c2 !important;
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle at 50% 35%,
+            #ffffff,
+            #e7edf3) !important;
+
+    box-shadow:
+        0 8px 22px rgba(15, 23, 42, 0.09),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+}
+
+.sorteioRifa-loaderNumero {
+    color: #123d72 !important;
+
+    font-size: 42px !important;
+    font-weight: 900 !important;
+
+    animation:
+        sorteioRifaInterrogacao 1.4s ease-in-out infinite !important;
+}
+
+@keyframes sorteioRifaInterrogacao {
+
+    50% {
+        opacity: 0.45;
+        transform: scale(0.9);
+    }
+}
+
+
+/* =========================================================
+   TEXTO DO CARREGAMENTO
+========================================================= */
+
+.sorteioRifa-carregamentoTexto {
+    max-width: 540px !important;
+
+    text-align: center !important;
+}
+
+.sorteioRifa-carregamentoEtiqueta {
+    color: #245d9c !important;
+
+    font-size: 9px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.4px !important;
+}
+
+.sorteioRifa-carregamentoTexto h3 {
+    margin: 7px 0 6px 0 !important;
+
+    color: #101c2e !important;
+
+    font-size: 25px !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.4px !important;
+}
+
+.sorteioRifa-carregamentoTexto p {
+    margin: 0 !important;
+
+    color: #5c6b7d !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   PROGRESSO DA VERIFICAÇÃO
+========================================================= */
+
+.sorteioRifa-progressoVerificacao {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 480px !important;
+    height: 5px !important;
+
+    margin-top: 25px !important;
+
+    overflow: hidden !important;
+
+    border-radius: 20px !important;
+
+    background: #d6dde5 !important;
+}
+
+.sorteioRifa-progressoBarra {
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -35% !important;
+
+    width: 35% !important;
+    height: 100% !important;
+
+    border-radius: inherit !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #245d9c,
+            #5e94c9,
+            transparent) !important;
+
+    animation:
+        sorteioRifaVerificandoBarra 1.25s ease-in-out infinite !important;
+}
+
+@keyframes sorteioRifaVerificandoBarra {
+
+    from {
+        left: -35%;
+    }
+
+    to {
+        left: 105%;
+    }
+}
+
+
+/* =========================================================
+   ETAPAS DE VERIFICAÇÃO
+========================================================= */
+
+.sorteioRifa-etapasVerificacao {
+    width: 100% !important;
+    max-width: 610px !important;
+
+    display: grid !important;
+    grid-template-columns:
+        repeat(3, 1fr) !important;
+
+    gap: 8px !important;
+
+    margin-top: 20px !important;
+}
+
+.sorteioRifa-etapaVerificacao {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    padding: 9px 10px !important;
+
+    border: 1px solid #c1c9d2 !important;
+    border-radius: 8px !important;
+
+    background: rgba(255, 255, 255, 0.55) !important;
+
+    opacity: 0.55 !important;
+}
+
+.sorteioRifa-etapaVerificacao.ativa {
+    border-color: #9eb2c7 !important;
+
+    background: #f8fafc !important;
+
+    opacity: 1 !important;
+}
+
+.sorteioRifa-etapaVerificacao span {
+    width: 25px !important;
+    height: 25px !important;
+
+    flex-shrink: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 7px !important;
+
+    background: #e5ebf1 !important;
+    color: #123d72 !important;
+
+    font-size: 9px !important;
+    font-weight: 900 !important;
+}
+
+.sorteioRifa-etapaVerificacao p {
+    margin: 0 !important;
+
+    color: #556476 !important;
+
+    font-size: 10px !important;
+    font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   BLOQUEIO
+========================================================= */
+
+.sorteioRifa-bloqueioPremium {
+    max-width: 850px !important;
+
+    margin: 0 auto !important;
+    padding: 45px 35px !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+
+    border: 1px solid #aeb9c6 !important;
+    border-radius: 17px !important;
+
+    background:
+        radial-gradient(circle at top,
+            rgba(18, 61, 114, 0.07),
+            transparent 35%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f1f4f7) !important;
+
+    box-shadow:
+        0 8px 22px rgba(15, 23, 42, 0.07) !important;
+}
+
+.sorteioRifa-bloqueioIcone {
+    width: 70px !important;
+    height: 70px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 auto 16px auto !important;
+
+    border: 1px solid #a6b5c5 !important;
+    border-radius: 50% !important;
+
+    background: #e8eef4 !important;
+
+    font-size: 28px !important;
+
+    box-shadow:
+        0 6px 15px rgba(15, 23, 42, 0.07) !important;
+}
+
+.sorteioRifa-bloqueioEtiqueta {
+    color: #245d9c !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.4px !important;
+}
+
+.sorteioRifa-bloqueioPremium h3 {
+    margin: 8px 0 7px 0 !important;
+
+    color: #101c2d !important;
+
+    font-size: 25px !important;
+    font-weight: 900 !important;
+}
+
+.sorteioRifa-bloqueioPremium>p {
+    margin: 0 auto !important;
+
+    max-width: 580px !important;
+
+    color: #5d6979 !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.55 !important;
+}
+
+.sorteioRifa-bloqueioDados {
+    display: grid !important;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 9px !important;
+
+    margin-top: 27px !important;
+}
+
+.sorteioRifa-bloqueioDados>div {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    padding: 14px !important;
+
+    border: 1px solid #b5bfca !important;
+    border-radius: 9px !important;
+
+    background: #f9fafb !important;
+}
+
+.sorteioRifa-bloqueioDados span {
+    color: #738092 !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+}
+
+.sorteioRifa-bloqueioDados strong {
+    color: #233044 !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+
+/* =========================================================
+   COMEMORAÇÃO
+========================================================= */
+
+.sorteioRifa-comemoracao {
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    z-index: 999999 !important;
+
+    pointer-events: none !important;
+
+    overflow: hidden !important;
+}
 
 .sorteioRifa-fogo {
-    position: absolute;
-    bottom: -60px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: transparent;
-    animation: fogueteSubir 1.6s ease-out forwards,
-        explosao 0.8s ease-out forwards;
-    animation-delay: 0s, 1.6s;
+    position: absolute !important;
+
+    top: -50px !important;
+
+    color: #245d9c !important;
+
+    opacity: 0 !important;
+
+    text-shadow:
+        0 0 10px rgba(36, 93, 156, 0.35) !important;
+
+    animation:
+        sorteioRifaCelebracaoPremium 3.5s cubic-bezier(0.15, 0.8, 0.3, 1) forwards !important;
 }
 
-/* SUBIDA DO FOGUETE */
-@keyframes fogueteSubir {
+@keyframes sorteioRifaCelebracaoPremium {
+
     0% {
-        transform: translateY(0);
-        opacity: 1;
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+        opacity: 0;
+        transform:
+            translateY(-30px) rotate(0deg) scale(0.5);
     }
 
-    100% {
-        transform: translateY(-65vh);
-        opacity: 1;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    12% {
+        opacity: 0.9;
     }
-}
 
-/* EXPLOSÃO */
-@keyframes explosao {
-    0% {
-        box-shadow: 0 0 0 transparent;
-        opacity: 1;
+    80% {
+        opacity: 0.7;
     }
 
     100% {
         opacity: 0;
-        box-shadow:
-            0 0 0 0 #fff,
-            30px 0 0 #22c55e,
-            -30px 0 0 #38bdf8,
-            0 30px 0 #facc15,
-            0 -30px 0 #a855f7,
-            22px 22px 0 #fb7185,
-            -22px 22px 0 #4ade80,
-            22px -22px 0 #60a5fa,
-            -22px -22px 0 #f472b6;
+        transform:
+            translateY(105vh) rotate(520deg) scale(1.2);
     }
 }
 
-/* ======================================================
-   RESPONSIVO · TABLET
-====================================================== */
-@media (max-width: 1024px) {
-    .sorteioRifa-container {
-        margin: 40px 16px;
-        padding: 36px 28px;
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .sorteioRifa-resumoPremium {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
     }
 
-    .sorteioRifa-numeroAtual {
-        min-width: 180px;
-        font-size: 48px;
-        letter-spacing: 6px;
+    .sorteioRifa-configuracaoPremium {
+        grid-template-columns: 1fr !important;
     }
 
-    .sorteioRifa-numeroSorteado {
-        font-size: 26px;
+    .sorteioRifa-bloqueioDados {
+        grid-template-columns: 1fr !important;
     }
 }
 
-/* ======================================================
-   RESPONSIVO · MOBILE GRANDE
-====================================================== */
-@media (max-width: 768px) {
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 620px) {
+
     .sorteioRifa-container {
-        margin: 28px 14px;
-        padding: 28px 22px;
-        border-radius: 22px;
+        margin: 14px auto !important;
+        padding: 14px !important;
+
+        border-radius: 15px !important;
     }
 
-    .sorteioRifa-controleTempo {
-        flex-direction: column;
-        gap: 14px;
+    .sorteioRifa-container::before {
+        left: 14px !important;
+        right: 14px !important;
     }
 
-    .sorteioRifa-inputTempo {
-        width: 100%;
-        max-width: 100%;
+    .sorteioRifa-topoPremium {
+        flex-direction: column !important;
+        align-items: flex-start !important;
     }
 
-    .sorteioRifa-botaoIniciar {
-        width: 100%;
-        padding: 16px 0;
+    .sorteioRifa-topoTitulo h2 {
+        font-size: 25px !important;
     }
 
-    .sorteioRifa-animacaoNumero {
-        min-height: 170px;
+    .sorteioRifa-resumoPremium {
+        grid-template-columns: 1fr !important;
+    }
+
+    .sorteioRifa-resumoItem {
+        min-height: 70px !important;
+    }
+
+    .sorteioRifa-palcoPremium {
+        padding: 11px !important;
+    }
+
+    .sorteioRifa-configuracaoPremium {
+        padding: 18px !important;
+    }
+
+    .sorteioRifa-configuracaoTexto h3 {
+        font-size: 21px !important;
+    }
+
+    .sorteioRifa-maquinaPremium {
+        min-height: 500px !important;
+
+        padding: 15px !important;
+    }
+
+    .sorteioRifa-maquinaCabecalho {
+        align-items: flex-start !important;
+        flex-direction: column !important;
+    }
+
+    .sorteioRifa-maquinaCentro {
+        min-height: 325px !important;
+    }
+
+    .sorteioRifa-anelExterno {
+        width: 240px !important;
+        height: 240px !important;
+    }
+
+    .sorteioRifa-anelMedio {
+        width: 215px !important;
+        height: 215px !important;
+    }
+
+    .sorteioRifa-visorNumero {
+        width: 160px !important;
+        height: 160px !important;
     }
 
     .sorteioRifa-numeroAtual {
-        min-width: 160px;
-        font-size: 44px;
-        letter-spacing: 5px;
+        font-size: 59px !important;
+    }
+
+    .sorteioRifa-pulso {
+        width: 230px !important;
+        height: 230px !important;
+    }
+
+    .sorteioRifa-resultadoPremium {
+        padding: 18px 13px !important;
+    }
+
+    .sorteioRifa-numeroVencedorPremium {
+        width: 185px !important;
+        height: 185px !important;
+    }
+
+    .sorteioRifa-numeroVencedorPremium>strong {
+        font-size: 61px !important;
+    }
+
+    .sorteioRifa-ganhadorDados {
+        grid-template-columns: 1fr !important;
     }
 
     .sorteioRifa-acoesContato {
-        flex-direction: column;
-        width: 100%;
+        grid-template-columns: 1fr !important;
     }
 
-    .sorteioRifa-linkWhatsapp,
-    .sorteioRifa-botaoCopiarEmail {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* ======================================================
-   RESPONSIVO · MOBILE MÉDIO
-====================================================== */
-@media (max-width: 540px) {
-    .sorteioRifa-container {
-        padding: 24px 18px;
-        border-radius: 20px;
+    .sorteioRifa-etapasVerificacao {
+        grid-template-columns: 1fr !important;
     }
 
-    .sorteioRifa-alertaDefinitivo {
-        font-size: 13px;
-        padding: 14px 16px;
+    .sorteioRifa-carregamentoPremium {
+        min-height: 500px !important;
     }
 
-    .sorteioRifa-numeroAtual {
-        font-size: 38px;
-        letter-spacing: 4px;
-        padding: 20px 0;
-    }
-
-    .sorteioRifa-numeroSorteado {
-        font-size: 22px;
-    }
-
-    .sorteioRifa-nomeGanhador {
-        font-size: 22px;
+    .sorteioRifa-bloqueioPremium {
+        padding: 30px 18px !important;
     }
 }
 
-/* ======================================================
-   RESPONSIVO · MOBILE PEQUENO
-====================================================== */
-@media (max-width: 420px) {
-    .sorteioRifa-container {
-        margin: 20px 10px;
-        padding: 20px 14px;
-    }
 
-    .sorteioRifa-numeroAtual {
-        font-size: 32px;
-        letter-spacing: 3px;
-        min-width: 130px;
-    }
+/* =========================================================
+   REDUZIR MOVIMENTO
+========================================================= */
 
-    .sorteioRifa-botaoIniciar,
-    .sorteioRifa-linkWhatsapp,
-    .sorteioRifa-botaoCopiarEmail {
-        font-size: 14px;
-        padding: 14px 0;
-        border-radius: 14px;
-    }
-}
+@media (prefers-reduced-motion: reduce) {
 
-/* ======================================================
-   RESPONSIVO · TELAS MUITO ESTREITAS
-====================================================== */
-@media (max-width: 360px) {
-    .sorteioRifa-numeroAtual {
-        font-size: 28px;
-        letter-spacing: 2px;
-    }
-
-    .sorteioRifa-numeroSorteado {
-        font-size: 20px;
-    }
-
-    .sorteioRifa-nomeGanhador {
-        font-size: 20px;
+    .sorteioRifa-container,
+    .sorteioRifa-container::before,
+    .sorteioRifa-statusExecutando i,
+    .sorteioRifa-maquinaIndicador i,
+    .sorteioRifa-anelExterno,
+    .sorteioRifa-anelMedio,
+    .sorteioRifa-numeroRodando,
+    .sorteioRifa-pulso,
+    .sorteioRifa-processando>span,
+    .sorteioRifa-barraSorteando span,
+    .sorteioRifa-particula,
+    .sorteioRifa-resultadoPremium,
+    .sorteioRifa-numeroVencedorPremium,
+    .sorteioRifa-loaderOrbita,
+    .sorteioRifa-loaderNumero,
+    .sorteioRifa-progressoBarra,
+    .sorteioRifa-fogo {
+        animation: none !important;
     }
 }

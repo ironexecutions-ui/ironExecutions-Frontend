@@ -1,621 +1,1033 @@
 /* =========================================================
-   CONTAINER PRINCIPAL
+   RIFA PREVIEW
+   DASHBOARD PREMIUM
 ========================================================= */
+
 .rifa-preview {
-    margin-top: 48px;
-    padding: 40px;
+    position: relative !important;
+
+    width: 100% !important;
+    margin: 28px 0 0 0 !important;
+    padding: 28px !important;
+
+    box-sizing: border-box !important;
+
     background:
-        linear-gradient(180deg,
-            rgba(15, 23, 42, 0.9),
-            rgba(2, 6, 23, 0.98)),
-        radial-gradient(circle at top,
-            rgba(99, 102, 241, 0.14),
-            transparent 60%);
-    border-radius: 24px;
-    border: 1px solid rgba(148, 163, 184, 0.22);
+        radial-gradient(circle at 100% 0%,
+            rgba(18, 61, 114, 0.10) 0%,
+            rgba(18, 61, 114, 0.025) 24%,
+            transparent 42%),
+        linear-gradient(145deg,
+            #e8ebef 0%,
+            #eef0f3 52%,
+            #e4e8ed 100%) !important;
+
+    border: 1px solid #aeb8c5 !important;
+    border-radius: 20px !important;
+
+    color: #0f172a !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
     box-shadow:
-        0 60px 160px rgba(0, 0, 0, 0.8),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    color: #e5e7eb;
-    font-family: Inter, system-ui, -apple-system, sans-serif;
+        0 1px 2px rgba(15, 23, 42, 0.05),
+        0 10px 30px rgba(15, 23, 42, 0.08) !important;
+
+    overflow: visible !important;
 }
+
+
+/* =========================================================
+   LINHA SUPERIOR DECORATIVA
+========================================================= */
+
+.rifa-preview::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 28px !important;
+    right: 28px !important;
+
+    height: 4px !important;
+
+    border-radius: 0 0 6px 6px !important;
+
+    background:
+        linear-gradient(90deg,
+            #123d72 0%,
+            #245d9c 48%,
+            #123d72 100%) !important;
+}
+
 
 /* =========================================================
    HEADER
 ========================================================= */
+
 .rifa-preview-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 32px;
-    position: relative;
+    position: relative !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 18px !important;
+
+    margin: 0 0 20px 0 !important;
+    padding: 5px 2px 20px 2px !important;
+
+    border-bottom: 1px solid #aeb8c5 !important;
 }
 
-/* =========================================================
-   TÍTULO
-========================================================= */
 .rifa-preview-header h4 {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.6px;
-    color: #f9fafb;
-    cursor: pointer;
-    padding-bottom: 8px;
-    transition:
-        opacity 0.2s ease,
-        transform 0.18s ease;
+    position: relative !important;
+
+    margin: 0 !important;
+    padding-left: 17px !important;
+
+    color: #0c1c31 !important;
+
+    font-size: 28px !important;
+    font-weight: 850 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.7px !important;
+
+    cursor: default !important;
 }
 
-.rifa-preview-header h4:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+.rifa-preview-header h4::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 4px !important;
+    bottom: 4px !important;
+    left: 0 !important;
+
+    width: 5px !important;
+
+    border-radius: 10px !important;
+
+    background: #123d72 !important;
 }
+
 
 /* =========================================================
-   DETALHE VISUAL DO HEADER
+   EDIÇÃO
 ========================================================= */
-.rifa-preview-header::after {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    width: 72px;
-    height: 4px;
-    border-radius: 999px;
-    background: linear-gradient(90deg,
-            #6366f1,
-            #22d3ee);
-    opacity: 0.9;
-}
 
-/* =========================================================
-   EDIÇÃO DO NOME
-========================================================= */
 .rifa-edicao {
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 18px;
-    border-radius: 18px;
-    background:
-        linear-gradient(180deg,
-            rgba(15, 23, 42, 0.85),
-            rgba(2, 6, 23, 0.95));
-    border: 1px solid rgba(148, 163, 184, 0.22);
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
 }
 
-/* =========================================================
-   INPUT DE EDIÇÃO
-========================================================= */
 .rifa-edicao input {
-    height: 48px;
-    padding: 0 18px;
-    border-radius: 14px;
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    background: linear-gradient(180deg,
-            rgba(2, 6, 23, 0.95),
-            rgba(2, 6, 23, 0.85));
-    color: #f9fafb;
-    font-size: 15px;
-    font-weight: 500;
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease,
-        transform 0.12s ease;
-}
+    flex: 1 !important;
 
-.rifa-edicao input::placeholder {
-    color: #94a3b8;
-}
+    height: 50px !important;
 
-/* =========================================================
-   FOCO
-========================================================= */
-.rifa-edicao input:focus {
-    outline: none;
-    border-color: #6366f1;
-    background: linear-gradient(180deg,
-            rgba(2, 6, 23, 1),
-            rgba(2, 6, 23, 0.9));
+    padding: 0 16px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #9ca9b8 !important;
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    background: #ffffff !important;
+    color: #0f172a !important;
+
+    font-size: 15px !important;
+    font-weight: 650 !important;
+
     box-shadow:
-        0 0 0 2px rgba(99, 102, 241, 0.35),
-        0 10px 28px rgba(99, 102, 241, 0.3);
-    transform: translateY(-1px);
+        0 2px 5px rgba(15, 23, 42, 0.05) !important;
 }
 
-/* =========================================================
-   AÇÕES DE EDIÇÃO
-========================================================= */
+.rifa-edicao input:focus {
+    border-color: #123d72 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.13),
+        0 3px 8px rgba(15, 23, 42, 0.06) !important;
+}
+
 .rifa-edicao-acoes {
-    display: flex;
-    gap: 14px;
+    display: flex !important;
+    gap: 8px !important;
 }
 
 .rifa-edicao-acoes button {
-    flex: 1;
-    height: 46px;
-    border-radius: 14px;
-    border: none;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    background:
-        linear-gradient(135deg, #6366f1, #4338ca),
-        radial-gradient(circle at top, rgba(255, 255, 255, 0.15), transparent 60%);
-    color: #f9fafb;
+    height: 46px !important;
+
+    padding: 0 18px !important;
+
+    border: 1px solid #0f3767 !important;
+    border-radius: 9px !important;
+
+    background: #123d72 !important;
+    color: #ffffff !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
     box-shadow:
-        0 14px 45px rgba(99, 102, 241, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        0 4px 10px rgba(18, 61, 114, 0.17) !important;
+
     transition:
         transform 0.18s ease,
-        box-shadow 0.18s ease,
-        filter 0.18s ease,
-        opacity 0.18s ease;
+        background 0.18s ease,
+        box-shadow 0.18s ease !important;
 }
 
 .rifa-edicao-acoes button:hover {
-    transform: translateY(-1px);
+    background: #0d315e !important;
+
+    transform: translateY(-1px) !important;
+
     box-shadow:
-        0 22px 70px rgba(99, 102, 241, 0.75);
-    filter: brightness(1.05);
+        0 7px 15px rgba(18, 61, 114, 0.23) !important;
 }
 
-.rifa-edicao-acoes button:active {
-    transform: translateY(0);
+.rifa-edicao-acoes .secundario {
+    border-color: #a5afbc !important;
+
+    background: #ffffff !important;
+    color: #344054 !important;
+
     box-shadow:
-        0 14px 40px rgba(99, 102, 241, 0.55);
-    opacity: 0.95;
+        0 2px 5px rgba(15, 23, 42, 0.05) !important;
 }
+
+.rifa-edicao-acoes .secundario:hover {
+    border-color: #8794a5 !important;
+
+    background: #e9edf2 !important;
+    color: #1e293b !important;
+}
+
 
 /* =========================================================
-   BOTÃO SECUNDÁRIO
+   INFORMAÇÕES DA RIFA
 ========================================================= */
-.rifa-edicao-acoes button.secundario {
-    background: linear-gradient(180deg,
-            rgba(2, 6, 23, 0.95),
-            rgba(2, 6, 23, 0.85));
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    box-shadow: none;
-    color: #94a3b8;
-}
 
-.rifa-edicao-acoes button.secundario:hover {
-    background: rgba(15, 23, 42, 0.9);
-    color: #e5e7eb;
-}
-
-/* =========================================================
-   INFO GERAL
-========================================================= */
 .rifa-info {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-bottom: 30px;
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 10px !important;
+
+    margin: 0 0 14px 0 !important;
+
+    background: transparent !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+
+    overflow: visible !important;
+
+    box-shadow: none !important;
 }
 
-/* =========================================================
-   CARD DE INFORMAÇÃO
-========================================================= */
-.rifa-info span {
-    padding: 16px;
-    border-radius: 16px;
+.rifa-info>span {
+    position: relative !important;
+
+    min-height: 82px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+
+    gap: 6px !important;
+
+    padding: 14px 16px !important;
+
+    box-sizing: border-box !important;
+
     background:
-        linear-gradient(180deg,
-            rgba(15, 23, 42, 0.85),
-            rgba(2, 6, 23, 0.95));
-    border: 1px solid rgba(148, 163, 184, 0.22);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.4;
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f7f8fa 100%) !important;
+
+    border: 1px solid #aeb9c6 !important;
+    border-radius: 12px !important;
+
+    color: #334155 !important;
+
+    font-size: 14px !important;
+    font-weight: 650 !important;
+    line-height: 1.4 !important;
+
     box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        0 2px 4px rgba(15, 23, 42, 0.04),
+        0 5px 12px rgba(15, 23, 42, 0.045) !important;
+
+    overflow: hidden !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
 }
+
+.rifa-info>span::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background: #123d72 !important;
+}
+
+.rifa-info>span:hover {
+    transform: translateY(-2px) !important;
+
+    border-color: #8e9daf !important;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.08) !important;
+}
+
+.rifa-info strong {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    text-transform: uppercase !important;
+    letter-spacing: 0.45px !important;
+}
+
 
 /* =========================================================
    CONTADORES
 ========================================================= */
+
 .rifa-contadores {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-bottom: 22px;
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr)) !important;
+
+    gap: 10px !important;
+
+    margin: 0 0 10px 0 !important;
 }
 
 .rifa-contadores p {
-    padding: 16px;
-    border-radius: 16px;
+    position: relative !important;
+
+    min-height: 96px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+
+    gap: 9px !important;
+
+    margin: 0 !important;
+    padding: 16px 18px 16px 22px !important;
+
+    box-sizing: border-box !important;
+
     background:
-        linear-gradient(180deg,
-            rgba(15, 23, 42, 0.85),
-            rgba(2, 6, 23, 0.95));
-    border: 1px solid rgba(148, 163, 184, 0.22);
-    font-size: 15px;
-    font-weight: 700;
-    text-align: center;
-    letter-spacing: 0.2px;
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f6f8fa 100%) !important;
+
+    border: 1px solid #aab5c2 !important;
+    border-radius: 13px !important;
+
+    color: #123d72 !important;
+
+    font-size: 21px !important;
+    font-weight: 850 !important;
+    line-height: 1.1 !important;
+
     box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        0 2px 4px rgba(15, 23, 42, 0.04),
+        0 6px 14px rgba(15, 23, 42, 0.055) !important;
+
+    overflow: hidden !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease !important;
 }
 
-/* =========================================================
-   NÚMEROS COMPRADOS
-========================================================= */
-.rifa-numeros-admin {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
-    gap: 14px;
-    margin: 32px 0;
+.rifa-contadores p::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 5px !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(180deg,
+            #245d9c,
+            #123d72) !important;
 }
+
+.rifa-contadores p::after {
+    content: "" !important;
+
+    position: absolute !important;
+    right: -25px !important;
+    bottom: -35px !important;
+
+    width: 90px !important;
+    height: 90px !important;
+
+    border-radius: 50% !important;
+
+    background: rgba(18, 61, 114, 0.045) !important;
+}
+
+.rifa-contadores p:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: #8595a8 !important;
+
+    box-shadow:
+        0 10px 22px rgba(15, 23, 42, 0.09) !important;
+}
+
+.rifa-contadores p strong {
+    position: relative !important;
+    z-index: 2 !important;
+
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    text-transform: uppercase !important;
+    letter-spacing: 0.4px !important;
+}
+
+
+/* =========================================================
+   DESTAQUE DO SALDO
+========================================================= */
+
+.rifa-contadores:nth-of-type(4) p:last-child {
+    border-color: #9aa9ba !important;
+
+    background:
+        linear-gradient(145deg,
+            #f7faff 0%,
+            #edf3fa 100%) !important;
+
+    color: #0c3565 !important;
+}
+
+
+/* =========================================================
+   ÁREA DOS NÚMEROS
+========================================================= */
+
+.rifa-numeros-admin {
+    position: relative !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+
+    gap: 9px !important;
+
+    margin: 20px 0 0 0 !important;
+    padding: 22px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #d9dee5 0%,
+            #e1e5ea 100%) !important;
+
+    border: 1px solid #a7b2bf !important;
+    border-radius: 15px !important;
+
+    box-shadow:
+        inset 0 1px 3px rgba(15, 23, 42, 0.055),
+        0 4px 10px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+/* =========================================================
+   SEM NÚMEROS
+========================================================= */
+
+.rifa-numeros-admin>p {
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 34px 20px !important;
+
+    box-sizing: border-box !important;
+
+    background: rgba(255, 255, 255, 0.58) !important;
+
+    border: 1px dashed #a7b1bd !important;
+    border-radius: 10px !important;
+
+    color: #536174 !important;
+
+    text-align: center !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
 
 /* =========================================================
    BLOCO DO NÚMERO
 ========================================================= */
+
 .rifa-numero-bloco {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 6px !important;
 }
 
+
 /* =========================================================
-   NÚMERO CLICÁVEL
+   NÚMERO COMPRADO
 ========================================================= */
+
 .rifa-numero-admin {
-    height: 52px;
-    border-radius: 16px;
+    width: 52px !important;
+    height: 52px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
     background:
-        linear-gradient(135deg,
-            rgba(30, 41, 59, 0.95),
-            rgba(2, 6, 23, 0.95));
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    font-weight: 800;
-    color: #e5e7eb;
-    cursor: pointer;
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f5f7fa 100%) !important;
+
+    border: 1px solid #8f9eaf !important;
+    border-radius: 10px !important;
+
+    color: #123d72 !important;
+
+    font-size: 16px !important;
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 2px 4px rgba(15, 23, 42, 0.06),
+        0 5px 10px rgba(15, 23, 42, 0.05) !important;
+
     transition:
-        background 0.18s ease,
         transform 0.18s ease,
-        box-shadow 0.18s ease;
+        background 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease !important;
 }
 
 .rifa-numero-admin:hover {
-    background: linear-gradient(135deg, #6366f1, #4338ca);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.45);
-}
+    border-color: #0d315f !important;
 
-/* =========================================================
-   DETALHES DO NÚMERO
-========================================================= */
-.rifa-numero-detalhes {
-    margin-top: 10px;
-    padding: 16px;
-    width: 280%;
-    border-radius: 16px;
     background:
         linear-gradient(180deg,
-            rgba(15, 23, 42, 0.95),
-            rgba(2, 6, 23, 0.98));
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    font-size: 14px;
-    line-height: 1.6;
-    color: #e5e7eb;
+            #174b84,
+            #123d72) !important;
+
+    color: #ffffff !important;
+
+    transform: translateY(-3px) !important;
+
     box-shadow:
-        0 16px 45px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        0 8px 17px rgba(18, 61, 114, 0.25) !important;
 }
 
+
 /* =========================================================
-   LINKS
+   DETALHES DO COMPRADOR
 ========================================================= */
+
+.rifa-numero-detalhes {
+    position: absolute !important;
+    z-index: 999 !important;
+
+    top: calc(100% + 9px) !important;
+    left: 0 !important;
+
+    width: 310px !important;
+
+    padding: 17px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #8e9bab !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 16px 38px rgba(15, 23, 42, 0.18),
+        0 4px 10px rgba(15, 23, 42, 0.08) !important;
+
+    animation:
+        detalhesCompradorRifa 0.2s ease !important;
+}
+
+.rifa-numero-detalhes::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: -6px !important;
+    left: 18px !important;
+
+    width: 11px !important;
+    height: 11px !important;
+
+    background: #ffffff !important;
+
+    border-top: 1px solid #8e9bab !important;
+    border-left: 1px solid #8e9bab !important;
+
+    transform: rotate(45deg) !important;
+}
+
+@keyframes detalhesCompradorRifa {
+    from {
+        opacity: 0;
+        transform: translateY(-5px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.rifa-numero-detalhes p {
+    margin: 0 !important;
+    padding: 8px 0 !important;
+
+    border-bottom: 1px solid #e1e5ea !important;
+
+    color: #475569 !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+.rifa-numero-detalhes p:last-child {
+    border-bottom: none !important;
+}
+
+.rifa-numero-detalhes strong {
+    color: #172033 !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   LINK PÚBLICO
+========================================================= */
+
 .rifa-links {
-    text-align: center;
-    margin: 28px 0;
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    margin: 18px 0 0 0 !important;
 }
 
 .rifa-links a {
-    color: #6366f1;
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: color 0.18s ease;
+    min-height: 47px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 21px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+    color: #123d72 !important;
+
+    border: 1px solid #123d72 !important;
+    border-radius: 10px !important;
+
+    text-decoration: none !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.06) !important;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease !important;
 }
 
 .rifa-links a:hover {
-    color: #22d3ee;
+    background: #123d72 !important;
+    color: #ffffff !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 8px 17px rgba(18, 61, 114, 0.22) !important;
 }
 
+
 /* =========================================================
-   BOTÃO GERAR STORY
+   GERAR STORIES
 ========================================================= */
+
 .rifa-gerar-story {
-    width: 100%;
-    height: 54px;
-    border-radius: 18px;
-    border: none;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.4px;
-    background:
-        linear-gradient(135deg, #22c55e, #16a34a),
-        radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 60%);
-    color: #052e16;
-    cursor: pointer;
-    box-shadow:
-        0 20px 65px rgba(34, 197, 94, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        filter 0.18s ease,
-        opacity 0.18s ease;
-}
+    position: relative !important;
 
-.rifa-gerar-story:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 32px 95px rgba(34, 197, 94, 0.75);
-    filter: brightness(1.05);
-}
+    width: 100% !important;
+    min-height: 55px !important;
 
-.rifa-gerar-story:active {
-    transform: translateY(0);
-    box-shadow:
-        0 18px 55px rgba(34, 197, 94, 0.55);
-    opacity: 0.95;
-}
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-/* =========================================================
-   BOTÃO GERAR STORY · ESTADOS
-========================================================= */
-.rifa-gerar-story:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 34px 100px rgba(34, 197, 94, 0.75),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    filter: brightness(1.05);
-}
+    margin: 11px 0 0 0 !important;
+    padding: 0 24px !important;
 
-.rifa-gerar-story.gerando {
-    opacity: 0.6;
-    cursor: not-allowed;
-    box-shadow: none;
-    filter: grayscale(0.2);
-}
+    box-sizing: border-box !important;
 
-/* =========================================================
-   NAVEGAÇÃO ENTRE RIFAS
-========================================================= */
-.rifa-navegacao {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 42px;
-    gap: 16px;
-}
+    overflow: hidden !important;
 
-/* =========================================================
-   BOTÕES DE NAVEGAÇÃO
-========================================================= */
-.rifa-navegacao .ver-mais {
-    padding: 14px 22px;
-    border-radius: 16px;
-    border: 1px solid rgba(148, 163, 184, 0.25);
+    border: 1px solid #0b2e58 !important;
+    border-radius: 11px !important;
+
     background:
         linear-gradient(180deg,
-            rgba(2, 6, 23, 0.95),
-            rgba(2, 6, 23, 0.85));
-    color: #e5e7eb;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-    cursor: pointer;
+            #194f8a 0%,
+            #123d72 48%,
+            #0d315e 100%) !important;
+
+    color: #ffffff !important;
+
+    font-size: 15px !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.1px !important;
+
+    cursor: pointer !important;
+
+    text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.12) !important;
+
+    box-shadow:
+        0 3px 5px rgba(15, 23, 42, 0.10),
+        0 8px 18px rgba(18, 61, 114, 0.22) !important;
+
     transition:
-        background 0.18s ease,
         transform 0.18s ease,
         box-shadow 0.18s ease,
-        color 0.18s ease;
+        background 0.18s ease !important;
+}
+
+.rifa-gerar-story::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: -40% !important;
+
+    width: 30% !important;
+    height: 100% !important;
+
+    transform: skewX(-20deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.12),
+            transparent) !important;
+
+    transition: left 0.55s ease !important;
+}
+
+.rifa-gerar-story:hover:not(:disabled)::before {
+    left: 115% !important;
+}
+
+.rifa-gerar-story:hover:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #16467d 0%,
+            #0e3565 100%) !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 4px 7px rgba(15, 23, 42, 0.12),
+        0 12px 25px rgba(18, 61, 114, 0.28) !important;
+}
+
+.rifa-gerar-story:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+.rifa-gerar-story:disabled {
+    opacity: 0.62 !important;
+
+    cursor: not-allowed !important;
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO
+========================================================= */
+
+.rifa-navegacao {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    margin: 25px 0 0 0 !important;
+    padding: 20px 0 0 0 !important;
+
+    border-top: 1px solid #aeb8c5 !important;
+}
+
+.rifa-navegacao .ver-mais {
+    min-width: 160px !important;
+    height: 46px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 18px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #9ca8b6 !important;
+    border-radius: 9px !important;
+
+    background: #ffffff !important;
+    color: #344054 !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.05) !important;
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease !important;
 }
 
 .rifa-navegacao .ver-mais:hover {
-    background:
-        linear-gradient(180deg,
-            rgba(30, 41, 59, 0.9),
-            rgba(15, 23, 42, 0.95));
-    transform: translateY(-1px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
-    color: #f9fafb;
+    border-color: #123d72 !important;
+
+    background: #123d72 !important;
+    color: #ffffff !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 7px 16px rgba(18, 61, 114, 0.20) !important;
 }
 
-.rifa-navegacao .ver-mais:active {
-    transform: translateY(0);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-}
 
 /* =========================================================
-   RESPONSIVO · TABLET
+   NENHUMA RIFA
 ========================================================= */
-@media (max-width: 1024px) {
-    .rifa-preview {
-        padding: 32px 26px;
-        margin-top: 36px;
-        border-radius: 22px;
-    }
+
+.rifa-preview>p {
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 55px 20px !important;
+
+    box-sizing: border-box !important;
+
+    background: rgba(255, 255, 255, 0.60) !important;
+
+    border: 1px dashed #aab5c1 !important;
+    border-radius: 12px !important;
+
+    color: #526174 !important;
+
+    text-align: center !important;
+
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
 
     .rifa-info {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .rifa-contadores {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .rifa-numeros-admin {
-        grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-    }
-
-    .rifa-numero-detalhes {
-        width: 220%;
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
     }
 }
 
+
 /* =========================================================
-   RESPONSIVO · MOBILE GRANDE
+   MOBILE
 ========================================================= */
-@media (max-width: 768px) {
+
+@media (max-width: 650px) {
+
     .rifa-preview {
-        padding: 26px 20px;
-        border-radius: 20px;
+        margin-top: 18px !important;
+        padding: 16px !important;
+
+        border-radius: 15px !important;
+    }
+
+    .rifa-preview::before {
+        left: 16px !important;
+        right: 16px !important;
+    }
+
+    .rifa-preview-header {
+        padding-top: 4px !important;
     }
 
     .rifa-preview-header h4 {
-        font-size: 24px;
-        text-align: center;
+        font-size: 23px !important;
+    }
+
+    .rifa-info {
+        grid-template-columns: 1fr !important;
+    }
+
+    .rifa-info>span {
+        min-height: 70px !important;
+    }
+
+    .rifa-contadores {
+        grid-template-columns: 1fr !important;
+    }
+
+    .rifa-contadores p {
+        min-height: 82px !important;
+
+        font-size: 19px !important;
     }
 
     .rifa-edicao {
-        padding: 16px;
+        flex-direction: column !important;
+        align-items: stretch !important;
     }
 
     .rifa-edicao-acoes {
-        flex-direction: column;
+        width: 100% !important;
     }
 
     .rifa-edicao-acoes button {
-        height: 48px;
-    }
-
-    .rifa-info {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .rifa-contadores {
-        grid-template-columns: 1fr;
+        flex: 1 !important;
     }
 
     .rifa-numeros-admin {
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-        gap: 12px;
+        padding: 14px !important;
+        gap: 7px !important;
     }
 
     .rifa-numero-admin {
-        height: 48px;
-        font-size: 14px;
+        width: 46px !important;
+        height: 46px !important;
+
+        font-size: 14px !important;
     }
 
     .rifa-numero-detalhes {
-        width: 100%;
-        margin-top: 12px;
+        width: 270px !important;
+    }
+
+    .rifa-links a {
+        width: 100% !important;
+    }
+
+    .rifa-gerar-story {
+        min-height: 52px !important;
+
+        padding: 10px 15px !important;
+
+        font-size: 14px !important;
+        line-height: 1.35 !important;
     }
 
     .rifa-navegacao {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: column !important;
     }
 
     .rifa-navegacao .ver-mais {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* =========================================================
-   RESPONSIVO · MOBILE MÉDIO
-========================================================= */
-@media (max-width: 540px) {
-    .rifa-preview {
-        padding: 22px 16px;
-    }
-
-    .rifa-preview-header h4 {
-        font-size: 22px;
-    }
-
-    .rifa-info span {
-        font-size: 13px;
-        padding: 14px;
-    }
-
-    .rifa-contadores p {
-        font-size: 14px;
-        padding: 14px;
-    }
-
-    .rifa-numero-admin {
-        height: 44px;
-        border-radius: 14px;
-    }
-
-    .rifa-gerar-story {
-        height: 50px;
-        font-size: 14px;
-        border-radius: 16px;
-    }
-}
-
-/* =========================================================
-   RESPONSIVO · MOBILE PEQUENO
-========================================================= */
-@media (max-width: 420px) {
-    .rifa-preview {
-        padding: 18px 14px;
-        margin-top: 24px;
-    }
-
-    .rifa-preview-header h4 {
-        font-size: 20px;
-    }
-
-    .rifa-edicao {
-        padding: 14px;
-    }
-
-    .rifa-edicao input {
-        height: 44px;
-        font-size: 14px;
-    }
-
-    .rifa-numero-admin {
-        height: 42px;
-        font-size: 13px;
-    }
-
-    .rifa-gerar-story {
-        height: 48px;
-        font-size: 14px;
-    }
-}
-
-/* =========================================================
-   RESPONSIVO · TELAS MUITO ESTREITAS
-========================================================= */
-@media (max-width: 360px) {
-    .rifa-preview-header h4 {
-        font-size: 18px;
-    }
-
-    .rifa-info span {
-        font-size: 12px;
-    }
-
-    .rifa-contadores p {
-        font-size: 13px;
-    }
-
-    .rifa-gerar-story {
-        font-size: 13px;
+        width: 100% !important;
     }
 }
