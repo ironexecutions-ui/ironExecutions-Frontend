@@ -221,17 +221,39 @@ export default function RifaPreview({ rifas = [], onSalvarNome }) {
             </div>
 
             {/* ===== INFO ===== */}
+            {/* ===== INFO ===== */}
             <div className="rifa-info">
-                <span><strong>Prêmio:</strong> {rifa.premio}</span>
-                <span><strong>Números:</strong> {intervalo}</span>
+
+                <span>
+                    <strong>Prêmio:</strong> {rifa.premio}
+                </span>
+
+                {rifa.descricao && (
+                    <div className="rifa-preview-descricao-premio">
+                        <strong className="rifa-preview-descricao-titulo">
+                            Descrição
+                        </strong>
+
+                        <p className="rifa-preview-descricao-texto">
+                            {rifa.descricao}
+                        </p>
+                    </div>
+                )}
+
+                <span>
+                    <strong>Números:</strong> {intervalo}
+                </span>
+
                 <span>
                     <strong>Preço por número:</strong>{" "}
                     R$ {Number(rifa.preco).toFixed(2)}
                 </span>
+
                 <span>
                     <strong>Data final:</strong>{" "}
                     {new Date(rifa.data_fim).toLocaleString("pt-BR")}
                 </span>
+
             </div>
 
             {/* ===== CONTADORES ===== */}

@@ -3,9 +3,9 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation
+  useLocation,
+  Navigate
 } from "react-router-dom";
-
 import "./app.css";
 import "./app-responsivo.css";
 
@@ -121,7 +121,56 @@ function removerCacheFundo() {
   );
 }
 
+/* =========================================================
+   NORMALIZAR LINK PÚBLICO DA RIFA
+========================================================= */
 
+function RifaComprasNormalizada() {
+
+  const location = useLocation();
+
+  const caminho = location.pathname;
+
+  const match = caminho.match(
+    /^\/rifa-compras\/(\d+)/
+  );
+
+  if (!match) {
+    return <RifaCompras />;
+  }
+
+  const id = match[1];
+
+  const caminhoCorreto =
+    `/rifa-compras/${id}`;
+
+  /*
+    Se chegou algo como:
+
+    /rifa-compras/18!**
+    /rifa-compras/18!!!
+    /rifa-compras/18qualquercoisa
+
+    normaliza para:
+
+    /rifa-compras/18
+
+    Mantemos também query strings válidas,
+    como ?fbclid=...
+  */
+
+  if (caminho !== caminhoCorreto) {
+
+    return (
+      <Navigate
+        to={`${caminhoCorreto}${location.search}`}
+        replace
+      />
+    );
+  }
+
+  return <RifaCompras />;
+}
 /* =========================================================
    ROTEAMENTO
 ========================================================= */
@@ -159,7 +208,7 @@ function RoteamentoComLoading() {
 
       <Route
         path="/rifa-compras/:id?"
-        element={<RifaCompras />}
+        element={<RifaComprasNormalizada />}
       />
 
       <Route

@@ -592,6 +592,74 @@
 }
 
 /* =========================================================
+   DESCRIÇÃO DA RIFA
+========================================================= */
+
+.rif-vitrine-descricao-premio {
+    position: relative;
+
+    width: min(680px, calc(100% - 24px));
+
+    margin: 14px auto 0;
+    padding: 15px 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #c4ced8;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.9),
+            rgba(244, 247, 250, 0.92));
+
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.045),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+
+.rif-vitrine-descricao-conteudo {
+    margin: 0;
+
+    color: #526174 !important;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    line-height: 1.65;
+    letter-spacing: 0.05px;
+
+    text-align: left;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .rif-vitrine-descricao-premio {
+        width: calc(100% - 12px);
+
+        margin-top: 11px;
+        padding: 13px 14px;
+
+        border-radius: 11px;
+    }
+
+    .rif-vitrine-descricao-conteudo {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+}
+
+/* =========================================================
    IMAGEM
 ========================================================= */
 

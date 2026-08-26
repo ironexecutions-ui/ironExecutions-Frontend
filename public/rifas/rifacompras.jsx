@@ -589,6 +589,7 @@ export default function RifaCompras() {
 
                         {rifa.fotos.length > 1 && (
                             <div className="rif-vitrine-indicadores">
+
                                 {rifa.fotos.map((_, indice) => (
                                     <button
                                         key={indice}
@@ -602,6 +603,7 @@ export default function RifaCompras() {
                                             }
                     `}
                                         onClick={() => {
+
                                             if (indice === fotoAtualRifa) {
                                                 return;
                                             }
@@ -617,6 +619,15 @@ export default function RifaCompras() {
                                         }}
                                     />
                                 ))}
+
+                            </div>
+                        )}
+
+                        {rifa.descricao && (
+                            <div className="rif-vitrine-descricao-premio">
+                                <p className="rif-vitrine-descricao-conteudo">
+                                    {rifa.descricao}
+                                </p>
                             </div>
                         )}
 

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../config";
 import RifaPreview from "./preview";
 import "./rifa.css";
+import DescricaoRifa from "./descricao";
+
+
 import RegistrarCompraManual from "./modal";
 export default function Rifa() {
     const [autorizado, setAutorizado] = useState(false);
@@ -12,6 +15,7 @@ export default function Rifa() {
     const [modalCompraManual, setModalCompraManual] = useState(false);
     const [nomeRifa, setNomeRifa] = useState("");
     const [premio, setPremio] = useState("");
+    const [descricao, setDescricao] = useState("");
     const [inicio, setInicio] = useState(1);
     const [fim, setFim] = useState(100);
     const [preco, setPreco] = useState("");
@@ -211,7 +215,10 @@ export default function Rifa() {
                         onChange={e => setPremio(e.target.value)}
                     />
                 </label>
-
+                <DescricaoRifa
+                    descricao={descricao}
+                    setDescricao={setDescricao}
+                />
 
 
                 <div
