@@ -7,7 +7,9 @@ import ModalPagamento from "./modalpagamento";
 export default function RifaCompras() {
     const { id } = useParams();
     const navigate = useNavigate();
-
+    const [fotoAtualRifa, setFotoAtualRifa] = useState(0);
+    const [fotoAnteriorRifa, setFotoAnteriorRifa] = useState(null);
+    const [animandoFotoRifa, setAnimandoFotoRifa] = useState(false);
     const [rifaId, setRifaId] = useState("");
     const [rifa, setRifa] = useState(null);
     const [comprados, setComprados] = useState([]);
@@ -25,7 +27,40 @@ export default function RifaCompras() {
         whatsapp: "",
         mensagem: ""
     });
+    useEffect(() => {
+        if (!rifa?.fotos || rifa.fotos.length <= 1) {
+            return;
+        }
 
+        const intervaloFotos = setInterval(() => {
+            setFotoAtualRifa(atual => {
+                let proxima = atual;
+
+                while (
+                    proxima === atual &&
+                    rifa.fotos.length > 1
+                ) {
+                    proxima = Math.floor(
+                        Math.random() * rifa.fotos.length
+                    );
+                }
+
+                setFotoAnteriorRifa(atual);
+                setAnimandoFotoRifa(true);
+
+                setTimeout(() => {
+                    setFotoAnteriorRifa(null);
+                    setAnimandoFotoRifa(false);
+                }, 650);
+
+                return proxima;
+            });
+        }, 3000);
+
+        return () => {
+            clearInterval(intervaloFotos);
+        };
+    }, [rifa?.fotos]);
     // ===============================
     // SINCRONIZAR URL -> INPUT
     // ===============================
@@ -433,10 +468,72 @@ export default function RifaCompras() {
                         </div>
                     )}
 
-                    <div className="rif-fotos">
-                        {rifa.fotos.map((f, i) => (
-                            <img key={i} src={f} alt="rifa" className="rif-foto" />
-                        ))}
+                    <div className="rif-vitrine-premio-interativa">
+
+                        <div className="rif-vitrine-premio-viewport">
+
+                            {fotoAnteriorRifa !== null && (
+                                <img
+                                    key={`anterior-${fotoAnteriorRifa}`}
+                                    src={rifa.fotos[fotoAnteriorRifa]}
+                                    alt="Prêmio da rifa"
+                                    className="
+                    rif-vitrine-imagem-premio
+                    rif-vitrine-imagem-saindo
+                "
+                                />
+                            )}
+
+                            <img
+                                key={`atual-${fotoAtualRifa}`}
+                                src={rifa.fotos[fotoAtualRifa]}
+                                alt="Prêmio da rifa"
+                                className={`
+                rif-vitrine-imagem-premio
+                ${animandoFotoRifa
+                                        ? "rif-vitrine-imagem-entrando"
+                                        : "rif-vitrine-imagem-estatica"
+                                    }
+            `}
+                            />
+
+                            <div className="rif-vitrine-sombra-interna" />
+
+                        </div>
+
+                        {rifa.fotos.length > 1 && (
+                            <div className="rif-vitrine-indicadores">
+                                {rifa.fotos.map((_, indice) => (
+                                    <button
+                                        key={indice}
+                                        type="button"
+                                        aria-label={`Ver imagem ${indice + 1}`}
+                                        className={`
+                        rif-vitrine-indicador
+                        ${indice === fotoAtualRifa
+                                                ? "rif-vitrine-indicador-ativo"
+                                                : ""
+                                            }
+                    `}
+                                        onClick={() => {
+                                            if (indice === fotoAtualRifa) {
+                                                return;
+                                            }
+
+                                            setFotoAnteriorRifa(fotoAtualRifa);
+                                            setFotoAtualRifa(indice);
+                                            setAnimandoFotoRifa(true);
+
+                                            setTimeout(() => {
+                                                setFotoAnteriorRifa(null);
+                                                setAnimandoFotoRifa(false);
+                                            }, 650);
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        )}
+
                     </div>
 
                     <p className="rif-info">

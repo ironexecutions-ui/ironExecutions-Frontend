@@ -300,6 +300,296 @@
 
 }
 
+/* =========================================================
+   VITRINE PREMIUM DO PRÊMIO
+========================================================= */
+
+.rif-vitrine-premio-interativa {
+    position: relative;
+
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto 26px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   VIEWPORT
+========================================================= */
+
+.rif-vitrine-premio-viewport {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 16 / 10;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(120, 139, 158, 0.5);
+    border-radius: 22px;
+
+    background:
+        linear-gradient(145deg,
+            #e8edf2,
+            #d9e0e7);
+
+    box-shadow:
+        0 18px 45px rgba(16, 35, 53, 0.14),
+        0 4px 12px rgba(16, 35, 53, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   IMAGENS
+========================================================= */
+
+.rif-vitrine-imagem-premio {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    user-select: none;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
+
+
+/* =========================================================
+   IMAGEM PARADA
+========================================================= */
+
+.rif-vitrine-imagem-estatica {
+    z-index: 2;
+
+    transform: translateX(0) scale(1);
+
+    opacity: 1;
+
+    animation:
+        rifVitrineRespiracao 6s ease-in-out infinite alternate;
+}
+
+
+/* =========================================================
+   NOVA IMAGEM
+   ENTRA DA DIREITA
+========================================================= */
+
+.rif-vitrine-imagem-entrando {
+    z-index: 3;
+
+    animation:
+        rifVitrineEntrarDireita 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+
+/* =========================================================
+   IMAGEM ANTIGA
+   SAI PELA ESQUERDA
+========================================================= */
+
+.rif-vitrine-imagem-saindo {
+    z-index: 2;
+
+    animation:
+        rifVitrineSairEsquerda 650ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes rifVitrineEntrarDireita {
+
+    0% {
+        transform:
+            translateX(105%) scale(0.96);
+
+        opacity: 0.6;
+
+        filter:
+            blur(2px) brightness(0.92);
+    }
+
+    65% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateX(0) scale(1);
+
+        opacity: 1;
+
+        filter:
+            blur(0) brightness(1);
+    }
+}
+
+
+@keyframes rifVitrineSairEsquerda {
+
+    0% {
+        transform:
+            translateX(0) scale(1);
+
+        opacity: 1;
+
+        filter: blur(0);
+    }
+
+    100% {
+        transform:
+            translateX(-105%) scale(0.96);
+
+        opacity: 0.35;
+
+        filter: blur(2px);
+    }
+}
+
+
+@keyframes rifVitrineRespiracao {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.025);
+    }
+}
+
+
+/* =========================================================
+   SOMBRA INTERNA
+========================================================= */
+
+.rif-vitrine-sombra-interna {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(180deg,
+            rgba(0, 0, 0, 0.02) 50%,
+            rgba(8, 20, 32, 0.13) 100%);
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+
+/* =========================================================
+   INDICADORES
+========================================================= */
+
+.rif-vitrine-indicadores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 18px;
+
+    margin-top: 13px;
+}
+
+
+.rif-vitrine-indicador {
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 auto;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 999px;
+
+    background: #aeb9c4;
+
+    opacity: 0.65;
+
+    cursor: pointer;
+
+    transition:
+        width 0.28s ease,
+        opacity 0.28s ease,
+        transform 0.28s ease,
+        background 0.28s ease;
+}
+
+
+.rif-vitrine-indicador:hover {
+    opacity: 1;
+
+    transform: scale(1.15);
+}
+
+
+.rif-vitrine-indicador-ativo {
+    width: 27px;
+
+    background: #2d6799;
+
+    opacity: 1;
+
+    box-shadow:
+        0 3px 9px rgba(45, 103, 153, 0.24);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .rif-vitrine-premio-interativa {
+        margin-bottom: 20px;
+    }
+
+    .rif-vitrine-premio-viewport {
+        aspect-ratio: 4 / 3;
+
+        border-radius: 17px;
+
+        box-shadow:
+            0 12px 28px rgba(16, 35, 53, 0.13),
+            0 3px 8px rgba(16, 35, 53, 0.07);
+    }
+
+    .rif-vitrine-indicadores {
+        margin-top: 10px;
+    }
+
+}
 
 /* =========================================================
    IMAGEM
