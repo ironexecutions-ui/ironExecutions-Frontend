@@ -7,8 +7,7 @@ import ModalCadastroProduto from "./registro_rapido/modalregistrorapido";
 
 export const buscarInputRef = { current: null };
 
-const CACHE_PRODUTOS_KEY = "dkfnjhsdifds65dsf65sd9fdfgd69fg";
-const CACHE_SINCRONIZACAO_KEY = "d6as4dsa16d5as9dsdgfs56146sdf";
+
 export default function BuscarProduto() {
     const {
         setProdutoAtual,
@@ -29,8 +28,7 @@ export default function BuscarProduto() {
     const [sugestoes, setSugestoes] = useState([]);
     const [carregando, setCarregando] = useState(false);
 
-    const [sincronizando, setSincronizando] = useState(false);
-    const [sincronizacaoSucesso, setSincronizacaoSucesso] = useState(false);
+
     const [ultimaSincronizacao, setUltimaSincronizacao] = useState(null);
 
     const inputRef = useRef(null);
@@ -39,10 +37,7 @@ export default function BuscarProduto() {
 
     const [indiceAtivo, setIndiceAtivo] = useState(-1);
     const [tema, setTema] = useState("escuro");
-    const [
-        mostrarAreaSincronizacao,
-        setMostrarAreaSincronizacao
-    ] = useState(null);
+
     /* ===============================
        IDENTIFICAR PRODUTO POR PESO
     =============================== */
@@ -81,77 +76,7 @@ export default function BuscarProduto() {
             !temTempoServico
         );
     }
-    useEffect(() => {
 
-        async function verificarSincronizacao() {
-
-            try {
-
-                const token =
-                    localStorage.getItem("token");
-
-                if (!token) {
-                    setMostrarAreaSincronizacao(false);
-                    return;
-                }
-
-                const resp =
-                    await fetch(
-                        `${API_URL}/api/produtos_servicos/sincronizacao/status`,
-                        {
-                            headers: {
-                                Authorization:
-                                    `Bearer ${token}`
-                            }
-                        }
-                    );
-
-                if (!resp.ok) {
-
-                    console.error(
-                        "[STATUS SINCRONIZAÇÃO] Erro HTTP:",
-                        resp.status
-                    );
-
-                    /*
-                        Se não conseguimos verificar,
-                        mostramos a sincronização.
-                    */
-                    setMostrarAreaSincronizacao(true);
-
-                    return;
-                }
-
-                const dados =
-                    await resp.json();
-
-                console.log(
-                    "[STATUS SINCRONIZAÇÃO]",
-                    dados
-                );
-
-                setMostrarAreaSincronizacao(
-                    dados?.mostrar_sincronizacao !== false
-                );
-
-            } catch (erro) {
-
-                console.error(
-                    "[STATUS SINCRONIZAÇÃO]",
-                    erro
-                );
-
-                /*
-                    Em caso de falha de rede,
-                    deixamos disponível para sincronizar.
-                */
-                setMostrarAreaSincronizacao(true);
-            }
-        }
-
-        verificarSincronizacao();
-
-    }, []);
     /* ===============================
        CARREGAR DATA DA SINCRONIZAÇÃO
     =============================== */
@@ -354,12 +279,17 @@ export default function BuscarProduto() {
     /* ===============================
        SALVAR CACHE COMPLETO
     =============================== */
+    const CACHE_PRODUTOS_KEY = "dkfnjhsdifds65dsf65sd9fdfgd69fg";
+
+    /* =========================================================
+       SALVAR CACHE COMPLETO
+    ========================================================= */
+
     function salvarCacheProdutos(lista) {
         const produtosIndexados = {};
 
-        lista.forEach(produto => {
-            const codigo =
-                pegarCodigoProduto(produto);
+        lista.forEach((produto) => {
+            const codigo = pegarCodigoProduto(produto);
 
             if (!codigo) {
                 return;
@@ -368,8 +298,7 @@ export default function BuscarProduto() {
             produtosIndexados[codigo] = produto;
         });
 
-        const atualizadoEm =
-            new Date().toISOString();
+        const atualizadoEm = new Date().toISOString();
 
         localStorage.setItem(
             CACHE_PRODUTOS_KEY,
@@ -381,10 +310,181 @@ export default function BuscarProduto() {
 
         setUltimaSincronizacao(atualizadoEm);
 
-        return Object.keys(
-            produtosIndexados
-        ).length;
+        return Object.keys(produtosIndexados).length;
     }
+
+    /* =========================================================
+       SINCRONIZAÇÃO AUTOMÁTICA
+    
+       1. Consulta somente a versão do servidor.
+       2. Compara com a versão local.
+       3. Se forem iguais, não baixa nada.
+       4. Se forem diferentes, baixa o catálogo completo.
+       5. Somente depois substitui o cache antigo.
+    ========================================================= */
+    async function sincronizarProdutosAutomaticamente() {
+        try {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                return;
+            }
+
+            const resp = await fetch(
+                `${API_URL}/api/produtos_servicos/sincronizar`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!resp.ok) {
+                console.warn(
+                    "[CACHE PRODUTOS] Não foi possível verificar o servidor:",
+                    resp.status
+                );
+                return;
+            }
+
+            const dados = await resp.json();
+
+            const produtosServidor = Array.isArray(dados)
+                ? dados
+                : dados?.produtos || [];
+
+            if (!Array.isArray(produtosServidor)) {
+                return;
+            }
+
+            const cacheAtual = lerCacheProdutos();
+
+            const produtosCache = Object.values(
+                cacheAtual.produtos || {}
+            );
+
+            /* =================================================
+               NORMALIZAR PARA COMPARAÇÃO
+    
+               Ordenamos pelo ID para a ordem dos produtos
+               não provocar uma falsa diferença.
+            ================================================= */
+
+            const normalizarLista = (lista) => {
+                return [...lista]
+                    .sort((a, b) => Number(a.id || 0) - Number(b.id || 0))
+                    .map((produto) => {
+                        const copia = { ...produto };
+
+                        return copia;
+                    });
+            };
+
+            const servidorNormalizado = normalizarLista(
+                produtosServidor
+            );
+
+            const cacheNormalizado = normalizarLista(
+                produtosCache
+            );
+
+            const servidorJSON = JSON.stringify(
+                servidorNormalizado
+            );
+
+            const cacheJSON = JSON.stringify(
+                cacheNormalizado
+            );
+
+            /* =================================================
+               CACHE IGUAL AO SERVIDOR
+            ================================================= */
+
+            if (
+                servidorJSON === cacheJSON &&
+                produtosCache.length > 0
+            ) {
+                console.log(
+                    "[CACHE PRODUTOS] Cache já está atualizado."
+                );
+
+                return;
+            }
+
+            /* =================================================
+               EXISTE DIFERENÇA
+            ================================================= */
+
+            console.log(
+                "[CACHE PRODUTOS] Alteração detectada.",
+                {
+                    servidor: produtosServidor.length,
+                    cache: produtosCache.length
+                }
+            );
+
+            /*
+                salvarCacheProdutos já cria o novo objeto
+                antes de substituir o localStorage.
+    
+                Portanto, não precisamos apagar primeiro.
+            */
+
+            const quantidade = salvarCacheProdutos(
+                produtosServidor
+            );
+
+            console.log(
+                `[CACHE PRODUTOS] Cache atualizado automaticamente: ${quantidade} produtos.`
+            );
+
+        } catch (erro) {
+            /*
+                Se o servidor estiver indisponível,
+                NÃO mexemos no cache existente.
+            */
+
+            console.warn(
+                "[CACHE PRODUTOS] Servidor indisponível. Mantendo cache atual.",
+                erro
+            );
+        }
+    }
+    useEffect(() => {
+        sincronizarProdutosAutomaticamente();
+
+        const intervalo = setInterval(() => {
+            sincronizarProdutosAutomaticamente();
+        }, 2 * 60 * 1000);
+
+        function verificarAoVoltar() {
+            if (document.visibilityState === "visible") {
+                sincronizarProdutosAutomaticamente();
+            }
+        }
+
+        document.addEventListener(
+            "visibilitychange",
+            verificarAoVoltar
+        );
+
+        return () => {
+            clearInterval(intervalo);
+
+            document.removeEventListener(
+                "visibilitychange",
+                verificarAoVoltar
+            );
+        };
+    }, []);
+
+
+
+    /* =========================================================
+       INICIAR SINCRONIZAÇÃO AUTOMÁTICA
+    ========================================================= */
+
 
     /* ===============================
        SALVAR UM PRODUTO NO CACHE
@@ -507,185 +607,7 @@ export default function BuscarProduto() {
     /* ===============================
        SINCRONIZAR PRODUTOS
     =============================== */
-    async function sincronizarProdutos() {
 
-        if (sincronizando) {
-            return;
-        }
-
-        /* ===============================
-           INICIAR SINCRONIZAÇÃO
-        =============================== */
-
-        setSincronizando(true);
-        setSincronizacaoSucesso(false);
-
-        try {
-
-            const token =
-                localStorage.getItem("token");
-
-            const resp = await fetch(
-                `${API_URL}/api/produtos_servicos/sincronizar`,
-                {
-                    method: "GET",
-
-                    headers: {
-                        Authorization:
-                            `Bearer ${token}`
-                    }
-                }
-            );
-
-            if (!resp.ok) {
-
-                let mensagem =
-                    "Não foi possível sincronizar os produtos";
-
-                try {
-
-                    const erro =
-                        await resp.json();
-
-                    mensagem =
-                        erro?.detail ||
-                        mensagem;
-
-                } catch {
-                    // mantém mensagem padrão
-                }
-
-                throw new Error(
-                    mensagem
-                );
-            }
-
-            /* ===============================
-               RESPOSTA DO BACKEND
-            =============================== */
-
-            const dados =
-                await resp.json();
-
-            console.log(
-                "[SINCRONIZAÇÃO] Resposta backend:",
-                dados
-            );
-
-            /* ===============================
-               PRODUTOS
-            =============================== */
-
-            const produtos =
-                Array.isArray(dados)
-                    ? dados
-                    : dados?.produtos || [];
-
-            /* ===============================
-               SALVAR PRODUTOS NO CACHE
-            =============================== */
-
-            const quantidade =
-                salvarCacheProdutos(
-                    produtos
-                );
-
-            console.log(
-                `[CACHE PRODUTOS] ${quantidade} produtos sincronizados`
-            );
-
-            /* ===============================
-               DADOS DA SINCRONIZAÇÃO
-            =============================== */
-
-            const sincronizacao =
-                dados?.sincronizacao ||
-                null;
-
-            /* ===============================
-               GUARDAR DADOS LOCALMENTE
-            =============================== */
-
-            if (sincronizacao) {
-
-                const dadosSincronizacao = {
-
-                    id:
-                        sincronizacao.id
-                        ?? null,
-
-                    cliente_id:
-                        sincronizacao.cliente_id
-                        ?? null,
-
-                    ip:
-                        sincronizacao.ip
-                        ?? null,
-
-                    data:
-                        sincronizacao.data
-                        ?? null,
-
-                    hora:
-                        sincronizacao.hora
-                        ?? null
-                };
-
-                localStorage.setItem(
-                    CACHE_SINCRONIZACAO_KEY,
-                    JSON.stringify(
-                        dadosSincronizacao
-                    )
-                );
-
-                console.log(
-                    "[SINCRONIZAÇÃO] Dados salvos:",
-                    dadosSincronizacao
-                );
-
-            } else {
-
-                console.warn(
-                    "[SINCRONIZAÇÃO] Backend não retornou dados da sincronização"
-                );
-            }
-
-            /* ===============================
-               SUCESSO
-            =============================== */
-
-            setSincronizacaoSucesso(true);
-
-            setTimeout(() => {
-
-                setMostrarAreaSincronizacao(false);
-
-            }, 1500);
-
-        } catch (erro) {
-
-            console.error(
-                "[CACHE PRODUTOS] Erro na sincronização:",
-                erro
-            );
-
-            setSincronizacaoSucesso(
-                false
-            );
-
-        } finally {
-
-            setSincronizando(
-                false
-            );
-
-            requestAnimationFrame(() => {
-
-                inputRef.current?.focus();
-
-            });
-        }
-    }
     /* ===============================
        BUSCA POR NOME
 
@@ -1302,44 +1224,7 @@ export default function BuscarProduto() {
 
             </label>
 
-            {mostrarAreaSincronizacao && (
 
-                <div
-                    className="buscar-sincronizacao-cache-info"
-                >
-                    <span
-                        className="buscar-sincronizacao-cache-data"
-                    >
-                        ⚠️ Sincronize os produtos deste computador para tornar a busca mais rápida.                    </span>
-
-                    <button
-                        type="button"
-                        className={`buscar-sincronizacao-cache-botao ${sincronizacaoSucesso
-                            ? "buscar-sincronizacao-cache-sucesso"
-                            : ""
-                            }`}
-                        onClick={sincronizarProdutos}
-                        disabled={sincronizando}
-                    >
-                        {sincronizando ? (
-                            <>
-                                <span className="buscar-sync-loader"></span>
-                                Sincronizando...
-                            </>
-                        ) : sincronizacaoSucesso ? (
-                            <>
-                                <span className="buscar-sync-check">
-                                    ✓
-                                </span>
-
-                                Sincronizado com sucesso
-                            </>
-                        ) : (
-                            "Sincronizar produtos"
-                        )}
-                    </button>
-                </div>
-            )}
             <div
                 className="buscar-container"
             >
