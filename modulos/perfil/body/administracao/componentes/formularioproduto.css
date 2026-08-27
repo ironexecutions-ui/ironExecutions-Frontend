@@ -1074,3 +1074,1267 @@
         transition: none !important;
     }
 }
+
+/* =========================================================
+   LABELS DOS CAMPOS
+========================================================= */
+
+.formulario-produto-label-codigo,
+.formulario-produto-label-qrcode,
+.formulario-produto-label-nome,
+.formulario-produto-label-categoria,
+.formulario-produto-label-tipo-variedade,
+.formulario-produto-label-nova-variedade,
+.formulario-produto-label-peso,
+.formulario-produto-label-preco-peso,
+.formulario-produto-label-preco,
+.formulario-produto-label-preco-recebido,
+.formulario-produto-label-unidade,
+.formulario-produto-label-produto-base,
+.formulario-produto-label-unidades-pacote,
+.formulario-produto-label-tempo-servico,
+.formulario-produto-label-vencimento {
+    display: block !important;
+
+    margin: 0 0 7px 2px !important;
+
+    color: #334155 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    line-height: 1.2 !important;
+    letter-spacing: 0.15px !important;
+}
+
+
+/* =========================================================
+   ESPAÇAMENTO DOS GRUPOS COM LABEL
+========================================================= */
+
+.formulario-produto-grupo-codigo,
+.formulario-produto-grupo-qrcode,
+.formulario-produto-grupo-nome,
+.formulario-produto-grupo-categoria,
+.formulario-produto-grupo-tipo-variedade,
+.formulario-produto-grupo-nova-variedade,
+.formulario-produto-grupo-peso,
+.formulario-produto-grupo-preco-peso,
+.formulario-produto-grupo-preco,
+.formulario-produto-grupo-preco-recebido,
+.formulario-produto-grupo-unidade,
+.formulario-produto-grupo-produto-base,
+.formulario-produto-grupo-unidades-pacote,
+.formulario-produto-grupo-tempo-servico,
+.formulario-produto-grupo-vencimento {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .formulario-produto-label-codigo,
+    .formulario-produto-label-qrcode,
+    .formulario-produto-label-nome,
+    .formulario-produto-label-categoria,
+    .formulario-produto-label-tipo-variedade,
+    .formulario-produto-label-nova-variedade,
+    .formulario-produto-label-peso,
+    .formulario-produto-label-preco-peso,
+    .formulario-produto-label-preco,
+    .formulario-produto-label-preco-recebido,
+    .formulario-produto-label-unidade,
+    .formulario-produto-label-produto-base,
+    .formulario-produto-label-unidades-pacote,
+    .formulario-produto-label-tempo-servico,
+    .formulario-produto-label-vencimento {
+        margin-bottom: 6px !important;
+
+        font-size: 11px !important;
+    }
+
+}
+
+/* =========================================================
+   APÓS VARIEDADE, CAMPOS FICAM EM LINHA PRÓPRIA
+========================================================= */
+/* =========================================================
+   LINHA EXCLUSIVA DAS VARIEDADES
+========================================================= */
+
+.formulario-produto-linha-variedades {
+    grid-column: 1 / -1 !important;
+
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 15px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .formulario-produto-linha-variedades {
+        grid-template-columns: 1fr !important;
+
+        gap: 11px !important;
+    }
+
+}
+
+/* =========================================================
+   CÓDIGO DE BARRAS PRINCIPAL
+========================================================= */
+
+.formulario-produto-campo-codigo:disabled {
+    background:
+        linear-gradient(180deg,
+            #f1f5f9,
+            #e8edf4) !important;
+
+    border: 1px solid #cbd5e1 !important;
+
+    color: #64748b !important;
+
+    cursor: not-allowed !important;
+
+    opacity: 1 !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+/* PLACEHOLDER QUANDO DESABILITADO */
+
+.formulario-produto-campo-codigo:disabled::placeholder {
+    color: #64748b !important;
+    opacity: 1 !important;
+}
+
+
+/* NÃO APLICA EFEITO DE HOVER */
+
+.formulario-produto-campo-codigo:disabled:hover {
+    transform: none !important;
+
+    border-color: #cbd5e1 !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* =========================================================
+   ÁREA COMPLETA DAS VARIEDADES
+========================================================= */
+
+.formulario-produto-lista-variedades {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 12px !important;
+
+    margin-top: 10px !important;
+    padding: 16px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid rgba(37, 99, 235, 0.22) !important;
+    border-radius: 16px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.09),
+            transparent 38%),
+        linear-gradient(145deg,
+            #f8fbff,
+            #eef5ff) !important;
+
+    box-shadow:
+        0 8px 24px rgba(37, 99, 235, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+
+/* =========================================================
+   CADA VARIEDADE
+========================================================= */
+
+.formulario-produto-item-variedade {
+    position: relative !important;
+
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(160px, 0.8fr) minmax(250px, 1.5fr) auto !important;
+
+    align-items: end !important;
+
+    gap: 14px !important;
+
+    padding: 15px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #d8e2ef !important;
+    border-left: 4px solid #2563eb !important;
+
+    border-radius: 13px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.07) !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.formulario-produto-item-variedade:hover {
+    transform: translateY(-2px) !important;
+
+    border-color: #bfdbfe !important;
+    border-left-color: #1d4ed8 !important;
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+/* =========================================================
+   NOME DA VARIEDADE
+========================================================= */
+
+.formulario-produto-variedade-nome-area {
+    position: relative !important;
+
+    min-width: 0 !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    padding: 0 14px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #bfdbfe !important;
+    border-radius: 11px !important;
+
+    background:
+        linear-gradient(135deg,
+            #eff6ff,
+            #f8fbff) !important;
+}
+
+
+.formulario-produto-variedade-nome {
+    width: 100% !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    color: #1e3a8a !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.1px !important;
+}
+
+
+/* =========================================================
+   CÓDIGO DE BARRAS
+========================================================= */
+
+.formulario-produto-variedade-codigo-area {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 6px !important;
+}
+
+
+.formulario-produto-variedade-codigo-label {
+    margin-left: 2px !important;
+
+    color: #334155 !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.1px !important;
+}
+
+
+.formulario-produto-variedade-codigo-input {
+    width: 100% !important;
+    height: 48px !important;
+
+    padding: 0 14px !important;
+
+    box-sizing: border-box !important;
+
+    outline: none !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 11px !important;
+
+    background: #ffffff !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.formulario-produto-variedade-codigo-input::placeholder {
+    color: #94a3b8 !important;
+}
+
+
+.formulario-produto-variedade-codigo-input:hover {
+    border-color: #93c5fd !important;
+}
+
+
+.formulario-produto-variedade-codigo-input:focus {
+    border-color: #2563eb !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.11),
+        0 6px 15px rgba(37, 99, 235, 0.08) !important;
+}
+
+
+/* =========================================================
+   BOTÃO REMOVER
+========================================================= */
+
+.formulario-produto-variedade-remover {
+    height: 48px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 18px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #fecaca !important;
+    border-radius: 11px !important;
+
+    background:
+        linear-gradient(180deg,
+            #fff7f7,
+            #fff1f2) !important;
+
+    color: #b91c1c !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.formulario-produto-variedade-remover:hover {
+    transform: translateY(-2px) !important;
+
+    background: #fee2e2 !important;
+
+    border-color: #fca5a5 !important;
+
+    box-shadow:
+        0 7px 15px rgba(185, 28, 28, 0.11) !important;
+}
+
+
+.formulario-produto-variedade-remover:active {
+    transform: scale(0.97) !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .formulario-produto-lista-variedades {
+        padding: 12px !important;
+
+        gap: 10px !important;
+
+        border-radius: 14px !important;
+    }
+
+    .formulario-produto-item-variedade {
+        grid-template-columns: 1fr !important;
+
+        gap: 10px !important;
+
+        padding: 12px !important;
+    }
+
+    .formulario-produto-variedade-nome-area {
+        height: 46px !important;
+    }
+
+    .formulario-produto-variedade-codigo-input {
+        height: 46px !important;
+    }
+
+    .formulario-produto-variedade-remover {
+        width: 100% !important;
+        height: 44px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .formulario-produto-lista-variedades {
+        padding: 10px !important;
+    }
+
+    .formulario-produto-item-variedade {
+        padding: 10px !important;
+
+        border-left-width: 3px !important;
+    }
+
+    .formulario-produto-variedade-nome-area {
+        height: 44px !important;
+    }
+
+    .formulario-produto-variedade-codigo-input {
+        height: 44px !important;
+    }
+
+}
+
+/* =========================================================
+   MODAL DE ALERTA
+   PORTAL / BODY
+========================================================= */
+
+.formulario-produto-alerta-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    z-index: 2147483647 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 22px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at 50% 35%,
+            rgba(37, 99, 235, 0.10),
+            transparent 32%),
+        rgba(15, 23, 42, 0.62) !important;
+
+    backdrop-filter: blur(7px) !important;
+    -webkit-backdrop-filter: blur(7px) !important;
+
+    animation:
+        formularioProdutoAlertaOverlayEntrada 0.20s ease !important;
+}
+
+
+/* =========================================================
+   CAIXA PRINCIPAL
+========================================================= */
+
+.formulario-produto-alerta-modal {
+    position: relative !important;
+
+    width: min(520px, calc(100vw - 44px)) !important;
+    max-height: calc(100vh - 44px) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.20) !important;
+
+    border-radius: 22px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.09),
+            transparent 35%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 58%,
+            #eef2f7 100%) !important;
+
+    box-shadow:
+        0 35px 90px rgba(15, 23, 42, 0.32),
+        0 12px 32px rgba(15, 23, 42, 0.16),
+        inset 0 1px 0 #ffffff !important;
+
+    animation:
+        formularioProdutoAlertaModalEntrada 0.28s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+
+/* =========================================================
+   LUZ SUPERIOR DO MODAL
+========================================================= */
+
+.formulario-produto-alerta-modal::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 300px !important;
+    height: 150px !important;
+
+    top: -110px !important;
+    right: -60px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.20),
+            transparent 68%) !important;
+
+    filter: blur(20px) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.formulario-produto-alerta-cabecalho {
+    position: relative !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 13px !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    border-bottom:
+        1px solid rgba(15, 23, 42, 0.08) !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 249, 0.88)) !important;
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.formulario-produto-alerta-indicador {
+    width: 40px !important;
+    height: 40px !important;
+
+    min-width: 40px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 13px !important;
+
+    font-size: 17px !important;
+    font-weight: 900 !important;
+
+    box-sizing: border-box !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+}
+
+
+/* AVISO */
+
+.formulario-produto-alerta-indicador.aviso {
+    color: #92400e !important;
+
+    border:
+        1px solid rgba(217, 119, 6, 0.25) !important;
+
+    background:
+        linear-gradient(135deg,
+            #fef3c7,
+            #fde68a) !important;
+
+    box-shadow:
+        0 7px 18px rgba(217, 119, 6, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+}
+
+
+/* ERRO */
+
+.formulario-produto-alerta-indicador.erro {
+    color: #991b1b !important;
+
+    border:
+        1px solid rgba(220, 38, 38, 0.28) !important;
+
+    background:
+        linear-gradient(135deg,
+            #fee2e2,
+            #fecaca) !important;
+
+    box-shadow:
+        0 7px 18px rgba(220, 38, 38, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+}
+
+
+/* =========================================================
+   TEXTOS
+========================================================= */
+
+.formulario-produto-alerta-textos {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    padding-top: 1px !important;
+}
+
+
+.formulario-produto-alerta-titulo {
+    margin: 0 !important;
+
+    color: #0b1635 !important;
+
+    font-size: 17px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: -0.25px !important;
+
+    line-height: 1.25 !important;
+}
+
+
+.formulario-produto-alerta-mensagem {
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 550 !important;
+
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   FECHAR
+========================================================= */
+
+.formulario-produto-alerta-fechar {
+    width: 34px !important;
+    height: 34px !important;
+
+    min-width: 34px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    border:
+        1px solid transparent !important;
+
+    border-radius: 10px !important;
+
+    background: transparent !important;
+
+    color: #64748b !important;
+
+    font-size: 22px !important;
+    font-weight: 500 !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.formulario-produto-alerta-fechar:hover {
+    color: #1d4ed8 !important;
+
+    border-color: #bfdbfe !important;
+
+    background: #eff6ff !important;
+
+    transform: rotate(4deg) !important;
+}
+
+
+.formulario-produto-alerta-fechar:active {
+    transform: scale(0.94) !important;
+}
+
+
+/* =========================================================
+   ÁREA DAS PENDÊNCIAS
+========================================================= */
+
+.formulario-produto-alerta-pendencias {
+    position: relative !important;
+
+    min-height: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 11px !important;
+
+    padding: 17px 20px !important;
+
+    box-sizing: border-box !important;
+
+    overflow-y: auto !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.055),
+            transparent 38%),
+        linear-gradient(145deg,
+            #f8fbff,
+            #f1f5f9) !important;
+}
+
+
+.formulario-produto-alerta-pendencias-titulo {
+    color: #334155 !important;
+
+    font-size: 11px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.55px !important;
+
+    text-transform: uppercase !important;
+}
+
+
+/* =========================================================
+   LISTA
+========================================================= */
+
+.formulario-produto-alerta-lista {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 8px !important;
+}
+
+
+/* =========================================================
+   ITEM
+========================================================= */
+
+.formulario-produto-alerta-item {
+    width: 100% !important;
+    min-height: 46px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+
+    padding: 10px 12px !important;
+
+    box-sizing: border-box !important;
+
+    border:
+        1px solid #d8e2ef !important;
+
+    border-left:
+        3px solid #2563eb !important;
+
+    border-radius: 12px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.formulario-produto-alerta-item:hover {
+    transform: translateX(2px) !important;
+
+    border-color: #bfdbfe !important;
+    border-left-color: #1d4ed8 !important;
+
+    box-shadow:
+        0 7px 17px rgba(37, 99, 235, 0.09) !important;
+}
+
+
+/* =========================================================
+   NÚMERO DO ITEM
+========================================================= */
+
+.formulario-produto-alerta-numero {
+    width: 27px !important;
+    height: 27px !important;
+
+    min-width: 27px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border:
+        1px solid #bfdbfe !important;
+
+    border-radius: 8px !important;
+
+    background:
+        linear-gradient(135deg,
+            #eff6ff,
+            #dbeafe) !important;
+
+    color: #1d4ed8 !important;
+
+    font-size: 11px !important;
+    font-weight: 900 !important;
+}
+
+
+.formulario-produto-alerta-item-texto {
+    min-width: 0 !important;
+
+    color: #334155 !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.formulario-produto-alerta-acoes {
+    width: 100% !important;
+
+    display: flex !important;
+    justify-content: flex-end !important;
+
+    padding: 15px 20px 18px !important;
+
+    box-sizing: border-box !important;
+
+    border-top:
+        1px solid rgba(15, 23, 42, 0.07) !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.97),
+            rgba(248, 250, 252, 0.95)) !important;
+}
+
+
+/* =========================================================
+   BOTÃO ENTENDI
+========================================================= */
+
+.formulario-produto-alerta-entendi {
+    position: relative !important;
+
+    min-width: 125px !important;
+    height: 44px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 23px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid #1d4ed8 !important;
+
+    border-radius: 13px !important;
+
+    background:
+        radial-gradient(circle at 20% 0%,
+            rgba(96, 165, 250, 0.40),
+            transparent 52%),
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.2px !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.22),
+        0 4px 10px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease !important;
+}
+
+
+/* REFLEXO */
+
+.formulario-produto-alerta-entendi::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -80% !important;
+
+    width: 50% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.38),
+            transparent) !important;
+
+    transform: skewX(-22deg) !important;
+
+    transition:
+        left 0.65s ease !important;
+}
+
+
+.formulario-produto-alerta-entendi:hover::before {
+    left: 140% !important;
+}
+
+
+.formulario-produto-alerta-entendi:hover {
+    transform:
+        translateY(-2px) scale(1.01) !important;
+
+    box-shadow:
+        0 15px 32px rgba(37, 99, 235, 0.30),
+        0 5px 12px rgba(15, 23, 42, 0.12) !important;
+}
+
+
+.formulario-produto-alerta-entendi:active {
+    transform: scale(0.97) !important;
+}
+
+
+/* =========================================================
+   SCROLL INTERNO
+========================================================= */
+
+.formulario-produto-alerta-pendencias::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+
+.formulario-produto-alerta-pendencias::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+
+.formulario-produto-alerta-pendencias::-webkit-scrollbar-thumb {
+    border-radius: 999px !important;
+
+    background: #cbd5e1 !important;
+}
+
+
+.formulario-produto-alerta-pendencias::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes formularioProdutoAlertaOverlayEntrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes formularioProdutoAlertaModalEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(14px) scale(0.97);
+
+        filter: blur(2px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+
+        filter: blur(0);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .formulario-produto-alerta-overlay {
+        padding: 15px !important;
+    }
+
+
+    .formulario-produto-alerta-modal {
+        width: min(100%,
+                calc(100vw - 30px)) !important;
+
+        max-height:
+            calc(100vh - 30px) !important;
+
+        border-radius: 18px !important;
+    }
+
+
+    .formulario-produto-alerta-cabecalho {
+        padding: 17px 15px !important;
+
+        gap: 11px !important;
+    }
+
+
+    .formulario-produto-alerta-indicador {
+        width: 37px !important;
+        height: 37px !important;
+
+        min-width: 37px !important;
+
+        border-radius: 11px !important;
+    }
+
+
+    .formulario-produto-alerta-titulo {
+        font-size: 15px !important;
+    }
+
+
+    .formulario-produto-alerta-mensagem {
+        font-size: 11px !important;
+    }
+
+
+    .formulario-produto-alerta-pendencias {
+        padding: 14px 15px !important;
+    }
+
+
+    .formulario-produto-alerta-item {
+        min-height: 44px !important;
+
+        padding: 9px 10px !important;
+    }
+
+
+    .formulario-produto-alerta-acoes {
+        padding: 13px 15px 15px !important;
+    }
+
+
+    .formulario-produto-alerta-entendi {
+        width: 100% !important;
+
+        height: 44px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .formulario-produto-alerta-overlay {
+        padding: 10px !important;
+    }
+
+
+    .formulario-produto-alerta-modal {
+        width:
+            calc(100vw - 20px) !important;
+
+        max-height:
+            calc(100vh - 20px) !important;
+
+        border-radius: 16px !important;
+    }
+
+
+    .formulario-produto-alerta-cabecalho {
+        padding: 14px 12px !important;
+    }
+
+
+    .formulario-produto-alerta-pendencias {
+        padding: 12px !important;
+    }
+
+
+    .formulario-produto-alerta-item {
+        padding: 9px !important;
+
+        border-left-width: 3px !important;
+    }
+
+
+    .formulario-produto-alerta-acoes {
+        padding: 11px 12px 12px !important;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .formulario-produto-alerta-overlay,
+    .formulario-produto-alerta-modal,
+    .formulario-produto-alerta-item,
+    .formulario-produto-alerta-fechar,
+    .formulario-produto-alerta-entendi,
+    .formulario-produto-alerta-entendi::before {
+        animation: none !important;
+        transition: none !important;
+    }
+}

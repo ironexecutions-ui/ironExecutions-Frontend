@@ -1473,22 +1473,28 @@ export default function BuscarProduto() {
                                                 </div>
                                             )}
 
-                                                <div
-                                                    className="sug-info"
-                                                >
-                                                    <p
-                                                        className="sug-nome"
-                                                    >
+                                                <div className="sug-info">
+                                                    <p className="sug-nome">
                                                         {p.nome}
                                                     </p>
 
-                                                    <span
-                                                        className="sug-sub"
-                                                    >
-                                                        {p.unidade ||
-                                                            p.tempo_servico ||
-                                                            ""}
-                                                    </span>
+                                                    <div className="sug-detalhes-produto-preco">
+                                                        <span className="sug-sub">
+                                                            {p.unidade ||
+                                                                p.tempo_servico ||
+                                                                ""}
+                                                        </span>
+
+                                                        <strong className="sug-preco-produto">
+                                                            {Number(p.preco || 0).toLocaleString(
+                                                                "pt-BR",
+                                                                {
+                                                                    style: "currency",
+                                                                    currency: "BRL"
+                                                                }
+                                                            )}
+                                                        </strong>
+                                                    </div>
                                                 </div>
                                             </div>
                                         )

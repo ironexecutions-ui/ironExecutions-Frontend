@@ -9,7 +9,12 @@ export default function ModalCadastroProduto({
     onCriado
 }) {
     const ehCodigo = /^\d+$/.test(textoInicial || "");
+    const [tipoVariedade, setTipoVariedade] = useState("");
+    const [variedadeDigitada, setVariedadeDigitada] = useState("");
+    const [variedades, setVariedades] = useState([]);
 
+    const tipoVariedadeRef = useRef(null);
+    const variedadeRef = useRef(null);
     const [tipo, setTipo] = useState("produto");
 
     const [nome, setNome] = useState(
@@ -34,7 +39,7 @@ export default function ModalCadastroProduto({
     const [categorias, setCategorias] = useState([]);
 
     const [salvando, setSalvando] = useState(false);
-
+    const [erroCadastro, setErroCadastro] = useState("");
     const nomeRef = useRef(null);
     const codigoRef = useRef(null);
     const categoriaRef = useRef(null);
@@ -45,6 +50,85 @@ export default function ModalCadastroProduto({
     const unidadesRef = useRef(null);
     const tempoServicoRef = useRef(null);
 
+
+    function adicionarVariedade() {
+
+        const valor = variedadeDigitada.trim();
+
+        if (!valor) {
+            return;
+        }
+
+        const jaExiste = variedades.some(
+            item =>
+                item.nome.toLowerCase() ===
+                valor.toLowerCase()
+        );
+
+        if (jaExiste) {
+            return;
+        }
+
+        setVariedades(prev => {
+
+            const novaVariedade = {
+                nome: valor,
+
+                // Se for a primeira variedade,
+                // pega o código de barras principal
+                codigo_barras:
+                    prev.length === 0 && codigo.trim()
+                        ? codigo.trim()
+                        : ""
+            };
+
+            return [
+                ...prev,
+                novaVariedade
+            ];
+        });
+
+        /*
+            NÃO limpamos mais o código principal.
+    
+            Se existir código de barras, ele é copiado
+            para a primeira variedade.
+    
+            A partir do momento que existe variedade,
+            o input principal fica desabilitado.
+        */
+
+        setVariedadeDigitada("");
+
+        requestAnimationFrame(() => {
+            variedadeRef.current?.focus();
+        });
+    }
+
+
+    function alterarCodigoVariedade(index, valor) {
+
+        setVariedades(prev =>
+            prev.map((item, i) =>
+                i === index
+                    ? {
+                        ...item,
+                        codigo_barras: valor
+                    }
+                    : item
+            )
+        );
+    }
+
+
+    function removerVariedade(index) {
+
+        setVariedades(prev =>
+            prev.filter(
+                (_, i) => i !== index
+            )
+        );
+    }
     useEffect(() => {
         carregarDados();
 
@@ -212,6 +296,8 @@ export default function ModalCadastroProduto({
     async function salvar() {
         if (salvando) return;
 
+        setErroCadastro("");
+
         if (!nome.trim()) {
             nomeRef.current?.focus();
             return;
@@ -284,7 +370,15 @@ export default function ModalCadastroProduto({
                 peso: null,
                 produto_id: null,
                 unidades: 0,
-                tempo_servico: null
+                tempo_servico: null,
+                variedad_primaria:
+                    tipoVariedade.trim() || null,
+
+                variedades: variedades.map(item => ({
+                    nome: item.nome.trim(),
+                    codigo_barras:
+                        item.codigo_barras.trim() || null
+                })),
             };
 
             if (tipo === "produto") {
@@ -344,17 +438,38 @@ export default function ModalCadastroProduto({
                     erro
                 );
 
+                let mensagem =
+                    erro?.detail ||
+                    erro?.message ||
+                    erro?.error ||
+                    "Não foi possível cadastrar o produto.";
+
+                if (Array.isArray(mensagem)) {
+                    mensagem = mensagem
+                        .map(item =>
+                            item?.msg ||
+                            item?.message ||
+                            String(item)
+                        )
+                        .join(" ");
+                }
+
+                setErroCadastro(String(mensagem));
+
                 return;
             }
 
-            const produto = await resp.json();
+            const resultado = await resp.json();
+
+            const produtoCriado =
+                resultado?.produto || resultado;
 
             console.log(
                 "[CADASTRO RÁPIDO] Criado:",
-                produto
+                resultado
             );
 
-            onCriado(produto);
+            onCriado(produtoCriado);
             fechar();
 
         } catch (erro) {
@@ -363,7 +478,9 @@ export default function ModalCadastroProduto({
                 erro
             );
 
-            alert("Erro de conexão");
+            setErroCadastro(
+                "Não foi possível comunicar com o servidor. Verifique a conexão e tente novamente."
+            );
 
         } finally {
             setSalvando(false);
@@ -389,8 +506,8 @@ export default function ModalCadastroProduto({
                     <button
                         type="button"
                         className={`modal-cadastro-rapido-tipo ${tipo === "produto"
-                                ? "ativo"
-                                : ""
+                            ? "ativo"
+                            : ""
                             }`}
                         onClick={() =>
                             mudarTipo("produto")
@@ -402,8 +519,8 @@ export default function ModalCadastroProduto({
                     <button
                         type="button"
                         className={`modal-cadastro-rapido-tipo ${tipo === "peso"
-                                ? "ativo"
-                                : ""
+                            ? "ativo"
+                            : ""
                             }`}
                         onClick={() =>
                             mudarTipo("peso")
@@ -415,8 +532,8 @@ export default function ModalCadastroProduto({
                     <button
                         type="button"
                         className={`modal-cadastro-rapido-tipo ${tipo === "pacote"
-                                ? "ativo"
-                                : ""
+                            ? "ativo"
+                            : ""
                             }`}
                         onClick={() =>
                             mudarTipo("pacote")
@@ -428,8 +545,8 @@ export default function ModalCadastroProduto({
                     <button
                         type="button"
                         className={`modal-cadastro-rapido-tipo ${tipo === "servico"
-                                ? "ativo"
-                                : ""
+                            ? "ativo"
+                            : ""
                             }`}
                         onClick={() =>
                             mudarTipo("servico")
@@ -469,10 +586,15 @@ export default function ModalCadastroProduto({
                     <input
                         ref={codigoRef}
                         value={codigo}
+                        disabled={variedades.length > 0}
                         onChange={e =>
                             setCodigo(e.target.value)
                         }
-                        placeholder="Leitor ou digite"
+                        placeholder={
+                            variedades.length > 0
+                                ? "Código vinculado à primeira variedade"
+                                : "Leitor ou digite"
+                        }
                         onKeyDown={e =>
                             handleEnterCampo(
                                 e,
@@ -659,7 +781,93 @@ export default function ModalCadastroProduto({
                         />
                     </div>
                 )}
+                <div className="field modal-cadastro-rapido-campo-tipo-variedade">
+                    <label>Tipo de variedade</label>
 
+                    <input
+                        ref={tipoVariedadeRef}
+                        value={tipoVariedade}
+                        onChange={e =>
+                            setTipoVariedade(
+                                primeiraMaiuscula(
+                                    e.target.value
+                                )
+                            )
+                        }
+                        placeholder="Ex: Cor, Tamanho, Sabor"
+                    />
+                </div>
+
+                <div className="field modal-cadastro-rapido-campo-variedade">
+                    <label>Variedade</label>
+
+                    <input
+                        ref={variedadeRef}
+                        value={variedadeDigitada}
+                        onChange={e =>
+                            setVariedadeDigitada(
+                                primeiraMaiuscula(
+                                    e.target.value
+                                )
+                            )
+                        }
+                        placeholder="Ex: Preto"
+                        onKeyDown={e => {
+
+                            if (e.key !== "Enter") {
+                                return;
+                            }
+
+                            e.preventDefault();
+
+                            adicionarVariedade();
+                        }}
+                    />
+                </div>
+
+                {variedades.length > 0 && (
+                    <div className="modal-cadastro-rapido-variedades">
+
+                        {variedades.map(
+                            (item, index) => (
+
+                                <div
+                                    key={`${item.nome}-${index}`}
+                                    className="modal-cadastro-rapido-variedade-item"
+                                >
+
+                                    <div className="modal-cadastro-rapido-variedade-nome">
+                                        {item.nome}
+                                    </div>
+
+                                    <input
+                                        className="modal-cadastro-rapido-variedade-codigo"
+                                        value={item.codigo_barras}
+                                        onChange={e =>
+                                            alterarCodigoVariedade(
+                                                index,
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Código de barras opcional"
+                                    />
+
+                                    <button
+                                        type="button"
+                                        className="modal-cadastro-rapido-variedade-remover"
+                                        onClick={() =>
+                                            removerVariedade(index)
+                                        }
+                                    >
+                                        Remover
+                                    </button>
+
+                                </div>
+                            )
+                        )}
+
+                    </div>
+                )}
                 <div className="field modal-cadastro-rapido-campo-preco">
                     <label>
                         {tipo === "peso"
@@ -726,7 +934,26 @@ export default function ModalCadastroProduto({
                     </button>
 
                 </div>
+                {erroCadastro && (
+                    <div
+                        className="modal-cadastro-rapido-erro-cadastro"
+                        role="alert"
+                    >
+                        <div className="modal-cadastro-rapido-erro-icone">
+                            !
+                        </div>
 
+                        <div className="modal-cadastro-rapido-erro-conteudo">
+                            <strong>
+                                Produto não cadastrado
+                            </strong>
+
+                            <span>
+                                {erroCadastro}
+                            </span>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>,
         document.body

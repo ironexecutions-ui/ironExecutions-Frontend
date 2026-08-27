@@ -395,38 +395,241 @@ export default function ResumoProdutos() {
             />
         );
     }
+    /* =========================================================
+       DESCOBRIR VARIEDADE PELO NOME
+    ========================================================= */
 
-    const listaFiltrada = lista.filter(item => {
+    /* =========================================================
+      DESCOBRIR VARIEDADE PELO NOME
+   ========================================================= */
 
-        if (filtroNome) {
-            if (!item.nome?.toLowerCase().includes(filtroNome.toLowerCase())) {
+    function obterVariedadePeloNome(item) {
+
+        if (!item?.nome) {
+            return "";
+        }
+
+        const quantidadeEspacos = (
+            String(item.qual_variedad || "")
+                .match(/\(\)/g) || []
+        ).length;
+
+        const partesNome = String(item.nome)
+            .trim()
+            .split(/\s+/);
+
+        /*
+            Cada () representa um espaço antes
+            de começar a variedade.
+    
+            Exemplo:
+    
+            nome:
+            CAMISA MANGA CURTA PRETA
+    
+            qual_variedad:
+            ()()()
+    
+            Existem 3 ().
+    
+            CAMISA | MANGA | CURTA | PRETA
+              0       1       2       3
+    
+            Portanto a variedade começa
+            diretamente na posição 3.
+    
+            Resultado:
+            PRETA
+        */
+
+        const inicioVariedade = quantidadeEspacos;
+
+        if (partesNome.length <= inicioVariedade) {
+            return "";
+        }
+
+        return partesNome
+            .slice(inicioVariedade)
+            .join(" ");
+    }
+
+    /* =========================================================
+       OBTER NOME BASE PARA EXIBIR NO CARD
+    ========================================================= */
+
+    function obterNomeBaseProduto(item) {
+
+        if (!item?.nome) {
+            return "";
+        }
+
+        const quantidadeEspacos = (
+            String(item.qual_variedad || "")
+                .match(/\(\)/g) || []
+        ).length;
+
+        /*
+            Se não pertence ao sistema de variedades,
+            mantém o nome original.
+        */
+        if (
+            item.produto_variedade_id === null ||
+            item.produto_variedade_id === undefined ||
+            quantidadeEspacos === 0
+        ) {
+            return item.nome;
+        }
+
+        const partesNome = String(item.nome)
+            .trim()
+            .split(/\s+/);
+
+        return partesNome
+            .slice(0, quantidadeEspacos)
+            .join(" ");
+    }
+    /* =========================================================
+       BUSCAR TODAS AS VARIEDADES DE UM PRODUTO PRINCIPAL
+    ========================================================= */
+
+    function obterVariedadesProduto(principal) {
+
+        if (!principal?.id) {
+            return [];
+        }
+
+        const filhos = lista.filter(item => {
+
+            return (
+                Number(item.produto_variedade_id) ===
+                Number(principal.id)
+            );
+
+        });
+
+        /*
+            O principal também representa uma variedade.
+    
+            Exemplo:
+    
+            ID 23
+            CAMISA MANGA CURTA PRETA
+            produto_variedade_id = 0
+    
+            ID 24
+            CAMISA MANGA CURTA BRANCA
+            produto_variedade_id = 23
+    
+            ID 25
+            CAMISA MANGA CURTA AZUL
+            produto_variedade_id = 23
+    
+            Resultado:
+            PRETA
+            BRANCA
+            AZUL
+        */
+
+        const grupo = [
+            principal,
+            ...filhos
+        ];
+
+        return grupo
+            .map(produto => ({
+                id: produto.id,
+
+                nome:
+                    obterVariedadePeloNome(produto),
+
+                codigo_barras:
+                    produto.codigo_barras
+            }))
+            .filter(variedade =>
+                variedade.nome
+            );
+    }
+    const listaFiltrada = lista
+        .filter(item => Number(item.produto_variedade_id || 0) <= 0)
+        .filter(item => {
+
+
+
+
+            /* =====================================================
+               FILTRO POR NOME
+            ===================================================== */
+
+            if (filtroNome) {
+
+                if (
+                    !item.nome
+                        ?.toLowerCase()
+                        .includes(
+                            filtroNome.toLowerCase()
+                        )
+                ) {
+                    return false;
+                }
+            }
+
+
+            /* =====================================================
+               FILTRO POR CATEGORIA
+            ===================================================== */
+
+            if (filtroCategoria) {
+
+                if (
+                    !item.categoria
+                        ?.toLowerCase()
+                        .includes(
+                            filtroCategoria.toLowerCase()
+                        )
+                ) {
+                    return false;
+                }
+            }
+
+
+            /* =====================================================
+               FILTRO POR PREÇO
+            ===================================================== */
+
+            const preco = Number(item.preco);
+
+            if (
+                precoMin !== "" &&
+                preco < Number(precoMin)
+            ) {
                 return false;
             }
-        }
 
-        if (filtroCategoria) {
-            if (!item.categoria?.toLowerCase().includes(filtroCategoria.toLowerCase())) {
+            if (
+                precoMax !== "" &&
+                preco > Number(precoMax)
+            ) {
                 return false;
             }
-        }
 
-        const preco = Number(item.preco);
 
-        if (precoMin !== "" && preco < Number(precoMin)) {
-            return false;
-        }
+            /* =====================================================
+               FILTRO POR VENCIMENTO
+            ===================================================== */
 
-        if (precoMax !== "" && preco > Number(precoMax)) {
-            return false;
-        }
-        if (filtroVencimento) {
-            if (!produtoVencidoOuPerto(item.data_vencimento)) {
-                return false;
+            if (filtroVencimento) {
+
+                if (
+                    !produtoVencidoOuPerto(
+                        item.data_vencimento
+                    )
+                ) {
+                    return false;
+                }
             }
-        }
 
-        return true;
-    });
+            return true;
+        });
 
     const itensVisiveis = listaFiltrada.slice(0, limite);
     const temMais = listaFiltrada.length > limite;
@@ -625,12 +828,52 @@ export default function ResumoProdutos() {
                                                 }}
                                             >
 
-                                                <h5>{item.nome}</h5>
-
+                                                <h5>{obterNomeBaseProduto(item)}</h5>
                                                 <span className="sub">
                                                     {colunaUnidade(item)} · {item.categoria}
                                                 </span>
+                                                {/* ===============================================
+    VARIEDADES DO PRODUTO
+=============================================== */}
 
+                                                {(
+                                                    Number(item.produto_variedade_id) === 0 &&
+                                                    item.qual_variedad !== null
+                                                ) && (() => {
+
+                                                    const variedadesProduto =
+                                                        obterVariedadesProduto(item);
+
+                                                    if (variedadesProduto.length === 0) {
+                                                        return null;
+                                                    }
+
+                                                    return (
+                                                        <div className="resumo-produto-variedades-area">
+
+                                                            <span className="resumo-produto-variedades-titulo">
+                                                                {item.variedad_primaria || "Variedades"}
+                                                            </span>
+
+                                                            <div className="resumo-produto-variedades-lista">
+
+                                                                {variedadesProduto.map(variedade => (
+
+                                                                    <span
+                                                                        key={variedade.id}
+                                                                        className="resumo-produto-variedade-item"
+                                                                    >
+                                                                        {variedade.nome}
+                                                                    </span>
+
+                                                                ))}
+
+                                                            </div>
+
+                                                        </div>
+                                                    );
+
+                                                })()}
                                                 <div className="precos">
 
                                                     <div>

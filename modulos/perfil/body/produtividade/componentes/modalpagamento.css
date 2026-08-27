@@ -3,7 +3,427 @@
    PREMIUM PDV
    MANTÉM A MESMA LÓGICA VISUAL
 ========================================================= */
+/* =========================================================
+   ALERTA PREMIUM
+   PORTAL / GLASS / GRAPHITE / NAVY
+========================================================= */
 
+.pag-alerta-premium-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 2147483647;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(3, 9, 20, 0.58);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    animation: pagAlertaOverlayEntrada 0.18s ease-out;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.pag-alerta-premium-modal {
+    position: relative;
+
+    width: min(440px, 100%);
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
+
+    background:
+        radial-gradient(circle at 15% 0%,
+            rgba(255, 255, 255, 0.96),
+            transparent 38%),
+        linear-gradient(145deg,
+            rgba(250, 251, 253, 0.98),
+            rgba(229, 233, 239, 0.97));
+
+    box-shadow:
+        0 30px 80px rgba(0, 9, 30, 0.28),
+        0 10px 30px rgba(0, 9, 30, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+    animation:
+        pagAlertaModalEntrada 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* linha superior premium */
+
+.pag-alerta-premium-modal::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background:
+        linear-gradient(90deg,
+            #061b38,
+            #174a83,
+            #061b38);
+}
+
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+.pag-alerta-premium-topo {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 23px 23px 16px;
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.pag-alerta-premium-icone {
+    width: 45px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(145deg,
+            #173e70,
+            #071f41);
+
+    color: #ffffff;
+
+    font-size: 20px;
+    font-weight: 850;
+
+    box-shadow:
+        0 8px 18px rgba(7, 35, 76, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.17);
+}
+
+
+/* =========================================================
+   TÍTULOS
+========================================================= */
+
+.pag-alerta-premium-titulos {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.pag-alerta-premium-label {
+    color: #52647a;
+
+    font-size: 9px;
+    font-weight: 750;
+
+    letter-spacing: 1.1px;
+
+    text-transform: uppercase;
+}
+
+
+.pag-alerta-premium-titulos h3 {
+    margin: 0;
+
+    color: #07172d;
+
+    font-size: 18px;
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.4px;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.pag-alerta-premium-conteudo {
+    margin: 0 23px;
+
+    padding: 16px 17px;
+
+    border-radius: 13px;
+
+    border: 1px solid rgba(15, 23, 42, 0.09);
+
+    background: rgba(255, 255, 255, 0.52);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+
+.pag-alerta-premium-conteudo p {
+    margin: 0;
+
+    color: #314157;
+
+    font-size: 13px;
+    font-weight: 520;
+
+    line-height: 1.55;
+}
+
+
+.pag-alerta-premium-conteudo p+p {
+    margin-top: 8px;
+}
+
+
+.pag-alerta-premium-espaco {
+    height: 8px;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.pag-alerta-premium-acoes {
+    display: flex;
+    justify-content: flex-end;
+
+    padding: 17px 23px 22px;
+}
+
+
+.pag-alerta-premium-acoes button {
+    min-width: 105px;
+
+    padding: 10px 22px;
+
+    border: 1px solid rgba(6, 30, 66, 0.32);
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        linear-gradient(145deg,
+            #173e70,
+            #082a55);
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 16px rgba(7, 35, 76, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    transition:
+        transform 0.16s ease,
+        filter 0.16s ease,
+        box-shadow 0.16s ease;
+}
+
+
+.pag-alerta-premium-acoes button:hover {
+    transform: translateY(-1px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 9px 20px rgba(7, 35, 76, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.17);
+}
+
+
+.pag-alerta-premium-acoes button:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.pag-alerta-premium-erro::before {
+    background:
+        linear-gradient(90deg,
+            #6d1720,
+            #b52b38,
+            #6d1720);
+}
+
+
+.pag-alerta-premium-erro .pag-alerta-premium-icone {
+    background:
+        linear-gradient(145deg,
+            #a52632,
+            #69151e);
+
+    box-shadow:
+        0 8px 18px rgba(122, 22, 31, 0.23),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+.pag-alerta-premium-aviso::before {
+    background:
+        linear-gradient(90deg,
+            #7a5900,
+            #c38e00,
+            #7a5900);
+}
+
+
+.pag-alerta-premium-aviso .pag-alerta-premium-icone {
+    background:
+        linear-gradient(145deg,
+            #b98500,
+            #725200);
+}
+
+
+/* =========================================================
+   SUCESSO
+========================================================= */
+
+.pag-alerta-premium-sucesso::before {
+    background:
+        linear-gradient(90deg,
+            #155c3a,
+            #26845a,
+            #155c3a);
+}
+
+
+.pag-alerta-premium-sucesso .pag-alerta-premium-icone {
+    background:
+        linear-gradient(145deg,
+            #258157,
+            #14583a);
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes pagAlertaOverlayEntrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes pagAlertaModalEntrada {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(12px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .pag-alerta-premium-overlay {
+        padding: 14px;
+    }
+
+    .pag-alerta-premium-modal {
+        border-radius: 17px;
+    }
+
+    .pag-alerta-premium-topo {
+        padding: 19px 18px 14px;
+
+        gap: 11px;
+    }
+
+    .pag-alerta-premium-icone {
+        width: 39px;
+        height: 39px;
+
+        border-radius: 11px;
+
+        font-size: 17px;
+    }
+
+    .pag-alerta-premium-titulos h3 {
+        font-size: 16px;
+    }
+
+    .pag-alerta-premium-conteudo {
+        margin: 0 18px;
+
+        padding: 13px 14px;
+    }
+
+    .pag-alerta-premium-conteudo p {
+        font-size: 12px;
+    }
+
+    .pag-alerta-premium-acoes {
+        padding: 14px 18px 18px;
+    }
+
+    .pag-alerta-premium-acoes button {
+        width: 100%;
+
+        padding: 11px 18px;
+    }
+}
 
 /* =========================================================
    OVERLAY

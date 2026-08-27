@@ -1019,3 +1019,482 @@
         transition: none !important;
     }
 }
+
+/* =========================================================
+   TIPO DE VARIEDADE
+========================================================= */
+
+.modal-cadastro-rapido-campo-tipo-variedade {
+    position: relative;
+}
+
+
+/* =========================================================
+   CAMPO NOVA VARIEDADE
+========================================================= */
+
+.modal-cadastro-rapido-campo-variedade {
+    position: relative;
+}
+
+
+/* =========================================================
+   LISTA DE VARIEDADES
+========================================================= */
+
+.modal-cadastro-rapido-variedades {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+
+    width: 100%;
+
+    margin:
+        -3px 0 17px;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.34),
+            rgba(205, 205, 208, 0.30));
+
+    border:
+        1px solid rgba(255, 255, 255, 0.48);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.60),
+        0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   ITEM DE VARIEDADE
+========================================================= */
+
+.modal-cadastro-rapido-variedade-item {
+    display: grid;
+
+    grid-template-columns:
+        minmax(90px, 0.8fr) minmax(150px, 1.5fr) auto;
+
+    align-items: center;
+
+    gap: 8px;
+
+    width: 100%;
+
+    padding: 8px;
+
+    box-sizing: border-box;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.78),
+            rgba(224, 224, 227, 0.76));
+
+    border:
+        1px solid rgba(0, 0, 0, 0.07);
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+
+/* =========================================================
+   NOME DA VARIEDADE
+========================================================= */
+
+.modal-cadastro-rapido-variedade-nome {
+    min-width: 0;
+
+    padding-left: 4px;
+
+    overflow: hidden;
+
+    color: #111827;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CÓDIGO DE BARRAS DA VARIEDADE
+========================================================= */
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-variedade-codigo {
+    width: 100%;
+    height: 38px;
+
+    min-width: 0;
+
+    padding: 0 11px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   BOTÃO REMOVER VARIEDADE
+========================================================= */
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-variedade-remover {
+    width: auto;
+    height: 38px;
+
+    margin: 0;
+
+    padding: 0 12px;
+
+    border-radius: 8px;
+
+    border:
+        1px solid rgba(185, 28, 28, 0.18);
+
+    background:
+        linear-gradient(145deg,
+            #f04444,
+            #dc2626 55%,
+            #b91c1c);
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 9px rgba(185, 28, 28, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.20s ease,
+        background 0.20s ease;
+}
+
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-variedade-remover:hover {
+    transform: translateY(-1px);
+
+    background:
+        linear-gradient(145deg,
+            #ff5151,
+            #e52e2e 55%,
+            #c31d1d);
+
+    box-shadow:
+        0 6px 12px rgba(185, 28, 28, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+
+.modal-cadastro-rapido-container .modal-cadastro-rapido-variedade-remover:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .modal-cadastro-rapido-variedade-item {
+        grid-template-columns:
+            minmax(75px, 0.7fr) minmax(120px, 1.3fr) auto;
+
+        gap: 6px;
+
+        padding: 7px;
+    }
+
+
+    .modal-cadastro-rapido-variedade-nome {
+        font-size: 12px;
+    }
+
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-variedade-codigo {
+        height: 40px;
+
+        padding: 0 9px;
+
+        font-size: 12px;
+    }
+
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-variedade-remover {
+        height: 40px;
+
+        padding: 0 9px;
+
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .modal-cadastro-rapido-variedades {
+        padding: 8px;
+
+        gap: 8px;
+    }
+
+
+    .modal-cadastro-rapido-variedade-item {
+        grid-template-columns: 1fr auto;
+
+        gap: 7px;
+    }
+
+
+    .modal-cadastro-rapido-variedade-nome {
+        grid-column: 1 / -1;
+
+        padding:
+            2px 3px 0;
+
+        font-size: 12px;
+    }
+
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-variedade-codigo {
+        height: 42px;
+
+        font-size: 13px;
+    }
+
+
+    .modal-cadastro-rapido-container .modal-cadastro-rapido-variedade-remover {
+        height: 42px;
+
+        padding: 0 11px;
+    }
+}
+
+/* =========================================================
+   CÓDIGO DE BARRAS DESABILITADO POR VARIEDADES
+========================================================= */
+
+.modal-cadastro-rapido-campo-codigo input:disabled {
+    background:
+        linear-gradient(180deg,
+            rgba(205, 205, 205, 0.82),
+            rgba(185, 185, 185, 0.82));
+
+    border-color: rgba(0, 0, 0, 0.14);
+
+    color: #5f6368;
+
+    cursor: not-allowed;
+
+    opacity: 0.72;
+
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.08);
+
+    outline: none;
+}
+
+
+/* =========================================================
+   PLACEHOLDER QUANDO DESABILITADO
+========================================================= */
+
+.modal-cadastro-rapido-campo-codigo input:disabled::placeholder {
+    color: #777b80;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   REMOVE EFEITO DE FOCO
+========================================================= */
+
+.modal-cadastro-rapido-campo-codigo input:disabled:focus {
+    border-color: rgba(0, 0, 0, 0.14);
+
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================================
+   ERRO DE CADASTRO
+   PREMIUM GLASS / GRAPHITE
+========================================================= */
+
+.modal-cadastro-rapido-erro-cadastro {
+    width: 100%;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+
+    margin-top: 12px;
+
+    padding: 12px 13px;
+
+    box-sizing: border-box;
+
+    border: 1px solid rgba(164, 35, 46, 0.22);
+    border-radius: 12px;
+
+    background:
+        radial-gradient(circle at 0% 0%,
+            rgba(255, 255, 255, 0.88),
+            transparent 42%),
+        linear-gradient(145deg,
+            rgba(255, 247, 248, 0.94),
+            rgba(242, 226, 229, 0.90));
+
+    box-shadow:
+        0 6px 18px rgba(82, 18, 25, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+
+    animation:
+        modalCadastroErroEntrada 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* ÍCONE */
+
+.modal-cadastro-rapido-erro-icone {
+    width: 29px;
+    height: 29px;
+
+    flex: 0 0 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(145deg,
+            #a82b38,
+            #681720);
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 850;
+
+    box-shadow:
+        0 5px 12px rgba(116, 22, 32, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.17);
+}
+
+
+/* TEXTO */
+
+.modal-cadastro-rapido-erro-conteudo {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.modal-cadastro-rapido-erro-conteudo strong {
+    color: #681720;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    line-height: 1.25;
+}
+
+
+.modal-cadastro-rapido-erro-conteudo span {
+    color: #6f3b41;
+
+    font-size: 11px;
+    font-weight: 520;
+
+    line-height: 1.45;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ANIMAÇÃO */
+
+@keyframes modalCadastroErroEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-5px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .modal-cadastro-rapido-erro-cadastro {
+        margin-top: 10px;
+
+        padding: 10px 11px;
+
+        gap: 9px;
+
+        border-radius: 10px;
+    }
+
+    .modal-cadastro-rapido-erro-icone {
+        width: 26px;
+        height: 26px;
+
+        flex-basis: 26px;
+
+        border-radius: 7px;
+
+        font-size: 12px;
+    }
+
+    .modal-cadastro-rapido-erro-conteudo strong {
+        font-size: 11px;
+    }
+
+    .modal-cadastro-rapido-erro-conteudo span {
+        font-size: 10px;
+    }
+}

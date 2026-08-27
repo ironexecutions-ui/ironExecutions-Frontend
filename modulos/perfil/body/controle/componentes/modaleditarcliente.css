@@ -1,134 +1,579 @@
-/* ===== OVERLAY ===== */
-.mee-overlay {
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.modal-cliente-overlay-administrativo {
     position: fixed;
     inset: 0;
-    background: rgba(233, 230, 230, 0.349) !important;
-    backdrop-filter: blur(4px);
+
+    z-index: 99999;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background: rgba(15, 23, 42, 0.58);
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
-/* ===== MODAL ===== */
-.me-modal {
-    width: 100%;
-    max-width: 460px;
-    background: #020617;
-    border: 1px solid #1e293b;
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-cliente-painel-administrativo {
+    width: min(680px, 100%);
+
+    max-height: calc(100vh - 40px);
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe4ea;
     border-radius: 16px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    color: #e5e7eb;
-    animation: modalFade 0.25s ease;
+
+    box-shadow:
+        0 24px 70px rgba(15, 23, 42, 0.24);
+
+    animation:
+        modal-cliente-entrada 0.2s ease;
 }
 
-/* ===== ANIMAÇÃO ===== */
-@keyframes modalFade {
+@keyframes modal-cliente-entrada {
+
     from {
         opacity: 0;
-        transform: translateY(10px) scale(0.98);
+        transform: translateY(10px) scale(0.985);
     }
 
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
+
 }
 
-/* ===== TÍTULO ===== */
-.me-modal h3 {
-    font-size: 18px;
-    font-weight: 600;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #1e293b;
-}
 
-/* ===== BOTÕES PDF ===== */
-.me-botoes-pdf {
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.modal-cliente-cabecalho-administrativo {
     display: flex;
-    gap: 12px;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px 24px 20px;
+
+    background:
+        linear-gradient(145deg,
+            #f8f9fb,
+            #f1f4f8);
+
+    border-bottom: 1px solid #e1e5eb;
 }
 
-.me-botoes-pdf button {
-    flex: 1;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #1e293b;
-    background: #020617;
-    color: #93c5fd;
-    font-size: 13px;
+.modal-cliente-cabecalho-texto {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-cliente-identificador {
+    margin-bottom: 5px;
+
+    color: #123d72;
+
+    font-size: 9px;
+    font-weight: 850;
+
+    letter-spacing: 1.3px;
+}
+
+.modal-cliente-cabecalho-texto h3 {
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 21px;
+    font-weight: 850;
+
+    letter-spacing: -0.4px;
+}
+
+.modal-cliente-cabecalho-texto p {
+    max-width: 500px;
+
+    margin: 6px 0 0;
+
+    color: #667085;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FECHAR
+========================================================= */
+
+.modal-cliente-fechar-superior {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #d9dee5;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #667085;
+
+    font-size: 22px;
+    font-weight: 400;
+
+    line-height: 1;
+
     cursor: pointer;
-    transition: all 0.2s ease;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
 }
 
-.me-botoes-pdf button:hover {
-    background: rgba(37, 99, 235, 0.15);
-    border-color: #2563eb;
+.modal-cliente-fechar-superior:hover {
+    background: #f2f4f7;
+
+    border-color: #cdd4dd;
+
+    color: #101828;
 }
 
-/* ===== INPUTS ===== */
-.me-modal input {
+
+/* =========================================================
+   IDENTIFICAÇÃO / PDF
+========================================================= */
+
+.modal-cliente-acessos-impressao {
+    margin: 20px 24px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 14px 16px;
+
+    background: #f6f8fb;
+
+    border: 1px solid #e0e5ec;
+    border-radius: 11px;
+}
+
+.modal-cliente-acessos-texto {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.modal-cliente-acessos-texto strong {
+    color: #344054;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.modal-cliente-acessos-texto span {
+    color: #98a2b3;
+
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.modal-cliente-botoes-download {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+.modal-cliente-botoes-download button {
+    min-height: 35px;
+
+    padding: 0 12px;
+
+    border: 1px solid #cfd7e2;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #123d72;
+
+    font-size: 10px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
+}
+
+.modal-cliente-botoes-download button:hover {
+    background: #edf3fa;
+
+    border-color: #aebdd0;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
+
+.modal-cliente-formulario-administrativo {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 17px 14px;
+
+    padding: 22px 24px 25px;
+}
+
+.modal-cliente-campo {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.modal-cliente-campo-nome,
+.modal-cliente-campo-email {
+    grid-column: span 2;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.modal-cliente-campo label {
+    color: #344054;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.modal-cliente-campo input {
     width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid #1e293b;
-    background: #020617;
-    color: #e5e7eb;
-    font-size: 14px;
-}
+    height: 42px;
 
-.me-modal input:focus {
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
     outline: none;
-    border-color: #2563eb;
+
+    background: #ffffff;
+
+    border: 1px solid #d7dde5;
+    border-radius: 8px;
+
+    color: #101828;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 550;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
 }
 
-/* ===== AÇÕES ===== */
-.me-acoes {
+.modal-cliente-campo input::placeholder {
+    color: #a4acb9;
+}
+
+.modal-cliente-campo input:hover {
+    border-color: #b9c3d0;
+}
+
+.modal-cliente-campo input:focus {
+    border-color: #123d72;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.09);
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.modal-cliente-rodape-administrativo {
     display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 10px;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px 24px;
+
+    background: #f8f9fb;
+
+    border-top: 1px solid #e1e5eb;
 }
 
-.me-acoes button {
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: 1px solid #1e293b;
-    background: #020617;
-    color: #e5e7eb;
-    font-size: 14px;
+.modal-cliente-rodape-esquerda,
+.modal-cliente-rodape-direita {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   BOTÕES DO RODAPÉ
+========================================================= */
+
+.modal-cliente-botao-cancelar,
+.modal-cliente-botao-apagar,
+.modal-cliente-botao-salvar {
+    min-height: 39px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 15px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 750;
+
     cursor: pointer;
-    transition: all 0.2s ease;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
 }
 
-.me-acoes button:hover {
-    background: rgba(255, 255, 255, 0.05);
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.modal-cliente-botao-cancelar {
+    border: 1px solid #d0d5dd;
+
+    background: #ffffff;
+
+    color: #475467;
 }
 
-/* ===== BOTÃO SALVAR ===== */
-.me-acoes .salvar {
-    background: #2563eb;
-    border-color: #2563eb;
+.modal-cliente-botao-cancelar:hover {
+    background: #f2f4f7;
+
+    border-color: #b9c0ca;
 }
 
-.me-acoes .salvar:hover {
-    background: #1d4ed8;
+
+/* =========================================================
+   APAGAR
+========================================================= */
+
+.modal-cliente-botao-apagar {
+    border: 1px solid #f1c5c5;
+
+    background: #fff7f7;
+
+    color: #b42318;
 }
 
-.me-acoes {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+.modal-cliente-botao-apagar:hover {
+    background: #feecec;
+
+    border-color: #e9aaaa;
 }
 
-.me-acoes .apagar {
-    background: #7a1e1e;
-    color: #fff;
+
+/* =========================================================
+   SALVAR
+========================================================= */
+
+.modal-cliente-botao-salvar {
+    min-width: 125px;
+
+    border: 1px solid #123d72;
+
+    background: #123d72;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 10px rgba(18, 61, 114, 0.14);
 }
 
-.me-acoes .apagar:hover {
-    background: #a02a2a;
+.modal-cliente-botao-salvar:hover {
+    background: #0d315d;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(18, 61, 114, 0.2);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .modal-cliente-overlay-administrativo {
+        align-items: flex-end;
+
+        padding: 10px;
+    }
+
+    .modal-cliente-painel-administrativo {
+        width: 100%;
+
+        max-height: calc(100vh - 20px);
+
+        border-radius: 15px;
+    }
+
+    .modal-cliente-cabecalho-administrativo {
+        padding: 18px;
+    }
+
+    .modal-cliente-cabecalho-texto h3 {
+        font-size: 19px;
+    }
+
+    .modal-cliente-acessos-impressao {
+        margin: 16px 16px 0;
+
+        align-items: stretch;
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .modal-cliente-botoes-download {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .modal-cliente-botoes-download button {
+        width: 100%;
+    }
+
+    .modal-cliente-formulario-administrativo {
+        grid-template-columns: 1fr;
+
+        padding: 19px 16px 22px;
+    }
+
+    .modal-cliente-campo-nome,
+    .modal-cliente-campo-email {
+        grid-column: auto;
+    }
+
+    .modal-cliente-rodape-administrativo {
+        align-items: stretch;
+        flex-direction: column-reverse;
+
+        padding: 13px 16px;
+    }
+
+    .modal-cliente-rodape-esquerda,
+    .modal-cliente-rodape-direita {
+        width: 100%;
+    }
+
+    .modal-cliente-rodape-direita {
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .modal-cliente-botao-cancelar,
+    .modal-cliente-botao-salvar,
+    .modal-cliente-botao-apagar {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .modal-cliente-botoes-download {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-cliente-rodape-direita {
+        grid-template-columns: 1fr;
+    }
+
 }

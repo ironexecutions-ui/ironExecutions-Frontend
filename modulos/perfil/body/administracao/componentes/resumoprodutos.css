@@ -2,6 +2,141 @@
    RESUMO DE PRODUTOS
    PREMIUM LIGHT / NAVY / ELECTRIC BLUE
 ========================================================= */
+/* =========================================================
+   VARIEDADES DO PRODUTO
+========================================================= */
+
+.resumo-produto-variedades-area {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 7px !important;
+
+    margin-top: 13px !important;
+}
+
+
+/* =========================================================
+   TÍTULO DA VARIEDADE
+========================================================= */
+
+.resumo-produto-variedades-titulo {
+    display: block !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    text-transform: uppercase !important;
+
+    letter-spacing: 0.6px !important;
+
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   LISTA DE VARIEDADES
+========================================================= */
+
+.resumo-produto-variedades-lista {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+
+    gap: 6px !important;
+}
+
+
+/* =========================================================
+   CADA VARIEDADE
+========================================================= */
+
+.resumo-produto-variedade-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 28px !important;
+
+    padding: 5px 10px !important;
+
+    border-radius: 9px !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.16) !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #eff6ff) !important;
+
+    color: #1e3a8a !important;
+
+    font-size: 10.5px !important;
+    font-weight: 750 !important;
+
+    line-height: 1 !important;
+
+    cursor: default !important;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.resumo-produto-variedade-item:hover {
+    transform: translateY(-1px) !important;
+
+    border-color:
+        rgba(37, 99, 235, 0.42) !important;
+
+    background:
+        linear-gradient(180deg,
+            #eff6ff,
+            #dbeafe) !important;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.10) !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .resumo-produto-variedades-area {
+        margin-top: 11px !important;
+    }
+
+    .resumo-produto-variedades-lista {
+        gap: 5px !important;
+    }
+
+    .resumo-produto-variedade-item {
+        min-height: 27px !important;
+
+        padding: 5px 9px !important;
+
+        font-size: 10px !important;
+    }
+}
 
 .resumo-produtos {
     position: relative !important;

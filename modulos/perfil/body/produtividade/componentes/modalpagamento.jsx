@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { API_URL } from "../../../../../config";
 import "./modalpagamento.css";
 import { useVenda } from "./vendaprovider";
@@ -17,7 +18,7 @@ export default function ModalPagamento({
     const API_LOCAL = "http://localhost:8888";
     const [vendaId, setVendaId] = useState(null);
     const criandoVendaRef = useRef(false);
-
+    const [alertaPagamento, setAlertaPagamento] = useState(null);
     const [comandaUrl, setComandaUrl] = useState(null);
     const [statusVenda, setStatusVenda] = useState(null);
     const pixAutomatico = false; // enquanto não tem QR configurado
@@ -26,7 +27,21 @@ export default function ModalPagamento({
     /* ===============================
        EMITIR NFC-e
     =============================== */
+    function mostrarAlertaPagamento(
+        mensagem,
+        titulo = "Atenção",
+        tipo = "erro"
+    ) {
+        setAlertaPagamento({
+            titulo,
+            mensagem,
+            tipo
+        });
+    }
 
+    function fecharAlertaPagamento() {
+        setAlertaPagamento(null);
+    }
     async function emitirNfceVenda(idVenda) {
 
         if (!idVenda) {
@@ -762,9 +777,10 @@ INICIALIZAR PIX RÁPIDO
                 }
 
                 if (avisos.length > 0) {
-                    alert(
-                        "Venda concluída com sucesso.\n\n" +
-                        avisos.join("\n\n")
+                    mostrarAlertaPagamento(
+                        avisos.join("\n\n"),
+                        "Venda concluída com observações",
+                        "aviso"
                     );
                 }
             }, 1500);
@@ -1061,8 +1077,11 @@ INICIALIZAR PIX RÁPIDO
                                             if (!dados) return;
                                             setEtapa("confirmar");
                                         } catch {
-                                            alert("Erro ao iniciar pagamento");
-                                            setPagamento(null);
+                                            mostrarAlertaPagamento(
+                                                "Não foi possível iniciar o pagamento.",
+                                                "Pagamento não iniciado",
+                                                "erro"
+                                            ); setPagamento(null);
                                         } finally {
                                             criandoVendaRef.current = false;
                                             setMetodoProcessando(null);
@@ -1155,8 +1174,11 @@ INICIALIZAR PIX RÁPIDO
                                             setEtapa("pix_mp");
 
                                         } catch {
-                                            alert("Erro ao gerar Pix");
-                                            setEtapa("metodo");
+                                            mostrarAlertaPagamento(
+                                                "Não foi possível gerar o Pix. Tente novamente.",
+                                                "Erro ao gerar Pix",
+                                                "erro"
+                                            ); setEtapa("metodo");
                                         } finally {
                                             criandoVendaRef.current = false;
                                             setCarregandoPix(false);
@@ -1314,6 +1336,73 @@ INICIALIZAR PIX RÁPIDO
                 )}
 
             </div>
+            {alertaPagamento &&
+                createPortal(
+                    <div
+                        className="pag-alerta-premium-overlay"
+                        onMouseDown={e => {
+                            if (e.target === e.currentTarget) {
+                                fecharAlertaPagamento();
+                            }
+                        }}
+                    >
+                        <div
+                            className={`
+                            pag-alerta-premium-modal
+                            pag-alerta-premium-${alertaPagamento.tipo}
+                        `}
+                        >
+                            <div className="pag-alerta-premium-topo">
+                                <div className="pag-alerta-premium-icone">
+                                    {alertaPagamento.tipo === "erro" && "!"}
+                                    {alertaPagamento.tipo === "aviso" && "!"}
+                                    {alertaPagamento.tipo === "sucesso" && "✓"}
+                                    {alertaPagamento.tipo === "info" && "i"}
+                                </div>
+
+                                <div className="pag-alerta-premium-titulos">
+                                    <span className="pag-alerta-premium-label">
+                                        Iron Business
+                                    </span>
+
+                                    <h3>
+                                        {alertaPagamento.titulo}
+                                    </h3>
+                                </div>
+                            </div>
+
+                            <div className="pag-alerta-premium-conteudo">
+                                {String(alertaPagamento.mensagem)
+                                    .split("\n")
+                                    .map((linha, index) => (
+                                        linha ? (
+                                            <p key={index}>
+                                                {linha}
+                                            </p>
+                                        ) : (
+                                            <div
+                                                key={index}
+                                                className="pag-alerta-premium-espaco"
+                                            />
+                                        )
+                                    ))}
+                            </div>
+
+                            <div className="pag-alerta-premium-acoes">
+                                <button
+                                    type="button"
+                                    onClick={fecharAlertaPagamento}
+                                    autoFocus
+                                >
+                                    OK
+                                </button>
+                            </div>
+                        </div>
+                    </div>,
+                    document.body
+                )
+            }
+
         </div>
     );
 }
