@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../config";
 import "./painelg.css";
 import Supervisionar from "./supervisionar";
+const CACHE_HISTORICO_SQL =
+    "painel_g_historico_sql_v1";
+
+const LIMITE_HISTORICO_SQL = 20;
 export default function PainelG() {
 
     const [painelGSecaoAtiva, setPainelGSecaoAtiva] = useState("supervisionar");
@@ -18,11 +22,79 @@ export default function PainelG() {
     const [painelGFiltroTabela, setPainelGFiltroTabela] = useState("");
     const [painelGSql, setPainelGSql] = useState("");
     const [painelGResultadoSql, setPainelGResultadoSql] = useState(null);
+    const [painelGHistoricoSql, setPainelGHistoricoSql] = useState([]);
+const [painelGIndiceHistoricoSql, setPainelGIndiceHistoricoSql] = useState(-1);
     const [painelGTabelasFixadas, setPainelGTabelasFixadas] = useState([]);
     const [painelGMostrarTodasTabelas, setPainelGMostrarTodasTabelas] = useState(false);
     const [painelGAlterandoFixada, setPainelGAlterandoFixada] = useState("");
     const token = localStorage.getItem("token");
+/* =====================================================
+   CARREGAR HISTÓRICO SQL DO CACHE
+===================================================== */
 
+useEffect(() => {
+    try {
+        const cache = localStorage.getItem(
+            CACHE_HISTORICO_SQL
+        );
+
+        if (!cache) {
+            return;
+        }
+
+        const historico = JSON.parse(cache);
+
+        if (!Array.isArray(historico)) {
+            return;
+        }
+
+        setPainelGHistoricoSql(
+            historico.slice(0, LIMITE_HISTORICO_SQL)
+        );
+
+    } catch (error) {
+
+        console.error(
+            "[PAINEL] Erro ao carregar histórico SQL:",
+            error
+        );
+
+    }
+}, []);/* =====================================================
+   GUARDAR SQL NO HISTÓRICO
+===================================================== */
+
+function guardarSqlNoHistorico(sql) {
+
+    const sqlLimpo = sql.trim();
+
+    if (!sqlLimpo) {
+        return;
+    }
+
+    setPainelGHistoricoSql(historicoAtual => {
+
+        // Remove uma eventual ocorrência antiga do mesmo SQL
+        const semDuplicado = historicoAtual.filter(
+            item => item !== sqlLimpo
+        );
+
+        // Mais recente sempre fica primeiro
+        const novoHistorico = [
+            sqlLimpo,
+            ...semDuplicado
+        ].slice(0, LIMITE_HISTORICO_SQL);
+
+        localStorage.setItem(
+            CACHE_HISTORICO_SQL,
+            JSON.stringify(novoHistorico)
+        );
+
+        return novoHistorico;
+    });
+
+    setPainelGIndiceHistoricoSql(-1);
+}
 
     /* =====================================================
        HEADERS
@@ -127,53 +199,113 @@ export default function PainelG() {
        EXECUTAR SQL
     ===================================================== */
 
-    async function executarSqlPainelG() {
+  /* =====================================================
+   EXECUTAR SQL
+===================================================== */
 
-        if (!painelGSql.trim()) {
+async function executarSqlPainelG() {
+
+    const sqlExecutado = painelGSql.trim();
+
+    if (!sqlExecutado) {
+        return;
+    }
+
+    setPainelGCarregando(true);
+    setPainelGErro("");
+    setPainelGResultadoSql(null);
+
+    try {
+
+        const resposta = await fetch(
+            `${API_URL}/panel/database/sql`,
+            {
+                method: "POST",
+                headers: headersPainelG(),
+                body: JSON.stringify({
+                    sql: sqlExecutado
+                })
+            }
+        );
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(
+                dados.detail || "Erro ao executar SQL"
+            );
+        }
+
+        setPainelGResultadoSql(dados);
+
+        // Guarda o comando executado
+        guardarSqlNoHistorico(sqlExecutado);
+
+        // Limpa o terminal depois da execução
+        setPainelGSql("");
+
+        // Reseta navegação do histórico
+        setPainelGIndiceHistoricoSql(-1);
+
+        await carregarTabelasPainelG();
+
+    } catch (error) {
+
+        console.error(error);
+
+        setPainelGErro(error.message);
+
+    } finally {
+
+        setPainelGCarregando(false);
+
+    }
+}
+/* =====================================================
+   NAVEGAR PELO HISTÓRICO SQL
+===================================================== */
+
+function navegarHistoricoSql(direcao) {
+
+    if (!painelGHistoricoSql.length) {
+        return;
+    }
+
+    let novoIndice = painelGIndiceHistoricoSql;
+
+    // CTRL + →
+    // Vai para comandos mais antigos
+    if (direcao === "anterior") {
+
+        if (novoIndice < painelGHistoricoSql.length - 1) {
+            novoIndice += 1;
+        }
+
+    }
+
+    // CTRL + ←
+    // Volta para comandos mais recentes
+    if (direcao === "proximo") {
+
+        if (novoIndice > 0) {
+
+            novoIndice -= 1;
+
+        } else {
+
+            setPainelGIndiceHistoricoSql(-1);
+            setPainelGSql("");
+
             return;
         }
-
-        setPainelGCarregando(true);
-        setPainelGErro("");
-        setPainelGResultadoSql(null);
-
-        try {
-
-            const resposta = await fetch(
-                `${API_URL}/panel/database/sql`,
-                {
-                    method: "POST",
-                    headers: headersPainelG(),
-                    body: JSON.stringify({
-                        sql: painelGSql
-                    })
-                }
-            );
-
-            const dados = await resposta.json();
-
-            if (!resposta.ok) {
-                throw new Error(
-                    dados.detail || "Erro ao executar SQL"
-                );
-            }
-
-            setPainelGResultadoSql(dados);
-
-            await carregarTabelasPainelG();
-
-        } catch (error) {
-
-            console.error(error);
-
-            setPainelGErro(error.message);
-
-        } finally {
-
-            setPainelGCarregando(false);
-
-        }
     }
+
+    setPainelGIndiceHistoricoSql(novoIndice);
+
+    setPainelGSql(
+        painelGHistoricoSql[novoIndice] || ""
+    );
+}
     /* =====================================================
        INICIAR EDIÇÃO DE CÉLULA
     ===================================================== */
@@ -211,7 +343,40 @@ export default function PainelG() {
     /* =====================================================
        COPIAR ESTRUTURA DA TABELA
     ===================================================== */
+/* =====================================================
+   COPIAR RESULTADO SQL
+===================================================== */
 
+async function copiarResultadoSqlPainelG() {
+
+    if (!painelGResultadoSql) {
+        return;
+    }
+
+    try {
+
+        const conteudo = JSON.stringify(
+            painelGResultadoSql,
+            null,
+            2
+        );
+
+        await navigator.clipboard.writeText(
+            conteudo
+        );
+
+    } catch (error) {
+
+        console.error(
+            "[PAINEL] Erro ao copiar resultado SQL:",
+            error
+        );
+
+        setPainelGErro(
+            "Não foi possível copiar o resultado."
+        );
+    }
+}
     async function copiarEstruturaTabelaPainelG() {
 
         if (!painelGTabelaSelecionada) {
@@ -1374,20 +1539,57 @@ ATALHOS SQL DA TABELA
                     </div>
 
 
-                    <textarea
-                        className="painel-g-terminal-editor"
-                        value={painelGSql}
-                        onChange={e =>
-                            setPainelGSql(e.target.value)
-                        }
-                        spellCheck="false"
-                        placeholder={`SELECT * FROM clientes LIMIT 20;
+                <textarea
+    className="painel-g-terminal-editor"
+
+    value={painelGSql}
+
+    onChange={e => {
+
+        setPainelGSql(e.target.value);
+
+        // Se começou a digitar manualmente,
+        // sai da posição atual do histórico
+        setPainelGIndiceHistoricoSql(-1);
+    }}
+
+    onKeyDown={e => {
+
+        // CTRL + →
+        if (
+            e.ctrlKey &&
+            e.key === "ArrowRight"
+        ) {
+            e.preventDefault();
+
+            navegarHistoricoSql("anterior");
+
+            return;
+        }
+
+        // CTRL + ←
+        if (
+            e.ctrlKey &&
+            e.key === "ArrowLeft"
+        ) {
+            e.preventDefault();
+
+            navegarHistoricoSql("proximo");
+
+            return;
+        }
+
+    }}
+
+    spellCheck="false"
+
+    placeholder={`SELECT * FROM clientes LIMIT 20;
 
 CREATE TABLE exemplo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255)
 );`}
-                    />
+/>
 
 
                     <div className="painel-g-terminal-acoes">
@@ -1406,22 +1608,35 @@ CREATE TABLE exemplo (
                     </div>
 
 
-                    {painelGResultadoSql && (
+                {painelGResultadoSql && (
 
-                        <div className="painel-g-terminal-resultado">
+    <div className="painel-g-terminal-resultado">
 
-                            <pre>
-                                {JSON.stringify(
-                                    painelGResultadoSql,
-                                    null,
-                                    2
-                                )}
-                            </pre>
+        <div className="painel-g-terminal-resultado-cabecalho">
 
-                        </div>
+          
 
-                    )}
+            <button
+                type="button"
+                className="painel-g-terminal-copiar-resultado"
+                onClick={copiarResultadoSqlPainelG}
+            >
+                Copiar resultado
+            </button>
 
+        </div>
+
+        <pre>
+            {JSON.stringify(
+                painelGResultadoSql,
+                null,
+                2
+            )}
+        </pre>
+
+    </div>
+
+)}
                 </div>
 
             )}
