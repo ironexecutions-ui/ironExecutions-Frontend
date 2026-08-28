@@ -3490,6 +3490,13 @@
     }
 }
 
+.painel-g-filtro-separador {
+    color: #04152e;
+    font-size: 12px;
+    font-weight: 900;
+    user-select: none;
+}
+
 .painel-g-terminal-resultado-cabecalho strong {
     color: #0f2947;
 

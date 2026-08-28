@@ -16,7 +16,7 @@ export default function PainelG() {
     const [painelGSalvandoCelula, setPainelGSalvandoCelula] = useState(false);
     const [painelGColunas, setPainelGColunas] = useState([]);
     const [painelGLinhas, setPainelGLinhas] = useState([]);
-    const [painelGFiltroCelula, setPainelGFiltroCelula] = useState(null);
+    const [painelGFiltrosCelula, setPainelGFiltrosCelula] = useState([]);
     const [painelGCarregando, setPainelGCarregando] = useState(false);
     const [painelGErro, setPainelGErro] = useState("");
     const [painelGFiltroTabela, setPainelGFiltroTabela] = useState("");
@@ -31,10 +31,6 @@ export default function PainelG() {
     /* =====================================================
        CARREGAR HISTÓRICO SQL DO CACHE
     ===================================================== */
-    /* =====================================================
-       FILTRAR TABELA PELO VALOR DA CÉLULA
-    ===================================================== */
-
     function filtrarPorCelulaPainelG(evento, linha, coluna) {
 
         if (!evento.ctrlKey) {
@@ -44,14 +40,37 @@ export default function PainelG() {
         evento.preventDefault();
         evento.stopPropagation();
 
-        const valor = linha[coluna.Field];
+        const novoFiltro = {
+            coluna: coluna.Field,
+            valor: linha[coluna.Field]
+        };
 
         setPainelGCelulaEditando(null);
         setPainelGValorEdicao("");
 
-        setPainelGFiltroCelula({
-            coluna: coluna.Field,
-            valor: valor
+        setPainelGFiltrosCelula(filtrosAtuais => {
+
+            // Evita adicionar exatamente o mesmo filtro duas vezes
+            const jaExiste = filtrosAtuais.some(filtro => {
+
+                const mesmaColuna =
+                    filtro.coluna === novoFiltro.coluna;
+
+                const mesmoValor =
+                    filtro.valor === novoFiltro.valor ||
+                    String(filtro.valor) === String(novoFiltro.valor);
+
+                return mesmaColuna && mesmoValor;
+            });
+
+            if (jaExiste) {
+                return filtrosAtuais;
+            }
+
+            return [
+                ...filtrosAtuais,
+                novoFiltro
+            ];
         });
     }
 
@@ -59,10 +78,12 @@ export default function PainelG() {
     /* =====================================================
        LIMPAR FILTRO DE CÉLULA
     ===================================================== */
+    function limparFiltrosCelulaPainelG() {
 
-    function limparFiltroCelulaPainelG() {
+        setPainelGFiltrosCelula([]);
 
-        setPainelGFiltroCelula(null);
+        setPainelGCelulaEditando(null);
+        setPainelGValorEdicao("");
     }
     useEffect(() => {
         try {
@@ -189,8 +210,7 @@ export default function PainelG() {
     async function abrirTabelaPainelG(nomeTabela) {
 
         setPainelGTabelaSelecionada(nomeTabela);
-        setPainelGFiltroCelula(null);
-
+        setPainelGFiltrosCelula([]);
         setPainelGCarregando(true);
         setPainelGErro("");
 
@@ -990,25 +1010,29 @@ ATALHOS SQL DA TABELA
    LINHAS VISÍVEIS DA TABELA
 ===================================================== */
 
-    const painelGLinhasVisiveis = painelGFiltroCelula
-        ? painelGLinhas.filter(linha => {
+    const painelGLinhasVisiveis =
+        painelGFiltrosCelula.length > 0
+            ? painelGLinhas.filter(linha => {
 
-            const valorLinha =
-                linha[painelGFiltroCelula.coluna];
+                return painelGFiltrosCelula.every(filtro => {
 
-            const valorFiltro =
-                painelGFiltroCelula.valor;
+                    const valorLinha =
+                        linha[filtro.coluna];
 
-            if (
-                valorLinha === null ||
-                valorFiltro === null
-            ) {
-                return valorLinha === valorFiltro;
-            }
+                    const valorFiltro =
+                        filtro.valor;
 
-            return String(valorLinha) === String(valorFiltro);
-        })
-        : painelGLinhas;
+                    if (
+                        valorLinha === null ||
+                        valorFiltro === null
+                    ) {
+                        return valorLinha === valorFiltro;
+                    }
+
+                    return String(valorLinha) === String(valorFiltro);
+                });
+            })
+            : painelGLinhas;
     return (
 
         <div className="painel-g-administrador-container">
@@ -1472,23 +1496,45 @@ ATALHOS SQL DA TABELA
 
 
                                 {/* DADOS */}
-                                {painelGFiltroCelula && (
+
+                                {painelGFiltrosCelula.length > 0 && (
 
                                     <div className="painel-g-filtro-celula-ativo">
 
                                         <div className="painel-g-filtro-celula-info">
 
                                             <span>
-                                                Filtro ativo
+                                                {painelGFiltrosCelula.length} filtro(s) ativo(s)
                                             </span>
 
-                                            <strong>
-                                                {painelGFiltroCelula.coluna} ={" "}
-                                                {painelGFiltroCelula.valor === null
-                                                    ? "NULL"
-                                                    : String(painelGFiltroCelula.valor)
-                                                }
-                                            </strong>
+                                            <div className="painel-g-filtros-celula-lista">
+
+                                                {painelGFiltrosCelula.map((filtro, index) => (
+
+                                                    <React.Fragment key={`${filtro.coluna}-${index}`}>
+
+                                                        {index > 0 && (
+                                                            <span className="painel-g-filtro-separador">
+                                                                <span> </span> ||<span> </span>
+                                                            </span>
+                                                        )}
+
+                                                        <strong className="painel-g-filtro-celula-item">
+
+                                                            {filtro.coluna} ={" "}
+
+                                                            {filtro.valor === null
+                                                                ? "NULL"
+                                                                : String(filtro.valor)
+                                                            }
+
+                                                        </strong>
+
+                                                    </React.Fragment>
+
+                                                ))}
+
+                                            </div>
 
                                             <small>
                                                 {painelGLinhasVisiveis.length} registro(s)
@@ -1496,17 +1542,23 @@ ATALHOS SQL DA TABELA
 
                                         </div>
 
+
                                         <button
                                             type="button"
                                             className="painel-g-filtro-celula-limpar"
-                                            onClick={limparFiltroCelulaPainelG}
+                                            onClick={limparFiltrosCelulaPainelG}
                                         >
-                                            Limpar filtro
+                                            Apagar filtros
                                         </button>
 
                                     </div>
 
                                 )}
+
+
+
+
+
                                 <div className="painel-g-dados-scroll">
 
                                     <table className="painel-g-dados-tabela">
