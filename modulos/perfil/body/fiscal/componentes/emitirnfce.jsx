@@ -17,7 +17,8 @@ export default function EmitirNfce() {
     const token = localStorage.getItem("token");
 
     const [dataFiltro, setDataFiltro] = useState("");
-
+    const [documentoNfce, setDocumentoNfce] = useState("");
+    const [salvandoDocumentoNfce, setSalvandoDocumentoNfce] = useState(false);
     const [horaMinima, setHoraMinima] = useState("");
     const [protocoloFiltroNfce, setProtocoloFiltroNfce] = useState("");
     const [valorFiltroNfce, setValorFiltroNfce] = useState("");
@@ -109,21 +110,9 @@ export default function EmitirNfce() {
 
     function solicitarEmissao(vendaId) {
 
-        /*
-         * Impede duas emissões simultâneas.
-         */
-
         if (emitindoVendaId !== null) {
-
             return;
-
         }
-
-        /*
-         * =====================================================
-         * VERIFICAR NOVAMENTE SE A VENDA JÁ POSSUI NFC-e
-         * =====================================================
-         */
 
         if (
             vendasComNfce.has(
@@ -139,23 +128,156 @@ export default function EmitirNfce() {
             });
 
             return;
-
         }
 
-        /*
-         * =====================================================
-         * ABRIR CONFIRMAÇÃO PERSONALIZADA
-         * =====================================================
-         */
+        const vendaSelecionada = vendas.find(
+            venda => Number(venda.id) === Number(vendaId)
+        );
+
+        const documentoAtual =
+            vendaSelecionada?.cpf_consumidor || "";
+
+        setDocumentoNfce(
+            formatarCpfCnpjNfce(documentoAtual)
+        );
+
+        setAlertaNfce({
+            tipo: "documento",
+            titulo: "CPF/CNPJ na nota?",
+            mensagem: documentoAtual
+                ? "Esta venda já possui um CPF/CNPJ. Você pode mantê-lo ou informar outro."
+                : "Deseja informar o CPF ou CNPJ do consumidor nesta NFC-e?",
+            vendaId
+        });
+    }
+    function abrirConfirmacaoEmissao(vendaId) {
 
         setAlertaNfce({
             tipo: "confirmacao",
             titulo: "Emitir NFC-e",
             mensagem: `Confirma a emissão da NFC-e referente à venda #${vendaId}?`,
-            vendaId: vendaId
+            vendaId
         });
     }
 
+
+    function formatarCpfCnpjNfce(valor) {
+
+        const numeros = String(valor || "")
+            .replace(/\D/g, "")
+            .slice(0, 14);
+
+        if (numeros.length <= 11) {
+
+            return numeros
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        }
+
+        return numeros
+            .replace(/^(\d{2})(\d)/, "$1.$2")
+            .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+            .replace(/\.(\d{3})(\d)/, ".$1/$2")
+            .replace(/(\d{4})(\d{1,2})$/, "$1-$2");
+    }
+
+
+    function continuarSemDocumentoNfce() {
+
+        const vendaId = alertaNfce?.vendaId;
+
+        if (!vendaId) {
+            return;
+        }
+
+        setDocumentoNfce("");
+
+        abrirConfirmacaoEmissao(vendaId);
+    }
+
+
+    async function salvarDocumentoNfce() {
+
+        const vendaId = alertaNfce?.vendaId;
+
+        if (!vendaId) {
+            return;
+        }
+
+        const documentoLimpo = documentoNfce.replace(/\D/g, "");
+
+        if (
+            documentoLimpo.length !== 11 &&
+            documentoLimpo.length !== 14
+        ) {
+
+            setAlertaNfce({
+                tipo: "documento",
+                titulo: "CPF/CNPJ na nota?",
+                mensagem: "Digite um CPF com 11 dígitos ou CNPJ com 14 dígitos.",
+                vendaId,
+                erroDocumento: true
+            });
+
+            return;
+        }
+
+        setSalvandoDocumentoNfce(true);
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/vendas/${vendaId}/cpf-cnpj`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        documento: documentoLimpo
+                    })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.detail ||
+                    dados.erro ||
+                    "Não foi possível salvar o CPF/CNPJ"
+                );
+            }
+
+            abrirConfirmacaoEmissao(vendaId);
+
+        } catch (erro) {
+
+            console.error(
+                "[NFC-e] Erro ao salvar CPF/CNPJ:",
+                erro
+            );
+
+            setAlertaNfce({
+                tipo: "documento",
+                titulo: "CPF/CNPJ na nota?",
+                mensagem:
+                    erro.message ||
+                    "Não foi possível salvar o CPF/CNPJ.",
+                vendaId,
+                erroDocumento: true
+            });
+
+        } finally {
+
+            setSalvandoDocumentoNfce(false);
+        }
+    }
     /*
      * =====================================================
      * EMITIR NFC-e
@@ -672,12 +794,13 @@ export default function EmitirNfce() {
         quantidadeVisivelNfce <
         vendasFiltradas.length;
 
-    /*
-     * =====================================================
-     * INTERFACE
-     * =====================================================
-     */
 
+    const quantidadeDigitosDocumentoNfce =
+        documentoNfce.replace(/\D/g, "").length;
+
+    const documentoNfceCompleto =
+        quantidadeDigitosDocumentoNfce === 11 ||
+        quantidadeDigitosDocumentoNfce === 14;
     return (
 
         <div className="emitir-nfce">
@@ -1030,7 +1153,49 @@ export default function EmitirNfce() {
                             <p>
                                 {alertaNfce.mensagem}
                             </p>
+                            {alertaNfce.tipo === "documento" && (
 
+                                <div className="nfce-documento-consumidor-area">
+
+                                    <label
+                                        className="nfce-documento-consumidor-label"
+                                        htmlFor="nfce-documento-consumidor-input"
+                                    >
+                                        CPF ou CNPJ
+                                    </label>
+
+                                    <input
+                                        id="nfce-documento-consumidor-input"
+                                        className="nfce-documento-consumidor-input"
+                                        type="text"
+                                        inputMode="numeric"
+                                        autoComplete="off"
+                                        placeholder="000.000.000-00 ou 00.000.000/0000-00"
+                                        maxLength={18}
+                                        value={documentoNfce}
+                                        disabled={salvandoDocumentoNfce}
+                                        onChange={(e) => {
+
+                                            setDocumentoNfce(
+                                                formatarCpfCnpjNfce(
+                                                    e.target.value
+                                                )
+                                            );
+
+                                        }}
+                                    />
+
+                                    {alertaNfce.erroDocumento && (
+
+                                        <span className="nfce-documento-consumidor-erro">
+                                            {alertaNfce.mensagem}
+                                        </span>
+
+                                    )}
+
+                                </div>
+
+                            )}
                             {alertaNfce.tipo === "processando" && (
 
                                 <span className="nfce-alerta-processando-texto-premium">
@@ -1046,7 +1211,41 @@ export default function EmitirNfce() {
                          * CONFIRMAÇÃO
                          * =====================================================
                          */}
+                        {alertaNfce.tipo === "documento" && (
 
+                            <div className="nfce-alerta-acoes-premium">
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-cancelar-premium"
+                                    disabled={salvandoDocumentoNfce}
+                                    onClick={continuarSemDocumentoNfce}
+                                >
+                                    Não
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-confirmar-premium"
+                                    disabled={
+                                        salvandoDocumentoNfce ||
+                                        !documentoNfceCompleto
+                                    }
+                                    title={
+                                        !documentoNfceCompleto
+                                            ? "Os dados informados estão incorretos."
+                                            : ""
+                                    }
+                                    onClick={salvarDocumentoNfce}
+                                >
+                                    {salvandoDocumentoNfce
+                                        ? "Salvando..."
+                                        : "Sim"}
+                                </button>
+
+                            </div>
+
+                        )}
                         {alertaNfce.tipo === "confirmacao" && (
 
                             <div className="nfce-alerta-acoes-premium">
