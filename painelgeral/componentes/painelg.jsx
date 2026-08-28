@@ -854,6 +854,24 @@ ATALHOS SQL DA TABELA
             return;
         }
 
+        // =====================================================
+        // SEM FILTROS -> SELECT NORMAL
+        // =====================================================
+
+        if (painelGFiltrosCelula.length === 0) {
+
+            abrirSqlProntoPainelG(
+                `SELECT * FROM \`${painelGTabelaSelecionada}\`;`
+            );
+
+            return;
+        }
+
+
+        // =====================================================
+        // COM FILTROS -> SELECT APENAS DOS IDS VISÍVEIS
+        // =====================================================
+
         const colunaPrimaria = painelGColunas.find(
             coluna => coluna.Key === "PRI"
         );
@@ -871,7 +889,12 @@ ATALHOS SQL DA TABELA
 
         const ids = painelGLinhasVisiveis
             .map(linha => linha[colunaId])
-            .filter(valor => valor !== null && valor !== undefined);
+            .filter(
+                valor =>
+                    valor !== null &&
+                    valor !== undefined
+            );
+
 
         if (!ids.length) {
 
@@ -881,6 +904,7 @@ ATALHOS SQL DA TABELA
 
             return;
         }
+
 
         const idsSql = ids
             .map(valor => {
@@ -896,6 +920,7 @@ ATALHOS SQL DA TABELA
                 return `'${valorEscapado}'`;
             })
             .join(", ");
+
 
         abrirSqlProntoPainelG(
             `SELECT * FROM \`${painelGTabelaSelecionada}\`\nWHERE \`${colunaId}\` IN (${idsSql});`
