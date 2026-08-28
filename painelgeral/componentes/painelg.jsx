@@ -16,85 +16,117 @@ export default function PainelG() {
     const [painelGSalvandoCelula, setPainelGSalvandoCelula] = useState(false);
     const [painelGColunas, setPainelGColunas] = useState([]);
     const [painelGLinhas, setPainelGLinhas] = useState([]);
-
+    const [painelGFiltroCelula, setPainelGFiltroCelula] = useState(null);
     const [painelGCarregando, setPainelGCarregando] = useState(false);
     const [painelGErro, setPainelGErro] = useState("");
     const [painelGFiltroTabela, setPainelGFiltroTabela] = useState("");
     const [painelGSql, setPainelGSql] = useState("");
     const [painelGResultadoSql, setPainelGResultadoSql] = useState(null);
     const [painelGHistoricoSql, setPainelGHistoricoSql] = useState([]);
-const [painelGIndiceHistoricoSql, setPainelGIndiceHistoricoSql] = useState(-1);
+    const [painelGIndiceHistoricoSql, setPainelGIndiceHistoricoSql] = useState(-1);
     const [painelGTabelasFixadas, setPainelGTabelasFixadas] = useState([]);
     const [painelGMostrarTodasTabelas, setPainelGMostrarTodasTabelas] = useState(false);
     const [painelGAlterandoFixada, setPainelGAlterandoFixada] = useState("");
     const token = localStorage.getItem("token");
-/* =====================================================
-   CARREGAR HISTÓRICO SQL DO CACHE
-===================================================== */
+    /* =====================================================
+       CARREGAR HISTÓRICO SQL DO CACHE
+    ===================================================== */
+    /* =====================================================
+       FILTRAR TABELA PELO VALOR DA CÉLULA
+    ===================================================== */
 
-useEffect(() => {
-    try {
-        const cache = localStorage.getItem(
-            CACHE_HISTORICO_SQL
-        );
+    function filtrarPorCelulaPainelG(evento, linha, coluna) {
 
-        if (!cache) {
+        if (!evento.ctrlKey) {
             return;
         }
 
-        const historico = JSON.parse(cache);
+        evento.preventDefault();
+        evento.stopPropagation();
 
-        if (!Array.isArray(historico)) {
-            return;
-        }
+        const valor = linha[coluna.Field];
 
-        setPainelGHistoricoSql(
-            historico.slice(0, LIMITE_HISTORICO_SQL)
-        );
+        setPainelGCelulaEditando(null);
+        setPainelGValorEdicao("");
 
-    } catch (error) {
-
-        console.error(
-            "[PAINEL] Erro ao carregar histórico SQL:",
-            error
-        );
-
+        setPainelGFiltroCelula({
+            coluna: coluna.Field,
+            valor: valor
+        });
     }
-}, []);/* =====================================================
+
+
+    /* =====================================================
+       LIMPAR FILTRO DE CÉLULA
+    ===================================================== */
+
+    function limparFiltroCelulaPainelG() {
+
+        setPainelGFiltroCelula(null);
+    }
+    useEffect(() => {
+        try {
+            const cache = localStorage.getItem(
+                CACHE_HISTORICO_SQL
+            );
+
+            if (!cache) {
+                return;
+            }
+
+            const historico = JSON.parse(cache);
+
+            if (!Array.isArray(historico)) {
+                return;
+            }
+
+            setPainelGHistoricoSql(
+                historico.slice(0, LIMITE_HISTORICO_SQL)
+            );
+
+        } catch (error) {
+
+            console.error(
+                "[PAINEL] Erro ao carregar histórico SQL:",
+                error
+            );
+
+        }
+    }, []);/* =====================================================
    GUARDAR SQL NO HISTÓRICO
 ===================================================== */
 
-function guardarSqlNoHistorico(sql) {
+    function guardarSqlNoHistorico(sql) {
 
-    const sqlLimpo = sql.trim();
+        const sqlLimpo = sql.trim();
 
-    if (!sqlLimpo) {
-        return;
+        if (!sqlLimpo) {
+            return;
+        }
+
+        setPainelGHistoricoSql(historicoAtual => {
+
+            // Remove uma eventual ocorrência antiga do mesmo SQL
+            const semDuplicado = historicoAtual.filter(
+                item => item !== sqlLimpo
+            );
+
+            // Mais recente sempre fica primeiro
+            const novoHistorico = [
+                sqlLimpo,
+                ...semDuplicado
+            ].slice(0, LIMITE_HISTORICO_SQL);
+
+            localStorage.setItem(
+                CACHE_HISTORICO_SQL,
+                JSON.stringify(novoHistorico)
+            );
+
+            return novoHistorico;
+        });
+
+        setPainelGIndiceHistoricoSql(-1);
     }
-
-    setPainelGHistoricoSql(historicoAtual => {
-
-        // Remove uma eventual ocorrência antiga do mesmo SQL
-        const semDuplicado = historicoAtual.filter(
-            item => item !== sqlLimpo
-        );
-
-        // Mais recente sempre fica primeiro
-        const novoHistorico = [
-            sqlLimpo,
-            ...semDuplicado
-        ].slice(0, LIMITE_HISTORICO_SQL);
-
-        localStorage.setItem(
-            CACHE_HISTORICO_SQL,
-            JSON.stringify(novoHistorico)
-        );
-
-        return novoHistorico;
-    });
-
-    setPainelGIndiceHistoricoSql(-1);
-}
 
     /* =====================================================
        HEADERS
@@ -157,6 +189,7 @@ function guardarSqlNoHistorico(sql) {
     async function abrirTabelaPainelG(nomeTabela) {
 
         setPainelGTabelaSelecionada(nomeTabela);
+        setPainelGFiltroCelula(null);
 
         setPainelGCarregando(true);
         setPainelGErro("");
@@ -199,113 +232,113 @@ function guardarSqlNoHistorico(sql) {
        EXECUTAR SQL
     ===================================================== */
 
-  /* =====================================================
-   EXECUTAR SQL
-===================================================== */
+    /* =====================================================
+     EXECUTAR SQL
+  ===================================================== */
 
-async function executarSqlPainelG() {
+    async function executarSqlPainelG() {
 
-    const sqlExecutado = painelGSql.trim();
+        const sqlExecutado = painelGSql.trim();
 
-    if (!sqlExecutado) {
-        return;
-    }
-
-    setPainelGCarregando(true);
-    setPainelGErro("");
-    setPainelGResultadoSql(null);
-
-    try {
-
-        const resposta = await fetch(
-            `${API_URL}/panel/database/sql`,
-            {
-                method: "POST",
-                headers: headersPainelG(),
-                body: JSON.stringify({
-                    sql: sqlExecutado
-                })
-            }
-        );
-
-        const dados = await resposta.json();
-
-        if (!resposta.ok) {
-            throw new Error(
-                dados.detail || "Erro ao executar SQL"
-            );
-        }
-
-        setPainelGResultadoSql(dados);
-
-        // Guarda o comando executado
-        guardarSqlNoHistorico(sqlExecutado);
-
-        // Limpa o terminal depois da execução
-        setPainelGSql("");
-
-        // Reseta navegação do histórico
-        setPainelGIndiceHistoricoSql(-1);
-
-        await carregarTabelasPainelG();
-
-    } catch (error) {
-
-        console.error(error);
-
-        setPainelGErro(error.message);
-
-    } finally {
-
-        setPainelGCarregando(false);
-
-    }
-}
-/* =====================================================
-   NAVEGAR PELO HISTÓRICO SQL
-===================================================== */
-
-function navegarHistoricoSql(direcao) {
-
-    if (!painelGHistoricoSql.length) {
-        return;
-    }
-
-    let novoIndice = painelGIndiceHistoricoSql;
-
-    // CTRL + →
-    // Vai para comandos mais antigos
-    if (direcao === "anterior") {
-
-        if (novoIndice < painelGHistoricoSql.length - 1) {
-            novoIndice += 1;
-        }
-
-    }
-
-    // CTRL + ←
-    // Volta para comandos mais recentes
-    if (direcao === "proximo") {
-
-        if (novoIndice > 0) {
-
-            novoIndice -= 1;
-
-        } else {
-
-            setPainelGIndiceHistoricoSql(-1);
-            setPainelGSql("");
-
+        if (!sqlExecutado) {
             return;
         }
+
+        setPainelGCarregando(true);
+        setPainelGErro("");
+        setPainelGResultadoSql(null);
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/panel/database/sql`,
+                {
+                    method: "POST",
+                    headers: headersPainelG(),
+                    body: JSON.stringify({
+                        sql: sqlExecutado
+                    })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.detail || "Erro ao executar SQL"
+                );
+            }
+
+            setPainelGResultadoSql(dados);
+
+            // Guarda o comando executado
+            guardarSqlNoHistorico(sqlExecutado);
+
+            // Limpa o terminal depois da execução
+            setPainelGSql("");
+
+            // Reseta navegação do histórico
+            setPainelGIndiceHistoricoSql(-1);
+
+            await carregarTabelasPainelG();
+
+        } catch (error) {
+
+            console.error(error);
+
+            setPainelGErro(error.message);
+
+        } finally {
+
+            setPainelGCarregando(false);
+
+        }
     }
+    /* =====================================================
+       NAVEGAR PELO HISTÓRICO SQL
+    ===================================================== */
 
-    setPainelGIndiceHistoricoSql(novoIndice);
+    function navegarHistoricoSql(direcao) {
 
-    setPainelGSql(
-        painelGHistoricoSql[novoIndice] || ""
-    );
-}
+        if (!painelGHistoricoSql.length) {
+            return;
+        }
+
+        let novoIndice = painelGIndiceHistoricoSql;
+
+        // CTRL + →
+        // Vai para comandos mais antigos
+        if (direcao === "anterior") {
+
+            if (novoIndice < painelGHistoricoSql.length - 1) {
+                novoIndice += 1;
+            }
+
+        }
+
+        // CTRL + ←
+        // Volta para comandos mais recentes
+        if (direcao === "proximo") {
+
+            if (novoIndice > 0) {
+
+                novoIndice -= 1;
+
+            } else {
+
+                setPainelGIndiceHistoricoSql(-1);
+                setPainelGSql("");
+
+                return;
+            }
+        }
+
+        setPainelGIndiceHistoricoSql(novoIndice);
+
+        setPainelGSql(
+            painelGHistoricoSql[novoIndice] || ""
+        );
+    }
     /* =====================================================
        INICIAR EDIÇÃO DE CÉLULA
     ===================================================== */
@@ -343,40 +376,40 @@ function navegarHistoricoSql(direcao) {
     /* =====================================================
        COPIAR ESTRUTURA DA TABELA
     ===================================================== */
-/* =====================================================
-   COPIAR RESULTADO SQL
-===================================================== */
+    /* =====================================================
+       COPIAR RESULTADO SQL
+    ===================================================== */
 
-async function copiarResultadoSqlPainelG() {
+    async function copiarResultadoSqlPainelG() {
 
-    if (!painelGResultadoSql) {
-        return;
+        if (!painelGResultadoSql) {
+            return;
+        }
+
+        try {
+
+            const conteudo = JSON.stringify(
+                painelGResultadoSql,
+                null,
+                2
+            );
+
+            await navigator.clipboard.writeText(
+                conteudo
+            );
+
+        } catch (error) {
+
+            console.error(
+                "[PAINEL] Erro ao copiar resultado SQL:",
+                error
+            );
+
+            setPainelGErro(
+                "Não foi possível copiar o resultado."
+            );
+        }
     }
-
-    try {
-
-        const conteudo = JSON.stringify(
-            painelGResultadoSql,
-            null,
-            2
-        );
-
-        await navigator.clipboard.writeText(
-            conteudo
-        );
-
-    } catch (error) {
-
-        console.error(
-            "[PAINEL] Erro ao copiar resultado SQL:",
-            error
-        );
-
-        setPainelGErro(
-            "Não foi possível copiar o resultado."
-        );
-    }
-}
     async function copiarEstruturaTabelaPainelG() {
 
         if (!painelGTabelaSelecionada) {
@@ -474,9 +507,16 @@ async function copiarResultadoSqlPainelG() {
             }
 
             setPainelGLinhas(linhasAnteriores =>
-                linhasAnteriores.map((linha, index) => {
+                linhasAnteriores.map(linha => {
 
-                    if (index !== painelGCelulaEditando.indexLinha) {
+                    const ehLinhaEditada =
+                        String(
+                            linha[painelGCelulaEditando.colunaId]
+                        ) === String(
+                            painelGCelulaEditando.valorId
+                        );
+
+                    if (!ehLinhaEditada) {
                         return linha;
                     }
 
@@ -784,14 +824,61 @@ ATALHOS SQL DA TABELA
        SELECT * FROM
     ===================================================== */
 
+    /* =====================================================
+     SELECT * DOS IDS VISÍVEIS / FILTRADOS
+  ===================================================== */
+
     function gerarSelectTabelaPainelG() {
 
         if (!painelGTabelaSelecionada) {
             return;
         }
 
+        const colunaPrimaria = painelGColunas.find(
+            coluna => coluna.Key === "PRI"
+        );
+
+        if (!colunaPrimaria) {
+
+            setPainelGErro(
+                "Essa tabela não possui chave primária."
+            );
+
+            return;
+        }
+
+        const colunaId = colunaPrimaria.Field;
+
+        const ids = painelGLinhasVisiveis
+            .map(linha => linha[colunaId])
+            .filter(valor => valor !== null && valor !== undefined);
+
+        if (!ids.length) {
+
+            setPainelGErro(
+                "Nenhum ID encontrado nas linhas filtradas."
+            );
+
+            return;
+        }
+
+        const idsSql = ids
+            .map(valor => {
+
+                if (typeof valor === "number") {
+                    return valor;
+                }
+
+                const valorEscapado = String(valor)
+                    .replace(/\\/g, "\\\\")
+                    .replace(/'/g, "''");
+
+                return `'${valorEscapado}'`;
+            })
+            .join(", ");
+
         abrirSqlProntoPainelG(
-            `SELECT * FROM \`${painelGTabelaSelecionada}\`;`
+            `SELECT * FROM \`${painelGTabelaSelecionada}\`\nWHERE \`${colunaId}\` IN (${idsSql});`
         );
     }
 
@@ -898,6 +985,30 @@ ATALHOS SQL DA TABELA
             `DELETE FROM \`${painelGTabelaSelecionada}\`;`
         );
     }
+
+    /* =====================================================
+   LINHAS VISÍVEIS DA TABELA
+===================================================== */
+
+    const painelGLinhasVisiveis = painelGFiltroCelula
+        ? painelGLinhas.filter(linha => {
+
+            const valorLinha =
+                linha[painelGFiltroCelula.coluna];
+
+            const valorFiltro =
+                painelGFiltroCelula.valor;
+
+            if (
+                valorLinha === null ||
+                valorFiltro === null
+            ) {
+                return valorLinha === valorFiltro;
+            }
+
+            return String(valorLinha) === String(valorFiltro);
+        })
+        : painelGLinhas;
     return (
 
         <div className="painel-g-administrador-container">
@@ -1361,7 +1472,41 @@ ATALHOS SQL DA TABELA
 
 
                                 {/* DADOS */}
+                                {painelGFiltroCelula && (
 
+                                    <div className="painel-g-filtro-celula-ativo">
+
+                                        <div className="painel-g-filtro-celula-info">
+
+                                            <span>
+                                                Filtro ativo
+                                            </span>
+
+                                            <strong>
+                                                {painelGFiltroCelula.coluna} ={" "}
+                                                {painelGFiltroCelula.valor === null
+                                                    ? "NULL"
+                                                    : String(painelGFiltroCelula.valor)
+                                                }
+                                            </strong>
+
+                                            <small>
+                                                {painelGLinhasVisiveis.length} registro(s)
+                                            </small>
+
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            className="painel-g-filtro-celula-limpar"
+                                            onClick={limparFiltroCelulaPainelG}
+                                        >
+                                            Limpar filtro
+                                        </button>
+
+                                    </div>
+
+                                )}
                                 <div className="painel-g-dados-scroll">
 
                                     <table className="painel-g-dados-tabela">
@@ -1385,8 +1530,7 @@ ATALHOS SQL DA TABELA
 
                                         <tbody>
 
-                                            {painelGLinhas.map((linha, indexLinha) => (
-
+                                            {painelGLinhasVisiveis.map((linha, indexLinha) => (
                                                 <tr key={indexLinha}>
 
                                                     {painelGColunas.map(coluna => {
@@ -1404,14 +1548,29 @@ ATALHOS SQL DA TABELA
                                                                         ? "painel-g-celula-dado painel-g-celula-editando"
                                                                         : "painel-g-celula-dado"
                                                                 }
-                                                                onDoubleClick={() =>
+
+                                                                onClick={evento =>
+                                                                    filtrarPorCelulaPainelG(
+                                                                        evento,
+                                                                        linha,
+                                                                        coluna
+                                                                    )
+                                                                }
+
+                                                                onDoubleClick={evento => {
+
+                                                                    if (evento.ctrlKey) {
+                                                                        return;
+                                                                    }
+
                                                                     iniciarEdicaoCelulaPainelG(
                                                                         linha,
                                                                         coluna,
                                                                         indexLinha
-                                                                    )
-                                                                }
-                                                                title="Clique duas vezes para editar"
+                                                                    );
+                                                                }}
+
+                                                                title="Duplo clique para editar | Ctrl + clique para filtrar"
                                                             >
 
                                                                 {editando ? (
@@ -1539,57 +1698,57 @@ ATALHOS SQL DA TABELA
                     </div>
 
 
-                <textarea
-    className="painel-g-terminal-editor"
+                    <textarea
+                        className="painel-g-terminal-editor"
 
-    value={painelGSql}
+                        value={painelGSql}
 
-    onChange={e => {
+                        onChange={e => {
 
-        setPainelGSql(e.target.value);
+                            setPainelGSql(e.target.value);
 
-        // Se começou a digitar manualmente,
-        // sai da posição atual do histórico
-        setPainelGIndiceHistoricoSql(-1);
-    }}
+                            // Se começou a digitar manualmente,
+                            // sai da posição atual do histórico
+                            setPainelGIndiceHistoricoSql(-1);
+                        }}
 
-    onKeyDown={e => {
+                        onKeyDown={e => {
 
-        // CTRL + →
-        if (
-            e.ctrlKey &&
-            e.key === "ArrowRight"
-        ) {
-            e.preventDefault();
+                            // CTRL + →
+                            if (
+                                e.ctrlKey &&
+                                e.key === "ArrowRight"
+                            ) {
+                                e.preventDefault();
 
-            navegarHistoricoSql("anterior");
+                                navegarHistoricoSql("anterior");
 
-            return;
-        }
+                                return;
+                            }
 
-        // CTRL + ←
-        if (
-            e.ctrlKey &&
-            e.key === "ArrowLeft"
-        ) {
-            e.preventDefault();
+                            // CTRL + ←
+                            if (
+                                e.ctrlKey &&
+                                e.key === "ArrowLeft"
+                            ) {
+                                e.preventDefault();
 
-            navegarHistoricoSql("proximo");
+                                navegarHistoricoSql("proximo");
 
-            return;
-        }
+                                return;
+                            }
 
-    }}
+                        }}
 
-    spellCheck="false"
+                        spellCheck="false"
 
-    placeholder={`SELECT * FROM clientes LIMIT 20;
+                        placeholder={`SELECT * FROM clientes LIMIT 20;
 
 CREATE TABLE exemplo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255)
 );`}
-/>
+                    />
 
 
                     <div className="painel-g-terminal-acoes">
@@ -1608,35 +1767,35 @@ CREATE TABLE exemplo (
                     </div>
 
 
-                {painelGResultadoSql && (
+                    {painelGResultadoSql && (
 
-    <div className="painel-g-terminal-resultado">
+                        <div className="painel-g-terminal-resultado">
 
-        <div className="painel-g-terminal-resultado-cabecalho">
+                            <div className="painel-g-terminal-resultado-cabecalho">
 
-          
 
-            <button
-                type="button"
-                className="painel-g-terminal-copiar-resultado"
-                onClick={copiarResultadoSqlPainelG}
-            >
-                Copiar resultado
-            </button>
 
-        </div>
+                                <button
+                                    type="button"
+                                    className="painel-g-terminal-copiar-resultado"
+                                    onClick={copiarResultadoSqlPainelG}
+                                >
+                                    Copiar resultado
+                                </button>
 
-        <pre>
-            {JSON.stringify(
-                painelGResultadoSql,
-                null,
-                2
-            )}
-        </pre>
+                            </div>
 
-    </div>
+                            <pre>
+                                {JSON.stringify(
+                                    painelGResultadoSql,
+                                    null,
+                                    2
+                                )}
+                            </pre>
 
-)}
+                        </div>
+
+                    )}
                 </div>
 
             )}
