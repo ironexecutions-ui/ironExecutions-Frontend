@@ -5,14 +5,19 @@ import "./etiquetas.css";
 
 const CACHE_ETIQUETAS = "dgyahdasd2d62asdsaofaso";
 
+const CACHE_CONFIGURACAO_ETIQUETAS =
+    "configuracao_visual_etiquetas_v1";
+
 export default function Etiquetas() {
     const [produtos, setProdutos] = useState([]);
     const [selecionados, setSelecionados] = useState([]);
+
     const [fonteNormal, setFonteNormal] = useState("helvetica");
     const [estiloFonteNormal, setEstiloFonteNormal] = useState("bold");
 
     const [fontePromocao, setFontePromocao] = useState("helvetica");
     const [estiloFontePromocao, setEstiloFontePromocao] = useState("bold");
+
     const [filtroNome, setFiltroNome] = useState("");
     const [filtroPreco, setFiltroPreco] = useState("");
     const [filtroCodigoBarras, setFiltroCodigoBarras] = useState("");
@@ -23,12 +28,18 @@ export default function Etiquetas() {
     const [corFundoPromocao, setCorFundoPromocao] = useState("#ffeb3b");
     const [corTextoPromocao, setCorTextoPromocao] = useState("#000000");
 
+    const [
+        configuracaoEtiquetasCarregada,
+        setConfiguracaoEtiquetasCarregada
+    ] = useState(false);
+
     const [carregandoEtiquetas, setCarregandoEtiquetas] = useState(true);
     const [editandoPrecoId, setEditandoPrecoId] = useState(null);
     const [novoPreco, setNovoPreco] = useState("");
 
     const [cambio, setCambio] = useState(null);
     const [abaMobileEtiquetas, setAbaMobileEtiquetas] = useState("lista");
+
     const token = localStorage.getItem("token");
     const tiposFonteDisponiveis = [
         {
@@ -44,6 +55,79 @@ export default function Etiquetas() {
             nome: "Courier"
         }
     ];
+// =========================================================
+// CARREGAR CONFIGURAÇÕES DAS ETIQUETAS DO CACHE
+// =========================================================
+// =========================================================
+// CARREGAR CONFIGURAÇÕES VISUAIS DO CACHE
+// =========================================================
+useEffect(() => {
+    try {
+        const cacheSalvo = localStorage.getItem(
+            CACHE_CONFIGURACAO_ETIQUETAS
+        );
+
+        if (cacheSalvo) {
+            const configuracao = JSON.parse(cacheSalvo);
+
+            if (configuracao.corFundoNormal) {
+                setCorFundoNormal(
+                    configuracao.corFundoNormal
+                );
+            }
+
+            if (configuracao.corTextoNormal) {
+                setCorTextoNormal(
+                    configuracao.corTextoNormal
+                );
+            }
+
+            if (configuracao.fonteNormal) {
+                setFonteNormal(
+                    configuracao.fonteNormal
+                );
+            }
+
+            if (configuracao.estiloFonteNormal) {
+                setEstiloFonteNormal(
+                    configuracao.estiloFonteNormal
+                );
+            }
+
+            if (configuracao.corFundoPromocao) {
+                setCorFundoPromocao(
+                    configuracao.corFundoPromocao
+                );
+            }
+
+            if (configuracao.corTextoPromocao) {
+                setCorTextoPromocao(
+                    configuracao.corTextoPromocao
+                );
+            }
+
+            if (configuracao.fontePromocao) {
+                setFontePromocao(
+                    configuracao.fontePromocao
+                );
+            }
+
+            if (configuracao.estiloFontePromocao) {
+                setEstiloFontePromocao(
+                    configuracao.estiloFontePromocao
+                );
+            }
+        }
+
+    } catch (erro) {
+        console.error(
+            "Erro ao carregar configuração das etiquetas:",
+            erro
+        );
+    } finally {
+        setConfiguracaoEtiquetasCarregada(true);
+    }
+}, []);
 
     const estilosFonteDisponiveis = [
         {
@@ -63,6 +147,101 @@ export default function Etiquetas() {
             nome: "Negrito + Itálico"
         }
     ];
+    // =========================================================
+// ATUALIZAR CONFIGURAÇÕES NO CACHE
+// =========================================================
+// =========================================================
+// CARREGAR CONFIGURAÇÕES VISUAIS DAS ETIQUETAS
+// =========================================================
+useEffect(() => {
+    try {
+        const cacheSalvo = localStorage.getItem(
+            CACHE_CONFIGURACAO_ETIQUETAS
+        );
+
+        if (cacheSalvo) {
+            const configuracao = JSON.parse(cacheSalvo);
+
+            setCorFundoNormal(
+                configuracao.corFundoNormal ?? "#ffffff"
+            );
+
+            setCorTextoNormal(
+                configuracao.corTextoNormal ?? "#000000"
+            );
+
+            setFonteNormal(
+                configuracao.fonteNormal ?? "helvetica"
+            );
+
+            setEstiloFonteNormal(
+                configuracao.estiloFonteNormal ?? "bold"
+            );
+
+            setCorFundoPromocao(
+                configuracao.corFundoPromocao ?? "#ffeb3b"
+            );
+
+            setCorTextoPromocao(
+                configuracao.corTextoPromocao ?? "#000000"
+            );
+
+            setFontePromocao(
+                configuracao.fontePromocao ?? "helvetica"
+            );
+
+            setEstiloFontePromocao(
+                configuracao.estiloFontePromocao ?? "bold"
+            );
+        }
+
+    } catch (erro) {
+        console.error(
+            "Erro ao carregar configurações das etiquetas:",
+            erro
+        );
+    } finally {
+        setConfiguracaoEtiquetasCarregada(true);
+    }
+}, []);
+
+
+// =========================================================
+// ATUALIZAR CONFIGURAÇÕES VISUAIS NO CACHE
+// =========================================================
+useEffect(() => {
+    if (!configuracaoEtiquetasCarregada) {
+        return;
+    }
+
+    const configuracao = {
+        corFundoNormal,
+        corTextoNormal,
+        fonteNormal,
+        estiloFonteNormal,
+
+        corFundoPromocao,
+        corTextoPromocao,
+        fontePromocao,
+        estiloFontePromocao,
+    };
+
+    localStorage.setItem(
+        CACHE_CONFIGURACAO_ETIQUETAS,
+        JSON.stringify(configuracao)
+    );
+
+}, [
+    configuracaoEtiquetasCarregada,
+    corFundoNormal,
+    corTextoNormal,
+    fonteNormal,
+    estiloFonteNormal,
+    corFundoPromocao,
+    corTextoPromocao,
+    fontePromocao,
+    estiloFontePromocao,
+]);
     // ===============================
     // CARREGAR CACHE + SINCRONIZAR
     // ===============================
@@ -249,27 +428,27 @@ export default function Etiquetas() {
     // MOVER PARA IMPRESSÃO
     // ===============================
 
-    function adicionarParaImpressao(produto) {
-        setSelecionados(listaAtual => {
-            const existe = listaAtual.some(
-                item => item.id === produto.id
-            );
+   function adicionarParaImpressao(produto) {
+    setSelecionados(listaAtual => {
+        const existe = listaAtual.some(
+            item => item.id === produto.id
+        );
 
-            if (existe) {
-                return listaAtual;
+        if (existe) {
+            return listaAtual;
+        }
+
+        return [
+            ...listaAtual,
+            {
+                ...produto,
+                promocao: false,
+                precoAnterior: "",
+                quantidadeEtiquetas: 1,
             }
-
-            return [
-                ...listaAtual,
-                {
-                    ...produto,
-                    promocao: false,
-                    quantidadeEtiquetas: 1,
-                }
-            ];
-        });
-    }
-
+        ];
+    });
+}
     // ===============================
     // REMOVER DA IMPRESSÃO
     // ===============================
@@ -284,18 +463,38 @@ export default function Etiquetas() {
     // ===============================
     // PROMOÇÃO
     // ===============================
-    function alternarPromocao(id) {
-        setSelecionados(listaAtual =>
-            listaAtual.map(item =>
-                item.id === id
-                    ? {
-                        ...item,
-                        promocao: !item.promocao,
-                    }
-                    : item
-            )
-        );
-    }
+ function alternarPromocao(id) {
+    setSelecionados(listaAtual =>
+        listaAtual.map(item => {
+            if (item.id !== id) {
+                return item;
+            }
+
+            const novaPromocao = !item.promocao;
+
+            return {
+                ...item,
+                promocao: novaPromocao,
+                precoAnterior: novaPromocao
+                    ? item.precoAnterior ?? ""
+                    : "",
+            };
+        })
+    );
+}
+
+function alterarPrecoAnterior(id, valor) {
+    setSelecionados(listaAtual =>
+        listaAtual.map(item =>
+            item.id === id
+                ? {
+                    ...item,
+                    precoAnterior: valor,
+                }
+                : item
+        )
+    );
+}
     // ===============================
     // ALTERAR QUANTIDADE DE ETIQUETAS
     // ===============================
@@ -637,9 +836,21 @@ export default function Etiquetas() {
             // ===============================
             // PROMOÇÃO
             // ===============================
-            if (produto.promocao) {
-                alturaConteudo += 13;
-            }
+    if (produto.promocao) {
+    alturaConteudo += 13;
+
+    const precoAnteriorNumero = Number(
+        String(produto.precoAnterior ?? "")
+            .replace(",", ".")
+    );
+
+    if (
+        produto.precoAnterior !== "" &&
+        Number.isFinite(precoAnteriorNumero)
+    ) {
+        alturaConteudo += 9;
+    }
+}
 
 
             // ===============================
@@ -980,7 +1191,71 @@ export default function Etiquetas() {
                             6
                         ) + 7;
 
+// ===============================
+// PREÇO ANTERIOR DA PROMOÇÃO
+// ===============================
+if (
+    produto.promocao &&
+    produto.precoAnterior !== ""
+) {
+    const precoAnteriorNumero = Number(
+        String(produto.precoAnterior)
+            .replace(",", ".")
+    );
 
+    if (Number.isFinite(precoAnteriorNumero)) {
+        const textoPrecoAnterior =
+            `R$ ${formatarPreco(precoAnteriorNumero)}`;
+
+        pdf.setFont(
+            fonteEtiqueta,
+            "normal"
+        );
+
+        pdf.setFontSize(14);
+
+        const centroX =
+            x + larguraEtiqueta / 2;
+
+        pdf.text(
+            textoPrecoAnterior,
+            centroX,
+            posicaoY,
+            {
+                align: "center",
+            }
+        );
+
+        const larguraPrecoAnterior =
+            pdf.getTextWidth(textoPrecoAnterior);
+
+        const inicioLinha =
+            centroX -
+            larguraPrecoAnterior / 2;
+
+        const fimLinha =
+            centroX +
+            larguraPrecoAnterior / 2;
+
+        // Linha atravessando o preço antigo
+        pdf.setDrawColor(
+            textoR,
+            textoG,
+            textoB
+        );
+
+        pdf.setLineWidth(0.6);
+
+        pdf.line(
+            inicioLinha,
+            posicaoY - 1.7,
+            fimLinha,
+            posicaoY - 1.7
+        );
+
+        posicaoY += 8;
+    }
+}
                     // ===============================
                     // PREÇO EM REAL
                     // ===============================
@@ -1248,7 +1523,39 @@ export default function Etiquetas() {
                                     ? "Promoção ✓"
                                     : "Promoção"}
                             </button>
+{produto.promocao && (
+    <div className="etiquetas-promocao-preco-anterior-area">
+        <label
+            className="etiquetas-promocao-preco-anterior-label"
+            htmlFor={`preco-anterior-promocao-${produto.id}`}
+        >
+            Preço anterior
+        </label>
 
+        <div className="etiquetas-promocao-preco-anterior-campo">
+            <span className="etiquetas-promocao-preco-anterior-prefixo">
+                R$
+            </span>
+
+            <input
+                id={`preco-anterior-promocao-${produto.id}`}
+                className="etiquetas-promocao-preco-anterior-input"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0,00"
+                value={produto.precoAnterior ?? ""}
+                onChange={e =>
+                    alterarPrecoAnterior(
+                        produto.id,
+                        e.target.value
+                    )
+                }
+                autoFocus
+            />
+        </div>
+    </div>
+)}
                             <button
                                 className="etiquetas-acao-mover-esquerda"
                                 onClick={() =>
@@ -1428,7 +1735,15 @@ export default function Etiquetas() {
                         </label>
 
                     </div>
-
+        <button
+                        className="etiquetas-botao-imprimir-principall"
+                        onClick={imprimirEtiquetas}
+                        disabled={selecionados.length === 0}
+                    >
+                        Imprimir etiquetas
+                        {selecionados.length > 0 &&
+                            ` (${selecionados.length})`}
+                    </button>
 
                     {/* ===============================
         ETIQUETA PROMOÇÃO
@@ -1577,6 +1892,7 @@ export default function Etiquetas() {
                     {/* ===============================
         IMPRIMIR
     =============================== */}
+    
                     <button
                         className="etiquetas-botao-imprimir-principal"
                         onClick={imprimirEtiquetas}
