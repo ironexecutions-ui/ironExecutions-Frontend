@@ -357,7 +357,7 @@ export default function FormularioIronStore({
 
                         <strong>
                             {estaDisponivel
-                                ? "Disponível na loja"
+                                ? "Disponível para vendas online"
                                 : "Não publicado"
                             }
                         </strong>
