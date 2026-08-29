@@ -538,7 +538,7 @@ export default function FormularioProduto({ item, voltar }) {
         }));
     }
 
-    async function salvar() {
+    async function salvar(voltarDepois = true) {
         const token = localStorage.getItem("token");
 
         if (!form.nome.trim()) {
@@ -832,14 +832,18 @@ export default function FormularioProduto({ item, voltar }) {
                             : "Não foi possível salvar o produto.",
                     tipo: "erro"
                 });
-
             }
 
-            return;
-            return;
+            return false;
         }
 
-        voltar();
+
+        // SALVOU COM SUCESSO
+        if (voltarDepois) {
+            voltar();
+        }
+
+        return true;
     }
     function primeiraMaiuscula(texto) {
         if (!texto) return "";
@@ -1420,6 +1424,7 @@ export default function FormularioProduto({ item, voltar }) {
                 <CadastroIronStore
                     form={form}
                     alterar={alterar}
+                    salvar={salvar}
                     variedades={variedades}
                     adicionarVariedade={adicionarVariedade}
                     removerVariedade={removerVariedade}

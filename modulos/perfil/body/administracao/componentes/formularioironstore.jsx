@@ -69,7 +69,6 @@ export default function FormularioIronStore({
             return;
         }
 
-
         if (!form.id) {
 
             abrirAlerta({
@@ -82,42 +81,122 @@ export default function FormularioIronStore({
             return;
         }
 
-
         try {
 
             setAlterandoDisponibilidade(true);
 
+            // =====================================================
+            // SE ESTÁ INATIVO E VAI SER ATIVADO
+            // PRIMEIRO SALVA TODAS AS ALTERAÇÕES
+            // =====================================================
+
+            if (!estaDisponivel) {
+
+                // =====================================================
+                // GARANTIR QUE A FUNÇÃO DE SALVAR EXISTE
+                // =====================================================
+
+                if (typeof salvar !== "function") {
+
+                    abrirAlerta({
+                        titulo: "Erro ao salvar",
+                        mensagem:
+                            "A função de salvamento do produto não está disponível.",
+                        tipo: "erro"
+                    });
+
+                    return;
+                }
+
+                try {
+
+                    // =====================================================
+                    // 1. SALVA SEM SAIR DA TELA
+                    // 2. ESPERA O PUT TERMINAR
+                    // =====================================================
+
+                    const salvou = await salvar(false);
+
+                    // =====================================================
+                    // SE NÃO SALVOU, NÃO TENTA ATIVAR
+                    // =====================================================
+
+                    if (salvou !== true) {
+                        return;
+                    }
+
+                } catch (erroSalvar) {
+
+                    console.error(
+                        "Erro ao salvar antes de ativar:",
+                        erroSalvar
+                    );
+
+                    abrirAlerta({
+                        titulo: "Não foi possível salvar",
+                        mensagem:
+                            "As alterações do produto não puderam ser salvas. O produto não foi ativado.",
+                        tipo: "erro"
+                    });
+
+                    return;
+                }
+            }
+
+
+            // =====================================================
+            // SOMENTE CHEGA AQUI DEPOIS QUE SALVAR() RETORNOU TRUE
+            // =====================================================
+
             const token =
                 localStorage.getItem("token");
 
+            // =====================================================
+            // DEFINIR O NOVO ESTADO
+            // =====================================================
+
+            const novaDisponibilidade =
+                estaDisponivel ? 0 : 1;
+
+
+            // =====================================================
+            // ALTERAR DISPONIBILIDADE
+            // =====================================================
 
             const resposta = await fetch(
                 `${URL}/admin/produtos-servicos/${form.id}/ironstore/disponibilidade`,
                 {
                     method: "PUT",
+
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        disponivel: novaDisponibilidade
+                    })
                 }
             );
 
 
-            let dados = {};
+            // =====================================================
+            // LER RESPOSTA
+            // =====================================================
 
-            try {
+            const dados = await resposta
+                .json()
+                .catch(() => null);
 
-                dados = await resposta.json();
 
-            } catch {
-
-                dados = {};
-            }
-
+            // =====================================================
+            // ERRO
+            // =====================================================
 
             if (!resposta.ok) {
 
-                const detalhe = dados?.detail;
-
+                const detalhe =
+                    dados?.detail;
 
                 if (
                     detalhe &&
@@ -129,33 +208,46 @@ export default function FormularioIronStore({
                         titulo: "Produto incompleto",
                         mensagem:
                             detalhe.mensagem ||
-                            "Preencha os campos abaixo antes de ativar este produto na IronStore.",
+                            "Este produto ainda não pode ser ativado na IronStore.",
                         itens: detalhe.faltando,
                         tipo: "aviso"
                     });
 
-                    return;
+                } else {
+
+                    abrirAlerta({
+                        titulo: "Não foi possível alterar",
+                        mensagem:
+                            typeof detalhe === "string"
+                                ? detalhe
+                                : "Não foi possível alterar a disponibilidade do produto.",
+                        tipo: "erro"
+                    });
                 }
-
-
-                abrirAlerta({
-                    titulo: "Não foi possível alterar",
-                    mensagem:
-                        typeof detalhe === "string"
-                            ? detalhe
-                            : "Não foi possível alterar a disponibilidade do produto.",
-                    tipo: "erro"
-                });
 
                 return;
             }
 
+
+            // =====================================================
+            // ATUALIZAR STATUS LOCAL
+            // =====================================================
 
             alterar(
                 "disponivel",
                 dados.disponivel
             );
 
+
+
+            // =====================================================
+            // ATUALIZA STATUS NO FORM
+            // =====================================================
+
+            alterar(
+                "disponivel",
+                dados.disponivel
+            );
 
         } catch (erro) {
 
@@ -164,7 +256,6 @@ export default function FormularioIronStore({
                 erro
             );
 
-
             abrirAlerta({
                 titulo: "Erro de conexão",
                 mensagem:
@@ -172,13 +263,11 @@ export default function FormularioIronStore({
                 tipo: "erro"
             });
 
-
         } finally {
 
             setAlterandoDisponibilidade(false);
         }
     }
-
 
     /* =========================================================
        SELECIONAR DESTAQUE
