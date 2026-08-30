@@ -265,15 +265,22 @@ export default function HistoricoVendas() {
 
     function traduzirModulo(valor) {
 
-        if (valor === 1) {
+        const modulo =
+            Number(valor);
+
+        if (modulo === 1) {
             return "Caixa";
         }
 
-        if (valor === 4) {
+        if (modulo === 2) {
+            return "IronStore";
+        }
+
+        if (modulo === 4) {
             return "Online";
         }
 
-        if (valor === 6) {
+        if (modulo === 6) {
             return "Agendamento";
         }
 
