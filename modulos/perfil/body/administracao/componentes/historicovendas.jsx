@@ -986,7 +986,30 @@ export default function HistoricoVendas() {
 
 
                                     <td>
-                                        {v.operador}
+
+                                        <div className="hv-operador">
+
+                                            <span className="hv-operador-nome">
+
+                                                {v.operador || "Não identificado"}
+
+                                            </span>
+
+
+                                            {
+                                                v.tipo_realizada === "ironstore" && (
+
+                                                    <span className="hv-cliente-ironstore">
+
+                                                        Cliente IronStore
+
+                                                    </span>
+
+                                                )
+                                            }
+
+                                        </div>
+
                                     </td>
 
 
