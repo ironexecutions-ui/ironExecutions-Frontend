@@ -984,7 +984,7 @@ export default function EmitirNfce() {
                                         ) : (
 
                                             <span className="sem-comanda">
-                                                —
+                                                Venda online
                                             </span>
 
                                         )}
