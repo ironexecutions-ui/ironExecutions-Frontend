@@ -1,0 +1,2362 @@
+/* =========================================================
+   IRONSTORE
+   DOMÍNIO REGISTRADO
+   PREMIUM UI
+
+   CORES
+   NAVY      #142A4A
+   BLUE      #2563EB
+   BLUE DARK #1D4ED8
+   CYAN      #0EA5E9
+   GREEN     #059669
+   RED       #DC2626
+   AMBER     #D97706
+   WHITE     #FFFFFF
+========================================================= */
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
+
+.ironstore-dominio-premium-area {
+    position: relative !important;
+
+    width: 100% !important;
+
+    margin: 0 auto !important;
+
+
+    border-radius: 24px !important;
+
+    overflow: hidden !important;
+
+    color: #142a4a !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 12px 30px rgba(15, 23, 42, 0.06),
+        0 30px 70px rgba(15, 23, 42, 0.05) !important;
+
+    isolation: isolate !important;
+}
+
+/* =========================================================
+   SUPORTE
+   BLOCO PREMIUM LIMPO
+========================================================= */
+
+.ironstore-dominio-modal-premium-suporte-info {
+    width: 100% !important;
+
+    margin: 16px 0 0 !important;
+    padding: 0 !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #e4eaf2 !important;
+    border-radius: 12px !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.02),
+        0 5px 16px rgba(15, 23, 42, 0.035) !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÃO PRINCIPAL
+========================================================= */
+
+.ironstore-dominio-modal-premium-suporte-info .ironstore-dominio-modal-premium-descricao {
+    margin: 0 !important;
+
+    padding:
+        16px 17px 14px !important;
+
+    background: #ffffff !important;
+
+    color: #526177 !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.65 !important;
+}
+
+
+/* =========================================================
+   DESTAQUES
+========================================================= */
+
+.ironstore-dominio-modal-premium-suporte-info .ironstore-dominio-modal-premium-descricao strong {
+    color: #142a4a !important;
+
+    font-size: inherit !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   AVISO DE AUTORIZAÇÃO
+========================================================= */
+
+.ironstore-dominio-modal-premium-suporte-texto {
+    position: relative !important;
+
+    margin: 0 !important;
+
+    padding:
+        13px 17px 13px 34px !important;
+
+    background: #f8faff !important;
+
+    border-top: 1px solid #e8edf5 !important;
+
+    color: #526177 !important;
+
+    font-size: 11px !important;
+    font-weight: 600 !important;
+
+    line-height: 1.55 !important;
+}
+
+
+/* PONTO AZUL */
+
+.ironstore-dominio-modal-premium-suporte-texto::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 18px !important;
+    left: 18px !important;
+
+    width: 6px !important;
+    height: 6px !important;
+
+    background: #2563eb !important;
+
+    border-radius: 50% !important;
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.08) !important;
+}
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+.ironstore-dominio-modal-premium-whatsapp {
+    position: relative !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 12px !important;
+
+    width:
+        calc(100% - 24px) !important;
+
+    min-height: 58px !important;
+
+    margin:
+        12px !important;
+
+    padding:
+        9px 11px !important;
+
+    background: #ffffff !important;
+
+    border:
+        1px solid #d9e5df !important;
+
+    border-radius:
+        10px !important;
+
+    outline: none !important;
+
+    color: #142a4a !important;
+
+    font-family: inherit !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, 0.035) !important;
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+/* =========================================================
+   HOVER WHATSAPP
+========================================================= */
+
+.ironstore-dominio-modal-premium-whatsapp:hover {
+    background: #f9fffb !important;
+
+    border-color:
+        rgba(22, 163, 74, 0.40) !important;
+
+    box-shadow:
+        0 5px 14px rgba(22, 163, 74, 0.08) !important;
+
+    transform:
+        translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.ironstore-dominio-modal-premium-whatsapp-icone {
+    flex: 0 0 auto !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 38px !important;
+    height: 38px !important;
+
+    padding: 0 !important;
+
+    background: #16a34a !important;
+
+    border: none !important;
+    border-radius: 9px !important;
+
+    color: #ffffff !important;
+
+    font-size: 0 !important;
+
+    box-shadow:
+        0 4px 10px rgba(22, 163, 74, 0.16) !important;
+}
+
+
+/* =========================================================
+   ÍCONE DO WHATSAPP EM CSS
+========================================================= */
+
+.ironstore-dominio-modal-premium-whatsapp-icone::before {
+    content: "W" !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 22px !important;
+    height: 22px !important;
+
+    border:
+        1.5px solid rgba(255, 255, 255, 0.92) !important;
+
+    border-radius:
+        50% !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    line-height: 1 !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.ironstore-dominio-modal-premium-whatsapp-conteudo {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: flex-start !important;
+
+    gap: 3px !important;
+
+    text-align: left !important;
+}
+
+
+.ironstore-dominio-modal-premium-whatsapp-conteudo strong {
+    margin: 0 !important;
+
+    color: #142a4a !important;
+
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.25 !important;
+}
+
+
+.ironstore-dominio-modal-premium-whatsapp-conteudo small {
+    margin: 0 !important;
+
+    color: #7b899c !important;
+
+    font-size: 9.5px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.3 !important;
+}
+
+
+/* =========================================================
+   SETA
+========================================================= */
+
+.ironstore-dominio-modal-premium-whatsapp-seta {
+    flex: 0 0 auto !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 30px !important;
+    height: 30px !important;
+
+    background: #f5f7fa !important;
+
+    border:
+        1px solid #e7ebf0 !important;
+
+    border-radius:
+        8px !important;
+
+    color: #7b899c !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.ironstore-dominio-modal-premium-whatsapp:hover .ironstore-dominio-modal-premium-whatsapp-seta {
+    background: #ecfdf3 !important;
+
+    border-color: #d1fae0 !important;
+
+    color: #16a34a !important;
+
+    transform:
+        translateX(2px) !important;
+}
+
+
+/* =========================================================
+   ACTIVE
+========================================================= */
+
+.ironstore-dominio-modal-premium-whatsapp:active {
+    transform:
+        translateY(0) !important;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.ironstore-dominio-modal-premium-whatsapp:focus-visible {
+    border-color: #16a34a !important;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 163, 74, 0.10) !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .ironstore-dominio-modal-premium-suporte-info {
+        margin-top: 13px !important;
+
+        border-radius: 11px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-suporte-info .ironstore-dominio-modal-premium-descricao {
+        padding:
+            14px 14px 13px !important;
+
+        font-size: 11.5px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-suporte-texto {
+        padding:
+            12px 14px 12px 31px !important;
+
+        font-size: 10.5px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-suporte-texto::before {
+        top: 17px !important;
+        left: 15px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-whatsapp {
+        width:
+            calc(100% - 20px) !important;
+
+        min-height: 56px !important;
+
+        margin: 10px !important;
+
+        gap: 10px !important;
+
+        padding:
+            8px 9px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-whatsapp-icone {
+        width: 37px !important;
+        height: 37px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-whatsapp-conteudo strong {
+        font-size: 11px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-whatsapp-conteudo small {
+        font-size: 9px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .ironstore-dominio-modal-premium-whatsapp-seta {
+        width: 27px !important;
+        height: 27px !important;
+    }
+
+}
+
+/* =========================================================
+   DETALHE SUPERIOR
+========================================================= */
+
+.ironstore-dominio-premium-area::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 4px !important;
+
+    background:
+        linear-gradient(90deg,
+            #142a4a 0%,
+            #2563eb 48%,
+            #0ea5e9 100%) !important;
+
+    z-index: 5 !important;
+}
+
+
+/* =========================================================
+   BRILHO DECORATIVO
+========================================================= */
+
+.ironstore-dominio-premium-area::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 340px !important;
+    height: 340px !important;
+
+    top: -190px !important;
+    right: -120px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.10) 0%,
+            rgba(14, 165, 233, 0.04) 42%,
+            transparent 72%) !important;
+
+    pointer-events: none !important;
+
+    z-index: -1 !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.ironstore-dominio-premium-cabecalho {
+    position: relative !important;
+
+    width: 100% !important;
+
+    padding:
+        38px 40px 32px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(248, 251, 255, 0.96) 0%,
+            rgba(255, 255, 255, 0.98) 58%,
+            rgba(241, 247, 255, 0.95) 100%) !important;
+
+    border-bottom:
+        1px solid rgba(20, 42, 74, 0.08) !important;
+}
+
+
+.ironstore-dominio-premium-cabecalho-conteudo {
+    position: relative !important;
+
+    max-width: 720px !important;
+
+    z-index: 2 !important;
+}
+
+
+/* =========================================================
+   ETIQUETA
+========================================================= */
+
+.ironstore-dominio-premium-etiqueta {
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    min-height: 28px !important;
+
+    margin: 0 0 13px 0 !important;
+
+    padding:
+        6px 11px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(37, 99, 235, 0.09),
+            rgba(14, 165, 233, 0.07)) !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.12) !important;
+
+    border-radius: 8px !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.09em !important;
+
+    line-height: 1 !important;
+
+    text-transform: uppercase !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.ironstore-dominio-premium-titulo {
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    color: #142a4a !important;
+
+    font-size: clamp(26px,
+            3vw,
+            34px) !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: -0.04em !important;
+
+    line-height: 1.1 !important;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.ironstore-dominio-premium-descricao {
+    max-width: 640px !important;
+
+    margin:
+        11px 0 0 !important;
+
+    padding: 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 14px !important;
+    font-weight: 450 !important;
+
+    line-height: 1.65 !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.ironstore-dominio-premium-conteudo {
+    position: relative !important;
+
+    width: 100% !important;
+
+    padding:
+        36px 40px 40px !important;
+
+    background:
+        rgba(255,
+            255,
+            255,
+            0.74) !important;
+}
+
+
+/* =========================================================
+   DOMÍNIO ATUAL
+========================================================= */
+
+.ironstore-dominio-premium-atual {
+    position: relative !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 25px !important;
+
+    width: 100% !important;
+
+    margin:
+        0 0 30px !important;
+
+    padding:
+        20px 21px !important;
+
+    background:
+        linear-gradient(135deg,
+            #f7faff 0%,
+            #ffffff 100%) !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.12) !important;
+
+    border-radius: 15px !important;
+
+    box-shadow:
+        0 5px 16px rgba(20, 42, 74, 0.035) !important;
+
+    overflow: hidden !important;
+}
+
+
+.ironstore-dominio-premium-atual::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #0ea5e9) !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÃO DO DOMÍNIO ATUAL
+========================================================= */
+
+.ironstore-dominio-premium-atual-info {
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex: 1 !important;
+
+    flex-direction: column !important;
+
+    gap: 6px !important;
+
+    padding-left: 5px !important;
+}
+
+
+.ironstore-dominio-premium-atual-label {
+    color: #64748b !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.07em !important;
+
+    line-height: 1.3 !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-dominio-premium-atual-valor {
+    display: block !important;
+
+    max-width: 100% !important;
+
+    overflow: hidden !important;
+
+    color: #142a4a !important;
+
+    font-size: 16px !important;
+    font-weight: 750 !important;
+
+    letter-spacing: -0.015em !important;
+
+    line-height: 1.4 !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   VISITAR DOMÍNIO
+========================================================= */
+
+.ironstore-dominio-premium-visitar {
+    flex-shrink: 0 !important;
+
+    min-width: 130px !important;
+    min-height: 41px !important;
+
+    padding:
+        0 17px !important;
+
+    background: #ffffff !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.20) !important;
+
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    color: #2563eb !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 3px 10px rgba(37, 99, 235, 0.06) !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.ironstore-dominio-premium-visitar:hover {
+    background: #2563eb !important;
+
+    border-color: #2563eb !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.18) !important;
+
+    transform:
+        translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
+
+.ironstore-dominio-premium-formulario {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+}
+
+
+.ironstore-dominio-premium-campo {
+    display: block !important;
+
+    width: 100% !important;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.ironstore-dominio-premium-label {
+    display: block !important;
+
+    margin:
+        0 0 9px !important;
+
+    color: #263b5b !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   INPUT CONTAINER
+========================================================= */
+
+.ironstore-dominio-premium-input-area {
+    position: relative !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    width: 100% !important;
+
+    min-height: 56px !important;
+
+    background: #ffffff !important;
+
+    border:
+        1px solid #d8e1ec !important;
+
+    border-radius: 12px !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.025),
+        0 3px 12px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.ironstore-dominio-premium-input-area:hover {
+    border-color:
+        rgba(37,
+            99,
+            235,
+            0.32) !important;
+}
+
+
+.ironstore-dominio-premium-input-area:focus-within {
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.10),
+        0 8px 20px rgba(37, 99, 235, 0.07) !important;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.ironstore-dominio-premium-input {
+    display: block !important;
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+    min-height: 54px !important;
+
+    margin: 0 !important;
+
+    padding:
+        0 18px !important;
+
+    background:
+        transparent !important;
+
+    border:
+        none !important;
+
+    border-radius: 0 !important;
+
+    outline:
+        none !important;
+
+    color: #142a4a !important;
+
+    font-family: inherit !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+
+    letter-spacing:
+        -0.01em !important;
+
+    box-shadow:
+        none !important;
+}
+
+
+.ironstore-dominio-premium-input::placeholder {
+    color: #a8b4c4 !important;
+
+    opacity: 1 !important;
+}
+
+
+.ironstore-dominio-premium-input:focus {
+    border: none !important;
+
+    outline: none !important;
+
+    box-shadow: none !important;
+}
+
+
+.ironstore-dominio-premium-input:read-only {
+    color: #64748b !important;
+
+    cursor: default !important;
+}
+
+
+.ironstore-dominio-premium-input:disabled {
+    opacity: 0.7 !important;
+
+    cursor: wait !important;
+}
+
+
+/* =========================================================
+   TEXTO DE AJUDA
+========================================================= */
+
+.ironstore-dominio-premium-ajuda {
+    display: block !important;
+
+    margin:
+        9px 0 0 !important;
+
+    color: #8492a6 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.ironstore-dominio-premium-acoes {
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    width: 100% !important;
+
+    margin:
+        24px 0 0 !important;
+}
+
+
+/* =========================================================
+   BOTÃO PRINCIPAL
+========================================================= */
+
+.ironstore-dominio-premium-salvar {
+    position: relative !important;
+
+    min-width: 165px !important;
+    min-height: 45px !important;
+
+    padding:
+        0 22px !important;
+
+    background:
+        linear-gradient(135deg,
+            #2563eb 0%,
+            #1d4ed8 100%) !important;
+
+    border:
+        1px solid #2563eb !important;
+
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    letter-spacing:
+        0.005em !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+
+.ironstore-dominio-premium-salvar:hover:not(:disabled) {
+    background:
+        linear-gradient(135deg,
+            #1d4ed8 0%,
+            #1e40af 100%) !important;
+
+    box-shadow:
+        0 11px 25px rgba(37, 99, 235, 0.27) !important;
+
+    transform:
+        translateY(-2px) !important;
+}
+
+
+.ironstore-dominio-premium-salvar:active:not(:disabled) {
+    transform:
+        translateY(0) !important;
+}
+
+
+.ironstore-dominio-premium-salvar:disabled {
+    background: #e7edf5 !important;
+
+    border-color: #dce4ee !important;
+
+    color: #9aa8ba !important;
+
+    cursor: not-allowed !important;
+
+    box-shadow: none !important;
+
+    transform: none !important;
+}
+
+
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
+
+.ironstore-dominio-premium-carregando {
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-direction: column !important;
+
+    gap: 13px !important;
+
+    width: 100% !important;
+
+    min-height: 230px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f9fbff) !important;
+
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 650 !important;
+}
+
+
+.ironstore-dominio-premium-spinner {
+    width: 30px !important;
+    height: 30px !important;
+
+    border:
+        3px solid #e3eaf3 !important;
+
+    border-top-color:
+        #2563eb !important;
+
+    border-right-color:
+        #0ea5e9 !important;
+
+    border-radius:
+        50% !important;
+
+    animation:
+        ironstore-dominio-premium-spinner-animation 0.75s linear infinite !important;
+}
+
+
+@keyframes ironstore-dominio-premium-spinner-animation {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   CAIXAS DE STATUS
+========================================================= */
+
+.ironstore-dominio-premium-vazio,
+.ironstore-dominio-premium-permissao,
+.ironstore-dominio-premium-erro,
+.ironstore-dominio-premium-sucesso {
+    position: relative !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    width: 100% !important;
+
+    margin:
+        25px 0 0 !important;
+
+    padding:
+        15px 17px 15px 19px !important;
+
+    border-radius:
+        11px !important;
+
+    overflow:
+        hidden !important;
+
+    font-size:
+        12px !important;
+
+    line-height:
+        1.5 !important;
+}
+
+
+.ironstore-dominio-premium-vazio strong,
+.ironstore-dominio-premium-permissao strong,
+.ironstore-dominio-premium-erro strong,
+.ironstore-dominio-premium-sucesso strong {
+    font-size: 12px !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   VAZIO
+========================================================= */
+
+.ironstore-dominio-premium-vazio {
+    background:
+        #f8fafc !important;
+
+    border:
+        1px solid #e2e8f0 !important;
+
+    color:
+        #64748b !important;
+}
+
+
+.ironstore-dominio-premium-vazio::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        #94a3b8 !important;
+}
+
+
+/* =========================================================
+   PERMISSÃO
+========================================================= */
+
+.ironstore-dominio-premium-permissao {
+    background:
+        #fffaf2 !important;
+
+    border:
+        1px solid #f5dfb8 !important;
+
+    color:
+        #8a5b12 !important;
+}
+
+
+.ironstore-dominio-premium-permissao::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        #d97706 !important;
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.ironstore-dominio-premium-erro {
+    background:
+        #fff5f5 !important;
+
+    border:
+        1px solid #fecaca !important;
+
+    color:
+        #b91c1c !important;
+}
+
+
+.ironstore-dominio-premium-erro::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        #dc2626 !important;
+}
+
+
+/* =========================================================
+   SUCESSO
+========================================================= */
+
+.ironstore-dominio-premium-sucesso {
+    background:
+        #f0fdf7 !important;
+
+    border:
+        1px solid #bbf7d0 !important;
+
+    color:
+        #047857 !important;
+}
+
+
+.ironstore-dominio-premium-sucesso::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        #059669 !important;
+}
+
+
+/* =========================================================
+   MODAL
+   OVERLAY
+========================================================= */
+
+.ironstore-dominio-modal-premium-overlay {
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    z-index: 2147483000 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    margin: 0 !important;
+
+    padding: 22px !important;
+
+    background:
+        rgba(7,
+            17,
+            33,
+            0.72) !important;
+
+    backdrop-filter:
+        blur(10px) !important;
+
+    -webkit-backdrop-filter:
+        blur(10px) !important;
+
+    animation:
+        ironstore-dominio-modal-overlay-entrada 0.2s ease-out !important;
+}
+
+
+@keyframes ironstore-dominio-modal-overlay-entrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   MODAL CAIXA
+========================================================= */
+
+.ironstore-dominio-modal-premium-caixa {
+    position: relative !important;
+
+    width: 100%;
+    max-width: 900px;
+    max-height:
+        calc(100vh - 44px) !important;
+
+    margin: 0 !important;
+
+    padding:
+        31px !important;
+
+    overflow-x:
+        hidden !important;
+
+    overflow-y:
+        auto !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fbfdff 100%) !important;
+
+    border:
+        1px solid rgba(255,
+            255,
+            255,
+            0.90) !important;
+
+    border-radius:
+        22px !important;
+
+    color:
+        #142a4a !important;
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.30),
+        0 5px 20px rgba(15, 23, 42, 0.10) !important;
+
+    animation:
+        ironstore-dominio-modal-caixa-entrada 0.25s cubic-bezier(0.16,
+            1,
+            0.3,
+            1) !important;
+}
+
+
+.ironstore-dominio-modal-premium-caixa::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 4px !important;
+
+    background:
+        linear-gradient(90deg,
+            #142a4a,
+            #2563eb,
+            #0ea5e9) !important;
+}
+
+
+@keyframes ironstore-dominio-modal-caixa-entrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(18px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   MODAL ÍCONE
+========================================================= */
+
+.ironstore-dominio-modal-premium-icone {
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    margin:
+        0 0 20px !important;
+
+    background:
+        linear-gradient(145deg,
+            #fff7e6,
+            #ffedd5) !important;
+
+    border:
+        1px solid #fed7aa !important;
+
+    border-radius:
+        14px !important;
+
+    color:
+        #d97706 !important;
+
+    font-size:
+        20px !important;
+
+    font-weight:
+        900 !important;
+
+    box-shadow:
+        0 7px 18px rgba(217, 119, 6, 0.12) !important;
+}
+
+
+/* =========================================================
+   MODAL CABEÇALHO
+========================================================= */
+
+.ironstore-dominio-modal-premium-cabecalho {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin:
+        0 0 24px !important;
+
+    padding: 0 !important;
+
+    background:
+        transparent !important;
+
+    border:
+        none !important;
+}
+
+
+.ironstore-dominio-modal-premium-etiqueta {
+    display: inline-block !important;
+
+    margin:
+        0 0 8px !important;
+
+    padding:
+        5px 8px !important;
+
+    background:
+        #fff7e6 !important;
+
+    border:
+        1px solid #fde5bd !important;
+
+    border-radius:
+        6px !important;
+
+    color:
+        #b45309 !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        850 !important;
+
+    letter-spacing:
+        0.09em !important;
+
+    text-transform:
+        uppercase !important;
+}
+
+
+.ironstore-dominio-modal-premium-titulo {
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    color:
+        #142a4a !important;
+
+    font-size:
+        23px !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        -0.035em !important;
+
+    line-height:
+        1.2 !important;
+}
+
+
+.ironstore-dominio-modal-premium-descricao {
+    margin:
+        9px 0 0 !important;
+
+    padding:
+        0 !important;
+
+    color:
+        #64748b !important;
+
+    font-size:
+        13px !important;
+
+    font-weight:
+        450 !important;
+
+    line-height:
+        1.55 !important;
+}
+
+
+/* =========================================================
+   COMPARAÇÃO DOS DOMÍNIOS
+========================================================= */
+
+.ironstore-dominio-modal-premium-comparacao {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    width: 100% !important;
+
+    gap: 8px !important;
+
+    margin:
+        0 0 19px !important;
+}
+
+
+/* =========================================================
+   CARD DOMÍNIO
+========================================================= */
+
+.ironstore-dominio-modal-premium-dominio {
+    position: relative !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    width: 100% !important;
+
+    padding:
+        15px 17px !important;
+
+    border-radius:
+        11px !important;
+
+    overflow:
+        hidden !important;
+}
+
+
+.ironstore-dominio-modal-premium-dominio span {
+    display: block !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        0.08em !important;
+
+    line-height:
+        1.3 !important;
+
+    text-transform:
+        uppercase !important;
+}
+
+
+.ironstore-dominio-modal-premium-dominio strong {
+    display: block !important;
+
+    max-width: 100% !important;
+
+    overflow-wrap:
+        anywhere !important;
+
+    font-size:
+        14px !important;
+
+    font-weight:
+        750 !important;
+
+    letter-spacing:
+        -0.01em !important;
+
+    line-height:
+        1.45 !important;
+}
+
+
+/* =========================================================
+   DOMÍNIO ANTIGO
+========================================================= */
+
+.ironstore-dominio-modal-premium-dominio-antigo {
+    background:
+        #f8fafc !important;
+
+    border:
+        1px solid #e2e8f0 !important;
+
+    color:
+        #64748b !important;
+}
+
+
+.ironstore-dominio-modal-premium-dominio-antigo::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 3px !important;
+    height: 100% !important;
+
+    background:
+        #94a3b8 !important;
+}
+
+
+/* =========================================================
+   SETA
+========================================================= */
+
+.ironstore-dominio-modal-premium-seta {
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 28px !important;
+    height: 28px !important;
+
+    margin:
+        -2px auto !important;
+
+    background:
+        #eef5ff !important;
+
+    border:
+        1px solid #dbeafe !important;
+
+    border-radius:
+        50% !important;
+
+    color:
+        #2563eb !important;
+
+    font-size:
+        14px !important;
+
+    font-weight:
+        800 !important;
+}
+
+
+/* =========================================================
+   NOVO DOMÍNIO
+========================================================= */
+
+.ironstore-dominio-modal-premium-dominio-novo {
+    background:
+        linear-gradient(135deg,
+            #eff6ff,
+            #f5f9ff) !important;
+
+    border:
+        1px solid #bfdbfe !important;
+
+    color:
+        #1e40af !important;
+
+    box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.05) !important;
+}
+
+
+.ironstore-dominio-modal-premium-dominio-novo::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 3px !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #0ea5e9) !important;
+}
+
+
+/* =========================================================
+   AVISO DO MODAL
+========================================================= */
+
+.ironstore-dominio-modal-premium-aviso {
+    position: relative !important;
+
+    width: 100% !important;
+
+    margin:
+        0 0 25px !important;
+
+    padding:
+        14px 16px 14px 18px !important;
+
+    background:
+        #fffaf0 !important;
+
+    border:
+        1px solid #fde3b2 !important;
+
+    border-radius:
+        10px !important;
+
+    color:
+        #8a5b12 !important;
+
+    overflow:
+        hidden !important;
+}
+
+
+.ironstore-dominio-modal-premium-aviso::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        #d97706 !important;
+}
+
+
+.ironstore-dominio-modal-premium-aviso strong {
+    display: block !important;
+
+    margin:
+        0 0 4px !important;
+
+    color:
+        #b45309 !important;
+
+    font-size:
+        11px !important;
+
+    font-weight:
+        800 !important;
+}
+
+
+.ironstore-dominio-modal-premium-aviso p {
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    color:
+        #8a5b12 !important;
+
+    font-size:
+        11px !important;
+
+    font-weight:
+        500 !important;
+
+    line-height:
+        1.55 !important;
+}
+
+
+/* =========================================================
+   AÇÕES DO MODAL
+========================================================= */
+
+.ironstore-dominio-modal-premium-acoes {
+    display: grid !important;
+
+    grid-template-columns:
+        1fr 1.25fr !important;
+
+    gap: 10px !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+}
+
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.ironstore-dominio-modal-premium-cancelar {
+    min-height: 46px !important;
+
+    padding:
+        0 17px !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid #d9e1eb !important;
+
+    border-radius:
+        10px !important;
+
+    outline:
+        none !important;
+
+    color:
+        #52637a !important;
+
+    font-family:
+        inherit !important;
+
+    font-size:
+        12px !important;
+
+    font-weight:
+        700 !important;
+
+    cursor:
+        pointer !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.ironstore-dominio-modal-premium-cancelar:hover:not(:disabled) {
+    background:
+        #f8fafc !important;
+
+    border-color:
+        #b9c5d4 !important;
+
+    color:
+        #142a4a !important;
+
+    transform:
+        translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   CONFIRMAR
+========================================================= */
+
+.ironstore-dominio-modal-premium-confirmar {
+    min-height:
+        46px !important;
+
+    padding:
+        0 18px !important;
+
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8) !important;
+
+    border:
+        1px solid #2563eb !important;
+
+    border-radius:
+        10px !important;
+
+    outline:
+        none !important;
+
+    color:
+        #ffffff !important;
+
+    font-family:
+        inherit !important;
+
+    font-size:
+        12px !important;
+
+    font-weight:
+        750 !important;
+
+    cursor:
+        pointer !important;
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.20) !important;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.ironstore-dominio-modal-premium-confirmar:hover:not(:disabled) {
+    background:
+        linear-gradient(135deg,
+            #1d4ed8,
+            #1e40af) !important;
+
+    box-shadow:
+        0 12px 25px rgba(37, 99, 235, 0.28) !important;
+
+    transform:
+        translateY(-2px) !important;
+}
+
+
+.ironstore-dominio-modal-premium-confirmar:active:not(:disabled),
+.ironstore-dominio-modal-premium-cancelar:active:not(:disabled) {
+    transform:
+        translateY(0) !important;
+}
+
+
+.ironstore-dominio-modal-premium-confirmar:disabled,
+.ironstore-dominio-modal-premium-cancelar:disabled {
+    opacity:
+        0.55 !important;
+
+    cursor:
+        wait !important;
+
+    transform:
+        none !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .ironstore-dominio-premium-area {
+        border-radius:
+            19px !important;
+    }
+
+
+    .ironstore-dominio-premium-cabecalho {
+        padding:
+            31px 27px 27px !important;
+    }
+
+
+    .ironstore-dominio-premium-conteudo {
+        padding:
+            29px 27px 32px !important;
+    }
+
+
+    .ironstore-dominio-premium-atual {
+        gap:
+            18px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .ironstore-dominio-premium-area {
+        border-radius:
+            16px !important;
+    }
+
+
+    .ironstore-dominio-premium-cabecalho {
+        padding:
+            27px 19px 23px !important;
+    }
+
+
+    .ironstore-dominio-premium-titulo {
+        font-size:
+            25px !important;
+    }
+
+
+    .ironstore-dominio-premium-descricao {
+        font-size:
+            13px !important;
+    }
+
+
+    .ironstore-dominio-premium-conteudo {
+        padding:
+            23px 19px 27px !important;
+    }
+
+
+    /* =====================================================
+       DOMÍNIO ATUAL MOBILE
+    ===================================================== */
+
+    .ironstore-dominio-premium-atual {
+        align-items:
+            stretch !important;
+
+        flex-direction:
+            column !important;
+
+        gap:
+            15px !important;
+
+        padding:
+            17px !important;
+    }
+
+
+    .ironstore-dominio-premium-atual-valor {
+        white-space:
+            normal !important;
+
+        overflow-wrap:
+            anywhere !important;
+    }
+
+
+    .ironstore-dominio-premium-visitar {
+        width:
+            100% !important;
+
+        min-height:
+            43px !important;
+    }
+
+
+    /* =====================================================
+       INPUT MOBILE
+    ===================================================== */
+
+    .ironstore-dominio-premium-input-area {
+        min-height:
+            53px !important;
+    }
+
+
+    .ironstore-dominio-premium-input {
+        min-height:
+            51px !important;
+
+        padding:
+            0 14px !important;
+
+        font-size:
+            13px !important;
+    }
+
+
+    .ironstore-dominio-premium-salvar {
+        width:
+            100% !important;
+
+        min-height:
+            46px !important;
+    }
+
+
+    /* =====================================================
+       MODAL MOBILE
+    ===================================================== */
+
+    .ironstore-dominio-modal-premium-overlay {
+        align-items:
+            flex-end !important;
+
+        padding:
+            10px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-caixa {
+        width:
+            100% !important;
+
+        max-height:
+            calc(100vh - 20px) !important;
+
+        padding:
+            25px 19px 19px !important;
+
+        border-radius:
+            20px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-icone {
+        width:
+            44px !important;
+
+        height:
+            44px !important;
+
+        margin-bottom:
+            17px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-titulo {
+        font-size:
+            21px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-acoes {
+        grid-template-columns:
+            1fr !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-confirmar {
+        grid-row:
+            1 !important;
+
+        width:
+            100% !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-cancelar {
+        grid-row:
+            2 !important;
+
+        width:
+            100% !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .ironstore-dominio-premium-cabecalho {
+        padding:
+            24px 15px 21px !important;
+    }
+
+
+    .ironstore-dominio-premium-conteudo {
+        padding:
+            20px 15px 23px !important;
+    }
+
+
+    .ironstore-dominio-premium-titulo {
+        font-size:
+            23px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-overlay {
+        padding:
+            6px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-caixa {
+        padding:
+            22px 15px 15px !important;
+
+        border-radius:
+            17px !important;
+    }
+
+
+    .ironstore-dominio-modal-premium-dominio {
+        padding:
+            13px 14px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstore-dominio-premium-spinner,
+    .ironstore-dominio-modal-premium-overlay,
+    .ironstore-dominio-modal-premium-caixa {
+        animation:
+            none !important;
+    }
+
+
+    .ironstore-dominio-premium-visitar,
+    .ironstore-dominio-premium-salvar,
+    .ironstore-dominio-modal-premium-cancelar,
+    .ironstore-dominio-modal-premium-confirmar,
+    .ironstore-dominio-premium-input-area {
+        transition:
+            none !important;
+    }
+
+}
