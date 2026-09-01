@@ -670,44 +670,7 @@ export default function FormularioIronStore({
                     </div>
                     {/* PREÇO PROMOCIONAL */}
 
-                    <div className="ironstore-produto-campo ironstore-produto-campo-promocao">
 
-                        <div className="ironstore-produto-campo-topo">
-
-                            <label>
-                                Preço promocional
-                            </label>
-
-                            <span>
-                                Opcional
-                            </span>
-
-                        </div>
-
-
-                        <div className="ironstore-produto-input-moeda">
-
-                            <span className="ironstore-produto-input-moeda-prefixo">
-                                R$
-                            </span>
-
-                            <input
-                                type="number"
-                                min="0"
-                                step="0.01"
-                                placeholder="0,00"
-                                value={form.preco_promocao || ""}
-                                onChange={(e) =>
-                                    alterar(
-                                        "preco_promocao",
-                                        e.target.value
-                                    )
-                                }
-                            />
-
-                        </div>
-
-                    </div>
 
                 </div>
 
