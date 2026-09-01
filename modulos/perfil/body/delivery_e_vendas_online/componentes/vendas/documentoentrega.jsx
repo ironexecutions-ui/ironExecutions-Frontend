@@ -440,6 +440,28 @@ export default function DocumentoEntrega({
                     respostaDados
                 );
 
+                // ========================================================
+                // PREENCHER DADOS FISCAIS AUTOMATICAMENTE
+                // ========================================================
+
+                setCnae(
+                    String(
+                        respostaDados
+                            ?.dados_fiscais
+                            ?.cnae ||
+                        ""
+                    )
+                );
+
+                setInscricaoEstadual(
+                    String(
+                        respostaDados
+                            ?.dados_fiscais
+                            ?.inscricao_estadual ||
+                        ""
+                    )
+                );
+
                 return respostaDados;
 
             } catch (
@@ -636,11 +658,42 @@ export default function DocumentoEntrega({
 
         }
 
+
+        // ====================================================
+        // CHAVE DA NOTA
+        // ====================================================
+
         setChaveNota(
             dados?.documento
                 ?.chave_documento ||
             ""
         );
+
+
+        // ====================================================
+        // DADOS FISCAIS DO COMÉRCIO
+        // ====================================================
+
+        setCnae(
+            String(
+                dados?.dados_fiscais
+                    ?.cnae ||
+                ""
+            )
+        );
+
+        setInscricaoEstadual(
+            String(
+                dados?.dados_fiscais
+                    ?.inscricao_estadual ||
+                ""
+            )
+        );
+
+
+        // ====================================================
+        // ABRIR FORMULÁRIO
+        // ====================================================
 
         setFormularioDocumentoAberto(
             true
