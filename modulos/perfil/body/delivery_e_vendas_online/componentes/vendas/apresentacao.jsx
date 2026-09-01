@@ -349,10 +349,7 @@ export default function Apresentacao() {
                 const apresentacao =
                     dados?.apresentacao;
 
-
-                if (
-                    !apresentacao
-                ) {
+                if (!apresentacao) {
 
                     setArquivos([]);
 
@@ -363,16 +360,14 @@ export default function Apresentacao() {
                     setTerceiraMensagem("");
 
                     return;
-
                 }
 
 
                 // ====================================================
-                // ARQUIVOS
+                // ARQUIVOS JÁ CADASTRADOS
                 // ====================================================
 
                 let imagensRecebidas = [];
-
 
                 if (
                     Array.isArray(
@@ -385,13 +380,10 @@ export default function Apresentacao() {
                             .map(
                                 (arquivo) =>
                                     String(
-                                        arquivo ||
-                                        ""
+                                        arquivo || ""
                                     ).trim()
                             )
-                            .filter(
-                                Boolean
-                            );
+                            .filter(Boolean);
 
                 } else if (
                     apresentacao.arquivos
@@ -406,10 +398,7 @@ export default function Apresentacao() {
                                 (arquivo) =>
                                     arquivo.trim()
                             )
-                            .filter(
-                                Boolean
-                            );
-
+                            .filter(Boolean);
                 }
 
 
@@ -419,24 +408,20 @@ export default function Apresentacao() {
 
 
                 // ====================================================
-                // MENSAGENS
+                // TEXTOS JÁ CADASTRADOS
                 // ====================================================
 
                 setMensagem(
-                    apresentacao.mensagem ||
-                    ""
+                    apresentacao.mensagem || ""
                 );
 
                 setSegundaMensagem(
-                    apresentacao.segunda_mensagem ||
-                    ""
+                    apresentacao.segunda_mensagem || ""
                 );
 
                 setTerceiraMensagem(
-                    apresentacao.terceira_mensagem ||
-                    ""
+                    apresentacao.terceira_mensagem || ""
                 );
-
 
             } catch (
             erroCarregamento
@@ -1043,6 +1028,51 @@ export default function Apresentacao() {
 
             }
 
+
+            // ====================================================
+            // SINCRONIZAR COM O QUE FICOU SALVO NO BANCO
+            // ====================================================
+
+            if (
+                dados?.apresentacao
+            ) {
+
+                const apresentacaoAtualizada =
+                    dados.apresentacao;
+
+
+                setArquivos(
+                    Array.isArray(
+                        apresentacaoAtualizada.arquivos
+                    )
+                        ? apresentacaoAtualizada.arquivos
+                        : []
+                );
+
+
+                setMensagem(
+                    apresentacaoAtualizada.mensagem ||
+                    ""
+                );
+
+
+                setSegundaMensagem(
+                    apresentacaoAtualizada.segunda_mensagem ||
+                    ""
+                );
+
+
+                setTerceiraMensagem(
+                    apresentacaoAtualizada.terceira_mensagem ||
+                    ""
+                );
+
+            }
+
+
+            // ====================================================
+            // SUCESSO
+            // ====================================================
 
             setSucesso(
                 dados?.mensagem ||

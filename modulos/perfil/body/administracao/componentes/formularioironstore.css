@@ -1483,7 +1483,7 @@
             #0f172a,
             #172554);
 
-    color: #ffffff;
+    color: #ffffff !important;
 
     font-size: 11px;
     font-weight: 850;
@@ -2360,4 +2360,702 @@
         animation: none !important;
         transition: none !important;
     }
+}
+
+
+/* =========================================================
+   PREÇOS IRONSTORE
+   ALINHADO AO DESIGN ORIGINAL
+========================================================= */
+
+.ironstore-produto-precos-online-grid {
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 14px !important;
+
+    align-items: start !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-campo {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 7px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: transparent !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-campo-topo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+
+    padding: 0 2px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-campo-topo label {
+    min-width: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #334155 !important;
+
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.3 !important;
+
+    letter-spacing: normal !important;
+
+    text-transform: none !important;
+}
+
+
+/* =========================================================
+   OPCIONAL
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-campo-topo>span {
+    flex: 0 0 auto !important;
+
+    display: inline !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    background: transparent !important;
+
+    color: #94a3b8 !important;
+
+    font-family: inherit !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.3 !important;
+
+    letter-spacing: 0.2px !important;
+
+    text-transform: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   AJUDA "?"
+========================================================= */
+
+.ironstore-produto-preco-online-ajuda {
+    width: 17px !important;
+    height: 17px !important;
+
+    flex: 0 0 17px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 0 0 6px !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    border:
+        1px solid #bfdbfe !important;
+
+    border-radius: 50% !important;
+
+    background:
+        #eff6ff !important;
+
+    color:
+        #1d4ed8 !important;
+
+    font-family: inherit !important;
+    font-size: 9px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+
+    cursor: help !important;
+
+    user-select: none !important;
+
+    box-shadow:
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.ironstore-produto-preco-online-ajuda:hover {
+    border-color:
+        #2563eb !important;
+
+    background:
+        #2563eb !important;
+
+    color:
+        #ffffff !important;
+
+    transform:
+        translateY(-1px) !important;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.16) !important;
+}
+
+
+/* =========================================================
+   INPUT DE MOEDA
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-input-moeda {
+    width: 100% !important;
+    height: 47px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid #cbd5e1 !important;
+
+    border-radius:
+        13px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.025),
+        0 2px 5px rgba(15, 23, 42, 0.02) !important;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-input-moeda:hover {
+    border-color:
+        #94a3b8 !important;
+
+    background:
+        #ffffff !important;
+}
+
+
+/* =========================================================
+   PREFIXO R$
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-input-moeda-prefixo {
+    height: 100% !important;
+
+    flex: 0 0 auto !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+
+    padding:
+        0 13px !important;
+
+    box-sizing: border-box !important;
+
+    border: 0 !important;
+
+    border-right:
+        1px solid #e2e8f0 !important;
+
+    border-radius: 0 !important;
+
+    background:
+        linear-gradient(180deg,
+            #f8fafc,
+            #f1f5f9) !important;
+
+    color:
+        #475569 !important;
+
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-weight: 850 !important;
+
+    line-height: 1 !important;
+
+    box-shadow: none !important;
+
+    user-select: none !important;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-input-moeda input {
+    width: auto !important;
+    min-width: 0 !important;
+    height: 100% !important;
+
+    flex: 1 !important;
+
+    margin: 0 !important;
+
+    padding:
+        0 13px !important;
+
+    box-sizing: border-box !important;
+
+    border:
+        0 !important;
+
+    border-radius:
+        0 !important;
+
+    outline:
+        none !important;
+
+    background:
+        transparent !important;
+
+    color:
+        #0f172a !important;
+
+    font-family:
+        inherit !important;
+
+    font-size:
+        12px !important;
+
+    font-weight:
+        700 !important;
+
+    line-height:
+        normal !important;
+
+    box-shadow:
+        none !important;
+
+    appearance:
+        textfield !important;
+
+    -moz-appearance:
+        textfield !important;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-input-moeda input::placeholder {
+    color:
+        #94a3b8 !important;
+
+    font-family:
+        inherit !important;
+
+    font-size:
+        12px !important;
+
+    font-weight:
+        500 !important;
+
+    opacity:
+        1 !important;
+}
+
+
+/* =========================================================
+   REMOVER SETAS DO NUMBER
+========================================================= */
+
+.ironstore-produto-precos-online-grid input[type="number"]::-webkit-inner-spin-button,
+
+.ironstore-produto-precos-online-grid input[type="number"]::-webkit-outer-spin-button {
+    margin:
+        0 !important;
+
+    -webkit-appearance:
+        none !important;
+}
+
+
+/* =========================================================
+   FOCO
+   MESMO PADRÃO DOS OUTROS INPUTS
+========================================================= */
+
+.ironstore-produto-precos-online-grid .ironstore-produto-input-moeda:focus-within {
+    border-color:
+        #2563eb !important;
+
+    background:
+        #ffffff !important;
+
+    transform:
+        translateY(-1px) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10),
+        0 8px 20px rgba(37, 99, 235, 0.09) !important;
+}
+
+
+/* =========================================================
+   TEXTO EXPLICATIVO
+========================================================= */
+
+.ironstore-produto-preco-online-explicacao {
+    width:
+        100% !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        flex-start !important;
+
+    gap:
+        5px !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        1px 2px 0 !important;
+
+    box-sizing:
+        border-box !important;
+
+    color:
+        #64748b !important;
+
+    font-family:
+        inherit !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        550 !important;
+
+    line-height:
+        1.45 !important;
+
+    letter-spacing:
+        normal !important;
+}
+
+
+/* =========================================================
+   ÍCONE DA EXPLICAÇÃO
+========================================================= */
+
+.ironstore-produto-preco-online-explicacao::before {
+    content:
+        "i" !important;
+
+    width:
+        14px !important;
+
+    height:
+        14px !important;
+
+    flex:
+        0 0 14px !important;
+
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    margin-top:
+        0 !important;
+
+    box-sizing:
+        border-box !important;
+
+    border:
+        1px solid #bfdbfe !important;
+
+    border-radius:
+        50% !important;
+
+    background:
+        #eff6ff !important;
+
+    color:
+        #1d4ed8 !important;
+
+    font-family:
+        inherit !important;
+
+    font-size:
+        8px !important;
+
+    font-weight:
+        900 !important;
+
+    line-height:
+        1 !important;
+}
+
+
+/* =========================================================
+   PREÇO ONLINE
+========================================================= */
+
+.ironstore-produto-campo-preco-online {
+    color:
+        #0f172a !important;
+}
+
+
+/* =========================================================
+   PREÇO PROMOCIONAL
+========================================================= */
+
+.ironstore-produto-campo-promocao {
+    color:
+        #0f172a !important;
+}
+
+
+/* =========================================================
+   GARANTIR MESMO DESIGN NOS DOIS
+========================================================= */
+
+.ironstore-produto-campo-preco-online .ironstore-produto-input-moeda,
+
+.ironstore-produto-campo-promocao .ironstore-produto-input-moeda {
+    border-color:
+        #cbd5e1 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc) !important;
+}
+
+
+.ironstore-produto-campo-preco-online .ironstore-produto-input-moeda:hover,
+
+.ironstore-produto-campo-promocao .ironstore-produto-input-moeda:hover {
+    border-color:
+        #94a3b8 !important;
+
+    background:
+        #ffffff !important;
+}
+
+
+.ironstore-produto-campo-preco-online .ironstore-produto-input-moeda:focus-within,
+
+.ironstore-produto-campo-promocao .ironstore-produto-input-moeda:focus-within {
+    border-color:
+        #2563eb !important;
+
+    background:
+        #ffffff !important;
+
+    transform:
+        translateY(-1px) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10),
+        0 8px 20px rgba(37, 99, 235, 0.09) !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .ironstore-produto-precos-online-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+
+        gap:
+            12px !important;
+    }
+
+
+    .ironstore-produto-precos-online-grid .ironstore-produto-campo {
+        grid-column:
+            auto !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .ironstore-produto-precos-online-grid {
+        grid-template-columns:
+            1fr !important;
+
+        gap:
+            13px !important;
+    }
+
+
+    .ironstore-produto-precos-online-grid .ironstore-produto-campo {
+        width:
+            100% !important;
+
+        grid-column:
+            1 / -1 !important;
+    }
+
+
+    .ironstore-produto-precos-online-grid .ironstore-produto-input-moeda {
+        height:
+            47px !important;
+    }
+
+
+    .ironstore-produto-precos-online-grid .ironstore-produto-input-moeda input {
+        font-size:
+            12px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .ironstore-produto-precos-online-grid {
+        gap:
+            11px !important;
+    }
+
+
+    .ironstore-produto-precos-online-grid .ironstore-produto-campo-topo {
+        gap:
+            7px !important;
+    }
+
+
+    .ironstore-produto-precos-online-grid .ironstore-produto-campo-topo label {
+        font-size:
+            10px !important;
+    }
+
+
+    .ironstore-produto-precos-online-grid .ironstore-produto-campo-topo>span {
+        font-size:
+            8px !important;
+    }
+
+
+    .ironstore-produto-preco-online-ajuda {
+        width:
+            16px !important;
+
+        height:
+            16px !important;
+
+        flex-basis:
+            16px !important;
+
+        margin-left:
+            5px !important;
+
+        font-size:
+            8px !important;
+    }
+
+
+    .ironstore-produto-preco-online-explicacao {
+        font-size:
+            8.5px !important;
+    }
+
 }

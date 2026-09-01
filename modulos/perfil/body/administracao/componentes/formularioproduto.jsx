@@ -145,6 +145,7 @@ export default function FormularioProduto({ item, voltar }) {
         descricao: "",
         descricao_curta: "",
         preco_promocao: "",
+        preco_ironstore: "",
         destaque: "",
         peso_g: "",
         altura_cm: "",
@@ -380,6 +381,9 @@ export default function FormularioProduto({ item, voltar }) {
 
                 preco_promocao:
                     dados.preco_promocao || "",
+
+                preco_ironstore:
+                    dados.preco_ironstore ?? "",
 
                 destaque:
                     dados.destaque || "",
@@ -692,6 +696,13 @@ export default function FormularioProduto({ item, voltar }) {
 
             preco_promocao:
                 form.preco_promocao || null,
+
+            preco_ironstore:
+                form.preco_ironstore === "" ||
+                    form.preco_ironstore === null ||
+                    form.preco_ironstore === undefined
+                    ? null
+                    : Number(form.preco_ironstore),
 
             destaque:
                 form.destaque || null,

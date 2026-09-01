@@ -559,7 +559,115 @@ export default function FormularioIronStore({
 
                     </div>
 
+                    {/* =====================================================
+    PREÇOS DA VENDA ONLINE
+===================================================== */}
 
+                    <div className="ironstore-produto-precos-online-grid">
+
+                        {/* PREÇO IRONSTORE */}
+
+                        <div className="ironstore-produto-campo ironstore-produto-campo-preco-online">
+
+                            <div className="ironstore-produto-campo-topo">
+
+                                <label
+                                    title="Caso o preço deste produto na loja online seja diferente do preço utilizado no caixa, informe aqui o valor que deverá ser cobrado online."
+                                >
+                                    Preço online
+
+                                    <span
+                                        className="ironstore-produto-preco-online-ajuda"
+                                        title="Caso o preço deste produto na loja online seja diferente do preço utilizado no caixa, informe aqui o valor que deverá ser cobrado online."
+                                    >
+                                        ?
+                                    </span>
+                                </label>
+
+                                <span>
+                                    Opcional
+                                </span>
+
+                            </div>
+
+
+                            <div className="ironstore-produto-input-moeda">
+
+                                <span className="ironstore-produto-input-moeda-prefixo">
+                                    R$
+                                </span>
+
+                                <input
+                                    type="number"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder={
+                                        form.preco
+                                            ? Number(form.preco).toFixed(2)
+                                            : "0,00"
+                                    }
+                                    title="Caso o preço do produto online seja diferente do preço do caixa, informe o preço online aqui. Se deixar vazio, será utilizado o preço normal do produto."
+                                    value={form.preco_ironstore ?? ""}
+                                    onChange={(e) =>
+                                        alterar(
+                                            "preco_ironstore",
+                                            e.target.value
+                                        )
+                                    }
+                                />
+
+                            </div>
+
+
+                            <span className="ironstore-produto-preco-online-explicacao">
+                                Deixe vazio para utilizar o mesmo preço do caixa.
+                            </span>
+
+                        </div>
+
+
+                        {/* PREÇO PROMOCIONAL */}
+
+                        <div className="ironstore-produto-campo ironstore-produto-campo-promocao">
+
+                            <div className="ironstore-produto-campo-topo">
+
+                                <label>
+                                    Preço promocional
+                                </label>
+
+                                <span>
+                                    Opcional
+                                </span>
+
+                            </div>
+
+
+                            <div className="ironstore-produto-input-moeda">
+
+                                <span className="ironstore-produto-input-moeda-prefixo">
+                                    R$
+                                </span>
+
+                                <input
+                                    type="number"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="0,00"
+                                    value={form.preco_promocao || ""}
+                                    onChange={(e) =>
+                                        alterar(
+                                            "preco_promocao",
+                                            e.target.value
+                                        )
+                                    }
+                                />
+
+                            </div>
+
+                        </div>
+
+                    </div>
                     {/* PREÇO PROMOCIONAL */}
 
                     <div className="ironstore-produto-campo ironstore-produto-campo-promocao">

@@ -1844,3 +1844,474 @@
     }
 
 }
+
+/* =========================================================
+   IRONSTORE — APRESENTAÇÃO
+   FORÇAR TODAS AS CORES DE TEXTO
+========================================================= */
+
+
+/* =========================================================
+   COR BASE
+========================================================= */
+
+.ironstore-apresentacao-config-area {
+    color: #0f172a !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO PRINCIPAL
+========================================================= */
+
+.ironstore-apresentacao-config-etiqueta {
+    color: #2563eb !important;
+}
+
+.ironstore-apresentacao-config-titulo {
+    color: #0f172a !important;
+}
+
+.ironstore-apresentacao-config-descricao {
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   DOMÍNIO
+========================================================= */
+
+.ironstore-apresentacao-config-dominio-label {
+    color: #64748b !important;
+}
+
+.ironstore-apresentacao-config-dominio-valor {
+    color: #0f172a !important;
+}
+
+.ironstore-apresentacao-config-dominio-ajuda {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO DOS BLOCOS
+========================================================= */
+
+.ironstore-apresentacao-config-bloco-etiqueta {
+    color: #2563eb !important;
+}
+
+.ironstore-apresentacao-config-bloco-titulo,
+.ironstore-apresentacao-config-bloco-cabecalho h3 {
+    color: #0f172a !important;
+}
+
+.ironstore-apresentacao-config-bloco-descricao,
+.ironstore-apresentacao-config-bloco-cabecalho p {
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
+
+.ironstore-apresentacao-config-contador {
+    color: #64748b !important;
+}
+
+.ironstore-apresentacao-config-contador strong {
+    color: #0f172a !important;
+}
+
+.ironstore-apresentacao-config-contador span {
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   IMAGENS
+========================================================= */
+
+.ironstore-apresentacao-config-imagem-posicao {
+    color: #ffffff !important;
+}
+
+.ironstore-apresentacao-config-imagem-mover {
+    color: #ffffff !important;
+}
+
+.ironstore-apresentacao-config-imagem-mover:hover:not(:disabled) {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   REMOVER IMAGEM
+========================================================= */
+
+.ironstore-apresentacao-config-imagem-remover {
+    color: #dc2626 !important;
+}
+
+.ironstore-apresentacao-config-imagem-remover:hover {
+    color: #b91c1c !important;
+}
+
+
+/* =========================================================
+   ADICIONAR IMAGEM
+========================================================= */
+
+.ironstore-apresentacao-config-adicionar-imagem {
+    color: #475569 !important;
+}
+
+.ironstore-apresentacao-config-adicionar-icone {
+    color: #2563eb !important;
+}
+
+.ironstore-apresentacao-config-adicionar-conteudo {
+    color: #475569 !important;
+}
+
+.ironstore-apresentacao-config-adicionar-conteudo strong,
+.ironstore-apresentacao-config-adicionar-imagem>strong {
+    color: #334155 !important;
+}
+
+.ironstore-apresentacao-config-adicionar-conteudo small,
+.ironstore-apresentacao-config-adicionar-imagem>small {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   LABEL DOS CAMPOS
+========================================================= */
+
+.ironstore-apresentacao-config-label,
+.ironstore-apresentacao-config-campo label {
+    color: #334155 !important;
+}
+
+
+/* =========================================================
+   NÚMERO DOS CAMPOS
+========================================================= */
+
+.ironstore-apresentacao-config-campo-numero {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.ironstore-apresentacao-config-textarea,
+.ironstore-apresentacao-config-campo textarea {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+}
+
+.ironstore-apresentacao-config-textarea::placeholder,
+.ironstore-apresentacao-config-campo textarea::placeholder {
+    color: #a8b2c1 !important;
+    opacity: 1 !important;
+}
+
+.ironstore-apresentacao-config-textarea:disabled,
+.ironstore-apresentacao-config-campo textarea:disabled {
+    color: #94a3b8 !important;
+    -webkit-text-fill-color: #94a3b8 !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   INPUT TEXT
+========================================================= */
+
+.ironstore-apresentacao-config-campo input[type="text"] {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+}
+
+.ironstore-apresentacao-config-campo input[type="text"]::placeholder {
+    color: #a8b2c1 !important;
+    opacity: 1 !important;
+}
+
+.ironstore-apresentacao-config-campo input[type="text"]:disabled {
+    color: #94a3b8 !important;
+    -webkit-text-fill-color: #94a3b8 !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   RODAPÉ DOS CAMPOS
+========================================================= */
+
+.ironstore-apresentacao-config-campo-rodape {
+    color: #94a3b8 !important;
+}
+
+.ironstore-apresentacao-config-campo-rodape span {
+    color: #94a3b8 !important;
+}
+
+.ironstore-apresentacao-config-campo-rodape span:first-child {
+    color: #94a3b8 !important;
+}
+
+.ironstore-apresentacao-config-campo-rodape span:last-child {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   REGISTRO PROTEGIDO
+========================================================= */
+
+.ironstore-apresentacao-config-regra-icone {
+    color: #2563eb !important;
+}
+
+.ironstore-apresentacao-config-regra-conteudo {
+    color: #64748b !important;
+}
+
+.ironstore-apresentacao-config-regra-conteudo strong {
+    color: #334155 !important;
+}
+
+.ironstore-apresentacao-config-regra-conteudo span {
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   SEM PERMISSÃO
+========================================================= */
+
+.ironstore-apresentacao-config-permissao {
+    color: #a16207 !important;
+}
+
+.ironstore-apresentacao-config-permissao strong {
+    color: #92400e !important;
+}
+
+.ironstore-apresentacao-config-permissao span {
+    color: #a16207 !important;
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.ironstore-apresentacao-config-erro {
+    color: #b91c1c !important;
+}
+
+.ironstore-apresentacao-config-erro::before {
+    color: #ffffff !important;
+}
+
+.ironstore-apresentacao-config-erro strong {
+    color: #991b1b !important;
+}
+
+.ironstore-apresentacao-config-erro span {
+    color: #b91c1c !important;
+}
+
+
+/* =========================================================
+   SUCESSO
+========================================================= */
+
+.ironstore-apresentacao-config-sucesso {
+    color: #15803d !important;
+}
+
+.ironstore-apresentacao-config-sucesso::before {
+    color: #ffffff !important;
+}
+
+.ironstore-apresentacao-config-sucesso strong {
+    color: #166534 !important;
+}
+
+.ironstore-apresentacao-config-sucesso span {
+    color: #15803d !important;
+}
+
+
+/* =========================================================
+   AÇÕES — INFORMAÇÕES
+========================================================= */
+
+.ironstore-apresentacao-config-acoes-info {
+    color: #334155 !important;
+}
+
+.ironstore-apresentacao-config-acoes-info span {
+    color: #94a3b8 !important;
+}
+
+.ironstore-apresentacao-config-acoes-info strong {
+    color: #334155 !important;
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR
+========================================================= */
+
+.ironstore-apresentacao-config-limpar {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+}
+
+.ironstore-apresentacao-config-limpar:hover:not(:disabled) {
+    color: #dc2626 !important;
+    -webkit-text-fill-color: #dc2626 !important;
+}
+
+
+/* =========================================================
+   BOTÃO SALVAR
+========================================================= */
+
+.ironstore-apresentacao-config-salvar {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.ironstore-apresentacao-config-salvar:hover:not(:disabled) {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+
+/* =========================================================
+   BOTÕES DESABILITADOS
+========================================================= */
+
+.ironstore-apresentacao-config-salvar:disabled {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.ironstore-apresentacao-config-limpar:disabled {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+}
+
+
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
+
+.ironstore-apresentacao-config-carregando {
+    color: #64748b !important;
+}
+
+.ironstore-apresentacao-config-carregando span {
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   SEM DOMÍNIO
+========================================================= */
+
+.ironstore-apresentacao-config-sem-dominio,
+.ironstore-apresentacao-config-bloqueada {
+    color: #64748b !important;
+}
+
+.ironstore-apresentacao-config-sem-dominio-icone,
+.ironstore-apresentacao-config-bloqueada-icone {
+    color: #d97706 !important;
+}
+
+.ironstore-apresentacao-config-sem-dominio-etiqueta {
+    color: #d97706 !important;
+}
+
+.ironstore-apresentacao-config-sem-dominio-titulo,
+.ironstore-apresentacao-config-bloqueada-conteudo strong {
+    color: #1e293b !important;
+}
+
+.ironstore-apresentacao-config-sem-dominio-texto,
+.ironstore-apresentacao-config-bloqueada-conteudo p {
+    color: #64748b !important;
+}
+
+.ironstore-apresentacao-config-sem-dominio-ajuda {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   PROTEÇÃO EXTRA CONTRA CSS GLOBAL
+========================================================= */
+
+.ironstore-apresentacao-config-area h1,
+.ironstore-apresentacao-config-area h2,
+.ironstore-apresentacao-config-area h3,
+.ironstore-apresentacao-config-area h4 {
+    color: #0f172a !important;
+}
+
+.ironstore-apresentacao-config-area label {
+    color: #334155 !important;
+}
+
+
+/* =========================================================
+   REAPLICAR CORES ESPECÍFICAS APÓS PROTEÇÃO GLOBAL
+========================================================= */
+
+.ironstore-apresentacao-config-etiqueta,
+.ironstore-apresentacao-config-bloco-etiqueta {
+    color: #2563eb !important;
+}
+
+.ironstore-apresentacao-config-sem-dominio-etiqueta {
+    color: #d97706 !important;
+}
+
+.ironstore-apresentacao-config-permissao strong {
+    color: #92400e !important;
+}
+
+.ironstore-apresentacao-config-erro strong {
+    color: #991b1b !important;
+}
+
+.ironstore-apresentacao-config-sucesso strong {
+    color: #166534 !important;
+}
+
+
+/* =========================================================
+   AUTOFILL DO CHROME
+========================================================= */
+
+.ironstore-apresentacao-config-area input:-webkit-autofill,
+.ironstore-apresentacao-config-area input:-webkit-autofill:hover,
+.ironstore-apresentacao-config-area input:-webkit-autofill:focus,
+.ironstore-apresentacao-config-area textarea:-webkit-autofill,
+.ironstore-apresentacao-config-area textarea:-webkit-autofill:hover,
+.ironstore-apresentacao-config-area textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: #0f172a !important;
+    caret-color: #0f172a !important;
+}
