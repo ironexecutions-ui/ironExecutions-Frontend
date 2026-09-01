@@ -1,0 +1,1409 @@
+/* =========================================================
+   IRONSTORE
+   DOCUMENTO DE ENTREGA
+========================================================= */
+
+.ironstore-documento-entrega-wrapper {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   ÁREA PRINCIPAL
+========================================================= */
+
+.ironstore-documento-entrega-area {
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    padding: 22px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 18px !important;
+
+    box-shadow:
+        0 4px 16px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.ironstore-documento-entrega-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+
+    padding-bottom: 18px !important;
+
+    border-bottom:
+        1px solid #edf1f5 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-cabecalho>div:first-child {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+
+.ironstore-documento-entrega-etiqueta {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 25px !important;
+
+    margin-bottom: 8px !important;
+    padding: 4px 9px !important;
+
+    background: #eef2ff !important;
+
+    border: 1px solid #e0e7ff !important;
+    border-radius: 999px !important;
+
+    color: #4f46e5 !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-documento-entrega-cabecalho strong {
+    color: #0f172a !important;
+
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.015em !important;
+}
+
+
+.ironstore-documento-entrega-cabecalho p {
+    max-width: 540px !important;
+
+    margin: 5px 0 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.ironstore-documento-entrega-status {
+    flex: 0 0 auto !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 31px !important;
+
+    padding: 0 12px !important;
+
+    background: #ecfdf5 !important;
+
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 999px !important;
+
+    color: #15803d !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+}
+
+
+/* =========================================================
+   RESUMO DO FRETE
+========================================================= */
+
+.ironstore-documento-entrega-resumo {
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 10px !important;
+
+    margin-top: 18px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-resumo>div {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+
+    padding: 13px 14px !important;
+
+    background: #f8fafc !important;
+
+    border: 1px solid #edf1f5 !important;
+    border-radius: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-resumo span {
+    color: #94a3b8 !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.055em !important;
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-documento-entrega-resumo strong {
+    overflow: hidden !important;
+
+    color: #1e293b !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+    line-height: 1.35 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+.ironstore-documento-entrega-aviso {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+
+    margin-top: 14px !important;
+    padding: 13px 15px !important;
+
+    background: #f8fafc !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-aviso strong {
+    color: #334155 !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-documento-entrega-aviso span {
+    max-width: 720px !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   BOTÃO GERAR
+========================================================= */
+
+.ironstore-documento-entrega-gerar {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 42px !important;
+
+    margin-top: 16px !important;
+    padding: 0 17px !important;
+
+    background: #0f172a !important;
+
+    border: 1px solid #0f172a !important;
+    border-radius: 10px !important;
+
+    color: #ffffff !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 12px rgba(15, 23, 42, 0.13) !important;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.ironstore-documento-entrega-gerar:hover {
+    background: #1e293b !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.17) !important;
+}
+
+
+/* =========================================================
+   CONFIGURAÇÃO INLINE
+========================================================= */
+
+.ironstore-documento-entrega-configuracao {
+    width: 100% !important;
+
+    padding: 22px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbe3ec !important;
+    border-radius: 18px !important;
+
+    box-sizing: border-box !important;
+
+    box-shadow:
+        0 6px 22px rgba(15, 23, 42, 0.055) !important;
+
+    animation:
+        ironstoreDocumentoConfiguracaoEntrada 0.22s ease-out !important;
+}
+
+
+@keyframes ironstoreDocumentoConfiguracaoEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   TOPO DA CONFIGURAÇÃO
+========================================================= */
+
+.ironstore-documento-entrega-configuracao-topo {
+    width: 100% !important;
+
+    padding-bottom: 17px !important;
+
+    border-bottom:
+        1px solid #edf1f5 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-configuracao-etiqueta {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    min-height: 24px !important;
+
+    margin-bottom: 8px !important;
+    padding: 4px 9px !important;
+
+    background: #eef2ff !important;
+
+    border: 1px solid #e0e7ff !important;
+    border-radius: 999px !important;
+
+    color: #4f46e5 !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-documento-entrega-configuracao-topo h3 {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.02em !important;
+}
+
+
+.ironstore-documento-entrega-configuracao-topo p {
+    max-width: 620px !important;
+
+    margin: 5px 0 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   OPÇÕES DC-E / NOTA FISCAL
+========================================================= */
+
+.ironstore-documento-entrega-modal-opcoes {
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    margin-top: 18px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CARD DA OPÇÃO
+========================================================= */
+
+.ironstore-documento-entrega-opcao {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 92px !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 11px !important;
+
+    padding: 15px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbe3ec !important;
+    border-radius: 13px !important;
+
+    color: #0f172a !important;
+
+    text-align: left !important;
+
+    cursor: pointer !important;
+
+    box-sizing: border-box !important;
+
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.ironstore-documento-entrega-opcao:hover {
+    border-color: #a5b4fc !important;
+
+    background: #fafaff !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 6px 16px rgba(15, 23, 42, 0.055) !important;
+}
+
+
+.ironstore-documento-entrega-opcao-ativa {
+    background: #f7f7ff !important;
+
+    border-color: #6366f1 !important;
+
+    box-shadow:
+        0 0 0 2px rgba(99, 102, 241, 0.08),
+        0 5px 14px rgba(99, 102, 241, 0.06) !important;
+}
+
+
+/* =========================================================
+   RADIO
+========================================================= */
+
+.ironstore-documento-entrega-opcao-radio {
+    flex: 0 0 19px !important;
+
+    width: 19px !important;
+    height: 19px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-top: 1px !important;
+
+    background: #ffffff !important;
+
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 50% !important;
+
+    box-sizing: border-box !important;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.ironstore-documento-entrega-opcao-ativa .ironstore-documento-entrega-opcao-radio {
+    border-color: #4f46e5 !important;
+
+    box-shadow:
+        0 0 0 2px rgba(79, 70, 229, 0.09) !important;
+}
+
+
+.ironstore-documento-entrega-opcao-radio i {
+    display: block !important;
+
+    width: 7px !important;
+    height: 7px !important;
+
+    background: #4f46e5 !important;
+
+    border-radius: 50% !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO DAS OPÇÕES
+========================================================= */
+
+.ironstore-documento-entrega-opcao-conteudo {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+
+.ironstore-documento-entrega-opcao-conteudo strong {
+    color: #172033 !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+}
+
+
+.ironstore-documento-entrega-opcao-conteudo small {
+    color: #64748b !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   AVISO DC-E
+========================================================= */
+
+.ironstore-documento-entrega-dce-aviso {
+    width: 100% !important;
+
+    margin-top: 12px !important;
+    padding: 13px 15px !important;
+
+    background: #fffbeb !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-dce-aviso strong {
+    display: block !important;
+
+    margin-bottom: 3px !important;
+
+    color: #92400e !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-documento-entrega-dce-aviso p {
+    margin: 0 !important;
+
+    color: #a16207 !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   NOTA FISCAL
+========================================================= */
+
+.ironstore-documento-entrega-fiscal {
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+        minmax(0, 1.7fr) minmax(180px, 0.7fr) !important;
+
+    gap: 12px !important;
+
+    margin-top: 12px !important;
+    padding: 15px !important;
+
+    background: #f8fafc !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   DADOS ADICIONAIS
+========================================================= */
+
+.ironstore-documento-entrega-dados-adicionais {
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    margin-top: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.ironstore-documento-entrega-fiscal label,
+.ironstore-documento-entrega-dados-adicionais label {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+
+.ironstore-documento-entrega-fiscal label>span,
+.ironstore-documento-entrega-dados-adicionais label>span {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+
+    color: #334155 !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+}
+
+
+.ironstore-documento-entrega-dados-adicionais label>span small {
+    padding: 2px 5px !important;
+
+    background: #f1f5f9 !important;
+
+    border-radius: 5px !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 8px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.ironstore-documento-entrega-fiscal input,
+.ironstore-documento-entrega-dados-adicionais input {
+    width: 100% !important;
+    height: 42px !important;
+
+    padding: 0 12px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 9px !important;
+
+    outline: none !important;
+
+    color: #0f172a !important;
+
+    font-size: 11px !important;
+    font-weight: 600 !important;
+
+    box-sizing: border-box !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease !important;
+}
+
+
+.ironstore-documento-entrega-fiscal input::placeholder,
+.ironstore-documento-entrega-dados-adicionais input::placeholder {
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+}
+
+
+.ironstore-documento-entrega-fiscal input:focus,
+.ironstore-documento-entrega-dados-adicionais input:focus {
+    background: #ffffff !important;
+
+    border-color: #6366f1 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.09) !important;
+}
+
+
+.ironstore-documento-entrega-fiscal input:disabled,
+.ironstore-documento-entrega-dados-adicionais input:disabled {
+    background: #f1f5f9 !important;
+
+    color: #94a3b8 !important;
+
+    cursor: not-allowed !important;
+}
+
+
+.ironstore-documento-entrega-fiscal label>small {
+    align-self: flex-end !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 9px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   ERRO DE GERAÇÃO
+========================================================= */
+
+.ironstore-documento-entrega-modal-erro {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+
+    margin-top: 12px !important;
+    padding: 12px 14px !important;
+
+    background: #fff1f2 !important;
+
+    border: 1px solid #fecdd3 !important;
+    border-radius: 10px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-modal-erro strong {
+    color: #be123c !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-documento-entrega-modal-erro span {
+    color: #9f1239 !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+.ironstore-documento-entrega-modal-mensagem {
+    width: 100% !important;
+
+    margin-top: 12px !important;
+    padding: 12px 14px !important;
+
+    background: #eff6ff !important;
+
+    border: 1px solid #bfdbfe !important;
+    border-radius: 10px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-modal-mensagem span {
+    color: #1d4ed8 !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   AÇÕES INLINE
+========================================================= */
+
+.ironstore-documento-entrega-configuracao-acoes {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 9px !important;
+
+    margin-top: 18px !important;
+    padding-top: 16px !important;
+
+    border-top:
+        1px solid #edf1f5 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.ironstore-documento-entrega-configuracao-cancelar {
+    min-width: 95px !important;
+    min-height: 40px !important;
+
+    padding: 0 14px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 9px !important;
+
+    color: #475569 !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease !important;
+}
+
+
+.ironstore-documento-entrega-configuracao-cancelar:hover:not(:disabled) {
+    background: #f8fafc !important;
+    border-color: #94a3b8 !important;
+    color: #0f172a !important;
+}
+
+
+/* =========================================================
+   CONFIRMAR
+========================================================= */
+
+.ironstore-documento-entrega-modal-confirmar {
+    min-width: 160px !important;
+    min-height: 40px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+
+    padding: 0 16px !important;
+
+    background: #4f46e5 !important;
+
+    border: 1px solid #4f46e5 !important;
+    border-radius: 9px !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 12px rgba(79, 70, 229, 0.17) !important;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.ironstore-documento-entrega-modal-confirmar:hover:not(:disabled) {
+    background: #4338ca !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 8px 17px rgba(79, 70, 229, 0.22) !important;
+}
+
+
+.ironstore-documento-entrega-modal-confirmar:disabled,
+.ironstore-documento-entrega-configuracao-cancelar:disabled {
+    opacity: 0.48 !important;
+
+    cursor: not-allowed !important;
+
+    transform: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
+
+.ironstore-documento-entrega-carregando {
+    width: 100% !important;
+    min-height: 74px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 9px !important;
+
+    padding: 16px !important;
+
+    background: #f8fafc !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 13px !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.ironstore-documento-entrega-spinner {
+    display: inline-block !important;
+
+    width: 15px !important;
+    height: 15px !important;
+
+    flex: 0 0 15px !important;
+
+    border:
+        2px solid rgba(100, 116, 139, 0.24) !important;
+
+    border-top-color:
+        #4f46e5 !important;
+
+    border-radius: 50% !important;
+
+    box-sizing: border-box !important;
+
+    animation:
+        ironstoreDocumentoSpinner 0.72s linear infinite !important;
+}
+
+
+.ironstore-documento-entrega-modal-confirmar .ironstore-documento-entrega-spinner {
+    border-color:
+        rgba(255, 255, 255, 0.35) !important;
+
+    border-top-color:
+        #ffffff !important;
+}
+
+
+@keyframes ironstoreDocumentoSpinner {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   ERRO GERAL
+========================================================= */
+
+.ironstore-documento-entrega-erro {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+
+    padding: 15px !important;
+
+    background: #fff1f2 !important;
+
+    border: 1px solid #fecdd3 !important;
+    border-radius: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-erro strong {
+    color: #be123c !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-documento-entrega-erro span {
+    color: #9f1239 !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
+
+
+.ironstore-documento-entrega-erro button {
+    min-height: 35px !important;
+
+    margin-top: 3px !important;
+    padding: 0 12px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #fda4af !important;
+    border-radius: 8px !important;
+
+    color: #be123c !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+}
+
+
+/* =========================================================
+   DADOS INCOMPLETOS
+========================================================= */
+
+.ironstore-documento-entrega-incompleto {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+
+    padding: 15px !important;
+
+    background: #fffbeb !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-documento-entrega-incompleto>strong {
+    color: #92400e !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-documento-entrega-incompleto>span {
+    color: #a16207 !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
+
+
+.ironstore-documento-entrega-campos {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+
+    margin-top: 4px !important;
+}
+
+
+.ironstore-documento-entrega-campos>span {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    min-height: 25px !important;
+
+    padding: 0 8px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 7px !important;
+
+    color: #92400e !important;
+
+    font-size: 9px !important;
+    font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   DOCUMENTO PRONTO
+========================================================= */
+
+.ironstore-documento-entrega-pronto {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+
+    padding: 16px 18px !important;
+
+    background: #f0fdf4 !important;
+
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 13px !important;
+
+    box-sizing: border-box !important;
+
+    box-shadow:
+        0 3px 12px rgba(22, 101, 52, 0.04) !important;
+}
+
+
+.ironstore-documento-entrega-pronto-info {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+}
+
+
+.ironstore-documento-entrega-pronto-info>span {
+    color: #16a34a !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-documento-entrega-pronto-info>strong {
+    color: #14532d !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-documento-entrega-pronto-info>small {
+    color: #4b7560 !important;
+
+    font-size: 9px !important;
+    font-weight: 650 !important;
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   ABRIR DOCUMENTO
+========================================================= */
+
+.ironstore-documento-entrega-abrir {
+    flex: 0 0 auto !important;
+
+    min-height: 39px !important;
+
+    padding: 0 14px !important;
+
+    background: #15803d !important;
+
+    border: 1px solid #15803d !important;
+    border-radius: 9px !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 12px rgba(21, 128, 61, 0.14) !important;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.ironstore-documento-entrega-abrir:hover {
+    background: #166534 !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 7px 16px rgba(21, 128, 61, 0.19) !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .ironstore-documento-entrega-resumo {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    .ironstore-documento-entrega-fiscal {
+        grid-template-columns:
+            1fr 1fr !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .ironstore-documento-entrega-wrapper {
+        gap: 12px !important;
+    }
+
+
+    .ironstore-documento-entrega-area,
+    .ironstore-documento-entrega-configuracao {
+        padding: 16px !important;
+
+        border-radius: 14px !important;
+    }
+
+
+    .ironstore-documento-entrega-cabecalho {
+        gap: 12px !important;
+    }
+
+
+    .ironstore-documento-entrega-cabecalho strong {
+        font-size: 15px !important;
+    }
+
+
+    .ironstore-documento-entrega-status {
+        min-height: 27px !important;
+
+        padding: 0 9px !important;
+
+        font-size: 8px !important;
+    }
+
+
+    .ironstore-documento-entrega-resumo {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 8px !important;
+    }
+
+
+    .ironstore-documento-entrega-resumo>div {
+        padding: 11px !important;
+    }
+
+
+    .ironstore-documento-entrega-modal-opcoes {
+        grid-template-columns:
+            1fr !important;
+    }
+
+
+    .ironstore-documento-entrega-opcao {
+        min-height: auto !important;
+    }
+
+
+    .ironstore-documento-entrega-fiscal {
+        grid-template-columns:
+            1fr !important;
+    }
+
+
+    .ironstore-documento-entrega-dados-adicionais {
+        grid-template-columns:
+            1fr !important;
+    }
+
+
+    .ironstore-documento-entrega-gerar {
+        width: 100% !important;
+    }
+
+
+    .ironstore-documento-entrega-configuracao-acoes {
+        flex-direction: column-reverse !important;
+        align-items: stretch !important;
+    }
+
+
+    .ironstore-documento-entrega-configuracao-cancelar,
+    .ironstore-documento-entrega-modal-confirmar {
+        width: 100% !important;
+    }
+
+
+    .ironstore-documento-entrega-pronto {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+
+    .ironstore-documento-entrega-abrir {
+        width: 100% !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .ironstore-documento-entrega-area,
+    .ironstore-documento-entrega-configuracao {
+        padding: 14px !important;
+    }
+
+
+    .ironstore-documento-entrega-cabecalho {
+        flex-direction: column !important;
+    }
+
+
+    .ironstore-documento-entrega-status {
+        align-self: flex-start !important;
+    }
+
+
+    .ironstore-documento-entrega-resumo {
+        grid-template-columns:
+            1fr !important;
+    }
+
+
+    .ironstore-documento-entrega-configuracao-topo h3 {
+        font-size: 16px !important;
+    }
+
+}

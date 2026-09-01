@@ -1,0 +1,2310 @@
+/* =========================================================
+   IRONSTORE
+   CONFIGURAÇÃO DO RODAPÉ
+   DESIGN PREMIUM
+========================================================= */
+
+
+/* =========================================================
+   ÁREA PRINCIPAL
+========================================================= */
+
+.ironstore-rodape-config-area {
+    width: 100% !important;
+    max-width: 1380px !important;
+
+    margin: 0 auto !important;
+    padding: 30px !important;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif !important;
+
+    color: #0f172a !important;
+
+    box-sizing: border-box !important;
+}
+
+.ironstore-rodape-config-area *,
+.ironstore-rodape-config-area *::before,
+.ironstore-rodape-config-area *::after {
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.ironstore-rodape-config-cabecalho {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 24px !important;
+
+    width: 100% !important;
+
+    margin: 0 0 28px 0 !important;
+    padding: 0 2px !important;
+}
+
+.ironstore-rodape-config-titulos {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    width: 100% !important;
+    max-width: 760px !important;
+}
+
+.ironstore-rodape-config-etiqueta {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 28px !important;
+
+    margin: 0 0 11px 0 !important;
+    padding: 5px 11px !important;
+
+    border: 1px solid #dbeafe !important;
+    border-radius: 8px !important;
+
+    background: #eff6ff !important;
+
+    color: #2563eb !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+.ironstore-rodape-config-titulo {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: clamp(26px, 3vw, 36px) !important;
+    font-weight: 800 !important;
+    line-height: 1.12 !important;
+
+    letter-spacing: -0.035em !important;
+}
+
+.ironstore-rodape-config-descricao {
+    width: 100% !important;
+    max-width: 720px !important;
+
+    margin: 10px 0 0 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 14px !important;
+    font-weight: 450 !important;
+    line-height: 1.65 !important;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
+
+.ironstore-rodape-config-formulario {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 22px !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* =========================================================
+   DOMÍNIO VINCULADO
+========================================================= */
+
+.ironstore-rodape-config-dominio {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    display: grid !important;
+    grid-template-columns:
+        auto minmax(180px, 1fr) auto !important;
+
+    align-items: center !important;
+
+    gap: 20px !important;
+
+    width: 100% !important;
+    min-height: 76px !important;
+
+    padding: 17px 20px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 5px 18px rgba(15, 23, 42, 0.025) !important;
+}
+
+.ironstore-rodape-config-dominio::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: 3px !important;
+
+    background: #2563eb !important;
+}
+
+.ironstore-rodape-config-dominio-status {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    white-space: nowrap !important;
+}
+
+.ironstore-rodape-config-dominio-ponto {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 8px !important;
+    height: 8px !important;
+
+    flex: 0 0 8px !important;
+
+    border-radius: 50% !important;
+
+    background: #16a34a !important;
+
+    box-shadow:
+        0 0 0 4px rgba(22, 163, 74, 0.08) !important;
+}
+
+.ironstore-rodape-config-dominio-ponto::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    inset: -4px !important;
+
+    border: 1px solid rgba(22, 163, 74, 0.2) !important;
+    border-radius: 50% !important;
+}
+
+.ironstore-rodape-config-dominio-label {
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+.ironstore-rodape-config-dominio-valor {
+    min-width: 0 !important;
+
+    overflow: hidden !important;
+
+    color: #0f172a !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.ironstore-rodape-config-dominio-ajuda {
+    max-width: 330px !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+
+    text-align: right !important;
+}
+
+
+/* =========================================================
+   BLOCOS PRINCIPAIS
+========================================================= */
+
+.ironstore-rodape-config-bloco {
+    position: relative !important;
+
+    width: 100% !important;
+
+    padding: 24px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.025),
+        0 8px 30px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease !important;
+}
+
+.ironstore-rodape-config-bloco:hover {
+    border-color: #d5ddea !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 12px 38px rgba(15, 23, 42, 0.045) !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO DOS BLOCOS
+========================================================= */
+
+.ironstore-rodape-config-bloco-cabecalho {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    width: 100% !important;
+
+    margin: 0 0 22px 0 !important;
+}
+
+.ironstore-rodape-config-bloco-titulos {
+    display: flex !important;
+    flex-direction: column !important;
+
+    min-width: 0 !important;
+}
+
+.ironstore-rodape-config-bloco-etiqueta {
+    display: block !important;
+
+    margin: 0 0 6px 0 !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+.ironstore-rodape-config-bloco-titulo {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+
+    letter-spacing: -0.015em !important;
+}
+
+.ironstore-rodape-config-bloco-descricao {
+    width: 100% !important;
+    max-width: 700px !important;
+
+    margin: 6px 0 0 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 12.5px !important;
+    font-weight: 450 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
+
+.ironstore-rodape-config-contador {
+    display: inline-flex !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+
+    gap: 3px !important;
+
+    min-width: 58px !important;
+
+    padding: 8px 11px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 9px !important;
+
+    background: #f8fafc !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+
+    white-space: nowrap !important;
+}
+
+.ironstore-rodape-config-contador strong {
+    color: #0f172a !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   GRID DAS REDES SOCIAIS
+========================================================= */
+
+.ironstore-rodape-config-redes-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 14px !important;
+
+    width: 100% !important;
+}
+
+
+/* =========================================================
+   CARD REDE SOCIAL
+========================================================= */
+
+.ironstore-rodape-config-rede-card {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 13px !important;
+
+    min-width: 0 !important;
+
+    padding: 17px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 13px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fbfdff 100%) !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease !important;
+}
+
+.ironstore-rodape-config-rede-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 2px !important;
+
+    opacity: 0 !important;
+
+    background:
+        linear-gradient(90deg,
+            #2563eb,
+            #60a5fa) !important;
+
+    transition: opacity 180ms ease !important;
+}
+
+.ironstore-rodape-config-rede-card:hover {
+    transform: translateY(-2px) !important;
+
+    border-color: #cbd5e1 !important;
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.065) !important;
+}
+
+.ironstore-rodape-config-rede-card:hover::before {
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   TOPO DA REDE
+========================================================= */
+
+.ironstore-rodape-config-rede-topo {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+
+    width: 100% !important;
+}
+
+.ironstore-rodape-config-rede-icone {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 38px !important;
+    height: 38px !important;
+
+    flex: 0 0 38px !important;
+
+    border: 1px solid #dbeafe !important;
+    border-radius: 10px !important;
+
+    background: #eff6ff !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+
+    letter-spacing: -0.02em !important;
+
+    box-shadow:
+        0 3px 10px rgba(37, 99, 235, 0.06) !important;
+}
+
+.ironstore-rodape-config-rede-identidade {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 2px !important;
+
+    min-width: 0 !important;
+}
+
+.ironstore-rodape-config-rede-label {
+    margin: 0 !important;
+
+    color: #1e293b !important;
+
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+}
+
+.ironstore-rodape-config-rede-identidade small {
+    display: block !important;
+
+    overflow: hidden !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.ironstore-rodape-config-input {
+    display: block !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 44px !important;
+
+    margin: 0 !important;
+    padding: 0 13px !important;
+
+    outline: none !important;
+
+    border: 1px solid #dce3ed !important;
+    border-radius: 9px !important;
+
+    background: #ffffff !important;
+
+    color: #0f172a !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 550 !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.015) !important;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        background 160ms ease !important;
+}
+
+.ironstore-rodape-config-input::placeholder {
+    color: #a8b3c2 !important;
+
+    font-weight: 450 !important;
+}
+
+.ironstore-rodape-config-input:hover:not(:disabled) {
+    border-color: #cbd5e1 !important;
+}
+
+.ironstore-rodape-config-input:focus {
+    border-color: #60a5fa !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.09),
+        0 4px 12px rgba(15, 23, 42, 0.03) !important;
+}
+
+.ironstore-rodape-config-input:disabled {
+    border-color: #e5e7eb !important;
+
+    background: #f8fafc !important;
+
+    color: #94a3b8 !important;
+
+    cursor: not-allowed !important;
+
+    opacity: 0.85 !important;
+}
+
+
+/* =========================================================
+   STATUS DA REDE
+========================================================= */
+
+.ironstore-rodape-config-rede-status {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 6px !important;
+
+    width: fit-content !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 9.5px !important;
+    font-weight: 650 !important;
+}
+
+.ironstore-rodape-config-rede-status-ponto {
+    display: block !important;
+
+    width: 6px !important;
+    height: 6px !important;
+
+    flex: 0 0 6px !important;
+
+    border-radius: 50% !important;
+
+    background: #cbd5e1 !important;
+}
+
+.ironstore-rodape-config-rede-status-ponto-ativo {
+    background: #16a34a !important;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 163, 74, 0.08) !important;
+}
+
+.ironstore-rodape-config-rede-status-ponto-ativo+span {
+    color: #15803d !important;
+}
+
+
+/* =========================================================
+   MENSAGEM DO RODAPÉ
+========================================================= */
+
+.ironstore-rodape-config-mensagem-campo {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 9px !important;
+
+    width: 100% !important;
+
+    padding: 16px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+
+    background: #fbfcfe !important;
+}
+
+.ironstore-rodape-config-mensagem-rodape {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    width: 100% !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 10px !important;
+    font-weight: 550 !important;
+}
+
+.ironstore-rodape-config-textarea {
+    display: block !important;
+
+    width: 100% !important;
+    min-height: 125px !important;
+
+    margin: 0 !important;
+    padding: 13px 14px !important;
+
+    resize: vertical !important;
+
+    outline: none !important;
+
+    border: 1px solid #dce3ed !important;
+    border-radius: 10px !important;
+
+    background: #ffffff !important;
+
+    color: #0f172a !important;
+
+    font-family: inherit !important;
+    font-size: 12.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.65 !important;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        background 160ms ease !important;
+}
+
+.ironstore-rodape-config-textarea::placeholder {
+    color: #a8b3c2 !important;
+}
+
+.ironstore-rodape-config-textarea:hover:not(:disabled) {
+    border-color: #cbd5e1 !important;
+}
+
+.ironstore-rodape-config-textarea:focus {
+    border-color: #60a5fa !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.09) !important;
+}
+
+.ironstore-rodape-config-textarea:disabled {
+    background: #f8fafc !important;
+
+    color: #94a3b8 !important;
+
+    cursor: not-allowed !important;
+}
+
+
+/* =========================================================
+   REGRAS / INFORMAÇÕES
+========================================================= */
+
+.ironstore-rodape-config-regra {
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 12px !important;
+
+    width: 100% !important;
+
+    padding: 15px 17px !important;
+
+    border: 1px solid #dbeafe !important;
+    border-radius: 12px !important;
+
+    background: #f8fbff !important;
+}
+
+.ironstore-rodape-config-regra-icone {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 30px !important;
+    height: 30px !important;
+
+    flex: 0 0 30px !important;
+
+    border-radius: 8px !important;
+
+    background: #eff6ff !important;
+
+    color: #2563eb !important;
+
+    font-size: 13px !important;
+    font-weight: 900 !important;
+}
+
+.ironstore-rodape-config-regra-conteudo {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+
+    min-width: 0 !important;
+}
+
+.ironstore-rodape-config-regra-conteudo strong {
+    color: #1e3a8a !important;
+
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+}
+
+.ironstore-rodape-config-regra-conteudo span,
+.ironstore-rodape-config-regra-conteudo p {
+    margin: 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   PERMISSÃO
+========================================================= */
+
+.ironstore-rodape-config-permissao {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 9px !important;
+
+    width: 100% !important;
+
+    padding: 12px 15px !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 10px !important;
+
+    background: #fffbeb !important;
+
+    color: #92400e !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.ironstore-rodape-config-acoes {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    width: 100% !important;
+
+    padding: 18px 20px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 4px 18px rgba(15, 23, 42, 0.025) !important;
+}
+
+.ironstore-rodape-config-acoes-info {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+
+    min-width: 0 !important;
+}
+
+.ironstore-rodape-config-acoes-info strong {
+    color: #334155 !important;
+
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+}
+
+.ironstore-rodape-config-acoes-info span,
+.ironstore-rodape-config-acoes-info small {
+    color: #94a3b8 !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+}
+
+.ironstore-rodape-config-acoes-botoes {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    gap: 9px !important;
+
+    flex-shrink: 0 !important;
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR
+========================================================= */
+
+.ironstore-rodape-config-limpar {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 42px !important;
+
+    padding: 10px 16px !important;
+
+    border: 1px solid #fecaca !important;
+    border-radius: 9px !important;
+
+    background: #ffffff !important;
+
+    color: #dc2626 !important;
+
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease !important;
+}
+
+.ironstore-rodape-config-limpar:hover:not(:disabled) {
+    transform: translateY(-1px) !important;
+
+    border-color: #fca5a5 !important;
+
+    background: #fef2f2 !important;
+
+    color: #b91c1c !important;
+
+    box-shadow:
+        0 5px 15px rgba(220, 38, 38, 0.07) !important;
+}
+
+
+/* =========================================================
+   BOTÃO SALVAR
+========================================================= */
+
+.ironstore-rodape-config-salvar {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 145px !important;
+    min-height: 42px !important;
+
+    padding: 10px 19px !important;
+
+    border: 1px solid #2563eb !important;
+    border-radius: 9px !important;
+
+    background: #2563eb !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.16) !important;
+
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease !important;
+}
+
+.ironstore-rodape-config-salvar:hover:not(:disabled) {
+    transform: translateY(-1px) !important;
+
+    border-color: #1d4ed8 !important;
+
+    background: #1d4ed8 !important;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.22) !important;
+}
+
+.ironstore-rodape-config-salvar:active:not(:disabled),
+.ironstore-rodape-config-limpar:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+.ironstore-rodape-config-salvar:disabled,
+.ironstore-rodape-config-limpar:disabled {
+    opacity: 0.5 !important;
+
+    cursor: not-allowed !important;
+
+    transform: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.ironstore-rodape-config-erro {
+    position: relative !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 13px 15px 13px 42px !important;
+
+    border: 1px solid #fecaca !important;
+    border-radius: 10px !important;
+
+    background: #fef2f2 !important;
+
+    color: #b91c1c !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    line-height: 1.5 !important;
+}
+
+.ironstore-rodape-config-erro::before {
+    content: "!" !important;
+
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 14px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 18px !important;
+    height: 18px !important;
+
+    transform: translateY(-50%) !important;
+
+    border-radius: 50% !important;
+
+    background: #dc2626 !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+}
+
+
+/* =========================================================
+   SUCESSO
+========================================================= */
+
+.ironstore-rodape-config-sucesso {
+    position: relative !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 13px 15px 13px 42px !important;
+
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 10px !important;
+
+    background: #f0fdf4 !important;
+
+    color: #15803d !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    line-height: 1.5 !important;
+}
+
+.ironstore-rodape-config-sucesso::before {
+    content: "✓" !important;
+
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 14px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 18px !important;
+    height: 18px !important;
+
+    transform: translateY(-50%) !important;
+
+    border-radius: 50% !important;
+
+    background: #16a34a !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+}
+
+
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
+
+.ironstore-rodape-config-carregando {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 14px !important;
+
+    width: 100% !important;
+    min-height: 280px !important;
+
+    padding: 40px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+
+    background: #ffffff !important;
+
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 650 !important;
+
+    box-shadow:
+        0 8px 30px rgba(15, 23, 42, 0.025) !important;
+}
+
+.ironstore-rodape-config-spinner {
+    width: 32px !important;
+    height: 32px !important;
+
+    border: 3px solid #dbeafe !important;
+    border-top-color: #2563eb !important;
+
+    border-radius: 50% !important;
+
+    animation:
+        ironstoreRodapeSpinner 700ms linear infinite !important;
+}
+
+@keyframes ironstoreRodapeSpinner {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   SEM DOMÍNIO
+========================================================= */
+
+.ironstore-rodape-config-sem-dominio {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 17px !important;
+
+    width: 100% !important;
+
+    padding: 24px !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 15px !important;
+
+    background:
+        linear-gradient(135deg,
+            #fffbeb 0%,
+            #ffffff 100%) !important;
+
+    box-shadow:
+        0 8px 25px rgba(146, 64, 14, 0.035) !important;
+}
+
+.ironstore-rodape-config-sem-dominio::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: 3px !important;
+
+    background: #f59e0b !important;
+}
+
+.ironstore-rodape-config-sem-dominio-icone {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 40px !important;
+    height: 40px !important;
+
+    flex: 0 0 40px !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 11px !important;
+
+    background: #fef3c7 !important;
+
+    color: #b45309 !important;
+
+    font-size: 18px !important;
+    font-weight: 900 !important;
+}
+
+.ironstore-rodape-config-sem-dominio-conteudo {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    min-width: 0 !important;
+}
+
+.ironstore-rodape-config-sem-dominio-etiqueta {
+    color: #d97706 !important;
+
+    font-size: 9.5px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+}
+
+.ironstore-rodape-config-sem-dominio-titulo {
+    margin: 0 !important;
+
+    color: #78350f !important;
+
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+}
+
+.ironstore-rodape-config-sem-dominio-texto {
+    max-width: 650px !important;
+
+    margin: 0 !important;
+
+    color: #92400e !important;
+
+    font-size: 11.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   SELEÇÃO
+========================================================= */
+
+.ironstore-rodape-config-area ::selection {
+    background: rgba(37, 99, 235, 0.16) !important;
+
+    color: #0f172a !important;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   NOTEBOOK / TABLET
+========================================================= */
+
+@media (max-width: 980px) {
+
+    .ironstore-rodape-config-area {
+        padding: 24px !important;
+    }
+
+    .ironstore-rodape-config-redes-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .ironstore-rodape-config-dominio {
+        grid-template-columns:
+            auto minmax(0, 1fr) !important;
+    }
+
+    .ironstore-rodape-config-dominio-ajuda {
+        grid-column: 1 / -1 !important;
+
+        max-width: none !important;
+
+        padding-left: 16px !important;
+
+        text-align: left !important;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   TABLET
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .ironstore-rodape-config-area {
+        padding: 20px 16px !important;
+    }
+
+    .ironstore-rodape-config-cabecalho {
+        margin-bottom: 22px !important;
+    }
+
+    .ironstore-rodape-config-titulo {
+        font-size: 27px !important;
+    }
+
+    .ironstore-rodape-config-descricao {
+        font-size: 13px !important;
+    }
+
+    .ironstore-rodape-config-redes-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .ironstore-rodape-config-bloco {
+        padding: 19px !important;
+
+        border-radius: 14px !important;
+    }
+
+    .ironstore-rodape-config-bloco-cabecalho {
+        gap: 14px !important;
+    }
+
+    .ironstore-rodape-config-acoes {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .ironstore-rodape-config-acoes-botoes {
+        width: 100% !important;
+    }
+
+    .ironstore-rodape-config-limpar,
+    .ironstore-rodape-config-salvar {
+        flex: 1 !important;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   CELULAR
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .ironstore-rodape-config-area {
+        padding: 16px 12px !important;
+    }
+
+    .ironstore-rodape-config-etiqueta {
+        min-height: 25px !important;
+
+        padding: 5px 9px !important;
+
+        font-size: 9px !important;
+    }
+
+    .ironstore-rodape-config-titulo {
+        font-size: 24px !important;
+    }
+
+    .ironstore-rodape-config-descricao {
+        font-size: 12px !important;
+        line-height: 1.55 !important;
+    }
+
+    .ironstore-rodape-config-formulario {
+        gap: 15px !important;
+    }
+
+    .ironstore-rodape-config-dominio {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+
+        gap: 9px !important;
+
+        padding: 16px !important;
+    }
+
+    .ironstore-rodape-config-dominio-ajuda {
+        padding-left: 0 !important;
+
+        text-align: left !important;
+    }
+
+    .ironstore-rodape-config-dominio-valor {
+        width: 100% !important;
+
+        font-size: 13px !important;
+    }
+
+    .ironstore-rodape-config-bloco {
+        padding: 16px !important;
+    }
+
+    .ironstore-rodape-config-bloco-cabecalho {
+        flex-direction: column !important;
+
+        margin-bottom: 17px !important;
+    }
+
+    .ironstore-rodape-config-contador {
+        align-self: flex-start !important;
+    }
+
+    .ironstore-rodape-config-rede-card {
+        padding: 14px !important;
+    }
+
+    .ironstore-rodape-config-rede-icone {
+        width: 35px !important;
+        height: 35px !important;
+
+        flex-basis: 35px !important;
+    }
+
+    .ironstore-rodape-config-input {
+        height: 43px !important;
+
+        font-size: 11px !important;
+    }
+
+    .ironstore-rodape-config-textarea {
+        min-height: 115px !important;
+
+        font-size: 12px !important;
+    }
+
+    .ironstore-rodape-config-regra {
+        padding: 13px !important;
+    }
+
+    .ironstore-rodape-config-acoes {
+        padding: 15px !important;
+    }
+
+    .ironstore-rodape-config-acoes-botoes {
+        flex-direction: column-reverse !important;
+    }
+
+    .ironstore-rodape-config-limpar,
+    .ironstore-rodape-config-salvar {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        flex: none !important;
+    }
+
+    .ironstore-rodape-config-sem-dominio {
+        padding: 18px !important;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .ironstore-rodape-config-area {
+        padding: 12px 8px !important;
+    }
+
+    .ironstore-rodape-config-titulo {
+        font-size: 22px !important;
+    }
+
+    .ironstore-rodape-config-rede-topo {
+        align-items: flex-start !important;
+    }
+
+    .ironstore-rodape-config-rede-identidade small {
+        white-space: normal !important;
+    }
+
+}
+
+/* =========================================================
+   IRONSTORE
+   RODAPÉ
+   CAMADA EXTRA DE ACABAMENTO PREMIUM
+
+   ADICIONAR NO FINAL DO CSS ATUAL
+   ========================================================= */
+
+
+/* =========================================================
+   ISOLAMENTO VISUAL
+   ========================================================= */
+
+.ironstore-rodape-config-area {
+    position: relative !important;
+    isolation: isolate !important;
+
+    min-height: 100% !important;
+
+    background:
+        radial-gradient(circle at 8% 0%,
+            rgba(37, 99, 235, 0.035) 0%,
+            transparent 26%),
+        radial-gradient(circle at 95% 8%,
+            rgba(59, 130, 246, 0.025) 0%,
+            transparent 24%) !important;
+}
+
+
+/* =========================================================
+   MELHOR RENDERIZAÇÃO DE TEXTO
+   ========================================================= */
+
+.ironstore-rodape-config-area {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+
+    text-rendering: optimizeLegibility !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   LINHA DE IDENTIDADE
+   ========================================================= */
+
+.ironstore-rodape-config-cabecalho::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 2px !important;
+    bottom: -15px !important;
+
+    width: 44px !important;
+    height: 3px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(90deg,
+            #2563eb 0%,
+            #60a5fa 100%) !important;
+
+    opacity: 0.9 !important;
+}
+
+
+/* =========================================================
+   ETIQUETA SUPERIOR
+   ========================================================= */
+
+.ironstore-rodape-config-etiqueta {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 3px 10px rgba(37, 99, 235, 0.045) !important;
+}
+
+.ironstore-rodape-config-etiqueta::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -80% !important;
+
+    width: 55% !important;
+    height: 100% !important;
+
+    transform: skewX(-20deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.65),
+            transparent) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   DOMÍNIO
+   ACABAMENTO PREMIUM
+   ========================================================= */
+
+.ironstore-rodape-config-dominio {
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 8px 24px rgba(15, 23, 42, 0.035),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease !important;
+}
+
+.ironstore-rodape-config-dominio:hover {
+    border-color: #cbd5e1 !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 12px 32px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+
+/* =========================================================
+   STATUS DO DOMÍNIO
+   ========================================================= */
+
+.ironstore-rodape-config-dominio-ponto {
+    animation:
+        ironstoreRodapeDominioAtivo 2.4s ease-in-out infinite !important;
+}
+
+@keyframes ironstoreRodapeDominioAtivo {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 4px rgba(22, 163, 74, 0.08);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 7px rgba(22, 163, 74, 0.025);
+    }
+
+}
+
+
+/* =========================================================
+   BLOCOS PRINCIPAIS
+   MAIS PROFUNDIDADE
+   ========================================================= */
+
+.ironstore-rodape-config-bloco {
+    isolation: isolate !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.025),
+        0 10px 35px rgba(15, 23, 42, 0.035),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+.ironstore-rodape-config-bloco::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 24px !important;
+    right: 24px !important;
+
+    height: 1px !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.13),
+            transparent) !important;
+
+    pointer-events: none !important;
+}
+
+.ironstore-rodape-config-bloco:hover {
+    transform: translateY(-1px) !important;
+
+    border-color: #d7e0eb !important;
+
+    box-shadow:
+        0 2px 4px rgba(15, 23, 42, 0.025),
+        0 16px 42px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+
+/* =========================================================
+   TÍTULO DOS BLOCOS
+   ========================================================= */
+
+.ironstore-rodape-config-bloco-titulo {
+    text-wrap: balance !important;
+}
+
+.ironstore-rodape-config-bloco-descricao {
+    text-wrap: pretty !important;
+}
+
+
+/* =========================================================
+   CONTADOR
+   ========================================================= */
+
+.ironstore-rodape-config-contador {
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.025),
+        0 1px 2px rgba(15, 23, 42, 0.02) !important;
+}
+
+
+/* =========================================================
+   CARDS DAS REDES
+   ========================================================= */
+
+.ironstore-rodape-config-rede-card {
+    isolation: isolate !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fbfdff 55%,
+            #f8fbff 100%) !important;
+}
+
+.ironstore-rodape-config-rede-card::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 90px !important;
+    height: 90px !important;
+
+    right: -50px !important;
+    bottom: -55px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.055),
+            transparent 70%) !important;
+
+    opacity: 0 !important;
+
+    pointer-events: none !important;
+
+    transition:
+        opacity 180ms ease,
+        transform 250ms ease !important;
+}
+
+.ironstore-rodape-config-rede-card:hover::after {
+    opacity: 1 !important;
+
+    transform: scale(1.25) !important;
+}
+
+
+/* =========================================================
+   ÍCONES DAS REDES
+   ========================================================= */
+
+.ironstore-rodape-config-rede-icone {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease,
+        box-shadow 180ms ease !important;
+}
+
+.ironstore-rodape-config-rede-card:hover .ironstore-rodape-config-rede-icone {
+    transform: translateY(-1px) scale(1.025) !important;
+
+    border-color: #bfdbfe !important;
+
+    background: #eaf3ff !important;
+
+    box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.09) !important;
+}
+
+
+/* =========================================================
+   INPUT
+   ACABAMENTO
+   ========================================================= */
+
+.ironstore-rodape-config-input {
+    caret-color: #2563eb !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.018),
+        0 1px 1px rgba(15, 23, 42, 0.012) !important;
+}
+
+.ironstore-rodape-config-input:focus {
+    transform: translateY(-1px) !important;
+
+    border-color: #3b82f6 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.085),
+        0 7px 18px rgba(15, 23, 42, 0.045) !important;
+}
+
+
+/* =========================================================
+   AUTOFILL DO CHROME
+   EVITA FUNDO AMARELO/ESTRANHO
+   ========================================================= */
+
+.ironstore-rodape-config-input:-webkit-autofill,
+.ironstore-rodape-config-input:-webkit-autofill:hover,
+.ironstore-rodape-config-input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #0f172a !important;
+
+    -webkit-box-shadow:
+        0 0 0 1000px #ffffff inset !important;
+
+    transition:
+        background-color 9999s ease-out 0s !important;
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.ironstore-rodape-config-textarea {
+    caret-color: #2563eb !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color:
+        #cbd5e1 transparent !important;
+}
+
+.ironstore-rodape-config-textarea::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+.ironstore-rodape-config-textarea::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ironstore-rodape-config-textarea::-webkit-scrollbar-thumb {
+    border: 2px solid #ffffff !important;
+    border-radius: 999px !important;
+
+    background: #cbd5e1 !important;
+}
+
+.ironstore-rodape-config-textarea:focus {
+    transform: translateY(-1px) !important;
+
+    border-color: #3b82f6 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.085),
+        0 7px 18px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+/* =========================================================
+   STATUS DAS REDES
+   ========================================================= */
+
+.ironstore-rodape-config-rede-status {
+    min-height: 18px !important;
+
+    padding: 3px 7px !important;
+
+    border-radius: 999px !important;
+
+    background: #f8fafc !important;
+
+    transition:
+        background 160ms ease,
+        color 160ms ease !important;
+}
+
+.ironstore-rodape-config-rede-card:hover .ironstore-rodape-config-rede-status {
+    background: #f1f5f9 !important;
+}
+
+.ironstore-rodape-config-rede-status-ponto-ativo {
+    animation:
+        ironstoreRodapeRedeAtiva 2s ease-in-out infinite !important;
+}
+
+@keyframes ironstoreRodapeRedeAtiva {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 3px rgba(22, 163, 74, 0.08);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 5px rgba(22, 163, 74, 0.025);
+    }
+
+}
+
+
+/* =========================================================
+   ÁREA DA MENSAGEM
+   ========================================================= */
+
+.ironstore-rodape-config-mensagem-campo {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(145deg,
+            #fbfcfe 0%,
+            #f8fbff 100%) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.ironstore-rodape-config-mensagem-campo::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 3px !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #60a5fa) !important;
+}
+
+
+/* =========================================================
+   REGRA / INFORMAÇÃO
+   ========================================================= */
+
+.ironstore-rodape-config-regra {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+.ironstore-rodape-config-regra-icone {
+    box-shadow:
+        0 3px 10px rgba(37, 99, 235, 0.07) !important;
+}
+
+
+/* =========================================================
+   ÁREA DE AÇÕES
+   MAIS IMPORTANTE VISUALMENTE
+   ========================================================= */
+
+.ironstore-rodape-config-acoes {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(135deg,
+            #ffffff 0%,
+            #fbfdff 100%) !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.025),
+        0 10px 32px rgba(15, 23, 42, 0.04) !important;
+}
+
+.ironstore-rodape-config-acoes::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    height: 2px !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent 0%,
+            rgba(37, 99, 235, 0.55) 50%,
+            transparent 100%) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   BOTÃO SALVAR
+   ========================================================= */
+
+.ironstore-rodape-config-salvar {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    isolation: isolate !important;
+
+    letter-spacing: 0.01em !important;
+}
+
+.ironstore-rodape-config-salvar::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -100% !important;
+
+    width: 70% !important;
+    height: 100% !important;
+
+    transform: skewX(-22deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent) !important;
+
+    transition:
+        left 450ms ease !important;
+
+    pointer-events: none !important;
+}
+
+.ironstore-rodape-config-salvar:hover:not(:disabled)::before {
+    left: 140% !important;
+}
+
+.ironstore-rodape-config-salvar:focus-visible {
+    outline:
+        3px solid rgba(37, 99, 235, 0.18) !important;
+
+    outline-offset: 3px !important;
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR
+   ========================================================= */
+
+.ironstore-rodape-config-limpar:focus-visible {
+    outline:
+        3px solid rgba(220, 38, 38, 0.12) !important;
+
+    outline-offset: 3px !important;
+}
+
+
+/* =========================================================
+   ESTADO DISABLED
+   MAIS PROFISSIONAL
+   ========================================================= */
+
+.ironstore-rodape-config-input:disabled,
+.ironstore-rodape-config-textarea:disabled {
+    filter: saturate(0.7) !important;
+
+    user-select: none !important;
+}
+
+
+/* =========================================================
+   MENSAGENS DE ERRO / SUCESSO
+   ========================================================= */
+
+.ironstore-rodape-config-erro,
+.ironstore-rodape-config-sucesso {
+    animation:
+        ironstoreRodapeMensagemEntrada 240ms ease-out both !important;
+}
+
+@keyframes ironstoreRodapeMensagemEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   CARREGAMENTO
+   ========================================================= */
+
+.ironstore-rodape-config-carregando {
+    position: relative !important;
+
+    overflow: hidden !important;
+}
+
+.ironstore-rodape-config-carregando::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -70% !important;
+
+    width: 45% !important;
+    height: 100% !important;
+
+    transform: skewX(-18deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.025),
+            transparent) !important;
+
+    animation:
+        ironstoreRodapeLoadingBrilho 2.4s ease-in-out infinite !important;
+
+    pointer-events: none !important;
+}
+
+@keyframes ironstoreRodapeLoadingBrilho {
+
+    0% {
+        left: -70%;
+    }
+
+    100% {
+        left: 130%;
+    }
+
+}
+
+
+/* =========================================================
+   SEM DOMÍNIO
+   ========================================================= */
+
+.ironstore-rodape-config-sem-dominio {
+    isolation: isolate !important;
+}
+
+.ironstore-rodape-config-sem-dominio-icone {
+    box-shadow:
+        0 5px 15px rgba(180, 83, 9, 0.08) !important;
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   REDUZIR MOVIMENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstore-rodape-config-area *,
+    .ironstore-rodape-config-area *::before,
+    .ironstore-rodape-config-area *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        scroll-behavior: auto !important;
+
+        transition-duration: 0.01ms !important;
+    }
+
+}
+
+
+/* =========================================================
+   DESKTOP GRANDE
+   ========================================================= */
+
+@media (min-width: 1400px) {
+
+    .ironstore-rodape-config-bloco {
+        padding: 27px !important;
+    }
+
+    .ironstore-rodape-config-redes-grid {
+        gap: 16px !important;
+    }
+
+    .ironstore-rodape-config-rede-card {
+        padding: 19px !important;
+    }
+
+}
+
+
+/* =========================================================
+   TOUCH
+   EVITA HOVERS ESTRANHOS NO CELULAR
+   ========================================================= */
+
+@media (hover: none) {
+
+    .ironstore-rodape-config-bloco:hover,
+    .ironstore-rodape-config-rede-card:hover,
+    .ironstore-rodape-config-dominio:hover {
+        transform: none !important;
+    }
+
+    .ironstore-rodape-config-rede-card:hover::after {
+        opacity: 0 !important;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+   ACABAMENTO EXTRA
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .ironstore-rodape-config-cabecalho::after {
+        bottom: -11px !important;
+
+        width: 36px !important;
+    }
+
+    .ironstore-rodape-config-bloco::after {
+        left: 16px !important;
+        right: 16px !important;
+    }
+
+    .ironstore-rodape-config-rede-card:hover {
+        transform: none !important;
+    }
+
+    .ironstore-rodape-config-input:focus,
+    .ironstore-rodape-config-textarea:focus {
+        transform: none !important;
+    }
+
+    .ironstore-rodape-config-acoes {
+        box-shadow:
+            0 5px 20px rgba(15, 23, 42, 0.035) !important;
+    }
+
+}

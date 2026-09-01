@@ -4,7 +4,7 @@ import Vendas from "./componentes/vendas/vendas";
 import Apresentacao from "./componentes/vendas/apresentacao";
 import Modelos from "./componentes/vendas/modelos";
 import Dominio from "./componentes/vendas/dominio";
-
+import Rodape from "./componentes/vendas/rodape";
 import "./delivery.css";
 
 
@@ -56,6 +56,9 @@ export default function DeliveryEVendasOnline() {
                 return <Dominio />;
 
 
+            case "rodape":
+
+                return <Rodape />;
             default:
 
                 return <Vendas />;
@@ -130,7 +133,17 @@ export default function DeliveryEVendasOnline() {
                 >
                     Domínio registrado
                 </button>
-
+                <button
+                    type="button"
+                    className={
+                        abaAtiva === "rodape"
+                            ? "ironstore-botao-aba ironstore-botao-aba-ativo"
+                            : "ironstore-botao-aba"
+                    }
+                    onClick={() => abrirAba("rodape")}
+                >
+                    Redes sociais
+                </button>
             </div>
 
 
