@@ -3,6 +3,7 @@ import React, {
     useEffect,
     useState
 } from "react";
+import { createPortal } from "react-dom";
 
 import { API_URL } from "../../../../../../config";
 import DocumentoEntrega from "./documentoentrega";
@@ -720,7 +721,7 @@ export default function Tabela() {
                 DETALHES
             ================================================= */}
 
-            {pedidoAberto && (
+            {pedidoAberto && createPortal(
 
                 <div
                     className="ironstore-pedidos-operacao-modal-fundo"
@@ -1125,7 +1126,10 @@ export default function Tabela() {
 
                     </article>
 
-                </div>
+                </div>,
+
+                document.body
+
 
             )}
 

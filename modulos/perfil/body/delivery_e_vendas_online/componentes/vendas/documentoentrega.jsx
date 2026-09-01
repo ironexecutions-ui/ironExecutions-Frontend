@@ -138,6 +138,10 @@ export default function DocumentoEntrega({
     // EXTRAIR ERRO DA API
     // ========================================================
 
+    // ========================================================
+    // EXTRAIR ERRO DA API
+    // ========================================================
+
     const extrairErroApi = (
         respostaDados,
         fallback
@@ -146,28 +150,172 @@ export default function DocumentoEntrega({
         const detail =
             respostaDados?.detail;
 
+
+        // ====================================================
+        // PERSONALIZAR SALDO INSUFICIENTE
+        // ====================================================
+
+        const mensagemSaldoInsuficiente = () => {
+
+            const protocolo =
+                pedido?.id
+                    ?
+                    `#${pedido.id}`
+                    :
+                    "do pedido";
+
+            return (
+                `O pagamento desta entrega ainda precisa ser confirmado. ` +
+                `Antes de entrar em contato com o suporte, confira o e-mail ` +
+                `cadastrado no sistema e procure por uma mensagem com o assunto ` +
+                `"Pagamento da entrega - Protocolo ${protocolo}". ` +
+                `Nesse e-mail estão as informações e o PIX para realizar o pagamento da entrega. ` +
+                `Caso não tenha recebido esse e-mail, entre em contato com o suporte pelo ` +
+                `WhatsApp (11) 91854-7818.`
+            );
+
+        };
+
+
+        // ====================================================
+        // IDENTIFICAR ERRO DE SALDO
+        // ====================================================
+
+        const verificarSaldoInsuficiente = (
+            valor
+        ) => {
+
+            if (!valor) {
+                return false;
+            }
+
+            let conteudo = "";
+
+            if (
+                typeof valor === "string"
+            ) {
+
+                conteudo =
+                    valor;
+
+            } else {
+
+                try {
+
+                    conteudo =
+                        JSON.stringify(
+                            valor
+                        );
+
+                } catch {
+
+                    return false;
+
+                }
+
+            }
+
+            conteudo =
+                conteudo
+                    .toLowerCase();
+
+            return (
+                conteudo.includes(
+                    "saldo"
+                )
+                &&
+                (
+                    conteudo.includes(
+                        "insuficiente"
+                    )
+                    ||
+                    conteudo.includes(
+                        "insufficient"
+                    )
+                )
+            );
+
+        };
+
+
+        // ====================================================
+        // VERIFICAR TODA A RESPOSTA PRIMEIRO
+        // ====================================================
+
+        if (
+            verificarSaldoInsuficiente(
+                respostaDados
+            )
+        ) {
+
+            return mensagemSaldoInsuficiente();
+
+        }
+
+
+        // ====================================================
+        // DETAIL COMO STRING
+        // ====================================================
+
         if (
             typeof detail === "string"
         ) {
 
+            if (
+                verificarSaldoInsuficiente(
+                    detail
+                )
+            ) {
+
+                return mensagemSaldoInsuficiente();
+
+            }
+
             return detail;
 
         }
+
+
+        // ====================================================
+        // DETAIL COMO OBJETO
+        // ====================================================
 
         if (
             detail &&
             typeof detail === "object"
         ) {
 
+            const erroMelhorEnvio =
+                detail.erro_melhor_envio;
+
+
+            // ================================================
+            // SALDO INSUFICIENTE
+            // ================================================
+
             if (
-                typeof detail.mensagem === "string"
+                verificarSaldoInsuficiente(
+                    erroMelhorEnvio
+                )
             ) {
 
-                const erroMelhorEnvio =
-                    detail.erro_melhor_envio;
+                return mensagemSaldoInsuficiente();
+
+            }
+
+
+            // ================================================
+            // MENSAGEM DO BACKEND
+            // ================================================
+
+            if (
+                typeof detail.mensagem ===
+                "string"
+            ) {
 
                 if (
-                    typeof erroMelhorEnvio === "string"
+                    typeof erroMelhorEnvio ===
+                    "string"
                 ) {
 
                     return (
@@ -180,6 +328,11 @@ export default function DocumentoEntrega({
                 return detail.mensagem;
 
             }
+
+
+            // ================================================
+            // OUTROS ERROS
+            // ================================================
 
             try {
 
@@ -194,6 +347,11 @@ export default function DocumentoEntrega({
             }
 
         }
+
+
+        // ====================================================
+        // FALLBACK
+        // ====================================================
 
         return (
             respostaDados?.message ||
