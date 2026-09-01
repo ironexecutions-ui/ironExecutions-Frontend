@@ -112,7 +112,10 @@ export default function DocumentoEntrega({
 
     };
 
-
+    const [
+        erroSaldoInsuficiente,
+        setErroSaldoInsuficiente
+    ] = useState(false);
     // ========================================================
     // FORMATAR DINHEIRO
     // ========================================================
@@ -689,7 +692,7 @@ export default function DocumentoEntrega({
 
         setErroGeracao("");
         setMensagem("");
-
+        setErroSaldoInsuficiente(false);
         if (!tipoDocumento) {
 
             setErroGeracao(
@@ -936,11 +939,26 @@ export default function DocumentoEntrega({
                 erroRequisicao
             );
 
+            const mensagemErro =
+                erroRequisicao?.message ||
+                "Erro ao gerar documento.";
+
+            const mensagemNormalizada =
+                String(
+                    mensagemErro
+                ).toLowerCase();
+
+            const saldoInsuficiente =
+                mensagemNormalizada.includes(
+                    "pagamento desta entrega ainda precisa ser confirmado"
+                );
+
+            setErroSaldoInsuficiente(
+                saldoInsuficiente
+            );
+
             setErroGeracao(
-                erroRequisicao
-                    ?.message
-                ||
-                "Erro ao gerar documento."
+                mensagemErro
             );
 
         } finally {
@@ -1768,12 +1786,41 @@ export default function DocumentoEntrega({
                                 <div className="ironstore-documento-entrega-modal-erro">
 
                                     <strong>
-                                        Não foi possível continuar
+                                        {
+                                            erroSaldoInsuficiente
+                                                ?
+                                                "Pagamento da entrega pendente"
+                                                :
+                                                "Não foi possível continuar"
+                                        }
                                     </strong>
 
                                     <span>
                                         {erroGeracao}
                                     </span>
+
+
+                                    {
+                                        erroSaldoInsuficiente
+                                        &&
+                                        (
+                                            <a
+                                                className="ironstore-documento-entrega-suporte-whatsapp"
+                                                href={
+                                                    `https://wa.me/5511918547818?text=${encodeURIComponent(
+                                                        `Olá, estou tentando gerar a etiqueta de envio do protocolo #${pedido?.id}. ` +
+                                                        `O sistema informou que o pagamento da entrega está pendente. ` +
+                                                        `Verifiquei meu e-mail e não encontrei a mensagem com o PIX para pagamento. ` +
+                                                        `Poderia verificar para mim?`
+                                                    )}`
+                                                }
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Avisar suporte pelo WhatsApp
+                                            </a>
+                                        )
+                                    }
 
                                 </div>
                             )
