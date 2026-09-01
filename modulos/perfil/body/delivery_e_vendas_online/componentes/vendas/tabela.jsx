@@ -2,7 +2,7 @@ import React from "react";
 export default function Tabela() {
     return (
         <h1>
-            tabel
+            Atualmente em desenvolvimento
         </h1>
     )
 }
