@@ -79,6 +79,26 @@ export default function DocumentoEntrega({
         setAgenciaId
     ] = useState("");
 
+    const [
+        agencias,
+        setAgencias
+    ] = useState([]);
+
+    const [
+        carregandoAgencias,
+        setCarregandoAgencias
+    ] = useState(false);
+
+    const [
+        erroAgencias,
+        setErroAgencias
+    ] = useState("");
+
+    const [
+        agenciaObrigatoria,
+        setAgenciaObrigatoria
+    ] = useState(false);
+
 
     // ========================================================
     // TOKEN
@@ -314,6 +334,120 @@ export default function DocumentoEntrega({
 
 
     // ========================================================
+    // BUSCAR AGÊNCIAS DE POSTAGEM
+    // ========================================================
+
+    const buscarAgencias = async () => {
+
+        if (!pedido?.id) {
+            return;
+        }
+
+        setCarregandoAgencias(true);
+        setErroAgencias("");
+
+        try {
+
+            const token =
+                buscarToken();
+
+            if (!token) {
+
+                throw new Error(
+                    "Sessão não encontrada."
+                );
+
+            }
+
+            const resposta =
+                await fetch(
+                    `${API_URL}/ironstore/configuracao/documento-entrega/${pedido.id}/agencias`,
+                    {
+                        method: "GET",
+
+                        headers: {
+                            Authorization:
+                                `Bearer ${token}`
+                        }
+                    }
+                );
+
+            const respostaDados =
+                await resposta.json();
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    extrairErroApi(
+                        respostaDados,
+                        "Não foi possível buscar as unidades de postagem."
+                    )
+                );
+
+            }
+
+            const lista =
+                Array.isArray(
+                    respostaDados?.agencias
+                )
+                    ?
+                    respostaDados.agencias
+                    :
+                    [];
+
+            setAgencias(
+                lista
+            );
+
+            setAgenciaObrigatoria(
+                Boolean(
+                    respostaDados
+                        ?.agencia_obrigatoria
+                )
+            );
+
+            if (
+                lista.length === 1
+                &&
+                !agenciaId
+            ) {
+
+                setAgenciaId(
+                    String(
+                        lista[0].id
+                    )
+                );
+
+            }
+
+        } catch (
+        erroRequisicao
+        ) {
+
+            console.error(
+                "Erro ao buscar agências:",
+                erroRequisicao
+            );
+
+            setAgencias([]);
+
+            setErroAgencias(
+                erroRequisicao?.message ||
+                "Erro ao buscar unidades de postagem."
+            );
+
+        } finally {
+
+            setCarregandoAgencias(
+                false
+            );
+
+        }
+
+    };
+
+
+    // ========================================================
     // ABRIR ESCOLHA DO DOCUMENTO
     // ========================================================
 
@@ -350,6 +484,8 @@ export default function DocumentoEntrega({
         setFormularioDocumentoAberto(
             true
         );
+
+        buscarAgencias();
 
     };
 
@@ -418,6 +554,22 @@ export default function DocumentoEntrega({
 
             setErroGeracao(
                 "A chave da Nota Fiscal deve possuir 44 dígitos."
+            );
+
+            return;
+
+        }
+
+        if (
+            agenciaObrigatoria
+            &&
+            !String(
+                agenciaId || ""
+            ).trim()
+        ) {
+
+            setErroGeracao(
+                "Selecione a unidade de postagem da transportadora."
             );
 
             return;
@@ -1327,36 +1479,124 @@ export default function DocumentoEntrega({
                             </label>
 
 
-                            <label>
+                            <label className="ironstore-documento-entrega-agencia-campo">
 
                                 <span>
-                                    Agência
+                                    Unidade de postagem
 
                                     <small>
-                                        Opcional
+                                        {
+                                            agenciaObrigatoria
+                                                ?
+                                                "Obrigatória"
+                                                :
+                                                "Quando exigida"
+                                        }
                                     </small>
                                 </span>
 
-                                <input
-                                    type="number"
-                                    min="1"
-                                    value={
-                                        agenciaId
-                                    }
-                                    onChange={
-                                        evento => {
+                                {
+                                    carregandoAgencias
+                                        ?
+                                        (
+                                            <div className="ironstore-documento-entrega-agencia-carregando">
+                                                <span className="ironstore-documento-entrega-spinner" />
+                                                Buscando unidades da transportadora...
+                                            </div>
+                                        )
+                                        :
+                                        (
+                                            <select
+                                                value={
+                                                    agenciaId
+                                                }
+                                                onChange={
+                                                    evento => {
 
-                                            setAgenciaId(
-                                                evento.target.value
-                                            );
+                                                        setAgenciaId(
+                                                            evento.target.value
+                                                        );
 
-                                        }
-                                    }
-                                    placeholder="ID da agência"
-                                    disabled={
-                                        gerando
-                                    }
-                                />
+                                                        setErroGeracao("");
+
+                                                    }
+                                                }
+                                                disabled={
+                                                    gerando ||
+                                                    agencias.length === 0
+                                                }
+                                            >
+                                                <option value="">
+                                                    {
+                                                        agencias.length > 0
+                                                            ?
+                                                            "Selecione uma unidade"
+                                                            :
+                                                            "Nenhuma unidade encontrada"
+                                                    }
+                                                </option>
+
+                                                {
+                                                    agencias.map(
+                                                        agencia => {
+
+                                                            const local = [
+                                                                agencia.endereco,
+                                                                agencia.numero,
+                                                                agencia.bairro,
+                                                                agencia.cidade,
+                                                                agencia.estado
+                                                            ]
+                                                                .filter(Boolean)
+                                                                .join(" - ");
+
+                                                            return (
+                                                                <option
+                                                                    key={
+                                                                        agencia.id
+                                                                    }
+                                                                    value={
+                                                                        agencia.id
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        `${agencia.nome}${local ? ` | ${local}` : ""}`
+                                                                    }
+                                                                </option>
+                                                            );
+
+                                                        }
+                                                    )
+                                                }
+                                            </select>
+                                        )
+                                }
+
+                                {
+                                    erroAgencias
+                                    &&
+                                    (
+                                        <small className="ironstore-documento-entrega-agencia-erro">
+                                            {erroAgencias}
+                                        </small>
+                                    )
+                                }
+
+                                {
+                                    !carregandoAgencias
+                                    &&
+                                    agenciaObrigatoria
+                                    &&
+                                    agencias.length === 0
+                                    &&
+                                    !erroAgencias
+                                    &&
+                                    (
+                                        <small className="ironstore-documento-entrega-agencia-erro">
+                                            Nenhuma unidade válida foi encontrada para esta transportadora na origem cadastrada.
+                                        </small>
+                                    )
+                                }
 
                             </label>
 
@@ -1430,7 +1670,14 @@ export default function DocumentoEntrega({
                                 }
                                 disabled={
                                     gerando ||
-                                    !tipoDocumento
+                                    carregandoAgencias ||
+                                    !tipoDocumento ||
+                                    (
+                                        agenciaObrigatoria &&
+                                        !String(
+                                            agenciaId || ""
+                                        ).trim()
+                                    )
                                 }
                             >
 
