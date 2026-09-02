@@ -113,18 +113,34 @@ export default function ExplicacaoModulos() {
     /* =====================================================
        FORMATAR PREÇO
     ===================================================== */
-
     function formatarPreco(valor) {
 
-        return Number(valor || 0).toLocaleString(
-            "pt-BR",
-            {
-                style: "currency",
-                currency: "BRL",
-                minimumFractionDigits: 2
-            }
+        const preco = String(valor ?? "").trim();
+
+        if (preco.includes("%")) {
+            return {
+                valor: preco,
+                complemento: " do faturamento",
+                porcentagem: true
+            };
+        }
+
+        const numero = Number(
+            preco.replace(",", ".")
         );
 
+        return {
+            valor: numero.toLocaleString(
+                "pt-BR",
+                {
+                    style: "currency",
+                    currency: "BRL",
+                    minimumFractionDigits: 2
+                }
+            ),
+            complemento: "/mês",
+            porcentagem: false
+        };
     }
 
 
@@ -132,9 +148,16 @@ export default function ExplicacaoModulos() {
        MÓDULOS VISÍVEIS
     ===================================================== */
 
-    const modulosVisiveis = modulos.filter(
-        modulo => Number(modulo.preco) >= 1
-    );
+    const modulosVisiveis = modulos.filter(modulo => {
+
+        const preco = String(modulo.preco ?? "").trim();
+
+        if (preco.includes("%")) {
+            return parseFloat(preco.replace("%", "").replace(",", ".")) >= 1;
+        }
+
+        return Number(preco.replace(",", ".")) >= 1;
+    });
 
 
     return (
@@ -199,7 +222,7 @@ export default function ExplicacaoModulos() {
                     {modulosVisiveis.map(modulo => {
 
                         const tipo = obterTipoModulo(modulo);
-
+                        const precoFormatado = formatarPreco(modulo.preco);
                         return (
 
                             <article
@@ -256,11 +279,11 @@ export default function ExplicacaoModulos() {
                                         <div>
 
                                             <strong>
-                                                {formatarPreco(modulo.preco)}
+                                                {precoFormatado.valor}
                                             </strong>
 
                                             <small>
-                                                /mês
+                                                {precoFormatado.complemento}
                                             </small>
 
                                         </div>
@@ -404,32 +427,32 @@ export default function ExplicacaoModulos() {
                     </p>
 
                 </div>
-<div className="passo3-modulos-pagamento-pos-cadastro">
+                <div className="passo3-modulos-pagamento-pos-cadastro">
 
-    <div className="passo3-modulos-pagamento-pos-cadastro-icone">
-        ✓
-    </div>
+                    <div className="passo3-modulos-pagamento-pos-cadastro-icone">
+                        ✓
+                    </div>
 
-    <div className="passo3-modulos-pagamento-pos-cadastro-conteudo">
+                    <div className="passo3-modulos-pagamento-pos-cadastro-conteudo">
 
-        <strong>
-            Nenhum pagamento será realizado agora
-        </strong>
+                        <strong>
+                            Nenhum pagamento será realizado agora
+                        </strong>
 
-        <p>
-            Primeiro, finalize o cadastro do seu comércio.
-            Após a conclusão, nossa equipe entrará em contato
-            com você e enviará uma mensagem com as informações
-            e instruções necessárias para realizar o pagamento.
-        </p>
+                        <p>
+                            Primeiro, finalize o cadastro do seu comércio.
+                            Após a conclusão, nossa equipe entrará em contato
+                            com você e enviará uma mensagem com as informações
+                            e instruções necessárias para realizar o pagamento.
+                        </p>
 
-        <span>
-            Você poderá revisar os valores antes de efetuar o pagamento.
-        </span>
+                        <span>
+                            Você poderá revisar os valores antes de efetuar o pagamento.
+                        </span>
 
-    </div>
+                    </div>
 
-</div>
+                </div>
             </div>
 
         </section>

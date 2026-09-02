@@ -13,16 +13,12 @@
     box-sizing: border-box;
 
     background:
-        radial-gradient(
-            circle at top right,
+        radial-gradient(circle at top right,
             rgba(18, 61, 114, 0.07),
-            transparent 32%
-        ),
-        linear-gradient(
-            145deg,
+            transparent 32%),
+        linear-gradient(145deg,
             #f8fafc 0%,
-            #f1f5f9 100%
-        );
+            #f1f5f9 100%);
 
     border: 1px solid #dfe5ec;
     border-radius: 18px;
@@ -159,14 +155,11 @@
     padding: 14px 16px;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(18, 61, 114, 0.06),
-            rgba(18, 61, 114, 0.025)
-        );
+            rgba(18, 61, 114, 0.025));
 
-    border: 1px solid
-        rgba(18, 61, 114, 0.12);
+    border: 1px solid rgba(18, 61, 114, 0.12);
 
     border-radius: 12px;
 }
@@ -258,11 +251,9 @@
     box-sizing: border-box;
 
     background:
-        linear-gradient(
-            145deg,
+        linear-gradient(145deg,
             #ffffff,
-            #fafbfc
-        );
+            #fafbfc);
 
     border: 1px solid #dce3eb;
     border-radius: 14px;
@@ -300,11 +291,9 @@
 
 .passo3-modulos-card-ativo {
     background:
-        radial-gradient(
-            circle at top right,
+        radial-gradient(circle at top right,
             rgba(18, 61, 114, 0.09),
-            transparent 40%
-        ),
+            transparent 40%),
         #ffffff;
 
     border: 2px solid #123d72;
@@ -347,8 +336,7 @@
 }
 
 
-.passo3-modulos-card-ativo
-.passo3-modulos-check {
+.passo3-modulos-card-ativo .passo3-modulos-check {
     background: #123d72;
 
     border-color: #123d72;
@@ -465,18 +453,16 @@
     padding: 5px 8px;
 
     background: #f1f5f9;
-
     border-radius: 6px;
 
     color: #64748b !important;
 
-    font-size: 9px;
+    font-size: 5px !important;
     font-weight: 800;
 }
 
 
-.passo3-modulos-card-ativo
-.passo3-modulos-card-status {
+.passo3-modulos-card-ativo .passo3-modulos-card-status {
     background:
         rgba(18, 61, 114, 0.09);
 
@@ -616,7 +602,7 @@
 }
 
 
-.passo3-modulos-resumo-total > span {
+.passo3-modulos-resumo-total>span {
     color: #334155 !important;
 
     font-size: 11px;
@@ -662,11 +648,9 @@
     gap: 20px;
 
     background:
-        linear-gradient(
-            90deg,
+        linear-gradient(90deg,
             #eef2f6,
-            #f8fafc
-        );
+            #f8fafc);
 
     border: 1px solid #dfe4ea;
     border-radius: 13px;
@@ -694,8 +678,7 @@
     background:
         rgba(18, 61, 114, 0.08);
 
-    border: 1px solid
-        rgba(18, 61, 114, 0.14);
+    border: 1px solid rgba(18, 61, 114, 0.14);
 
     border-radius: 50%;
 
@@ -706,7 +689,7 @@
 }
 
 
-.passo3-modulos-finalizacao-info > div:last-child {
+.passo3-modulos-finalizacao-info>div:last-child {
     display: flex;
     flex-direction: column;
 
@@ -749,11 +732,9 @@
     border-radius: 10px;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             #123d72,
-            #0d315f
-        );
+            #0d315f);
 
     color: #ffffff !important;
 
@@ -1021,11 +1002,9 @@
     box-sizing: border-box;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(22, 163, 74, 0.07),
-            rgba(34, 197, 94, 0.025)
-        );
+            rgba(34, 197, 94, 0.025));
 
     border: 1px solid rgba(22, 163, 74, 0.16);
     border-radius: 8px;
@@ -1063,24 +1042,22 @@
     gap: 3px 12px;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(22, 163, 74, 0.06),
-            rgba(255, 255, 255, 0.8)
-        );
+            rgba(255, 255, 255, 0.8));
 
     border: 1px solid rgba(22, 163, 74, 0.13);
     border-radius: 9px;
 }
 
-.passo3-modulos-resumo-economia > span {
+.passo3-modulos-resumo-economia>span {
     color: #475569 !important;
 
     font-size: 9px;
     font-weight: 700;
 }
 
-.passo3-modulos-resumo-economia > strong {
+.passo3-modulos-resumo-economia>strong {
     color: #15803d !important;
 
     font-size: 13px;
@@ -1155,16 +1132,12 @@
 
 .passo3-modulos-pagamento-avulso {
     background:
-        radial-gradient(
-            circle at top right,
+        radial-gradient(circle at top right,
             rgba(180, 83, 9, 0.07),
-            transparent 45%
-        ),
-        linear-gradient(
-            145deg,
+            transparent 45%),
+        linear-gradient(145deg,
             #fffdf8,
-            #ffffff
-        );
+            #ffffff);
 
     border: 1px solid rgba(180, 83, 9, 0.17);
 
@@ -1196,11 +1169,9 @@
     border-radius: 0 4px 4px 0;
 
     background:
-        linear-gradient(
-            180deg,
+        linear-gradient(180deg,
             #d97706,
-            #f59e0b
-        );
+            #f59e0b);
 }
 
 
@@ -1210,16 +1181,12 @@
 
 .passo3-modulos-pagamento-mensal {
     background:
-        radial-gradient(
-            circle at top right,
+        radial-gradient(circle at top right,
             rgba(18, 61, 114, 0.08),
-            transparent 45%
-        ),
-        linear-gradient(
-            145deg,
+            transparent 45%),
+        linear-gradient(145deg,
             #f8fbff,
-            #ffffff
-        );
+            #ffffff);
 
     border: 1px solid rgba(18, 61, 114, 0.17);
 
@@ -1251,11 +1218,9 @@
     border-radius: 0 4px 4px 0;
 
     background:
-        linear-gradient(
-            180deg,
+        linear-gradient(180deg,
             #123d72,
-            #2563eb
-        );
+            #2563eb);
 }
 
 
@@ -1300,8 +1265,7 @@
     white-space: nowrap;
 }
 
-.passo3-modulos-pagamento-avulso
-.passo3-modulos-pagamento-badge {
+.passo3-modulos-pagamento-avulso .passo3-modulos-pagamento-badge {
     background: rgba(217, 119, 6, 0.08);
 
     border: 1px solid rgba(217, 119, 6, 0.12);
@@ -1309,8 +1273,7 @@
     color: #b45309 !important;
 }
 
-.passo3-modulos-pagamento-mensal
-.passo3-modulos-pagamento-badge {
+.passo3-modulos-pagamento-mensal .passo3-modulos-pagamento-badge {
     background: rgba(18, 61, 114, 0.07);
 
     border: 1px solid rgba(18, 61, 114, 0.11);
@@ -1336,13 +1299,11 @@
     line-height: 1.1;
 }
 
-.passo3-modulos-pagamento-mensal
-.passo3-modulos-pagamento-valor {
+.passo3-modulos-pagamento-mensal .passo3-modulos-pagamento-valor {
     color: #123d72 !important;
 }
 
-.passo3-modulos-pagamento-avulso
-.passo3-modulos-pagamento-valor {
+.passo3-modulos-pagamento-avulso .passo3-modulos-pagamento-valor {
     color: #92400e !important;
 }
 
@@ -1358,7 +1319,7 @@
     gap: 4px;
 }
 
-.passo3-modulos-pagamento-valor-area > span {
+.passo3-modulos-pagamento-valor-area>span {
     color: #64748b !important;
 
     font-size: 9px;
@@ -1420,11 +1381,9 @@
     text-align: left;
 
     background:
-        radial-gradient(
-            circle at top right,
+        radial-gradient(circle at top right,
             rgba(18, 61, 114, 0.06),
-            transparent 38%
-        ),
+            transparent 38%),
         #ffffff;
 
     border: 1px solid #dce3eb;
@@ -1455,16 +1414,12 @@
 
 .passo3-modulos-permanente-opcao-ativa {
     background:
-        radial-gradient(
-            circle at top right,
+        radial-gradient(circle at top right,
             rgba(22, 163, 74, 0.08),
-            transparent 40%
-        ),
-        linear-gradient(
-            145deg,
+            transparent 40%),
+        linear-gradient(145deg,
             #ffffff,
-            #f8fff9
-        );
+            #f8fff9);
 
     border-color: rgba(22, 163, 74, 0.35);
 
@@ -1502,8 +1457,7 @@
         border-color 0.2s ease;
 }
 
-.passo3-modulos-permanente-opcao-ativa
-.passo3-modulos-permanente-check {
+.passo3-modulos-permanente-opcao-ativa .passo3-modulos-permanente-check {
     background: #15803d;
 
     border-color: #15803d;
@@ -1541,7 +1495,7 @@
     letter-spacing: 1px;
 }
 
-.passo3-modulos-permanente-conteudo > strong {
+.passo3-modulos-permanente-conteudo>strong {
     margin-top: 2px;
 
     color: #0f172a !important;
@@ -1550,7 +1504,7 @@
     font-weight: 850;
 }
 
-.passo3-modulos-permanente-conteudo > p {
+.passo3-modulos-permanente-conteudo>p {
     max-width: 780px;
 
     margin: 0;
@@ -1633,11 +1587,11 @@
         gap: 10px;
     }
 
-    .passo3-modulos-permanente-conteudo > strong {
+    .passo3-modulos-permanente-conteudo>strong {
         font-size: 12px;
     }
 
-    .passo3-modulos-permanente-conteudo > p {
+    .passo3-modulos-permanente-conteudo>p {
         font-size: 9px;
     }
 
@@ -1684,11 +1638,12 @@
         grid-template-columns: 1fr;
     }
 
-    .passo3-modulos-resumo-economia > strong {
+    .passo3-modulos-resumo-economia>strong {
         font-size: 14px;
     }
 
 }
+
 /* =========================================================
    AJUSTE GERAL DE TIPOGRAFIA
    AUMENTA TODAS AS LETRAS DO PASSO 3
@@ -1779,11 +1734,11 @@
     font-size: 11px !important;
 }
 
-.passo3-modulos-permanente-conteudo > strong {
+.passo3-modulos-permanente-conteudo>strong {
     font-size: 18px !important;
 }
 
-.passo3-modulos-permanente-conteudo > p {
+.passo3-modulos-permanente-conteudo>p {
     font-size: 14px !important;
     line-height: 1.6 !important;
 }
@@ -1845,11 +1800,11 @@
    ECONOMIA MENSAL
 ========================================================= */
 
-.passo3-modulos-resumo-economia > span {
+.passo3-modulos-resumo-economia>span {
     font-size: 12px !important;
 }
 
-.passo3-modulos-resumo-economia > strong {
+.passo3-modulos-resumo-economia>strong {
     font-size: 17px !important;
 }
 
@@ -1874,7 +1829,7 @@
     font-size: 28px !important;
 }
 
-.passo3-modulos-pagamento-valor-area > span {
+.passo3-modulos-pagamento-valor-area>span {
     font-size: 13px !important;
 }
 
@@ -1966,11 +1921,11 @@
         font-size: 21px !important;
     }
 
-    .passo3-modulos-permanente-conteudo > strong {
+    .passo3-modulos-permanente-conteudo>strong {
         font-size: 16px !important;
     }
 
-    .passo3-modulos-permanente-conteudo > p {
+    .passo3-modulos-permanente-conteudo>p {
         font-size: 13px !important;
     }
 
@@ -2005,5 +1960,425 @@
 
     .passo3-modulos-botao-continuar {
         font-size: 14px !important;
+    }
+}
+
+/* =========================================================
+   IRONSTORE
+   INFORMAÇÕES SOBRE DOMÍNIO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio {
+    width: 100% !important;
+
+    margin-top: 18px !important;
+    padding: 18px !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 14px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(18, 61, 114, 0.07),
+            transparent 38%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    border:
+        1px solid rgba(18, 61, 114, 0.16) !important;
+
+    border-radius: 13px !important;
+
+    box-shadow:
+        0 5px 16px rgba(15, 23, 42, 0.045) !important;
+
+    color: #0f172a !important;
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-icone {
+    width: 42px !important;
+    height: 42px !important;
+
+    flex: 0 0 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background:
+        linear-gradient(135deg,
+            #123d72,
+            #0d315f) !important;
+
+    border:
+        1px solid rgba(18, 61, 114, 0.2) !important;
+
+    border-radius: 11px !important;
+
+    color: #ffffff !important;
+
+    font-size: 19px !important;
+
+    box-shadow:
+        0 6px 15px rgba(18, 61, 114, 0.17) !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-conteudo {
+    min-width: 0 !important;
+    flex: 1 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+}
+
+
+/* =========================================================
+   ETIQUETA
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-etiqueta {
+    width: fit-content !important;
+
+    padding: 4px 7px !important;
+
+    background:
+        rgba(18, 61, 114, 0.07) !important;
+
+    border-radius: 5px !important;
+
+    color: #123d72 !important;
+
+    font-size: 11px !important;
+    font-weight: 900 !important;
+
+    letter-spacing: 1px !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-conteudo>strong {
+    margin-top: 4px !important;
+
+    color: #0f172a !important;
+
+    font-size: 18px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.3 !important;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-conteudo>p {
+    max-width: 800px !important;
+
+    margin:
+        2px 0 12px !important;
+
+    color: #64748b !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.6 !important;
+}
+
+
+/* =========================================================
+   OPÇÕES INFORMATIVAS
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-opcoes {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 10px !important;
+
+    margin-top: 3px !important;
+}
+
+
+/* =========================================================
+   CARD DA OPÇÃO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-opcao {
+    min-width: 0 !important;
+
+    position: relative !important;
+
+    padding: 14px 15px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #fafbfc) !important;
+
+    border:
+        1px solid #dce3eb !important;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.035) !important;
+}
+
+
+/* detalhe superior */
+
+.passo3-modulos-ironstore-dominio-opcao::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 14px !important;
+    right: 14px !important;
+
+    height: 2px !important;
+
+    background:
+        linear-gradient(90deg,
+            #123d72,
+            #2563eb) !important;
+
+    border-radius:
+        0 0 3px 3px !important;
+
+    opacity: 0.75 !important;
+}
+
+
+/* =========================================================
+   NOME DA OPÇÃO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-opcao>span {
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   PREÇO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-opcao>strong {
+    margin:
+        3px 0 1px !important;
+
+    color: #123d72 !important;
+
+    font-size: 22px !important;
+    font-weight: 900 !important;
+
+    letter-spacing: -0.5px !important;
+
+    line-height: 1.15 !important;
+}
+
+
+/* =========================================================
+   EXPLICAÇÃO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-opcao>small {
+    color: #7c8798 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+.passo3-modulos-ironstore-dominio-aviso {
+    width: 100% !important;
+
+    margin-top: 10px !important;
+    padding: 10px 12px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        rgba(18, 61, 114, 0.045) !important;
+
+    border:
+        1px solid rgba(18, 61, 114, 0.1) !important;
+
+    border-left:
+        3px solid #123d72 !important;
+
+    border-radius: 8px !important;
+
+    color: #475569 !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .passo3-modulos-ironstore-dominio {
+        padding: 16px !important;
+    }
+
+    .passo3-modulos-ironstore-dominio-opcoes {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .passo3-modulos-ironstore-dominio {
+        padding: 14px !important;
+
+        gap: 11px !important;
+
+        border-radius: 11px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-icone {
+        width: 38px !important;
+        height: 38px !important;
+
+        flex-basis: 38px !important;
+
+        border-radius: 9px !important;
+
+        font-size: 17px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-etiqueta {
+        font-size: 10px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-conteudo>strong {
+        font-size: 16px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-conteudo>p {
+        font-size: 13px !important;
+
+        line-height: 1.55 !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-opcoes {
+        grid-template-columns:
+            minmax(0, 1fr) !important;
+
+        gap: 8px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-opcao {
+        padding: 13px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-opcao>span {
+        font-size: 12px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-opcao>strong {
+        font-size: 20px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-opcao>small {
+        font-size: 11px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-aviso {
+        padding: 9px 10px !important;
+
+        font-size: 11px !important;
+    }
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .passo3-modulos-ironstore-dominio {
+        flex-direction: column !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-icone {
+        width: 40px !important;
+        height: 40px !important;
+
+        flex-basis: 40px !important;
+    }
+
+
+    .passo3-modulos-ironstore-dominio-opcao>strong {
+        font-size: 19px !important;
     }
 }

@@ -97,9 +97,63 @@ export default function Passo3Modulos({ onContinuar }) {
        FORMATAR PREÇO
     ===================================================== */
 
+    function precoEhPercentual(valor) {
+
+        return String(valor ?? "")
+            .trim()
+            .includes("%");
+    }
+
+
+    function obterPercentualPreco(valor) {
+
+        const texto = String(valor ?? "")
+            .trim()
+            .replace("%", "")
+            .replace(",", ".");
+
+        const numero = Number(texto);
+
+        return Number.isFinite(numero)
+            ? numero
+            : 0;
+    }
+
+
+    function obterPrecoFixo(valor) {
+
+        if (precoEhPercentual(valor)) {
+            return 0;
+        }
+
+        const numero = Number(
+            String(valor ?? "0")
+                .trim()
+                .replace(",", ".")
+        );
+
+        return Number.isFinite(numero)
+            ? numero
+            : 0;
+    }
+
+
     function formatarPreco(valor) {
 
-        return Number(valor || 0).toLocaleString(
+        if (precoEhPercentual(valor)) {
+
+            const percentual =
+                obterPercentualPreco(valor);
+
+            return `${percentual.toLocaleString(
+                "pt-BR",
+                {
+                    maximumFractionDigits: 2
+                }
+            )}% do faturamento`;
+        }
+
+        return obterPrecoFixo(valor).toLocaleString(
             "pt-BR",
             {
                 style: "currency",
@@ -107,10 +161,36 @@ export default function Passo3Modulos({ onContinuar }) {
                 minimumFractionDigits: 2
             }
         );
+    }
+    function moduloEhIronStore(modulo) {
 
+        const nome = String(
+            modulo?.nome ?? modulo?.modulo ?? ""
+        )
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "");
+
+        return nome.includes("ironstore");
     }
 
 
+    function moduloParticipaDescontoPermanente(modulo) {
+
+        if (!modulo) {
+            return false;
+        }
+
+        if (precoEhPercentual(modulo.preco)) {
+            return false;
+        }
+
+        if (moduloEhIronStore(modulo)) {
+            return false;
+        }
+
+        return obterPrecoFixo(modulo.preco) > 0;
+    }
     /* =====================================================
        MÓDULOS SELECIONADOS
     ===================================================== */
@@ -123,7 +203,27 @@ export default function Passo3Modulos({ onContinuar }) {
         );
 
     }, [listaModulos, selecionados]);
+    const modulosDescontoPermanente = useMemo(() => {
 
+        return modulosSelecionados.filter(
+            modulo =>
+                moduloParticipaDescontoPermanente(modulo)
+        );
+
+    }, [modulosSelecionados]);
+
+
+    const quantidadeModulosDescontoPermanente =
+        modulosDescontoPermanente.length;
+
+
+    const ironStoreSelecionado = useMemo(() => {
+
+        return modulosSelecionados.some(
+            modulo => moduloEhIronStore(modulo)
+        );
+
+    }, [modulosSelecionados]);
 
     /* =====================================================
        VALOR ORIGINAL
@@ -132,13 +232,15 @@ export default function Passo3Modulos({ onContinuar }) {
     const valorOriginal = useMemo(() => {
 
         return modulosSelecionados.reduce(
-            (total, modulo) =>
-                total + Number(modulo.preco || 0),
+            (total, modulo) => {
+
+                return total +
+                    obterPrecoFixo(modulo.preco);
+            },
             0
         );
 
     }, [modulosSelecionados]);
-
 
     /* =====================================================
        DESCONTO POR QUANTIDADE
@@ -212,7 +314,7 @@ export default function Passo3Modulos({ onContinuar }) {
 
     const valorAdicionalContratacao =
         descontoPermanente
-            ? selecionados.length * 100
+            ? quantidadeModulosDescontoPermanente * 100
             : 0;
 
 
@@ -458,10 +560,9 @@ export default function Passo3Modulos({ onContinuar }) {
                                         )
                                     }
                                     className={
-                                        `passo3-modulos-card ${
-                                            ativo
-                                                ? "passo3-modulos-card-ativo"
-                                                : ""
+                                        `passo3-modulos-card ${ativo
+                                            ? "passo3-modulos-card-ativo"
+                                            : ""
                                         }`
                                     }
                                 >
@@ -505,13 +606,7 @@ export default function Passo3Modulos({ onContinuar }) {
 
                                         </div>
 
-                                        <span className="passo3-modulos-card-status">
 
-                                            {ativo
-                                                ? "Selecionado"
-                                                : "Selecionar"}
-
-                                        </span>
 
                                     </div>
 
@@ -523,13 +618,84 @@ export default function Passo3Modulos({ onContinuar }) {
 
                     </div>
 
+                    {ironStoreSelecionado && (
 
+                        <div className="passo3-modulos-ironstore-dominio">
+
+                            <div className="passo3-modulos-ironstore-dominio-icone">
+                                🌐
+                            </div>
+
+                            <div className="passo3-modulos-ironstore-dominio-conteudo">
+
+                                <span className="passo3-modulos-ironstore-dominio-etiqueta">
+                                    DOMÍNIO DO IRONSTORE
+                                </span>
+
+                                <strong>
+                                    Seu IronStore precisa de um domínio
+                                </strong>
+
+                                <p>
+                                    Esta informação é apenas para você conhecer
+                                    os custos relacionados ao domínio. Nenhuma
+                                    opção precisa ser selecionada agora.
+                                </p>
+
+                                <div className="passo3-modulos-ironstore-dominio-opcoes">
+
+                                    <div className="passo3-modulos-ironstore-dominio-opcao">
+
+                                        <span>
+                                            Precisa de um domínio novo
+                                        </span>
+
+                                        <strong>
+                                            R$ 190,00 / ano
+                                        </strong>
+
+                                        <small>
+                                            Valor anual para manter o domínio
+                                            da sua loja.
+                                        </small>
+
+                                    </div>
+
+                                    <div className="passo3-modulos-ironstore-dominio-opcao">
+
+                                        <span>
+                                            Já possui um domínio
+                                        </span>
+
+                                        <strong>
+                                            R$ 60,00
+                                        </strong>
+
+                                        <small>
+                                            Taxa única para configuração do
+                                            domínio existente no IronStore.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                                <div className="passo3-modulos-ironstore-dominio-aviso">
+                                    Esses valores não são adicionados ao pagamento
+                                    desta etapa. A configuração do domínio será
+                                    definida posteriormente.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    )}
                     {/* =========================================
                         OPÇÃO DOS R$ 100
                     ========================================= */}
 
-                    {selecionados.length > 0 && (
-
+                    {quantidadeModulosDescontoPermanente > 0 && (
                         <div className="passo3-modulos-permanente">
 
                             <button
@@ -540,10 +706,9 @@ export default function Passo3Modulos({ onContinuar }) {
                                     )
                                 }
                                 className={
-                                    `passo3-modulos-permanente-opcao ${
-                                        descontoPermanente
-                                            ? "passo3-modulos-permanente-opcao-ativa"
-                                            : ""
+                                    `passo3-modulos-permanente-opcao ${descontoPermanente
+                                        ? "passo3-modulos-permanente-opcao-ativa"
+                                        : ""
                                     }`
                                 }
                             >
@@ -581,8 +746,7 @@ export default function Passo3Modulos({ onContinuar }) {
 
                                         <strong>
                                             {formatarPreco(
-                                                selecionados.length *
-                                                100
+                                                quantidadeModulosDescontoPermanente * 100
                                             )}
                                         </strong>
 
@@ -623,10 +787,9 @@ export default function Passo3Modulos({ onContinuar }) {
 
                                 {selecionados.length === 0
                                     ? "Nenhum módulo selecionado"
-                                    : `${selecionados.length} ${
-                                        selecionados.length === 1
-                                            ? "módulo selecionado"
-                                            : "módulos selecionados"
+                                    : `${selecionados.length} ${selecionados.length === 1
+                                        ? "módulo selecionado"
+                                        : "módulos selecionados"
                                     }`}
 
                             </strong>
@@ -813,10 +976,10 @@ export default function Passo3Modulos({ onContinuar }) {
 
                                             <span className="passo3-modulos-pagamento-descricao">
 
-                                                {selecionados.length}{" "}
-                                                {selecionados.length === 1
-                                                    ? "módulo"
-                                                    : "módulos"}
+                                                {quantidadeModulosDescontoPermanente}{" "}
+                                                {quantidadeModulosDescontoPermanente === 1
+                                                    ? "módulo elegível"
+                                                    : "módulos elegíveis"}
                                                 {" "}× R$ 100,00
 
                                             </span>
