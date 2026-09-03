@@ -1,0 +1,4 @@
+        User-agent: *
+Allow: /
+
+Sitemap: https://ironexecutions.com.br/sitemap.xml
