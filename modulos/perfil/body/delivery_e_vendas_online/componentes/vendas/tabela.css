@@ -1691,11 +1691,9 @@
     border-radius: 10px !important;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             #2563eb 0%,
-            #1d4ed8 100%
-        ) !important;
+            #1d4ed8 100%) !important;
 
     color: #ffffff !important;
 
@@ -1709,8 +1707,7 @@
     cursor: pointer !important;
 
     box-shadow:
-        0 7px 18px
-        rgba(37, 99, 235, 0.18) !important;
+        0 7px 18px rgba(37, 99, 235, 0.18) !important;
 
     transition:
         transform 160ms ease,
@@ -1749,15 +1746,12 @@
         translateY(-1px) !important;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             #1d4ed8 0%,
-            #1e40af 100%
-        ) !important;
+            #1e40af 100%) !important;
 
     box-shadow:
-        0 10px 24px
-        rgba(37, 99, 235, 0.24) !important;
+        0 10px 24px rgba(37, 99, 235, 0.24) !important;
 }
 
 
@@ -1766,8 +1760,7 @@
         translateY(0) !important;
 
     box-shadow:
-        0 5px 14px
-        rgba(37, 99, 235, 0.18) !important;
+        0 5px 14px rgba(37, 99, 235, 0.18) !important;
 }
 
 
@@ -2041,8 +2034,7 @@
     background: #ffffff !important;
 
     box-shadow:
-        0 0 0 3px
-        rgba(37, 99, 235, 0.10) !important;
+        0 0 0 3px rgba(37, 99, 235, 0.10) !important;
 }
 
 
@@ -2099,8 +2091,7 @@
    TEXTAREA + BOTÃO DE ENVIO
 ========================================================= */
 
-.ironstore-pedidos-operacao-mensagem-envio
-+ .ironstore-pedidos-operacao-enviar {
+.ironstore-pedidos-operacao-mensagem-envio+.ironstore-pedidos-operacao-enviar {
     margin-top: 2px !important;
 }
 
@@ -2262,11 +2253,9 @@
     border: 1px solid #16a34a !important;
     border-radius: 10px !important;
 
-    background: linear-gradient(
-        135deg,
-        #16a34a,
-        #15803d
-    ) !important;
+    background: linear-gradient(135deg,
+            #16a34a,
+            #15803d) !important;
 
     color: #ffffff !important;
 
@@ -2389,14 +2378,12 @@
 }
 
 
-.ironstore-pedidos-operacao-modal-acoes
-.ironstore-pedidos-operacao-enviado-info {
+.ironstore-pedidos-operacao-modal-acoes .ironstore-pedidos-operacao-enviado-info {
     min-width: 260px !important;
 }
 
 
-.ironstore-pedidos-operacao-modal-acoes
-.ironstore-pedidos-operacao-entregar {
+.ironstore-pedidos-operacao-modal-acoes .ironstore-pedidos-operacao-entregar {
     flex-shrink: 0 !important;
 }
 
@@ -2432,6 +2419,947 @@
         min-height: 46px !important;
 
         padding: 11px 14px !important;
+    }
+
+}
+
+/* =========================================================
+   IRONSTORE PEDIDOS
+   CAMADA EXTRA DE REFINAMENTO E RESPONSIVIDADE
+   ADICIONAR NO FINAL DO CSS ATUAL
+========================================================= */
+
+
+/* =========================================================
+   VARIÁVEIS LOCAIS
+========================================================= */
+
+.ironstore-pedidos-operacao-area {
+    --ispo-cor-texto: #0f172a;
+    --ispo-cor-texto-secundario: #64748b;
+    --ispo-cor-texto-suave: #94a3b8;
+
+    --ispo-cor-borda: #e2e8f0;
+    --ispo-cor-borda-suave: #eef2f7;
+
+    --ispo-cor-fundo: #ffffff;
+    --ispo-cor-fundo-suave: #f8fafc;
+
+    --ispo-cor-primaria: #2563eb;
+    --ispo-cor-primaria-escura: #1d4ed8;
+
+    --ispo-raio-pequeno: 10px;
+    --ispo-raio-medio: 14px;
+    --ispo-raio-grande: 20px;
+
+    --ispo-sombra-suave:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 8px 24px rgba(15, 23, 42, 0.04);
+
+    --ispo-sombra-card:
+        0 1px 3px rgba(15, 23, 42, 0.04),
+        0 18px 50px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================================
+   ÁREA PRINCIPAL MAIS REFINADA
+========================================================= */
+
+.ironstore-pedidos-operacao-area {
+    padding:
+        clamp(18px, 3vw, 34px) !important;
+
+    min-width: 0 !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.ironstore-pedidos-operacao-cabecalho {
+    padding-bottom: 22px !important;
+
+    border-bottom:
+        1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+
+.ironstore-pedidos-operacao-titulos {
+    flex: 1 1 auto !important;
+}
+
+
+.ironstore-pedidos-operacao-titulo {
+    max-width: 900px !important;
+
+    text-wrap: balance !important;
+}
+
+
+.ironstore-pedidos-operacao-descricao {
+    text-wrap: pretty !important;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.ironstore-pedidos-operacao-resumo {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    min-width: 145px !important;
+
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease !important;
+}
+
+
+.ironstore-pedidos-operacao-resumo::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 3px !important;
+
+    background:
+        linear-gradient(90deg,
+            #2563eb,
+            #60a5fa) !important;
+}
+
+
+@media (hover: hover) {
+
+    .ironstore-pedidos-operacao-resumo:hover {
+        transform:
+            translateY(-2px) !important;
+
+        border-color:
+            #cbd5e1 !important;
+
+        box-shadow:
+            0 1px 3px rgba(15, 23, 42, 0.04),
+            0 14px 34px rgba(15, 23, 42, 0.08) !important;
+    }
+
+}
+
+
+/* =========================================================
+   CONTAINER DA TABELA
+========================================================= */
+
+.ironstore-pedidos-operacao-tabela-container {
+    position: relative !important;
+
+    overscroll-behavior-x:
+        contain !important;
+
+    -webkit-overflow-scrolling:
+        touch !important;
+
+    box-shadow:
+        var(--ispo-sombra-card) !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO STICKY DA TABELA
+========================================================= */
+
+.ironstore-pedidos-operacao-tabela thead {
+    position: sticky !important;
+
+    top: 0 !important;
+
+    z-index: 5 !important;
+}
+
+
+.ironstore-pedidos-operacao-tabela th {
+    height: 45px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        rgba(248, 250, 252, 0.97) !important;
+
+    backdrop-filter:
+        blur(10px) !important;
+
+    -webkit-backdrop-filter:
+        blur(10px) !important;
+}
+
+
+/* =========================================================
+   LINHAS DA TABELA
+========================================================= */
+
+.ironstore-pedidos-operacao-linha {
+    outline: none !important;
+}
+
+
+.ironstore-pedidos-operacao-linha td {
+    position: relative !important;
+
+    transition:
+        background-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease !important;
+}
+
+
+@media (hover: hover) {
+
+    .ironstore-pedidos-operacao-linha:hover td {
+        background:
+            #f8fbff !important;
+    }
+
+    .ironstore-pedidos-operacao-linha:hover td:first-child {
+        box-shadow:
+            inset 3px 0 0 rgba(37, 99, 235, 0.65) !important;
+    }
+
+}
+
+
+/* =========================================================
+   MELHOR FOCO POR TECLADO
+========================================================= */
+
+.ironstore-pedidos-operacao-linha:focus-visible td {
+    background:
+        #eff6ff !important;
+}
+
+
+.ironstore-pedidos-operacao-linha:focus-visible td:first-child {
+    box-shadow:
+        inset 3px 0 0 #2563eb !important;
+}
+
+
+/* =========================================================
+   STATUS COM APARÊNCIA MAIS PREMIUM
+========================================================= */
+
+.ironstore-pedidos-operacao-pago,
+.ironstore-pedidos-operacao-embalado,
+.ironstore-pedidos-operacao-enviado,
+.ironstore-pedidos-operacao-entregue,
+.ironstore-pedidos-operacao-inconsistencia {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.65) !important;
+
+    letter-spacing:
+        0.01em !important;
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.ironstore-pedidos-operacao-enviar,
+.ironstore-pedidos-operacao-entregar {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    user-select: none !important;
+
+    -webkit-tap-highlight-color:
+        transparent !important;
+
+    touch-action:
+        manipulation !important;
+}
+
+
+.ironstore-pedidos-operacao-enviar::after,
+.ironstore-pedidos-operacao-entregar::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -120% !important;
+
+    width: 70% !important;
+    height: 100% !important;
+
+    pointer-events: none !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.18),
+            transparent) !important;
+
+    transform:
+        skewX(-18deg) !important;
+
+    transition:
+        left 500ms ease !important;
+}
+
+
+@media (hover: hover) {
+
+    .ironstore-pedidos-operacao-enviar:hover:not(:disabled)::after,
+    .ironstore-pedidos-operacao-entregar:hover:not(:disabled)::after {
+        left: 140% !important;
+    }
+
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.ironstore-pedidos-operacao-mensagem-envio {
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease !important;
+}
+
+
+.ironstore-pedidos-operacao-mensagem-envio:focus-within {
+    border-color:
+        #bfdbfe !important;
+
+    background:
+        #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.055) !important;
+}
+
+
+.ironstore-pedidos-operacao-mensagem-envio-textarea {
+    scrollbar-width:
+        thin !important;
+
+    scrollbar-color:
+        #cbd5e1 transparent !important;
+}
+
+
+.ironstore-pedidos-operacao-mensagem-envio-textarea::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+
+.ironstore-pedidos-operacao-mensagem-envio-textarea::-webkit-scrollbar-thumb {
+    border-radius:
+        999px !important;
+
+    background:
+        #cbd5e1 !important;
+}
+
+
+/* =========================================================
+   INFO DE ENVIADO
+========================================================= */
+
+.ironstore-pedidos-operacao-enviado-info {
+    position: relative !important;
+
+    overflow: hidden !important;
+}
+
+
+.ironstore-pedidos-operacao-enviado-info::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: -30px !important;
+    right: -30px !important;
+
+    width: 90px !important;
+    height: 90px !important;
+
+    border-radius:
+        50% !important;
+
+    background:
+        rgba(37, 99, 235, 0.055) !important;
+
+    pointer-events:
+        none !important;
+}
+
+
+/* =========================================================
+   INFO DE ENTREGUE
+========================================================= */
+
+.ironstore-pedidos-operacao-entregue-info {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        inset 3px 0 0 #22c55e !important;
+}
+
+
+.ironstore-pedidos-operacao-entregue-info::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: -35px !important;
+    right: -35px !important;
+
+    width: 100px !important;
+    height: 100px !important;
+
+    border-radius:
+        50% !important;
+
+    background:
+        rgba(34, 197, 94, 0.06) !important;
+
+    pointer-events:
+        none !important;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.ironstore-pedidos-operacao-modal-acoes {
+    gap: 10px !important;
+
+    align-items:
+        stretch !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .ironstore-pedidos-operacao-area {
+        padding:
+            24px 20px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-cabecalho {
+        align-items:
+            center !important;
+
+        gap:
+            18px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-tabela {
+        min-width:
+            980px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-tabela th {
+        padding:
+            12px 13px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-linha td {
+        padding:
+            14px 13px !important;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET PEQUENO
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .ironstore-pedidos-operacao-cabecalho {
+        flex-direction:
+            column !important;
+
+        align-items:
+            stretch !important;
+
+        margin-bottom:
+            20px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-resumo {
+        width:
+            100% !important;
+
+        min-width:
+            0 !important;
+
+        box-sizing:
+            border-box !important;
+    }
+
+
+    .ironstore-pedidos-operacao-resumo span {
+        font-size:
+            12px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-resumo strong {
+        font-size:
+            22px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-tabela {
+        min-width:
+            900px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 720px) {
+
+    .ironstore-pedidos-operacao-area {
+        padding:
+            16px 12px 28px !important;
+    }
+
+
+    /* CABEÇALHO */
+
+    .ironstore-pedidos-operacao-cabecalho {
+        gap:
+            14px !important;
+
+        padding-bottom:
+            16px !important;
+
+        margin-bottom:
+            16px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-etiqueta {
+        min-height:
+            24px !important;
+
+        margin-bottom:
+            7px !important;
+
+        padding:
+            4px 8px !important;
+
+        font-size:
+            9px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-titulo {
+        font-size:
+            clamp(23px, 7vw, 29px) !important;
+
+        line-height:
+            1.12 !important;
+
+        letter-spacing:
+            -0.03em !important;
+    }
+
+
+    .ironstore-pedidos-operacao-descricao {
+        margin-top:
+            7px !important;
+
+        font-size:
+            12px !important;
+
+        line-height:
+            1.55 !important;
+    }
+
+
+    /* RESUMO */
+
+    .ironstore-pedidos-operacao-resumo {
+        min-height:
+            58px !important;
+
+        padding:
+            12px 14px !important;
+
+        border-radius:
+            12px !important;
+    }
+
+
+    /* TABELA */
+
+    .ironstore-pedidos-operacao-tabela-container {
+        margin-left:
+            0 !important;
+
+        margin-right:
+            0 !important;
+
+        border-radius:
+            12px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-tabela {
+        min-width:
+            820px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-tabela th {
+        padding:
+            11px 12px !important;
+
+        font-size:
+            9px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-linha td {
+        padding:
+            13px 12px !important;
+
+        font-size:
+            12px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-pedido {
+        min-width:
+            105px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-cliente {
+        min-width:
+            160px !important;
+    }
+
+
+    /* MENSAGEM */
+
+    .ironstore-pedidos-operacao-mensagem-envio {
+        gap:
+            10px !important;
+
+        padding:
+            12px !important;
+
+        border-radius:
+            12px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-mensagem-envio-topo {
+        align-items:
+            flex-start !important;
+    }
+
+
+    .ironstore-pedidos-operacao-mensagem-envio-textarea {
+        min-height:
+            115px !important;
+
+        padding:
+            12px !important;
+
+        font-size:
+            13px !important;
+
+        border-radius:
+            9px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-mensagem-envio-rodape {
+        flex-wrap:
+            wrap !important;
+
+        align-items:
+            center !important;
+    }
+
+
+    .ironstore-pedidos-operacao-mensagem-envio-rodape span:first-child {
+        max-width:
+            none !important;
+
+        flex:
+            1 1 70% !important;
+    }
+
+
+    /* AÇÕES */
+
+    .ironstore-pedidos-operacao-modal-acoes {
+        width:
+            100% !important;
+
+        flex-direction:
+            column !important;
+
+        gap:
+            9px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-modal-acoes .ironstore-pedidos-operacao-enviado-info {
+        width:
+            100% !important;
+
+        min-width:
+            0 !important;
+    }
+
+
+    .ironstore-pedidos-operacao-enviar,
+    .ironstore-pedidos-operacao-entregar {
+        width:
+            100% !important;
+
+        min-height:
+            48px !important;
+
+        border-radius:
+            11px !important;
+
+        font-size:
+            12px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-enviado-info,
+    .ironstore-pedidos-operacao-entregue-info {
+        border-radius:
+            11px !important;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .ironstore-pedidos-operacao-area {
+        padding:
+            14px 10px 24px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-titulo {
+        font-size:
+            23px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-descricao {
+        font-size:
+            11.5px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-resumo {
+        min-height:
+            54px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-resumo strong {
+        font-size:
+            20px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-tabela-container {
+        border-radius:
+            10px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-mensagem-envio-topo {
+        flex-wrap:
+            wrap !important;
+    }
+
+
+    .ironstore-pedidos-operacao-mensagem-envio-rodape {
+        flex-direction:
+            column !important;
+
+        align-items:
+            flex-start !important;
+
+        gap:
+            5px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-mensagem-envio-rodape span:first-child {
+        max-width:
+            100% !important;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .ironstore-pedidos-operacao-area {
+        padding:
+            12px 8px 20px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-titulo {
+        font-size:
+            21px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-resumo {
+        padding:
+            11px 12px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-mensagem-envio {
+        padding:
+            10px !important;
+    }
+
+}
+
+
+/* =========================================================
+   DESKTOP GRANDE
+========================================================= */
+
+@media (min-width: 1500px) {
+
+    .ironstore-pedidos-operacao-area {
+        max-width:
+            1540px !important;
+
+        padding-top:
+            38px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-tabela th {
+        padding-top:
+            14px !important;
+
+        padding-bottom:
+            14px !important;
+    }
+
+
+    .ironstore-pedidos-operacao-linha td {
+        padding-top:
+            17px !important;
+
+        padding-bottom:
+            17px !important;
+    }
+
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .ironstore-pedidos-operacao-linha {
+        -webkit-tap-highlight-color:
+            rgba(37, 99, 235, 0.06) !important;
+    }
+
+
+    .ironstore-pedidos-operacao-linha:active td {
+        background:
+            #f1f5f9 !important;
+    }
+
+
+    .ironstore-pedidos-operacao-enviar,
+    .ironstore-pedidos-operacao-entregar {
+        min-height:
+            48px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   REDUZ ANIMAÇÕES QUANDO O SISTEMA SOLICITAR
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstore-pedidos-operacao-area *,
+    .ironstore-pedidos-operacao-area *::before,
+    .ironstore-pedidos-operacao-area *::after {
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
     }
 
 }
