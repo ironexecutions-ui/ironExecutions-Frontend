@@ -45,7 +45,74 @@ export default function RClientes() {
         clienteEntrando,
         setClienteEntrando
     ] = useState(null);
+    /* ============================================================
+       CADASTRO DE NOVO CLIENTE
+    ============================================================ */
 
+    const [
+        comercio,
+        setComercio
+    ] = useState(null);
+
+
+    const [
+        modalCadastro,
+        setModalCadastro
+    ] = useState(false);
+
+
+    const [
+        cadastro,
+        setCadastro
+    ] = useState({
+        email: "",
+        nome: "",
+        sobrenome: "",
+        data_nascimento: "",
+        whatsapp: "",
+        cpf_cnpj: "",
+        cep: "",
+        rua_avenida: "",
+        numero: "",
+        bairro: "",
+        cidade: ""
+    });
+
+
+    const [
+        verificandoEmail,
+        setVerificandoEmail
+    ] = useState(false);
+
+
+    const [
+        emailVerificado,
+        setEmailVerificado
+    ] = useState(false);
+
+
+    const [
+        clienteEmailExistente,
+        setClienteEmailExistente
+    ] = useState(null);
+
+
+    const [
+        buscandoCepCadastro,
+        setBuscandoCepCadastro
+    ] = useState(false);
+
+
+    const [
+        salvandoCliente,
+        setSalvandoCliente
+    ] = useState(false);
+
+
+    const [
+        erroCadastro,
+        setErroCadastro
+    ] = useState("");
     /* ============================================================
        BUSCAR CLIENTES
     ============================================================ */
@@ -173,7 +240,10 @@ export default function RClientes() {
                     ? dados.clientes
                     : []
             );
-
+            setComercio(
+                dados?.comercio ||
+                null
+            );
 
         } catch (erro) {
 
@@ -211,7 +281,164 @@ export default function RClientes() {
         },
         []
     );
+    /* ============================================================
+       VERIFICAR EMAIL DO NOVO CLIENTE
+    ============================================================ */
 
+    useEffect(
+        () => {
+
+            if (
+                !modalCadastro
+            ) {
+                return;
+            }
+
+
+            const email =
+                String(
+                    cadastro.email ||
+                    ""
+                )
+                    .trim()
+                    .toLowerCase();
+
+
+            /*
+                SEMPRE INVALIDA A VERIFICAÇÃO
+                QUANDO O EMAIL MUDA
+            */
+
+            setEmailVerificado(
+                false
+            );
+
+            setClienteEmailExistente(
+                null
+            );
+
+
+            if (
+                !email ||
+                !email.includes("@")
+            ) {
+                return;
+            }
+
+
+            /*
+                ESPERA 500ms PARA NÃO CONSULTAR
+                A CADA TECLA
+            */
+
+            const timeout =
+                setTimeout(
+                    async () => {
+
+                        const token =
+                            localStorage.getItem(
+                                "token"
+                            );
+
+
+                        if (!token) {
+                            return;
+                        }
+
+
+                        try {
+
+                            setVerificandoEmail(
+                                true
+                            );
+
+
+                            const resposta =
+                                await fetch(
+                                    `${API_URL}/ironstore/clientes/painel/verificar-email?email=${encodeURIComponent(
+                                        email
+                                    )}`,
+                                    {
+                                        method:
+                                            "GET",
+
+                                        headers: {
+                                            Authorization:
+                                                `Bearer ${token}`
+                                        }
+                                    }
+                                );
+
+
+                            const resultado =
+                                await resposta
+                                    .json()
+                                    .catch(
+                                        () => ({})
+                                    );
+
+
+                            if (
+                                !resposta.ok
+                            ) {
+
+                                throw new Error(
+                                    resultado?.detail ||
+                                    "Não foi possível verificar o e-mail."
+                                );
+                            }
+
+
+                            setEmailVerificado(
+                                true
+                            );
+
+
+                            setClienteEmailExistente(
+                                resultado?.cadastrado
+                                    ? resultado?.cliente
+                                    : null
+                            );
+
+
+                        } catch (erroEmail) {
+
+                            console.error(
+                                "[IRONSTORE VERIFICAR EMAIL]",
+                                erroEmail
+                            );
+
+
+                            setEmailVerificado(
+                                false
+                            );
+
+
+                        } finally {
+
+                            setVerificandoEmail(
+                                false
+                            );
+                        }
+
+                    },
+                    500
+                );
+
+
+            return () => {
+
+                clearTimeout(
+                    timeout
+                );
+            };
+
+        },
+        [
+            cadastro.email,
+            modalCadastro
+        ]
+    );
 
     /* ============================================================
        ESTATÍSTICAS
@@ -704,6 +931,536 @@ export default function RClientes() {
 
     }
 
+
+    /* ============================================================
+   SOMENTE NÚMEROS
+============================================================ */
+
+    function somenteNumeros(
+        valor
+    ) {
+
+        return String(
+            valor || ""
+        ).replace(
+            /\D/g,
+            ""
+        );
+    }
+
+
+    /* ============================================================
+       MÁSCARA WHATSAPP - CADASTRO
+    ============================================================ */
+
+    function mascaraWhatsappCadastro(
+        valor
+    ) {
+
+        const numeros =
+            somenteNumeros(
+                valor
+            ).slice(
+                0,
+                11
+            );
+
+
+        if (
+            numeros.length <= 2
+        ) {
+            return numeros;
+        }
+
+
+        if (
+            numeros.length <= 6
+        ) {
+
+            return numeros.replace(
+                /^(\d{2})(\d+)/,
+                "($1) $2"
+            );
+        }
+
+
+        if (
+            numeros.length <= 10
+        ) {
+
+            return numeros.replace(
+                /^(\d{2})(\d{4})(\d+)/,
+                "($1) $2-$3"
+            );
+        }
+
+
+        return numeros.replace(
+            /^(\d{2})(\d{5})(\d{4})$/,
+            "($1) $2-$3"
+        );
+    }
+
+
+    /* ============================================================
+       MÁSCARA CPF / CNPJ - CADASTRO
+    ============================================================ */
+
+    function mascaraCpfCnpjCadastro(
+        valor
+    ) {
+
+        const numeros =
+            somenteNumeros(
+                valor
+            ).slice(
+                0,
+                14
+            );
+
+
+        if (
+            numeros.length <= 11
+        ) {
+
+            return numeros
+                .replace(
+                    /^(\d{3})(\d)/,
+                    "$1.$2"
+                )
+                .replace(
+                    /^(\d{3})\.(\d{3})(\d)/,
+                    "$1.$2.$3"
+                )
+                .replace(
+                    /\.(\d{3})(\d)/,
+                    ".$1-$2"
+                );
+        }
+
+
+        return numeros
+            .replace(
+                /^(\d{2})(\d)/,
+                "$1.$2"
+            )
+            .replace(
+                /^(\d{2})\.(\d{3})(\d)/,
+                "$1.$2.$3"
+            )
+            .replace(
+                /\.(\d{3})(\d)/,
+                ".$1/$2"
+            )
+            .replace(
+                /(\d{4})(\d)/,
+                "$1-$2"
+            );
+    }
+
+
+    /* ============================================================
+       MÁSCARA CEP - CADASTRO
+    ============================================================ */
+
+    function mascaraCepCadastro(
+        valor
+    ) {
+
+        const numeros =
+            somenteNumeros(
+                valor
+            ).slice(
+                0,
+                8
+            );
+
+
+        if (
+            numeros.length <= 5
+        ) {
+            return numeros;
+        }
+
+
+        return numeros.replace(
+            /^(\d{5})(\d+)/,
+            "$1-$2"
+        );
+    }
+
+
+    /* ============================================================
+       ABRIR MODAL
+    ============================================================ */
+
+    function abrirModalCadastro() {
+
+        setCadastro({
+            email: "",
+            nome: "",
+            sobrenome: "",
+            data_nascimento: "",
+            whatsapp: "",
+            cpf_cnpj: "",
+            cep: "",
+            rua_avenida: "",
+            numero: "",
+            bairro: "",
+            cidade: ""
+        });
+
+
+        setVerificandoEmail(
+            false
+        );
+
+        setEmailVerificado(
+            false
+        );
+
+        setClienteEmailExistente(
+            null
+        );
+
+        setBuscandoCepCadastro(
+            false
+        );
+
+        setErroCadastro("");
+
+        setModalCadastro(
+            true
+        );
+    }
+
+
+    /* ============================================================
+       FECHAR MODAL
+    ============================================================ */
+
+    function fecharModalCadastro() {
+
+        if (
+            salvandoCliente
+        ) {
+            return;
+        }
+
+
+        setModalCadastro(
+            false
+        );
+
+        setErroCadastro("");
+    }
+
+
+    /* ============================================================
+       CONSULTAR CEP
+    ============================================================ */
+
+    async function buscarCepCadastro(
+        valorCep
+    ) {
+
+        const cep =
+            somenteNumeros(
+                valorCep
+            );
+
+
+        if (
+            cep.length !== 8
+        ) {
+            return;
+        }
+
+
+        try {
+
+            setBuscandoCepCadastro(
+                true
+            );
+
+            setErroCadastro("");
+
+
+            const resposta =
+                await fetch(
+                    `https://viacep.com.br/ws/${cep}/json/`
+                );
+
+
+            if (
+                !resposta.ok
+            ) {
+
+                throw new Error(
+                    "Não foi possível consultar o CEP."
+                );
+            }
+
+
+            const resultado =
+                await resposta.json();
+
+
+            if (
+                resultado?.erro
+            ) {
+
+                throw new Error(
+                    "CEP não encontrado."
+                );
+            }
+
+
+            setCadastro(
+                anterior => ({
+
+                    ...anterior,
+
+                    cep:
+                        mascaraCepCadastro(
+                            cep
+                        ),
+
+                    rua_avenida:
+                        resultado.logradouro ||
+                        "",
+
+                    bairro:
+                        resultado.bairro ||
+                        "",
+
+                    cidade:
+                        resultado.localidade ||
+                        ""
+                })
+            );
+
+
+        } catch (erroCep) {
+
+            console.error(
+                "[IRONSTORE CADASTRO CEP]",
+                erroCep
+            );
+
+
+            setErroCadastro(
+                erroCep?.message ||
+                "Não foi possível consultar o CEP."
+            );
+
+
+        } finally {
+
+            setBuscandoCepCadastro(
+                false
+            );
+        }
+    }
+
+
+    /* ============================================================
+       CADASTRAR CLIENTE
+    ============================================================ */
+
+    async function cadastrarNovoCliente() {
+
+        if (
+            salvandoCliente
+        ) {
+            return;
+        }
+
+
+        if (
+            !emailVerificado
+        ) {
+
+            setErroCadastro(
+                "Aguarde a verificação do e-mail."
+            );
+
+            return;
+        }
+
+
+        if (
+            clienteEmailExistente
+        ) {
+
+            setErroCadastro(
+                "Este e-mail já está cadastrado."
+            );
+
+            return;
+        }
+
+
+        if (
+            !cadastro.nome.trim()
+        ) {
+
+            setErroCadastro(
+                "Informe o nome do cliente."
+            );
+
+            return;
+        }
+
+
+        if (
+            !cadastro.sobrenome.trim()
+        ) {
+
+            setErroCadastro(
+                "Informe o sobrenome do cliente."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            setSalvandoCliente(
+                true
+            );
+
+            setErroCadastro("");
+
+
+            const token =
+                localStorage.getItem(
+                    "token"
+                );
+
+
+            if (!token) {
+
+                throw new Error(
+                    "Sessão do painel não encontrada."
+                );
+            }
+
+
+            const resposta =
+                await fetch(
+                    `${API_URL}/ironstore/clientes/painel/cadastrar`,
+                    {
+                        method:
+                            "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            Authorization:
+                                `Bearer ${token}`
+                        },
+
+                        body:
+                            JSON.stringify(
+                                cadastro
+                            )
+                    }
+                );
+
+
+            const resultado =
+                await resposta
+                    .json()
+                    .catch(
+                        () => ({})
+                    );
+
+
+            if (
+                resposta.status === 401
+            ) {
+
+                localStorage.removeItem(
+                    "token"
+                );
+
+                localStorage.removeItem(
+                    "usuario"
+                );
+
+                window.location.replace(
+                    "/"
+                );
+
+                return;
+            }
+
+
+            if (
+                !resposta.ok
+            ) {
+
+                throw new Error(
+                    resultado?.detail ||
+                    "Não foi possível cadastrar o cliente."
+                );
+            }
+
+
+            /*
+                ADICIONA IMEDIATAMENTE
+                NA TABELA
+            */
+
+            if (
+                resultado?.cliente
+            ) {
+
+                setClientes(
+                    anteriores => [
+
+                        resultado.cliente,
+
+                        ...anteriores.filter(
+                            cliente =>
+                                cliente.id !==
+                                resultado.cliente.id
+                        )
+                    ]
+                );
+            }
+
+
+            setModalCadastro(
+                false
+            );
+
+
+        } catch (erroSalvar) {
+
+            console.error(
+                "[IRONSTORE CADASTRAR CLIENTE]",
+                erroSalvar
+            );
+
+
+            setErroCadastro(
+                erroSalvar?.message ||
+                "Não foi possível cadastrar o cliente."
+            );
+
+
+        } finally {
+
+            setSalvandoCliente(
+                false
+            );
+        }
+    }
     /* ============================================================
        ENTRAR COMO CLIENTE
     ============================================================ */
@@ -1191,7 +1948,19 @@ export default function RClientes() {
                         </p>
 
                     </div>
+                    <button
+                        type="button"
+                        className="ironstore-rclientes-novo-cliente"
+                        onClick={
+                            abrirModalCadastro
+                        }
+                    >
+                        <span>
+                            +
+                        </span>
 
+                        Registrar novo cliente
+                    </button>
 
                     <div className="ironstore-rclientes-busca">
 
@@ -1627,7 +2396,566 @@ export default function RClientes() {
                 }
 
             </div>
+            {/* ====================================================
+    MODAL CADASTRAR CLIENTE
+==================================================== */}
 
+            {
+                modalCadastro && (
+
+                    <div
+                        className="ironstore-rclientes-modal-fundo"
+                        onMouseDown={
+                            fecharModalCadastro
+                        }
+                    >
+
+                        <div
+                            className="ironstore-rclientes-modal"
+                            onMouseDown={
+                                evento =>
+                                    evento.stopPropagation()
+                            }
+                        >
+
+                            {/* CABEÇALHO */}
+
+                            <div className="ironstore-rclientes-modal-cabecalho">
+
+                                <div className="ironstore-rclientes-modal-identidade">
+
+                                    {
+                                        comercio?.imagem && (
+
+                                            <img
+                                                src={
+                                                    comercio.imagem
+                                                }
+                                                alt={
+                                                    comercio?.loja ||
+                                                    "Loja"
+                                                }
+                                            />
+
+                                        )
+                                    }
+
+
+                                    <div>
+
+                                        <span>
+                                            Novo cliente
+                                        </span>
+
+                                        <strong>
+                                            {
+                                                comercio?.loja ||
+                                                "IronStore"
+                                            }
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    type="button"
+                                    className="ironstore-rclientes-modal-fechar"
+                                    onClick={
+                                        fecharModalCadastro
+                                    }
+                                >
+                                    ×
+                                </button>
+
+                            </div>
+
+
+                            {/* CONTEÚDO */}
+
+                            <div className="ironstore-rclientes-modal-conteudo">
+
+                                {/* EMAIL */}
+
+                                <div className="ironstore-rclientes-form-campo ironstore-rclientes-form-email">
+
+                                    <label>
+                                        E-mail do cliente
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        autoFocus
+                                        value={
+                                            cadastro.email
+                                        }
+                                        placeholder="cliente@email.com"
+                                        onChange={
+                                            evento => {
+
+                                                setCadastro(
+                                                    anterior => ({
+                                                        ...anterior,
+
+                                                        email:
+                                                            evento.target.value
+                                                    })
+                                                );
+
+                                                setErroCadastro("");
+                                            }
+                                        }
+                                    />
+
+
+                                    {
+                                        verificandoEmail && (
+
+                                            <small className="ironstore-rclientes-email-verificando">
+                                                Verificando e-mail...
+                                            </small>
+
+                                        )
+                                    }
+
+
+                                    {
+                                        !verificandoEmail &&
+                                        emailVerificado &&
+                                        clienteEmailExistente && (
+
+                                            <div className="ironstore-rclientes-email-existente">
+
+                                                <strong>
+                                                    Este e-mail já está cadastrado.
+                                                </strong>
+
+                                                <span>
+                                                    Cliente: {
+                                                        clienteEmailExistente.nome_completo ||
+                                                        "Cliente cadastrado"
+                                                    }
+                                                </span>
+
+                                            </div>
+
+                                        )
+                                    }
+
+
+                                    {
+                                        !verificandoEmail &&
+                                        emailVerificado &&
+                                        !clienteEmailExistente && (
+
+                                            <small className="ironstore-rclientes-email-disponivel">
+                                                E-mail disponível. Preencha os dados abaixo.
+                                            </small>
+
+                                        )
+                                    }
+
+                                </div>
+
+
+                                {/* RESTANTE DO FORMULÁRIO */}
+
+                                {
+                                    emailVerificado &&
+                                    !clienteEmailExistente && (
+
+                                        <>
+
+                                            <div className="ironstore-rclientes-form-grid">
+
+                                                <div className="ironstore-rclientes-form-campo">
+
+                                                    <label>
+                                                        Nome
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        value={
+                                                            cadastro.nome
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+                                                                        nome:
+                                                                            evento.target.value
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+
+                                                <div className="ironstore-rclientes-form-campo">
+
+                                                    <label>
+                                                        Sobrenome
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        value={
+                                                            cadastro.sobrenome
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+                                                                        sobrenome:
+                                                                            evento.target.value
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+
+                                                <div className="ironstore-rclientes-form-campo">
+
+                                                    <label>
+                                                        Data de nascimento
+                                                    </label>
+
+                                                    <input
+                                                        type="date"
+                                                        value={
+                                                            cadastro.data_nascimento
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+                                                                        data_nascimento:
+                                                                            evento.target.value
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+
+                                                <div className="ironstore-rclientes-form-campo">
+
+                                                    <label>
+                                                        WhatsApp
+                                                    </label>
+
+                                                    <input
+                                                        type="tel"
+                                                        inputMode="numeric"
+                                                        maxLength={15}
+                                                        placeholder="(11) 99999-9999"
+                                                        value={
+                                                            cadastro.whatsapp
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+
+                                                                        whatsapp:
+                                                                            mascaraWhatsappCadastro(
+                                                                                evento.target.value
+                                                                            )
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+
+                                                <div className="ironstore-rclientes-form-campo ironstore-rclientes-form-largo">
+
+                                                    <label>
+                                                        CPF / CNPJ
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        inputMode="numeric"
+                                                        maxLength={18}
+                                                        placeholder="CPF ou CNPJ"
+                                                        value={
+                                                            cadastro.cpf_cnpj
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+
+                                                                        cpf_cnpj:
+                                                                            mascaraCpfCnpjCadastro(
+                                                                                evento.target.value
+                                                                            )
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div className="ironstore-rclientes-form-secao">
+                                                Endereço
+                                            </div>
+
+
+                                            <div className="ironstore-rclientes-form-grid">
+
+                                                <div className="ironstore-rclientes-form-campo ironstore-rclientes-form-largo">
+
+                                                    <label>
+                                                        CEP
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        inputMode="numeric"
+                                                        maxLength={9}
+                                                        placeholder="00000-000"
+                                                        value={
+                                                            cadastro.cep
+                                                        }
+                                                        onChange={
+                                                            evento => {
+
+                                                                const cep =
+                                                                    mascaraCepCadastro(
+                                                                        evento.target.value
+                                                                    );
+
+
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+                                                                        cep
+                                                                    })
+                                                                );
+
+
+                                                                if (
+                                                                    somenteNumeros(
+                                                                        cep
+                                                                    ).length === 8
+                                                                ) {
+
+                                                                    buscarCepCadastro(
+                                                                        cep
+                                                                    );
+                                                                }
+                                                            }
+                                                        }
+                                                    />
+
+
+                                                    {
+                                                        buscandoCepCadastro && (
+
+                                                            <small>
+                                                                Buscando endereço...
+                                                            </small>
+
+                                                        )
+                                                    }
+
+                                                </div>
+
+
+                                                <div className="ironstore-rclientes-form-campo">
+
+                                                    <label>
+                                                        Rua / Avenida
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        value={
+                                                            cadastro.rua_avenida
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+
+                                                                        rua_avenida:
+                                                                            evento.target.value
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+
+                                                <div className="ironstore-rclientes-form-campo">
+
+                                                    <label>
+                                                        Número
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        value={
+                                                            cadastro.numero
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+
+                                                                        numero:
+                                                                            evento.target.value
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+
+                                                <div className="ironstore-rclientes-form-campo">
+
+                                                    <label>
+                                                        Bairro
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        value={
+                                                            cadastro.bairro
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+
+                                                                        bairro:
+                                                                            evento.target.value
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+
+                                                <div className="ironstore-rclientes-form-campo">
+
+                                                    <label>
+                                                        Cidade
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        value={
+                                                            cadastro.cidade
+                                                        }
+                                                        onChange={
+                                                            evento =>
+                                                                setCadastro(
+                                                                    anterior => ({
+                                                                        ...anterior,
+
+                                                                        cidade:
+                                                                            evento.target.value
+                                                                    })
+                                                                )
+                                                        }
+                                                    />
+
+                                                </div>
+
+                                            </div>
+
+                                        </>
+
+                                    )
+                                }
+
+
+                                {
+                                    erroCadastro && (
+
+                                        <div className="ironstore-rclientes-form-erro">
+                                            {erroCadastro}
+                                        </div>
+
+                                    )
+                                }
+
+                            </div>
+
+
+                            {/* AÇÕES */}
+
+                            <div className="ironstore-rclientes-modal-acoes">
+
+                                <button
+                                    type="button"
+                                    onClick={
+                                        fecharModalCadastro
+                                    }
+                                    disabled={
+                                        salvandoCliente
+                                    }
+                                >
+                                    Cancelar
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    className="principal"
+                                    onClick={
+                                        cadastrarNovoCliente
+                                    }
+                                    disabled={
+                                        salvandoCliente ||
+                                        verificandoEmail ||
+                                        !emailVerificado ||
+                                        Boolean(
+                                            clienteEmailExistente
+                                        )
+                                    }
+                                >
+
+                                    {
+                                        salvandoCliente
+                                            ? "Cadastrando..."
+                                            : "Cadastrar cliente"
+                                    }
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                )
+            }
         </section>
 
     );
