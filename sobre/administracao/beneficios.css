@@ -1,0 +1,171 @@
+.admin-beneficios-gestao-iron {
+    width: 100%;
+    padding: 110px 24px;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.admin-beneficios-gestao-iron__container {
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+}
+
+.admin-beneficios-gestao-iron__principal {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.admin-beneficios-gestao-iron__mini {
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.8px;
+}
+
+.admin-beneficios-gestao-iron__titulo {
+    margin: 18px 0 0;
+    color: #0f172a;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.08;
+    letter-spacing: -2.2px;
+}
+
+.admin-beneficios-gestao-iron__descricao {
+    max-width: 740px;
+    margin: 24px auto 0;
+    color: #64748b;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.admin-beneficios-gestao-iron__comparacao {
+    margin-top: 65px;
+    display: grid;
+    grid-template-columns: 1fr 70px 1fr;
+    align-items: stretch;
+}
+
+.admin-beneficios-gestao-iron__coluna {
+    padding: 42px;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    background: #f8fafc;
+}
+
+.admin-beneficios-gestao-iron__rotulo {
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.7px;
+}
+
+.admin-beneficios-gestao-iron__nome {
+    display: block;
+    margin-top: 18px;
+    color: #0f172a;
+    font-size: 27px;
+    line-height: 1.25;
+}
+
+.admin-beneficios-gestao-iron__texto {
+    margin: 16px 0 0;
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.admin-beneficios-gestao-iron__separador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-beneficios-gestao-iron__separador span {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.admin-beneficios-gestao-iron__resultado {
+    margin-top: 28px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 55px minmax(0, 1fr);
+    gap: 25px;
+    border-radius: 24px;
+    background: #07101d;
+}
+
+.admin-beneficios-gestao-iron__resultado-marca {
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.admin-beneficios-gestao-iron__resultado-marca span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #60a5fa;
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.7);
+}
+
+.admin-beneficios-gestao-iron__resultado-mini {
+    color: #60a5fa;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.7px;
+}
+
+.admin-beneficios-gestao-iron__resultado-titulo {
+    max-width: 720px;
+    margin: 12px 0 0;
+    color: #ffffff;
+    font-size: 27px;
+    line-height: 1.3;
+}
+
+.admin-beneficios-gestao-iron__resultado-texto {
+    max-width: 760px;
+    margin: 14px 0 0;
+    color: #91a4bb;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+@media (max-width: 750px) {
+    .admin-beneficios-gestao-iron {
+        padding: 75px 18px;
+    }
+
+    .admin-beneficios-gestao-iron__comparacao {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .admin-beneficios-gestao-iron__separador {
+        min-height: 45px;
+    }
+
+    .admin-beneficios-gestao-iron__coluna {
+        padding: 28px;
+    }
+
+    .admin-beneficios-gestao-iron__resultado {
+        grid-template-columns: 1fr;
+        padding: 30px;
+    }
+
+    .admin-beneficios-gestao-iron__resultado-marca {
+        justify-content: flex-start;
+    }
+}

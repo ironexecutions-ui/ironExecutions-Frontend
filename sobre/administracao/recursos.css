@@ -1,0 +1,141 @@
+.admin-recursos-operacao-iron {
+    width: 100%;
+    padding: 105px 24px;
+    box-sizing: border-box;
+    background: #f8fafc;
+}
+
+.admin-recursos-operacao-iron__container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-recursos-operacao-iron__cabecalho {
+    max-width: 820px;
+}
+
+.admin-recursos-operacao-iron__mini {
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.admin-recursos-operacao-iron__titulo {
+    margin: 17px 0 0;
+    color: #0f172a;
+    font-size: clamp(35px, 4.5vw, 55px);
+    line-height: 1.08;
+    letter-spacing: -2px;
+}
+
+.admin-recursos-operacao-iron__descricao {
+    max-width: 740px;
+    margin: 22px 0 0;
+    color: #64748b;
+    font-size: 18px;
+    line-height: 1.75;
+}
+
+.admin-recursos-operacao-iron__fluxo {
+    margin-top: 65px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.admin-recursos-operacao-iron__item {
+    min-width: 0;
+    padding: 34px;
+    display: flex;
+    gap: 20px;
+}
+
+.admin-recursos-operacao-iron__item+.admin-recursos-operacao-iron__item {
+    border-left: 1px solid #e2e8f0;
+}
+
+.admin-recursos-operacao-iron__numero {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.admin-recursos-operacao-iron__item h3 {
+    margin: 0;
+    color: #172033;
+    font-size: 19px;
+    line-height: 1.35;
+}
+
+.admin-recursos-operacao-iron__item p {
+    margin: 12px 0 0;
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.admin-recursos-operacao-iron__areas {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.admin-recursos-operacao-iron__area {
+    padding: 35px;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: #ffffff;
+}
+
+.admin-recursos-operacao-iron__area>span {
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.7px;
+}
+
+.admin-recursos-operacao-iron__area h3 {
+    margin: 16px 0 0;
+    color: #0f172a;
+    font-size: 23px;
+    line-height: 1.3;
+}
+
+.admin-recursos-operacao-iron__area p {
+    margin: 13px 0 0;
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+    .admin-recursos-operacao-iron__fluxo {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-recursos-operacao-iron__item+.admin-recursos-operacao-iron__item {
+        border-left: 0;
+        border-top: 1px solid #e2e8f0;
+    }
+}
+
+@media (max-width: 650px) {
+    .admin-recursos-operacao-iron {
+        padding: 75px 18px;
+    }
+
+    .admin-recursos-operacao-iron__areas {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-recursos-operacao-iron__item,
+    .admin-recursos-operacao-iron__area {
+        padding: 27px;
+    }
+}

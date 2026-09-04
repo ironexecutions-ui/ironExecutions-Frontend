@@ -158,7 +158,18 @@ export default function ExplicacaoModulos() {
 
         return Number(preco.replace(",", ".")) >= 1;
     });
+    /* =====================================================
+       URL DO MÓDULO
+    ===================================================== */
 
+    function gerarUrlModulo(nome) {
+        const nomeFormatado = String(nome || "")
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "+");
+
+        return `/sobre/${encodeURI(nomeFormatado)}`;
+    }
 
     return (
 
@@ -225,9 +236,11 @@ export default function ExplicacaoModulos() {
                         const precoFormatado = formatarPreco(modulo.preco);
                         return (
 
-                            <article
+                            <a
                                 key={modulo.id}
-                                className={`exp-modulos-premium__card exp-modulos-premium__card--${tipo}`}
+                                href={gerarUrlModulo(modulo.nome)}
+                                className={`exp-modulos-premium__card exp-modulos-premium__card--${tipo} exp-modulos-premium__card-link`}
+                                aria-label={`Saiba mais sobre ${modulo.nome}`}
                             >
 
                                 {/* =============================
@@ -292,7 +305,7 @@ export default function ExplicacaoModulos() {
 
                                 </div>
 
-                            </article>
+                            </a>
 
                         );
 

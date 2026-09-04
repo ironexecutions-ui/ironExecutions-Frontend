@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import "./app.css";
 import "./app-responsivo.css";
+import Sobre from "../sobre/sobre";
 
 import RifaCompras from "../public/rifas/rifacompras";
 import Codigo from "../public/codigo";
@@ -17,11 +18,7 @@ import IronBusinessPerfil from "../modulos/perfil/ironbusiness";
 import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
-import Aulas from "../aulas/aulas";
-import Matricula from "../aulas/matricula/matricula";
-import Perfil from "../aulas/perfil/perfil";
-import Pagos from "..//aulas/pagos/pagos";
-import Aula_pagamentos from "../aulas/pagamentos/aulas_pagamentos";
+
 import PainelGeral from "../painelgeral/painel";
 import ironExecutions from "./imagens/ironexecutions.png";
 import missionaryStoreBrasil from "./imagens/missionarystorebrasil.png";
@@ -238,30 +235,16 @@ function RoteamentoComLoading() {
         path="/painel"
         element={<PainelGeral />}
       />
-      <Route
-        path="/aulas"
-        element={<Aulas />}
-      />
+
 
       <Route
-        path="/aulas/matricula"
-        element={<Matricula />}
+        path="/sobre/:modulo"
+        element={<Sobre />}
       />
 
-      <Route
-        path="/aulas/perfil"
-        element={<Perfil />}
-      />
 
-      <Route
-        path="/pagos"
-        element={<Pagos />}
-      />
 
-      <Route
-        path="/pagos/:id"
-        element={<Aula_pagamentos />}
-      />
+
 
     </Routes>
 

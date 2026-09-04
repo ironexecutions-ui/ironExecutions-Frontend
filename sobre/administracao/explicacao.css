@@ -1,0 +1,192 @@
+.admin-sobre-hero-iron {
+    width: 100%;
+    padding: 110px 24px 100px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 85% 20%,
+            rgba(37, 99, 235, 0.16),
+            transparent 34%),
+        radial-gradient(circle at 10% 90%,
+            rgba(14, 165, 233, 0.08),
+            transparent 30%),
+        #07101d;
+    color: #ffffff;
+}
+
+.admin-sobre-hero-iron__container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+    gap: 70px;
+    align-items: center;
+}
+
+.admin-sobre-hero-iron__conteudo {
+    min-width: 0;
+}
+
+.admin-sobre-hero-iron__categoria {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 14px;
+    border: 1px solid rgba(96, 165, 250, 0.24);
+    border-radius: 100px;
+    background: rgba(37, 99, 235, 0.08);
+    color: #7db7ff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.admin-sobre-hero-iron__titulo {
+    max-width: 800px;
+    margin: 24px 0 0;
+    font-size: clamp(42px, 5.5vw, 72px);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -3px;
+    color: #ffffff;
+}
+
+.admin-sobre-hero-iron__descricao {
+    max-width: 750px;
+    margin: 30px 0 0;
+    color: #d3deec;
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+.admin-sobre-hero-iron__descricao-secundaria {
+    max-width: 750px;
+    margin: 15px 0 0;
+    color: #8fa2b9;
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.admin-sobre-hero-iron__destaques {
+    margin-top: 45px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.admin-sobre-hero-iron__destaque {
+    padding: 19px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.admin-sobre-hero-iron__destaque strong {
+    display: block;
+    margin-bottom: 7px;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.admin-sobre-hero-iron__destaque span {
+    display: block;
+    color: #8496ac;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.admin-sobre-hero-iron__painel {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.045);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px);
+}
+
+.admin-sobre-hero-iron__painel-topo {
+    min-height: 58px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.admin-sobre-hero-iron__painel-status {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #60a5fa;
+    box-shadow: 0 0 18px rgba(96, 165, 250, 0.8);
+}
+
+.admin-sobre-hero-iron__painel-label {
+    color: #8fa2b9;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.admin-sobre-hero-iron__painel-corpo {
+    padding: 38px;
+}
+
+.admin-sobre-hero-iron__painel-mini {
+    color: #60a5fa;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.admin-sobre-hero-iron__painel-titulo {
+    margin: 16px 0 0;
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+}
+
+.admin-sobre-hero-iron__painel-descricao {
+    margin: 20px 0 0;
+    color: #8fa2b9;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+@media (max-width: 950px) {
+    .admin-sobre-hero-iron__container {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .admin-sobre-hero-iron__painel {
+        max-width: 650px;
+    }
+}
+
+@media (max-width: 650px) {
+    .admin-sobre-hero-iron {
+        padding: 75px 18px 70px;
+    }
+
+    .admin-sobre-hero-iron__titulo {
+        font-size: 42px;
+        letter-spacing: -2px;
+    }
+
+    .admin-sobre-hero-iron__descricao {
+        font-size: 18px;
+    }
+
+    .admin-sobre-hero-iron__destaques {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sobre-hero-iron__painel-corpo {
+        padding: 28px;
+    }
+}
