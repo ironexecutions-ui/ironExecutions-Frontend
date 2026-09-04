@@ -1,0 +1,1874 @@
+/* ============================================================
+   IRONSTORE CLIENTES
+   DESIGN PREMIUM
+   PADRÃO VISUAL FECHAMENTO DE CAIXA
+
+   IMPORTANTE:
+   CSS FEITO ESPECIFICAMENTE PARA O RClientes.jsx
+   COM !important PARA SOBRESCREVER ESTILOS ANTIGOS
+============================================================ */
+
+
+/* ============================================================
+   CONTAINER PRINCIPAL
+============================================================ */
+
+.ironstore-rclientes-container {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 100% !important;
+
+    padding: 24px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(18, 61, 114, 0.07),
+            transparent 34%),
+        linear-gradient(145deg,
+            #f8f9fb 0%,
+            #f1f3f6 100%) !important;
+
+    color: #101828 !important;
+
+    border: none !important;
+    border-radius: 18px !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+}
+
+
+/* ============================================================
+   CABEÇALHO
+============================================================ */
+
+.ironstore-rclientes-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 24px !important;
+
+    margin: 0 0 22px 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.ironstore-rclientes-cabecalho-conteudo {
+    min-width: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 14px !important;
+}
+
+
+.ironstore-rclientes-cabecalho-icone {
+    width: 50px !important;
+    height: 50px !important;
+
+    min-width: 50px !important;
+    flex: 0 0 50px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    background:
+        linear-gradient(145deg,
+            #164a86 0%,
+            #123d72 55%,
+            #0c2d56 100%) !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 13px !important;
+
+    box-shadow:
+        0 8px 20px rgba(18, 61, 114, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+
+    font-size: 23px !important;
+    font-weight: 800 !important;
+
+    line-height: 1 !important;
+}
+
+
+.ironstore-rclientes-cabecalho-textos {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+
+.ironstore-rclientes-eyebrow {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #123d72 !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.2 !important;
+
+    letter-spacing: 1.7px !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-rclientes-titulo {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 27px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.15 !important;
+
+    letter-spacing: -0.7px !important;
+}
+
+
+.ironstore-rclientes-descricao {
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 13px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* ============================================================
+   BOTÃO ATUALIZAR
+============================================================ */
+
+.ironstore-rclientes-botao-atualizar {
+    min-width: 145px !important;
+    min-height: 44px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    padding: 0 17px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #123d72 !important;
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.03) !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.ironstore-rclientes-botao-atualizar:hover:not(:disabled) {
+    background: #123d72 !important;
+
+    color: #ffffff !important;
+
+    border-color: #123d72 !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 7px 18px rgba(18, 61, 114, 0.18) !important;
+}
+
+
+.ironstore-rclientes-botao-atualizar:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+
+.ironstore-rclientes-botao-atualizar:disabled {
+    opacity: 0.55 !important;
+
+    cursor: wait !important;
+
+    transform: none !important;
+}
+
+
+.ironstore-rclientes-atualizar-icone {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: inherit !important;
+
+    font-size: 18px !important;
+
+    line-height: 1 !important;
+}
+
+
+.ironstore-rclientes-atualizar-icone-girando {
+    animation:
+        ironstoreRclientesAtualizarGirar 0.75s linear infinite !important;
+}
+
+
+@keyframes ironstoreRclientesAtualizarGirar {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* ============================================================
+   ALERTA
+============================================================ */
+
+.ironstore-rclientes-alerta {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 12px !important;
+
+    padding: 14px 16px !important;
+    margin: 0 0 18px 0 !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #fffafa,
+            #fff5f4) !important;
+
+    border: 1px solid #fecdca !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 3px 12px rgba(180, 35, 24, 0.04) !important;
+}
+
+
+.ironstore-rclientes-alerta-icone {
+    width: 29px !important;
+    height: 29px !important;
+
+    min-width: 29px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #b42318 !important;
+
+    color: #ffffff !important;
+
+    border-radius: 7px !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+}
+
+
+.ironstore-rclientes-alerta-texto {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+
+.ironstore-rclientes-alerta-texto strong {
+    margin: 0 !important;
+
+    color: #912018 !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-rclientes-alerta-texto span {
+    color: #b42318 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+
+/* ============================================================
+   RESUMO
+============================================================ */
+
+.ironstore-rclientes-resumo {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 14px !important;
+
+    margin: 0 0 20px 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ============================================================
+   CARDS
+============================================================ */
+
+.ironstore-rclientes-card {
+    position: relative !important;
+
+    min-width: 0 !important;
+    min-height: 112px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    padding: 18px 20px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #e1e5eb !important;
+    border-radius: 14px !important;
+
+    box-shadow:
+        0 4px 15px rgba(16, 24, 40, 0.045) !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease !important;
+}
+
+
+.ironstore-rclientes-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background: #123d72 !important;
+}
+
+
+.ironstore-rclientes-card::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 85px !important;
+    height: 85px !important;
+
+    top: -42px !important;
+    right: -35px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(18, 61, 114, 0.06),
+            transparent 70%) !important;
+
+    pointer-events: none !important;
+}
+
+
+.ironstore-rclientes-card:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: #c8d2df !important;
+
+    box-shadow:
+        0 9px 24px rgba(16, 24, 40, 0.08) !important;
+}
+
+
+.ironstore-rclientes-card-topo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+}
+
+
+.ironstore-rclientes-card-topo>span {
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.2 !important;
+}
+
+
+.ironstore-rclientes-card-icone {
+    width: 29px !important;
+    height: 29px !important;
+
+    min-width: 29px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #eef3f8 !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #dce5ef !important;
+    border-radius: 8px !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+
+    line-height: 1 !important;
+}
+
+
+.ironstore-rclientes-card>strong {
+    margin: 0 !important;
+
+    color: #123d72 !important;
+
+    font-size: 25px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.05 !important;
+
+    letter-spacing: -0.6px !important;
+}
+
+
+.ironstore-rclientes-card>small {
+    color: #98a2b3 !important;
+
+    font-size: 10px !important;
+    font-weight: 600 !important;
+
+    line-height: 1.3 !important;
+}
+
+
+/* ============================================================
+   CORES INDIVIDUAIS DOS CARDS
+============================================================ */
+
+.ironstore-rclientes-card-total::before {
+    background: #123d72 !important;
+}
+
+
+.ironstore-rclientes-card-whatsapp::before {
+    background: #067647 !important;
+}
+
+
+.ironstore-rclientes-card-endereco::before {
+    background: #175cd3 !important;
+}
+
+
+.ironstore-rclientes-card-documento::before {
+    background: #6941c6 !important;
+}
+
+
+.ironstore-rclientes-card-whatsapp .ironstore-rclientes-card-icone {
+    background: #ecfdf3 !important;
+
+    color: #067647 !important;
+
+    border-color: #abefc6 !important;
+}
+
+
+.ironstore-rclientes-card-endereco .ironstore-rclientes-card-icone {
+    background: #eff8ff !important;
+
+    color: #175cd3 !important;
+
+    border-color: #b2ddff !important;
+}
+
+
+.ironstore-rclientes-card-documento .ironstore-rclientes-card-icone {
+    background: #f4f3ff !important;
+
+    color: #6941c6 !important;
+
+    border-color: #d9d6fe !important;
+}
+
+
+/* ============================================================
+   PAINEL DA LISTAGEM
+============================================================ */
+
+.ironstore-rclientes-painel {
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dfe4ea !important;
+    border-radius: 15px !important;
+
+    box-shadow:
+        0 5px 18px rgba(16, 24, 40, 0.05) !important;
+}
+
+
+/* ============================================================
+   TOPO DO PAINEL
+============================================================ */
+
+.ironstore-rclientes-painel-topo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    padding: 18px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(90deg,
+            #eef2f6 0%,
+            #f8f9fb 100%) !important;
+
+    border-bottom: 1px solid #dfe4ea !important;
+}
+
+
+.ironstore-rclientes-painel-titulo {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+
+.ironstore-rclientes-painel-titulo h3 {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 16px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.25 !important;
+
+    letter-spacing: -0.2px !important;
+}
+
+
+.ironstore-rclientes-painel-titulo p {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* ============================================================
+   BUSCA
+============================================================ */
+
+.ironstore-rclientes-busca {
+    position: relative !important;
+
+    width: min(100%, 410px) !important;
+    min-width: 280px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    margin: 0 !important;
+}
+
+
+.ironstore-rclientes-busca-icone {
+    position: absolute !important;
+
+    z-index: 2 !important;
+
+    left: 13px !important;
+    top: 50% !important;
+
+    transform: translateY(-50%) !important;
+
+    color: #667085 !important;
+
+    font-size: 18px !important;
+    font-weight: 700 !important;
+
+    line-height: 1 !important;
+
+    pointer-events: none !important;
+}
+
+
+.ironstore-rclientes-busca input {
+    width: 100% !important;
+    height: 42px !important;
+
+    padding:
+        0 40px 0 39px !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    color: #101828 !important;
+
+    border: 1px solid #d0d5dd !important;
+    border-radius: 9px !important;
+
+    outline: none !important;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03) !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 550 !important;
+
+    line-height: 1 !important;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.ironstore-rclientes-busca input::placeholder {
+    color: #98a2b3 !important;
+
+    opacity: 1 !important;
+}
+
+
+.ironstore-rclientes-busca input:hover {
+    border-color: #98a2b3 !important;
+}
+
+
+.ironstore-rclientes-busca input:focus {
+    background: #ffffff !important;
+
+    border-color: #123d72 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.09) !important;
+}
+
+
+.ironstore-rclientes-busca-limpar {
+    position: absolute !important;
+
+    z-index: 3 !important;
+
+    right: 8px !important;
+    top: 50% !important;
+
+    width: 27px !important;
+    height: 27px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    transform: translateY(-50%) !important;
+
+    background: transparent !important;
+
+    color: #667085 !important;
+
+    border: none !important;
+    border-radius: 6px !important;
+
+    outline: none !important;
+
+    font-size: 18px !important;
+    font-weight: 500 !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease !important;
+}
+
+
+.ironstore-rclientes-busca-limpar:hover {
+    background: #eaecf0 !important;
+
+    color: #101828 !important;
+}
+
+
+/* ============================================================
+   BARRA DE INFORMAÇÕES
+============================================================ */
+
+.ironstore-rclientes-info {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 14px !important;
+
+    padding: 10px 18px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border-bottom: 1px solid #edf0f3 !important;
+}
+
+
+.ironstore-rclientes-status {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    color: #667085 !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+
+    line-height: 1 !important;
+}
+
+
+.ironstore-rclientes-status i {
+    width: 7px !important;
+    height: 7px !important;
+
+    display: block !important;
+
+    background: #17b26a !important;
+
+    border: 2px solid #dcfae6 !important;
+    border-radius: 50% !important;
+
+    box-shadow:
+        0 0 0 2px rgba(23, 178, 106, 0.08) !important;
+}
+
+
+.ironstore-rclientes-quantidade {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    min-height: 24px !important;
+
+    padding: 0 9px !important;
+
+    background: #eef2f6 !important;
+
+    color: #475467 !important;
+
+    border: 1px solid #e1e5eb !important;
+    border-radius: 6px !important;
+
+    font-size: 9px !important;
+    font-weight: 750 !important;
+
+    line-height: 1 !important;
+}
+
+
+/* ============================================================
+   CONTAINER DA TABELA
+============================================================ */
+
+.ironstore-rclientes-tabela-container {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #b9c4d1 #f8fafc !important;
+}
+
+
+.ironstore-rclientes-tabela-container::-webkit-scrollbar {
+    height: 7px !important;
+}
+
+
+.ironstore-rclientes-tabela-container::-webkit-scrollbar-track {
+    background: #f8fafc !important;
+}
+
+
+.ironstore-rclientes-tabela-container::-webkit-scrollbar-thumb {
+    background: #b9c4d1 !important;
+
+    border-radius: 999px !important;
+}
+
+
+/* ============================================================
+   TABELA
+============================================================ */
+
+.ironstore-rclientes-tabela {
+    width: 100% !important;
+    min-width: 1050px !important;
+
+    margin: 0 !important;
+
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+
+    table-layout: auto !important;
+
+    background: #ffffff !important;
+}
+
+
+.ironstore-rclientes-tabela thead {
+    background:
+        linear-gradient(90deg,
+            #f5f7fa,
+            #fafbfc) !important;
+}
+
+
+.ironstore-rclientes-tabela thead tr {
+    background: transparent !important;
+}
+
+
+.ironstore-rclientes-tabela thead th {
+    padding: 12px 16px !important;
+
+    background: transparent !important;
+
+    color: #667085 !important;
+
+    border: none !important;
+    border-bottom: 1px solid #e4e7ec !important;
+
+    text-align: left !important;
+    vertical-align: middle !important;
+
+    font-family: inherit !important;
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.2 !important;
+
+    letter-spacing: 0.7px !important;
+
+    text-transform: uppercase !important;
+
+    white-space: nowrap !important;
+}
+
+
+.ironstore-rclientes-th-acoes {
+    text-align: right !important;
+}
+
+
+/* ============================================================
+   LINHAS
+============================================================ */
+
+.ironstore-rclientes-tabela tbody {
+    background: #ffffff !important;
+}
+
+
+.ironstore-rclientes-tabela tbody tr {
+    position: relative !important;
+
+    background: #ffffff !important;
+
+    border: none !important;
+    border-bottom: 1px solid #edf0f3 !important;
+
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.ironstore-rclientes-tabela tbody tr:last-child {
+    border-bottom: none !important;
+}
+
+
+.ironstore-rclientes-tabela tbody tr:hover {
+    background: #f5f8fc !important;
+
+    box-shadow:
+        inset 4px 0 0 #123d72 !important;
+}
+
+
+.ironstore-rclientes-tabela tbody td {
+    padding: 15px 16px !important;
+
+    background: transparent !important;
+
+    color: #344054 !important;
+
+    border: none !important;
+
+    text-align: left !important;
+    vertical-align: middle !important;
+
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* ============================================================
+   CLIENTE
+============================================================ */
+
+.ironstore-rclientes-cliente {
+    min-width: 220px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+}
+
+
+/* ============================================================
+   AVATAR
+============================================================ */
+
+.ironstore-rclientes-avatar {
+    position: relative !important;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    min-width: 42px !important;
+    flex: 0 0 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(145deg,
+            #164a86,
+            #123d72) !important;
+
+    color: #ffffff !important;
+
+    border: 2px solid #ffffff !important;
+    border-radius: 50% !important;
+
+    box-shadow:
+        0 0 0 1px #d8e0e9,
+        0 3px 9px rgba(16, 24, 40, 0.10) !important;
+}
+
+
+.ironstore-rclientes-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    object-fit: cover !important;
+
+    border: none !important;
+    border-radius: 50% !important;
+}
+
+
+.ironstore-rclientes-avatar span {
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+
+    line-height: 1 !important;
+}
+
+
+/* ============================================================
+   DADOS DO CLIENTE
+============================================================ */
+
+.ironstore-rclientes-cliente-dados {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 2px !important;
+}
+
+
+.ironstore-rclientes-cliente-dados strong {
+    max-width: 210px !important;
+
+    margin: 0 !important;
+
+    overflow: hidden !important;
+
+    color: #101828 !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.3 !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+}
+
+
+.ironstore-rclientes-cliente-dados span {
+    max-width: 220px !important;
+
+    overflow: hidden !important;
+
+    color: #667085 !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.3 !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+}
+
+
+.ironstore-rclientes-cliente-dados small {
+    color: #98a2b3 !important;
+
+    font-size: 9px !important;
+    font-weight: 650 !important;
+
+    line-height: 1.3 !important;
+}
+
+
+/* ============================================================
+   CONTATO
+============================================================ */
+
+.ironstore-rclientes-contato {
+    min-width: 150px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+
+.ironstore-rclientes-contato strong {
+    color: #344054 !important;
+
+    font-size: 11px !important;
+    font-weight: 750 !important;
+
+    line-height: 1.3 !important;
+
+    white-space: nowrap !important;
+}
+
+
+.ironstore-rclientes-contato span {
+    max-width: 190px !important;
+
+    overflow: hidden !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 9px !important;
+    font-weight: 550 !important;
+
+    line-height: 1.3 !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* ============================================================
+   DOCUMENTO
+============================================================ */
+
+.ironstore-rclientes-documento {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    min-height: 27px !important;
+
+    padding: 0 8px !important;
+
+    box-sizing: border-box !important;
+
+    background: #f8fafc !important;
+
+    color: #475467 !important;
+
+    border: 1px solid #e4e7ec !important;
+    border-radius: 6px !important;
+
+    font-size: 10px !important;
+    font-weight: 700 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* ============================================================
+   ENDEREÇO
+============================================================ */
+
+.ironstore-rclientes-endereco {
+    min-width: 190px !important;
+    max-width: 250px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 2px !important;
+}
+
+
+.ironstore-rclientes-endereco strong {
+    margin: 0 !important;
+
+    overflow: hidden !important;
+
+    color: #344054 !important;
+
+    font-size: 10px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.35 !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+}
+
+
+.ironstore-rclientes-endereco span {
+    overflow: hidden !important;
+
+    color: #667085 !important;
+
+    font-size: 9px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.35 !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+}
+
+
+.ironstore-rclientes-endereco small {
+    color: #98a2b3 !important;
+
+    font-size: 8px !important;
+    font-weight: 650 !important;
+
+    line-height: 1.3 !important;
+}
+
+
+/* ============================================================
+   NASCIMENTO
+============================================================ */
+
+.ironstore-rclientes-nascimento {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    min-height: 27px !important;
+
+    padding: 0 8px !important;
+
+    box-sizing: border-box !important;
+
+    background: #f8fafc !important;
+
+    color: #475467 !important;
+
+    border: 1px solid #e4e7ec !important;
+    border-radius: 6px !important;
+
+    font-size: 10px !important;
+    font-weight: 700 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* ============================================================
+   AÇÕES
+============================================================ */
+
+.ironstore-rclientes-acoes {
+    min-width: 205px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    flex-wrap: nowrap !important;
+
+    gap: 6px !important;
+}
+
+
+.ironstore-rclientes-acao {
+    min-height: 31px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    padding: 0 10px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    color: #344054 !important;
+
+    border: 1px solid #d0d5dd !important;
+    border-radius: 7px !important;
+
+    outline: none !important;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03) !important;
+
+    font-family: inherit !important;
+    font-size: 9px !important;
+    font-weight: 750 !important;
+
+    line-height: 1 !important;
+
+    text-align: center !important;
+    text-decoration: none !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.ironstore-rclientes-acao:hover:not(:disabled) {
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 4px 9px rgba(16, 24, 40, 0.08) !important;
+}
+
+
+.ironstore-rclientes-acao:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+
+/* ============================================================
+   BOTÃO ENTRAR
+============================================================ */
+
+.ironstore-rclientes-acao-entrar {
+    background:
+        linear-gradient(145deg,
+            #164a86,
+            #123d72) !important;
+
+    color: #ffffff !important;
+
+    border-color: #123d72 !important;
+
+    box-shadow:
+        0 2px 5px rgba(18, 61, 114, 0.15) !important;
+}
+
+
+.ironstore-rclientes-acao-entrar:hover:not(:disabled) {
+    background:
+        linear-gradient(145deg,
+            #123d72,
+            #0c2d56) !important;
+
+    color: #ffffff !important;
+
+    border-color: #0c2d56 !important;
+
+    box-shadow:
+        0 5px 12px rgba(18, 61, 114, 0.22) !important;
+}
+
+
+.ironstore-rclientes-acao-entrar:disabled {
+    background: #98a2b3 !important;
+
+    color: #ffffff !important;
+
+    border-color: #98a2b3 !important;
+
+    opacity: 0.7 !important;
+
+    cursor: wait !important;
+
+    transform: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* ============================================================
+   BOTÃO WHATSAPP
+============================================================ */
+
+.ironstore-rclientes-acao-whatsapp {
+    background: #ecfdf3 !important;
+
+    color: #067647 !important;
+
+    border-color: #abefc6 !important;
+}
+
+
+.ironstore-rclientes-acao-whatsapp:hover {
+    background: #dcfae6 !important;
+
+    color: #05603a !important;
+
+    border-color: #75e0a7 !important;
+}
+
+
+/* ============================================================
+   BOTÃO E-MAIL
+============================================================ */
+
+.ironstore-rclientes-acao-email {
+    background: #ffffff !important;
+
+    color: #344054 !important;
+
+    border-color: #d0d5dd !important;
+}
+
+
+.ironstore-rclientes-acao-email:hover {
+    background: #f5f8fc !important;
+
+    color: #123d72 !important;
+
+    border-color: #123d72 !important;
+}
+
+
+/* ============================================================
+   LISTA VAZIA
+============================================================ */
+
+.ironstore-rclientes-vazio {
+    width: 100% !important;
+    min-height: 270px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    padding: 35px 20px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #fafbfc) !important;
+
+    text-align: center !important;
+}
+
+
+.ironstore-rclientes-vazio-icone {
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 4px !important;
+
+    background: #eef3f8 !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #dce5ef !important;
+    border-radius: 12px !important;
+
+    font-size: 22px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-rclientes-vazio strong {
+    margin: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-rclientes-vazio p {
+    max-width: 420px !important;
+
+    margin: 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* ============================================================
+   LOADING
+============================================================ */
+
+.ironstore-rclientes-loading {
+    width: 100% !important;
+    min-height: 450px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    padding: 30px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(18, 61, 114, 0.07),
+            transparent 34%),
+        linear-gradient(145deg,
+            #f8f9fb,
+            #f1f3f6) !important;
+
+    color: #101828 !important;
+
+    border-radius: 18px !important;
+}
+
+
+.ironstore-rclientes-loading-spinner {
+    width: 34px !important;
+    height: 34px !important;
+
+    margin: 0 0 6px 0 !important;
+
+    box-sizing: border-box !important;
+
+    border: 3px solid #dfe5ec !important;
+    border-top-color: #123d72 !important;
+    border-radius: 50% !important;
+
+    animation:
+        ironstoreRclientesLoading 0.75s linear infinite !important;
+}
+
+
+@keyframes ironstoreRclientesLoading {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+.ironstore-rclientes-loading strong {
+    margin: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-rclientes-loading span {
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+
+/* ============================================================
+   FOCO DE ACESSIBILIDADE
+============================================================ */
+
+.ironstore-rclientes-botao-atualizar:focus-visible,
+.ironstore-rclientes-acao:focus-visible,
+.ironstore-rclientes-busca-limpar:focus-visible {
+    outline: 3px solid rgba(18, 61, 114, 0.16) !important;
+    outline-offset: 2px !important;
+}
+
+
+/* ============================================================
+   TABLET
+============================================================ */
+
+@media (max-width: 1250px) {
+
+    .ironstore-rclientes-resumo {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    .ironstore-rclientes-painel-topo {
+        align-items: flex-start !important;
+
+        flex-direction: column !important;
+    }
+
+
+    .ironstore-rclientes-busca {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: 768px) {
+
+    .ironstore-rclientes-container {
+        padding: 15px !important;
+
+        border-radius: 14px !important;
+    }
+
+
+    .ironstore-rclientes-cabecalho {
+        align-items: stretch !important;
+
+        flex-direction: column !important;
+
+        gap: 15px !important;
+    }
+
+
+    .ironstore-rclientes-cabecalho-conteudo {
+        align-items: flex-start !important;
+    }
+
+
+    .ironstore-rclientes-botao-atualizar {
+        width: 100% !important;
+    }
+
+
+    .ironstore-rclientes-resumo {
+        grid-template-columns: 1fr 1fr !important;
+
+        gap: 10px !important;
+    }
+
+
+    .ironstore-rclientes-card {
+        min-height: 105px !important;
+
+        padding: 15px 16px !important;
+    }
+
+
+    .ironstore-rclientes-painel-topo {
+        padding: 15px !important;
+    }
+
+
+    .ironstore-rclientes-info {
+        padding:
+            10px 15px !important;
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE PEQUENO
+============================================================ */
+
+@media (max-width: 520px) {
+
+    .ironstore-rclientes-container {
+        padding: 11px !important;
+    }
+
+
+    .ironstore-rclientes-cabecalho {
+        margin-bottom: 17px !important;
+    }
+
+
+    .ironstore-rclientes-cabecalho-icone {
+        width: 44px !important;
+        height: 44px !important;
+
+        min-width: 44px !important;
+        flex-basis: 44px !important;
+
+        border-radius: 11px !important;
+    }
+
+
+    .ironstore-rclientes-eyebrow {
+        font-size: 9px !important;
+    }
+
+
+    .ironstore-rclientes-titulo {
+        font-size: 23px !important;
+    }
+
+
+    .ironstore-rclientes-descricao {
+        font-size: 11px !important;
+    }
+
+
+    .ironstore-rclientes-resumo {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .ironstore-rclientes-card {
+        min-height: 94px !important;
+    }
+
+
+    .ironstore-rclientes-card>strong {
+        font-size: 22px !important;
+    }
+
+
+    .ironstore-rclientes-painel {
+        border-radius: 12px !important;
+    }
+
+
+    .ironstore-rclientes-painel-topo {
+        padding: 13px !important;
+    }
+
+
+    .ironstore-rclientes-painel-titulo h3 {
+        font-size: 14px !important;
+    }
+
+
+    .ironstore-rclientes-info {
+        padding:
+            9px 13px !important;
+    }
+
+
+    .ironstore-rclientes-quantidade {
+        font-size: 8px !important;
+    }
+
+}
+
+
+/* ============================================================
+   REDUÇÃO DE MOVIMENTO
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstore-rclientes-card,
+    .ironstore-rclientes-acao,
+    .ironstore-rclientes-botao-atualizar,
+    .ironstore-rclientes-tabela tbody tr {
+        transition: none !important;
+    }
+
+}

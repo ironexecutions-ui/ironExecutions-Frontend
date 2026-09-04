@@ -40,8 +40,21 @@ export default function Tabela() {
         embalando,
         setEmbalando
     ] = useState(null);
+const [
+    enviando,
+    setEnviando
+] = useState(null);
 
 
+const [
+    entregando,
+    setEntregando
+] = useState(null);
+
+const [
+    mensagemEnvio,
+    setMensagemEnvio
+] = useState("");
     // ========================================================
     // TOKEN
     // ========================================================
@@ -212,15 +225,19 @@ export default function Tabela() {
     // ABRIR DETALHES
     // ========================================================
 
-    const abrirPedido = (
+ const abrirPedido = (
+    pedido
+) => {
+
+    setPedidoAberto(
         pedido
-    ) => {
+    );
 
-        setPedidoAberto(
-            pedido
-        );
+    setMensagemEnvio(
+        pedido?.protocolo?.mensagem || ""
+    );
 
-    };
+};
 
 
     // ========================================================
@@ -285,17 +302,17 @@ export default function Tabela() {
 
             }
 
-            const resposta = await fetch(
-                `${API_URL}/ironstore/configuracao/pedidos/${pedido.id}/embalar`,
-                {
-                    method: "PUT",
+ const resposta = await fetch(
+    `${API_URL}/ironstore/configuracao/pedidos/${pedido.id}/embalar`,
+    {
+        method: "PUT",
 
-                    headers: {
-                        Authorization:
-                            `Bearer ${token}`
-                    }
-                }
-            );
+        headers: {
+            Authorization:
+                `Bearer ${token}`
+        }
+    }
+);
 
             const dados = await resposta.json();
 
@@ -393,6 +410,317 @@ export default function Tabela() {
         }
 
     };
+
+
+const marcarComoEnviado = async (pedido) => {
+
+    if (
+        !pedido ||
+        !pedido.embalado ||
+        enviando === pedido.id
+    ) {
+        return;
+    }
+
+    setEnviando(pedido.id);
+    setErro("");
+
+    try {
+
+        const token = buscarToken();
+
+        if (!token) {
+            throw new Error(
+                "Sessão não encontrada."
+            );
+        }
+
+        const resposta = await fetch(
+            `${API_URL}/ironstore/configuracao/pedidos/${pedido.id}/enviar`,
+            {
+                method: "PUT",
+
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    mensagem: mensagemEnvio.trim()
+                })
+            }
+        );
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(
+                dados?.detail ||
+                "Não foi possível marcar o pedido como enviado."
+            );
+        }
+
+        // =====================================================
+        // ATUALIZAR LISTA
+        // =====================================================
+
+        setPedidos(
+            atuais =>
+                atuais.map(
+                    item =>
+                        item.id === pedido.id
+                            ? {
+                                ...item,
+
+                                embalado: false,
+                                enviado: true,
+
+                                protocolo: {
+                                    ...(item.protocolo || {}),
+
+                                    embalado: null,
+                                    enviado: "1",
+
+                                    codigo_rastreio:
+                                        dados.codigo_rastreio,
+
+                                    mensagem:
+                                        dados.mensagem_envio,
+
+                                    data_enviado:
+                                        dados.data_enviado,
+
+                                    hora_enviado:
+                                        dados.hora_enviado
+                                }
+                            }
+                            : item
+                )
+        );
+
+        // =====================================================
+        // ATUALIZAR PEDIDO ABERTO
+        // =====================================================
+
+        setPedidoAberto(
+            atual => {
+
+                if (
+                    !atual ||
+                    atual.id !== pedido.id
+                ) {
+                    return atual;
+                }
+
+                return {
+                    ...atual,
+
+                    embalado: false,
+                    enviado: true,
+
+                    protocolo: {
+                        ...(atual.protocolo || {}),
+
+                        embalado: null,
+                        enviado: "1",
+
+                        codigo_rastreio:
+                            dados.codigo_rastreio,
+
+                        mensagem:
+                            dados.mensagem_envio,
+
+                        data_enviado:
+                            dados.data_enviado,
+
+                        hora_enviado:
+                            dados.hora_enviado
+                    }
+                };
+            }
+        );
+
+        // Mantém o estado da mensagem sincronizado
+        setMensagemEnvio(
+            dados.mensagem_envio || ""
+        );
+
+    } catch (erroRequisicao) {
+
+        console.error(
+            "Erro ao enviar pedido:",
+            erroRequisicao
+        );
+
+        setErro(
+            erroRequisicao?.message ||
+            "Erro ao marcar pedido como enviado."
+        );
+
+    } finally {
+
+        setEnviando(null);
+
+    }
+
+};
+const marcarComoEntregue = async (pedido) => {
+
+    if (
+        !pedido ||
+        !pedido.enviado ||
+        pedido.entregue ||
+        entregando === pedido.id
+    ) {
+        return;
+    }
+
+    setEntregando(
+        pedido.id
+    );
+
+    setErro("");
+
+    try {
+
+        const token = buscarToken();
+
+        if (!token) {
+            throw new Error(
+                "Sessão não encontrada."
+            );
+        }
+
+        const resposta = await fetch(
+            `${API_URL}/ironstore/configuracao/pedidos/${pedido.id}/entregar`,
+            {
+                method: "PUT",
+
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`
+                }
+            }
+        );
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(
+                dados?.detail ||
+                "Não foi possível marcar o pedido como entregue."
+            );
+        }
+
+        // =====================================================
+        // ATUALIZAR LISTA
+        // =====================================================
+
+        setPedidos(
+            atuais =>
+                atuais.map(
+                    item =>
+                        item.id === pedido.id
+                            ? {
+                                ...item,
+
+                                embalado: false,
+                                enviado: false,
+                                entregue: true,
+
+                                protocolo: {
+                                    ...(item.protocolo || {}),
+
+                                    embalado: null,
+                                    enviado: null,
+                                    entregue: "1",
+
+                                    data_entregue:
+                                        dados.data_entregue,
+
+                                    hora_entregue:
+                                        dados.hora_entregue
+                                },
+
+                                frete: {
+                                    ...(item.frete || {}),
+
+                                    data_entrega:
+                                        dados.data_entregue
+                                }
+                            }
+                            : item
+                )
+        );
+
+        // =====================================================
+        // ATUALIZAR MODAL
+        // =====================================================
+
+        setPedidoAberto(
+            atual => {
+
+                if (
+                    !atual ||
+                    atual.id !== pedido.id
+                ) {
+                    return atual;
+                }
+
+                return {
+                    ...atual,
+
+                    embalado: false,
+                    enviado: false,
+                    entregue: true,
+
+                    protocolo: {
+                        ...(atual.protocolo || {}),
+
+                        embalado: null,
+                        enviado: null,
+                        entregue: "1",
+
+                        data_entregue:
+                            dados.data_entregue,
+
+                        hora_entregue:
+                            dados.hora_entregue
+                    },
+
+                    frete: {
+                        ...(atual.frete || {}),
+
+                        data_entrega:
+                            dados.data_entregue
+                    }
+                };
+            }
+        );
+
+    } catch (erroRequisicao) {
+
+        console.error(
+            "Erro ao entregar pedido:",
+            erroRequisicao
+        );
+
+        setErro(
+            erroRequisicao?.message ||
+            "Erro ao marcar pedido como entregue."
+        );
+
+    } finally {
+
+        setEntregando(
+            null
+        );
+
+    }
+
+};
+
+
 
 
     // ========================================================
@@ -665,19 +993,31 @@ export default function Tabela() {
 
                                         <td>
 
-                                            {pedido.embalado ? (
+                                         {pedido.entregue ? (
 
-                                                <span className="ironstore-pedidos-operacao-embalado">
-                                                    Embalado
-                                                </span>
+    <span className="ironstore-pedidos-operacao-entregue">
+        Entregue
+    </span>
 
-                                            ) : (
+) : pedido.enviado ? (
 
-                                                <span className="ironstore-pedidos-operacao-pendente">
-                                                    A embalar
-                                                </span>
+    <span className="ironstore-pedidos-operacao-enviado">
+        Enviado
+    </span>
 
-                                            )}
+) : pedido.embalado ? (
+
+    <span className="ironstore-pedidos-operacao-embalado">
+        Embalado
+    </span>
+
+) : (
+
+    <span className="ironstore-pedidos-operacao-pendente">
+        A embalar
+    </span>
+
+)}
 
                                         </td>
 
@@ -797,13 +1137,17 @@ export default function Tabela() {
                                     Preparação
                                 </span>
 
-                                <strong>
-                                    {
-                                        pedidoAberto.embalado
-                                            ? "Embalado"
-                                            : "Aguardando embalagem"
-                                    }
-                                </strong>
+                           <strong>
+    {
+        pedidoAberto.entregue
+            ? "Entregue"
+            : pedidoAberto.enviado
+                ? "Enviado"
+                : pedidoAberto.embalado
+                    ? "Embalado"
+                    : "Aguardando embalagem"
+    }
+</strong>
 
                             </div>
 
@@ -1089,39 +1433,180 @@ export default function Tabela() {
 
                         <footer className="ironstore-pedidos-operacao-modal-acoes">
 
-                            {pedidoAberto.embalado ? (
+{pedidoAberto.entregue ? (
 
-                                <DocumentoEntrega
-                                    pedido={pedidoAberto}
-                                />
+    <div className="ironstore-pedidos-operacao-entregue-info">
 
-                            ) : (
+        <strong>
+            Pedido entregue
+        </strong>
 
-                                <button
-                                    type="button"
+        <span>
+            Entregue em{" "}
+            {formatarData(
+                pedidoAberto.protocolo?.data_entregue
+            )}
 
-                                    disabled={
-                                        embalando === pedidoAberto.id ||
-                                        pedidoAberto.inconsistencia_frete
-                                    }
+            {pedidoAberto.protocolo?.hora_entregue
+                ? ` às ${pedidoAberto.protocolo.hora_entregue}`
+                : ""
+            }
+        </span>
 
-                                    onClick={() =>
-                                        marcarComoEmbalado(
-                                            pedidoAberto
-                                        )
-                                    }
+        {pedidoAberto.protocolo?.codigo_rastreio && (
+            <span>
+                Código de rastreio:{" "}
+                {pedidoAberto.protocolo.codigo_rastreio}
+            </span>
+        )}
 
-                                    className="ironstore-pedidos-operacao-embalar"
-                                >
-                                    {
-                                        embalando === pedidoAberto.id
-                                            ? "Marcando..."
-                                            : "Marcar como embalado"
-                                    }
-                                </button>
+    </div>
 
-                            )}
+) : pedidoAberto.enviado ? (
 
+    <>
+        <div className="ironstore-pedidos-operacao-enviado-info">
+
+            <strong>
+                Pedido enviado
+            </strong>
+
+            {pedidoAberto.protocolo?.codigo_rastreio && (
+                <span>
+                    Código de rastreio:{" "}
+                    {pedidoAberto.protocolo.codigo_rastreio}
+                </span>
+            )}
+
+        </div>
+
+        <button
+            type="button"
+
+            disabled={
+                entregando === pedidoAberto.id
+            }
+
+            onClick={() =>
+                marcarComoEntregue(
+                    pedidoAberto
+                )
+            }
+
+            className="ironstore-pedidos-operacao-entregar"
+        >
+            {
+                entregando === pedidoAberto.id
+                    ? "Marcando como entregue..."
+                    : "Marcar como entregue"
+            }
+        </button>
+    </>
+
+) : pedidoAberto.embalado ? (
+
+<>
+    <DocumentoEntrega
+        pedido={pedidoAberto}
+    />
+
+    <div className="ironstore-pedidos-operacao-mensagem-envio">
+
+        <div className="ironstore-pedidos-operacao-mensagem-envio-topo">
+
+            <strong>
+                Mensagem para o cliente
+            </strong>
+
+            <span>
+                Opcional
+            </span>
+
+        </div>
+
+        <textarea
+            value={mensagemEnvio}
+
+            onChange={evento =>
+                setMensagemEnvio(
+                    evento.target.value
+                )
+            }
+
+            maxLength={2000}
+
+            disabled={
+                enviando === pedidoAberto.id
+            }
+
+            placeholder="Ex.: Seu pedido foi enviado. Você pode acompanhar a entrega pelo código de rastreio informado."
+
+            className="ironstore-pedidos-operacao-mensagem-envio-textarea"
+        />
+
+        <div className="ironstore-pedidos-operacao-mensagem-envio-rodape">
+
+            <span>
+                Essa mensagem ficará registrada no pedido.
+            </span>
+
+            <span>
+                {mensagemEnvio.length}/2000
+            </span>
+
+        </div>
+
+    </div>
+
+    <button
+        type="button"
+
+        disabled={
+            enviando === pedidoAberto.id
+        }
+
+        onClick={() =>
+            marcarComoEnviado(
+                pedidoAberto
+            )
+        }
+
+        className="ironstore-pedidos-operacao-enviar"
+    >
+        {
+            enviando === pedidoAberto.id
+                ? "Marcando como enviado..."
+                : "Marcar como enviado"
+        }
+    </button>
+</>
+
+) : (
+
+    <button
+        type="button"
+
+        disabled={
+            embalando === pedidoAberto.id ||
+            pedidoAberto.inconsistencia_frete
+        }
+
+        onClick={() =>
+            marcarComoEmbalado(
+                pedidoAberto
+            )
+        }
+
+        className="ironstore-pedidos-operacao-embalar"
+    >
+        {
+            embalando === pedidoAberto.id
+                ? "Marcando..."
+                : "Marcar como embalado"
+        }
+    </button>
+
+)}
                         </footer>
 
                     </article>
