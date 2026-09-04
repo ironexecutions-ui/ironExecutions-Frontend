@@ -220,10 +220,17 @@ export default function Rastreio() {
                             item?.usuario_id !== undefined
                         ) {
 
+                            // CLIENTE LOGADO
                             clientes.add(
-                                String(
-                                    item.usuario_id
-                                )
+                                `logado:${item.usuario_id}`
+                            );
+
+                        } else if (item?.identificador) {
+
+                            // VISITANTE NÃO LOGADO
+                            // Cada código/IP diferente conta como um visitante diferente
+                            clientes.add(
+                                `nao-logado:${item.identificador}`
                             );
 
                         }
@@ -319,17 +326,15 @@ export default function Rastreio() {
                                 item?.usuario_id || ""
                             );
 
-
+                        const identificador =
+                            String(
+                                item?.identificador || ""
+                            ).toLowerCase();
                         return (
-                            usuario.includes(
-                                termo
-                            ) ||
-                            area.includes(
-                                termo
-                            ) ||
-                            id.includes(
-                                termo
-                            )
+                            usuario.includes(termo) ||
+                            area.includes(termo) ||
+                            id.includes(termo) ||
+                            identificador.includes(termo)
                         );
 
                     }
@@ -871,28 +876,40 @@ export default function Rastreio() {
                                                                 <div className="ironstore-rastreio-avatar">
 
                                                                     {
-                                                                        String(
-                                                                            item?.usuario || "C"
-                                                                        )
-                                                                            .trim()
-                                                                            .charAt(0)
-                                                                            .toUpperCase()
+                                                                        item?.logado
+                                                                            ? String(
+                                                                                item?.usuario || "C"
+                                                                            )
+                                                                                .trim()
+                                                                                .charAt(0)
+                                                                                .toUpperCase()
+                                                                            : "?"
                                                                     }
 
                                                                 </div>
-
 
                                                                 <div className="ironstore-rastreio-cliente-info">
 
                                                                     <strong>
                                                                         {
-                                                                            item?.usuario ||
-                                                                            "Cliente"
+                                                                            item?.logado
+                                                                                ? (
+                                                                                    item?.usuario ||
+                                                                                    "Cliente"
+                                                                                )
+                                                                                : "Usuário não logado"
                                                                         }
                                                                     </strong>
 
                                                                     <span>
-                                                                        ID #{item?.usuario_id}
+                                                                        {
+                                                                            item?.logado
+                                                                                ? `ID #${item.usuario_id}`
+                                                                                : (
+                                                                                    item?.identificador ||
+                                                                                    "Visitante não identificado"
+                                                                                )
+                                                                        }
                                                                     </span>
 
                                                                 </div>
