@@ -1,0 +1,1676 @@
+/* =========================================================
+   IRONSTORE
+   RASTREIO DE NAVEGAÇÃO
+   MODELO PREMIUM
+========================================================= */
+
+
+/* =========================================================
+   PAINEL PRINCIPAL
+========================================================= */
+
+.ironstore-rastreio {
+    width: 100% !important;
+    min-height: 100% !important;
+
+    padding: 24px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(10, 54, 110, 0.06),
+            transparent 32%),
+        linear-gradient(145deg,
+            #f8f9fb 0%,
+            #f1f3f6 100%) !important;
+
+    color: #111827 !important;
+
+    border-radius: 18px !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.ironstore-rastreio-topo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    margin-bottom: 22px !important;
+}
+
+.ironstore-rastreio-topo-conteudo {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 14px !important;
+
+    min-width: 0 !important;
+}
+
+
+/* =========================================================
+   ÍCONE DO CABEÇALHO
+========================================================= */
+
+.ironstore-rastreio-titulo-icone {
+    width: 48px !important;
+    height: 48px !important;
+
+    min-width: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f1f4f8) !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #dce3eb !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 4px 14px rgba(16, 24, 40, 0.06) !important;
+
+    font-size: 19px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   MINI TÍTULO
+========================================================= */
+
+.ironstore-rastreio-eyebrow {
+    display: block !important;
+
+    margin: 0 0 4px 0 !important;
+
+    color: #123d72 !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 1.7px !important;
+
+    text-transform: uppercase !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.ironstore-rastreio-topo h2 {
+    margin: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 27px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: -0.7px !important;
+}
+
+
+/* =========================================================
+   SUBTÍTULO
+========================================================= */
+
+.ironstore-rastreio-topo p {
+    margin: 4px 0 0 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+
+    font-weight: 500 !important;
+}
+
+
+/* =========================================================
+   BOTÃO ATUALIZAR
+========================================================= */
+
+.ironstore-rastreio-atualizar {
+    min-height: 44px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    padding: 0 18px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #123d72 !important;
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    background: #ffffff !important;
+
+    color: #123d72 !important;
+
+    font-size: 13px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    white-space: nowrap !important;
+
+    box-shadow: none !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.ironstore-rastreio-atualizar:hover:not(:disabled) {
+    background: #123d72 !important;
+
+    color: #ffffff !important;
+
+    border-color: #123d72 !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 7px 18px rgba(18, 61, 114, 0.18) !important;
+}
+
+.ironstore-rastreio-atualizar:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+.ironstore-rastreio-atualizar:disabled {
+    opacity: 0.6 !important;
+
+    cursor: not-allowed !important;
+}
+
+
+/* =========================================================
+   ÍCONE ATUALIZAR
+========================================================= */
+
+.ironstore-rastreio-atualizar-icone {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: inherit !important;
+
+    font-size: 18px !important;
+    line-height: 1 !important;
+}
+
+.ironstore-rastreio-atualizar-icone.girando {
+    animation:
+        ironstoreRastreioGirar 0.75s linear infinite !important;
+}
+
+@keyframes ironstoreRastreioGirar {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   INDICADORES
+========================================================= */
+
+.ironstore-rastreio-resumo {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 14px !important;
+
+    margin-bottom: 22px !important;
+}
+
+
+/* =========================================================
+   CARD INDICADOR
+========================================================= */
+
+.ironstore-rastreio-card {
+    position: relative !important;
+
+    min-width: 0 !important;
+    min-height: 110px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    gap: 6px !important;
+
+    padding: 18px 20px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #e1e5eb !important;
+    border-radius: 14px !important;
+
+    box-shadow:
+        0 4px 15px rgba(16, 24, 40, 0.045) !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease !important;
+}
+
+
+/* BARRA AZUL LATERAL */
+
+.ironstore-rastreio-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background: #123d72 !important;
+}
+
+.ironstore-rastreio-card:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: #c8d2df !important;
+
+    box-shadow:
+        0 9px 24px rgba(16, 24, 40, 0.08) !important;
+}
+
+
+/* =========================================================
+   TOPO DO CARD
+========================================================= */
+
+.ironstore-rastreio-card-topo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+
+    margin-bottom: 3px !important;
+}
+
+.ironstore-rastreio-card-topo>span {
+    color: #667085 !important;
+
+    font-size: 12px !important;
+    font-weight: 650 !important;
+}
+
+
+/* =========================================================
+   ÍCONE CARD
+========================================================= */
+
+.ironstore-rastreio-card-icone {
+    width: 31px !important;
+    height: 31px !important;
+
+    min-width: 31px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    background: #f3f6f9 !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #dce3eb !important;
+    border-radius: 8px !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   VALOR CARD
+========================================================= */
+
+.ironstore-rastreio-card>strong {
+    display: block !important;
+
+    max-width: 100% !important;
+
+    margin: 0 !important;
+
+    overflow: hidden !important;
+
+    color: #123d72 !important;
+
+    font-size: 23px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 850 !important;
+
+    letter-spacing: -0.5px !important;
+
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
+.ironstore-rastreio-card>strong.ironstore-rastreio-card-area {
+    font-size: 20px !important;
+}
+
+
+/* =========================================================
+   TEXTO SECUNDÁRIO CARD
+========================================================= */
+
+.ironstore-rastreio-card>small {
+    display: block !important;
+
+    margin-top: 1px !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+}
+
+
+/* =========================================================
+   PAINEL DA TABELA
+========================================================= */
+
+.ironstore-rastreio-painel {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dfe4ea !important;
+    border-radius: 14px !important;
+
+    box-shadow:
+        0 4px 14px rgba(16, 24, 40, 0.045) !important;
+
+    animation:
+        ironstoreRastreioEntrada 0.3s ease !important;
+}
+
+@keyframes ironstoreRastreioEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   CABEÇALHO DO PAINEL
+========================================================= */
+
+.ironstore-rastreio-painel-topo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    padding: 17px 18px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(90deg,
+            #eef2f6,
+            #f8f9fb) !important;
+
+    border-bottom: 1px solid #dfe4ea !important;
+}
+
+.ironstore-rastreio-painel-topo h3 {
+    margin: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 16px !important;
+    font-weight: 850 !important;
+}
+
+.ironstore-rastreio-painel-topo p {
+    margin: 4px 0 0 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   BUSCA
+========================================================= */
+
+.ironstore-rastreio-busca {
+    width: 310px !important;
+    height: 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    padding: 0 11px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #d5dae2 !important;
+    border-radius: 9px !important;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.ironstore-rastreio-busca:hover {
+    border-color: #9da9b9 !important;
+}
+
+.ironstore-rastreio-busca:focus-within {
+    background: #ffffff !important;
+
+    border-color: #123d72 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.09) !important;
+}
+
+
+/* =========================================================
+   ÍCONE BUSCA
+========================================================= */
+
+.ironstore-rastreio-busca>span {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: #667085 !important;
+
+    font-size: 17px !important;
+    line-height: 1 !important;
+}
+
+
+/* =========================================================
+   INPUT BUSCA
+========================================================= */
+
+.ironstore-rastreio-busca input {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-width: 0 !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    border: none !important;
+    outline: none !important;
+
+    background: transparent !important;
+
+    color: #101828 !important;
+
+    box-shadow: none !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.ironstore-rastreio-busca input::placeholder {
+    color: #98a2b3 !important;
+
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR BUSCA
+========================================================= */
+
+.ironstore-rastreio-busca button {
+    width: 26px !important;
+    height: 26px !important;
+
+    min-width: 26px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: none !important;
+    border-radius: 6px !important;
+
+    outline: none !important;
+
+    background: transparent !important;
+
+    color: #667085 !important;
+
+    box-shadow: none !important;
+
+    font-size: 18px !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease !important;
+}
+
+.ironstore-rastreio-busca button:hover {
+    background: #e9edf2 !important;
+
+    color: #123d72 !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA LISTAGEM
+========================================================= */
+
+.ironstore-rastreio-info {
+    width: 100% !important;
+    min-height: 43px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    padding: 0 18px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border-bottom: 1px solid #edf0f3 !important;
+
+    color: #667085 !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.ironstore-rastreio-status {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    color: #667085 !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+}
+
+.ironstore-rastreio-status i {
+    width: 7px !important;
+    height: 7px !important;
+
+    display: block !important;
+
+    background: #067647 !important;
+
+    border-radius: 50% !important;
+
+    box-shadow:
+        0 0 0 3px rgba(6, 118, 71, 0.10) !important;
+}
+
+
+/* =========================================================
+   CONTAINER DA TABELA
+========================================================= */
+
+.ironstore-rastreio-tabela-container {
+    width: 100% !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+
+    background: #ffffff !important;
+}
+
+
+/* =========================================================
+   TABELA
+========================================================= */
+
+.ironstore-rastreio-tabela {
+    width: 100% !important;
+
+    min-width: 650px !important;
+
+    margin: 0 !important;
+
+    border: none !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+
+    background: #ffffff !important;
+
+    table-layout: fixed !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO TABELA
+========================================================= */
+
+.ironstore-rastreio-tabela thead {
+    background: #f8f9fb !important;
+}
+
+.ironstore-rastreio-tabela thead tr {
+    background: #f8f9fb !important;
+}
+
+.ironstore-rastreio-tabela th {
+    height: 43px !important;
+
+    padding: 0 18px !important;
+
+    box-sizing: border-box !important;
+
+    background: #f8f9fb !important;
+
+    color: #667085 !important;
+
+    border: none !important;
+    border-bottom: 1px solid #dfe4ea !important;
+
+    text-align: left !important;
+    vertical-align: middle !important;
+
+    font-size: 10px !important;
+    line-height: 1 !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 0.8px !important;
+
+    text-transform: uppercase !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   LARGURA DAS COLUNAS
+========================================================= */
+
+.ironstore-rastreio-tabela th:nth-child(1) {
+    width: 45% !important;
+}
+
+.ironstore-rastreio-tabela th:nth-child(2) {
+    width: 25% !important;
+}
+
+.ironstore-rastreio-tabela th:nth-child(3) {
+    width: 30% !important;
+}
+
+
+/* =========================================================
+   LINHAS
+========================================================= */
+
+.ironstore-rastreio-tabela tbody tr {
+    position: relative !important;
+
+    background: #ffffff !important;
+
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+.ironstore-rastreio-tabela tbody tr:hover {
+    background: #f5f8fc !important;
+
+    box-shadow:
+        inset 4px 0 0 #123d72 !important;
+}
+
+
+/* =========================================================
+   CÉLULAS
+========================================================= */
+
+.ironstore-rastreio-tabela td {
+    height: 68px !important;
+
+    padding: 12px 18px !important;
+
+    box-sizing: border-box !important;
+
+    background: transparent !important;
+
+    color: #344054 !important;
+
+    border: none !important;
+    border-bottom: 1px solid #edf0f3 !important;
+
+    vertical-align: middle !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.ironstore-rastreio-tabela tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+
+/* =========================================================
+   CLIENTE
+========================================================= */
+
+.ironstore-rastreio-cliente {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.ironstore-rastreio-avatar {
+    width: 38px !important;
+    height: 38px !important;
+
+    min-width: 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #edf2f7,
+            #f8fafc) !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #d6dee8 !important;
+    border-radius: 10px !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+
+    box-shadow:
+        0 2px 6px rgba(16, 24, 40, 0.04) !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES CLIENTE
+========================================================= */
+
+.ironstore-rastreio-cliente-info {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+.ironstore-rastreio-cliente-info strong {
+    display: block !important;
+
+    max-width: 100% !important;
+
+    overflow: hidden !important;
+
+    color: #101828 !important;
+
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+
+    font-weight: 750 !important;
+
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
+.ironstore-rastreio-cliente-info span {
+    display: block !important;
+
+    color: #7c8798 !important;
+
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 650 !important;
+}
+
+
+/* =========================================================
+   BADGE ÁREA
+========================================================= */
+
+.ironstore-rastreio-area {
+    width: fit-content !important;
+    max-width: 100% !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    padding: 6px 9px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #f4f7fa,
+            #eef2f6) !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #d7e0e9 !important;
+    border-radius: 7px !important;
+
+    font-size: 10px !important;
+    line-height: 1 !important;
+
+    font-weight: 800 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   ÍCONE ÁREA
+========================================================= */
+
+.ironstore-rastreio-area i {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 13px !important;
+
+    color: #123d72 !important;
+
+    font-size: 12px !important;
+    line-height: 1 !important;
+
+    font-style: normal !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   ACESSOS
+========================================================= */
+
+.ironstore-rastreio-acessos {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        48px minmax(70px, 1fr) !important;
+
+    align-items: center !important;
+
+    gap: 11px !important;
+}
+
+.ironstore-rastreio-acessos>strong {
+    color: #123d72 !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   BARRA DE ACESSOS
+========================================================= */
+
+.ironstore-rastreio-barra {
+    position: relative !important;
+
+    width: 100% !important;
+    height: 6px !important;
+
+    overflow: hidden !important;
+
+    background: #e7ebf0 !important;
+
+    border-radius: 30px !important;
+}
+
+.ironstore-rastreio-barra>span {
+    position: absolute !important;
+
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+
+    min-width: 5px !important;
+
+    background:
+        linear-gradient(90deg,
+            #123d72,
+            #225d9d) !important;
+
+    border-radius: 30px !important;
+
+    box-shadow:
+        0 1px 5px rgba(18, 61, 114, 0.20) !important;
+
+    transition:
+        width 0.45s ease !important;
+}
+
+
+/* =========================================================
+   ALERTA DE ERRO
+========================================================= */
+
+.ironstore-rastreio-alerta {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+
+    padding: 14px 16px !important;
+
+    margin-bottom: 18px !important;
+
+    box-sizing: border-box !important;
+
+    background: #fff8f7 !important;
+
+    border: 1px solid #f0cbc6 !important;
+    border-radius: 11px !important;
+
+    box-shadow:
+        0 3px 10px rgba(180, 35, 24, 0.04) !important;
+}
+
+.ironstore-rastreio-alerta-icone {
+    width: 32px !important;
+    height: 32px !important;
+
+    min-width: 32px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #fee4e2 !important;
+
+    color: #b42318 !important;
+
+    border-radius: 8px !important;
+
+    font-size: 13px !important;
+    font-weight: 900 !important;
+}
+
+.ironstore-rastreio-alerta strong {
+    display: block !important;
+
+    margin-bottom: 2px !important;
+
+    color: #912018 !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+}
+
+.ironstore-rastreio-alerta span {
+    display: block !important;
+
+    color: #b5473d !important;
+
+    font-size: 10px !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   VAZIO
+========================================================= */
+
+.ironstore-rastreio-vazio {
+    width: 100% !important;
+    min-height: 210px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 6px !important;
+
+    padding: 30px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    text-align: center !important;
+}
+
+.ironstore-rastreio-vazio-icone {
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 5px !important;
+
+    background: #f1f4f7 !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #dce3eb !important;
+    border-radius: 12px !important;
+
+    font-size: 20px !important;
+    font-weight: 850 !important;
+}
+
+.ironstore-rastreio-vazio strong {
+    color: #101828 !important;
+
+    font-size: 15px !important;
+    font-weight: 800 !important;
+}
+
+.ironstore-rastreio-vazio p {
+    max-width: 420px !important;
+
+    margin: 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+
+    font-weight: 500 !important;
+}
+
+
+/* =========================================================
+   CARREGANDO
+========================================================= */
+
+.ironstore-rastreio-loading {
+    width: 100% !important;
+    min-height: 300px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 45px 20px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(10, 54, 110, 0.06),
+            transparent 32%),
+        linear-gradient(145deg,
+            #f8f9fb,
+            #f1f3f6) !important;
+
+    border: 1px solid #e1e5eb !important;
+    border-radius: 14px !important;
+
+    color: #123d72 !important;
+
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.ironstore-rastreio-loading-spinner {
+    width: 34px !important;
+    height: 34px !important;
+
+    margin-bottom: 13px !important;
+
+    box-sizing: border-box !important;
+
+    border: 3px solid #dce3eb !important;
+    border-top-color: #123d72 !important;
+    border-radius: 50% !important;
+
+    animation:
+        ironstoreRastreioGirar 0.75s linear infinite !important;
+}
+
+.ironstore-rastreio-loading strong {
+    display: block !important;
+
+    color: #123d72 !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+.ironstore-rastreio-loading span {
+    display: block !important;
+
+    margin-top: 5px !important;
+
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.ironstore-rastreio ::-webkit-scrollbar {
+    width: 7px !important;
+    height: 7px !important;
+}
+
+.ironstore-rastreio ::-webkit-scrollbar-track {
+    background: #eef1f4 !important;
+}
+
+.ironstore-rastreio ::-webkit-scrollbar-thumb {
+    background: #aeb9c7 !important;
+
+    border-radius: 20px !important;
+}
+
+.ironstore-rastreio ::-webkit-scrollbar-thumb:hover {
+    background: #123d72 !important;
+}
+
+
+/* =========================================================
+   SELEÇÃO DE TEXTO
+========================================================= */
+
+.ironstore-rastreio ::selection {
+    background: rgba(18, 61, 114, 0.16) !important;
+
+    color: #101828 !important;
+}
+
+
+/* =========================================================
+   TABLET GRANDE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .ironstore-rastreio-resumo {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .ironstore-rastreio {
+        padding: 16px !important;
+
+        border-radius: 14px !important;
+    }
+
+
+    /* CABEÇALHO */
+
+    .ironstore-rastreio-topo {
+        align-items: flex-start !important;
+        flex-direction: column !important;
+    }
+
+    .ironstore-rastreio-atualizar {
+        width: 100% !important;
+    }
+
+
+    /* PAINEL */
+
+    .ironstore-rastreio-painel-topo {
+        align-items: flex-start !important;
+        flex-direction: column !important;
+    }
+
+    .ironstore-rastreio-busca {
+        width: 100% !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .ironstore-rastreio {
+        padding: 11px !important;
+
+        border-radius: 12px !important;
+    }
+
+
+    /* =====================================================
+       CABEÇALHO
+    ===================================================== */
+
+    .ironstore-rastreio-topo {
+        gap: 14px !important;
+
+        margin-bottom: 16px !important;
+    }
+
+    .ironstore-rastreio-topo-conteudo {
+        align-items: flex-start !important;
+
+        gap: 10px !important;
+    }
+
+    .ironstore-rastreio-titulo-icone {
+        width: 42px !important;
+        height: 42px !important;
+
+        min-width: 42px !important;
+
+        border-radius: 10px !important;
+
+        font-size: 16px !important;
+    }
+
+    .ironstore-rastreio-eyebrow {
+        font-size: 8px !important;
+
+        letter-spacing: 1.3px !important;
+    }
+
+    .ironstore-rastreio-topo h2 {
+        font-size: 22px !important;
+
+        letter-spacing: -0.4px !important;
+    }
+
+    .ironstore-rastreio-topo p {
+        font-size: 12px !important;
+    }
+
+
+    /* =====================================================
+       INDICADORES
+    ===================================================== */
+
+    .ironstore-rastreio-resumo {
+        grid-template-columns: 1fr !important;
+
+        gap: 10px !important;
+
+        margin-bottom: 16px !important;
+    }
+
+    .ironstore-rastreio-card {
+        min-height: 90px !important;
+
+        padding: 15px 17px !important;
+    }
+
+    .ironstore-rastreio-card>strong {
+        font-size: 20px !important;
+    }
+
+    .ironstore-rastreio-card>strong.ironstore-rastreio-card-area {
+        font-size: 18px !important;
+    }
+
+
+    /* =====================================================
+       PAINEL
+    ===================================================== */
+
+    .ironstore-rastreio-painel {
+        border-radius: 12px !important;
+    }
+
+    .ironstore-rastreio-painel-topo {
+        padding: 14px !important;
+    }
+
+    .ironstore-rastreio-painel-topo h3 {
+        font-size: 14px !important;
+    }
+
+    .ironstore-rastreio-info {
+        padding: 0 14px !important;
+    }
+
+
+    /* =====================================================
+       TABELA
+    ===================================================== */
+
+    .ironstore-rastreio-tabela {
+        min-width: 620px !important;
+    }
+
+    .ironstore-rastreio-tabela th {
+        padding:
+            0 14px !important;
+    }
+
+    .ironstore-rastreio-tabela td {
+        padding:
+            11px 14px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE MUITO PEQUENO
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .ironstore-rastreio {
+        padding: 8px !important;
+    }
+
+    .ironstore-rastreio-topo h2 {
+        font-size: 20px !important;
+    }
+
+    .ironstore-rastreio-topo p {
+        font-size: 11px !important;
+    }
+
+    .ironstore-rastreio-card {
+        padding:
+            14px 15px !important;
+    }
+
+}
+
+
+/* =========================================================
+   FORÇAR CORES
+   PROTEÇÃO CONTRA CSS GLOBAL
+========================================================= */
+
+
+/* PRETO PRINCIPAL */
+
+.ironstore-rastreio-topo h2,
+.ironstore-rastreio-painel-topo h3,
+.ironstore-rastreio-cliente-info strong,
+.ironstore-rastreio-vazio strong {
+    color: #101828 !important;
+}
+
+
+/* AZUL PRINCIPAL */
+
+.ironstore-rastreio-eyebrow,
+.ironstore-rastreio-titulo-icone,
+.ironstore-rastreio-card>strong,
+.ironstore-rastreio-card-icone,
+.ironstore-rastreio-area,
+.ironstore-rastreio-area i,
+.ironstore-rastreio-acessos>strong,
+.ironstore-rastreio-loading strong {
+    color: #123d72 !important;
+}
+
+
+/* CINZA PRINCIPAL */
+
+.ironstore-rastreio-topo p,
+.ironstore-rastreio-card-topo>span,
+.ironstore-rastreio-painel-topo p,
+.ironstore-rastreio-info,
+.ironstore-rastreio-status,
+.ironstore-rastreio-vazio p,
+.ironstore-rastreio-loading span {
+    color: #667085 !important;
+}
+
+
+/* CINZA SECUNDÁRIO */
+
+.ironstore-rastreio-card>small,
+.ironstore-rastreio-busca input::placeholder {
+    color: #98a2b3 !important;
+}
+
+
+/* ID CLIENTE */
+
+.ironstore-rastreio-cliente-info span {
+    color: #7c8798 !important;
+}
+
+
+/* INPUT */
+
+.ironstore-rastreio-busca input {
+    color: #101828 !important;
+}
+
+
+/* BOTÃO */
+
+.ironstore-rastreio-atualizar {
+    color: #123d72 !important;
+}
+
+.ironstore-rastreio-atualizar:hover:not(:disabled) {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   PROTEÇÃO CONTRA ESTILOS GLOBAIS DE TABLE
+========================================================= */
+
+.ironstore-rastreio .ironstore-rastreio-tabela,
+.ironstore-rastreio .ironstore-rastreio-tabela thead,
+.ironstore-rastreio .ironstore-rastreio-tabela tbody,
+.ironstore-rastreio .ironstore-rastreio-tabela tr,
+.ironstore-rastreio .ironstore-rastreio-tabela th,
+.ironstore-rastreio .ironstore-rastreio-tabela td {
+    box-sizing: border-box !important;
+}
+
+.ironstore-rastreio .ironstore-rastreio-tabela {
+    margin: 0 !important;
+
+    border-collapse: collapse !important;
+
+    background: #ffffff !important;
+}
+
+.ironstore-rastreio .ironstore-rastreio-tabela th {
+    background: #f8f9fb !important;
+
+    color: #667085 !important;
+}
+
+.ironstore-rastreio .ironstore-rastreio-tabela td {
+    color: #344054 !important;
+}
+
+.ironstore-rastreio .ironstore-rastreio-tabela tbody tr {
+    background: #ffffff !important;
+}
+
+.ironstore-rastreio .ironstore-rastreio-tabela tbody tr:hover {
+    background: #f5f8fc !important;
+}
+
+
+/* =========================================================
+   PROTEÇÃO CONTRA ESTILOS GLOBAIS DE BUTTON
+========================================================= */
+
+.ironstore-rastreio button {
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+}
+
+
+/* =========================================================
+   PROTEÇÃO CONTRA ESTILOS GLOBAIS DE INPUT
+========================================================= */
+
+.ironstore-rastreio input {
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+}
+
+
+/* =========================================================
+   FIM
+========================================================= */
