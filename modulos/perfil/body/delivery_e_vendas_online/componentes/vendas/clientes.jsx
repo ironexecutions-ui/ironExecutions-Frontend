@@ -1786,6 +1786,7 @@ export default function RClientes() {
             `E-mail: ${email}\n` +
             `Senha: ${senha}\n\n` +
             `Para acompanhar seus pedidos, acesse a loja, entre na sua conta e vá até Perfil > Minhas compras.\n\n` +
+            `é possivel tambem entrar com sua conta de google sem precisar colocar senha.\n\n` +
             `Por segurança, recomendamos alterar sua senha após o primeiro acesso.`;
 
 
@@ -2609,20 +2610,7 @@ export default function RClientes() {
                                                                 }
 
 
-                                                                {
-                                                                    cliente?.email && (
 
-                                                                        <a
-                                                                            className="ironstore-rclientes-acao ironstore-rclientes-acao-email"
-                                                                            href={
-                                                                                `mailto:${cliente.email}`
-                                                                            }
-                                                                        >
-                                                                            E-mail
-                                                                        </a>
-
-                                                                    )
-                                                                }
 
                                                             </div>
 
