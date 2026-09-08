@@ -1782,7 +1782,7 @@ export default function RClientes() {
 
         const mensagem =
             `Olá, ${nome}!\n\n` +
-            `Seu acesso à nossa loja foi criado com sucesso.\n\n` +
+            `Seu acesso à nossa loja foi criado com sucesso na https://missionarystorebrasil.com.br \n\n` +
             `E-mail: ${email}\n` +
             `Senha: ${senha}\n\n` +
             `Para acompanhar seus pedidos, acesse a loja, entre na sua conta e vá até Perfil > Minhas compras.\n\n` +
