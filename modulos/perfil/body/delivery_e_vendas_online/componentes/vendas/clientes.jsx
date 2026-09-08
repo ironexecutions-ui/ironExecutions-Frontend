@@ -1618,7 +1618,245 @@ export default function RClientes() {
     /* ============================================================
        ABRIR WHATSAPP
     ============================================================ */
+    /* ============================================================
+       COMPARTILHAR ACESSO DO CLIENTE
+    ============================================================ */
 
+    async function compartilharAcessoCliente(
+        cliente
+    ) {
+
+        if (!cliente?.id) {
+            return;
+        }
+
+
+        let senha =
+            String(
+                cliente?.senha_temporaria ||
+                ""
+            ).trim();
+
+
+        /* =====================================================
+           SE NÃO TEMOS A SENHA, GERAR UMA NOVA
+        ===================================================== */
+
+        if (!senha) {
+
+            try {
+
+                const token =
+                    localStorage.getItem(
+                        "token"
+                    );
+
+
+                if (!token) {
+
+                    throw new Error(
+                        "Sessão do painel não encontrada."
+                    );
+                }
+
+
+                const resposta =
+                    await fetch(
+                        `${API_URL}/ironstore/clientes/painel/${cliente.id}/gerar-senha`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                Authorization:
+                                    `Bearer ${token}`
+                            }
+                        }
+                    );
+
+
+                const resultado =
+                    await resposta
+                        .json()
+                        .catch(
+                            () => ({})
+                        );
+
+
+                if (
+                    resposta.status === 401
+                ) {
+
+                    localStorage.removeItem(
+                        "token"
+                    );
+
+                    localStorage.removeItem(
+                        "usuario"
+                    );
+
+                    window.location.replace(
+                        "/"
+                    );
+
+                    return;
+                }
+
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        resultado?.detail ||
+                        "Não foi possível gerar a senha do cliente."
+                    );
+                }
+
+
+                senha =
+                    String(
+                        resultado?.cliente?.senha_temporaria ||
+                        ""
+                    ).trim();
+
+
+                if (!senha) {
+
+                    throw new Error(
+                        "O servidor não retornou a nova senha."
+                    );
+                }
+
+
+                /* =====================================================
+                   GUARDAR A SENHA NO ESTADO ATUAL
+                ===================================================== */
+
+                setClientes(
+                    anteriores =>
+                        anteriores.map(
+                            item =>
+                                item.id === cliente.id
+                                    ? {
+                                        ...item,
+                                        senha_temporaria:
+                                            senha
+                                    }
+                                    : item
+                        )
+                );
+
+
+            } catch (erro) {
+
+                console.error(
+                    "[IRONSTORE GERAR SENHA CLIENTE]",
+                    erro
+                );
+
+                alert(
+                    erro?.message ||
+                    "Não foi possível gerar a senha do cliente."
+                );
+
+                return;
+            }
+        }
+
+
+        /* =====================================================
+           MONTAR DADOS
+        ===================================================== */
+
+        const nome =
+            String(
+                cliente?.nome ||
+                "cliente"
+            ).trim();
+
+
+        const email =
+            String(
+                cliente?.email ||
+                ""
+            ).trim();
+
+
+        const mensagem =
+            `Olá, ${nome}!\n\n` +
+            `Seu acesso à nossa loja foi criado com sucesso.\n\n` +
+            `E-mail: ${email}\n` +
+            `Senha: ${senha}\n\n` +
+            `Para acompanhar seus pedidos, acesse a loja, entre na sua conta e vá até Perfil > Minhas compras.\n\n` +
+            `Por segurança, recomendamos alterar sua senha após o primeiro acesso.`;
+
+
+        /* =====================================================
+           WHATSAPP
+        ===================================================== */
+
+        const whatsapp =
+            String(
+                cliente?.whatsapp ||
+                ""
+            ).replace(
+                /\D/g,
+                ""
+            );
+
+
+        if (whatsapp) {
+
+            let telefone =
+                whatsapp;
+
+
+            if (
+                whatsapp.length === 10 ||
+                whatsapp.length === 11
+            ) {
+
+                telefone =
+                    `55${whatsapp}`;
+            }
+
+
+            window.open(
+                `https://wa.me/${telefone}?text=${encodeURIComponent(
+                    mensagem
+                )}`,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+            return;
+        }
+
+
+        /* =====================================================
+           SEM WHATSAPP: COPIAR
+        ===================================================== */
+
+        try {
+
+            await navigator.clipboard.writeText(
+                mensagem
+            );
+
+            alert(
+                "Dados de acesso copiados."
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[IRONSTORE COMPARTILHAR ACESSO]",
+                erro
+            );
+
+            alert(
+                "Não foi possível copiar os dados de acesso."
+            );
+        }
+    }
     function abrirWhatsapp(
         whatsapp
     ) {
@@ -2337,7 +2575,19 @@ export default function RClientes() {
                                                                     }
                                                                 </button>
 
-
+                                                                <button
+                                                                    type="button"
+                                                                    className="ironstore-rclientes-acao ironstore-rclientes-acao-compartilhar"
+                                                                    onClick={
+                                                                        () =>
+                                                                            compartilharAcessoCliente(
+                                                                                cliente
+                                                                            )
+                                                                    }
+                                                                    title="Compartilhar dados de acesso"
+                                                                >
+                                                                    📤
+                                                                </button>
                                                                 {
                                                                     cliente?.whatsapp && (
 
