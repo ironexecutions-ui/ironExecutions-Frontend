@@ -40,6 +40,14 @@ export default function Etiquetas() {
     const [cambio, setCambio] = useState(null);
     const [abaMobileEtiquetas, setAbaMobileEtiquetas] = useState("lista");
 
+    // =========================================================
+    // IMAGEM DA ETIQUETA
+    // =========================================================
+    const [modalImagemEtiqueta, setModalImagemEtiqueta] = useState(null);
+    const [imagemEscolhidaEtiqueta, setImagemEscolhidaEtiqueta] = useState("");
+    const [arquivoImagemEtiqueta, setArquivoImagemEtiqueta] = useState(null);
+    const [salvandoImagemEtiqueta, setSalvandoImagemEtiqueta] = useState(false);
+
     const token = localStorage.getItem("token");
     const tiposFonteDisponiveis = [
         {
@@ -55,79 +63,79 @@ export default function Etiquetas() {
             nome: "Courier"
         }
     ];
-// =========================================================
-// CARREGAR CONFIGURAÇÕES DAS ETIQUETAS DO CACHE
-// =========================================================
-// =========================================================
-// CARREGAR CONFIGURAÇÕES VISUAIS DO CACHE
-// =========================================================
-useEffect(() => {
-    try {
-        const cacheSalvo = localStorage.getItem(
-            CACHE_CONFIGURACAO_ETIQUETAS
-        );
+    // =========================================================
+    // CARREGAR CONFIGURAÇÕES DAS ETIQUETAS DO CACHE
+    // =========================================================
+    // =========================================================
+    // CARREGAR CONFIGURAÇÕES VISUAIS DO CACHE
+    // =========================================================
+    useEffect(() => {
+        try {
+            const cacheSalvo = localStorage.getItem(
+                CACHE_CONFIGURACAO_ETIQUETAS
+            );
 
-        if (cacheSalvo) {
-            const configuracao = JSON.parse(cacheSalvo);
+            if (cacheSalvo) {
+                const configuracao = JSON.parse(cacheSalvo);
 
-            if (configuracao.corFundoNormal) {
-                setCorFundoNormal(
-                    configuracao.corFundoNormal
-                );
+                if (configuracao.corFundoNormal) {
+                    setCorFundoNormal(
+                        configuracao.corFundoNormal
+                    );
+                }
+
+                if (configuracao.corTextoNormal) {
+                    setCorTextoNormal(
+                        configuracao.corTextoNormal
+                    );
+                }
+
+                if (configuracao.fonteNormal) {
+                    setFonteNormal(
+                        configuracao.fonteNormal
+                    );
+                }
+
+                if (configuracao.estiloFonteNormal) {
+                    setEstiloFonteNormal(
+                        configuracao.estiloFonteNormal
+                    );
+                }
+
+                if (configuracao.corFundoPromocao) {
+                    setCorFundoPromocao(
+                        configuracao.corFundoPromocao
+                    );
+                }
+
+                if (configuracao.corTextoPromocao) {
+                    setCorTextoPromocao(
+                        configuracao.corTextoPromocao
+                    );
+                }
+
+                if (configuracao.fontePromocao) {
+                    setFontePromocao(
+                        configuracao.fontePromocao
+                    );
+                }
+
+                if (configuracao.estiloFontePromocao) {
+                    setEstiloFontePromocao(
+                        configuracao.estiloFontePromocao
+                    );
+                }
             }
 
-            if (configuracao.corTextoNormal) {
-                setCorTextoNormal(
-                    configuracao.corTextoNormal
-                );
-            }
-
-            if (configuracao.fonteNormal) {
-                setFonteNormal(
-                    configuracao.fonteNormal
-                );
-            }
-
-            if (configuracao.estiloFonteNormal) {
-                setEstiloFonteNormal(
-                    configuracao.estiloFonteNormal
-                );
-            }
-
-            if (configuracao.corFundoPromocao) {
-                setCorFundoPromocao(
-                    configuracao.corFundoPromocao
-                );
-            }
-
-            if (configuracao.corTextoPromocao) {
-                setCorTextoPromocao(
-                    configuracao.corTextoPromocao
-                );
-            }
-
-            if (configuracao.fontePromocao) {
-                setFontePromocao(
-                    configuracao.fontePromocao
-                );
-            }
-
-            if (configuracao.estiloFontePromocao) {
-                setEstiloFontePromocao(
-                    configuracao.estiloFontePromocao
-                );
-            }
+        } catch (erro) {
+            console.error(
+                "Erro ao carregar configuração das etiquetas:",
+                erro
+            );
+        } finally {
+            setConfiguracaoEtiquetasCarregada(true);
         }
-
-    } catch (erro) {
-        console.error(
-            "Erro ao carregar configuração das etiquetas:",
-            erro
-        );
-    } finally {
-        setConfiguracaoEtiquetasCarregada(true);
-    }
-}, []);
+    }, []);
 
     const estilosFonteDisponiveis = [
         {
@@ -148,100 +156,100 @@ useEffect(() => {
         }
     ];
     // =========================================================
-// ATUALIZAR CONFIGURAÇÕES NO CACHE
-// =========================================================
-// =========================================================
-// CARREGAR CONFIGURAÇÕES VISUAIS DAS ETIQUETAS
-// =========================================================
-useEffect(() => {
-    try {
-        const cacheSalvo = localStorage.getItem(
-            CACHE_CONFIGURACAO_ETIQUETAS
-        );
-
-        if (cacheSalvo) {
-            const configuracao = JSON.parse(cacheSalvo);
-
-            setCorFundoNormal(
-                configuracao.corFundoNormal ?? "#ffffff"
+    // ATUALIZAR CONFIGURAÇÕES NO CACHE
+    // =========================================================
+    // =========================================================
+    // CARREGAR CONFIGURAÇÕES VISUAIS DAS ETIQUETAS
+    // =========================================================
+    useEffect(() => {
+        try {
+            const cacheSalvo = localStorage.getItem(
+                CACHE_CONFIGURACAO_ETIQUETAS
             );
 
-            setCorTextoNormal(
-                configuracao.corTextoNormal ?? "#000000"
-            );
+            if (cacheSalvo) {
+                const configuracao = JSON.parse(cacheSalvo);
 
-            setFonteNormal(
-                configuracao.fonteNormal ?? "helvetica"
-            );
+                setCorFundoNormal(
+                    configuracao.corFundoNormal ?? "#ffffff"
+                );
 
-            setEstiloFonteNormal(
-                configuracao.estiloFonteNormal ?? "bold"
-            );
+                setCorTextoNormal(
+                    configuracao.corTextoNormal ?? "#000000"
+                );
 
-            setCorFundoPromocao(
-                configuracao.corFundoPromocao ?? "#ffeb3b"
-            );
+                setFonteNormal(
+                    configuracao.fonteNormal ?? "helvetica"
+                );
 
-            setCorTextoPromocao(
-                configuracao.corTextoPromocao ?? "#000000"
-            );
+                setEstiloFonteNormal(
+                    configuracao.estiloFonteNormal ?? "bold"
+                );
 
-            setFontePromocao(
-                configuracao.fontePromocao ?? "helvetica"
-            );
+                setCorFundoPromocao(
+                    configuracao.corFundoPromocao ?? "#ffeb3b"
+                );
 
-            setEstiloFontePromocao(
-                configuracao.estiloFontePromocao ?? "bold"
+                setCorTextoPromocao(
+                    configuracao.corTextoPromocao ?? "#000000"
+                );
+
+                setFontePromocao(
+                    configuracao.fontePromocao ?? "helvetica"
+                );
+
+                setEstiloFontePromocao(
+                    configuracao.estiloFontePromocao ?? "bold"
+                );
+            }
+
+        } catch (erro) {
+            console.error(
+                "Erro ao carregar configurações das etiquetas:",
+                erro
             );
+        } finally {
+            setConfiguracaoEtiquetasCarregada(true);
+        }
+    }, []);
+
+
+    // =========================================================
+    // ATUALIZAR CONFIGURAÇÕES VISUAIS NO CACHE
+    // =========================================================
+    useEffect(() => {
+        if (!configuracaoEtiquetasCarregada) {
+            return;
         }
 
-    } catch (erro) {
-        console.error(
-            "Erro ao carregar configurações das etiquetas:",
-            erro
+        const configuracao = {
+            corFundoNormal,
+            corTextoNormal,
+            fonteNormal,
+            estiloFonteNormal,
+
+            corFundoPromocao,
+            corTextoPromocao,
+            fontePromocao,
+            estiloFontePromocao,
+        };
+
+        localStorage.setItem(
+            CACHE_CONFIGURACAO_ETIQUETAS,
+            JSON.stringify(configuracao)
         );
-    } finally {
-        setConfiguracaoEtiquetasCarregada(true);
-    }
-}, []);
 
-
-// =========================================================
-// ATUALIZAR CONFIGURAÇÕES VISUAIS NO CACHE
-// =========================================================
-useEffect(() => {
-    if (!configuracaoEtiquetasCarregada) {
-        return;
-    }
-
-    const configuracao = {
+    }, [
+        configuracaoEtiquetasCarregada,
         corFundoNormal,
         corTextoNormal,
         fonteNormal,
         estiloFonteNormal,
-
         corFundoPromocao,
         corTextoPromocao,
         fontePromocao,
         estiloFontePromocao,
-    };
-
-    localStorage.setItem(
-        CACHE_CONFIGURACAO_ETIQUETAS,
-        JSON.stringify(configuracao)
-    );
-
-}, [
-    configuracaoEtiquetasCarregada,
-    corFundoNormal,
-    corTextoNormal,
-    fonteNormal,
-    estiloFonteNormal,
-    corFundoPromocao,
-    corTextoPromocao,
-    fontePromocao,
-    estiloFontePromocao,
-]);
+    ]);
     // ===============================
     // CARREGAR CACHE + SINCRONIZAR
     // ===============================
@@ -428,27 +436,28 @@ useEffect(() => {
     // MOVER PARA IMPRESSÃO
     // ===============================
 
-   function adicionarParaImpressao(produto) {
-    setSelecionados(listaAtual => {
-        const existe = listaAtual.some(
-            item => item.id === produto.id
-        );
+    function adicionarParaImpressao(produto) {
+        setSelecionados(listaAtual => {
+            const existe = listaAtual.some(
+                item => item.id === produto.id
+            );
 
-        if (existe) {
-            return listaAtual;
-        }
-
-        return [
-            ...listaAtual,
-            {
-                ...produto,
-                promocao: false,
-                precoAnterior: "",
-                quantidadeEtiquetas: 1,
+            if (existe) {
+                return listaAtual;
             }
-        ];
-    });
-}
+
+            return [
+                ...listaAtual,
+                {
+                    ...produto,
+                    promocao: false,
+                    precoAnterior: "",
+                    quantidadeEtiquetas: 1,
+                    usarImagemEtiqueta: Boolean(produto.imagem_etiqueta),
+                }
+            ];
+        });
+    }
     // ===============================
     // REMOVER DA IMPRESSÃO
     // ===============================
@@ -463,38 +472,38 @@ useEffect(() => {
     // ===============================
     // PROMOÇÃO
     // ===============================
- function alternarPromocao(id) {
-    setSelecionados(listaAtual =>
-        listaAtual.map(item => {
-            if (item.id !== id) {
-                return item;
-            }
-
-            const novaPromocao = !item.promocao;
-
-            return {
-                ...item,
-                promocao: novaPromocao,
-                precoAnterior: novaPromocao
-                    ? item.precoAnterior ?? ""
-                    : "",
-            };
-        })
-    );
-}
-
-function alterarPrecoAnterior(id, valor) {
-    setSelecionados(listaAtual =>
-        listaAtual.map(item =>
-            item.id === id
-                ? {
-                    ...item,
-                    precoAnterior: valor,
+    function alternarPromocao(id) {
+        setSelecionados(listaAtual =>
+            listaAtual.map(item => {
+                if (item.id !== id) {
+                    return item;
                 }
-                : item
-        )
-    );
-}
+
+                const novaPromocao = !item.promocao;
+
+                return {
+                    ...item,
+                    promocao: novaPromocao,
+                    precoAnterior: novaPromocao
+                        ? item.precoAnterior ?? ""
+                        : "",
+                };
+            })
+        );
+    }
+
+    function alterarPrecoAnterior(id, valor) {
+        setSelecionados(listaAtual =>
+            listaAtual.map(item =>
+                item.id === id
+                    ? {
+                        ...item,
+                        precoAnterior: valor,
+                    }
+                    : item
+            )
+        );
+    }
     // ===============================
     // ALTERAR QUANTIDADE DE ETIQUETAS
     // ===============================
@@ -712,10 +721,204 @@ function alterarPrecoAnterior(id, valor) {
         return [r, g, b];
     }
 
+    // =========================================================
+    // IMAGEM DA ETIQUETA
+    // =========================================================
+    function obterImagensProduto(produto) {
+        return String(produto?.imagem_url || "")
+            .split("|")
+            .map(url => url.trim())
+            .filter(Boolean);
+    }
+
+    function abrirModalImagemEtiqueta(produto) {
+        setModalImagemEtiqueta(produto);
+        setImagemEscolhidaEtiqueta(produto.imagem_etiqueta || "");
+        setArquivoImagemEtiqueta(null);
+    }
+
+    function fecharModalImagemEtiqueta() {
+        if (salvandoImagemEtiqueta) {
+            return;
+        }
+
+        setModalImagemEtiqueta(null);
+        setImagemEscolhidaEtiqueta("");
+        setArquivoImagemEtiqueta(null);
+    }
+
+    function atualizarImagemEtiquetaProduto(produtoId, url) {
+        setProdutos(listaAtual => {
+            const novaLista = listaAtual.map(item =>
+                item.id === produtoId
+                    ? {
+                        ...item,
+                        imagem_etiqueta: url,
+                    }
+                    : item
+            );
+
+            atualizarCache(novaLista);
+            return novaLista;
+        });
+
+        setSelecionados(listaAtual =>
+            listaAtual.map(item =>
+                item.id === produtoId
+                    ? {
+                        ...item,
+                        imagem_etiqueta: url,
+                        usarImagemEtiqueta: true,
+                    }
+                    : item
+            )
+        );
+    }
+
+    function alternarUsoImagemEtiqueta(produtoId) {
+        setSelecionados(listaAtual =>
+            listaAtual.map(item => {
+                if (item.id !== produtoId) {
+                    return item;
+                }
+
+                if (!item.imagem_etiqueta) {
+                    abrirModalImagemEtiqueta(item);
+                    return item;
+                }
+
+                return {
+                    ...item,
+                    usarImagemEtiqueta: !item.usarImagemEtiqueta,
+                };
+            })
+        );
+    }
+
+    async function salvarImagemEtiqueta() {
+        if (!modalImagemEtiqueta) {
+            return;
+        }
+
+        if (!arquivoImagemEtiqueta && !imagemEscolhidaEtiqueta) {
+            alert("Escolha uma imagem ou carregue uma nova.");
+            return;
+        }
+
+        setSalvandoImagemEtiqueta(true);
+
+        try {
+            let resposta;
+
+            if (arquivoImagemEtiqueta) {
+                const formData = new FormData();
+                formData.append("arquivo", arquivoImagemEtiqueta);
+
+                resposta = await fetch(
+                    `${API_URL}/admin/produtos-servicos/${modalImagemEtiqueta.id}/imagem-etiqueta/upload`,
+                    {
+                        method: "POST",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: formData,
+                    }
+                );
+            } else {
+                resposta = await fetch(
+                    `${API_URL}/admin/produtos-servicos/${modalImagemEtiqueta.id}/imagem-etiqueta/url`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({
+                            url: imagemEscolhidaEtiqueta,
+                        }),
+                    }
+                );
+            }
+
+            const dados = await resposta.json().catch(() => ({}));
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.detail ||
+                    "Não foi possível preparar a imagem da etiqueta."
+                );
+            }
+
+            if (!dados.imagem_etiqueta) {
+                throw new Error(
+                    "O servidor não retornou a imagem da etiqueta."
+                );
+            }
+
+            atualizarImagemEtiquetaProduto(
+                modalImagemEtiqueta.id,
+                dados.imagem_etiqueta
+            );
+
+            setModalImagemEtiqueta(null);
+            setImagemEscolhidaEtiqueta("");
+            setArquivoImagemEtiqueta(null);
+
+        } catch (erro) {
+            console.error(
+                "Erro ao salvar imagem da etiqueta:",
+                erro
+            );
+
+            alert(
+                erro.message ||
+                "Não foi possível salvar a imagem da etiqueta."
+            );
+
+        } finally {
+            setSalvandoImagemEtiqueta(false);
+        }
+    }
+
+    function carregarImagemParaPdf(url) {
+        return new Promise((resolve, reject) => {
+            const imagem = new Image();
+            imagem.crossOrigin = "anonymous";
+
+            imagem.onload = () => {
+                try {
+                    const canvas = document.createElement("canvas");
+                    canvas.width = imagem.naturalWidth || imagem.width;
+                    canvas.height = imagem.naturalHeight || imagem.height;
+
+                    const contexto = canvas.getContext("2d");
+                    contexto.drawImage(imagem, 0, 0);
+
+                    resolve({
+                        dataUrl: canvas.toDataURL("image/png"),
+                        largura: canvas.width,
+                        altura: canvas.height,
+                    });
+                } catch (erro) {
+                    reject(erro);
+                }
+            };
+
+            imagem.onerror = () =>
+                reject(
+                    new Error(
+                        "Não foi possível carregar a imagem da etiqueta."
+                    )
+                );
+
+            imagem.src = url;
+        });
+    }
+
     // ===============================
     // GERAR PDF
     // ===============================
-    function imprimirEtiquetas() {
+    async function imprimirEtiquetas() {
 
         if (selecionados.length === 0) {
             alert(
@@ -724,14 +927,9 @@ function alterarPrecoAnterior(id, valor) {
             return;
         }
 
-
-        // ===============================
-        // GERAR LISTA COM AS QUANTIDADES
-        // ===============================
         const etiquetasParaImprimir = [];
 
         selecionados.forEach(produto => {
-
             const quantidade = Math.max(
                 1,
                 parseInt(
@@ -741,29 +939,23 @@ function alterarPrecoAnterior(id, valor) {
             );
 
             for (let i = 0; i < quantidade; i++) {
-
                 etiquetasParaImprimir.push({
                     ...produto,
+                    usarImagemEtiqueta:
+                        Boolean(
+                            produto.usarImagemEtiqueta &&
+                            produto.imagem_etiqueta
+                        ),
                 });
-
             }
-
         });
 
-
-        // ===============================
-        // CRIAR PDF
-        // ===============================
         const pdf = new jsPDF({
             orientation: "portrait",
             unit: "mm",
             format: "a4",
         });
 
-
-        // ===============================
-        // FOLHA
-        // ===============================
         const larguraFolha = 210;
         const alturaFolha = 297;
 
@@ -773,23 +965,14 @@ function alterarPrecoAnterior(id, valor) {
         const espacoX = 3;
         const espacoY = 5;
 
-
-        // ===============================
-        // ETIQUETAS
-        // ===============================
-        const larguraEtiqueta =
-            larguraFolha * 0.22;
+        const larguraEtiqueta = larguraFolha * 0.22;
+        const larguraEtiquetaImagem =
+            larguraEtiqueta * 2 + espacoX;
 
         const alturaMinimaEtiqueta = 50;
-
         const colunas = 4;
 
-
-        // ===============================
-        // CONFIGURAÇÃO DO PRODUTO
-        // ===============================
         function obterConfiguracaoProduto(produto) {
-
             const corFundo =
                 produto.promocao
                     ? corFundoPromocao
@@ -818,44 +1001,46 @@ function alterarPrecoAnterior(id, valor) {
             };
         }
 
-
-        // ===============================
-        // CALCULAR CONTEÚDO DA ETIQUETA
-        // ===============================
         function calcularEtiqueta(produto) {
-
             const {
                 fonteEtiqueta,
                 estiloFonteEtiqueta,
             } = obterConfiguracaoProduto(produto);
 
+            const comImagem =
+                Boolean(
+                    produto.usarImagemEtiqueta &&
+                    produto.imagem_etiqueta
+                );
+
+            const larguraTotal =
+                comImagem
+                    ? larguraEtiquetaImagem
+                    : larguraEtiqueta;
+
+            const larguraTexto =
+                comImagem
+                    ? larguraEtiqueta - 4
+                    : larguraEtiqueta - 8;
 
             let alturaConteudo = 14;
 
+            if (produto.promocao) {
+                alturaConteudo += 13;
 
-            // ===============================
-            // PROMOÇÃO
-            // ===============================
-    if (produto.promocao) {
-    alturaConteudo += 13;
+                const precoAnteriorNumero = Number(
+                    String(produto.precoAnterior ?? "")
+                        .replace(",", ".")
+                );
 
-    const precoAnteriorNumero = Number(
-        String(produto.precoAnterior ?? "")
-            .replace(",", ".")
-    );
+                if (
+                    produto.precoAnterior !== "" &&
+                    Number.isFinite(precoAnteriorNumero)
+                ) {
+                    alturaConteudo += 9;
+                }
+            }
 
-    if (
-        produto.precoAnterior !== "" &&
-        Number.isFinite(precoAnteriorNumero)
-    ) {
-        alturaConteudo += 9;
-    }
-}
-
-
-            // ===============================
-            // NOME
-            // ===============================
             pdf.setFont(
                 fonteEtiqueta,
                 estiloFonteEtiqueta
@@ -866,7 +1051,7 @@ function alterarPrecoAnterior(id, valor) {
             const nomeQuebrado =
                 pdf.splitTextToSize(
                     produto.nome || "",
-                    larguraEtiqueta - 8
+                    larguraTexto
                 );
 
             alturaConteudo +=
@@ -874,10 +1059,6 @@ function alterarPrecoAnterior(id, valor) {
 
             alturaConteudo += 7;
 
-
-            // ===============================
-            // PREÇO
-            // ===============================
             pdf.setFont(
                 fonteEtiqueta,
                 estiloFonteEtiqueta
@@ -896,7 +1077,7 @@ function alterarPrecoAnterior(id, valor) {
                 `R$ ${precoFormatado}`;
 
             const larguraMaximaPreco =
-                larguraEtiqueta - 6;
+                larguraTexto - 2;
 
             const larguraTextoPreco =
                 pdf.getTextWidth(
@@ -907,22 +1088,12 @@ function alterarPrecoAnterior(id, valor) {
                 larguraTextoPreco >
                 larguraMaximaPreco;
 
-
             if (precoQuebra) {
-
-                // R$ + segunda linha do valor
                 alturaConteudo += 18;
-
             } else {
-
                 alturaConteudo += 9;
-
             }
 
-
-            // ===============================
-            // DÓLAR
-            // ===============================
             const precoDolar =
                 calcularPrecoDolar(
                     produto.preco
@@ -932,446 +1103,681 @@ function alterarPrecoAnterior(id, valor) {
                 alturaConteudo += 10;
             }
 
-
-            // ===============================
-            // MARGEM INFERIOR
-            // ===============================
             alturaConteudo += 5;
 
-
-            const alturaNecessaria =
-                Math.max(
+            return {
+                altura: Math.max(
                     alturaMinimaEtiqueta,
                     alturaConteudo
-                );
-
-
-            return {
-                altura: alturaNecessaria,
+                ),
                 nomeQuebrado,
                 precoFormatado,
                 precoQuebra,
                 precoDolar,
+                comImagem,
+                larguraTotal,
+                slots: comImagem ? 2 : 1,
             };
         }
 
-
-        // ===============================
-        // SEPARAR EM LINHAS DE 4
-        // ===============================
+        // =========================================================
+        // ORGANIZAR ETIQUETAS EM 4 SLOTS
+        // NORMAL = 1 SLOT
+        // COM IMAGEM = 2 SLOTS
+        // =========================================================
         const linhasEtiquetas = [];
+        let linhaAtual = [];
+        let slotsOcupados = 0;
 
-        for (
-            let i = 0;
-            i < etiquetasParaImprimir.length;
-            i += colunas
-        ) {
+        etiquetasParaImprimir.forEach(produto => {
+            const dados = calcularEtiqueta(produto);
 
-            linhasEtiquetas.push(
-                etiquetasParaImprimir.slice(
-                    i,
-                    i + colunas
-                )
-            );
-
-        }
-
-
-        // ===============================
-        // POSIÇÃO VERTICAL ATUAL
-        // ===============================
-        let yAtual = margemY;
-
-
-        // ===============================
-        // PERCORRER LINHAS
-        // ===============================
-        linhasEtiquetas.forEach(linha => {
-
-
-            // ===============================
-            // CALCULAR TODAS DA LINHA
-            // ===============================
-            const dadosLinha =
-                linha.map(produto =>
-                    calcularEtiqueta(produto)
-                );
-
-
-            // ===============================
-            // MAIOR ALTURA DA LINHA
-            // ===============================
-            const alturaLinha =
-                Math.max(
-                    ...dadosLinha.map(
-                        dados => dados.altura
-                    )
-                );
-
-
-            // ===============================
-            // VERIFICAR SE CABE NA PÁGINA
-            // ===============================
             if (
-                yAtual +
-                alturaLinha >
-                alturaFolha - margemY
+                slotsOcupados + dados.slots >
+                colunas
             ) {
-
-                pdf.addPage();
-
-                yAtual = margemY;
+                linhasEtiquetas.push(linhaAtual);
+                linhaAtual = [];
+                slotsOcupados = 0;
             }
 
+            linhaAtual.push({
+                produto,
+                dados,
+                slotInicial: slotsOcupados,
+            });
 
-            // ===============================
-            // DESENHAR ETIQUETAS DA LINHA
-            // ===============================
-            linha.forEach(
-                (produto, indiceColuna) => {
+            slotsOcupados += dados.slots;
+        });
 
+        if (linhaAtual.length > 0) {
+            linhasEtiquetas.push(linhaAtual);
+        }
 
-                    const dadosEtiqueta =
-                        dadosLinha[indiceColuna];
+        // =========================================================
+        // PRÉ-CARREGAR IMAGENS
+        // =========================================================
+        const imagensPdf = new Map();
 
+        for (const produto of etiquetasParaImprimir) {
+            if (
+                !produto.usarImagemEtiqueta ||
+                !produto.imagem_etiqueta ||
+                imagensPdf.has(produto.imagem_etiqueta)
+            ) {
+                continue;
+            }
 
-                    const {
-                        corFundo,
-                        corTexto,
-                        fonteEtiqueta,
-                        estiloFonteEtiqueta,
-                    } =
-                        obterConfiguracaoProduto(
-                            produto
-                        );
+            try {
+                const imagem = await carregarImagemParaPdf(
+                    produto.imagem_etiqueta
+                );
 
+                imagensPdf.set(
+                    produto.imagem_etiqueta,
+                    imagem
+                );
+            } catch (erro) {
+                console.error(
+                    "Erro ao carregar imagem para o PDF:",
+                    produto.imagem_etiqueta,
+                    erro
+                );
+            }
+        }
 
-                    // ===============================
-                    // POSIÇÃO X
-                    // ===============================
-                    const x =
-                        margemX +
-                        indiceColuna *
-                        (
-                            larguraEtiqueta +
-                            espacoX
-                        );
+        function desenharFormatoNormal(
+            x,
+            y,
+            largura,
+            altura
+        ) {
+            const corteSuperior = 7;
+            const raio = 2;
 
+            const xEsquerda = x;
+            const xDireita = x + largura;
+            const yTopo = y;
+            const yCorte = y + corteSuperior;
+            const yBase = y + altura;
 
-                    const y = yAtual;
+            pdf.moveTo(
+                xEsquerda + corteSuperior + raio,
+                yTopo
+            );
 
+            pdf.lineTo(
+                xDireita - corteSuperior - raio,
+                yTopo
+            );
 
-                    // ===============================
-                    // IMPORTANTE
-                    //
-                    // TODAS AS ETIQUETAS DA MESMA
-                    // LINHA USAM A ALTURA DA MAIOR
-                    // ===============================
-                    const alturaEtiquetaAtual =
-                        dadosEtiqueta.altura;
+            pdf.curveTo(
+                xDireita - corteSuperior,
+                yTopo,
+                xDireita - corteSuperior + raio,
+                yTopo + raio,
+                xDireita - corteSuperior + raio * 1.5,
+                yTopo + raio * 1.5
+            );
 
-                    // ===============================
-                    // CORES
-                    // ===============================
-                    const [
-                        fundoR,
-                        fundoG,
-                        fundoB
-                    ] =
-                        converterHexParaRgb(
-                            corFundo
-                        );
+            pdf.lineTo(
+                xDireita - raio,
+                yCorte - raio
+            );
 
+            pdf.curveTo(
+                xDireita,
+                yCorte,
+                xDireita,
+                yCorte,
+                xDireita,
+                yCorte + raio
+            );
 
-                    const [
-                        textoR,
-                        textoG,
-                        textoB
-                    ] =
-                        converterHexParaRgb(
-                            corTexto
-                        );
+            pdf.lineTo(
+                xDireita,
+                yBase - raio
+            );
 
+            pdf.curveTo(
+                xDireita,
+                yBase,
+                xDireita,
+                yBase,
+                xDireita - raio,
+                yBase
+            );
 
-                    // ===============================
-                    // FUNDO
-                    // ===============================
-                    pdf.setFillColor(
-                        fundoR,
-                        fundoG,
-                        fundoB
-                    );
+            pdf.lineTo(
+                xEsquerda + raio,
+                yBase
+            );
 
-                    pdf.setDrawColor(
-                        0,
-                        0,
-                        0
-                    );
+            pdf.curveTo(
+                xEsquerda,
+                yBase,
+                xEsquerda,
+                yBase,
+                xEsquerda,
+                yBase - raio
+            );
 
-                    pdf.setLineWidth(0.5);
+            pdf.lineTo(
+                xEsquerda,
+                yCorte + raio
+            );
 
+            pdf.curveTo(
+                xEsquerda,
+                yCorte,
+                xEsquerda,
+                yCorte,
+                xEsquerda + raio,
+                yCorte - raio
+            );
 
-                    pdf.roundedRect(
-                        x,
-                        y,
-                        larguraEtiqueta,
-                        alturaEtiquetaAtual,
-                        2,
-                        2,
-                        "FD"
-                    );
+            pdf.lineTo(
+                xEsquerda + corteSuperior - raio * 1.5,
+                yTopo + raio * 1.5
+            );
 
+            pdf.curveTo(
+                xEsquerda + corteSuperior - raio,
+                yTopo + raio,
+                xEsquerda + corteSuperior,
+                yTopo,
+                xEsquerda + corteSuperior + raio,
+                yTopo
+            );
 
-                    // ===============================
-                    // COR DO TEXTO
-                    // ===============================
-                    pdf.setTextColor(
-                        textoR,
-                        textoG,
-                        textoB
-                    );
+            pdf.close();
+            pdf.fillStroke();
+        }
 
+        function desenharFormatoHorizontal(
+            x,
+            y,
+            largura,
+            altura
+        ) {
+            // Mesma ideia da etiqueta normal,
+            // girada para a esquerda.
+            const corteLateral = 7;
+            const raio = 2;
 
-                    let posicaoY =
-                        y + 14;
+            const xEsquerda = x;
+            const xCorte = x + corteLateral;
+            const xDireita = x + largura;
+            const yTopo = y;
+            const yBase = y + altura;
 
+            pdf.moveTo(
+                xCorte + raio,
+                yTopo
+            );
 
-                    // ===============================
-                    // PROMOÇÃO
-                    // ===============================
-                    if (produto.promocao) {
+            pdf.lineTo(
+                xDireita - raio,
+                yTopo
+            );
 
-                        pdf.setFont(
-                            fonteEtiqueta,
-                            estiloFonteEtiqueta
-                        );
+            pdf.curveTo(
+                xDireita,
+                yTopo,
+                xDireita,
+                yTopo,
+                xDireita,
+                yTopo + raio
+            );
 
-                        pdf.setFontSize(18);
+            pdf.lineTo(
+                xDireita,
+                yBase - raio
+            );
 
-                        pdf.text(
-                            "PROMOÇÃO",
-                            x +
-                            larguraEtiqueta / 2,
-                            posicaoY,
-                            {
-                                align: "center",
-                            }
-                        );
+            pdf.curveTo(
+                xDireita,
+                yBase,
+                xDireita,
+                yBase,
+                xDireita - raio,
+                yBase
+            );
 
-                        posicaoY += 13;
+            pdf.lineTo(
+                xCorte + raio,
+                yBase
+            );
+
+            // Recorte inferior esquerdo
+            pdf.curveTo(
+                xCorte,
+                yBase,
+                xCorte - raio,
+                yBase - raio,
+                xCorte - raio * 1.5,
+                yBase - raio * 1.5
+            );
+
+            pdf.lineTo(
+                xEsquerda + raio,
+                yBase - corteLateral + raio
+            );
+
+            pdf.curveTo(
+                xEsquerda,
+                yBase - corteLateral,
+                xEsquerda,
+                yBase - corteLateral,
+                xEsquerda,
+                yBase - corteLateral - raio
+            );
+
+            pdf.lineTo(
+                xEsquerda,
+                yTopo + corteLateral + raio
+            );
+
+            pdf.curveTo(
+                xEsquerda,
+                yTopo + corteLateral,
+                xEsquerda,
+                yTopo + corteLateral,
+                xEsquerda + raio,
+                yTopo + corteLateral - raio
+            );
+
+            // Recorte superior esquerdo
+            pdf.lineTo(
+                xCorte - raio * 1.5,
+                yTopo + raio * 1.5
+            );
+
+            pdf.curveTo(
+                xCorte - raio,
+                yTopo + raio,
+                xCorte,
+                yTopo,
+                xCorte + raio,
+                yTopo
+            );
+
+            pdf.close();
+            pdf.fillStroke();
+        }
+
+        function desenharConteudoEtiqueta(
+            produto,
+            dadosEtiqueta,
+            x,
+            y,
+            alturaEtiquetaAtual
+        ) {
+            const {
+                corFundo,
+                corTexto,
+                fonteEtiqueta,
+                estiloFonteEtiqueta,
+            } = obterConfiguracaoProduto(
+                produto
+            );
+
+            const [
+                fundoR,
+                fundoG,
+                fundoB
+            ] = converterHexParaRgb(
+                corFundo
+            );
+
+            const [
+                textoR,
+                textoG,
+                textoB
+            ] = converterHexParaRgb(
+                corTexto
+            );
+
+            pdf.setFillColor(
+                fundoR,
+                fundoG,
+                fundoB
+            );
+
+            pdf.setDrawColor(
+                0,
+                0,
+                0
+            );
+
+            pdf.setLineWidth(0.5);
+
+            if (dadosEtiqueta.comImagem) {
+                desenharFormatoHorizontal(
+                    x,
+                    y,
+                    dadosEtiqueta.larguraTotal,
+                    alturaEtiquetaAtual
+                );
+            } else {
+                desenharFormatoNormal(
+                    x,
+                    y,
+                    dadosEtiqueta.larguraTotal,
+                    alturaEtiquetaAtual
+                );
+            }
+
+            pdf.setTextColor(
+                textoR,
+                textoG,
+                textoB
+            );
+
+            const larguraAreaTexto =
+                dadosEtiqueta.comImagem
+                    ? larguraEtiqueta
+                    : dadosEtiqueta.larguraTotal;
+
+            const centroTextoX =
+                x + larguraAreaTexto / 2;
+
+            let posicaoY = y + 14;
+
+            if (produto.promocao) {
+                pdf.setFont(
+                    fonteEtiqueta,
+                    estiloFonteEtiqueta
+                );
+
+                pdf.setFontSize(18);
+
+                pdf.text(
+                    "PROMOÇÃO",
+                    centroTextoX,
+                    posicaoY,
+                    {
+                        align: "center",
                     }
+                );
 
+                posicaoY += 13;
+            }
 
-                    // ===============================
-                    // NOME DO PRODUTO
-                    // ===============================
+            pdf.setFont(
+                fonteEtiqueta,
+                estiloFonteEtiqueta
+            );
+
+            pdf.setFontSize(15);
+
+            pdf.text(
+                dadosEtiqueta.nomeQuebrado,
+                centroTextoX,
+                posicaoY,
+                {
+                    align: "center",
+                }
+            );
+
+            posicaoY +=
+                (
+                    dadosEtiqueta
+                        .nomeQuebrado
+                        .length *
+                    6
+                ) + 7;
+
+            if (
+                produto.promocao &&
+                produto.precoAnterior !== ""
+            ) {
+                const precoAnteriorNumero = Number(
+                    String(produto.precoAnterior)
+                        .replace(",", ".")
+                );
+
+                if (
+                    Number.isFinite(
+                        precoAnteriorNumero
+                    )
+                ) {
+                    const textoPrecoAnterior =
+                        `R$ ${formatarPreco(precoAnteriorNumero)}`;
+
                     pdf.setFont(
                         fonteEtiqueta,
-                        estiloFonteEtiqueta
+                        "normal"
                     );
 
-                    pdf.setFontSize(15);
+                    pdf.setFontSize(14);
 
                     pdf.text(
-                        dadosEtiqueta.nomeQuebrado,
-                        x +
-                        larguraEtiqueta / 2,
+                        textoPrecoAnterior,
+                        centroTextoX,
                         posicaoY,
                         {
                             align: "center",
                         }
                     );
 
+                    const larguraPrecoAnterior =
+                        pdf.getTextWidth(
+                            textoPrecoAnterior
+                        );
 
-                    posicaoY +=
-                        (
-                            dadosEtiqueta
-                                .nomeQuebrado
-                                .length *
-                            6
-                        ) + 7;
-
-// ===============================
-// PREÇO ANTERIOR DA PROMOÇÃO
-// ===============================
-if (
-    produto.promocao &&
-    produto.precoAnterior !== ""
-) {
-    const precoAnteriorNumero = Number(
-        String(produto.precoAnterior)
-            .replace(",", ".")
-    );
-
-    if (Number.isFinite(precoAnteriorNumero)) {
-        const textoPrecoAnterior =
-            `R$ ${formatarPreco(precoAnteriorNumero)}`;
-
-        pdf.setFont(
-            fonteEtiqueta,
-            "normal"
-        );
-
-        pdf.setFontSize(14);
-
-        const centroX =
-            x + larguraEtiqueta / 2;
-
-        pdf.text(
-            textoPrecoAnterior,
-            centroX,
-            posicaoY,
-            {
-                align: "center",
-            }
-        );
-
-        const larguraPrecoAnterior =
-            pdf.getTextWidth(textoPrecoAnterior);
-
-        const inicioLinha =
-            centroX -
-            larguraPrecoAnterior / 2;
-
-        const fimLinha =
-            centroX +
-            larguraPrecoAnterior / 2;
-
-        // Linha atravessando o preço antigo
-        pdf.setDrawColor(
-            textoR,
-            textoG,
-            textoB
-        );
-
-        pdf.setLineWidth(0.6);
-
-        pdf.line(
-            inicioLinha,
-            posicaoY - 1.7,
-            fimLinha,
-            posicaoY - 1.7
-        );
-
-        posicaoY += 8;
-    }
-}
-                    // ===============================
-                    // PREÇO EM REAL
-                    // ===============================
-                    pdf.setFont(
-                        fonteEtiqueta,
-                        estiloFonteEtiqueta
+                    pdf.setDrawColor(
+                        textoR,
+                        textoG,
+                        textoB
                     );
 
-                    pdf.setFontSize(
-                        produto.promocao
-                            ? 27
-                            : 26
+                    pdf.setLineWidth(0.6);
+
+                    pdf.line(
+                        centroTextoX -
+                        larguraPrecoAnterior / 2,
+                        posicaoY - 1.7,
+                        centroTextoX +
+                        larguraPrecoAnterior / 2,
+                        posicaoY - 1.7
                     );
 
-
-                    // ===============================
-                    // CABE EM UMA LINHA
-                    // ===============================
-                    if (
-                        !dadosEtiqueta.precoQuebra
-                    ) {
-
-                        pdf.text(
-                            `R$ ${dadosEtiqueta.precoFormatado}`,
-                            x +
-                            larguraEtiqueta / 2,
-                            posicaoY,
-                            {
-                                align: "center",
-                            }
-                        );
-
-                    } else {
-
-
-                        // ===============================
-                        // R$
-                        // ===============================
-                        pdf.text(
-                            "R$",
-                            x +
-                            larguraEtiqueta / 2,
-                            posicaoY,
-                            {
-                                align: "center",
-                            }
-                        );
-
-
-                        // ===============================
-                        // VALOR NA LINHA DE BAIXO
-                        // ===============================
-                        posicaoY += 9;
-
-
-                        pdf.text(
-                            dadosEtiqueta.precoFormatado,
-                            x +
-                            larguraEtiqueta / 2,
-                            posicaoY,
-                            {
-                                align: "center",
-                            }
-                        );
-
-                    }
-
-
-                    // ===============================
-                    // PREÇO EM DÓLAR
-                    // ===============================
-                    if (
-                        dadosEtiqueta.precoDolar !==
-                        null
-                    ) {
-
-                        posicaoY += 9;
-
-                        pdf.setFont(
-                            fonteEtiqueta,
-                            estiloFonteEtiqueta
-                        );
-
-                        pdf.setFontSize(14);
-
-                        pdf.text(
-                            `US$ ${dadosEtiqueta.precoDolar.toFixed(2)}`,
-                            x +
-                            larguraEtiqueta / 2,
-                            posicaoY,
-                            {
-                                align: "center",
-                            }
-                        );
-
-                    }
-
+                    posicaoY += 8;
                 }
+            }
+
+            pdf.setFont(
+                fonteEtiqueta,
+                estiloFonteEtiqueta
             );
 
+            pdf.setFontSize(
+                produto.promocao
+                    ? 27
+                    : 26
+            );
 
-            // ===============================
-            // DESCER A PRÓXIMA LINHA
-            //
-            // USA A ALTURA DA MAIOR ETIQUETA
-            // ===============================
+            if (!dadosEtiqueta.precoQuebra) {
+                pdf.text(
+                    `R$ ${dadosEtiqueta.precoFormatado}`,
+                    centroTextoX,
+                    posicaoY,
+                    {
+                        align: "center",
+                    }
+                );
+            } else {
+                pdf.text(
+                    "R$",
+                    centroTextoX,
+                    posicaoY,
+                    {
+                        align: "center",
+                    }
+                );
+
+                posicaoY += 9;
+
+                pdf.text(
+                    dadosEtiqueta.precoFormatado,
+                    centroTextoX,
+                    posicaoY,
+                    {
+                        align: "center",
+                    }
+                );
+            }
+
+            if (
+                dadosEtiqueta.precoDolar !==
+                null
+            ) {
+                posicaoY += 9;
+
+                pdf.setFont(
+                    fonteEtiqueta,
+                    estiloFonteEtiqueta
+                );
+
+                pdf.setFontSize(14);
+
+                pdf.text(
+                    `US$ ${dadosEtiqueta.precoDolar.toFixed(2)}`,
+                    centroTextoX,
+                    posicaoY,
+                    {
+                        align: "center",
+                    }
+                );
+            }
+
+            // =====================================================
+            // IMAGEM NA METADE DIREITA
+            // =====================================================
+            if (
+                dadosEtiqueta.comImagem &&
+                produto.imagem_etiqueta
+            ) {
+                const imagem =
+                    imagensPdf.get(
+                        produto.imagem_etiqueta
+                    );
+
+                if (imagem) {
+                    const areaX =
+                        x + larguraEtiqueta + 3;
+
+                    const areaY =
+                        y + 4;
+
+                    const areaLargura =
+                        dadosEtiqueta.larguraTotal -
+                        larguraEtiqueta -
+                        7;
+
+                    const areaAltura =
+                        alturaEtiquetaAtual - 8;
+
+                    const proporcaoImagem =
+                        imagem.largura /
+                        imagem.altura;
+
+                    const proporcaoArea =
+                        areaLargura /
+                        areaAltura;
+
+                    let larguraImagem;
+                    let alturaImagem;
+
+                    if (
+                        proporcaoImagem >
+                        proporcaoArea
+                    ) {
+                        larguraImagem =
+                            areaLargura;
+
+                        alturaImagem =
+                            larguraImagem /
+                            proporcaoImagem;
+                    } else {
+                        alturaImagem =
+                            areaAltura;
+
+                        larguraImagem =
+                            alturaImagem *
+                            proporcaoImagem;
+                    }
+
+                    const imagemX =
+                        areaX +
+                        (
+                            areaLargura -
+                            larguraImagem
+                        ) / 2;
+
+                    const imagemY =
+                        areaY +
+                        (
+                            areaAltura -
+                            alturaImagem
+                        ) / 2;
+
+                    pdf.addImage(
+                        imagem.dataUrl,
+                        "PNG",
+                        imagemX,
+                        imagemY,
+                        larguraImagem,
+                        alturaImagem
+                    );
+                }
+            }
+        }
+
+        let yAtual = margemY;
+
+        linhasEtiquetas.forEach(linha => {
+            const alturaLinha =
+                Math.max(
+                    ...linha.map(
+                        item =>
+                            item.dados.altura
+                    )
+                );
+
+            if (
+                yAtual +
+                alturaLinha >
+                alturaFolha - margemY
+            ) {
+                pdf.addPage();
+                yAtual = margemY;
+            }
+
+            linha.forEach(item => {
+                const x =
+                    margemX +
+                    item.slotInicial *
+                    (
+                        larguraEtiqueta +
+                        espacoX
+                    );
+
+                desenharConteudoEtiqueta(
+                    item.produto,
+                    item.dados,
+                    x,
+                    yAtual,
+                    item.dados.altura
+                );
+            });
+
             yAtual +=
                 alturaLinha +
                 espacoY;
-
         });
 
-
-        // ===============================
-        // SALVAR
-        // ===============================
         pdf.save(
             "etiquetas-produtos.pdf"
         );
@@ -1509,6 +1915,41 @@ if (
                     {lado === "direita" && (
                         <>
                             <button
+                                type="button"
+                                className={`etiquetas-imagem-produto-controle ${produto.usarImagemEtiqueta &&
+                                        produto.imagem_etiqueta
+                                        ? "etiquetas-imagem-produto-com-imagem"
+                                        : "etiquetas-imagem-produto-sem-imagem"
+                                    }`}
+                                onClick={() =>
+                                    alternarUsoImagemEtiqueta(produto.id)
+                                }
+                                onDoubleClick={() =>
+                                    abrirModalImagemEtiqueta(produto)
+                                }
+                                title={
+                                    produto.imagem_etiqueta
+                                        ? "Clique para ativar/desativar. Clique duas vezes para trocar a imagem."
+                                        : "Adicionar imagem à etiqueta"
+                                }
+                            >
+                                {produto.usarImagemEtiqueta &&
+                                    produto.imagem_etiqueta
+                                    ? "Imagem ✓"
+                                    : "Sem imagem"}
+                            </button>
+
+                            <button
+                                type="button"
+                                className="etiquetas-imagem-produto-editar"
+                                onClick={() =>
+                                    abrirModalImagemEtiqueta(produto)
+                                }
+                            >
+                                Escolher imagem
+                            </button>
+
+                            <button
                                 className="etiquetas-acao-promocao"
                                 data-ativo={
                                     produto.promocao
@@ -1523,39 +1964,39 @@ if (
                                     ? "Promoção ✓"
                                     : "Promoção"}
                             </button>
-{produto.promocao && (
-    <div className="etiquetas-promocao-preco-anterior-area">
-        <label
-            className="etiquetas-promocao-preco-anterior-label"
-            htmlFor={`preco-anterior-promocao-${produto.id}`}
-        >
-            Preço anterior
-        </label>
+                            {produto.promocao && (
+                                <div className="etiquetas-promocao-preco-anterior-area">
+                                    <label
+                                        className="etiquetas-promocao-preco-anterior-label"
+                                        htmlFor={`preco-anterior-promocao-${produto.id}`}
+                                    >
+                                        Preço anterior
+                                    </label>
 
-        <div className="etiquetas-promocao-preco-anterior-campo">
-            <span className="etiquetas-promocao-preco-anterior-prefixo">
-                R$
-            </span>
+                                    <div className="etiquetas-promocao-preco-anterior-campo">
+                                        <span className="etiquetas-promocao-preco-anterior-prefixo">
+                                            R$
+                                        </span>
 
-            <input
-                id={`preco-anterior-promocao-${produto.id}`}
-                className="etiquetas-promocao-preco-anterior-input"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0,00"
-                value={produto.precoAnterior ?? ""}
-                onChange={e =>
-                    alterarPrecoAnterior(
-                        produto.id,
-                        e.target.value
-                    )
-                }
-                autoFocus
-            />
-        </div>
-    </div>
-)}
+                                        <input
+                                            id={`preco-anterior-promocao-${produto.id}`}
+                                            className="etiquetas-promocao-preco-anterior-input"
+                                            type="number"
+                                            min="0"
+                                            step="0.01"
+                                            placeholder="0,00"
+                                            value={produto.precoAnterior ?? ""}
+                                            onChange={e =>
+                                                alterarPrecoAnterior(
+                                                    produto.id,
+                                                    e.target.value
+                                                )
+                                            }
+                                            autoFocus
+                                        />
+                                    </div>
+                                </div>
+                            )}
                             <button
                                 className="etiquetas-acao-mover-esquerda"
                                 onClick={() =>
@@ -1735,7 +2176,7 @@ if (
                         </label>
 
                     </div>
-        <button
+                    <button
                         className="etiquetas-botao-imprimir-principall"
                         onClick={imprimirEtiquetas}
                         disabled={selecionados.length === 0}
@@ -1892,7 +2333,7 @@ if (
                     {/* ===============================
         IMPRIMIR
     =============================== */}
-    
+
                     <button
                         className="etiquetas-botao-imprimir-principal"
                         onClick={imprimirEtiquetas}
@@ -2084,6 +2525,173 @@ if (
                 </section>
 
             </div>
+
+            {modalImagemEtiqueta && (
+                <div
+                    className="etiquetas-imagem-modal-overlay"
+                    onMouseDown={e => {
+                        if (
+                            e.target === e.currentTarget
+                        ) {
+                            fecharModalImagemEtiqueta();
+                        }
+                    }}
+                >
+                    <div className="etiquetas-imagem-modal-caixa">
+                        <div className="etiquetas-imagem-modal-cabecalho">
+                            <div>
+                                <h3>
+                                    Imagem da etiqueta
+                                </h3>
+
+                                <p>
+                                    {modalImagemEtiqueta.nome}
+                                </p>
+                            </div>
+
+                            <button
+                                type="button"
+                                className="etiquetas-imagem-modal-fechar"
+                                onClick={fecharModalImagemEtiqueta}
+                                disabled={salvandoImagemEtiqueta}
+                            >
+                                ×
+                            </button>
+                        </div>
+
+                        <div className="etiquetas-imagem-modal-conteudo">
+                            {obterImagensProduto(
+                                modalImagemEtiqueta
+                            ).length > 0 && (
+                                    <div className="etiquetas-imagem-modal-galeria-area">
+                                        <strong>
+                                            Escolha uma imagem do produto
+                                        </strong>
+
+                                        <div className="etiquetas-imagem-modal-galeria">
+                                            {obterImagensProduto(
+                                                modalImagemEtiqueta
+                                            ).map((url, indice) => (
+                                                <button
+                                                    type="button"
+                                                    key={`${url}-${indice}`}
+                                                    className={`etiquetas-imagem-modal-opcao ${imagemEscolhidaEtiqueta === url &&
+                                                            !arquivoImagemEtiqueta
+                                                            ? "etiquetas-imagem-modal-opcao-ativa"
+                                                            : ""
+                                                        }`}
+                                                    onClick={() => {
+                                                        setImagemEscolhidaEtiqueta(url);
+                                                        setArquivoImagemEtiqueta(null);
+                                                    }}
+                                                >
+                                                    <img
+                                                        src={url}
+                                                        alt={`Opção ${indice + 1}`}
+                                                    />
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                            {modalImagemEtiqueta.imagem_etiqueta && (
+                                <div className="etiquetas-imagem-modal-atual-area">
+                                    <strong>
+                                        Imagem atual sem fundo
+                                    </strong>
+
+                                    <button
+                                        type="button"
+                                        className={`etiquetas-imagem-modal-opcao etiquetas-imagem-modal-atual ${imagemEscolhidaEtiqueta ===
+                                                modalImagemEtiqueta.imagem_etiqueta &&
+                                                !arquivoImagemEtiqueta
+                                                ? "etiquetas-imagem-modal-opcao-ativa"
+                                                : ""
+                                            }`}
+                                        onClick={() => {
+                                            setImagemEscolhidaEtiqueta(
+                                                modalImagemEtiqueta.imagem_etiqueta
+                                            );
+                                            setArquivoImagemEtiqueta(null);
+                                        }}
+                                    >
+                                        <img
+                                            src={modalImagemEtiqueta.imagem_etiqueta}
+                                            alt="Imagem atual da etiqueta"
+                                        />
+                                    </button>
+                                </div>
+                            )}
+
+                            <div className="etiquetas-imagem-modal-upload-area">
+                                <strong>
+                                    Ou carregue uma nova imagem
+                                </strong>
+
+                                <label className="etiquetas-imagem-modal-upload-botao">
+                                    Escolher arquivo
+
+                                    <input
+                                        type="file"
+                                        accept="image/png,image/jpeg,image/webp"
+                                        onChange={e => {
+                                            const arquivo =
+                                                e.target.files?.[0] || null;
+
+                                            setArquivoImagemEtiqueta(
+                                                arquivo
+                                            );
+
+                                            if (arquivo) {
+                                                setImagemEscolhidaEtiqueta("");
+                                            }
+                                        }}
+                                    />
+                                </label>
+
+                                {arquivoImagemEtiqueta && (
+                                    <span className="etiquetas-imagem-modal-arquivo-nome">
+                                        {arquivoImagemEtiqueta.name}
+                                    </span>
+                                )}
+                            </div>
+
+                            <div className="etiquetas-imagem-modal-aviso">
+                                Ao salvar, o fundo será removido automaticamente.
+                            </div>
+                        </div>
+
+                        <div className="etiquetas-imagem-modal-rodape">
+                            <button
+                                type="button"
+                                className="etiquetas-imagem-modal-cancelar"
+                                onClick={fecharModalImagemEtiqueta}
+                                disabled={salvandoImagemEtiqueta}
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="button"
+                                className="etiquetas-imagem-modal-salvar"
+                                onClick={salvarImagemEtiqueta}
+                                disabled={
+                                    salvandoImagemEtiqueta ||
+                                    (
+                                        !arquivoImagemEtiqueta &&
+                                        !imagemEscolhidaEtiqueta
+                                    )
+                                }
+                            >
+                                {salvandoImagemEtiqueta
+                                    ? "Removendo fundo..."
+                                    : "Salvar imagem"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
