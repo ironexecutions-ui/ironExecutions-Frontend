@@ -436,6 +436,11 @@ export default function Etiquetas() {
     // MOVER PARA IMPRESSÃO
     // ===============================
 
+    // ===============================
+    // MOVER PARA IMPRESSÃO
+    // NOVO PRODUTO ENTRA PRIMEIRO
+    // ===============================
+
     function adicionarParaImpressao(produto) {
         setSelecionados(listaAtual => {
             const existe = listaAtual.some(
@@ -447,14 +452,14 @@ export default function Etiquetas() {
             }
 
             return [
-                ...listaAtual,
                 {
                     ...produto,
                     promocao: false,
                     precoAnterior: "",
                     quantidadeEtiquetas: 1,
                     usarImagemEtiqueta: Boolean(produto.imagem_etiqueta),
-                }
+                },
+                ...listaAtual,
             ];
         });
     }
@@ -1825,7 +1830,10 @@ export default function Etiquetas() {
 
         return (
             <div
-                className="etiquetas-produto-card-individual"
+                className={`etiquetas-produto-card-individual ${editando
+                    ? "etiquetas-produto-card-editando-preco"
+                    : ""
+                    }`}
                 key={produto.id}
             >
                 <div className="etiquetas-produto-informacoes-bloco">
@@ -1843,7 +1851,9 @@ export default function Etiquetas() {
                     {editando && (
                         <div className="etiquetas-edicao-preco-area">
 
-                            <span>R$</span>
+                            <span className="etiquetas-edicao-preco-prefixo">
+                                R$
+                            </span>
 
                             <input
                                 className="etiquetas-edicao-preco-input"
@@ -1871,7 +1881,23 @@ export default function Etiquetas() {
                             >
                                 Quantidade
                             </label>
+                            {/* =========================================================
+    PRÉVIA DA IMAGEM SEM FUNDO DA ETIQUETA
+    SOMENTE NA COLUNA DE IMPRESSÃO
+========================================================= */}
 
+                            {lado === "direita" &&
+                                produto.usarImagemEtiqueta &&
+                                produto.imagem_etiqueta && (
+                                    <div className="etiquetas-card-preview-imagem-sem-fundo-area">
+                                        <img
+                                            className="etiquetas-card-preview-imagem-sem-fundo"
+                                            src={produto.imagem_etiqueta}
+                                            alt=""
+                                            draggable="false"
+                                        />
+                                    </div>
+                                )}
                             <input
                                 id={`quantidade-etiqueta-${produto.id}`}
                                 className="etiquetas-quantidade-impressao-input"
@@ -1903,10 +1929,20 @@ export default function Etiquetas() {
 
                 </div>
 
-                <div className="etiquetas-produto-acoes-area">
+                <div
+                    className={`etiquetas-produto-acoes-area ${editando
+                        ? "etiquetas-produto-acoes-editando-preco"
+                        : ""
+                        }`}
+                >
+
+                    {/* =============================================
+                    PREÇO
+                ============================================= */}
 
                     {!editando ? (
                         <button
+                            type="button"
                             className="etiquetas-acao-alterar-preco"
                             onClick={() =>
                                 iniciarEdicaoPreco(produto)
@@ -1917,6 +1953,7 @@ export default function Etiquetas() {
                     ) : (
                         <>
                             <button
+                                type="button"
                                 className="etiquetas-acao-salvar-preco"
                                 onClick={() =>
                                     salvarNovoPreco(produto)
@@ -1926,6 +1963,7 @@ export default function Etiquetas() {
                             </button>
 
                             <button
+                                type="button"
                                 className="etiquetas-acao-cancelar-preco"
                                 onClick={cancelarEdicaoPreco}
                             >
@@ -1934,8 +1972,14 @@ export default function Etiquetas() {
                         </>
                     )}
 
+
+                    {/* =============================================
+                    LADO ESQUERDO
+                ============================================= */}
+
                     {lado === "esquerda" && (
                         <button
+                            type="button"
                             className="etiquetas-acao-mover-direita"
                             onClick={() =>
                                 adicionarParaImpressao(produto)
@@ -1946,60 +1990,91 @@ export default function Etiquetas() {
                         </button>
                     )}
 
+
+                    {/* =============================================
+                    LADO DIREITO
+
+                    IMAGEM / ESCOLHER IMAGEM / PROMOÇÃO
+                    SOMEM DURANTE EDIÇÃO DE PREÇO
+                ============================================= */}
+
                     {lado === "direita" && (
                         <>
-                            <button
-                                type="button"
-                                className={`etiquetas-imagem-produto-controle ${produto.usarImagemEtiqueta &&
-                                    produto.imagem_etiqueta
-                                    ? "etiquetas-imagem-produto-com-imagem"
-                                    : "etiquetas-imagem-produto-sem-imagem"
-                                    }`}
-                                onClick={() =>
-                                    alternarUsoImagemEtiqueta(produto.id)
-                                }
-                                onDoubleClick={() =>
-                                    abrirModalImagemEtiqueta(produto)
-                                }
-                                title={
-                                    produto.imagem_etiqueta
-                                        ? "Clique para ativar/desativar. Clique duas vezes para trocar a imagem."
-                                        : "Adicionar imagem à etiqueta"
-                                }
-                            >
-                                {produto.usarImagemEtiqueta &&
-                                    produto.imagem_etiqueta
-                                    ? "Imagem ✓"
-                                    : "Sem imagem"}
-                            </button>
 
-                            <button
-                                type="button"
-                                className="etiquetas-imagem-produto-editar"
-                                onClick={() =>
-                                    abrirModalImagemEtiqueta(produto)
-                                }
-                            >
-                                Escolher imagem
-                            </button>
+                            {!editando && (
+                                <>
+                                    <button
+                                        type="button"
+                                        className={`etiquetas-imagem-produto-controle ${produto.usarImagemEtiqueta &&
+                                            produto.imagem_etiqueta
+                                            ? "etiquetas-imagem-produto-com-imagem"
+                                            : "etiquetas-imagem-produto-sem-imagem"
+                                            }`}
+                                        onClick={() =>
+                                            alternarUsoImagemEtiqueta(
+                                                produto.id
+                                            )
+                                        }
+                                        onDoubleClick={() =>
+                                            abrirModalImagemEtiqueta(
+                                                produto
+                                            )
+                                        }
+                                        title={
+                                            produto.imagem_etiqueta
+                                                ? "Clique para ativar/desativar. Clique duas vezes para trocar a imagem."
+                                                : "Adicionar imagem à etiqueta"
+                                        }
+                                    >
+                                        {produto.usarImagemEtiqueta &&
+                                            produto.imagem_etiqueta
+                                            ? "Imagem ✓"
+                                            : "Sem imagem"}
+                                    </button>
 
-                            <button
-                                className="etiquetas-acao-promocao"
-                                data-ativo={
-                                    produto.promocao
-                                        ? "true"
-                                        : "false"
-                                }
-                                onClick={() =>
-                                    alternarPromocao(produto.id)
-                                }
-                            >
-                                {produto.promocao
-                                    ? "Promoção ✓"
-                                    : "Promoção"}
-                            </button>
-                            {produto.promocao && (
+                                    <button
+                                        type="button"
+                                        className="etiquetas-imagem-produto-editar"
+                                        onClick={() =>
+                                            abrirModalImagemEtiqueta(
+                                                produto
+                                            )
+                                        }
+                                    >
+                                        Escolher imagem
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="etiquetas-acao-promocao"
+                                        data-ativo={
+                                            produto.promocao
+                                                ? "true"
+                                                : "false"
+                                        }
+                                        onClick={() =>
+                                            alternarPromocao(
+                                                produto.id
+                                            )
+                                        }
+                                    >
+                                        {produto.promocao
+                                            ? "Promoção ✓"
+                                            : "Promoção"}
+                                    </button>
+                                </>
+                            )}
+
+
+                            {/* =============================================
+                            PREÇO ANTERIOR
+
+                            Também some durante edição
+                        ============================================= */}
+
+                            {!editando && produto.promocao && (
                                 <div className="etiquetas-promocao-preco-anterior-area">
+
                                     <label
                                         className="etiquetas-promocao-preco-anterior-label"
                                         htmlFor={`preco-anterior-promocao-${produto.id}`}
@@ -2008,6 +2083,7 @@ export default function Etiquetas() {
                                     </label>
 
                                     <div className="etiquetas-promocao-preco-anterior-campo">
+
                                         <span className="etiquetas-promocao-preco-anterior-prefixo">
                                             R$
                                         </span>
@@ -2026,20 +2102,33 @@ export default function Etiquetas() {
                                                     e.target.value
                                                 )
                                             }
-                                            autoFocus
                                         />
+
                                     </div>
+
                                 </div>
                             )}
+
+
+                            {/* =============================================
+                            REMOVER
+
+                            CONTINUA DISPONÍVEL
+                        ============================================= */}
+
                             <button
+                                type="button"
                                 className="etiquetas-acao-mover-esquerda"
                                 onClick={() =>
-                                    removerDaImpressao(produto.id)
+                                    removerDaImpressao(
+                                        produto.id
+                                    )
                                 }
                                 title="Remover da impressão"
                             >
                                 ←
                             </button>
+
                         </>
                     )}
 
@@ -2512,12 +2601,12 @@ export default function Etiquetas() {
                     PRODUTOS PARA IMPRESSÃO
                 =============================== */}
                 <section
-                    className={`etiquetas-coluna-impressao-selecionada ${abaMobileEtiquetas === "etiquetas"
+                    className={`etiquetas-coluna-impressao-selecionada etiquetas-impressao-layout-renovado ${abaMobileEtiquetas === "etiquetas"
                         ? "etiquetas-coluna-mobile-visivel"
                         : "etiquetas-coluna-mobile-oculta"
                         }`}
                 >
-                    <div className="etiquetas-coluna-cabecalho">
+                    <div className="etiquetas-coluna-cabecalho etiquetas-impressao-cabecalho-renovado">
                         <h3>
                             Impressão
                         </h3>
@@ -2527,8 +2616,7 @@ export default function Etiquetas() {
                         </span>
                     </div>
 
-                    <div className="etiquetas-listagem-impressao-scroll">
-
+                    <div className="etiquetas-listagem-impressao-scroll etiquetas-impressao-listagem-renovada">
                         {selecionados.length === 0 ? (
                             <div className="etiquetas-impressao-vazia-area">
 
@@ -2546,18 +2634,20 @@ export default function Etiquetas() {
 
                             </div>
                         ) : (
-                            selecionados.map(produto =>
-                                renderizarProduto(
-                                    produto,
-                                    "direita"
-                                )
-                            )
+                            selecionados.map(produto => (
+                                <div
+                                    key={produto.id}
+                                    className="etiquetas-impressao-produto-wrapper-renovado"
+                                >
+                                    {renderizarProduto(
+                                        produto,
+                                        "direita"
+                                    )}
+                                </div>
+                            ))
                         )}
-
                     </div>
-
                 </section>
-
             </div>
 
             {modalImagemEtiqueta && (

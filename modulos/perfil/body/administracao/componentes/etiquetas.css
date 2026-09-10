@@ -704,7 +704,7 @@
 ========================================================= */
 
 .etiquetas-acao-salvar-preco {
-    min-width: 58px;
+    min-width: 50px !important;
 
     background: #0e7147;
 
@@ -1330,7 +1330,7 @@
 ========================================================= */
 
 .etiquetas-acao-salvar-preco {
-    background: #0e7147;
+    background: #0e7147 !important;
 
     border-color: #0e7147 !important;
 
@@ -3519,5 +3519,1086 @@
         width: 100%;
 
         padding: 0 10px;
+    }
+}
+
+/* =========================================================
+   IMPRESSÃO
+   PREMIUM UI V3
+========================================================= */
+
+.etiquetas-impressao-layout-renovado {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.etiquetas-impressao-layout-renovado .etiquetas-impressao-cabecalho-renovado {
+    min-height: 68px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    background:
+        linear-gradient(135deg,
+            #071a33 0%,
+            #0b2c55 58%,
+            #123f75 100%) !important;
+
+    border-bottom-color: #173f6c !important;
+
+    box-shadow:
+        0 5px 18px rgba(4, 20, 40, 0.16) !important;
+}
+
+
+.etiquetas-impressao-layout-renovado .etiquetas-impressao-cabecalho-renovado h3 {
+    color: #ffffff !important;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    letter-spacing: 0.1px;
+}
+
+
+.etiquetas-impressao-layout-renovado .etiquetas-impressao-cabecalho-renovado span {
+    min-width: 31px;
+    height: 31px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 9px;
+
+    color: #0b294e !important;
+
+    background:
+        linear-gradient(135deg,
+            #f7d88a 0%,
+            #e8b94f 100%) !important;
+
+    border-color: rgba(255, 255, 255, 0.25) !important;
+
+    border-radius: 999px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   FUNDO DA LISTAGEM
+========================================================= */
+
+.etiquetas-impressao-layout-renovado .etiquetas-impressao-listagem-renovada {
+    padding: 15px;
+
+    background:
+        linear-gradient(180deg,
+            #f5f8fc 0%,
+            #eef3f8 100%) !important;
+}
+
+
+/* =========================================================
+   WRAPPER
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado {
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   CARD PREMIUM
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual {
+    position: relative;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 168px;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+
+    gap: 15px !important;
+
+    padding: 18px 18px 17px 20px !important;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #ffffff 62%,
+            #f7faff 100%) !important;
+
+    border-color: #d7e0eb !important;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 17px !important;
+
+    box-shadow:
+        0 1px 2px rgba(9, 30, 55, 0.04),
+        0 7px 22px rgba(9, 30, 55, 0.075),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* BARRA PREMIUM LATERAL */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 16px;
+    bottom: 16px;
+
+    width: 4px;
+
+    border-radius: 0 6px 6px 0;
+
+    background:
+        linear-gradient(180deg,
+            #2768b2 0%,
+            #0b376a 55%,
+            #061f3d 100%) !important;
+
+    box-shadow:
+        2px 0 8px rgba(19, 74, 135, 0.16) !important;
+
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+
+/* BRILHO SUPERIOR */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 22px;
+    right: 22px;
+
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(45, 105, 170, 0.22),
+            transparent) !important;
+}
+
+
+/* HOVER CARD */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual:hover {
+    transform: translateY(-3px);
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #ffffff 55%,
+            #f3f8ff 100%) !important;
+
+    border-color: #b7c9dc !important;
+
+    box-shadow:
+        0 2px 5px rgba(9, 30, 55, 0.04),
+        0 14px 32px rgba(9, 30, 55, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-informacoes-bloco {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    flex: none !important;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 7px;
+
+    padding-left: 2px;
+}
+
+
+/* =========================================================
+   NOME
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-nome-texto {
+    width: 100% !important;
+    max-width: none !important;
+
+    margin: 0;
+
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+
+    overflow-wrap: break-word;
+    word-break: normal;
+
+    color: #12243a !important;
+
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 800;
+
+    letter-spacing: -0.15px;
+}
+
+
+/* =========================================================
+   PREÇO
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-preco-texto {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #0a376d !important;
+
+    font-size: 21px;
+    line-height: 1.1;
+    font-weight: 900;
+
+    letter-spacing: -0.45px;
+}
+
+
+/* =========================================================
+   QUANTIDADE
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-quantidade-impressao-area {
+    width: fit-content;
+    max-width: 100%;
+
+    min-height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 4px 0 0 !important;
+    padding: 5px 6px 5px 11px !important;
+
+    background:
+        linear-gradient(180deg,
+            #f7f9fc,
+            #eef3f8) !important;
+
+    border-color: #d3dde8 !important;
+    border-style: solid;
+    border-width: 1px;
+
+    border-radius: 11px !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 2px 5px rgba(15, 40, 70, 0.035) !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-quantidade-impressao-label {
+    color: #40546b !important;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.1px;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-quantidade-impressao-input {
+    width: 57px;
+    height: 31px;
+
+    padding: 0 8px;
+
+    color: #10263f !important;
+
+    background: #ffffff !important;
+
+    border-color: #c8d4e1 !important;
+    border-style: solid;
+    border-width: 1px;
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 1px 3px rgba(10, 35, 65, 0.05) !important;
+
+    outline-color: transparent !important;
+
+    font-size: 13px;
+    font-weight: 850;
+
+    text-align: center;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-quantidade-impressao-input:focus {
+    border-color: #2366ad !important;
+
+    box-shadow:
+        0 0 0 3px rgba(35, 102, 173, 0.11),
+        0 2px 6px rgba(35, 102, 173, 0.08) !important;
+}
+
+
+/* =========================================================
+   ÁREA DAS AÇÕES
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    flex: none !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) 46px;
+
+    align-items: stretch !important;
+
+    gap: 9px !important;
+
+    padding: 14px 0 0 !important;
+
+    border-top-color: #e4eaf1 !important;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+
+/* =========================================================
+   BASE DOS BOTÕES
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area button {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    height: auto !important;
+    min-height: 43px !important;
+
+    padding: 8px 11px !important;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    white-space: normal !important;
+
+    color: #243950 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f3f6f9 100%) !important;
+
+    border-color: #d2dce7 !important;
+    border-style: solid;
+    border-width: 1px;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 2px 5px rgba(14, 37, 65, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+
+    font-size: 11px;
+    line-height: 1.2 !important;
+    font-weight: 800;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.16s ease,
+        box-shadow 0.16s ease,
+        border-color 0.16s ease,
+        background 0.16s ease;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area button:hover {
+    transform: translateY(-2px);
+
+    color: #102b4a !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #edf3f9) !important;
+
+    border-color: #aec1d5 !important;
+
+    box-shadow:
+        0 6px 14px rgba(13, 42, 75, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area button:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 2px 4px rgba(13, 42, 75, 0.07) !important;
+}
+
+
+/* =========================================================
+   MUDAR PREÇO
+   AZUL ROYAL
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-alterar-preco {
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(135deg,
+            #2769b5 0%,
+            #174f8f 100%) !important;
+
+    border-color: #174b86 !important;
+
+    box-shadow:
+        0 4px 10px rgba(23, 79, 143, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-alterar-preco:hover {
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(135deg,
+            #3178c6,
+            #19589e) !important;
+
+    border-color: #164a85 !important;
+
+    box-shadow:
+        0 7px 15px rgba(23, 79, 143, 0.27) !important;
+}
+
+
+/* =========================================================
+   IMAGEM
+   VERDE ESMERALDA
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-imagem-produto-toggle {
+    color: #14603d !important;
+
+    background:
+        linear-gradient(180deg,
+            #f2fcf6,
+            #e4f5eb) !important;
+
+    border-color: #b7ddc7 !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-imagem-produto-toggle:hover {
+    color: #0d5333 !important;
+
+    background:
+        linear-gradient(180deg,
+            #eaf9f0,
+            #d8f0e2) !important;
+
+    border-color: #8dc5a5 !important;
+}
+
+
+/* =========================================================
+   ESCOLHER IMAGEM
+   VIOLETA PREMIUM
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-imagem-produto-editar {
+    color: #56328c !important;
+
+    background:
+        linear-gradient(180deg,
+            #faf7ff,
+            #f0eafd) !important;
+
+    border-color: #d7c8ed !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-imagem-produto-editar:hover {
+    color: #482678 !important;
+
+    background:
+        linear-gradient(180deg,
+            #f6f0ff,
+            #e9defa) !important;
+
+    border-color: #bca4df !important;
+}
+
+
+/* =========================================================
+   PROMOÇÃO
+   DOURADO
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-promocao {
+    min-width: 0 !important;
+
+    color: #68440d !important;
+
+    background:
+        linear-gradient(135deg,
+            #fff9e9 0%,
+            #f7e8bd 100%) !important;
+
+    border-color: #e5cb8b !important;
+
+    box-shadow:
+        0 3px 8px rgba(147, 105, 25, 0.10) !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-promocao:hover {
+    color: #583706 !important;
+
+    background:
+        linear-gradient(135deg,
+            #fff4d5,
+            #f3dda3) !important;
+
+    border-color: #d5b15f !important;
+
+    box-shadow:
+        0 6px 13px rgba(147, 105, 25, 0.17) !important;
+}
+
+
+/* PROMOÇÃO ATIVA */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-promocao[data-ativo="true"] {
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(135deg,
+            #c9871a 0%,
+            #a86508 100%) !important;
+
+    border-color: #9a5d08 !important;
+
+    box-shadow:
+        0 5px 12px rgba(154, 93, 8, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+
+/* =========================================================
+   REMOVER
+   VINHO PREMIUM
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-mover-esquerda {
+    width: 46px !important;
+    min-width: 46px !important;
+    max-width: 46px !important;
+
+    height: 43px !important;
+
+    padding: 0 !important;
+
+    justify-self: end;
+
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(145deg,
+            #a72e3c,
+            #791d2a) !important;
+
+    border-color: #711a26 !important;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 5px 12px rgba(121, 29, 42, 0.23),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+
+    font-size: 18px !important;
+    font-weight: 800 !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-mover-esquerda:hover {
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(145deg,
+            #bd3848,
+            #8c2231) !important;
+
+    border-color: #811e2c !important;
+
+    box-shadow:
+        0 8px 16px rgba(121, 29, 42, 0.30) !important;
+}
+
+
+/* =========================================================
+   EDIÇÃO DO PREÇO
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-edicao-preco-area {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding: 10px;
+
+    background:
+        linear-gradient(180deg,
+            #f4f8fd,
+            #edf3f9) !important;
+
+    border-color: #cddbea !important;
+    border-style: solid;
+    border-width: 1px;
+
+    border-radius: 11px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-edicao-preco-area label {
+    color: #314a65 !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-edicao-preco-input {
+    flex: 1;
+
+    width: auto;
+    min-width: 90px;
+    height: 38px;
+
+    padding: 0 10px;
+
+    color: #122b48 !important;
+
+    background: #ffffff !important;
+
+    border-color: #bdccdc !important;
+    border-style: solid;
+    border-width: 1px;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 1px 4px rgba(12, 38, 68, 0.05) !important;
+
+    outline-color: transparent !important;
+
+    font-weight: 800;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-edicao-preco-input:focus {
+    border-color: #2769b5 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(39, 105, 181, 0.12),
+        0 3px 7px rgba(39, 105, 181, 0.08) !important;
+}
+
+
+/* =========================================================
+   PREÇO ANTERIOR
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-promocao-preco-anterior-area {
+    width: 100% !important;
+
+    grid-column: 1 / -1;
+
+    padding: 11px;
+
+    background:
+        linear-gradient(135deg,
+            #fffaf0,
+            #fff4dd) !important;
+
+    border-color: #ead39c !important;
+    border-style: solid;
+    border-width: 1px;
+
+    border-radius: 11px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-promocao-preco-anterior-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #72501b !important;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-promocao-preco-anterior-campo {
+    width: 100% !important;
+    min-height: 41px;
+
+    background: #ffffff !important;
+
+    border-color: #e0c98e !important;
+
+    border-radius: 8px;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-promocao-preco-anterior-prefixo {
+    color: #79551c !important;
+}
+
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-promocao-preco-anterior-input {
+    color: #34250d !important;
+
+    background: #ffffff !important;
+
+    outline-color: transparent !important;
+}
+
+
+/* =========================================================
+   FOCO PREMIUM
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area button:focus-visible {
+    outline-color: #3478c4 !important;
+    outline-style: solid;
+    outline-width: 3px;
+
+    outline-offset: 2px;
+
+    box-shadow:
+        0 0 0 4px rgba(52, 120, 196, 0.12) !important;
+}
+
+
+/* =========================================================
+   NOTEBOOK
+========================================================= */
+
+@media (max-width: 1350px) {
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-mover-esquerda {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+
+        justify-self: stretch;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual {
+        min-height: auto;
+
+        padding: 16px !important;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr)) 46px;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-mover-esquerda {
+        width: 46px !important;
+        min-width: 46px !important;
+        max-width: 46px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .etiquetas-impressao-layout-renovado .etiquetas-impressao-listagem-renovada {
+        padding: 8px;
+
+        background: #f1f5f9 !important;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual {
+        min-height: auto;
+
+        gap: 13px !important;
+
+        padding: 14px !important;
+
+        border-radius: 14px !important;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-nome-texto {
+        color: #12243a !important;
+
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-preco-texto {
+        color: #0a376d !important;
+
+        font-size: 20px;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 8px !important;
+
+        padding-top: 12px !important;
+
+        border-top-color: #e1e8f0 !important;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area button {
+        min-height: 45px !important;
+
+        padding: 9px !important;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-mover-esquerda {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+
+        height: 45px !important;
+
+        justify-self: stretch;
+    }
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual {
+        padding: 13px !important;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area {
+        grid-template-columns: 1fr;
+    }
+
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-acoes-area button,
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-acao-mover-esquerda {
+        width: 100% !important;
+        max-width: none !important;
+    }
+}
+
+/* =========================================================
+   PRÉVIA DA IMAGEM SEM FUNDO
+   CARD DE IMPRESSÃO
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual {
+    position: relative;
+}
+
+
+/* ÁREA DA IMAGEM */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-card-preview-imagem-sem-fundo-area {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+    bottom: 62px;
+
+    width: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+
+/* IMAGEM */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-card-preview-imagem-sem-fundo {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: 150px;
+    max-height: 105px;
+
+    object-fit: contain;
+
+    object-position: center;
+
+    user-select: none;
+}
+
+
+/* =========================================================
+   RESERVA O LADO DIREITO PARA A IMAGEM
+   SOMENTE QUANDO ELA REALMENTE EXISTE
+========================================================= */
+
+.etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual:has(.etiquetas-card-preview-imagem-sem-fundo-area) .etiquetas-produto-informacoes-bloco {
+    padding-right: 165px;
+}
+
+
+/* =========================================================
+   TABLET / TELAS MENORES
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-card-preview-imagem-sem-fundo-area {
+        width: 120px;
+    }
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-card-preview-imagem-sem-fundo {
+        max-width: 120px;
+        max-height: 95px;
+    }
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual:has(.etiquetas-card-preview-imagem-sem-fundo-area) .etiquetas-produto-informacoes-bloco {
+        padding-right: 135px;
+    }
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-card-preview-imagem-sem-fundo-area {
+        position: relative;
+
+        top: auto;
+        right: auto;
+        bottom: auto;
+
+        width: 100%;
+        height: 100px;
+
+        margin-top: 5px;
+
+        justify-content: flex-start;
+    }
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-card-preview-imagem-sem-fundo {
+        width: auto;
+        height: 100%;
+
+        max-width: 140px;
+        max-height: 100px;
+    }
+
+    .etiquetas-impressao-produto-wrapper-renovado .etiquetas-produto-card-individual:has(.etiquetas-card-preview-imagem-sem-fundo-area) .etiquetas-produto-informacoes-bloco {
+        padding-right: 0;
     }
 }
