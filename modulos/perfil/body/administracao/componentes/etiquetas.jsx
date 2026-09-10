@@ -883,35 +883,69 @@ export default function Etiquetas() {
     function carregarImagemParaPdf(url) {
         return new Promise((resolve, reject) => {
             const imagem = new Image();
+
             imagem.crossOrigin = "anonymous";
 
             imagem.onload = () => {
                 try {
                     const canvas = document.createElement("canvas");
-                    canvas.width = imagem.naturalWidth || imagem.width;
-                    canvas.height = imagem.naturalHeight || imagem.height;
 
-                    const contexto = canvas.getContext("2d");
-                    contexto.drawImage(imagem, 0, 0);
+                    canvas.width =
+                        imagem.naturalWidth ||
+                        imagem.width;
+
+                    canvas.height =
+                        imagem.naturalHeight ||
+                        imagem.height;
+
+                    const contexto =
+                        canvas.getContext("2d");
+
+                    contexto.drawImage(
+                        imagem,
+                        0,
+                        0
+                    );
 
                     resolve({
-                        dataUrl: canvas.toDataURL("image/png"),
-                        largura: canvas.width,
-                        altura: canvas.height,
+                        dataUrl:
+                            canvas.toDataURL("image/png"),
+
+                        largura:
+                            canvas.width,
+
+                        altura:
+                            canvas.height,
                     });
+
                 } catch (erro) {
                     reject(erro);
                 }
             };
 
-            imagem.onerror = () =>
+            imagem.onerror = () => {
                 reject(
                     new Error(
                         "Não foi possível carregar a imagem da etiqueta."
                     )
                 );
+            };
 
-            imagem.src = url;
+            // Evita reutilizar resposta antiga sem CORS
+            const separador =
+                url.includes("?")
+                    ? "&"
+                    : "?";
+
+            const urlSemCache =
+                `${url}${separador}v=${Date.now()}`;
+
+            console.log(
+                "[ETIQUETAS] Carregando imagem:",
+                urlSemCache
+            );
+
+            imagem.src = urlSemCache;
         });
     }
 
@@ -1917,9 +1951,9 @@ export default function Etiquetas() {
                             <button
                                 type="button"
                                 className={`etiquetas-imagem-produto-controle ${produto.usarImagemEtiqueta &&
-                                        produto.imagem_etiqueta
-                                        ? "etiquetas-imagem-produto-com-imagem"
-                                        : "etiquetas-imagem-produto-sem-imagem"
+                                    produto.imagem_etiqueta
+                                    ? "etiquetas-imagem-produto-com-imagem"
+                                    : "etiquetas-imagem-produto-sem-imagem"
                                     }`}
                                 onClick={() =>
                                     alternarUsoImagemEtiqueta(produto.id)
@@ -2576,9 +2610,9 @@ export default function Etiquetas() {
                                                     type="button"
                                                     key={`${url}-${indice}`}
                                                     className={`etiquetas-imagem-modal-opcao ${imagemEscolhidaEtiqueta === url &&
-                                                            !arquivoImagemEtiqueta
-                                                            ? "etiquetas-imagem-modal-opcao-ativa"
-                                                            : ""
+                                                        !arquivoImagemEtiqueta
+                                                        ? "etiquetas-imagem-modal-opcao-ativa"
+                                                        : ""
                                                         }`}
                                                     onClick={() => {
                                                         setImagemEscolhidaEtiqueta(url);
@@ -2604,10 +2638,10 @@ export default function Etiquetas() {
                                     <button
                                         type="button"
                                         className={`etiquetas-imagem-modal-opcao etiquetas-imagem-modal-atual ${imagemEscolhidaEtiqueta ===
-                                                modalImagemEtiqueta.imagem_etiqueta &&
-                                                !arquivoImagemEtiqueta
-                                                ? "etiquetas-imagem-modal-opcao-ativa"
-                                                : ""
+                                            modalImagemEtiqueta.imagem_etiqueta &&
+                                            !arquivoImagemEtiqueta
+                                            ? "etiquetas-imagem-modal-opcao-ativa"
+                                            : ""
                                             }`}
                                         onClick={() => {
                                             setImagemEscolhidaEtiqueta(
