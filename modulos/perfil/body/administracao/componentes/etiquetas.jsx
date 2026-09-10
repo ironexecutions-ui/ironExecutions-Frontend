@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { jsPDF } from "jspdf";
 import { API_URL } from "../../../../../config";
 import "./etiquetas.css";
-
+import { createPortal } from "react-dom";
 const CACHE_ETIQUETAS = "dgyahdasd2d62asdsaofaso";
 
 const CACHE_CONFIGURACAO_ETIQUETAS =
@@ -2629,34 +2629,200 @@ export default function Etiquetas() {
                                     </div>
                                 )}
 
-                            {modalImagemEtiqueta.imagem_etiqueta && (
-                                <div className="etiquetas-imagem-modal-atual-area">
-                                    <strong>
-                                        Imagem atual sem fundo
-                                    </strong>
-
-                                    <button
-                                        type="button"
-                                        className={`etiquetas-imagem-modal-opcao etiquetas-imagem-modal-atual ${imagemEscolhidaEtiqueta ===
-                                            modalImagemEtiqueta.imagem_etiqueta &&
-                                            !arquivoImagemEtiqueta
-                                            ? "etiquetas-imagem-modal-opcao-ativa"
-                                            : ""
-                                            }`}
-                                        onClick={() => {
-                                            setImagemEscolhidaEtiqueta(
-                                                modalImagemEtiqueta.imagem_etiqueta
-                                            );
-                                            setArquivoImagemEtiqueta(null);
+                            {modalImagemEtiqueta &&
+                                createPortal(
+                                    <div
+                                        className="etiquetas-imagem-modal-overlay"
+                                        onMouseDown={(e) => {
+                                            if (e.target === e.currentTarget) {
+                                                fecharModalImagemEtiqueta();
+                                            }
                                         }}
                                     >
-                                        <img
-                                            src={modalImagemEtiqueta.imagem_etiqueta}
-                                            alt="Imagem atual da etiqueta"
-                                        />
-                                    </button>
-                                </div>
-                            )}
+                                        <div
+                                            className="etiquetas-imagem-modal-container"
+                                            onMouseDown={(e) => e.stopPropagation()}
+                                        >
+                                            {/* =====================================================
+                    CABEÇALHO
+                ===================================================== */}
+
+                                            <div className="etiquetas-imagem-modal-cabecalho">
+                                                <div className="etiquetas-imagem-modal-cabecalho-texto">
+                                                    <h3>
+                                                        Imagem da etiqueta
+                                                    </h3>
+
+                                                    <p>
+                                                        {modalImagemEtiqueta.nome}
+                                                    </p>
+                                                </div>
+
+                                                <button
+                                                    type="button"
+                                                    className="etiquetas-imagem-modal-fechar"
+                                                    onClick={fecharModalImagemEtiqueta}
+                                                    aria-label="Fechar"
+                                                >
+                                                    ×
+                                                </button>
+                                            </div>
+
+
+                                            {/* =====================================================
+                    IMAGEM ATUAL SEM FUNDO
+                ===================================================== */}
+
+                                            {modalImagemEtiqueta.imagem_etiqueta && (
+                                                <div className="etiquetas-imagem-modal-atual-area">
+                                                    <strong>
+                                                        Imagem atual sem fundo
+                                                    </strong>
+
+                                                    <button
+                                                        type="button"
+                                                        className={`
+                                etiquetas-imagem-modal-opcao
+                                etiquetas-imagem-modal-atual
+                                ${imagemEscolhidaEtiqueta ===
+                                                                modalImagemEtiqueta.imagem_etiqueta &&
+                                                                !arquivoImagemEtiqueta
+                                                                ? "etiquetas-imagem-modal-opcao-ativa"
+                                                                : ""
+                                                            }
+                            `}
+                                                        onClick={() => {
+                                                            setImagemEscolhidaEtiqueta(
+                                                                modalImagemEtiqueta.imagem_etiqueta
+                                                            );
+
+                                                            setArquivoImagemEtiqueta(null);
+                                                        }}
+                                                    >
+                                                        <img
+                                                            src={modalImagemEtiqueta.imagem_etiqueta}
+                                                            alt="Imagem atual da etiqueta"
+                                                        />
+                                                    </button>
+                                                </div>
+                                            )}
+
+
+                                            {/* =====================================================
+                    IMAGENS EXISTENTES DO PRODUTO
+                ===================================================== */}
+
+                                            {obterImagensProduto(modalImagemEtiqueta).length > 0 && (
+                                                <div className="etiquetas-imagem-modal-lista-area">
+                                                    <strong>
+                                                        Escolher uma imagem do produto
+                                                    </strong>
+
+                                                    <div className="etiquetas-imagem-modal-lista">
+                                                        {obterImagensProduto(
+                                                            modalImagemEtiqueta
+                                                        ).map((url, index) => (
+                                                            <button
+                                                                key={`${url}-${index}`}
+                                                                type="button"
+                                                                className={`
+                                        etiquetas-imagem-modal-opcao
+                                        ${imagemEscolhidaEtiqueta === url &&
+                                                                        !arquivoImagemEtiqueta
+                                                                        ? "etiquetas-imagem-modal-opcao-ativa"
+                                                                        : ""
+                                                                    }
+                                    `}
+                                                                onClick={() => {
+                                                                    setImagemEscolhidaEtiqueta(url);
+
+                                                                    setArquivoImagemEtiqueta(null);
+                                                                }}
+                                                            >
+                                                                <img
+                                                                    src={url}
+                                                                    alt={`Imagem ${index + 1} do produto`}
+                                                                />
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
+
+                                            {/* =====================================================
+                    ENVIAR NOVA IMAGEM
+                ===================================================== */}
+
+                                            <div className="etiquetas-imagem-modal-upload-area">
+                                                <strong>
+                                                    Ou enviar uma nova imagem
+                                                </strong>
+
+                                                <input
+                                                    type="file"
+                                                    accept="image/png,image/jpeg,image/webp"
+                                                    onChange={(e) => {
+                                                        const arquivo =
+                                                            e.target.files?.[0] || null;
+
+                                                        setArquivoImagemEtiqueta(arquivo);
+
+                                                        if (arquivo) {
+                                                            setImagemEscolhidaEtiqueta("");
+                                                        }
+                                                    }}
+                                                />
+
+                                                {arquivoImagemEtiqueta && (
+                                                    <div className="etiquetas-imagem-modal-arquivo-selecionado">
+                                                        <span>
+                                                            Arquivo selecionado:
+                                                        </span>
+
+                                                        <strong>
+                                                            {arquivoImagemEtiqueta.name}
+                                                        </strong>
+                                                    </div>
+                                                )}
+                                            </div>
+
+
+                                            {/* =====================================================
+                    AÇÕES
+                ===================================================== */}
+
+                                            <div className="etiquetas-imagem-modal-rodape">
+                                                <button
+                                                    type="button"
+                                                    className="etiquetas-imagem-modal-cancelar"
+                                                    onClick={fecharModalImagemEtiqueta}
+                                                    disabled={salvandoImagemEtiqueta}
+                                                >
+                                                    Cancelar
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    className="etiquetas-imagem-modal-salvar"
+                                                    onClick={salvarImagemEtiqueta}
+                                                    disabled={
+                                                        salvandoImagemEtiqueta ||
+                                                        (
+                                                            !imagemEscolhidaEtiqueta &&
+                                                            !arquivoImagemEtiqueta
+                                                        )
+                                                    }
+                                                >
+                                                    {salvandoImagemEtiqueta
+                                                        ? "Processando imagem..."
+                                                        : "Usar imagem"}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>,
+                                    document.body
+                                )}
 
                             <div className="etiquetas-imagem-modal-upload-area">
                                 <strong>
