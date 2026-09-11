@@ -9,7 +9,7 @@ import {
 import "./app.css";
 import "./app-responsivo.css";
 import Sobre from "../sobre/sobre";
-
+import ModalLembretesTarefas from "../modulos/perfil/header/modals/tarefas";
 import RifaCompras from "../public/rifas/rifacompras";
 import Codigo from "../public/codigo";
 import InicioModulos from "../modulos/iniciomodulos";
@@ -251,7 +251,27 @@ function RoteamentoComLoading() {
   );
 }
 
+/* =========================================================
+   LEMBRETES POR INATIVIDADE
+========================================================= */
 
+/*
+    TESTE:
+    5 segundos sem nenhuma atividade.
+*/
+const TEMPO_INATIVIDADE_LEMBRETES =
+  5 * 60 * 1000;
+
+
+/*
+    PRODUÇÃO:
+    Depois dos testes, substituir a constante acima por:
+
+    const TEMPO_INATIVIDADE_LEMBRETES =
+        5 * 60 * 1000;
+
+    Isso corresponde a 5 minutos.
+*/
 /* =========================================================
    APP
 ========================================================= */
@@ -261,7 +281,298 @@ export default function App() {
   const [fundoComercio, setFundoComercio] =
     useState(null);
 
+  const [
+    lembretesInatividade,
+    setLembretesInatividade
+  ] = useState(null);
 
+  const [
+    abrirLembretesInatividade,
+    setAbrirLembretesInatividade
+  ] = useState(false);
+  /* =========================================================
+     CARREGAR LEMBRETES
+  ========================================================= */
+
+  async function carregarLembretesInatividade() {
+
+    const token =
+      localStorage.getItem("token");
+
+    if (!token) {
+
+      setLembretesInatividade(null);
+
+      return null;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_URL}/tarefas/lembretes`,
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+
+      if (!response.ok) {
+
+        setLembretesInatividade(
+          null
+        );
+
+        return null;
+      }
+
+
+      const resultado =
+        await response.json();
+
+
+      setLembretesInatividade(
+        resultado
+      );
+
+
+      return resultado;
+
+    } catch (erro) {
+
+      console.error(
+        "[LEMBRETES] Erro ao carregar:",
+        erro
+      );
+
+
+      setLembretesInatividade(
+        null
+      );
+
+
+      return null;
+    }
+  }
+  /* =========================================================
+     DETECTOR GLOBAL DE INATIVIDADE
+  
+     TESTE:
+     abre após 5 segundos sem atividade.
+  
+     PRODUÇÃO:
+     alterar TEMPO_INATIVIDADE_LEMBRETES
+     para 5 * 60 * 1000.
+  ========================================================= */
+
+  useEffect(() => {
+
+    let timerInatividade = null;
+
+    let componenteAtivo = true;
+
+
+    /* =====================================================
+       ABRIR LEMBRETES
+    ===================================================== */
+
+    async function abrirPorInatividade() {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+
+      /*
+          Sem login não mostramos o modal.
+      */
+
+      if (!token) {
+        return;
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            `${API_URL}/tarefas/lembretes`,
+            {
+              headers: {
+                Authorization:
+                  `Bearer ${token}`
+              }
+            }
+          );
+
+
+        if (!response.ok) {
+          return;
+        }
+
+
+        const resultado =
+          await response.json();
+
+
+        if (!componenteAtivo) {
+          return;
+        }
+
+
+        setLembretesInatividade(
+          resultado
+        );
+
+
+        /*
+            Só abre se realmente existir
+            alguma tarefa dentro do período.
+        */
+
+        if (
+          Number(
+            resultado?.total || 0
+          ) > 0
+        ) {
+
+          setAbrirLembretesInatividade(
+            true
+          );
+
+        }
+
+      } catch (erro) {
+
+        console.error(
+          "[INATIVIDADE] Erro ao carregar lembretes:",
+          erro
+        );
+
+      }
+    }
+
+
+    /* =====================================================
+       INICIAR / REINICIAR CONTADOR
+    ===================================================== */
+
+    function reiniciarContador() {
+
+      if (timerInatividade) {
+
+        clearTimeout(
+          timerInatividade
+        );
+
+      }
+
+
+      timerInatividade =
+        setTimeout(
+          abrirPorInatividade,
+          TEMPO_INATIVIDADE_LEMBRETES
+        );
+    }
+
+
+    /* =====================================================
+       ATIVIDADE DETECTADA
+    ===================================================== */
+
+    function registrarAtividade() {
+
+      /*
+          Qualquer atividade fecha imediatamente
+          o modal aberto por inatividade.
+      */
+
+      setAbrirLembretesInatividade(
+        false
+      );
+
+
+      /*
+          Começamos novamente a contagem.
+      */
+
+      reiniciarContador();
+    }
+
+
+    /* =====================================================
+       EVENTOS GLOBAIS
+    ===================================================== */
+
+    const eventos = [
+      "mousemove",
+      "mousedown",
+      "keydown",
+      "touchstart",
+      "scroll"
+    ];
+
+
+    eventos.forEach(
+      (evento) => {
+
+        window.addEventListener(
+          evento,
+          registrarAtividade,
+          {
+            passive: true
+          }
+        );
+
+      }
+    );
+
+
+    /*
+        Começa a contar assim que o App
+        estiver carregado.
+    */
+
+    reiniciarContador();
+
+
+    /* =====================================================
+       CLEANUP
+    ===================================================== */
+
+    return () => {
+
+      componenteAtivo = false;
+
+
+      if (timerInatividade) {
+
+        clearTimeout(
+          timerInatividade
+        );
+
+      }
+
+
+      eventos.forEach(
+        (evento) => {
+
+          window.removeEventListener(
+            evento,
+            registrarAtividade
+          );
+
+        }
+      );
+
+    };
+
+  }, []);
   /* =======================================================
      KEEP ALIVE BACKEND
   ======================================================= */
@@ -678,6 +989,28 @@ export default function App() {
       >
 
         <RoteamentoComLoading />
+
+
+        {abrirLembretesInatividade &&
+          lembretesInatividade && (
+
+            <ModalLembretesTarefas
+              dados={
+                lembretesInatividade
+              }
+
+              fechar={() =>
+                setAbrirLembretesInatividade(
+                  false
+                )
+              }
+
+              atualizar={
+                carregarLembretesInatividade
+              }
+            />
+
+          )}
 
       </div>
 

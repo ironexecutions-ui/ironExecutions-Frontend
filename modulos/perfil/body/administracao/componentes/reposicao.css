@@ -1,0 +1,638 @@
+/* =========================================================
+   REPOSIÇÃO
+   VISUAL PREMIUM NO PADRÃO DO FECHAMENTO DE CAIXA
+   TODAS AS REGRAS SÃO ISOLADAS NESTE COMPONENTE
+========================================================= */
+
+.administracao-reposicao-pagina {
+    width: 100% !important;
+    min-height: 620px !important;
+    padding: 30px !important;
+    border-radius: 22px !important;
+    box-sizing: border-box !important;
+    color: #111827 !important;
+    background:
+        radial-gradient(circle at 100% 0, rgba(18, 61, 114, 0.1), transparent 28%),
+        linear-gradient(145deg, #fafafa 0%, #f1f3f6 100%) !important;
+}
+
+.administracao-reposicao-cabecalho,
+.administracao-reposicao-identidade,
+.administracao-reposicao-card,
+.administracao-reposicao-card-acoes,
+.administracao-reposicao-modal-topo,
+.administracao-reposicao-modal-titulo-area,
+.administracao-reposicao-modal-rodape,
+.administracao-reposicao-nova-botao,
+.administracao-reposicao-pdf-botao {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.administracao-reposicao-cabecalho,
+.administracao-reposicao-card,
+.administracao-reposicao-modal-topo,
+.administracao-reposicao-modal-rodape {
+    justify-content: space-between !important;
+}
+
+.administracao-reposicao-cabecalho {
+    gap: 24px !important;
+    padding: 4px 2px 25px !important;
+}
+
+.administracao-reposicao-identidade {
+    gap: 16px !important;
+}
+
+.administracao-reposicao-logo-area,
+.administracao-reposicao-logo-placeholder {
+    display: grid !important;
+    flex: 0 0 62px !important;
+    width: 62px !important;
+    height: 62px !important;
+    place-items: center !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(18, 61, 114, 0.35) !important;
+    border-radius: 18px !important;
+    background: #fff !important;
+    box-shadow: 0 10px 26px rgba(17, 19, 24, 0.1) !important;
+}
+
+.administracao-reposicao-logo {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 7px !important;
+    object-fit: contain !important;
+    box-sizing: border-box !important;
+}
+
+.administracao-reposicao-logo-placeholder {
+    color: #123d72 !important;
+    background: #0a366e !important;
+    font-size: 26px !important;
+    font-weight: 800 !important;
+}
+
+.administracao-reposicao-legenda,
+.administracao-reposicao-modal-legenda {
+    display: block !important;
+    margin: 0 !important;
+    color: #123d72 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+}
+
+.administracao-reposicao-titulo {
+    margin: 3px 0 0 !important;
+    color: #101828 !important;
+    font-size: clamp(28px, 3vw, 38px) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.035em !important;
+}
+
+.administracao-reposicao-subtitulo {
+    margin: 7px 0 0 !important;
+    color: #667085 !important;
+    font-size: 14px !important;
+}
+
+.administracao-reposicao-nova-botao,
+.administracao-reposicao-salvar-botao,
+.administracao-reposicao-pdf-botao {
+    border: 0 !important;
+    border-radius: 12px !important;
+    font-weight: 750 !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+.administracao-reposicao-nova-botao {
+    justify-content: center !important;
+    gap: 9px !important;
+    min-height: 48px !important;
+    padding: 10px 19px !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, #164f91 0%, #0a366e 100%) !important;
+    box-shadow: 0 12px 24px rgba(17, 19, 24, 0.2) !important;
+}
+
+.administracao-reposicao-nova-botao:hover,
+.administracao-reposicao-salvar-botao:hover,
+.administracao-reposicao-pdf-botao:hover {
+    transform: translateY(-2px) !important;
+}
+
+.administracao-reposicao-nova-icone {
+    display: grid !important;
+    width: 24px !important;
+    height: 24px !important;
+    place-items: center !important;
+    border-radius: 8px !important;
+    color: #101828 !important;
+    background: #123d72 !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+}
+
+.administracao-reposicao-indicadores {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    margin-bottom: 24px !important;
+}
+
+.administracao-reposicao-indicador {
+    position: relative !important;
+    padding: 19px 20px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(229, 231, 235, 0.9) !important;
+    border-radius: 16px !important;
+    background: rgba(255, 255, 255, 0.88) !important;
+    box-shadow: 0 8px 26px rgba(24, 27, 33, 0.055) !important;
+}
+
+.administracao-reposicao-indicador::after {
+    position: absolute !important;
+    top: -18px !important;
+    right: -18px !important;
+    width: 65px !important;
+    height: 65px !important;
+    border-radius: 50% !important;
+    background: rgba(18, 61, 114, 0.08) !important;
+    content: "" !important;
+}
+
+.administracao-reposicao-indicador>span,
+.administracao-reposicao-indicador>small {
+    display: block !important;
+    color: #667085 !important;
+}
+
+.administracao-reposicao-indicador>span {
+    font-size: 12px !important;
+    font-weight: 750 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+}
+
+.administracao-reposicao-indicador>strong {
+    display: block !important;
+    margin: 7px 0 3px !important;
+    color: #101828 !important;
+    font-size: 29px !important;
+}
+
+.administracao-reposicao-indicador>small {
+    font-size: 12px !important;
+}
+
+.administracao-reposicao-indicador-destaque {
+    border-color: transparent !important;
+    background: linear-gradient(145deg, #164f91, #0a366e) !important;
+}
+
+.administracao-reposicao-indicador-destaque>span,
+.administracao-reposicao-indicador-destaque>small {
+    color: #b8bbc3 !important;
+}
+
+.administracao-reposicao-indicador-destaque>strong {
+    color: #fff !important;
+}
+
+.administracao-reposicao-erro {
+    margin: 0 0 18px !important;
+    padding: 13px 15px !important;
+    border: 1px solid #f2c2c2 !important;
+    border-radius: 12px !important;
+    color: #9b2020 !important;
+    background: #fff2f2 !important;
+}
+
+.administracao-reposicao-vazio {
+    padding: 60px 20px !important;
+    border: 1px dashed #cfd2d8 !important;
+    border-radius: 18px !important;
+    color: #667085 !important;
+    background: rgba(255, 255, 255, 0.68) !important;
+    text-align: center !important;
+}
+
+.administracao-reposicao-lista {
+    display: grid !important;
+    gap: 13px !important;
+}
+
+.administracao-reposicao-card {
+    gap: 20px !important;
+    padding: 20px 21px !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 17px !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    box-shadow: 0 7px 24px rgba(22, 25, 31, 0.055) !important;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+.administracao-reposicao-card:hover {
+    transform: translateY(-2px) !important;
+    border-color: #8eb0d7 !important;
+    box-shadow: 0 13px 34px rgba(22, 25, 31, 0.09) !important;
+}
+
+.administracao-reposicao-card-feito {
+    background: rgba(246, 252, 248, 0.9) !important;
+}
+
+.administracao-reposicao-card-informacoes {
+    min-width: 0 !important;
+}
+
+.administracao-reposicao-card-codigo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    color: #667085 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+.administracao-reposicao-status {
+    padding: 5px 8px !important;
+    border-radius: 999px !important;
+    font-size: 10px !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+}
+
+.administracao-reposicao-status-pendente {
+    color: #8a5c07 !important;
+    background: #fff3d8 !important;
+}
+
+.administracao-reposicao-status-feito {
+    color: #12733e !important;
+    background: #dcf7e7 !important;
+}
+
+.administracao-reposicao-card-data {
+    display: block !important;
+    margin: 10px 0 3px !important;
+    color: #101828 !important;
+    font-size: 15px !important;
+}
+
+.administracao-reposicao-card-quantidade {
+    display: block !important;
+    color: #123d72 !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+}
+
+.administracao-reposicao-card-produtos {
+    max-width: 760px !important;
+    margin: 8px 0 0 !important;
+    overflow: hidden !important;
+    color: #5f6470 !important;
+    font-size: 13px !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.administracao-reposicao-card-acoes {
+    flex: 0 0 auto !important;
+    gap: 12px !important;
+}
+
+.administracao-reposicao-feito-controle {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #40434b !important;
+    font-size: 13px !important;
+    font-weight: 750 !important;
+    cursor: pointer !important;
+}
+
+.administracao-reposicao-feito-controle input {
+    width: 19px !important;
+    height: 19px !important;
+    accent-color: #16834a !important;
+}
+
+.administracao-reposicao-pdf-botao {
+    justify-content: center !important;
+    gap: 7px !important;
+    padding: 11px 14px !important;
+    color: #fff !important;
+    background: #0a366e !important;
+}
+
+.administracao-reposicao-modal-fundo {
+    position: fixed !important;
+    z-index: 9999 !important;
+    inset: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 20px !important;
+    background: rgba(9, 11, 15, 0.68) !important;
+    backdrop-filter: blur(7px) !important;
+    animation: administracao-reposicao-fundo-entrada 0.2s ease !important;
+}
+
+.administracao-reposicao-modal {
+    width: min(700px, 100%) !important;
+    max-height: 90vh !important;
+    padding: 25px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255, 255, 255, 0.58) !important;
+    border-radius: 22px !important;
+    box-sizing: border-box !important;
+    background: #fff !important;
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.38) !important;
+    animation: administracao-reposicao-modal-entrada 0.24s ease !important;
+}
+
+.administracao-reposicao-modal-topo {
+    gap: 16px !important;
+    padding-bottom: 19px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.administracao-reposicao-modal-titulo-area {
+    gap: 12px !important;
+}
+
+.administracao-reposicao-modal-icone {
+    display: grid !important;
+    width: 42px !important;
+    height: 42px !important;
+    place-items: center !important;
+    border-radius: 13px !important;
+    color: #101828 !important;
+    background: linear-gradient(145deg, #e7f0fb, #6e9bd0) !important;
+    font-size: 25px !important;
+    font-weight: 500 !important;
+}
+
+.administracao-reposicao-modal h2 {
+    margin: 3px 0 0 !important;
+    color: #101828 !important;
+    font-size: 22px !important;
+}
+
+.administracao-reposicao-modal-fechar {
+    display: grid !important;
+    flex: 0 0 38px !important;
+    width: 38px !important;
+    height: 38px !important;
+    place-items: center !important;
+    border: 0 !important;
+    border-radius: 11px !important;
+    color: #575b64 !important;
+    background: #f1f2f4 !important;
+    font-size: 25px !important;
+    cursor: pointer !important;
+}
+
+.administracao-reposicao-campo {
+    display: grid !important;
+    gap: 7px !important;
+    margin-top: 17px !important;
+    color: #353840 !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+}
+
+.administracao-reposicao-campo input {
+    width: 100% !important;
+    min-height: 47px !important;
+    padding: 11px 13px !important;
+    border: 1px solid #dcdfe4 !important;
+    border-radius: 12px !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    color: #202229 !important;
+    background: #f9fafb !important;
+    font: inherit !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+.administracao-reposicao-campo input:focus {
+    border-color: #123d72 !important;
+    background: #fff !important;
+    box-shadow: 0 0 0 4px rgba(18, 61, 114, 0.13) !important;
+}
+
+.administracao-reposicao-produtos-lista {
+    display: grid !important;
+    gap: 8px !important;
+    max-height: 300px !important;
+    margin-top: 14px !important;
+    padding-right: 5px !important;
+    overflow-y: auto !important;
+}
+
+.administracao-reposicao-produtos-lista::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+.administracao-reposicao-produtos-lista::-webkit-scrollbar-thumb {
+    border-radius: 999px !important;
+    background: #cfd2d8 !important;
+}
+
+.administracao-reposicao-produto-opcao {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    padding: 12px 13px !important;
+    border: 1px solid #e4e6e9 !important;
+    border-radius: 12px !important;
+    color: #373a42 !important;
+    background: #fff !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease !important;
+}
+
+.administracao-reposicao-produto-opcao:hover {
+    transform: translateX(2px) !important;
+    border-color: #7fa6d3 !important;
+    background: #f4f8fd !important;
+}
+
+.administracao-reposicao-produto-selecionado {
+    border-color: #123d72 !important;
+    background: #edf4fc !important;
+}
+
+.administracao-reposicao-produto-check {
+    display: grid !important;
+    flex: 0 0 22px !important;
+    width: 22px !important;
+    height: 22px !important;
+    place-items: center !important;
+    border: 1px solid #b9bdc5 !important;
+    border-radius: 7px !important;
+    color: #fff !important;
+    background: #fff !important;
+    font-size: 13px !important;
+}
+
+.administracao-reposicao-produto-selecionado .administracao-reposicao-produto-check {
+    border-color: #101828 !important;
+    background: #0a366e !important;
+}
+
+.administracao-reposicao-modal-rodape {
+    gap: 14px !important;
+    margin-top: 18px !important;
+    padding-top: 18px !important;
+    border-top: 1px solid #e2e8f0 !important;
+    color: #667085 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+.administracao-reposicao-salvar-botao {
+    min-height: 46px !important;
+    padding: 10px 19px !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, #123d72, #0a366e) !important;
+    box-shadow: 0 10px 20px rgba(10, 54, 110, 0.2) !important;
+}
+
+.administracao-reposicao-salvar-botao:disabled {
+    cursor: wait !important;
+    opacity: 0.58 !important;
+}
+
+@keyframes administracao-reposicao-fundo-entrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes administracao-reposicao-modal-entrada {
+    from {
+        opacity: 0 !important;
+        transform: translateY(18px) scale(0.985) !important;
+    }
+
+    to {
+        opacity: 1 !important;
+        transform: translateY(0) scale(1) !important;
+    }
+}
+
+@media (max-width: 760px) {
+    .administracao-reposicao-pagina {
+        padding: 18px !important;
+        border-radius: 16px !important;
+    }
+
+    .administracao-reposicao-cabecalho,
+    .administracao-reposicao-card {
+        align-items: stretch !important;
+        flex-direction: column !important;
+    }
+
+    .administracao-reposicao-nova-botao {
+        width: 100% !important;
+    }
+
+    .administracao-reposicao-indicadores {
+        grid-template-columns: 1fr !important;
+    }
+
+    .administracao-reposicao-card-acoes {
+        justify-content: space-between !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .administracao-reposicao-identidade {
+        align-items: flex-start !important;
+    }
+
+    .administracao-reposicao-logo-area,
+    .administracao-reposicao-logo-placeholder {
+        flex-basis: 52px !important;
+        width: 52px !important;
+        height: 52px !important;
+        border-radius: 15px !important;
+    }
+
+    .administracao-reposicao-subtitulo {
+        display: none !important;
+    }
+
+    .administracao-reposicao-modal-fundo {
+        padding: 9px !important;
+    }
+
+    .administracao-reposicao-modal {
+        padding: 18px !important;
+        border-radius: 18px !important;
+    }
+
+    .administracao-reposicao-modal-rodape {
+        align-items: stretch !important;
+        flex-direction: column !important;
+    }
+
+    .administracao-reposicao-salvar-botao {
+        width: 100% !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .administracao-reposicao-modal-fundo,
+    .administracao-reposicao-modal,
+    .administracao-reposicao-card,
+    .administracao-reposicao-produto-opcao,
+    .administracao-reposicao-nova-botao,
+    .administracao-reposicao-salvar-botao,
+    .administracao-reposicao-pdf-botao {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+.administracao-reposicao-editar-botao {
+    min-height: 41px !important;
+    padding: 10px 15px !important;
+    border: 1px solid #b8cbe2 !important;
+    border-radius: 11px !important;
+    color: #123d72 !important;
+    background: #edf4fc !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.administracao-reposicao-editar-botao:hover {
+    transform: translateY(-2px) !important;
+    background: #dceafb !important;
+    box-shadow: 0 7px 16px rgba(18, 61, 114, 0.15) !important;
+}
+
+.administracao-reposicao-editar-botao:active {
+    transform: translateY(0) !important;
+    box-shadow: none !important;
+}

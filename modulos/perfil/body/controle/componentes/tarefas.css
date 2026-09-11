@@ -1,0 +1,2921 @@
+/* =========================================================
+   TAREFAS
+   CONTAINER PRINCIPAL
+========================================================= */
+
+.tarefas-gestao-principal {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 20px !important;
+
+    box-sizing: border-box !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    color: #172033 !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.tarefas-gestao-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.tarefas-gestao-cabecalho-textos {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    min-width: 0 !important;
+}
+
+
+.tarefas-gestao-titulo {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 26px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.15 !important;
+
+    letter-spacing: -0.025em !important;
+}
+
+
+.tarefas-gestao-subtitulo {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 13px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   ABAS MOBILE
+========================================================= */
+
+.tarefas-gestao-mobile-abas {
+    width: 100% !important;
+
+    display: none !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 6px !important;
+
+    padding: 5px !important;
+
+    box-sizing: border-box !important;
+
+    background: #eef2f6 !important;
+
+    border: 1px solid #dde3ea !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+.tarefas-gestao-mobile-botao {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 14px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: transparent !important;
+
+    color: #64748b !important;
+
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    outline: none !important;
+
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.tarefas-gestao-mobile-botao-ativo {
+    background: #ffffff !important;
+
+    color: #123d72 !important;
+
+    border-color: #d5dde7 !important;
+
+    font-weight: 850 !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.06),
+        0 3px 8px rgba(15, 23, 42, 0.06) !important;
+}
+
+
+/* =========================================================
+   ÁREA DAS DUAS COLUNAS
+========================================================= */
+
+.tarefas-gestao-colunas {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    align-items: start !important;
+
+    gap: 18px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   PAINEL DE CADA LISTA
+========================================================= */
+
+.tarefas-coluna-painel {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 14px !important;
+
+    padding: 16px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #fbfcfd 100%) !important;
+
+    border: 1px solid #dfe5ec !important;
+
+    border-radius: 16px !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 5px 16px rgba(15, 23, 42, 0.045),
+        0 14px 32px rgba(15, 23, 42, 0.025) !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO DA COLUNA
+========================================================= */
+
+.tarefas-coluna-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    padding: 2px 2px 12px 2px !important;
+
+    box-sizing: border-box !important;
+
+    border-bottom:
+        1px solid #edf0f4 !important;
+}
+
+
+.tarefas-coluna-cabecalho>div {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+}
+
+
+.tarefas-coluna-titulo {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #172033 !important;
+
+    font-size: 15px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.3 !important;
+
+    letter-spacing: -0.01em !important;
+}
+
+
+.tarefas-coluna-descricao {
+    color: #7a8699 !important;
+
+    font-size: 11.5px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.45 !important;
+}
+
+
+.tarefas-coluna-contador {
+    min-width: 30px !important;
+    height: 30px !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 8px !important;
+
+    box-sizing: border-box !important;
+
+    flex-shrink: 0 !important;
+
+    background: #edf4fc !important;
+
+    color: #123d72 !important;
+
+    border: 1px solid #d8e5f4 !important;
+    border-radius: 8px !important;
+
+    font-size: 11px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   CARD DE CADASTRO
+========================================================= */
+
+.tarefas-cadastro-card {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 12px !important;
+
+    padding: 14px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #f7f9fc 0%,
+            #f4f7fa 100%) !important;
+
+    border: 1px solid #e1e7ee !important;
+
+    border-radius: 12px !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+
+.tarefas-cadastro-titulo {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #344054 !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.3 !important;
+}
+
+
+/* =========================================================
+   LISTA DE CAMPOS
+========================================================= */
+
+.tarefas-cadastro-lote-campos {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 7px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.tarefas-cadastro-lote-linha {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr) 38px !important;
+
+    gap: 6px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   INPUT PRINCIPAL DA TAREFA
+========================================================= */
+
+.tarefas-cadastro-lote-input {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 42px !important;
+
+    padding: 0 12px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    color: #172033 !important;
+
+    border: 1px solid #d6dde7 !important;
+
+    border-radius: 8px !important;
+
+    outline: none !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03) !important;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease !important;
+}
+
+
+.tarefas-cadastro-lote-input::placeholder {
+    color: #98a2b3 !important;
+
+    opacity: 1 !important;
+}
+
+
+.tarefas-cadastro-lote-input:hover {
+    border-color: #b9c5d3 !important;
+}
+
+
+.tarefas-cadastro-lote-input:focus {
+    background: #ffffff !important;
+
+    border-color: #537ba9 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.08) !important;
+}
+
+
+/* =========================================================
+   REMOVER CAMPO
+========================================================= */
+
+.tarefas-cadastro-lote-remover {
+    width: 38px !important;
+    height: 42px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    color: #98a2b3 !important;
+
+    border: 1px solid #d6dde7 !important;
+    border-radius: 8px !important;
+
+    font-size: 20px !important;
+    font-weight: 400 !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    outline: none !important;
+
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease !important;
+}
+
+
+.tarefas-cadastro-lote-remover:hover {
+    background: #fff5f5 !important;
+
+    color: #c63d3d !important;
+
+    border-color: #efc4c4 !important;
+}
+
+
+/* =========================================================
+   ADICIONAR OUTRA TAREFA
+========================================================= */
+
+.tarefas-cadastro-adicionar-linha {
+    width: fit-content !important;
+    min-height: 32px !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 4px !important;
+    margin: 1px 0 0 0 !important;
+
+    background: transparent !important;
+
+    color: #315f93 !important;
+
+    border: none !important;
+
+    font-family: inherit !important;
+
+    font-size: 11px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    outline: none !important;
+
+    appearance: none !important;
+    -webkit-appearance: none !important;
+}
+
+
+.tarefas-cadastro-adicionar-linha:hover {
+    color: #123d72 !important;
+
+    text-decoration: underline !important;
+}
+
+
+/* =========================================================
+   DATA E HORA
+========================================================= */
+
+.tarefas-cadastro-agendamento {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   GRUPO DOS CAMPOS
+========================================================= */
+
+.tarefas-cadastro-grupo {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.tarefas-cadastro-grupo>span {
+    color: #667085 !important;
+
+    font-size: 10px !important;
+    font-weight: 750 !important;
+
+    line-height: 1.3 !important;
+}
+
+
+.tarefas-cadastro-grupo input,
+.tarefas-cadastro-grupo select {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 40px !important;
+
+    padding: 0 10px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    color: #344054 !important;
+
+    border: 1px solid #d6dde7 !important;
+
+    border-radius: 8px !important;
+
+    outline: none !important;
+
+    font-family: inherit !important;
+
+    font-size: 11.5px !important;
+    font-weight: 650 !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease !important;
+}
+
+
+.tarefas-cadastro-grupo input:hover,
+.tarefas-cadastro-grupo select:hover {
+    border-color: #b9c5d3 !important;
+}
+
+
+.tarefas-cadastro-grupo input:focus,
+.tarefas-cadastro-grupo select:focus {
+    border-color: #537ba9 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.08) !important;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.tarefas-cadastro-grupo select {
+    cursor: pointer !important;
+}
+
+
+/* =========================================================
+   REPETIÇÃO PERSONALIZADA
+========================================================= */
+
+.tarefas-cadastro-grupo-personalizado {
+    padding: 10px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #e0e6ed !important;
+
+    border-radius: 9px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.tarefas-cadastro-dias-personalizado {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 100px) auto !important;
+
+    align-items: center !important;
+
+    gap: 8px !important;
+}
+
+
+.tarefas-cadastro-dias-personalizado span {
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   BOTÃO SALVAR
+========================================================= */
+
+.tarefas-cadastro-salvar {
+    width: 100% !important;
+    min-height: 42px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 18px !important;
+    margin: 2px 0 0 0 !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #174d8d 0%,
+            #123d72 100%) !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #0e3565 !important;
+    border-radius: 8px !important;
+
+    font-family: inherit !important;
+
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.01em !important;
+
+    cursor: pointer !important;
+
+    outline: none !important;
+
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        0 2px 4px rgba(18, 61, 114, 0.15),
+        0 5px 12px rgba(18, 61, 114, 0.12) !important;
+
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.15s ease !important;
+}
+
+
+.tarefas-cadastro-salvar:hover {
+    background:
+        linear-gradient(180deg,
+            #123f77 0%,
+            #0d315d 100%) !important;
+
+    box-shadow:
+        0 3px 6px rgba(18, 61, 114, 0.20),
+        0 7px 15px rgba(18, 61, 114, 0.16) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.tarefas-cadastro-salvar:active {
+    transform: translateY(0) scale(0.985) !important;
+}
+
+
+.tarefas-cadastro-salvar:disabled {
+    background: #b8c3d0 !important;
+
+    color: #ffffff !important;
+
+    border-color: #aeb9c6 !important;
+
+    cursor: not-allowed !important;
+
+    box-shadow: none !important;
+
+    transform: none !important;
+
+    opacity: 0.75 !important;
+}
+
+
+/* =========================================================
+   ÁREA DA LISTAGEM
+========================================================= */
+
+.tarefas-listagem-area {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   TAREFA
+========================================================= */
+
+.tarefas-item-card {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    padding: 12px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dfe5ec !important;
+
+    border-left:
+        3px solid #d19a3a !important;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 3px 8px rgba(15, 23, 42, 0.035) !important;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.tarefas-item-card:hover {
+    border-top-color: #cad4df !important;
+    border-right-color: #cad4df !important;
+    border-bottom-color: #cad4df !important;
+
+    box-shadow:
+        0 2px 4px rgba(15, 23, 42, 0.05),
+        0 6px 14px rgba(15, 23, 42, 0.055) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   TAREFA CONCLUÍDA
+========================================================= */
+
+.tarefas-item-card-concluido {
+    background: #f9fbfa !important;
+
+    border-top-color: #dfe8e3 !important;
+    border-right-color: #dfe8e3 !important;
+    border-bottom-color: #dfe8e3 !important;
+
+    border-left:
+        3px solid #4b8f6b !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.025) !important;
+
+    opacity: 0.78 !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO DA TAREFA
+========================================================= */
+
+.tarefas-item-conteudo {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 7px !important;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.tarefas-item-status-linha {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    flex-wrap: wrap !important;
+
+    gap: 6px !important;
+}
+
+
+.tarefas-item-status {
+    min-height: 21px !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 7px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 5px !important;
+
+    font-size: 9px !important;
+    font-weight: 850 !important;
+
+    line-height: 1 !important;
+
+    text-transform: uppercase !important;
+
+    letter-spacing: 0.035em !important;
+}
+
+
+.tarefas-item-status-pendente {
+    background: #fff8e8 !important;
+
+    color: #946200 !important;
+
+    border: 1px solid #f0dfb4 !important;
+}
+
+
+.tarefas-item-status-concluido {
+    background: #edf8f1 !important;
+
+    color: #367451 !important;
+
+    border: 1px solid #cfe8d9 !important;
+}
+
+
+/* =========================================================
+   ID
+========================================================= */
+
+.tarefas-item-id {
+    color: #98a2b3 !important;
+
+    font-size: 9px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   SEQUÊNCIA
+========================================================= */
+
+.tarefas-item-sequencia {
+    min-height: 21px !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 7px !important;
+
+    box-sizing: border-box !important;
+
+    background: #eef4fb !important;
+
+    color: #315f93 !important;
+
+    border: 1px solid #d9e5f3 !important;
+
+    border-radius: 5px !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   TEXTO DA TAREFA
+========================================================= */
+
+.tarefas-item-texto {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #253044 !important;
+
+    font-size: 12.5px !important;
+    font-weight: 750 !important;
+
+    line-height: 1.45 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+
+.tarefas-item-card-concluido .tarefas-item-texto {
+    color: #6b7585 !important;
+
+    text-decoration: line-through !important;
+}
+
+
+/* =========================================================
+   DETALHES
+========================================================= */
+
+.tarefas-item-detalhes {
+    display: flex !important;
+
+    align-items: center !important;
+
+    flex-wrap: wrap !important;
+
+    gap: 4px 10px !important;
+
+    color: #7a8699 !important;
+
+    font-size: 10px !important;
+    font-weight: 550 !important;
+
+    line-height: 1.4 !important;
+}
+
+
+.tarefas-item-detalhes b {
+    color: #526071 !important;
+
+    font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   BOTÃO CUMPRIR
+========================================================= */
+
+.tarefas-item-cumprir {
+    min-width: 76px !important;
+    min-height: 34px !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+
+    padding: 0 12px !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    color: #367451 !important;
+
+    border: 1px solid #bcdac8 !important;
+    border-radius: 7px !important;
+
+    font-family: inherit !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    outline: none !important;
+
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03) !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.15s ease !important;
+}
+
+
+.tarefas-item-cumprir:hover {
+    background: #367451 !important;
+
+    color: #ffffff !important;
+
+    border-color: #367451 !important;
+
+    box-shadow:
+        0 3px 8px rgba(54, 116, 81, 0.18) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.tarefas-item-cumprir:active {
+    transform: translateY(0) scale(0.97) !important;
+}
+
+
+/* =========================================================
+   LISTA VAZIA
+========================================================= */
+
+.tarefas-listagem-vazia {
+    width: 100% !important;
+
+    min-height: 100px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    background: #fafbfc !important;
+
+    color: #98a2b3 !important;
+
+    border: 1px dashed #d8dee7 !important;
+
+    border-radius: 10px !important;
+
+    font-size: 11px !important;
+    font-weight: 600 !important;
+
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   DESKTOP MENOR
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .tarefas-gestao-colunas {
+        gap: 12px !important;
+    }
+
+
+    .tarefas-coluna-painel {
+        padding: 13px !important;
+    }
+
+
+    .tarefas-cadastro-card {
+        padding: 12px !important;
+    }
+
+
+    .tarefas-item-card {
+        align-items: flex-start !important;
+
+        flex-direction: column !important;
+    }
+
+
+    .tarefas-item-cumprir {
+        width: 100% !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .tarefas-gestao-principal {
+        gap: 14px !important;
+    }
+
+
+    .tarefas-gestao-titulo {
+        font-size: 22px !important;
+    }
+
+
+    .tarefas-gestao-subtitulo {
+        font-size: 12px !important;
+    }
+
+
+    /* MOSTRAR BOTÕES */
+
+    .tarefas-gestao-mobile-abas {
+        display: grid !important;
+    }
+
+
+    /* UMA COLUNA */
+
+    .tarefas-gestao-colunas {
+        display: block !important;
+    }
+
+
+    /* ESCONDER AS DUAS POR PADRÃO */
+
+    .tarefas-coluna-painel {
+        display: none !important;
+
+        width: 100% !important;
+    }
+
+
+    /* MOSTRAR SOMENTE SELECIONADA */
+
+    .tarefas-coluna-painel-mobile-visivel {
+        display: flex !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .tarefas-gestao-principal {
+        gap: 12px !important;
+    }
+
+
+    .tarefas-gestao-cabecalho {
+        gap: 10px !important;
+    }
+
+
+    .tarefas-gestao-titulo {
+        font-size: 20px !important;
+    }
+
+
+    .tarefas-gestao-subtitulo {
+        font-size: 11.5px !important;
+    }
+
+
+    .tarefas-coluna-painel {
+        padding: 11px !important;
+
+        gap: 11px !important;
+
+        border-radius: 12px !important;
+    }
+
+
+    .tarefas-coluna-titulo {
+        font-size: 14px !important;
+    }
+
+
+    .tarefas-coluna-descricao {
+        font-size: 10.5px !important;
+    }
+
+
+    .tarefas-cadastro-card {
+        padding: 10px !important;
+
+        gap: 10px !important;
+
+        border-radius: 10px !important;
+    }
+
+
+    .tarefas-cadastro-agendamento {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .tarefas-cadastro-lote-input {
+        height: 41px !important;
+    }
+
+
+    .tarefas-cadastro-lote-remover {
+        height: 41px !important;
+    }
+
+
+    .tarefas-item-card {
+        padding: 10px !important;
+
+        gap: 10px !important;
+
+        border-radius: 9px !important;
+    }
+
+
+    .tarefas-item-texto {
+        font-size: 12px !important;
+    }
+
+
+    .tarefas-item-cumprir {
+        width: 100% !important;
+
+        min-height: 36px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .tarefas-gestao-mobile-botao {
+        padding: 0 8px !important;
+
+        font-size: 11px !important;
+    }
+
+
+    .tarefas-coluna-cabecalho {
+        gap: 8px !important;
+    }
+
+
+    .tarefas-coluna-contador {
+        min-width: 27px !important;
+        height: 27px !important;
+    }
+
+
+    .tarefas-cadastro-lote-linha {
+        grid-template-columns:
+            minmax(0, 1fr) 36px !important;
+    }
+
+
+    .tarefas-cadastro-lote-remover {
+        width: 36px !important;
+    }
+}
+
+
+/* =========================================================
+   REDUZIR ANIMAÇÕES
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .tarefas-gestao-mobile-botao,
+    .tarefas-cadastro-lote-input,
+    .tarefas-cadastro-lote-remover,
+    .tarefas-cadastro-salvar,
+    .tarefas-item-card,
+    .tarefas-item-cumprir {
+        transition: none !important;
+    }
+}
+
+
+/* =========================================================
+   TAREFAS RECORRENTES
+   CONFIGURAÇÃO DE LEMBRETE
+========================================================= */
+
+.tarefas-recorrente-lembrete-area {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 12px !important;
+    margin-top: 10px !important;
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #f8fbff 0%,
+            #f1f6fc 100%) !important;
+
+    border: 1px solid #d9e5f2 !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+.tarefas-recorrente-lembrete-titulo {
+    width: 100% !important;
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #334155 !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+}
+
+
+.tarefas-recorrente-lembrete-select {
+    width: 100% !important;
+    height: 42px !important;
+
+    padding: 0 12px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+    color: #0f172a !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 9px !important;
+
+    outline: none !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+
+.tarefas-recorrente-lembrete-select:hover {
+    border-color: #94a3b8 !important;
+    background: #ffffff !important;
+}
+
+
+.tarefas-recorrente-lembrete-select:focus {
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+/* =========================================================
+   DIA DO MÊS
+========================================================= */
+
+.tarefas-recorrente-lembrete-dia-mes {
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns:
+        minmax(70px, 100px) 1fr !important;
+
+    align-items: center !important;
+
+    gap: 10px !important;
+}
+
+
+.tarefas-recorrente-lembrete-input {
+    width: 100% !important;
+    height: 42px !important;
+
+    padding: 0 12px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+    color: #0f172a !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 9px !important;
+
+    outline: none !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.tarefas-recorrente-lembrete-input:hover {
+    border-color: #94a3b8 !important;
+}
+
+
+.tarefas-recorrente-lembrete-input:focus {
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+.tarefas-recorrente-lembrete-dia-mes-texto {
+    color: #64748b !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÃO DO LEMBRETE NO CARD
+========================================================= */
+
+.tarefas-item-lembrete {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    width: fit-content !important;
+    max-width: 100% !important;
+
+    margin-top: 7px !important;
+    padding: 5px 9px !important;
+
+    box-sizing: border-box !important;
+
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+
+    border: 1px solid #bfdbfe !important;
+    border-radius: 7px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .tarefas-recorrente-lembrete-area {
+        padding: 10px !important;
+        gap: 7px !important;
+        border-radius: 10px !important;
+    }
+
+    .tarefas-recorrente-lembrete-select {
+        height: 41px !important;
+        font-size: 13px !important;
+    }
+
+    .tarefas-recorrente-lembrete-dia-mes {
+        grid-template-columns:
+            80px minmax(0, 1fr) !important;
+
+        gap: 8px !important;
+    }
+
+    .tarefas-recorrente-lembrete-input {
+        height: 41px !important;
+        font-size: 13px !important;
+    }
+
+    .tarefas-recorrente-lembrete-dia-mes-texto {
+        font-size: 12px !important;
+    }
+}
+
+
+@media (max-width: 360px) {
+
+    .tarefas-recorrente-lembrete-dia-mes {
+        grid-template-columns: 1fr !important;
+    }
+
+    .tarefas-recorrente-lembrete-input {
+        width: 100% !important;
+    }
+}
+
+/* =========================================================
+   AÇÕES DOS CARDS
+========================================================= */
+
+.tarefas-item-acoes {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+
+    gap: 7px !important;
+
+    margin-left: auto !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   BOTÃO APAGAR
+========================================================= */
+
+.tarefas-item-apagar {
+    min-width: 72px !important;
+    height: 34px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 12px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+    color: #dc2626 !important;
+
+    border: 1px solid #fecaca !important;
+    border-radius: 8px !important;
+
+    outline: none !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.04) !important;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.tarefas-item-apagar:hover {
+    background: #dc2626 !important;
+    color: #ffffff !important;
+
+    border-color: #dc2626 !important;
+
+    box-shadow:
+        0 4px 10px rgba(220, 38, 38, 0.18) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.tarefas-item-apagar:active {
+    background: #b91c1c !important;
+    color: #ffffff !important;
+
+    border-color: #b91c1c !important;
+
+    transform: translateY(0) !important;
+}
+
+
+.tarefas-item-apagar:focus-visible {
+    border-color: #dc2626 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(220, 38, 38, 0.15) !important;
+}
+
+
+/* =========================================================
+   CARD RECORRENTE
+========================================================= */
+
+.tarefas-item-card-fixa {
+    border-left-color: #3b82f6 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .tarefas-item-acoes {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+
+        margin-left: 0 !important;
+        margin-top: 8px !important;
+
+        gap: 7px !important;
+    }
+
+    .tarefas-item-acoes .tarefas-item-cumprir,
+    .tarefas-item-acoes .tarefas-item-apagar {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .tarefas-item-card-fixa .tarefas-item-acoes {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* =========================================================
+   MODAL APAGAR TAREFA
+   OVERLAY
+========================================================= */
+
+.tarefas-modal-apagar-overlay {
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        rgba(15, 23, 42, 0.58) !important;
+
+    backdrop-filter:
+        blur(5px) !important;
+
+    -webkit-backdrop-filter:
+        blur(5px) !important;
+
+    z-index: 2147483647 !important;
+
+    animation:
+        tarefas-modal-overlay-entrada 0.18s ease-out !important;
+}
+
+
+/* =========================================================
+   CAIXA
+========================================================= */
+
+.tarefas-modal-apagar-caixa {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 430px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    padding: 28px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f8fafc 100%) !important;
+
+    border:
+        1px solid rgba(226, 232, 240, 0.95) !important;
+
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 30px 70px rgba(15, 23, 42, 0.28),
+        0 10px 25px rgba(15, 23, 42, 0.12) !important;
+
+    text-align: center !important;
+
+    animation:
+        tarefas-modal-caixa-entrada 0.22s cubic-bezier(0.16,
+            1,
+            0.3,
+            1) !important;
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.tarefas-modal-apagar-icone {
+    width: 54px !important;
+    height: 54px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 17px !important;
+
+    flex: 0 0 54px !important;
+
+    background:
+        #fef2f2 !important;
+
+    color:
+        #dc2626 !important;
+
+    border:
+        1px solid #fecaca !important;
+
+    border-radius:
+        50% !important;
+
+    font-size:
+        25px !important;
+
+    font-weight:
+        800 !important;
+
+    line-height:
+        1 !important;
+
+    box-shadow:
+        0 0 0 7px rgba(254,
+            226,
+            226,
+            0.6) !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.tarefas-modal-apagar-conteudo {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.tarefas-modal-apagar-titulo {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color:
+        #0f172a !important;
+
+    font-size:
+        21px !important;
+
+    font-weight:
+        800 !important;
+
+    line-height:
+        1.25 !important;
+
+    letter-spacing:
+        -0.02em !important;
+}
+
+
+.tarefas-modal-apagar-descricao {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color:
+        #64748b !important;
+
+    font-size:
+        13px !important;
+
+    font-weight:
+        500 !important;
+
+    line-height:
+        1.55 !important;
+}
+
+
+/* =========================================================
+   NOME DA TAREFA
+========================================================= */
+
+.tarefas-modal-apagar-tarefa {
+    width: 100% !important;
+
+    max-height: 105px !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    margin-top: 7px !important;
+
+    padding: 11px 13px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        #f8fafc !important;
+
+    color:
+        #334155 !important;
+
+    border:
+        1px solid #e2e8f0 !important;
+
+    border-radius:
+        10px !important;
+
+    font-size:
+        13px !important;
+
+    font-weight:
+        650 !important;
+
+    line-height:
+        1.45 !important;
+
+    overflow-wrap:
+        anywhere !important;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.tarefas-modal-apagar-acoes {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        1fr 1fr !important;
+
+    gap: 9px !important;
+
+    margin-top: 22px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.tarefas-modal-apagar-cancelar {
+    width: 100% !important;
+    height: 43px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 16px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        #ffffff !important;
+
+    color:
+        #334155 !important;
+
+    border:
+        1px solid #cbd5e1 !important;
+
+    border-radius:
+        10px !important;
+
+    outline:
+        none !important;
+
+    font-size:
+        13px !important;
+
+    font-weight:
+        700 !important;
+
+    cursor:
+        pointer !important;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.tarefas-modal-apagar-cancelar:hover:not(:disabled) {
+    background:
+        #f8fafc !important;
+
+    border-color:
+        #94a3b8 !important;
+
+    transform:
+        translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   CONFIRMAR
+========================================================= */
+
+.tarefas-modal-apagar-confirmar {
+    width: 100% !important;
+    height: 43px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 16px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #dc2626 0%,
+            #b91c1c 100%) !important;
+
+    color:
+        #ffffff !important;
+
+    border:
+        1px solid #b91c1c !important;
+
+    border-radius:
+        10px !important;
+
+    outline:
+        none !important;
+
+    font-size:
+        13px !important;
+
+    font-weight:
+        750 !important;
+
+    cursor:
+        pointer !important;
+
+    box-shadow:
+        0 5px 12px rgba(220,
+            38,
+            38,
+            0.2) !important;
+
+    transition:
+        box-shadow 0.18s ease,
+        transform 0.18s ease,
+        background 0.18s ease !important;
+}
+
+
+.tarefas-modal-apagar-confirmar:hover:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #c81e1e 0%,
+            #991b1b 100%) !important;
+
+    transform:
+        translateY(-1px) !important;
+
+    box-shadow:
+        0 7px 16px rgba(220,
+            38,
+            38,
+            0.27) !important;
+}
+
+
+/* =========================================================
+   DISABLED
+========================================================= */
+
+.tarefas-modal-apagar-cancelar:disabled,
+.tarefas-modal-apagar-confirmar:disabled {
+    opacity:
+        0.55 !important;
+
+    cursor:
+        not-allowed !important;
+
+    transform:
+        none !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes tarefas-modal-overlay-entrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes tarefas-modal-caixa-entrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .tarefas-modal-apagar-overlay {
+        padding:
+            14px !important;
+    }
+
+    .tarefas-modal-apagar-caixa {
+        max-width:
+            390px !important;
+
+        padding:
+            24px 18px 18px !important;
+
+        border-radius:
+            17px !important;
+    }
+
+    .tarefas-modal-apagar-icone {
+        width:
+            50px !important;
+
+        height:
+            50px !important;
+
+        flex-basis:
+            50px !important;
+
+        font-size:
+            22px !important;
+    }
+
+    .tarefas-modal-apagar-titulo {
+        font-size:
+            19px !important;
+    }
+
+    .tarefas-modal-apagar-acoes {
+        grid-template-columns:
+            1fr !important;
+    }
+
+    .tarefas-modal-apagar-confirmar {
+        grid-row:
+            1 !important;
+    }
+
+    .tarefas-modal-apagar-cancelar {
+        grid-row:
+            2 !important;
+    }
+}
+
+/* =========================================================
+   TAREFAS RECORRENTES
+   BOTÃO CANCELAR
+========================================================= */
+
+.tarefas-item-cancelar-fixa {
+    min-width: 82px !important;
+    height: 34px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 13px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+    color: #b45309 !important;
+
+    border: 1px solid #fcd34d !important;
+    border-radius: 8px !important;
+
+    outline: none !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.04) !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.tarefas-item-cancelar-fixa:hover {
+    background: #f59e0b !important;
+    color: #ffffff !important;
+
+    border-color: #f59e0b !important;
+
+    box-shadow:
+        0 5px 12px rgba(245, 158, 11, 0.22) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.tarefas-item-cancelar-fixa:active {
+    background: #d97706 !important;
+    color: #ffffff !important;
+
+    border-color: #d97706 !important;
+
+    transform: translateY(0) !important;
+}
+
+
+.tarefas-item-cancelar-fixa:focus-visible {
+    border-color: #f59e0b !important;
+
+    box-shadow:
+        0 0 0 3px rgba(245, 158, 11, 0.17) !important;
+}
+
+
+/* =========================================================
+   TAREFA RECORRENTE CANCELADA
+========================================================= */
+
+.tarefas-item-card-fixa-cancelada {
+    background:
+        linear-gradient(180deg,
+            #f8fafc 0%,
+            #f1f5f9 100%) !important;
+
+    border-color: #cbd5e1 !important;
+    border-left-color: #94a3b8 !important;
+
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.04) !important;
+
+    opacity: 0.76 !important;
+}
+
+
+.tarefas-item-card-fixa-cancelada:hover {
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, 0.06) !important;
+
+    transform: none !important;
+}
+
+
+.tarefas-item-card-fixa-cancelada .tarefas-item-texto {
+    color: #64748b !important;
+
+    text-decoration: line-through !important;
+    text-decoration-thickness: 1px !important;
+}
+
+
+.tarefas-item-card-fixa-cancelada .tarefas-item-sequencia {
+    background: #e2e8f0 !important;
+    color: #64748b !important;
+
+    border-color: #cbd5e1 !important;
+}
+
+
+.tarefas-item-card-fixa-cancelada .tarefas-item-lembrete {
+    background: #f1f5f9 !important;
+    color: #94a3b8 !important;
+
+    border-color: #e2e8f0 !important;
+}
+
+
+/* =========================================================
+   BADGE CANCELADA
+========================================================= */
+
+.tarefas-item-status-cancelada {
+    min-height: 23px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 4px 8px !important;
+
+    box-sizing: border-box !important;
+
+    background: #f1f5f9 !important;
+    color: #64748b !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 7px !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    letter-spacing: 0.045em !important;
+    text-transform: uppercase !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   MODAL CANCELAR
+   OVERLAY
+========================================================= */
+
+.tarefas-modal-cancelar-overlay {
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    background: rgba(15, 23, 42, 0.6) !important;
+
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+
+    z-index: 2147483647 !important;
+
+    animation:
+        tarefas-modal-cancelar-overlay-entrada 0.18s ease-out !important;
+}
+
+
+/* =========================================================
+   MODAL CANCELAR
+   CAIXA
+========================================================= */
+
+.tarefas-modal-cancelar-caixa {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 430px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    padding: 28px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #fffbeb 100%) !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 30px 70px rgba(15, 23, 42, 0.3),
+        0 10px 25px rgba(15, 23, 42, 0.13) !important;
+
+    text-align: center !important;
+
+    animation:
+        tarefas-modal-cancelar-caixa-entrada 0.22s cubic-bezier(0.16,
+            1,
+            0.3,
+            1) !important;
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.tarefas-modal-cancelar-icone {
+    width: 54px !important;
+    height: 54px !important;
+
+    flex: 0 0 54px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 18px !important;
+
+    box-sizing: border-box !important;
+
+    background: #fffbeb !important;
+    color: #d97706 !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 50% !important;
+
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    box-shadow:
+        0 0 0 7px rgba(254, 243, 199, 0.7) !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.tarefas-modal-cancelar-conteudo {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.tarefas-modal-cancelar-titulo {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 21px !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+
+    letter-spacing: -0.02em !important;
+}
+
+
+.tarefas-modal-cancelar-descricao {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    max-width: 350px !important;
+
+    color: #64748b !important;
+
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   TAREFA EXIBIDA NO MODAL
+========================================================= */
+
+.tarefas-modal-cancelar-tarefa {
+    width: 100% !important;
+
+    max-height: 110px !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    margin-top: 8px !important;
+
+    padding: 12px 14px !important;
+
+    box-sizing: border-box !important;
+
+    background: rgba(255, 255, 255, 0.85) !important;
+    color: #334155 !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 10px !important;
+
+    font-size: 13px !important;
+    font-weight: 650 !important;
+    line-height: 1.45 !important;
+
+    overflow-wrap: anywhere !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+}
+
+
+/* =========================================================
+   AÇÕES DO MODAL
+========================================================= */
+
+.tarefas-modal-cancelar-acoes {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr) minmax(0, 1fr) !important;
+
+    gap: 9px !important;
+
+    margin-top: 22px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   BOTÃO VOLTAR
+========================================================= */
+
+.tarefas-modal-cancelar-voltar {
+    width: 100% !important;
+    height: 43px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 16px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+    color: #334155 !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.tarefas-modal-cancelar-voltar:hover:not(:disabled) {
+    background: #f8fafc !important;
+
+    border-color: #94a3b8 !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.tarefas-modal-cancelar-voltar:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+
+.tarefas-modal-cancelar-voltar:focus-visible {
+    border-color: #64748b !important;
+
+    box-shadow:
+        0 0 0 3px rgba(100, 116, 139, 0.14) !important;
+}
+
+
+/* =========================================================
+   BOTÃO CONFIRMAR CANCELAMENTO
+========================================================= */
+
+.tarefas-modal-cancelar-confirmar {
+    width: 100% !important;
+    height: 43px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 16px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #f59e0b 0%,
+            #d97706 100%) !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #d97706 !important;
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size: 13px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 12px rgba(217, 119, 6, 0.22) !important;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.tarefas-modal-cancelar-confirmar:hover:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #d97706 0%,
+            #b45309 100%) !important;
+
+    border-color: #b45309 !important;
+
+    box-shadow:
+        0 7px 17px rgba(217, 119, 6, 0.3) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.tarefas-modal-cancelar-confirmar:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+
+.tarefas-modal-cancelar-confirmar:focus-visible {
+    box-shadow:
+        0 0 0 3px rgba(245, 158, 11, 0.2),
+        0 5px 12px rgba(217, 119, 6, 0.22) !important;
+}
+
+
+/* =========================================================
+   BOTÕES DESABILITADOS
+========================================================= */
+
+.tarefas-modal-cancelar-voltar:disabled,
+.tarefas-modal-cancelar-confirmar:disabled {
+    opacity: 0.55 !important;
+
+    cursor: not-allowed !important;
+
+    transform: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes tarefas-modal-cancelar-overlay-entrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes tarefas-modal-cancelar-caixa-entrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .tarefas-modal-cancelar-overlay {
+        padding: 14px !important;
+    }
+
+
+    .tarefas-modal-cancelar-caixa {
+        max-width: 390px !important;
+
+        padding: 24px 18px 18px !important;
+
+        border-radius: 17px !important;
+    }
+
+
+    .tarefas-modal-cancelar-icone {
+        width: 50px !important;
+        height: 50px !important;
+
+        flex-basis: 50px !important;
+
+        margin-bottom: 16px !important;
+
+        font-size: 22px !important;
+    }
+
+
+    .tarefas-modal-cancelar-titulo {
+        font-size: 19px !important;
+    }
+
+
+    .tarefas-modal-cancelar-descricao {
+        font-size: 12px !important;
+    }
+
+
+    .tarefas-modal-cancelar-acoes {
+        grid-template-columns: 1fr !important;
+
+        gap: 8px !important;
+    }
+
+
+    .tarefas-modal-cancelar-confirmar {
+        grid-row: 1 !important;
+    }
+
+
+    .tarefas-modal-cancelar-voltar {
+        grid-row: 2 !important;
+    }
+
+
+    .tarefas-item-acoes {
+        width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            minmax(0, 1fr) minmax(0, 1fr) !important;
+
+        gap: 7px !important;
+
+        margin-left: 0 !important;
+        margin-top: 8px !important;
+    }
+
+
+    .tarefas-item-cancelar-fixa,
+    .tarefas-item-apagar {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+
+    .tarefas-item-card-fixa-cancelada .tarefas-item-acoes {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .tarefas-modal-cancelar-overlay {
+        padding: 10px !important;
+    }
+
+
+    .tarefas-modal-cancelar-caixa {
+        padding: 21px 14px 14px !important;
+    }
+
+
+    .tarefas-modal-cancelar-titulo {
+        font-size: 18px !important;
+    }
+
+
+    .tarefas-modal-cancelar-tarefa {
+        padding: 10px !important;
+
+        font-size: 12px !important;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .tarefas-modal-cancelar-overlay,
+    .tarefas-modal-cancelar-caixa,
+    .tarefas-item-cancelar-fixa,
+    .tarefas-modal-cancelar-voltar,
+    .tarefas-modal-cancelar-confirmar {
+        animation: none !important;
+        transition: none !important;
+    }
+}

@@ -3,7 +3,7 @@ import ModalModulos from "./modals/modalmodulos";
 import ModalCodigo from "./modals/modalcodigo";
 import ModalQrcode from "./modals/modaqrcode";
 import { API_URL } from "../../../config";
-
+import ModalLembretesTarefas from "./modals/tarefas";
 import "./headerperfil.css";
 
 export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) {
@@ -18,6 +18,11 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
     const [loja, setLoja] = useState(null);
     const [fade, setFade] = useState(false);
     const [alertaVencimento, setAlertaVencimento] = useState(null);
+    const [lembretesTarefas, setLembretesTarefas] =
+        useState(null);
+
+    const [abrirLembretesTarefas, setAbrirLembretesTarefas] =
+        useState(false);
     const [pwaInstalado, setPwaInstalado] = useState(false);
     const CACHE_HEADER_USUARIO = "fasfdfbgfdg64fsd41f8sdfsdf";
     const CACHE_HEADER_LOJA = "fsd6f2d69s4f9sd485f1sdf";
@@ -138,7 +143,58 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
             return false;
         }
     }
+    async function carregarLembretesTarefas() {
 
+        const token =
+            localStorage.getItem(
+                "token"
+            );
+
+        if (!token) {
+            setLembretesTarefas(null);
+            return;
+        }
+
+        try {
+
+            const resp = await fetch(
+                `${API_URL}/tarefas/lembretes`,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!resp.ok) {
+
+                setLembretesTarefas(
+                    null
+                );
+
+                return;
+            }
+
+            const json =
+                await resp.json();
+
+            setLembretesTarefas(
+                json
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[TAREFAS] Erro ao carregar lembretes:",
+                erro
+            );
+
+            setLembretesTarefas(
+                null
+            );
+        }
+    }
 
     function lerCache(chave) {
 
@@ -476,6 +532,7 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                     ============================================== */
 
                     await carregarAlertaVencimento();
+                    await carregarLembretesTarefas();
                 }
 
 
@@ -650,7 +707,62 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                             ⚠️ Existem {alertaVencimento.total} produtos que vão vencer ou já venceram
                         </p>
                     )}
+                    {lembretesTarefas?.tem_tarefas_hoje && (
+                        <button
+                            type="button"
+                            className="header-lembrete-tarefas"
+                            onClick={() => setAbrirLembretesTarefas(true)}
+                        >
+                            <span className="header-lembrete-tarefas-icone-area">
+                                <span className="header-lembrete-tarefas-ponto"></span>
 
+                                <svg
+                                    className="header-lembrete-tarefas-icone"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+
+                                    <path
+                                        d="M10 21h4"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                    />
+                                </svg>
+                            </span>
+
+                            <span className="header-lembrete-tarefas-conteudo">
+                                <span className="header-lembrete-tarefas-topo">
+                                    <strong className="header-lembrete-tarefas-titulo">
+                                        tarefas
+                                    </strong>
+
+                                    <span className="header-lembrete-tarefas-badge">
+                                        {lembretesTarefas.total_hoje}
+                                    </span>
+                                </span>
+
+
+
+
+                            </span>
+
+                            <span className="header-lembrete-tarefas-abrir">
+                                Ver
+                                <span className="header-lembrete-tarefas-seta">
+                                    ›
+                                </span>
+                            </span>
+                        </button>
+                    )}
                 </div>
 
                 <div className="per-acoes">
@@ -718,178 +830,171 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                         </button>
 
                         {/* BOTÃO FECHAR CAIXA */}
-                    {/* BOTÃO FECHAR CAIXA */}
-{!fechandoCaixa ? (
-    <button
-        className="per-btn fechar-caixa fechamento-acao-principal-ie"
-        onClick={async () => {
+                        {/* BOTÃO FECHAR CAIXA */}
+                        {!fechandoCaixa ? (
+                            <button
+                                className="per-btn fechar-caixa fechamento-acao-principal-ie"
+                                onClick={async () => {
 
-            if (fechandoCaixa) return;
+                                    if (fechandoCaixa) return;
 
-            let intervaloEtapas = null;
+                                    let intervaloEtapas = null;
 
-            try {
+                                    try {
 
-                setFechandoCaixa(true);
-                setEtapaFechamento(1);
+                                        setFechandoCaixa(true);
+                                        setEtapaFechamento(1);
 
-                intervaloEtapas = setInterval(() => {
-                    setEtapaFechamento(prev => {
-                        if (prev >= 3) return prev;
-                        return prev + 1;
-                    });
-                }, 1400);
+                                        intervaloEtapas = setInterval(() => {
+                                            setEtapaFechamento(prev => {
+                                                if (prev >= 3) return prev;
+                                                return prev + 1;
+                                            });
+                                        }, 1400);
 
-                const token = localStorage.getItem("token");
+                                        const token = localStorage.getItem("token");
 
-                const resp = await fetch(`${API_URL}/caixa/fechar`, {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                                        const resp = await fetch(`${API_URL}/caixa/fechar`, {
+                                            method: "POST",
+                                            headers: {
+                                                Authorization: `Bearer ${token}`
+                                            }
+                                        });
 
-                if (!resp.ok) {
+                                        if (!resp.ok) {
 
-                    const erro = await resp.json();
+                                            const erro = await resp.json();
 
-                    throw new Error(
-                        erro.detail || "Erro ao fechar caixa"
-                    );
-                }
+                                            throw new Error(
+                                                erro.detail || "Erro ao fechar caixa"
+                                            );
+                                        }
 
-                clearInterval(intervaloEtapas);
+                                        clearInterval(intervaloEtapas);
 
-                setEtapaFechamento(4);
+                                        setEtapaFechamento(4);
 
-                await carregarComandas();
+                                        await carregarComandas();
 
-                setTimeout(() => {
-                    setFechandoCaixa(false);
-                    setEtapaFechamento(0);
-                }, 1200);
+                                        setTimeout(() => {
+                                            setFechandoCaixa(false);
+                                            setEtapaFechamento(0);
+                                        }, 1200);
 
-            } catch (erro) {
+                                    } catch (erro) {
 
-                if (intervaloEtapas) {
-                    clearInterval(intervaloEtapas);
-                }
+                                        if (intervaloEtapas) {
+                                            clearInterval(intervaloEtapas);
+                                        }
 
-                setFechandoCaixa(false);
-                setEtapaFechamento(0);
+                                        setFechandoCaixa(false);
+                                        setEtapaFechamento(0);
 
-                alert(
-                    erro.message || "Erro ao fechar caixa"
-                );
-            }
-        }}
-    >
-        Fechar Caixa
-    </button>
-) : (
+                                        alert(
+                                            erro.message || "Erro ao fechar caixa"
+                                        );
+                                    }
+                                }}
+                            >
+                                Fechar Caixa
+                            </button>
+                        ) : (
 
-    <div className="fechamento-processando-ie">
+                            <div className="fechamento-processando-ie">
 
-        <div className="fechamento-spinner-area-ie">
+                                <div className="fechamento-spinner-area-ie">
 
-            <div className="fechamento-spinner-ie">
-                <div className="fechamento-spinner-centro-ie"></div>
-            </div>
+                                    <div className="fechamento-spinner-ie">
+                                        <div className="fechamento-spinner-centro-ie"></div>
+                                    </div>
 
-        </div>
+                                </div>
 
-        <div className="fechamento-processando-info-ie">
+                                <div className="fechamento-processando-info-ie">
 
-            <strong className="fechamento-processando-titulo-ie">
-                {etapaFechamento === 4
-                    ? "Caixa fechado com sucesso!"
-                    : "Fechando o caixa..."}
-            </strong>
+                                    <strong className="fechamento-processando-titulo-ie">
+                                        {etapaFechamento === 4
+                                            ? "Caixa fechado com sucesso!"
+                                            : "Fechando o caixa..."}
+                                    </strong>
 
-            <span className="fechamento-processando-subtitulo-ie">
-                {etapaFechamento === 1 &&
-                    "Conferindo as vendas realizadas..."}
+                                    <span className="fechamento-processando-subtitulo-ie">
+                                        {etapaFechamento === 1 &&
+                                            "Conferindo as vendas realizadas..."}
 
-                {etapaFechamento === 2 &&
-                    "Calculando os valores do fechamento..."}
+                                        {etapaFechamento === 2 &&
+                                            "Calculando os valores do fechamento..."}
 
-                {etapaFechamento === 3 &&
-                    "Gerando a comanda do caixa..."}
+                                        {etapaFechamento === 3 &&
+                                            "Gerando a comanda do caixa..."}
 
-                {etapaFechamento === 4 &&
-                    "Fechamento concluído e comanda registrada."}
-            </span>
+                                        {etapaFechamento === 4 &&
+                                            "Fechamento concluído e comanda registrada."}
+                                    </span>
 
-        </div>
+                                </div>
 
-        <div className="fechamento-etapas-ie">
+                                <div className="fechamento-etapas-ie">
 
-            <div
-                className={`fechamento-etapa-ie ${
-                    etapaFechamento >= 1 ? "ativa" : ""
-                }`}
-            >
-                <span>1</span>
-                <small>Vendas</small>
-            </div>
+                                    <div
+                                        className={`fechamento-etapa-ie ${etapaFechamento >= 1 ? "ativa" : ""
+                                            }`}
+                                    >
+                                        <span>1</span>
+                                        <small>Vendas</small>
+                                    </div>
 
-            <div
-                className={`fechamento-linha-ie ${
-                    etapaFechamento >= 2 ? "ativa" : ""
-                }`}
-            ></div>
+                                    <div
+                                        className={`fechamento-linha-ie ${etapaFechamento >= 2 ? "ativa" : ""
+                                            }`}
+                                    ></div>
 
-            <div
-                className={`fechamento-etapa-ie ${
-                    etapaFechamento >= 2 ? "ativa" : ""
-                }`}
-            >
-                <span>2</span>
-                <small>Valores</small>
-            </div>
+                                    <div
+                                        className={`fechamento-etapa-ie ${etapaFechamento >= 2 ? "ativa" : ""
+                                            }`}
+                                    >
+                                        <span>2</span>
+                                        <small>Valores</small>
+                                    </div>
 
-            <div
-                className={`fechamento-linha-ie ${
-                    etapaFechamento >= 3 ? "ativa" : ""
-                }`}
-            ></div>
+                                    <div
+                                        className={`fechamento-linha-ie ${etapaFechamento >= 3 ? "ativa" : ""
+                                            }`}
+                                    ></div>
 
-            <div
-                className={`fechamento-etapa-ie ${
-                    etapaFechamento >= 3 ? "ativa" : ""
-                }`}
-            >
-                <span>3</span>
-                <small>Comanda</small>
-            </div>
+                                    <div
+                                        className={`fechamento-etapa-ie ${etapaFechamento >= 3 ? "ativa" : ""
+                                            }`}
+                                    >
+                                        <span>3</span>
+                                        <small>Comanda</small>
+                                    </div>
 
-            <div
-                className={`fechamento-linha-ie ${
-                    etapaFechamento >= 4 ? "ativa" : ""
-                }`}
-            ></div>
+                                    <div
+                                        className={`fechamento-linha-ie ${etapaFechamento >= 4 ? "ativa" : ""
+                                            }`}
+                                    ></div>
 
-            <div
-                className={`fechamento-etapa-ie ${
-                    etapaFechamento >= 4 ? "ativa concluida" : ""
-                }`}
-            >
-                <span>
-                    {etapaFechamento >= 4 ? "✓" : "4"}
-                </span>
-                <small>Concluído</small>
-            </div>
+                                    <div
+                                        className={`fechamento-etapa-ie ${etapaFechamento >= 4 ? "ativa concluida" : ""
+                                            }`}
+                                    >
+                                        <span>
+                                            {etapaFechamento >= 4 ? "✓" : "4"}
+                                        </span>
+                                        <small>Concluído</small>
+                                    </div>
 
-        </div>
+                                </div>
 
-        {etapaFechamento < 4 && (
-            <p className="fechamento-aviso-espera-ie">
-                Aguarde alguns instantes. Não feche esta janela enquanto o fechamento está sendo processado.
-            </p>
-        )}
+                                {etapaFechamento < 4 && (
+                                    <p className="fechamento-aviso-espera-ie">
+                                        Aguarde alguns instantes. Não feche esta janela enquanto o fechamento está sendo processado.
+                                    </p>
+                                )}
 
-    </div>
-)}
+                            </div>
+                        )}
 
                         {/* LISTA DE COMANDAS */}
                         <div className="lista-comandas">
@@ -912,7 +1017,17 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                     </div>
                 </div>
             )}
+            {abrirLembretesTarefas && lembretesTarefas && (
 
+                <ModalLembretesTarefas
+                    dados={lembretesTarefas}
+                    fechar={() =>
+                        setAbrirLembretesTarefas(false)
+                    }
+                    atualizar={carregarLembretesTarefas}
+                />
+
+            )}
         </>
     );
 }

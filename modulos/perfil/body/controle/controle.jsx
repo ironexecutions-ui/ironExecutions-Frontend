@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Controlee from "./componentes/controle";
 import ProdutosComercio from "./componentes/produtoscomercio";
+import Tarefas from "./componentes/tarefas";
 
 import "./menucontrole.css";
 
@@ -35,20 +36,16 @@ export default function Controle() {
                     </button>
                 )}
 
-                {/* FUTUROS BOTÕES
-
                 <button
                     className={
-                        abaAtiva === "outro"
+                        abaAtiva === "tarefas"
                             ? "menu-controle-btn ativo"
                             : "menu-controle-btn"
                     }
-                    onClick={() => setAbaAtiva("outro")}
+                    onClick={() => setAbaAtiva("tarefas")}
                 >
-                    Outro módulo
+                    Tarefas
                 </button>
-
-                */}
 
             </div>
 
@@ -62,6 +59,10 @@ export default function Controle() {
 
                 {abaAtiva === "produtos" && (
                     <ProdutosComercio />
+                )}
+
+                {abaAtiva === "tarefas" && (
+                    <Tarefas />
                 )}
 
             </div>

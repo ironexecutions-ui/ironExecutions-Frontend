@@ -20,6 +20,7 @@ export default function ResumoProdutos() {
     const [precoMax, setPrecoMax] = useState("");
     const [confirmarId, setConfirmarId] = useState(null);
     const [filtroVencimento, setFiltroVencimento] = useState(false);
+    const [filtroIronStore, setFiltroIronStore] = useState("todos");
 
     const token = localStorage.getItem("token");
     /* =========================================================
@@ -549,6 +550,32 @@ export default function ResumoProdutos() {
                 variedade.nome
             );
     }
+    function campoPossuiConteudo(valor) {
+
+        if (valor === null || valor === undefined) {
+            return false;
+        }
+
+        return String(valor).trim() !== "";
+    }
+
+    function produtoPossuiImagemIronStore(imagemUrl) {
+
+        if (Array.isArray(imagemUrl)) {
+            return imagemUrl.some(imagem =>
+                campoPossuiConteudo(imagem)
+            );
+        }
+
+        if (!campoPossuiConteudo(imagemUrl)) {
+            return false;
+        }
+
+        return String(imagemUrl)
+            .split("|")
+            .some(imagem => campoPossuiConteudo(imagem));
+    }
+
     const listaFiltrada = lista
         .filter(item => Number(item.produto_variedade_id || 0) <= 0)
         .filter(item => {
@@ -626,6 +653,42 @@ export default function ResumoProdutos() {
                 ) {
                     return false;
                 }
+            }
+
+
+            /* =====================================================
+               FILTRO IRONSTORE
+            ===================================================== */
+
+            const possuiDescricao =
+                campoPossuiConteudo(item.descricao);
+
+            const possuiDescricaoCurta =
+                campoPossuiConteudo(item.descricao_curta);
+
+            const possuiImagem =
+                produtoPossuiImagemIronStore(item.imagem_url);
+
+            if (
+                filtroIronStore === "possiveis" &&
+                !(
+                    possuiDescricao &&
+                    possuiDescricaoCurta &&
+                    !possuiImagem
+                )
+            ) {
+                return false;
+            }
+
+            if (
+                filtroIronStore === "ironstore" &&
+                !(
+                    possuiDescricao &&
+                    possuiDescricaoCurta &&
+                    possuiImagem
+                )
+            ) {
+                return false;
             }
 
             return true;
@@ -784,6 +847,38 @@ export default function ResumoProdutos() {
                                 ? "Mostrando vencidos / a vencer"
                                 : "Filtrar vencidos / a vencer"
                             }
+                        </button>
+
+                        <button
+                            type="button"
+                            className={`resumo-produtos-filtro-possiveis-ironstore ${filtroIronStore === "possiveis" ? "ativo" : ""
+                                }`}
+                            onClick={() => {
+                                setFiltroIronStore(valorAtual =>
+                                    valorAtual === "possiveis"
+                                        ? "todos"
+                                        : "possiveis"
+                                );
+                                setLimite(30);
+                            }}
+                        >
+                            Possíveis na IronStore
+                        </button>
+
+                        <button
+                            type="button"
+                            className={`resumo-produtos-filtro-na-ironstore ${filtroIronStore === "ironstore" ? "ativo" : ""
+                                }`}
+                            onClick={() => {
+                                setFiltroIronStore(valorAtual =>
+                                    valorAtual === "ironstore"
+                                        ? "todos"
+                                        : "ironstore"
+                                );
+                                setLimite(30);
+                            }}
+                        >
+                            Na IronStore
                         </button>
 
                     </div>

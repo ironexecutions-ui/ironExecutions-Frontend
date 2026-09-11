@@ -5,6 +5,7 @@ import AnaliseProdutos from "./componentes/analiseprodutos";
 import ResumoProdutos from "./componentes/resumoprodutos";
 import HistoricoVendas from "./componentes/historicovendas";
 import FechamentoCaixa from "./componentes/fechamentocaixa";
+import Reposicao from "./componentes/reposicao";
 import { API_URL } from "../../../../config";
 
 export default function Administracao() {
@@ -77,7 +78,12 @@ export default function Administracao() {
                 >
                     Histórico de Vendas
                 </button>
-
+                <button
+                    className={abaAtiva === "reposicao" ? "ativo" : ""}
+                    onClick={() => setAbaAtiva("reposicao")}
+                >
+                    Reposição
+                </button>
                 <button
                     className={abaAtiva === "fechamento" ? "ativo" : ""}
                     onClick={() => setAbaAtiva("fechamento")}
@@ -93,6 +99,7 @@ export default function Administracao() {
                 {abaAtiva === "analise" && <AnaliseProdutos />}
                 {abaAtiva === "resumo" && <ResumoProdutos />}
                 {abaAtiva === "historico" && <HistoricoVendas />}
+                {abaAtiva === "reposicao" && <Reposicao />}
                 {abaAtiva === "fechamento" && <FechamentoCaixa />}
             </div>
         </div>

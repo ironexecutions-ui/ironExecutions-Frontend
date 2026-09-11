@@ -1,0 +1,1704 @@
+/* =========================================================
+   MODAL LEMBRETES DE TAREFAS
+   OVERLAY
+========================================================= */
+
+.lembretes-tarefas-modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 24px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at 50% 20%,
+            rgba(30, 64, 175, 0.12) 0%,
+            rgba(15, 23, 42, 0) 38%),
+        rgba(15, 23, 42, 0.68) !important;
+
+    backdrop-filter: blur(9px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(9px) saturate(120%) !important;
+
+    z-index: 2147483647 !important;
+
+    overflow: hidden !important;
+
+    animation:
+        lembretes-tarefas-overlay-entrada 0.2s ease-out !important;
+}
+
+
+/* =========================================================
+   JANELA PRINCIPAL
+========================================================= */
+
+.lembretes-tarefas-modal {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 760px !important;
+
+    max-height: min(850px, calc(100dvh - 48px)) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f8fafc 100%) !important;
+
+    border:
+        1px solid rgba(226, 232, 240, 0.95) !important;
+
+    border-radius: 24px !important;
+
+    box-shadow:
+        0 40px 90px rgba(2, 6, 23, 0.38),
+        0 15px 35px rgba(2, 6, 23, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    animation:
+        lembretes-tarefas-modal-entrada 0.28s cubic-bezier(0.16,
+            1,
+            0.3,
+            1) !important;
+}
+
+
+/* =========================================================
+   DETALHE SUPERIOR
+========================================================= */
+
+.lembretes-tarefas-modal::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 4px !important;
+
+    background:
+        linear-gradient(90deg,
+            #1d4ed8 0%,
+            #2563eb 40%,
+            #60a5fa 100%) !important;
+
+    z-index: 3 !important;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.lembretes-tarefas-modal-header {
+    position: relative !important;
+
+    flex-shrink: 0 !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    padding:
+        29px 30px 23px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #fbfdff 100%) !important;
+
+    border-bottom:
+        1px solid #e8edf4 !important;
+}
+
+
+.lembretes-tarefas-modal-header>div:first-child {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+
+/* =========================================================
+   SOBRETÍTULO
+========================================================= */
+
+.lembretes-tarefas-modal-sobretitulo {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    min-height: 25px !important;
+
+    margin: 0 0 8px 0 !important;
+
+    padding: 5px 9px !important;
+
+    box-sizing: border-box !important;
+
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+
+    border:
+        1px solid #dbeafe !important;
+
+    border-radius: 7px !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    text-transform: uppercase !important;
+    letter-spacing: 0.075em !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.lembretes-tarefas-modal-header h2 {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+
+    letter-spacing: -0.035em !important;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.lembretes-tarefas-modal-header p {
+    margin: 6px 0 0 0 !important;
+    padding: 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR
+========================================================= */
+
+.lembretes-tarefas-modal-fechar {
+    width: 38px !important;
+    height: 38px !important;
+
+    flex: 0 0 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 0 3px 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #f8fafc !important;
+    color: #64748b !important;
+
+    border:
+        1px solid #e2e8f0 !important;
+
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    font-size: 25px !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.04) !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.lembretes-tarefas-modal-fechar:hover {
+    background: #ffffff !important;
+    color: #0f172a !important;
+
+    border-color: #cbd5e1 !important;
+
+    box-shadow:
+        0 4px 10px rgba(15, 23, 42, 0.08) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.lembretes-tarefas-modal-fechar:active {
+    transform: translateY(0) !important;
+}
+
+
+.lembretes-tarefas-modal-fechar:focus-visible {
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.lembretes-tarefas-modal-resumo {
+    flex-shrink: 0 !important;
+
+    display: grid !important;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    padding:
+        18px 30px !important;
+
+    box-sizing: border-box !important;
+
+    background: #f8fafc !important;
+
+    border-bottom:
+        1px solid #e8edf4 !important;
+}
+
+
+/* =========================================================
+   CARDS DO RESUMO
+========================================================= */
+
+.lembretes-tarefas-modal-resumo>div {
+    position: relative !important;
+
+    min-height: 75px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    gap: 3px !important;
+
+    padding:
+        14px 17px 14px 19px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border:
+        1px solid #e2e8f0 !important;
+
+    border-radius: 13px !important;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.035) !important;
+}
+
+
+.lembretes-tarefas-modal-resumo>div::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 13px !important;
+    bottom: 13px !important;
+    left: 0 !important;
+
+    width: 3px !important;
+
+    background: #2563eb !important;
+
+    border-radius:
+        0 3px 3px 0 !important;
+}
+
+
+.lembretes-tarefas-modal-resumo>div:nth-child(2)::before {
+    background: #64748b !important;
+}
+
+
+/* =========================================================
+   NÚMEROS DO RESUMO
+========================================================= */
+
+.lembretes-tarefas-modal-resumo strong {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    letter-spacing: -0.035em !important;
+}
+
+
+.lembretes-tarefas-modal-resumo span {
+    display: block !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    line-height: 1.3 !important;
+}
+
+
+/* =========================================================
+   ÁREA ROLÁVEL
+========================================================= */
+
+.lembretes-tarefas-modal-lista {
+    min-height: 0 !important;
+    flex: 1 1 auto !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 22px !important;
+
+    padding:
+        24px 30px 30px !important;
+
+    box-sizing: border-box !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    overscroll-behavior: contain !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color:
+        #cbd5e1 transparent !important;
+}
+
+
+.lembretes-tarefas-modal-lista::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+
+.lembretes-tarefas-modal-lista::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+
+.lembretes-tarefas-modal-lista::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+
+    border:
+        2px solid transparent !important;
+
+    background-clip: padding-box !important;
+
+    border-radius: 999px !important;
+}
+
+
+.lembretes-tarefas-modal-lista::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
+
+    background-clip: padding-box !important;
+}
+
+
+/* =========================================================
+   BLOCO DE CADA DIA
+========================================================= */
+
+.lembretes-tarefas-dia {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 10px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO DO DIA
+========================================================= */
+
+.lembretes-tarefas-dia-header {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.lembretes-tarefas-dia-header>div {
+    min-width: 0 !important;
+
+    display: flex !important;
+    align-items: baseline !important;
+
+    gap: 8px !important;
+}
+
+
+.lembretes-tarefas-dia-header strong {
+    color: #0f172a !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+
+    letter-spacing: -0.015em !important;
+}
+
+
+.lembretes-tarefas-dia-header>div>span {
+    color: #94a3b8 !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+    line-height: 1.2 !important;
+}
+
+
+/* =========================================================
+   CONTADOR DO DIA
+========================================================= */
+
+.lembretes-tarefas-dia-total {
+    min-width: 27px !important;
+    height: 27px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 7px !important;
+
+    box-sizing: border-box !important;
+
+    background: #eff6ff !important;
+    color: #2563eb !important;
+
+    border:
+        1px solid #dbeafe !important;
+
+    border-radius: 8px !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+}
+
+
+/* =========================================================
+   HOJE
+   DESTAQUE ESPECIAL
+========================================================= */
+
+.lembretes-tarefas-dia:first-child .lembretes-tarefas-dia-header strong {
+    color: #1d4ed8 !important;
+}
+
+
+.lembretes-tarefas-dia:first-child .lembretes-tarefas-dia-total {
+    background: #2563eb !important;
+    color: #ffffff !important;
+
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.18) !important;
+}
+
+
+/* =========================================================
+   LISTA DE ITENS
+========================================================= */
+
+.lembretes-tarefas-itens {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CARD DE TAREFA
+========================================================= */
+
+.lembretes-tarefas-item {
+    position: relative !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 9px !important;
+
+    padding:
+        14px 16px 15px 18px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border:
+        1px solid #e2e8f0 !important;
+
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.035) !important;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.lembretes-tarefas-item::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 12px !important;
+    bottom: 12px !important;
+    left: 0 !important;
+
+    width: 3px !important;
+
+    background: #2563eb !important;
+
+    border-radius:
+        0 3px 3px 0 !important;
+}
+
+
+.lembretes-tarefas-item:hover {
+    border-color: #cbd5e1 !important;
+
+    box-shadow:
+        0 6px 16px rgba(15, 23, 42, 0.07) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   TOPO DO CARD
+========================================================= */
+
+.lembretes-tarefas-item-topo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   TIPO
+========================================================= */
+
+.lembretes-tarefas-tipo {
+    min-height: 22px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding:
+        4px 7px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 6px !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    text-transform: uppercase !important;
+    letter-spacing: 0.055em !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   PONTUAL
+========================================================= */
+
+.lembretes-tarefas-tipo.pontual {
+    background: #fff7ed !important;
+    color: #c2410c !important;
+
+    border:
+        1px solid #fed7aa !important;
+}
+
+
+/* =========================================================
+   RECORRENTE
+========================================================= */
+
+.lembretes-tarefas-tipo.recorrente {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+
+    border:
+        1px solid #bfdbfe !important;
+}
+
+
+/* =========================================================
+   HORÁRIO
+========================================================= */
+
+.lembretes-tarefas-hora {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    color: #475569 !important;
+
+    font-size: 11px !important;
+    font-weight: 750 !important;
+    line-height: 1 !important;
+
+    font-variant-numeric:
+        tabular-nums !important;
+}
+
+
+.lembretes-tarefas-hora::before {
+    content: "" !important;
+
+    width: 6px !important;
+    height: 6px !important;
+
+    flex: 0 0 6px !important;
+
+    margin-right: 6px !important;
+
+    background: #f59e0b !important;
+
+    border-radius: 50% !important;
+
+    box-shadow:
+        0 0 0 3px rgba(245, 158, 11, 0.11) !important;
+}
+
+
+/* =========================================================
+   NOME DA TAREFA
+========================================================= */
+
+.lembretes-tarefas-item-titulo {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #1e293b !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+
+    letter-spacing: -0.008em !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO DA RECORRÊNCIA
+========================================================= */
+
+.lembretes-tarefas-recorrencia {
+    width: fit-content !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+
+    color: #64748b !important;
+
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+}
+
+
+.lembretes-tarefas-recorrencia::before {
+    content: "↻" !important;
+
+    margin-right: 5px !important;
+
+    color: #3b82f6 !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   ESTADO SEM TAREFAS
+========================================================= */
+
+.lembretes-tarefas-vazio {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 48px !important;
+
+    padding: 12px !important;
+
+    box-sizing: border-box !important;
+
+    background: #f8fafc !important;
+    color: #94a3b8 !important;
+
+    border:
+        1px dashed #dbe2ea !important;
+
+    border-radius: 10px !important;
+
+    font-size: 11px !important;
+    font-weight: 550 !important;
+    line-height: 1.4 !important;
+
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   SEPARAÇÃO VISUAL ENTRE OS DIAS
+========================================================= */
+
+.lembretes-tarefas-dia+.lembretes-tarefas-dia {
+    position: relative !important;
+
+    padding-top: 21px !important;
+
+    border-top:
+        1px solid #edf1f5 !important;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   TABLET
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .lembretes-tarefas-modal-overlay {
+        padding: 16px !important;
+    }
+
+
+    .lembretes-tarefas-modal {
+        max-height:
+            calc(100dvh - 32px) !important;
+
+        border-radius: 20px !important;
+    }
+
+
+    .lembretes-tarefas-modal-header {
+        padding:
+            25px 22px 20px !important;
+    }
+
+
+    .lembretes-tarefas-modal-resumo {
+        padding:
+            15px 22px !important;
+    }
+
+
+    .lembretes-tarefas-modal-lista {
+        padding:
+            21px 22px 25px !important;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   CELULAR
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .lembretes-tarefas-modal-overlay {
+        align-items: flex-end !important;
+
+        padding: 0 !important;
+    }
+
+
+    .lembretes-tarefas-modal {
+        width: 100% !important;
+        max-width: none !important;
+
+        max-height: 92dvh !important;
+
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
+
+        border-radius:
+            20px 20px 0 0 !important;
+
+        animation:
+            lembretes-tarefas-modal-mobile-entrada 0.3s cubic-bezier(0.16,
+                1,
+                0.3,
+                1) !important;
+    }
+
+
+    .lembretes-tarefas-modal::after {
+        content: "" !important;
+
+        position: absolute !important;
+
+        top: 9px !important;
+        left: 50% !important;
+
+        width: 38px !important;
+        height: 4px !important;
+
+        background: #cbd5e1 !important;
+
+        border-radius: 999px !important;
+
+        transform:
+            translateX(-50%) !important;
+
+        z-index: 4 !important;
+    }
+
+
+    .lembretes-tarefas-modal-header {
+        padding:
+            29px 17px 17px !important;
+
+        gap: 12px !important;
+    }
+
+
+    .lembretes-tarefas-modal-sobretitulo {
+        margin-bottom: 6px !important;
+
+        font-size: 9px !important;
+    }
+
+
+    .lembretes-tarefas-modal-header h2 {
+        font-size: 21px !important;
+    }
+
+
+    .lembretes-tarefas-modal-header p {
+        margin-top: 4px !important;
+
+        font-size: 11px !important;
+    }
+
+
+    .lembretes-tarefas-modal-fechar {
+        width: 35px !important;
+        height: 35px !important;
+
+        flex-basis: 35px !important;
+
+        font-size: 22px !important;
+    }
+
+
+    /* =====================================================
+       RESUMO MOBILE
+    ===================================================== */
+
+    .lembretes-tarefas-modal-resumo {
+        gap: 8px !important;
+
+        padding:
+            12px 16px !important;
+    }
+
+
+    .lembretes-tarefas-modal-resumo>div {
+        min-height: 65px !important;
+
+        padding:
+            11px 12px 11px 15px !important;
+
+        border-radius: 10px !important;
+    }
+
+
+    .lembretes-tarefas-modal-resumo strong {
+        font-size: 21px !important;
+    }
+
+
+    .lembretes-tarefas-modal-resumo span {
+        font-size: 9px !important;
+    }
+
+
+    /* =====================================================
+       LISTA MOBILE
+    ===================================================== */
+
+    .lembretes-tarefas-modal-lista {
+        gap: 19px !important;
+
+        padding:
+            18px 16px calc(24px + env(safe-area-inset-bottom)) !important;
+    }
+
+
+    .lembretes-tarefas-dia {
+        gap: 8px !important;
+    }
+
+
+    .lembretes-tarefas-dia-header strong {
+        font-size: 13px !important;
+    }
+
+
+    .lembretes-tarefas-dia-header>div>span {
+        font-size: 9px !important;
+    }
+
+
+    .lembretes-tarefas-dia-total {
+        min-width: 25px !important;
+        height: 25px !important;
+
+        font-size: 9px !important;
+    }
+
+
+    /* =====================================================
+       CARDS MOBILE
+    ===================================================== */
+
+    .lembretes-tarefas-item {
+        gap: 8px !important;
+
+        padding:
+            12px 13px 13px 15px !important;
+
+        border-radius: 10px !important;
+    }
+
+
+    .lembretes-tarefas-item-titulo {
+        font-size: 12px !important;
+    }
+
+
+    .lembretes-tarefas-tipo {
+        min-height: 20px !important;
+
+        padding:
+            3px 6px !important;
+
+        font-size: 8px !important;
+    }
+
+
+    .lembretes-tarefas-hora {
+        font-size: 10px !important;
+    }
+
+
+    .lembretes-tarefas-recorrencia {
+        font-size: 9px !important;
+    }
+
+
+    .lembretes-tarefas-vazio {
+        min-height: 44px !important;
+
+        padding: 10px !important;
+
+        font-size: 10px !important;
+    }
+
+
+    .lembretes-tarefas-dia+.lembretes-tarefas-dia {
+        padding-top: 18px !important;
+    }
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .lembretes-tarefas-modal-header {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+
+    .lembretes-tarefas-modal-resumo {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+
+    .lembretes-tarefas-modal-lista {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+
+    .lembretes-tarefas-modal-header h2 {
+        font-size: 19px !important;
+    }
+
+
+    .lembretes-tarefas-modal-resumo>div {
+        padding-left: 12px !important;
+        padding-right: 9px !important;
+    }
+
+
+    .lembretes-tarefas-modal-resumo strong {
+        font-size: 19px !important;
+    }
+
+
+    .lembretes-tarefas-modal-resumo span {
+        font-size: 8px !important;
+    }
+}
+
+
+/* =========================================================
+   ANIMAÇÃO OVERLAY
+========================================================= */
+
+@keyframes lembretes-tarefas-overlay-entrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DESKTOP
+========================================================= */
+
+@keyframes lembretes-tarefas-modal-entrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(12px) scale(0.975);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   ANIMAÇÃO MOBILE
+========================================================= */
+
+@keyframes lembretes-tarefas-modal-mobile-entrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lembretes-tarefas-modal-overlay,
+    .lembretes-tarefas-modal,
+    .lembretes-tarefas-item,
+    .lembretes-tarefas-modal-fechar {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   LEMBRETES
+   CORPO DO CARD
+========================================================= */
+
+.lembretes-tarefas-item-corpo {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 16px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA TAREFA
+========================================================= */
+
+.lembretes-tarefas-item-informacoes {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    gap: 5px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   BOTÃO FEITA
+========================================================= */
+
+.lembretes-tarefas-marcar-feito {
+    position: relative !important;
+
+    min-width: 88px !important;
+    height: 36px !important;
+
+    flex: 0 0 auto !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    margin: 0 !important;
+    padding: 0 14px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f0fdf4 100%) !important;
+
+    color: #15803d !important;
+
+    border:
+        1px solid #bbf7d0 !important;
+
+    border-radius: 9px !important;
+
+    outline: none !important;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+
+    letter-spacing: 0.01em !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.04),
+        0 2px 5px rgba(22, 163, 74, 0.05) !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+/* =========================================================
+   HOVER DO BOTÃO
+========================================================= */
+
+.lembretes-tarefas-marcar-feito:hover:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #22c55e 0%,
+            #16a34a 100%) !important;
+
+    color: #ffffff !important;
+
+    border-color: #16a34a !important;
+
+    box-shadow:
+        0 7px 16px rgba(22, 163, 74, 0.22),
+        0 2px 5px rgba(22, 163, 74, 0.14) !important;
+
+    transform:
+        translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   ACTIVE
+========================================================= */
+
+.lembretes-tarefas-marcar-feito:active:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #16a34a 0%,
+            #15803d 100%) !important;
+
+    border-color: #15803d !important;
+
+    box-shadow:
+        0 2px 6px rgba(22, 163, 74, 0.18) !important;
+
+    transform:
+        translateY(0) !important;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.lembretes-tarefas-marcar-feito:focus-visible {
+    border-color: #22c55e !important;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.16),
+        0 4px 10px rgba(22, 163, 74, 0.12) !important;
+}
+
+
+/* =========================================================
+   DESABILITADO
+========================================================= */
+
+.lembretes-tarefas-marcar-feito:disabled {
+    background: #f8fafc !important;
+
+    color: #94a3b8 !important;
+
+    border-color: #e2e8f0 !important;
+
+    cursor: not-allowed !important;
+
+    box-shadow: none !important;
+
+    transform: none !important;
+
+    opacity: 0.72 !important;
+}
+
+
+/* =========================================================
+   CHECK
+========================================================= */
+
+.lembretes-tarefas-feito-check {
+    width: 18px !important;
+    height: 18px !important;
+
+    flex: 0 0 18px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    background: #dcfce7 !important;
+    color: #15803d !important;
+
+    border:
+        1px solid #bbf7d0 !important;
+
+    border-radius: 50% !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+/* =========================================================
+   CHECK NO HOVER
+========================================================= */
+
+.lembretes-tarefas-marcar-feito:hover:not(:disabled) .lembretes-tarefas-feito-check {
+    background:
+        rgba(255, 255, 255, 0.18) !important;
+
+    color: #ffffff !important;
+
+    border-color:
+        rgba(255, 255, 255, 0.35) !important;
+
+    transform:
+        scale(1.06) !important;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.lembretes-tarefas-feito-loading {
+    width: 14px !important;
+    height: 14px !important;
+
+    flex: 0 0 14px !important;
+
+    display: inline-block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    border:
+        2px solid #cbd5e1 !important;
+
+    border-top-color:
+        #16a34a !important;
+
+    border-radius:
+        50% !important;
+
+    animation:
+        lembretes-tarefas-loading-girar 0.7s linear infinite !important;
+}
+
+
+/* =========================================================
+   MELHOR DISTRIBUIÇÃO DO TÍTULO
+========================================================= */
+
+.lembretes-tarefas-item-corpo .lembretes-tarefas-item-titulo {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+
+/* =========================================================
+   TAREFA PONTUAL
+   DESTAQUE LEVE NO CARD
+========================================================= */
+
+.lembretes-tarefas-item:has(.lembretes-tarefas-tipo.pontual) {
+    border-left-color:
+        #fed7aa !important;
+}
+
+
+/* =========================================================
+   RECORRENTE
+   DESTAQUE LEVE NO CARD
+========================================================= */
+
+.lembretes-tarefas-item:has(.lembretes-tarefas-tipo.recorrente) {
+    border-left-color:
+        #bfdbfe !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO LOADING
+========================================================= */
+
+@keyframes lembretes-tarefas-loading-girar {
+
+    from {
+        transform:
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .lembretes-tarefas-item-corpo {
+        gap: 12px !important;
+    }
+
+
+    .lembretes-tarefas-marcar-feito {
+        min-width: 82px !important;
+        height: 34px !important;
+
+        padding:
+            0 12px !important;
+
+        font-size:
+            10px !important;
+    }
+
+
+    .lembretes-tarefas-feito-check {
+        width: 17px !important;
+        height: 17px !important;
+
+        flex-basis:
+            17px !important;
+
+        font-size:
+            9px !important;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .lembretes-tarefas-item-corpo {
+        align-items:
+            stretch !important;
+
+        flex-direction:
+            column !important;
+
+        gap:
+            10px !important;
+    }
+
+
+    .lembretes-tarefas-item-informacoes {
+        width:
+            100% !important;
+    }
+
+
+    .lembretes-tarefas-marcar-feito {
+        width:
+            100% !important;
+
+        min-width:
+            0 !important;
+
+        height:
+            38px !important;
+
+        justify-content:
+            center !important;
+
+        border-radius:
+            8px !important;
+
+        font-size:
+            10px !important;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .lembretes-tarefas-marcar-feito {
+        height:
+            36px !important;
+
+        padding:
+            0 10px !important;
+    }
+
+
+    .lembretes-tarefas-feito-check {
+        width:
+            16px !important;
+
+        height:
+            16px !important;
+
+        flex-basis:
+            16px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lembretes-tarefas-marcar-feito,
+    .lembretes-tarefas-feito-check {
+        transition:
+            none !important;
+    }
+
+
+    .lembretes-tarefas-feito-loading {
+        animation:
+            none !important;
+    }
+
+}
