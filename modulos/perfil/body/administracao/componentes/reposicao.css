@@ -344,8 +344,11 @@
 }
 
 .administracao-reposicao-modal {
+    display: grid !important;
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto !important;
     width: min(700px, 100%) !important;
-    max-height: 90vh !important;
+    height: min(720px, calc(100dvh - 40px)) !important;
+    max-height: calc(100dvh - 40px) !important;
     padding: 25px !important;
     overflow: hidden !important;
     border: 1px solid rgba(255, 255, 255, 0.58) !important;
@@ -430,7 +433,8 @@
 .administracao-reposicao-produtos-lista {
     display: grid !important;
     gap: 8px !important;
-    max-height: 300px !important;
+    min-height: 0 !important;
+    max-height: none !important;
     margin-top: 14px !important;
     padding-right: 5px !important;
     overflow-y: auto !important;
@@ -490,6 +494,9 @@
 }
 
 .administracao-reposicao-modal-rodape {
+    position: relative !important;
+    z-index: 2 !important;
+    flex-shrink: 0 !important;
     gap: 14px !important;
     margin-top: 18px !important;
     padding-top: 18px !important;
@@ -497,9 +504,11 @@
     color: #667085 !important;
     font-size: 13px !important;
     font-weight: 700 !important;
+    background: #ffffff !important;
 }
 
 .administracao-reposicao-salvar-botao {
+    flex-shrink: 0 !important;
     min-height: 46px !important;
     padding: 10px 19px !important;
     color: #fff !important;
@@ -514,11 +523,11 @@
 
 @keyframes administracao-reposicao-fundo-entrada {
     from {
-        opacity: 0;
+        opacity: 0 !important;
     }
 
     to {
-        opacity: 1;
+        opacity: 1 !important;
     }
 }
 
@@ -582,7 +591,10 @@
     }
 
     .administracao-reposicao-modal {
-        padding: 18px !important;
+        width: 100% !important;
+        height: calc(100dvh - 18px) !important;
+        max-height: calc(100dvh - 18px) !important;
+        padding: 14px !important;
         border-radius: 18px !important;
     }
 
