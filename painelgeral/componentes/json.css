@@ -1,0 +1,633 @@
+.jsonPagina {
+    width: min(1180px, calc(100% - 40px));
+    margin: 32px auto;
+    padding: clamp(22px, 3vw, 38px);
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(37, 99, 235, 0.09),
+            transparent 34%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 100%);
+
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 24px;
+
+    box-shadow:
+        0 24px 60px rgba(15, 23, 42, 0.10),
+        0 8px 24px rgba(15, 23, 42, 0.06);
+
+    box-sizing: border-box;
+}
+
+.jsonPagina::before {
+    content: "";
+    width: 170px;
+    height: 170px;
+
+    position: absolute;
+    top: -90px;
+    left: -80px;
+
+    background: rgba(37, 99, 235, 0.10);
+    border-radius: 50%;
+    filter: blur(5px);
+
+    pointer-events: none;
+}
+
+.jsonPagina * {
+    box-sizing: border-box;
+}
+
+.jsonPagina h1 {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+
+    color: #0f172a;
+    text-align: center;
+
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+}
+
+.jsonPagina>p {
+    margin: 0;
+    padding: 14px 18px;
+
+    color: #475569;
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.jsonPagina>p strong {
+    color: #2563eb;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.jsonPagina br {
+    display: none;
+}
+
+
+/* =====================================================
+   ÁREA DE ENVIO DOS ARQUIVOS
+===================================================== */
+
+.jsonAreaDrop {
+    width: 100%;
+    min-height: 245px;
+    padding: 42px 24px;
+
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(135deg,
+            rgba(239, 246, 255, 0.96),
+            rgba(248, 250, 252, 0.96));
+
+    border: 2px dashed #60a5fa;
+    border-radius: 20px;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.jsonAreaDrop::before {
+    content: "PDF";
+    width: 72px;
+    height: 72px;
+    margin-bottom: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 24px rgba(37, 99, 235, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.jsonAreaDrop:hover {
+    background:
+        linear-gradient(135deg,
+            #dbeafe,
+            #eff6ff);
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 16px 34px rgba(37, 99, 235, 0.13),
+        inset 0 0 0 1px rgba(37, 99, 235, 0.08);
+
+    transform: translateY(-2px);
+}
+
+.jsonAreaDrop:hover::before {
+    transform: translateY(-3px) scale(1.04);
+
+    box-shadow:
+        0 16px 30px rgba(37, 99, 235, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.jsonAreaDrop h3 {
+    margin: 0;
+
+    color: #1e3a8a;
+
+    font-size: clamp(20px, 2vw, 25px);
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.jsonAreaDrop p {
+    margin: 10px 0 16px;
+
+    color: #64748b;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.jsonAreaDrop input[type="file"] {
+    width: min(100%, 430px);
+    padding: 8px;
+
+    color: #475569;
+    background: #ffffff;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    outline: none;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    box-shadow: 0 5px 14px rgba(15, 23, 42, 0.06);
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.jsonAreaDrop input[type="file"]:hover {
+    border-color: #60a5fa;
+}
+
+.jsonAreaDrop input[type="file"]:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.13);
+}
+
+.jsonAreaDrop input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 10px 15px;
+
+    color: #ffffff;
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8);
+
+    border: none;
+    border-radius: 9px;
+
+    font-family: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        filter 0.2s ease,
+        transform 0.2s ease;
+}
+
+.jsonAreaDrop input[type="file"]::file-selector-button:hover {
+    filter: brightness(1.08);
+}
+
+
+/* =====================================================
+   BOTÕES DE CÓDIGOS
+===================================================== */
+
+.jsonBotoesCodigos {
+    width: 100%;
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.jsonBotoesCodigos button {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 20px;
+
+    position: relative;
+    overflow: hidden;
+
+    color: #ffffff;
+    background:
+        linear-gradient(135deg,
+            #16a34a,
+            #15803d);
+
+    border: 1px solid rgba(21, 128, 61, 0.25);
+    border-radius: 13px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.1px;
+
+    box-shadow:
+        0 10px 20px rgba(22, 163, 74, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.jsonBotoesCodigos button:hover {
+    filter: brightness(1.06);
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 26px rgba(22, 163, 74, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+.jsonBotoesCodigos button:active {
+    transform: translateY(0) scale(0.985);
+}
+
+
+/* =====================================================
+   BOTÕES PRINCIPAIS
+===================================================== */
+
+.jsonBotoes {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.jsonBotoes button {
+    width: 100%;
+    min-width: 0;
+    min-height: 52px;
+    padding: 14px 16px;
+
+    color: #ffffff;
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8);
+
+    border: 1px solid rgba(29, 78, 216, 0.25);
+    border-radius: 13px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 20px rgba(37, 99, 235, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.jsonBotoes button:hover:not(:disabled) {
+    filter: brightness(1.07);
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 28px rgba(37, 99, 235, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+.jsonBotoes button:active:not(:disabled) {
+    transform: translateY(0) scale(0.985);
+}
+
+.jsonBotoes button:last-child {
+    background:
+        linear-gradient(135deg,
+            #475569,
+            #334155);
+
+    border-color: rgba(51, 65, 85, 0.30);
+
+    box-shadow:
+        0 10px 20px rgba(51, 65, 85, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.jsonBotoes button:disabled {
+    color: #94a3b8;
+    background: #e2e8f0;
+
+    border-color: #cbd5e1;
+
+    box-shadow: none;
+
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   PROGRESSO
+===================================================== */
+
+.jsonProgresso {
+    width: 100%;
+    padding: 17px 18px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+}
+
+.jsonProgresso progress {
+    width: 100%;
+    height: 13px;
+
+    overflow: hidden;
+
+    border: none;
+    border-radius: 999px;
+
+    appearance: none;
+}
+
+.jsonProgresso progress::-webkit-progress-bar {
+    background: #dbeafe;
+    border-radius: 999px;
+}
+
+.jsonProgresso progress::-webkit-progress-value {
+    background:
+        linear-gradient(90deg,
+            #2563eb,
+            #60a5fa);
+
+    border-radius: 999px;
+
+    transition: width 0.25s ease;
+}
+
+.jsonProgresso progress::-moz-progress-bar {
+    background:
+        linear-gradient(90deg,
+            #2563eb,
+            #60a5fa);
+
+    border-radius: 999px;
+}
+
+.jsonProgresso p {
+    margin: 0;
+
+    color: #1d4ed8;
+
+    font-size: 14px;
+    font-weight: 800;
+    text-align: center;
+}
+
+
+/* =====================================================
+   RESULTADO
+===================================================== */
+
+.jsonResultado {
+    width: 100%;
+    min-height: 580px;
+    padding: 22px;
+
+    color: #86efac;
+    caret-color: #60a5fa;
+
+    background:
+        linear-gradient(145deg,
+            #0f172a,
+            #111827);
+
+    border: 1px solid #334155;
+    border-radius: 16px;
+    outline: none;
+
+    font-family:
+        "Cascadia Code",
+        "Fira Code",
+        Consolas,
+        monospace;
+
+    font-size: 14px;
+    line-height: 1.65;
+
+    box-shadow:
+        inset 0 1px 14px rgba(0, 0, 0, 0.22),
+        0 12px 28px rgba(15, 23, 42, 0.13);
+
+    resize: vertical;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.jsonResultado::placeholder {
+    color: #64748b;
+}
+
+.jsonResultado:hover {
+    border-color: #475569;
+}
+
+.jsonResultado:focus {
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.15),
+        inset 0 1px 14px rgba(0, 0, 0, 0.22),
+        0 12px 28px rgba(15, 23, 42, 0.13);
+}
+
+
+/* =====================================================
+   RESPONSIVIDADE
+===================================================== */
+
+@media (max-width: 900px) {
+    .jsonPagina {
+        width: calc(100% - 28px);
+        margin: 24px auto;
+        padding: 24px;
+        border-radius: 20px;
+    }
+
+    .jsonBotoes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .jsonResultado {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+    .jsonPagina {
+        width: calc(100% - 20px);
+        margin: 14px auto;
+        padding: 16px;
+        gap: 16px;
+        border-radius: 17px;
+    }
+
+    .jsonPagina h1 {
+        font-size: 25px;
+        letter-spacing: -0.4px;
+    }
+
+    .jsonAreaDrop {
+        min-height: 220px;
+        padding: 28px 14px;
+        border-radius: 16px;
+    }
+
+    .jsonAreaDrop::before {
+        width: 62px;
+        height: 62px;
+        margin-bottom: 15px;
+        border-radius: 17px;
+        font-size: 15px;
+    }
+
+    .jsonAreaDrop h3 {
+        font-size: 20px;
+    }
+
+    .jsonAreaDrop input[type="file"] {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .jsonAreaDrop input[type="file"]::file-selector-button {
+        margin-right: 7px;
+        padding: 9px 10px;
+    }
+
+    .jsonBotoesCodigos,
+    .jsonBotoes {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .jsonBotoesCodigos button,
+    .jsonBotoes button {
+        min-height: 49px;
+        font-size: 14px;
+    }
+
+    .jsonResultado {
+        min-height: 420px;
+        padding: 15px;
+        border-radius: 13px;
+        font-size: 12px;
+        line-height: 1.55;
+    }
+}
+
+@media (max-width: 380px) {
+    .jsonPagina {
+        width: calc(100% - 12px);
+        padding: 12px;
+    }
+
+    .jsonAreaDrop {
+        padding: 24px 10px;
+    }
+
+    .jsonPagina>p {
+        padding: 12px;
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .jsonPagina *,
+    .jsonPagina *::before,
+    .jsonPagina *::after {
+        scroll-behavior: auto;
+        transition: none;
+    }
+}

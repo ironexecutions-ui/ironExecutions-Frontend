@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../config";
 import "./painelg.css";
 import Supervisionar from "./supervisionar";
+
+
+import Json from "./json";
 const CACHE_HISTORICO_SQL =
     "painel_g_historico_sql_v1";
 
@@ -748,7 +751,8 @@ export default function PainelG() {
         const titulosPainelG = {
             tabelas: "Tabelas",
             sql: "Terminal SQL",
-            supervisionar: "Supervisionar"
+            supervisionar: "Supervisionar",
+            json: "JSON"
         };
 
         document.title =
@@ -1109,7 +1113,19 @@ ATALHOS SQL DA TABELA
                 >
                     Supervisionar
                 </button>
-
+                <button
+                    type="button"
+                    className={
+                        painelGSecaoAtiva === "json"
+                            ? "painel-g-menu-botao painel-g-menu-botao-ativo"
+                            : "painel-g-menu-botao"
+                    }
+                    onClick={() =>
+                        setPainelGSecaoAtiva("json")
+                    }
+                >
+                    JSON
+                </button>
             </div>
 
 
@@ -1125,6 +1141,9 @@ ATALHOS SQL DA TABELA
 
             {painelGSecaoAtiva === "supervisionar" && (
                 <Supervisionar />
+            )}
+            {painelGSecaoAtiva === "json" && (
+                <Json />
             )}
             {/* =====================================================
                 TABELAS
