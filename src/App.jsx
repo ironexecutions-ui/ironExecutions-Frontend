@@ -18,7 +18,7 @@ import IronBusinessPerfil from "../modulos/perfil/ironbusiness";
 import ProtegidoClientes from "./protegidoclientes";
 import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
-
+import RegistroEmails from "./registroemails";
 import PainelGeral from "../painelgeral/painel";
 import ironExecutions from "./imagens/ironexecutions.png";
 import missionaryStoreBrasil from "./imagens/missionarystorebrasil.png";
@@ -206,6 +206,10 @@ function RoteamentoComLoading() {
       <Route
         path="/rifa-compras/:id?"
         element={<RifaComprasNormalizada />}
+      />
+      <Route
+        path="/sp"
+        element={<RegistroEmails />}
       />
 
       <Route
