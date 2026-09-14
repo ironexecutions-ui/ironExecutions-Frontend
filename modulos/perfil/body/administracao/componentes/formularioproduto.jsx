@@ -160,13 +160,12 @@ export default function FormularioProduto({ item, voltar }) {
         if (!nomeLimpo) return;
 
         const jaExiste = variedades.some(
-            v =>
-                v.nome.toLowerCase() ===
+            variedade =>
+                variedade.nome.toLowerCase() ===
                 nomeLimpo.toLowerCase()
         );
 
         if (jaExiste) {
-
             abrirAlerta({
                 titulo: "Variedade repetida",
                 mensagem: `A variedade "${nomeLimpo}" já foi adicionada a este produto.`,
@@ -178,9 +177,15 @@ export default function FormularioProduto({ item, voltar }) {
 
         const primeiraVariedade = variedades.length === 0;
 
-        const codigoInicial =
-            primeiraVariedade
-                ? (form.codigo_barras || "").trim()
+        const codigoInicial = primeiraVariedade
+            ? (form.codigo_barras || "").trim()
+            : "";
+
+        const imagensDisponiveis = obterImagensProduto();
+
+        const imagemInicial =
+            imagensDisponiveis.length === 1
+                ? imagensDisponiveis[0]
                 : "";
 
         setVariedades(prev => [
@@ -188,25 +193,15 @@ export default function FormularioProduto({ item, voltar }) {
             {
                 id: `${Date.now()}-${Math.random()}`,
                 nome: nomeLimpo,
-                codigo_barras: codigoInicial
+                codigo_barras: codigoInicial,
+                imagem_url: imagemInicial
             }
         ]);
-
-        // =====================================================
-        // AO CRIAR A PRIMEIRA VARIEDADE
-        // =====================================================
-        // Se o produto já possuía código de barras,
-        // esse código passa a pertencer à primeira variedade.
-        //
-        // A partir daqui o produto não possui mais um código
-        // principal. Cada variedade terá seu próprio código.
-        // =====================================================
 
         if (primeiraVariedade) {
             alterar("codigo_barras", "");
         }
     }
-
 
     function removerVariedade(index) {
         setVariedades(prev =>
@@ -227,6 +222,28 @@ export default function FormularioProduto({ item, voltar }) {
             )
         );
     }
+
+    function obterImagensProduto() {
+        return String(form.imagem_url || "")
+            .split("|")
+            .map(imagem => imagem.trim())
+            .filter(Boolean);
+    }
+
+    function alterarImagemVariedade(index, imagemUrl) {
+        setVariedades(prev =>
+            prev.map((variedade, i) =>
+                i === index
+                    ? {
+                        ...variedade,
+                        imagem_url: imagemUrl
+                    }
+                    : variedade
+            )
+        );
+    }
+
+
     function podeFicarDisponivel() {
 
         // =====================================================
@@ -420,8 +437,8 @@ export default function FormularioProduto({ item, voltar }) {
                     dados.variedades.map(variedade => ({
                         id: variedade.id,
                         nome: variedade.nome || "",
-                        codigo_barras:
-                            variedade.codigo_barras || ""
+                        codigo_barras: variedade.codigo_barras || "",
+                        imagem_url: variedade.imagem_url || ""
                     }))
                 );
 
@@ -724,11 +741,14 @@ export default function FormularioProduto({ item, voltar }) {
             variedad_primaria:
                 form.variedad_primaria || null,
 
-            variedades: variedades.map(v => ({
-                nome: v.nome.trim(),
+            variedades: variedades.map(variedade => ({
+                nome: variedade.nome.trim(),
 
                 codigo_barras:
-                    (v.codigo_barras || "").trim() || null
+                    (variedade.codigo_barras || "").trim() || null,
+
+                imagem_url:
+                    (variedade.imagem_url || "").trim() || null
             }))
         };
 
@@ -1382,24 +1402,88 @@ export default function FormularioProduto({ item, voltar }) {
                                     {/* CÓDIGO DE BARRAS OPCIONAL */}
                                     {/* ========================================= */}
 
-                                    <div className="formulario-produto-variedade-codigo-area">
+                                    <div className="formulario-produto-variedade-dados-area">
 
-                                        <label className="formulario-produto-variedade-codigo-label">
-                                            Código de barras
-                                        </label>
+                                        <div className="formulario-produto-variedade-codigo-area">
 
-                                        <input
-                                            className="formulario-produto-variedade-codigo-input"
-                                            type="text"
-                                            placeholder={`Código de ${variedade.nome}`}
-                                            value={variedade.codigo_barras || ""}
-                                            onChange={e =>
-                                                alterarCodigoVariedade(
-                                                    index,
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
+                                            <label className="formulario-produto-variedade-codigo-label">
+                                                Código de barras
+                                            </label>
+
+                                            <input
+                                                className="formulario-produto-variedade-codigo-input"
+                                                type="text"
+                                                placeholder={`Código de ${variedade.nome}`}
+                                                value={variedade.codigo_barras || ""}
+                                                onChange={e =>
+                                                    alterarCodigoVariedade(
+                                                        index,
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+
+                                        </div>
+
+                                        <div className="formulario-produto-variedade-imagem-area">
+
+                                            <span className="formulario-produto-variedade-imagem-label">
+                                                Imagem desta variedade
+                                            </span>
+
+                                            {obterImagensProduto().length === 0 ? (
+
+                                                <span className="formulario-produto-variedade-sem-imagem">
+                                                    Adicione imagens abaixo para poder selecionar
+                                                </span>
+
+                                            ) : (
+
+                                                <div className="formulario-produto-variedade-imagens-opcoes">
+
+                                                    {obterImagensProduto().map((imagem, imagemIndex) => {
+
+                                                        const selecionada =
+                                                            variedade.imagem_url === imagem;
+
+                                                        return (
+                                                            <button
+                                                                key={`${variedade.id}-imagem-${imagemIndex}`}
+                                                                type="button"
+                                                                className={
+                                                                    `formulario-produto-variedade-imagem-opcao ${selecionada
+                                                                        ? "formulario-produto-variedade-imagem-selecionada"
+                                                                        : ""
+                                                                    }`
+                                                                }
+                                                                onClick={() =>
+                                                                    alterarImagemVariedade(
+                                                                        index,
+                                                                        imagem
+                                                                    )
+                                                                }
+                                                                aria-label={
+                                                                    `Selecionar imagem para ${variedade.nome}`
+                                                                }
+                                                            >
+                                                                <img
+                                                                    src={imagem}
+                                                                    alt={`Imagem de ${variedade.nome}`}
+                                                                    className="formulario-produto-variedade-imagem-miniatura"
+                                                                />
+
+                                                                <span className="formulario-produto-variedade-imagem-marcador">
+                                                                    {selecionada ? "Selecionada" : "Escolher"}
+                                                                </span>
+                                                            </button>
+                                                        );
+                                                    })}
+
+                                                </div>
+
+                                            )}
+
+                                        </div>
 
                                     </div>
 
