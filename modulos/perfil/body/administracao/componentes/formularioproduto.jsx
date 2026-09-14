@@ -9,6 +9,8 @@ export default function FormularioProduto({ item, voltar }) {
     const [variedades, setVariedades] = useState([]);
     const [novaVariedade, setNovaVariedade] = useState("");
     const [temModuloIronStore, setTemModuloIronStore] = useState(false);
+    const [imagemVariedadeAmpliada, setImagemVariedadeAmpliada] =
+        useState("");
     const [modalAlerta, setModalAlerta] = useState({
         aberto: false,
         titulo: "",
@@ -244,6 +246,57 @@ export default function FormularioProduto({ item, voltar }) {
     }
 
 
+    useEffect(() => {
+        const imagensDisponiveis = String(
+            form.imagem_url || ""
+        )
+            .split("|")
+            .map(imagem => imagem.trim())
+            .filter(Boolean);
+
+        setVariedades(prev =>
+            prev.map(variedade => {
+                const imagemSelecionadaExiste =
+                    imagensDisponiveis.includes(
+                        variedade.imagem_url
+                    );
+
+                if (imagemSelecionadaExiste) {
+                    return variedade;
+                }
+
+                return {
+                    ...variedade,
+                    imagem_url:
+                        imagensDisponiveis.length === 1
+                            ? imagensDisponiveis[0]
+                            : ""
+                };
+            })
+        );
+    }, [form.imagem_url]);
+
+    useEffect(() => {
+        if (!imagemVariedadeAmpliada) return undefined;
+
+        function fecharImagemComEsc(evento) {
+            if (evento.key === "Escape") {
+                setImagemVariedadeAmpliada("");
+            }
+        }
+
+        document.addEventListener(
+            "keydown",
+            fecharImagemComEsc
+        );
+
+        return () => {
+            document.removeEventListener(
+                "keydown",
+                fecharImagemComEsc
+            );
+        };
+    }, [imagemVariedadeAmpliada]);
     function podeFicarDisponivel() {
 
         // =====================================================
@@ -1462,8 +1515,11 @@ export default function FormularioProduto({ item, voltar }) {
                                                                         imagem
                                                                     )
                                                                 }
+                                                                onDoubleClick={() =>
+                                                                    setImagemVariedadeAmpliada(imagem)
+                                                                }
                                                                 aria-label={
-                                                                    `Selecionar imagem para ${variedade.nome}`
+                                                                    `Selecionar imagem para ${variedade.nome}. Clique duas vezes para ampliar.`
                                                                 }
                                                             >
                                                                 <img
@@ -1471,10 +1527,6 @@ export default function FormularioProduto({ item, voltar }) {
                                                                     alt={`Imagem de ${variedade.nome}`}
                                                                     className="formulario-produto-variedade-imagem-miniatura"
                                                                 />
-
-                                                                <span className="formulario-produto-variedade-imagem-marcador">
-                                                                    {selecionada ? "Selecionada" : "Escolher"}
-                                                                </span>
                                                             </button>
                                                         );
                                                     })}
@@ -1633,7 +1685,41 @@ export default function FormularioProduto({ item, voltar }) {
                     document.body
                 )
             }
+            {imagemVariedadeAmpliada &&
+                createPortal(
+                    <div
+                        className="formulario-produto-imagem-ampliada-overlay"
+                        onMouseDown={() =>
+                            setImagemVariedadeAmpliada("")
+                        }
+                    >
+                        <div
+                            className="formulario-produto-imagem-ampliada-modal"
+                            onMouseDown={evento =>
+                                evento.stopPropagation()
+                            }
+                        >
+                            <button
+                                type="button"
+                                className="formulario-produto-imagem-ampliada-fechar"
+                                onClick={() =>
+                                    setImagemVariedadeAmpliada("")
+                                }
+                                aria-label="Fechar imagem ampliada"
+                            >
+                                ×
+                            </button>
 
+                            <img
+                                src={imagemVariedadeAmpliada}
+                                alt="Imagem ampliada da variedade"
+                                className="formulario-produto-imagem-ampliada-conteudo"
+                            />
+                        </div>
+                    </div>,
+                    document.body
+                )
+            }
 
         </div>
     );

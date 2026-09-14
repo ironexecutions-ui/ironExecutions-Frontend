@@ -2746,3 +2746,139 @@
     }
 
 }
+
+/* =========================================================
+   IMAGEM DA VARIEDADE SEM TEXTO
+========================================================= */
+
+.formulario-produto-variedade-imagem-opcao {
+    padding: 4px !important;
+}
+
+.formulario-produto-variedade-imagem-selecionada {
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.18),
+        0 8px 20px rgba(37, 99, 235, 0.20) !important;
+}
+
+.formulario-produto-variedade-imagem-marcador {
+    display: none !important;
+}
+
+
+/* =========================================================
+   MODAL DA IMAGEM AMPLIADA
+========================================================= */
+
+.formulario-produto-imagem-ampliada-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+
+    z-index: 2147483647 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 24px !important;
+
+    box-sizing: border-box !important;
+
+    background: rgba(15, 23, 42, 0.78) !important;
+
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.formulario-produto-imagem-ampliada-modal {
+    position: relative !important;
+
+    width: min(900px, calc(100vw - 48px)) !important;
+    height: min(760px, calc(100vh - 48px)) !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 22px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 22px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 35px 100px rgba(0, 0, 0, 0.45) !important;
+}
+
+.formulario-produto-imagem-ampliada-conteudo {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: contain !important;
+
+    border-radius: 14px !important;
+}
+
+.formulario-produto-imagem-ampliada-fechar {
+    position: absolute !important;
+
+    top: 12px !important;
+    right: 12px !important;
+
+    z-index: 2 !important;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    border: 1px solid #dbe3ef !important;
+    border-radius: 12px !important;
+
+    background: rgba(255, 255, 255, 0.94) !important;
+
+    color: #0f172a !important;
+
+    font-size: 27px !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 7px 20px rgba(15, 23, 42, 0.18) !important;
+}
+
+.formulario-produto-imagem-ampliada-fechar:hover {
+    color: #ffffff !important;
+    border-color: #dc2626 !important;
+    background: #dc2626 !important;
+}
+
+@media (max-width: 768px) {
+    .formulario-produto-imagem-ampliada-overlay {
+        padding: 14px !important;
+    }
+
+    .formulario-produto-imagem-ampliada-modal {
+        width: calc(100vw - 28px) !important;
+        height: calc(100vh - 28px) !important;
+
+        padding: 12px !important;
+
+        border-radius: 17px !important;
+    }
+}
