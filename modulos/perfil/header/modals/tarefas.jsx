@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 import { API_URL } from "../../../../config";
 
 import "./tarefas.css";
+import ProdutosSemPreco from "./produtosempreco";
 
 
 export default function ModalLembretesTarefas({
@@ -23,6 +24,9 @@ export default function ModalLembretesTarefas({
         tarefaCumprindo,
         setTarefaCumprindo
     ] = useState(null);
+
+    const [areaAtiva, setAreaAtiva] =
+        useState("tarefas");
 
 
     /* =====================================================
@@ -474,277 +478,312 @@ export default function ModalLembretesTarefas({
 
                 </header>
 
+                <nav
+                    className="lembretes-central-navegacao"
+                    aria-label="Áreas da central"
+                >
+                    <button
+                        type="button"
+                        className={`lembretes-central-navegacao-botao ${areaAtiva === "tarefas"
+                            ? "lembretes-central-navegacao-botao-ativo"
+                            : ""
+                            }`}
+                        onClick={() => setAreaAtiva("tarefas")}
+                    >
+                        Tarefas
+                    </button>
 
-                {/* =========================================
+                    <button
+                        type="button"
+                        className={`lembretes-central-navegacao-botao ${areaAtiva === "produtos"
+                            ? "lembretes-central-navegacao-botao-ativo"
+                            : ""
+                            }`}
+                        onClick={() => setAreaAtiva("produtos")}
+                    >
+                        Produtos sem preço
+                    </button>
+                </nav>
+
+                {areaAtiva === "tarefas" ? (
+                    <>
+
+
+                        {/* =========================================
                     RESUMO
                 ========================================= */}
 
-                <div className="lembretes-tarefas-modal-resumo">
+                        <div className="lembretes-tarefas-modal-resumo">
 
-                    <div>
+                            <div>
 
-                        <strong>
-                            {
-                                dadosLocais
-                                    .total_hoje ||
-                                0
-                            }
-                        </strong>
+                                <strong>
+                                    {
+                                        dadosLocais
+                                            .total_hoje ||
+                                        0
+                                    }
+                                </strong>
 
-                        <span>
-                            Para hoje
-                        </span>
+                                <span>
+                                    Para hoje
+                                </span>
 
-                    </div>
-
-
-                    <div>
-
-                        <strong>
-                            {
-                                dadosLocais
-                                    .total_proximos_3_dias ||
-                                0
-                            }
-                        </strong>
-
-                        <span>
-                            Próximos 3 dias
-                        </span>
-
-                    </div>
-
-                </div>
+                            </div>
 
 
-                {/* =========================================
+                            <div>
+
+                                <strong>
+                                    {
+                                        dadosLocais
+                                            .total_proximos_3_dias ||
+                                        0
+                                    }
+                                </strong>
+
+                                <span>
+                                    Próximos 3 dias
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* =========================================
                     LISTA
                 ========================================= */}
 
-                <div className="lembretes-tarefas-modal-lista">
+                        <div className="lembretes-tarefas-modal-lista">
 
-                    {dadosLocais.dias?.map(
-                        (dia) => (
+                            {dadosLocais.dias?.map(
+                                (dia) => (
 
-                            <section
-                                className="lembretes-tarefas-dia"
-                                key={dia.data}
-                            >
+                                    <section
+                                        className="lembretes-tarefas-dia"
+                                        key={dia.data}
+                                    >
 
-                                {/* =========================
+                                        {/* =========================
                                     CABEÇALHO DO DIA
                                 ========================= */}
 
-                                <div className="lembretes-tarefas-dia-header">
+                                        <div className="lembretes-tarefas-dia-header">
 
-                                    <div>
+                                            <div>
 
-                                        <strong>
-                                            {tituloDia(
-                                                dia.deslocamento,
-                                                dia.data
-                                            )}
-                                        </strong>
+                                                <strong>
+                                                    {tituloDia(
+                                                        dia.deslocamento,
+                                                        dia.data
+                                                    )}
+                                                </strong>
 
-                                        <span>
-                                            {new Date(
-                                                `${dia.data}T12:00:00`
-                                            ).toLocaleDateString(
-                                                "pt-BR"
-                                            )}
-                                        </span>
+                                                <span>
+                                                    {new Date(
+                                                        `${dia.data}T12:00:00`
+                                                    ).toLocaleDateString(
+                                                        "pt-BR"
+                                                    )}
+                                                </span>
 
-                                    </div>
-
-
-                                    <span className="lembretes-tarefas-dia-total">
-                                        {
-                                            dia.tarefas
-                                                .length
-                                        }
-                                    </span>
-
-                                </div>
+                                            </div>
 
 
-                                {/* =========================
+                                            <span className="lembretes-tarefas-dia-total">
+                                                {
+                                                    dia.tarefas
+                                                        .length
+                                                }
+                                            </span>
+
+                                        </div>
+
+
+                                        {/* =========================
                                     SEM TAREFAS
                                 ========================= */}
 
-                                {dia.tarefas.length === 0 ? (
+                                        {dia.tarefas.length === 0 ? (
 
-                                    <div className="lembretes-tarefas-vazio">
-                                        Nenhuma tarefa prevista.
-                                    </div>
+                                            <div className="lembretes-tarefas-vazio">
+                                                Nenhuma tarefa prevista.
+                                            </div>
 
-                                ) : (
+                                        ) : (
 
-                                    /* =====================
-                                       TAREFAS
-                                    ===================== */
+                                            /* =====================
+                                               TAREFAS
+                                            ===================== */
 
-                                    <div className="lembretes-tarefas-itens">
+                                            <div className="lembretes-tarefas-itens">
 
-                                        {dia.tarefas.map(
-                                            (
-                                                tarefa,
-                                                indice
-                                            ) => {
+                                                {dia.tarefas.map(
+                                                    (
+                                                        tarefa,
+                                                        indice
+                                                    ) => {
 
-                                                const cumprindo =
-                                                    Number(
-                                                        tarefaCumprindo
-                                                    ) ===
-                                                    Number(
-                                                        tarefa.id
-                                                    );
+                                                        const cumprindo =
+                                                            Number(
+                                                                tarefaCumprindo
+                                                            ) ===
+                                                            Number(
+                                                                tarefa.id
+                                                            );
 
-                                                return (
+                                                        return (
 
-                                                    <article
-                                                        className="lembretes-tarefas-item"
+                                                            <article
+                                                                className="lembretes-tarefas-item"
 
-                                                        key={
-                                                            `${tarefa.tipo}-${tarefa.id}-${dia.data}-${indice}`
-                                                        }
-                                                    >
+                                                                key={
+                                                                    `${tarefa.tipo}-${tarefa.id}-${dia.data}-${indice}`
+                                                                }
+                                                            >
 
-                                                        {/* =================
+                                                                {/* =================
                                                             TOPO
                                                         ================= */}
 
-                                                        <div className="lembretes-tarefas-item-topo">
+                                                                <div className="lembretes-tarefas-item-topo">
 
-                                                            <span
-                                                                className={
-                                                                    tarefa.tipo ===
-                                                                        "pontual"
-                                                                        ? "lembretes-tarefas-tipo pontual"
-                                                                        : "lembretes-tarefas-tipo recorrente"
-                                                                }
-                                                            >
-                                                                {
-                                                                    tarefa.tipo ===
-                                                                        "pontual"
-                                                                        ? "Pontual"
-                                                                        : "Recorrente"
-                                                                }
-                                                            </span>
-
-
-                                                            {tarefa.hora && (
-
-                                                                <span className="lembretes-tarefas-hora">
-
-                                                                    {formatarHora(
-                                                                        tarefa.hora
-                                                                    )}
-
-                                                                </span>
-
-                                                            )}
-
-                                                        </div>
+                                                                    <span
+                                                                        className={
+                                                                            tarefa.tipo ===
+                                                                                "pontual"
+                                                                                ? "lembretes-tarefas-tipo pontual"
+                                                                                : "lembretes-tarefas-tipo recorrente"
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            tarefa.tipo ===
+                                                                                "pontual"
+                                                                                ? "Pontual"
+                                                                                : "Recorrente"
+                                                                        }
+                                                                    </span>
 
 
-                                                        {/* =================
-                                                            CORPO
-                                                        ================= */}
+                                                                    {tarefa.hora && (
 
-                                                        <div className="lembretes-tarefas-item-corpo">
+                                                                        <span className="lembretes-tarefas-hora">
 
-                                                            <div className="lembretes-tarefas-item-informacoes">
-
-                                                                <strong className="lembretes-tarefas-item-titulo">
-                                                                    {
-                                                                        tarefa.tarefa
-                                                                    }
-                                                                </strong>
-
-
-                                                                {tarefa.tipo ===
-                                                                    "recorrente" && (
-
-                                                                        <span className="lembretes-tarefas-recorrencia">
-
-                                                                            {formatarRecorrencia(
-                                                                                tarefa
+                                                                            {formatarHora(
+                                                                                tarefa.hora
                                                                             )}
 
                                                                         </span>
 
                                                                     )}
 
-                                                            </div>
+                                                                </div>
 
 
-                                                            {/* =================
+                                                                {/* =================
+                                                            CORPO
+                                                        ================= */}
+
+                                                                <div className="lembretes-tarefas-item-corpo">
+
+                                                                    <div className="lembretes-tarefas-item-informacoes">
+
+                                                                        <strong className="lembretes-tarefas-item-titulo">
+                                                                            {
+                                                                                tarefa.tarefa
+                                                                            }
+                                                                        </strong>
+
+
+                                                                        {tarefa.tipo ===
+                                                                            "recorrente" && (
+
+                                                                                <span className="lembretes-tarefas-recorrencia">
+
+                                                                                    {formatarRecorrencia(
+                                                                                        tarefa
+                                                                                    )}
+
+                                                                                </span>
+
+                                                                            )}
+
+                                                                    </div>
+
+
+                                                                    {/* =================
                                                                 FEITA
                                                                 SOMENTE PONTUAL
                                                             ================= */}
 
-                                                            {tarefa.tipo ===
-                                                                "pontual" && (
+                                                                    {tarefa.tipo ===
+                                                                        "pontual" && (
 
-                                                                    <button
-                                                                        type="button"
+                                                                            <button
+                                                                                type="button"
 
-                                                                        className="lembretes-tarefas-marcar-feito"
+                                                                                className="lembretes-tarefas-marcar-feito"
 
-                                                                        disabled={
-                                                                            tarefaCumprindo !==
-                                                                            null
-                                                                        }
+                                                                                disabled={
+                                                                                    tarefaCumprindo !==
+                                                                                    null
+                                                                                }
 
-                                                                        onClick={() =>
-                                                                            cumprirPontual(
-                                                                                tarefa.id
-                                                                            )
-                                                                        }
-                                                                    >
+                                                                                onClick={() =>
+                                                                                    cumprirPontual(
+                                                                                        tarefa.id
+                                                                                    )
+                                                                                }
+                                                                            >
 
-                                                                        {cumprindo ? (
+                                                                                {cumprindo ? (
 
-                                                                            <>
-                                                                                <span className="lembretes-tarefas-feito-loading"></span>
+                                                                                    <>
+                                                                                        <span className="lembretes-tarefas-feito-loading"></span>
 
-                                                                                Salvando...
-                                                                            </>
+                                                                                        Salvando...
+                                                                                    </>
 
-                                                                        ) : (
+                                                                                ) : (
 
-                                                                            <>
-                                                                                <span className="lembretes-tarefas-feito-check">
-                                                                                    ✓
-                                                                                </span>
+                                                                                    <>
+                                                                                        <span className="lembretes-tarefas-feito-check">
+                                                                                            ✓
+                                                                                        </span>
 
-                                                                                Feita
-                                                                            </>
+                                                                                        Feita
+                                                                                    </>
+
+                                                                                )}
+
+                                                                            </button>
 
                                                                         )}
 
-                                                                    </button>
+                                                                </div>
 
-                                                                )}
+                                                            </article>
 
-                                                        </div>
+                                                        );
+                                                    }
+                                                )}
 
-                                                    </article>
+                                            </div>
 
-                                                );
-                                            }
                                         )}
 
-                                    </div>
+                                    </section>
 
-                                )}
+                                )
+                            )}
 
-                            </section>
+                        </div>
 
-                        )
-                    )}
-
-                </div>
+                    </>
+                ) : (
+                    <ProdutosSemPreco />
+                )}
 
             </section>
 

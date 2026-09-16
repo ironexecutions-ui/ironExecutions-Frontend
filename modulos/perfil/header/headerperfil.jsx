@@ -21,12 +21,47 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
     const [lembretesTarefas, setLembretesTarefas] =
         useState(null);
 
+    const [totalPrecosAlterados, setTotalPrecosAlterados] =
+        useState(0);
+
+    const [mostrarContadorLembretes, setMostrarContadorLembretes] =
+        useState(false);
+
     const [abrirLembretesTarefas, setAbrirLembretesTarefas] =
         useState(false);
     const [pwaInstalado, setPwaInstalado] = useState(false);
     const CACHE_HEADER_USUARIO = "fasfdfbgfdg64fsd41f8sdfsdf";
     const CACHE_HEADER_LOJA = "fsd6f2d69s4f9sd485f1sdf";
     const CACHE_HEADER_COMANDAS = "4f5sd1f4esdf4658esdf";
+    const CACHE_LEMBRETES_VISUALIZADOS =
+        "iron_header_lembretes_visualizados_v1";
+
+    const totalNotificacoes =
+        Number(lembretesTarefas?.total_hoje || 0) +
+        Number(totalPrecosAlterados || 0);
+
+    function obterDataLocalHoje() {
+        const agora = new Date();
+
+        const ano = agora.getFullYear();
+        const mes = String(agora.getMonth() + 1).padStart(2, "0");
+        const dia = String(agora.getDate()).padStart(2, "0");
+
+        return `${ano}-${mes}-${dia}`;
+    }
+
+    function abrirCentralLembretes() {
+        localStorage.setItem(
+            CACHE_LEMBRETES_VISUALIZADOS,
+            JSON.stringify({
+                data: obterDataLocalHoje(),
+                total: totalNotificacoes
+            })
+        );
+
+        setMostrarContadorLembretes(false);
+        setAbrirLembretesTarefas(true);
+    }
     const [secaoAtiva, setSecaoAtiva] = useState(null);
     async function carregarComandas() {
 
@@ -152,36 +187,41 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
 
         if (!token) {
             setLembretesTarefas(null);
+            setTotalPrecosAlterados(0);
             return;
         }
 
         try {
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
 
-            const resp = await fetch(
-                `${API_URL}/tarefas/lembretes`,
-                {
-                    headers: {
-                        Authorization:
-                            `Bearer ${token}`
-                    }
-                }
-            );
+            const [respTarefas, respProdutos] = await Promise.all([
+                fetch(`${API_URL}/tarefas/lembretes`, { headers }),
+                fetch(
+                    `${API_URL}/tarefas/produtos-precos-etiquetas`,
+                    { headers }
+                )
+            ]);
 
-            if (!resp.ok) {
-
-                setLembretesTarefas(
-                    null
-                );
-
-                return;
+            if (respTarefas.ok) {
+                const jsonTarefas = await respTarefas.json();
+                setLembretesTarefas(jsonTarefas);
+            } else {
+                setLembretesTarefas(null);
             }
 
-            const json =
-                await resp.json();
+            if (respProdutos.ok) {
+                const jsonProdutos = await respProdutos.json();
 
-            setLembretesTarefas(
-                json
-            );
+                setTotalPrecosAlterados(
+                    Number(
+                        jsonProdutos?.resumo?.total_preco_alterado || 0
+                    )
+                );
+            } else {
+                setTotalPrecosAlterados(0);
+            }
 
         } catch (erro) {
 
@@ -193,8 +233,40 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
             setLembretesTarefas(
                 null
             );
+            setTotalPrecosAlterados(0);
         }
     }
+
+    useEffect(() => {
+        if (totalNotificacoes <= 0) {
+            setMostrarContadorLembretes(false);
+            return;
+        }
+
+        let cacheVisualizado = null;
+
+        try {
+            cacheVisualizado = JSON.parse(
+                localStorage.getItem(
+                    CACHE_LEMBRETES_VISUALIZADOS
+                ) || "null"
+            );
+        } catch {
+            localStorage.removeItem(
+                CACHE_LEMBRETES_VISUALIZADOS
+            );
+        }
+
+        const mesmaData =
+            cacheVisualizado?.data === obterDataLocalHoje();
+
+        const mesmoTotal =
+            Number(cacheVisualizado?.total) === totalNotificacoes;
+
+        setMostrarContadorLembretes(
+            !mesmaData || !mesmoTotal
+        );
+    }, [totalNotificacoes]);
 
     function lerCache(chave) {
 
@@ -707,62 +779,6 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                             ⚠️ Existem {alertaVencimento.total} produtos que vão vencer ou já venceram
                         </p>
                     )}
-                    {lembretesTarefas?.tem_tarefas_hoje && (
-                        <button
-                            type="button"
-                            className="header-lembrete-tarefas"
-                            onClick={() => setAbrirLembretesTarefas(true)}
-                        >
-                            <span className="header-lembrete-tarefas-icone-area">
-                                <span className="header-lembrete-tarefas-ponto"></span>
-
-                                <svg
-                                    className="header-lembrete-tarefas-icone"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"
-                                        stroke="currentColor"
-                                        strokeWidth="1.8"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-
-                                    <path
-                                        d="M10 21h4"
-                                        stroke="currentColor"
-                                        strokeWidth="1.8"
-                                        strokeLinecap="round"
-                                    />
-                                </svg>
-                            </span>
-
-                            <span className="header-lembrete-tarefas-conteudo">
-                                <span className="header-lembrete-tarefas-topo">
-                                    <strong className="header-lembrete-tarefas-titulo">
-                                        tarefas
-                                    </strong>
-
-                                    <span className="header-lembrete-tarefas-badge">
-                                        {lembretesTarefas.total_hoje}
-                                    </span>
-                                </span>
-
-
-
-
-                            </span>
-
-                            <span className="header-lembrete-tarefas-abrir">
-                                Ver
-                                <span className="header-lembrete-tarefas-seta">
-                                    ›
-                                </span>
-                            </span>
-                        </button>
-                    )}
                 </div>
 
                 <div className="per-acoes">
@@ -791,6 +807,45 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                     {eventoInstalacao && !pwaInstalado && (
                         <button className="per-btn baixar-app" onClick={instalarApp}>
                             Baixar App
+                        </button>
+                    )}
+
+                    {totalNotificacoes > 0 && (
+                        <button
+                            type="button"
+                            className="header-campainha-central"
+                            onClick={abrirCentralLembretes}
+                            aria-label="Abrir tarefas e produtos com preço alterado"
+                            title="Tarefas e produtos com preço alterado"
+                        >
+                            <svg
+                                className="header-campainha-central-icone"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M10 21h4"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                />
+                            </svg>
+
+                            {mostrarContadorLembretes && (
+                                <span className="header-campainha-central-contador">
+                                    {totalNotificacoes > 99
+                                        ? "99+"
+                                        : totalNotificacoes}
+                                </span>
+                            )}
                         </button>
                     )}
 

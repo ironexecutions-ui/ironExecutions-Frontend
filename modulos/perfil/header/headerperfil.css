@@ -3049,3 +3049,73 @@
             none !important;
     }
 }
+
+/* =========================================================
+   CAMPAINHA CENTRAL AO LADO DE SAIR
+========================================================= */
+
+.header-campainha-central {
+    position: relative !important;
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
+    display: inline-grid !important;
+    place-items: center !important;
+    border: 1px solid rgba(245, 158, 11, 0.46) !important;
+    border-radius: 11px !important;
+    background: linear-gradient(145deg, #fff8df, #fef3c7) !important;
+    color: #b45309 !important;
+    box-shadow: 0 7px 18px rgba(180, 83, 9, 0.15) !important;
+    cursor: pointer !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+.header-campainha-central:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 22px rgba(180, 83, 9, 0.22) !important;
+}
+
+.header-campainha-central:active {
+    transform: scale(0.96) !important;
+}
+
+.header-campainha-central:focus-visible {
+    outline: 3px solid rgba(245, 158, 11, 0.28) !important;
+    outline-offset: 2px !important;
+}
+
+.header-campainha-central-icone {
+    width: 22px !important;
+    height: 22px !important;
+    display: block !important;
+}
+
+.header-campainha-central-contador {
+    position: absolute !important;
+    top: -7px !important;
+    right: -7px !important;
+    min-width: 20px !important;
+    height: 20px !important;
+    padding: 0 5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    border: 2px solid #0f172a !important;
+    border-radius: 999px !important;
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    line-height: 1 !important;
+    font-weight: 900 !important;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35) !important;
+}
+
+@media (max-width: 768px) {
+    .header-campainha-central {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: 42px !important;
+    }
+}

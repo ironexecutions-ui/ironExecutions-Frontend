@@ -12,6 +12,27 @@ export default function Etiquetas() {
     const [produtos, setProdutos] = useState([]);
     const [selecionados, setSelecionados] = useState([]);
 
+    function obterNomeExibicao(produto) {
+        const nomeCompleto = String(
+            produto?.nome || ""
+        ).trim();
+
+        const quantidadeEspacos = (
+            String(produto?.qual_variedad || "")
+                .match(/\(\)/g) || []
+        ).length;
+
+        if (quantidadeEspacos === 0) {
+            return nomeCompleto;
+        }
+
+        return nomeCompleto
+            .split(/\s+/)
+            .filter(Boolean)
+            .slice(0, quantidadeEspacos)
+            .join(" ");
+    }
+
     const [fonteNormal, setFonteNormal] = useState("helvetica");
     const [estiloFonteNormal, setEstiloFonteNormal] = useState("bold");
 
@@ -966,6 +987,56 @@ export default function Etiquetas() {
             return;
         }
 
+        // Salva em preco_etiqueta o preço atual
+        // dos produtos que serão impressos
+        try {
+            const produtosIds = [
+                ...new Set(
+                    selecionados.map(
+                        produto => produto.id
+                    )
+                )
+            ];
+
+            const resposta = await fetch(
+                `${API_URL}/admin/etiquetas/produtos/registrar-impressao`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        produtos_ids: produtosIds,
+                    }),
+                }
+            );
+
+            if (!resposta.ok) {
+                const dadosErro = await resposta
+                    .json()
+                    .catch(() => null);
+
+                throw new Error(
+                    dadosErro?.detail ||
+                    "Erro ao registrar os preços das etiquetas."
+                );
+            }
+
+        } catch (erro) {
+            console.error(
+                "Erro ao registrar preços das etiquetas:",
+                erro
+            );
+
+            alert(
+                erro.message ||
+                "Não foi possível registrar os preços das etiquetas."
+            );
+
+            return;
+        }
+
         const etiquetasParaImprimir = [];
 
         selecionados.forEach(produto => {
@@ -1089,7 +1160,7 @@ export default function Etiquetas() {
 
             const nomeQuebrado =
                 pdf.splitTextToSize(
-                    produto.nome || "",
+                    obterNomeExibicao(produto),
                     larguraTexto
                 );
 
@@ -1839,7 +1910,7 @@ export default function Etiquetas() {
                 <div className="etiquetas-produto-informacoes-bloco">
 
                     <strong className="etiquetas-produto-nome-texto">
-                        {produto.nome}
+                        {obterNomeExibicao(produto)}
                     </strong>
 
                     {!editando && (
@@ -2669,7 +2740,7 @@ export default function Etiquetas() {
                                 </h3>
 
                                 <p>
-                                    {modalImagemEtiqueta.nome}
+                                    {obterNomeExibicao(modalImagemEtiqueta)}
                                 </p>
                             </div>
 
@@ -2744,7 +2815,7 @@ export default function Etiquetas() {
                                                     </h3>
 
                                                     <p>
-                                                        {modalImagemEtiqueta.nome}
+                                                        {obterNomeExibicao(modalImagemEtiqueta)}
                                                     </p>
                                                 </div>
 
