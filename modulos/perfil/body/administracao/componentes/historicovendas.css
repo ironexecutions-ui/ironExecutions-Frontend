@@ -1498,3 +1498,68 @@
         font-size: 12px !important;
     }
 }
+
+.hv-protocolo-coluna {
+    min-width: 125px;
+}
+
+.hv-protocolo-copiar {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 34px;
+    margin: 0;
+    padding: 6px 9px;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    cursor: pointer;
+    background: #eff6ff;
+    font-family: inherit;
+    transition:
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hv-protocolo-copiar:hover {
+    border-color: #2563eb;
+    background: #dbeafe;
+    box-shadow: 0 5px 14px rgba(37, 99, 235, 0.14);
+    transform: translateY(-1px);
+}
+
+.hv-protocolo-copiar:active {
+    transform: translateY(0);
+}
+
+.hv-protocolo-copiar:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.22);
+    outline-offset: 2px;
+}
+
+.hv-protocolo-numero {
+    color: #1e3a8a !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    white-space: nowrap;
+}
+
+.hv-protocolo-acao {
+    color: #2563eb !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.hv-protocolo-copiado {
+    border-color: #86efac;
+    background: #f0fdf4;
+}
+
+.hv-protocolo-copiado .hv-protocolo-numero,
+.hv-protocolo-copiado .hv-protocolo-acao {
+    color: #15803d !important;
+}

@@ -17,7 +17,7 @@ export default function HistoricoVendas() {
     const [limite, setLimite] = useState(20);
     const [carregando, setCarregando] = useState(true);
     const [vendaAtiva, setVendaAtiva] = useState(null);
-
+    const [protocoloCopiado, setProtocoloCopiado] = useState(null);
     const [filtroProtocolo, setFiltroProtocolo] = useState("");
     const [filtroOperador, setFiltroOperador] = useState("");
     const [filtroValorMin, setFiltroValorMin] = useState("");
@@ -756,7 +756,62 @@ export default function HistoricoVendas() {
 
         });
 
+    async function copiarProtocolo(protocolo) {
+        const texto = String(protocolo);
 
+        try {
+            if (
+                navigator.clipboard &&
+                window.isSecureContext
+            ) {
+                await navigator.clipboard.writeText(texto);
+            } else {
+                const campoTemporario =
+                    document.createElement("textarea");
+
+                campoTemporario.value = texto;
+                campoTemporario.style.position = "fixed";
+                campoTemporario.style.opacity = "0";
+                campoTemporario.style.pointerEvents = "none";
+
+                document.body.appendChild(
+                    campoTemporario
+                );
+
+                campoTemporario.select();
+
+                document.execCommand("copy");
+
+                document.body.removeChild(
+                    campoTemporario
+                );
+            }
+
+            setProtocoloCopiado(protocolo);
+
+            setTimeout(() => {
+                setProtocoloCopiado(
+                    protocoloAtual =>
+                        String(protocoloAtual) ===
+                            String(protocolo)
+                            ? null
+                            : protocoloAtual
+                );
+            }, 1800);
+
+        } catch (erro) {
+            console.error(
+                "[HISTÓRICO VENDAS] Erro ao copiar protocolo:",
+                erro
+            );
+
+            setModalResultadoExclusao({
+                tipo: "erro",
+                titulo: "Não foi possível copiar",
+                mensagem: `O protocolo da venda é ${texto}.`
+            });
+        }
+    }
     /* =========================================================
        RENDER
     ========================================================= */
@@ -905,14 +960,14 @@ export default function HistoricoVendas() {
                     <thead>
 
                         <tr>
-
+                            <th>Protocolo</th>
                             <th>Data</th>
                             <th>Hora</th>
                             <th>Valor</th>
                             <th>Pagamento</th>
                             <th>Status</th>
                             <th>Operador</th>
-                            <th>Maquininha</th>
+
                             <th>Módulo</th>
                             <th>Comprovante</th>
                             {podeApagar && (
@@ -941,7 +996,36 @@ export default function HistoricoVendas() {
                                         setVendaAtiva(v)
                                     }
                                 >
+                                    <td className="hv-protocolo-coluna">
+                                        <button
+                                            type="button"
+                                            className={
+                                                `hv-protocolo-copiar ${String(protocoloCopiado) ===
+                                                    String(v.id)
+                                                    ? "hv-protocolo-copiado"
+                                                    : ""
+                                                }`
+                                            }
+                                            title={`Copiar protocolo ${v.id}`}
+                                            aria-label={`Copiar protocolo ${v.id}`}
+                                            onClick={evento => {
+                                                evento.stopPropagation();
+                                                copiarProtocolo(v.id);
+                                            }}
+                                        >
+                                            <span className="hv-protocolo-numero">
+                                                #{v.id}
+                                            </span>
 
+                                            <span className="hv-protocolo-acao">
+                                                {String(protocoloCopiado) ===
+                                                    String(v.id)
+                                                    ? "Copiado"
+                                                    : "Copiar"
+                                                }
+                                            </span>
+                                        </button>
+                                    </td>
                                     <td>
                                         {v.data}
                                     </td>
@@ -1013,9 +1097,7 @@ export default function HistoricoVendas() {
                                     </td>
 
 
-                                    <td>
-                                        {v.maquininha || "-"}
-                                    </td>
+
 
 
                                     <td

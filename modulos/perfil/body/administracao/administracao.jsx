@@ -7,7 +7,7 @@ import HistoricoVendas from "./componentes/historicovendas";
 import FechamentoCaixa from "./componentes/fechamentocaixa";
 import Reposicao from "./componentes/reposicao";
 import { API_URL } from "../../../../config";
-
+import Pendencias from "./componentes/pendencias";
 export default function Administracao() {
     const [abaAtiva, setAbaAtiva] = useState("resumo");
     const [mostrarParceria, setMostrarParceria] = useState(false);
@@ -85,6 +85,12 @@ export default function Administracao() {
                     Reposição
                 </button>
                 <button
+                    className={abaAtiva === "pendencias" ? "ativo" : ""}
+                    onClick={() => setAbaAtiva("pendencias")}
+                >
+                    Pendências
+                </button>
+                <button
                     className={abaAtiva === "fechamento" ? "ativo" : ""}
                     onClick={() => setAbaAtiva("fechamento")}
                 >
@@ -100,6 +106,7 @@ export default function Administracao() {
                 {abaAtiva === "resumo" && <ResumoProdutos />}
                 {abaAtiva === "historico" && <HistoricoVendas />}
                 {abaAtiva === "reposicao" && <Reposicao />}
+                {abaAtiva === "pendencias" && <Pendencias />}
                 {abaAtiva === "fechamento" && <FechamentoCaixa />}
             </div>
         </div>
