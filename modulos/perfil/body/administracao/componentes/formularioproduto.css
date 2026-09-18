@@ -2882,3 +2882,577 @@
         border-radius: 17px !important;
     }
 }
+
+/* =========================================================
+   RESPONSIVIDADE COMPLETA DO FORMULÁRIO DE PRODUTO
+========================================================= */
+
+.form-produto-cadastro-principal,
+.form-produto-cadastro-principal *,
+.form-produto-cadastro-principal *::before,
+.form-produto-cadastro-principal *::after {
+    box-sizing: border-box !important;
+}
+
+.form-produto-cadastro-principal {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+}
+
+.form-produto-cadastro-principal>*,
+.formulario-produto-grid-campos>*,
+.formulario-produto-linha-variedades>*,
+.formulario-produto-item-variedade>*,
+.formulario-produto-variedade-dados-area>* {
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+.form-produto-cadastro-principal input,
+.form-produto-cadastro-principal select,
+.form-produto-cadastro-principal textarea,
+.form-produto-cadastro-principal button {
+    max-width: 100% !important;
+}
+
+.form-produto-cadastro-principal input,
+.form-produto-cadastro-principal select,
+.form-produto-cadastro-principal textarea {
+    width: 100% !important;
+}
+
+.form-produto-cadastro-principal img {
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   TELAS GRANDES E NOTEBOOKS
+========================================================= */
+
+@media (max-width: 1200px) {
+    .form-produto-cadastro-principal {
+        padding: 24px !important;
+        gap: 19px !important;
+        border-radius: 25px !important;
+    }
+
+    .formulario-produto-grid-campos {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr)) !important;
+        gap: 14px !important;
+        padding: 18px !important;
+    }
+
+    .formulario-produto-item-variedade {
+        grid-template-columns:
+            minmax(145px, 0.65fr) minmax(0, 1.7fr) auto !important;
+        gap: 12px !important;
+    }
+
+    .formulario-produto-variedade-dados-area {
+        grid-template-columns:
+            minmax(180px, 0.8fr) minmax(230px, 1.4fr) !important;
+        gap: 12px !important;
+    }
+}
+
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 900px) {
+    .form-produto-cadastro-principal {
+        padding: 19px !important;
+        gap: 17px !important;
+        border-radius: 22px !important;
+    }
+
+    .formulario-produto-topo-unico {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+    }
+
+    .formulario-produto-topo-unico h4 {
+        flex: 1 1 250px !important;
+        min-width: 0 !important;
+    }
+
+    .formulario-produto-voltar-exclusivo {
+        flex: 0 0 auto !important;
+    }
+
+    .formulario-produto-tipos-seletor {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr)) !important;
+    }
+
+    .formulario-produto-acoes-principais {
+        display: grid !important;
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr)) !important;
+        align-items: stretch !important;
+    }
+
+    .formulario-produto-botao-cadastro-ironstore,
+    .formulario-produto-salvar-principal {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .formulario-produto-item-variedade {
+        grid-template-columns: 1fr !important;
+        align-items: stretch !important;
+    }
+
+    .formulario-produto-variedade-dados-area {
+        grid-template-columns: 1fr 1fr !important;
+        align-items: stretch !important;
+    }
+
+    .formulario-produto-variedade-remover {
+        width: 100% !important;
+    }
+}
+
+
+/* =========================================================
+   CELULARES
+========================================================= */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    .form-produto-cadastro-principal {
+        width: 100% !important;
+        min-height: 100dvh !important;
+        padding: 14px !important;
+        gap: 14px !important;
+        border-radius: 18px !important;
+    }
+
+    .formulario-produto-topo-unico {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 11px !important;
+        padding: 14px !important;
+        border-radius: 16px !important;
+    }
+
+    .formulario-produto-topo-unico h4 {
+        width: 100% !important;
+        margin: 0 !important;
+        font-size: 19px !important;
+        line-height: 1.25 !important;
+    }
+
+    .formulario-produto-voltar-exclusivo {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: 45px !important;
+    }
+
+    .formulario-produto-tipos-seletor {
+        width: 100% !important;
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        padding: 6px !important;
+        border-radius: 15px !important;
+    }
+
+    .formulario-produto-tipos-seletor button {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 45px !important;
+        padding: 8px 6px !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        line-height: 1.25 !important;
+    }
+
+    .formulario-produto-acoes-principais {
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 9px !important;
+        padding: 10px !important;
+    }
+
+    .formulario-produto-botao-cadastro-ironstore,
+    .formulario-produto-salvar-principal,
+    .form-produto-cadastro-principal .disponivel {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        min-height: 46px !important;
+        height: auto !important;
+        padding: 11px 12px !important;
+        white-space: normal !important;
+        line-height: 1.3 !important;
+    }
+
+    .formulario-produto-grid-campos {
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 11px !important;
+        padding: 13px !important;
+        border-radius: 16px !important;
+    }
+
+    .formulario-produto-grupo-codigo,
+    .formulario-produto-grupo-qrcode,
+    .formulario-produto-grupo-nome,
+    .formulario-produto-grupo-categoria,
+    .formulario-produto-grupo-peso,
+    .formulario-produto-grupo-preco-peso,
+    .formulario-produto-grupo-preco,
+    .formulario-produto-grupo-preco-recebido,
+    .formulario-produto-grupo-unidade,
+    .formulario-produto-grupo-produto-base,
+    .formulario-produto-grupo-unidades-pacote,
+    .formulario-produto-grupo-tempo-servico,
+    .formulario-produto-grupo-vencimento,
+    .formulario-produto-grupo-tipo-variedade,
+    .formulario-produto-grupo-nova-variedade {
+        width: 100% !important;
+        min-width: 0 !important;
+        grid-column: auto !important;
+    }
+
+    .formulario-produto-grid-campos input,
+    .formulario-produto-grid-campos select,
+    .formulario-produto-grid-campos textarea {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        font-size: 16px !important;
+    }
+
+    .formulario-produto-grid-campos input,
+    .formulario-produto-grid-campos select {
+        min-height: 48px !important;
+    }
+
+    .formulario-produto-linha-variedades {
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 11px !important;
+    }
+
+    .formulario-produto-lista-variedades {
+        width: 100% !important;
+        padding: 11px !important;
+        gap: 10px !important;
+        overflow: hidden !important;
+    }
+
+    .formulario-produto-item-variedade {
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        align-items: stretch !important;
+        gap: 11px !important;
+        padding: 12px !important;
+    }
+
+    .formulario-produto-variedade-nome-area,
+    .formulario-produto-variedade-codigo-area,
+    .formulario-produto-variedade-imagem-area {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .formulario-produto-variedade-dados-area {
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 11px !important;
+    }
+
+    .formulario-produto-variedade-codigo-input {
+        width: 100% !important;
+        min-width: 0 !important;
+        font-size: 16px !important;
+    }
+
+    .formulario-produto-variedade-imagens-opcoes {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x proximity !important;
+        overscroll-behavior-x: contain !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .formulario-produto-variedade-imagem-opcao {
+        flex: 0 0 74px !important;
+        width: 74px !important;
+        min-width: 74px !important;
+        scroll-snap-align: start !important;
+    }
+
+    .formulario-produto-variedade-remover {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 45px !important;
+    }
+
+    .formulario-produto-alerta-overlay,
+    .formulario-produto-imagem-ampliada-overlay {
+        padding:
+            max(12px,
+                env(safe-area-inset-top)) 12px max(12px,
+                env(safe-area-inset-bottom)) !important;
+    }
+
+    .formulario-produto-alerta-modal,
+    .formulario-produto-imagem-ampliada-modal {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height:
+            calc(100dvh - 24px) !important;
+    }
+
+    .formulario-produto-alerta-modal {
+        overflow-y: auto !important;
+        overscroll-behavior: contain !important;
+    }
+
+    .formulario-produto-alerta-cabecalho {
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .formulario-produto-alerta-textos {
+        min-width: 0 !important;
+    }
+
+    .formulario-produto-alerta-titulo,
+    .formulario-produto-alerta-mensagem,
+    .formulario-produto-alerta-item-texto {
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+    }
+
+    .formulario-produto-alerta-acoes {
+        width: 100% !important;
+    }
+
+    .formulario-produto-alerta-entendi {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .formulario-produto-imagem-ampliada-modal {
+        height:
+            calc(100dvh - 24px) !important;
+        padding: 11px !important;
+    }
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 480px) {
+    .form-produto-cadastro-principal {
+        padding: 9px !important;
+        gap: 11px !important;
+        border-radius: 14px !important;
+    }
+
+    .formulario-produto-topo-unico {
+        padding: 12px !important;
+        border-radius: 14px !important;
+    }
+
+    .formulario-produto-topo-unico h4 {
+        font-size: 17px !important;
+    }
+
+    .formulario-produto-tipos-seletor {
+        gap: 5px !important;
+        padding: 5px !important;
+    }
+
+    .formulario-produto-tipos-seletor button {
+        min-height: 43px !important;
+        padding: 7px 4px !important;
+        font-size: 11px !important;
+    }
+
+    .formulario-produto-grid-campos {
+        padding: 10px !important;
+        gap: 9px !important;
+        border-radius: 14px !important;
+    }
+
+    .formulario-produto-grid-campos label {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+    }
+
+    .formulario-produto-grid-campos input,
+    .formulario-produto-grid-campos select {
+        min-height: 46px !important;
+        padding-right: 12px !important;
+        padding-left: 12px !important;
+    }
+
+    .formulario-produto-lista-variedades {
+        padding: 8px !important;
+        border-radius: 12px !important;
+    }
+
+    .formulario-produto-item-variedade {
+        padding: 9px !important;
+        gap: 9px !important;
+        border-left-width: 3px !important;
+    }
+
+    .formulario-produto-variedade-nome-area,
+    .formulario-produto-variedade-codigo-input {
+        min-height: 44px !important;
+        height: auto !important;
+    }
+
+    .formulario-produto-variedade-imagens-opcoes {
+        padding: 5px !important;
+        gap: 7px !important;
+    }
+
+    .formulario-produto-variedade-imagem-opcao {
+        flex-basis: 68px !important;
+        width: 68px !important;
+        min-width: 68px !important;
+        height: 64px !important;
+    }
+
+    .formulario-produto-alerta-overlay,
+    .formulario-produto-imagem-ampliada-overlay {
+        padding: 8px !important;
+    }
+
+    .formulario-produto-alerta-modal {
+        width: 100% !important;
+        border-radius: 17px !important;
+    }
+
+    .formulario-produto-alerta-cabecalho {
+        padding: 14px 12px !important;
+    }
+
+    .formulario-produto-alerta-pendencias {
+        padding: 11px !important;
+    }
+
+    .formulario-produto-alerta-acoes {
+        padding: 11px 12px 12px !important;
+    }
+
+    .formulario-produto-imagem-ampliada-modal {
+        width: 100% !important;
+        height:
+            calc(100dvh - 16px) !important;
+        border-radius: 15px !important;
+    }
+
+    .formulario-produto-imagem-ampliada-fechar {
+        top: 8px !important;
+        right: 8px !important;
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 23px !important;
+    }
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+========================================================= */
+
+@media (max-width: 360px) {
+    .form-produto-cadastro-principal {
+        padding: 6px !important;
+        gap: 9px !important;
+        border-radius: 11px !important;
+    }
+
+    .formulario-produto-topo-unico {
+        padding: 10px !important;
+    }
+
+    .formulario-produto-tipos-seletor {
+        grid-template-columns: 1fr !important;
+    }
+
+    .formulario-produto-acoes-principais {
+        padding: 7px !important;
+    }
+
+    .formulario-produto-grid-campos {
+        padding: 8px !important;
+    }
+
+    .formulario-produto-lista-variedades {
+        padding: 6px !important;
+    }
+
+    .formulario-produto-item-variedade {
+        padding: 7px !important;
+    }
+
+    .formulario-produto-variedade-imagem-opcao {
+        flex-basis: 64px !important;
+        width: 64px !important;
+        min-width: 64px !important;
+        height: 60px !important;
+    }
+}
+
+
+/* =========================================================
+   CELULAR DEITADO
+========================================================= */
+
+@media (max-height: 520px) and (orientation: landscape) {
+    .form-produto-cadastro-principal {
+        min-height: auto !important;
+        padding: 10px !important;
+    }
+
+    .formulario-produto-topo-unico {
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+
+    .formulario-produto-voltar-exclusivo {
+        width: auto !important;
+        flex: 0 0 auto !important;
+    }
+
+    .formulario-produto-alerta-modal {
+        max-height:
+            calc(100dvh - 16px) !important;
+        overflow-y: auto !important;
+    }
+
+    .formulario-produto-imagem-ampliada-modal {
+        height:
+            calc(100dvh - 16px) !important;
+    }
+}
