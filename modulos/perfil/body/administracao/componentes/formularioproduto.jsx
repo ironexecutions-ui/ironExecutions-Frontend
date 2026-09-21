@@ -5,6 +5,9 @@ import { createPortal } from "react-dom";
 import "./formularioproduto.css";
 import CadastroIronStore from "./formularioironstore";
 export default function FormularioProduto({ item, voltar }) {
+    const [produtoIdPersistido, setProdutoIdPersistido] = useState(
+        item?.id || null
+    );
     const [cadastroIronStore, setCadastroIronStore] = useState(false);
     const [variedades, setVariedades] = useState([]);
     const [novaVariedade, setNovaVariedade] = useState("");
@@ -857,17 +860,32 @@ export default function FormularioProduto({ item, voltar }) {
             payload.data_vencimento = null;
         }
 
-
         // =====================================================
         // SALVAR
         // =====================================================
 
-        const url = item
-            ? `${API_URL}/admin/produtos-servicos/${item.id}`
+        const idParaSalvar =
+            produtoIdPersistido ||
+            item?.id ||
+            null;
+
+        const editandoProduto = Boolean(idParaSalvar);
+
+        const url = editandoProduto
+            ? `${API_URL}/admin/produtos-servicos/${idParaSalvar}`
             : `${API_URL}/admin/produtos-servicos`;
 
+        console.log(
+            "[PRODUTO] Salvando:",
+            {
+                editandoProduto,
+                idParaSalvar,
+                metodo: editandoProduto ? "PUT" : "POST"
+            }
+        );
+
         const resp = await fetch(url, {
-            method: item ? "PUT" : "POST",
+            method: editandoProduto ? "PUT" : "POST",
 
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -877,19 +895,18 @@ export default function FormularioProduto({ item, voltar }) {
             body: JSON.stringify(payload)
         });
 
+        const respostaSalvar = await resp
+            .json()
+            .catch(() => ({}));
 
         if (!resp.ok) {
 
-            const erro = await resp
-                .json()
-                .catch(() => null);
-
             console.error(
                 "Erro ao salvar:",
-                erro
+                respostaSalvar
             );
 
-            const detalheErro = erro?.detail;
+            const detalheErro = respostaSalvar?.detail;
 
             if (
                 detalheErro &&
@@ -922,12 +939,121 @@ export default function FormularioProduto({ item, voltar }) {
         }
 
 
+        // =====================================================
+        // DESCOBRIR ID DO PRODUTO
+        // =====================================================
+
+        let produtoIdFinal = idParaSalvar;
+
+        if (!produtoIdFinal) {
+
+            produtoIdFinal =
+                respostaSalvar?.produto_id ||
+                respostaSalvar?.produto_principal_id ||
+                respostaSalvar?.id ||
+                null;
+
+            if (produtoIdFinal) {
+
+                produtoIdFinal = Number(produtoIdFinal);
+
+                console.log(
+                    "[PRODUTO] Novo ID recebido:",
+                    produtoIdFinal
+                );
+
+                setProdutoIdPersistido(
+                    produtoIdFinal
+                );
+            }
+        }
+
+
+        // =====================================================
         // SALVOU COM SUCESSO
+        // =====================================================
+
         if (voltarDepois) {
             voltar();
         }
 
-        return true;
+        return produtoIdFinal || true;
+    }
+    async function obterProdutoIdParaFotos() {
+
+        console.log(
+            "[FOTO CELULAR] Verificando produto...",
+            {
+                produtoIdPersistido,
+                itemId: item?.id
+            }
+        );
+
+        // ===============================================
+        // PRODUTO JÁ EXISTE
+        // ===============================================
+
+        const idExistente =
+            produtoIdPersistido ||
+            item?.id ||
+            null;
+
+        if (idExistente) {
+
+            console.log(
+                "[FOTO CELULAR] Produto já salvo:",
+                idExistente
+            );
+
+            return Number(idExistente);
+        }
+
+
+        // ===============================================
+        // PRODUTO NOVO
+        // ===============================================
+
+        console.log(
+            "[FOTO CELULAR] Produto novo. Salvando antes do QR..."
+        );
+
+        const resultado = await salvar(false);
+
+        if (!resultado || resultado === true) {
+
+            console.error(
+                "[FOTO CELULAR] Backend não retornou o ID do produto.",
+                resultado
+            );
+
+            abrirAlerta({
+                titulo: "Não foi possível gerar o QR Code",
+                mensagem:
+                    "O produto foi salvo, mas o servidor não retornou o ID criado.",
+                tipo: "erro"
+            });
+
+            return null;
+        }
+
+        const novoId = Number(resultado);
+
+        if (!Number.isInteger(novoId) || novoId <= 0) {
+
+            console.error(
+                "[FOTO CELULAR] ID inválido:",
+                resultado
+            );
+
+            return null;
+        }
+
+        console.log(
+            "[FOTO CELULAR] Produto criado:",
+            novoId
+        );
+
+        return novoId;
     }
     function primeiraMaiuscula(texto) {
         if (!texto) return "";
@@ -1583,6 +1709,7 @@ export default function FormularioProduto({ item, voltar }) {
                 alterar={imgs =>
                     alterar("imagem_url", imgs)
                 }
+                obterProdutoId={obterProdutoIdParaFotos}
             />
 
             {modalAlerta.aberto &&

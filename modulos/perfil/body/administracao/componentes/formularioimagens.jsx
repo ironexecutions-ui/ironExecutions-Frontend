@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { QRCodeSVG } from "qrcode.react";
 import { removeBackground } from "@imgly/background-removal";
 import { API_URL } from "../../../../../config";
 import "./formularioimagens.css";
-
-export default function FormularioImagens({ valor, alterar }) {
+export default function FormularioImagens({
+    valor,
+    alterar,
+    obterProdutoId
+}) {
     const imagensSalvas = String(valor || "").split("|").filter(Boolean);
     const [preview, setPreview] = useState([]);
     const [arrastando, setArrastando] = useState(false);
@@ -14,14 +18,39 @@ export default function FormularioImagens({ valor, alterar }) {
     const [mensagem, setMensagem] = useState("");
     const inputArquivosRef = useRef(null);
     const inputCameraRef = useRef(null);
-
+    const [gerandoQrCelular, setGerandoQrCelular] = useState(false);
+    const [modalQrCelular, setModalQrCelular] = useState(false);
+    const [dadosQrCelular, setDadosQrCelular] = useState(null);
+    const [erroQrCelular, setErroQrCelular] = useState("");
+    const [segundosQrCelular, setSegundosQrCelular] = useState(0);
     useEffect(() => {
         return () => {
             preview.forEach(url => URL.revokeObjectURL(url));
             if (fotoCapturada?.url) URL.revokeObjectURL(fotoCapturada.url);
         };
     }, [preview, fotoCapturada]);
+    useEffect(() => {
+        if (!modalQrCelular) return;
+        if (segundosQrCelular <= 0) return;
 
+        const intervalo = window.setInterval(() => {
+            setSegundosQrCelular(anterior => {
+                if (anterior <= 1) {
+                    window.clearInterval(intervalo);
+                    return 0;
+                }
+
+                return anterior - 1;
+            });
+        }, 1000);
+
+        return () => {
+            window.clearInterval(intervalo);
+        };
+    }, [
+        modalQrCelular,
+        segundosQrCelular > 0
+    ]);
     function dispositivoMobile() {
         return window.matchMedia("(max-width: 800px)").matches;
     }
@@ -162,7 +191,113 @@ export default function FormularioImagens({ valor, alterar }) {
         setArrastando(false);
         if (evento.dataTransfer.files.length) upload(evento.dataTransfer.files);
     }
+    async function adicionarPeloCelular(evento) {
+        evento?.stopPropagation();
 
+        if (gerandoQrCelular) return;
+
+        setGerandoQrCelular(true);
+        setErroQrCelular("");
+
+        try {
+            console.log("[FOTO CELULAR] Preparando produto...");
+
+            if (typeof obterProdutoId !== "function") {
+                throw new Error(
+                    "Não foi possível preparar o produto para receber fotos."
+                );
+            }
+
+            /*
+             * Essa função virá do FormularioProduto.
+             *
+             * Se o produto ainda não existir:
+             * 1. salva
+             * 2. recebe o ID
+             *
+             * Se já existir:
+             * retorna o ID existente.
+             */
+            const produtoId = await obterProdutoId();
+
+            console.log(
+                "[FOTO CELULAR] Produto preparado:",
+                produtoId
+            );
+
+            if (!produtoId) {
+                throw new Error(
+                    "Não foi possível identificar o produto."
+                );
+            }
+
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                throw new Error(
+                    "Sua sessão não foi encontrada."
+                );
+            }
+
+            console.log(
+                "[FOTO CELULAR] Gerando acesso temporário..."
+            );
+
+            const resposta = await fetch(
+                `${API_URL}/upload/client/foto-produto-mobile/gerar`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        produto_id: Number(produtoId)
+                    })
+                }
+            );
+
+            const json = await resposta
+                .json()
+                .catch(() => ({}));
+
+            if (!resposta.ok) {
+                throw new Error(
+                    json.detail ||
+                    "Não foi possível gerar o acesso pelo celular."
+                );
+            }
+
+            console.log(
+                "[FOTO CELULAR] Acesso criado:",
+                json
+            );
+
+            setDadosQrCelular(json);
+
+            setSegundosQrCelular(
+                Number(json.expira_em_segundos || 300)
+            );
+
+            setModalQrCelular(true);
+
+        } catch (erro) {
+            console.error(
+                "[FOTO CELULAR] Erro:",
+                erro
+            );
+
+            setErroQrCelular(
+                erro.message ||
+                "Não foi possível gerar o acesso pelo celular."
+            );
+
+            setModalQrCelular(true);
+
+        } finally {
+            setGerandoQrCelular(false);
+        }
+    }
     return (
         <div className="imagens-produto-profissional-container">
 
@@ -188,8 +323,8 @@ export default function FormularioImagens({ valor, alterar }) {
 
             <div
                 className={`imagens-produto-profissional-dropzone ${arrastando
-                        ? "imagens-produto-profissional-dropzone-ativo"
-                        : ""
+                    ? "imagens-produto-profissional-dropzone-ativo"
+                    : ""
                     }`}
                 onClick={abrirSeletor}
                 onDragOver={evento => {
@@ -446,7 +581,221 @@ export default function FormularioImagens({ valor, alterar }) {
                 </div>,
                 document.body
             )}
+            <div
+                className="imagens-produto-profissional-celular-area"
+                onClick={evento => evento.stopPropagation()}
+            >
+                <div className="imagens-produto-profissional-celular-divisor">
+                    <span className="imagens-produto-profissional-celular-divisor-linha" />
 
+                    <span className="imagens-produto-profissional-celular-divisor-texto">
+                        ou
+                    </span>
+
+                    <span className="imagens-produto-profissional-celular-divisor-linha" />
+                </div>
+
+                <button
+                    type="button"
+                    className="imagens-produto-profissional-celular-botao"
+                    onClick={adicionarPeloCelular}
+                    disabled={gerandoQrCelular}
+                >
+                    <span className="imagens-produto-profissional-celular-botao-icone">
+                        📱
+                    </span>
+
+                    <span className="imagens-produto-profissional-celular-botao-conteudo">
+                        <strong className="imagens-produto-profissional-celular-botao-titulo">
+                            {gerandoQrCelular
+                                ? "Preparando acesso..."
+                                : "Adicionar fotos pelo celular"}
+                        </strong>
+
+                        <small className="imagens-produto-profissional-celular-botao-descricao">
+                            Escaneie um QR Code e fotografe o produto pelo celular
+                        </small>
+                    </span>
+
+                    {!gerandoQrCelular && (
+                        <span
+                            className="imagens-produto-profissional-celular-botao-seta"
+                            aria-hidden="true"
+                        >
+                            ›
+                        </span>
+                    )}
+
+                    {gerandoQrCelular && (
+                        <span className="imagens-produto-profissional-celular-carregando" />
+                    )}
+                </button>
+                {modalQrCelular && createPortal(
+                    <div
+                        className="foto-celular-qr-fundo"
+                        onMouseDown={evento => {
+                            if (evento.target === evento.currentTarget) {
+                                setModalQrCelular(false);
+                            }
+                        }}
+                    >
+                        <section
+                            className="foto-celular-qr-modal"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label="Adicionar fotos pelo celular"
+                        >
+                            <button
+                                type="button"
+                                className="foto-celular-qr-fechar"
+                                onClick={() => setModalQrCelular(false)}
+                                aria-label="Fechar"
+                            >
+                                ✕
+                            </button>
+
+                            {erroQrCelular ? (
+                                <div className="foto-celular-qr-erro-area">
+                                    <div className="foto-celular-qr-erro-icone">
+                                        !
+                                    </div>
+
+                                    <h2 className="foto-celular-qr-titulo">
+                                        Não foi possível gerar o acesso
+                                    </h2>
+
+                                    <p className="foto-celular-qr-erro">
+                                        {erroQrCelular}
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="foto-celular-qr-tentar-novamente"
+                                        onClick={adicionarPeloCelular}
+                                    >
+                                        Tentar novamente
+                                    </button>
+                                </div>
+                            ) : dadosQrCelular ? (
+                                <>
+                                    <div className="foto-celular-qr-cabecalho">
+                                        <div className="foto-celular-qr-icone">
+                                            📱
+                                        </div>
+
+                                        <div>
+                                            <h2 className="foto-celular-qr-titulo">
+                                                Adicionar fotos pelo celular
+                                            </h2>
+
+                                            <p className="foto-celular-qr-subtitulo">
+                                                Escaneie o QR Code com a câmera do celular
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {dadosQrCelular.produto && (
+                                        <div className="foto-celular-qr-produto">
+                                            <span className="foto-celular-qr-produto-label">
+                                                Produto
+                                            </span>
+
+                                            <strong className="foto-celular-qr-produto-nome">
+                                                {dadosQrCelular.produto.nome}
+                                            </strong>
+
+                                            {dadosQrCelular.produto.categoria && (
+                                                <span className="foto-celular-qr-produto-categoria">
+                                                    {dadosQrCelular.produto.categoria}
+                                                </span>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {segundosQrCelular > 0 ? (
+                                        <>
+                                            <div className="foto-celular-qr-codigo-area">
+                                                <div className="foto-celular-qr-codigo">
+                                                    <QRCodeSVG
+                                                        value={dadosQrCelular.url}
+                                                        size={230}
+                                                        level="M"
+                                                        includeMargin={false}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="foto-celular-qr-tempo">
+                                                <span className="foto-celular-qr-tempo-ponto" />
+
+                                                <span>
+                                                    Este QR Code expira em{" "}
+                                                    <strong>
+                                                        {String(
+                                                            Math.floor(segundosQrCelular / 60)
+                                                        ).padStart(2, "0")}
+                                                        :
+                                                        {String(
+                                                            segundosQrCelular % 60
+                                                        ).padStart(2, "0")}
+                                                    </strong>
+                                                </span>
+                                            </div>
+
+                                            <p className="foto-celular-qr-instrucao">
+                                                Abra a câmera do celular, aponte para o QR Code
+                                                e toque no link que aparecer.
+                                            </p>
+
+                                            <button
+                                                type="button"
+                                                className="foto-celular-qr-abrir-link"
+                                                onClick={() =>
+                                                    window.open(
+                                                        dadosQrCelular.url,
+                                                        "_blank",
+                                                        "noopener,noreferrer"
+                                                    )
+                                                }
+                                            >
+                                                Abrir link neste dispositivo
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <div className="foto-celular-qr-expirado">
+                                            <div className="foto-celular-qr-expirado-icone">
+                                                ⏱
+                                            </div>
+
+                                            <strong className="foto-celular-qr-expirado-titulo">
+                                                QR Code expirado
+                                            </strong>
+
+                                            <p className="foto-celular-qr-expirado-texto">
+                                                Por segurança, este acesso ficou disponível
+                                                durante 5 minutos.
+                                            </p>
+
+                                            <button
+                                                type="button"
+                                                className="foto-celular-qr-gerar-novo"
+                                                onClick={adicionarPeloCelular}
+                                            >
+                                                Gerar novo QR Code
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="foto-celular-qr-carregando">
+                                    Preparando QR Code...
+                                </div>
+                            )}
+                        </section>
+                    </div>,
+                    document.body
+                )}
+            </div>
         </div>
     );
 }

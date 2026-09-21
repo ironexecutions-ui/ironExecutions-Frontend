@@ -25,7 +25,7 @@ import missionaryStoreBrasil from "./imagens/missionarystorebrasil.png";
 import teste from "./imagens/teste.png";
 import dass from "./imagens/dass.png";
 import alexsiaUtilidades from "./imagens/alexsiautilidades.png";
-
+import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto"
 
 /* =========================================================
    MAPA FIXO
@@ -211,7 +211,10 @@ function RoteamentoComLoading() {
         path="/sp"
         element={<RegistroEmails />}
       />
-
+      <Route
+        path="/adicionar-foto/:token"
+        element={<CelularFoto />}
+      />
       <Route
         path="/cadastrocomercio"
         element={<CadastroComercio />}

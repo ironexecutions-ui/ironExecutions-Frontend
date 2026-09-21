@@ -1078,3 +1078,1542 @@
         transition: none !important;
     }
 }
+
+/* =========================================================
+   ADICIONAR FOTOS PELO CELULAR
+   ========================================================= */
+
+.imagens-produto-profissional-celular-area {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    margin-top: 16px !important;
+}
+
+
+/* =========================================================
+   DIVISOR
+   ========================================================= */
+
+.imagens-produto-profissional-celular-divisor {
+    width: 100% !important;
+    margin: 2px 0 13px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+}
+
+.imagens-produto-profissional-celular-divisor-linha {
+    height: 1px !important;
+    flex: 1 !important;
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #cbd5e1) !important;
+}
+
+.imagens-produto-profissional-celular-divisor-linha:last-child {
+    background:
+        linear-gradient(90deg,
+            #cbd5e1,
+            transparent) !important;
+}
+
+.imagens-produto-profissional-celular-divisor-texto {
+    color: #94a3b8 !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+
+/* =========================================================
+   BOTÃO CELULAR
+   ========================================================= */
+
+.imagens-produto-profissional-celular-botao {
+    position: relative !important;
+    isolation: isolate !important;
+
+    width: 100% !important;
+    min-height: 82px !important;
+
+    padding: 13px 52px 13px 14px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+
+    border: 1px solid #bfdbfe !important;
+    border-radius: 18px !important;
+
+    background:
+        radial-gradient(circle at 0% 0%,
+            rgba(59, 130, 246, 0.13),
+            transparent 42%),
+        linear-gradient(135deg,
+            #ffffff,
+            #f8fbff 55%,
+            #eff6ff) !important;
+
+    color: #0f172a !important;
+
+    text-align: left !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.06),
+        0 3px 10px rgba(37, 99, 235, 0.06),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease !important;
+
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+
+/* brilho decorativo */
+
+.imagens-produto-profissional-celular-botao::before {
+    content: "" !important;
+
+    position: absolute !important;
+    z-index: -1 !important;
+
+    top: -70px !important;
+    right: -55px !important;
+
+    width: 160px !important;
+    height: 160px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(37, 99, 235, 0.11) !important;
+
+    filter: blur(24px) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* efeito passando */
+
+.imagens-produto-profissional-celular-botao::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -45% !important;
+
+    width: 25% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.75),
+            transparent) !important;
+
+    transform: skewX(-18deg) !important;
+
+    transition:
+        left 0.7s ease !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.imagens-produto-profissional-celular-botao:hover:not(:disabled) {
+    border-color: #60a5fa !important;
+
+    background:
+        radial-gradient(circle at 0% 0%,
+            rgba(59, 130, 246, 0.18),
+            transparent 45%),
+        linear-gradient(135deg,
+            #ffffff,
+            #eff6ff) !important;
+
+    transform:
+        translateY(-2px) !important;
+
+    box-shadow:
+        0 16px 34px rgba(15, 23, 42, 0.1),
+        0 8px 20px rgba(37, 99, 235, 0.12),
+        0 0 0 4px rgba(37, 99, 235, 0.05),
+        inset 0 1px 0 #ffffff !important;
+}
+
+.imagens-produto-profissional-celular-botao:hover:not(:disabled)::after {
+    left: 125% !important;
+}
+
+.imagens-produto-profissional-celular-botao:active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.992) !important;
+}
+
+
+/* =========================================================
+   ÍCONE
+   ========================================================= */
+
+.imagens-produto-profissional-celular-botao-icone {
+    position: relative !important;
+
+    flex: 0 0 54px !important;
+
+    width: 54px !important;
+    height: 54px !important;
+
+    display: grid !important;
+    place-items: center !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 16px !important;
+
+    background:
+        linear-gradient(145deg,
+            #2563eb,
+            #1d4ed8) !important;
+
+    color: #ffffff !important;
+
+    font-size: 25px !important;
+    line-height: 1 !important;
+
+    box-shadow:
+        0 10px 22px rgba(37, 99, 235, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease !important;
+}
+
+.imagens-produto-profissional-celular-botao:hover:not(:disabled) .imagens-produto-profissional-celular-botao-icone {
+    transform:
+        translateY(-2px) scale(1.04) !important;
+
+    box-shadow:
+        0 14px 27px rgba(37, 99, 235, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+.imagens-produto-profissional-celular-botao-conteudo {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex: 1 !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+}
+
+.imagens-produto-profissional-celular-botao-titulo {
+    display: block !important;
+
+    color: #0f172a !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+    line-height: 1.3 !important;
+
+    letter-spacing: -0.2px !important;
+}
+
+.imagens-produto-profissional-celular-botao-descricao {
+    display: block !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   SETA
+   ========================================================= */
+
+.imagens-produto-profissional-celular-botao-seta {
+    position: absolute !important;
+
+    top: 50% !important;
+    right: 18px !important;
+
+    transform:
+        translateY(-50%) !important;
+
+    color: #2563eb !important;
+
+    font-size: 29px !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+
+    transition:
+        transform 0.2s ease !important;
+}
+
+.imagens-produto-profissional-celular-botao:hover:not(:disabled) .imagens-produto-profissional-celular-botao-seta {
+    transform:
+        translate(3px, -50%) !important;
+}
+
+
+/* =========================================================
+   CARREGANDO
+   ========================================================= */
+
+.imagens-produto-profissional-celular-carregando {
+    position: absolute !important;
+
+    top: 50% !important;
+    right: 19px !important;
+
+    width: 22px !important;
+    height: 22px !important;
+
+    margin-top: -11px !important;
+
+    border:
+        3px solid #dbeafe !important;
+
+    border-top-color:
+        #2563eb !important;
+
+    border-radius:
+        50% !important;
+
+    animation:
+        imagensProdutoCelularGirar 0.75s linear infinite !important;
+}
+
+
+/* =========================================================
+   DESABILITADO
+   ========================================================= */
+
+.imagens-produto-profissional-celular-botao:disabled {
+    cursor: wait !important;
+    opacity: 0.72 !important;
+    transform: none !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO
+   ========================================================= */
+
+@keyframes imagensProdutoCelularGirar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   TABLET / CELULAR
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .imagens-produto-profissional-celular-area {
+        margin-top: 13px !important;
+    }
+
+    .imagens-produto-profissional-celular-divisor {
+        margin-bottom: 11px !important;
+        gap: 9px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao {
+        min-height: 74px !important;
+
+        padding:
+            10px 43px 10px 11px !important;
+
+        gap: 11px !important;
+
+        border-radius:
+            16px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao-icone {
+        flex-basis:
+            48px !important;
+
+        width: 48px !important;
+        height: 48px !important;
+
+        border-radius:
+            14px !important;
+
+        font-size:
+            22px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao-titulo {
+        font-size:
+            13px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao-descricao {
+        font-size:
+            10px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao-seta {
+        right:
+            14px !important;
+
+        font-size:
+            26px !important;
+    }
+
+    .imagens-produto-profissional-celular-carregando {
+        right:
+            15px !important;
+    }
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .imagens-produto-profissional-celular-area {
+        margin-top:
+            11px !important;
+    }
+
+    .imagens-produto-profissional-celular-divisor {
+        margin-bottom:
+            9px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao {
+        min-height:
+            68px !important;
+
+        padding:
+            9px 37px 9px 9px !important;
+
+        gap:
+            9px !important;
+
+        border-radius:
+            14px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao-icone {
+        flex-basis:
+            43px !important;
+
+        width:
+            43px !important;
+
+        height:
+            43px !important;
+
+        border-radius:
+            12px !important;
+
+        font-size:
+            20px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao-titulo {
+        font-size:
+            12px !important;
+    }
+
+    .imagens-produto-profissional-celular-botao-descricao {
+        font-size:
+            9px !important;
+
+        line-height:
+            1.35 !important;
+    }
+
+    .imagens-produto-profissional-celular-botao-seta {
+        right:
+            11px !important;
+
+        font-size:
+            23px !important;
+    }
+
+    .imagens-produto-profissional-celular-carregando {
+        right:
+            12px !important;
+
+        width:
+            19px !important;
+
+        height:
+            19px !important;
+
+        margin-top:
+            -9.5px !important;
+    }
+}
+
+
+/* =========================================================
+   SEM EFEITOS DE TOQUE AZUL
+   ========================================================= */
+
+.imagens-produto-profissional-celular-area *,
+.imagens-produto-profissional-celular-botao {
+    -webkit-tap-highlight-color:
+        transparent !important;
+}
+
+
+/* =========================================================
+   REDUZIR MOVIMENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .imagens-produto-profissional-celular-botao,
+    .imagens-produto-profissional-celular-botao::after,
+    .imagens-produto-profissional-celular-botao-icone,
+    .imagens-produto-profissional-celular-botao-seta,
+    .imagens-produto-profissional-celular-carregando {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   IRON EXECUTIONS
+   MODAL PREMIUM, FOTOS PELO CELULAR / QR CODE
+   ========================================================= */
+
+
+/* =========================================================
+   FUNDO / OVERLAY
+   ========================================================= */
+
+.foto-celular-qr-fundo {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 999999 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 24px !important;
+
+    background:
+        radial-gradient(circle at 50% 15%,
+            rgba(59, 130, 246, 0.16) 0%,
+            rgba(15, 23, 42, 0.04) 35%,
+            rgba(2, 6, 23, 0.72) 100%),
+        rgba(2, 6, 23, 0.72) !important;
+
+    backdrop-filter: blur(14px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+
+    animation: fotoCelularQrFundoEntrada 0.25s ease-out !important;
+}
+
+
+/* =========================================================
+   MODAL PRINCIPAL
+   ========================================================= */
+
+.foto-celular-qr-modal {
+    position: relative !important;
+
+    width: min(100%, 510px) !important;
+    max-height: calc(100vh - 40px) !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    padding: 32px 34px 30px !important;
+
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    border-radius: 28px !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(248, 250, 252, 1) 55%,
+            rgba(241, 245, 249, 1) 100%) !important;
+
+    box-shadow:
+        0 40px 100px rgba(2, 6, 23, 0.35),
+        0 15px 40px rgba(15, 23, 42, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+
+    animation: fotoCelularQrModalEntrada 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+
+    scrollbar-width: thin !important;
+}
+
+
+/* linha premium no topo */
+
+.foto-celular-qr-modal::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 50% !important;
+
+    width: 120px !important;
+    height: 4px !important;
+
+    transform: translateX(-50%) !important;
+
+    border-radius: 0 0 10px 10px !important;
+
+    background: linear-gradient(90deg,
+            #2563eb,
+            #3b82f6,
+            #60a5fa) !important;
+
+    box-shadow:
+        0 3px 12px rgba(37, 99, 235, 0.35) !important;
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR
+   ========================================================= */
+
+.foto-celular-qr-fechar {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+
+    z-index: 10 !important;
+
+    width: 38px !important;
+    height: 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+
+    background: rgba(255, 255, 255, 0.9) !important;
+
+    color: #64748b !important;
+
+    font-size: 17px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.06) !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.foto-celular-qr-fechar:hover {
+    transform: rotate(5deg) scale(1.06) !important;
+
+    color: #dc2626 !important;
+
+    background: #fef2f2 !important;
+
+    border-color: #fecaca !important;
+
+    box-shadow:
+        0 7px 18px rgba(220, 38, 38, 0.12) !important;
+}
+
+
+.foto-celular-qr-fechar:active {
+    transform: scale(0.94) !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.foto-celular-qr-cabecalho {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 15px !important;
+
+    padding-right: 45px !important;
+    margin-bottom: 22px !important;
+}
+
+
+.foto-celular-qr-icone {
+    flex: 0 0 auto !important;
+
+    width: 54px !important;
+    height: 54px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px solid rgba(147, 197, 253, 0.65) !important;
+    border-radius: 17px !important;
+
+    background:
+        linear-gradient(145deg,
+            #eff6ff,
+            #dbeafe) !important;
+
+    font-size: 26px !important;
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.13),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+.foto-celular-qr-titulo {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 21px !important;
+    line-height: 1.25 !important;
+    font-weight: 850 !important;
+    letter-spacing: -0.45px !important;
+}
+
+
+.foto-celular-qr-subtitulo {
+    margin: 5px 0 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
+    font-weight: 550 !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÃO DO PRODUTO
+   ========================================================= */
+
+.foto-celular-qr-produto {
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+
+    margin-bottom: 20px !important;
+    padding: 14px 16px 14px 19px !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+
+    background:
+        linear-gradient(135deg,
+            #ffffff 0%,
+            #f8fafc 100%) !important;
+
+    box-shadow:
+        0 5px 16px rgba(15, 23, 42, 0.045) !important;
+}
+
+
+.foto-celular-qr-produto::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+
+    background: linear-gradient(180deg,
+            #2563eb,
+            #60a5fa) !important;
+}
+
+
+.foto-celular-qr-produto-label {
+    color: #94a3b8 !important;
+
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+}
+
+
+.foto-celular-qr-produto-nome {
+    color: #0f172a !important;
+
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    font-weight: 800 !important;
+}
+
+
+.foto-celular-qr-produto-categoria {
+    width: fit-content !important;
+
+    margin-top: 3px !important;
+    padding: 3px 8px !important;
+
+    border-radius: 100px !important;
+
+    background: #eff6ff !important;
+
+    color: #2563eb !important;
+
+    font-size: 10.5px !important;
+    line-height: 1.4 !important;
+    font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   ÁREA DO QR CODE
+   ========================================================= */
+
+.foto-celular-qr-codigo-area {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100% !important;
+
+    padding: 24px !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 22px !important;
+
+    background:
+        radial-gradient(circle at center,
+            rgba(219, 234, 254, 0.7) 0%,
+            rgba(248, 250, 252, 0.6) 45%,
+            #ffffff 75%) !important;
+}
+
+
+/* efeito suave atrás do QR */
+
+.foto-celular-qr-codigo-area::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 270px !important;
+    height: 270px !important;
+
+    border-radius: 50% !important;
+
+    background: rgba(59, 130, 246, 0.08) !important;
+
+    filter: blur(35px) !important;
+
+    pointer-events: none !important;
+}
+
+
+.foto-celular-qr-codigo {
+    position: relative !important;
+    z-index: 2 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 17px !important;
+
+    border: 1px solid #dbeafe !important;
+    border-radius: 20px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 18px 35px rgba(15, 23, 42, 0.10),
+        0 4px 10px rgba(37, 99, 235, 0.08),
+        inset 0 0 0 5px #ffffff !important;
+}
+
+
+.foto-celular-qr-codigo svg {
+    display: block !important;
+
+    width: 220px !important;
+    height: 220px !important;
+
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   CONTADOR
+   ========================================================= */
+
+.foto-celular-qr-tempo {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    width: fit-content !important;
+
+    margin: 17px auto 0 !important;
+    padding: 8px 13px !important;
+
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 100px !important;
+
+    background: #f0fdf4 !important;
+
+    color: #166534 !important;
+
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    font-weight: 650 !important;
+}
+
+
+.foto-celular-qr-tempo strong {
+    color: #15803d !important;
+    font-weight: 850 !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+
+.foto-celular-qr-tempo-ponto {
+    width: 7px !important;
+    height: 7px !important;
+
+    flex: 0 0 auto !important;
+
+    border-radius: 50% !important;
+
+    background: #22c55e !important;
+
+    box-shadow:
+        0 0 0 4px rgba(34, 197, 94, 0.13) !important;
+
+    animation: fotoCelularQrPulso 1.8s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
+   INSTRUÇÃO
+   ========================================================= */
+
+.foto-celular-qr-instrucao {
+    max-width: 370px !important;
+
+    margin: 15px auto 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 12.5px !important;
+    line-height: 1.6 !important;
+    font-weight: 550 !important;
+
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   ABRIR LINK
+   ========================================================= */
+
+.foto-celular-qr-abrir-link {
+    width: 100% !important;
+    min-height: 48px !important;
+
+    margin-top: 18px !important;
+    padding: 12px 18px !important;
+
+    border: 1px solid #dbeafe !important;
+    border-radius: 14px !important;
+
+    background:
+        linear-gradient(135deg,
+            #eff6ff,
+            #dbeafe) !important;
+
+    color: #1d4ed8 !important;
+
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.07) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+
+.foto-celular-qr-abrir-link:hover {
+    transform: translateY(-2px) !important;
+
+    background:
+        linear-gradient(135deg,
+            #dbeafe,
+            #bfdbfe) !important;
+
+    box-shadow:
+        0 10px 22px rgba(37, 99, 235, 0.14) !important;
+}
+
+
+.foto-celular-qr-abrir-link:active {
+    transform: translateY(0) scale(0.985) !important;
+}
+
+
+/* =========================================================
+   QR EXPIRADO
+   ========================================================= */
+
+.foto-celular-qr-expirado {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    padding: 35px 20px 10px !important;
+
+    text-align: center !important;
+}
+
+
+.foto-celular-qr-expirado-icone {
+    width: 70px !important;
+    height: 70px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 17px !important;
+
+    border: 1px solid #fed7aa !important;
+    border-radius: 22px !important;
+
+    background:
+        linear-gradient(145deg,
+            #fff7ed,
+            #ffedd5) !important;
+
+    font-size: 30px !important;
+
+    box-shadow:
+        0 12px 28px rgba(234, 88, 12, 0.10) !important;
+}
+
+
+.foto-celular-qr-expirado-titulo {
+    color: #0f172a !important;
+
+    font-size: 20px !important;
+    line-height: 1.3 !important;
+    font-weight: 850 !important;
+}
+
+
+.foto-celular-qr-expirado-texto {
+    max-width: 350px !important;
+
+    margin: 8px auto 20px !important;
+
+    color: #64748b !important;
+
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    font-weight: 550 !important;
+}
+
+
+.foto-celular-qr-gerar-novo {
+    min-width: 220px !important;
+    min-height: 48px !important;
+
+    padding: 12px 22px !important;
+
+    border: none !important;
+    border-radius: 14px !important;
+
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8) !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.25) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.foto-celular-qr-gerar-novo:hover {
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 14px 30px rgba(37, 99, 235, 0.32) !important;
+}
+
+
+.foto-celular-qr-gerar-novo:active {
+    transform: scale(0.98) !important;
+}
+
+
+/* =========================================================
+   ERRO
+   ========================================================= */
+
+.foto-celular-qr-erro-area {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    padding: 35px 15px 10px !important;
+
+    text-align: center !important;
+}
+
+
+.foto-celular-qr-erro-icone {
+    width: 65px !important;
+    height: 65px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 18px !important;
+
+    border: 1px solid #fecaca !important;
+    border-radius: 20px !important;
+
+    background:
+        linear-gradient(145deg,
+            #fef2f2,
+            #fee2e2) !important;
+
+    color: #dc2626 !important;
+
+    font-size: 28px !important;
+    font-weight: 900 !important;
+
+    box-shadow:
+        0 12px 25px rgba(220, 38, 38, 0.10) !important;
+}
+
+
+.foto-celular-qr-erro {
+    max-width: 360px !important;
+
+    margin: 10px auto 20px !important;
+
+    color: #64748b !important;
+
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    font-weight: 550 !important;
+}
+
+
+.foto-celular-qr-tentar-novamente {
+    min-width: 200px !important;
+    min-height: 47px !important;
+
+    padding: 11px 20px !important;
+
+    border: none !important;
+    border-radius: 14px !important;
+
+    background: #0f172a !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.20) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.foto-celular-qr-tentar-novamente:hover {
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 14px 28px rgba(15, 23, 42, 0.27) !important;
+}
+
+
+/* =========================================================
+   CARREGANDO
+   ========================================================= */
+
+.foto-celular-qr-carregando {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 240px !important;
+
+    color: #475569 !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE / FOCUS
+   ========================================================= */
+
+.foto-celular-qr-fechar:focus-visible,
+.foto-celular-qr-abrir-link:focus-visible,
+.foto-celular-qr-gerar-novo:focus-visible,
+.foto-celular-qr-tentar-novamente:focus-visible {
+    outline: 3px solid rgba(59, 130, 246, 0.28) !important;
+    outline-offset: 3px !important;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .foto-celular-qr-fundo {
+        padding: 15px !important;
+    }
+
+    .foto-celular-qr-modal {
+        width: 100% !important;
+        max-height: calc(100dvh - 30px) !important;
+
+        padding: 28px 22px 24px !important;
+
+        border-radius: 24px !important;
+    }
+
+    .foto-celular-qr-codigo-area {
+        padding: 20px !important;
+    }
+
+    .foto-celular-qr-codigo svg {
+        width: 210px !important;
+        height: 210px !important;
+    }
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .foto-celular-qr-fundo {
+        align-items: flex-end !important;
+
+        padding: 0 !important;
+
+        background: rgba(2, 6, 23, 0.72) !important;
+    }
+
+    .foto-celular-qr-modal {
+        width: 100% !important;
+        max-width: none !important;
+
+        max-height: 94dvh !important;
+
+        padding:
+            27px 18px calc(22px + env(safe-area-inset-bottom)) !important;
+
+        border-right: none !important;
+        border-bottom: none !important;
+        border-left: none !important;
+
+        border-radius: 25px 25px 0 0 !important;
+
+        animation:
+            fotoCelularQrModalMobileEntrada 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .foto-celular-qr-modal::before {
+        width: 55px !important;
+        height: 4px !important;
+
+        top: 7px !important;
+
+        border-radius: 20px !important;
+
+        background: #cbd5e1 !important;
+
+        box-shadow: none !important;
+    }
+
+    .foto-celular-qr-fechar {
+        top: 17px !important;
+        right: 16px !important;
+
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .foto-celular-qr-cabecalho {
+        gap: 12px !important;
+
+        padding-right: 42px !important;
+        margin-bottom: 17px !important;
+    }
+
+    .foto-celular-qr-icone {
+        width: 47px !important;
+        height: 47px !important;
+
+        border-radius: 14px !important;
+
+        font-size: 22px !important;
+    }
+
+    .foto-celular-qr-titulo {
+        font-size: 18px !important;
+    }
+
+    .foto-celular-qr-subtitulo {
+        font-size: 12px !important;
+    }
+
+    .foto-celular-qr-produto {
+        margin-bottom: 15px !important;
+
+        padding: 12px 14px 12px 17px !important;
+
+        border-radius: 14px !important;
+    }
+
+    .foto-celular-qr-codigo-area {
+        padding: 16px !important;
+
+        border-radius: 19px !important;
+    }
+
+    .foto-celular-qr-codigo {
+        width: min(100%, 235px) !important;
+
+        padding: 14px !important;
+
+        border-radius: 17px !important;
+    }
+
+    .foto-celular-qr-codigo svg {
+        width: 100% !important;
+        height: auto !important;
+
+        aspect-ratio: 1 / 1 !important;
+    }
+
+    .foto-celular-qr-tempo {
+        margin-top: 14px !important;
+
+        font-size: 11.5px !important;
+    }
+
+    .foto-celular-qr-instrucao {
+        margin-top: 12px !important;
+
+        font-size: 11.5px !important;
+    }
+
+    .foto-celular-qr-abrir-link {
+        min-height: 46px !important;
+
+        margin-top: 15px !important;
+    }
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .foto-celular-qr-modal {
+        padding-right: 14px !important;
+        padding-left: 14px !important;
+    }
+
+    .foto-celular-qr-codigo-area {
+        padding: 12px !important;
+    }
+
+    .foto-celular-qr-codigo {
+        width: min(100%, 215px) !important;
+    }
+
+    .foto-celular-qr-titulo {
+        font-size: 17px !important;
+    }
+
+    .foto-celular-qr-produto-nome {
+        font-size: 14px !important;
+    }
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes fotoCelularQrFundoEntrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes fotoCelularQrModalEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.965);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+@keyframes fotoCelularQrModalMobileEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(70px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes fotoCelularQrPulso {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.55;
+        transform: scale(0.82);
+    }
+}
+
+
+/* =========================================================
+   REDUZIR ANIMAÇÕES PARA QUEM SOLICITAR
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .foto-celular-qr-fundo,
+    .foto-celular-qr-modal,
+    .foto-celular-qr-tempo-ponto {
+        animation: none !important;
+    }
+
+    .foto-celular-qr-fechar,
+    .foto-celular-qr-abrir-link,
+    .foto-celular-qr-gerar-novo,
+    .foto-celular-qr-tentar-novamente {
+        transition: none !important;
+    }
+}
