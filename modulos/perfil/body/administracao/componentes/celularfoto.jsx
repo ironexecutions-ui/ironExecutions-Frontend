@@ -40,41 +40,108 @@ export default function CelularFoto() {
     // SCROLL / MOBILIDADE MOBILE
     // =========================================================
 
+    function obterElementoComScroll(elemento) {
+
+        if (!elemento) {
+            return null;
+        }
+
+        let atual = elemento.parentElement;
+
+        while (atual && atual !== document.body) {
+
+            const estilo = window.getComputedStyle(atual);
+
+            const overflowY = estilo.overflowY;
+
+            const permiteScroll =
+                overflowY === "auto" ||
+                overflowY === "scroll" ||
+                overflowY === "overlay";
+
+            if (
+                permiteScroll &&
+                atual.scrollHeight > atual.clientHeight
+            ) {
+                return atual;
+            }
+
+            atual = atual.parentElement;
+        }
+
+        return (
+            document.scrollingElement ||
+            document.documentElement
+        );
+    }
+
+
     function rolarPara(ref, opcoes = {}) {
 
         const elemento = ref?.current;
 
         if (!elemento) {
+
+            console.warn(
+                "[CELULAR FOTO] Scroll ignorado: elemento ainda não existe."
+            );
+
             return;
         }
 
         const {
-            atraso = 80,
-            bloco = "start"
+            atraso = 120,
+            margem = 86
         } = opcoes;
 
         window.setTimeout(() => {
 
-            try {
+            window.requestAnimationFrame(() => {
 
-                elemento.scrollIntoView({
-                    behavior: "smooth",
-                    block: bloco,
-                    inline: "nearest"
-                });
+                const scrollPai =
+                    obterElementoComScroll(elemento);
 
-            } catch {
+                const retanguloElemento =
+                    elemento.getBoundingClientRect();
 
-                const topo =
-                    elemento.getBoundingClientRect().top +
-                    window.scrollY -
-                    82;
+                // Quando quem rola é a própria página.
+                if (
+                    !scrollPai ||
+                    scrollPai === document.documentElement ||
+                    scrollPai === document.body ||
+                    scrollPai === document.scrollingElement
+                ) {
 
-                window.scrollTo({
-                    top: Math.max(0, topo),
+                    const topo =
+                        window.scrollY +
+                        retanguloElemento.top -
+                        margem;
+
+                    window.scrollTo({
+                        top: Math.max(0, topo),
+                        left: 0,
+                        behavior: "smooth"
+                    });
+
+                    return;
+                }
+
+                // Quando existe um container interno com overflow.
+                const retanguloPai =
+                    scrollPai.getBoundingClientRect();
+
+                const topoDentroDoPai =
+                    scrollPai.scrollTop +
+                    retanguloElemento.top -
+                    retanguloPai.top -
+                    margem;
+
+                scrollPai.scrollTo({
+                    top: Math.max(0, topoDentroDoPai),
                     behavior: "smooth"
                 });
-            }
+
+            });
 
         }, atraso);
     }
@@ -82,15 +149,96 @@ export default function CelularFoto() {
 
     function rolarParaTopo() {
 
-        window.requestAnimationFrame(() => {
+        const pagina =
+            paginaRef.current;
 
-            window.scrollTo({
+        const scrollPai =
+            obterElementoComScroll(pagina);
+
+        if (
+            scrollPai &&
+            scrollPai !== document.documentElement &&
+            scrollPai !== document.body &&
+            scrollPai !== document.scrollingElement
+        ) {
+
+            scrollPai.scrollTo({
                 top: 0,
                 left: 0,
                 behavior: "smooth"
             });
 
+            return;
+        }
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
         });
+    }
+
+
+    function rolarParaConfirmacao() {
+
+        // A confirmação só entra no DOM depois do setFotoCapturada.
+        // Esperamos React renderizar antes de procurar a referência.
+        let tentativas = 0;
+
+        function tentar() {
+
+            tentativas += 1;
+
+            if (confirmacaoRef.current) {
+
+                rolarPara(
+                    confirmacaoRef,
+                    {
+                        atraso: 20,
+                        margem: 74
+                    }
+                );
+
+                return;
+            }
+
+            if (tentativas < 12) {
+                window.setTimeout(tentar, 50);
+            }
+        }
+
+        window.setTimeout(tentar, 30);
+    }
+
+
+    function rolarParaImagens() {
+
+        // A lista pode estar sendo criada justamente depois do upload.
+        let tentativas = 0;
+
+        function tentar() {
+
+            tentativas += 1;
+
+            if (imagensRef.current) {
+
+                rolarPara(
+                    imagensRef,
+                    {
+                        atraso: 20,
+                        margem: 74
+                    }
+                );
+
+                return;
+            }
+
+            if (tentativas < 12) {
+                window.setTimeout(tentar, 50);
+            }
+        }
+
+        window.setTimeout(tentar, 30);
     }
 
 
@@ -461,13 +609,7 @@ export default function CelularFoto() {
         setErro("");
         setSucesso("");
 
-        rolarPara(
-            confirmacaoRef,
-            {
-                atraso: 140,
-                bloco: "start"
-            }
-        );
+        rolarParaConfirmacao();
     }
 
 
@@ -827,13 +969,7 @@ export default function CelularFoto() {
 
             await atualizarStatus();
 
-            rolarPara(
-                imagensRef,
-                {
-                    atraso: 180,
-                    bloco: "nearest"
-                }
-            );
+            rolarParaImagens();
 
         } catch (erroUpload) {
 
@@ -925,17 +1061,19 @@ export default function CelularFoto() {
 
         limparFoto();
 
-        rolarPara(
-            areaPrincipalRef,
-            {
-                atraso: 60,
-                bloco: "start"
-            }
-        );
-
         window.setTimeout(() => {
+
+            rolarPara(
+                areaPrincipalRef,
+                {
+                    atraso: 20,
+                    margem: 74
+                }
+            );
+
             inputCameraRef.current?.click();
-        }, 120);
+
+        }, 100);
     }
 
 
