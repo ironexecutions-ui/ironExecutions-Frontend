@@ -9,27 +9,13 @@
    BASE
    ============================================================ */
 
-* {
-    box-sizing: border-box;
+.celular-foto-pagina,
+.celular-foto-pagina *,
+.celular-foto-pagina *::before,
+.celular-foto-pagina *::after {
+    box-sizing: border-box !important;
 }
 
-html,
-body {
-    margin: 0 !important;
-    padding: 0 !important;
-
-    width: 100% !important;
-    min-height: 100% !important;
-
-    background: #f4f7fb !important;
-
-    -webkit-tap-highlight-color: transparent !important;
-    -webkit-text-size-adjust: 100% !important;
-}
-
-body {
-    overscroll-behavior-y: none !important;
-}
 
 
 /* ============================================================
@@ -37,18 +23,29 @@ body {
    ============================================================ */
 
 .celular-foto-pagina {
-    position: relative !important;
+    position: fixed !important;
+    inset: 0 !important;
 
     width: 100% !important;
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
+    height: var(--celular-foto-altura-real, 100dvh) !important;
+    min-height: 0 !important;
+    max-height: var(--celular-foto-altura-real, 100dvh) !important;
 
     margin: 0 !important;
-
     padding:
         env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0 !important;
 
     overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    overscroll-behavior-y: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: smooth !important;
+    scroll-padding-top: calc(82px + env(safe-area-inset-top)) !important;
+    touch-action: pan-y !important;
+
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-text-size-adjust: 100% !important;
 
     background:
         radial-gradient(circle at 15% -5%,
@@ -1561,4 +1558,55 @@ body {
     .celular-foto-botao-usar {
         transition: none !important;
     }
+}
+
+/* ============================================================
+   SCROLL, SOMENTE DESTA TELA
+   ============================================================ */
+
+.celular-foto-container {
+    height: auto !important;
+    min-height: calc(var(--celular-foto-altura-real, 100dvh) + 1px) !important;
+    overflow: visible !important;
+}
+
+.celular-foto-area-scroll {
+    scroll-margin-top:
+        calc(86px + env(safe-area-inset-top)) !important;
+}
+
+.celular-foto-voltar-topo {
+    position: fixed !important;
+    right: max(16px, env(safe-area-inset-right)) !important;
+    bottom: calc(18px + env(safe-area-inset-bottom)) !important;
+    z-index: 200 !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 50% !important;
+
+    background: #2563eb !important;
+    color: #ffffff !important;
+
+    font-size: 23px !important;
+    line-height: 1 !important;
+    font-weight: 900 !important;
+
+    box-shadow:
+        0 10px 30px rgba(37, 99, 235, 0.30) !important;
+
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+}
+
+.celular-foto-voltar-topo:active {
+    transform: scale(0.94) !important;
 }

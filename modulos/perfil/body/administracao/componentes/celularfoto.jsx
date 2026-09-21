@@ -40,104 +40,47 @@ export default function CelularFoto() {
     // SCROLL / MOBILIDADE MOBILE
     // =========================================================
 
-    function obterElementoComScroll(elemento) {
+    function obterElementoComScroll() {
 
-        if (!elemento) {
-            return null;
-        }
-
-        let atual = elemento.parentElement;
-
-        while (atual && atual !== document.body) {
-
-            const estilo = window.getComputedStyle(atual);
-
-            const overflowY = estilo.overflowY;
-
-            const permiteScroll =
-                overflowY === "auto" ||
-                overflowY === "scroll" ||
-                overflowY === "overlay";
-
-            if (
-                permiteScroll &&
-                atual.scrollHeight > atual.clientHeight
-            ) {
-                return atual;
-            }
-
-            atual = atual.parentElement;
-        }
-
-        return (
-            document.scrollingElement ||
-            document.documentElement
-        );
+        // Nesta tela o scroll é controlado explicitamente pelo <main>.
+        // Isso evita conflitos com #root, body ou layouts globais do sistema.
+        return paginaRef.current;
     }
 
 
     function rolarPara(ref, opcoes = {}) {
 
         const elemento = ref?.current;
+        const pagina = paginaRef.current;
 
-        if (!elemento) {
-
-            console.warn(
-                "[CELULAR FOTO] Scroll ignorado: elemento ainda não existe."
-            );
-
+        if (!elemento || !pagina) {
             return;
         }
 
         const {
-            atraso = 120,
-            margem = 86
+            atraso = 100,
+            margem = 18
         } = opcoes;
 
         window.setTimeout(() => {
 
             window.requestAnimationFrame(() => {
 
-                const scrollPai =
-                    obterElementoComScroll(elemento);
+                const paginaRect =
+                    pagina.getBoundingClientRect();
 
-                const retanguloElemento =
+                const elementoRect =
                     elemento.getBoundingClientRect();
 
-                // Quando quem rola é a própria página.
-                if (
-                    !scrollPai ||
-                    scrollPai === document.documentElement ||
-                    scrollPai === document.body ||
-                    scrollPai === document.scrollingElement
-                ) {
-
-                    const topo =
-                        window.scrollY +
-                        retanguloElemento.top -
-                        margem;
-
-                    window.scrollTo({
-                        top: Math.max(0, topo),
-                        left: 0,
-                        behavior: "smooth"
-                    });
-
-                    return;
-                }
-
-                // Quando existe um container interno com overflow.
-                const retanguloPai =
-                    scrollPai.getBoundingClientRect();
-
-                const topoDentroDoPai =
-                    scrollPai.scrollTop +
-                    retanguloElemento.top -
-                    retanguloPai.top -
+                const destino =
+                    pagina.scrollTop +
+                    elementoRect.top -
+                    paginaRect.top -
                     margem;
 
-                scrollPai.scrollTo({
-                    top: Math.max(0, topoDentroDoPai),
+                pagina.scrollTo({
+                    top: Math.max(0, destino),
+                    left: 0,
                     behavior: "smooth"
                 });
 
@@ -149,29 +92,13 @@ export default function CelularFoto() {
 
     function rolarParaTopo() {
 
-        const pagina =
-            paginaRef.current;
+        const pagina = paginaRef.current;
 
-        const scrollPai =
-            obterElementoComScroll(pagina);
-
-        if (
-            scrollPai &&
-            scrollPai !== document.documentElement &&
-            scrollPai !== document.body &&
-            scrollPai !== document.scrollingElement
-        ) {
-
-            scrollPai.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth"
-            });
-
+        if (!pagina) {
             return;
         }
 
-        window.scrollTo({
+        pagina.scrollTo({
             top: 0,
             left: 0,
             behavior: "smooth"
@@ -465,6 +392,14 @@ export default function CelularFoto() {
             if (segundos <= 0) {
                 setExpirado(true);
             }
+
+            window.requestAnimationFrame(() => {
+                paginaRef.current?.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: "auto"
+                });
+            });
 
         } catch (erroCarregar) {
 
