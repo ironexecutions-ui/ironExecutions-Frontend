@@ -11,6 +11,16 @@ export default function CelularFoto() {
     const inputCameraRef = useRef(null);
     const inputGaleriaRef = useRef(null);
 
+    // =========================================================
+    // REFERÊNCIAS DE NAVEGAÇÃO MOBILE
+    // =========================================================
+
+    const paginaRef = useRef(null);
+    const produtoRef = useRef(null);
+    const areaPrincipalRef = useRef(null);
+    const confirmacaoRef = useRef(null);
+    const imagensRef = useRef(null);
+
     const [carregando, setCarregando] = useState(true);
     const [processando, setProcessando] = useState(false);
     const [enviando, setEnviando] = useState(false);
@@ -24,6 +34,120 @@ export default function CelularFoto() {
 
     const [segundosRestantes, setSegundosRestantes] = useState(null);
     const [expirado, setExpirado] = useState(false);
+
+
+    // =========================================================
+    // SCROLL / MOBILIDADE MOBILE
+    // =========================================================
+
+    function rolarPara(ref, opcoes = {}) {
+
+        const elemento = ref?.current;
+
+        if (!elemento) {
+            return;
+        }
+
+        const {
+            atraso = 80,
+            bloco = "start"
+        } = opcoes;
+
+        window.setTimeout(() => {
+
+            try {
+
+                elemento.scrollIntoView({
+                    behavior: "smooth",
+                    block: bloco,
+                    inline: "nearest"
+                });
+
+            } catch {
+
+                const topo =
+                    elemento.getBoundingClientRect().top +
+                    window.scrollY -
+                    82;
+
+                window.scrollTo({
+                    top: Math.max(0, topo),
+                    behavior: "smooth"
+                });
+            }
+
+        }, atraso);
+    }
+
+
+    function rolarParaTopo() {
+
+        window.requestAnimationFrame(() => {
+
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+            });
+
+        });
+    }
+
+
+    // =========================================================
+    // AJUSTAR ALTURA REAL DO CELULAR
+    // =========================================================
+
+    useEffect(() => {
+
+        function atualizarAlturaMobile() {
+
+            const altura =
+                window.visualViewport?.height ||
+                window.innerHeight;
+
+            document.documentElement.style.setProperty(
+                "--celular-foto-altura-real",
+                `${altura}px`
+            );
+        }
+
+        atualizarAlturaMobile();
+
+        window.addEventListener(
+            "resize",
+            atualizarAlturaMobile
+        );
+
+        window.addEventListener(
+            "orientationchange",
+            atualizarAlturaMobile
+        );
+
+        window.visualViewport?.addEventListener(
+            "resize",
+            atualizarAlturaMobile
+        );
+
+        return () => {
+
+            window.removeEventListener(
+                "resize",
+                atualizarAlturaMobile
+            );
+
+            window.removeEventListener(
+                "orientationchange",
+                atualizarAlturaMobile
+            );
+
+            window.visualViewport?.removeEventListener(
+                "resize",
+                atualizarAlturaMobile
+            );
+        };
+
+    }, []);
 
 
     // =========================================================
@@ -336,6 +460,14 @@ export default function CelularFoto() {
 
         setErro("");
         setSucesso("");
+
+        rolarPara(
+            confirmacaoRef,
+            {
+                atraso: 140,
+                bloco: "start"
+            }
+        );
     }
 
 
@@ -695,6 +827,14 @@ export default function CelularFoto() {
 
             await atualizarStatus();
 
+            rolarPara(
+                imagensRef,
+                {
+                    atraso: 180,
+                    bloco: "nearest"
+                }
+            );
+
         } catch (erroUpload) {
 
             console.error(
@@ -785,9 +925,17 @@ export default function CelularFoto() {
 
         limparFoto();
 
+        rolarPara(
+            areaPrincipalRef,
+            {
+                atraso: 60,
+                bloco: "start"
+            }
+        );
+
         window.setTimeout(() => {
             inputCameraRef.current?.click();
-        }, 50);
+        }, 120);
     }
 
 
@@ -864,7 +1012,10 @@ export default function CelularFoto() {
 
     return (
 
-        <main className="celular-foto-pagina">
+        <main
+            ref={paginaRef}
+            className="celular-foto-pagina"
+        >
 
 
             {/* ================================================= */}
@@ -948,7 +1099,10 @@ export default function CelularFoto() {
 
                 {produto && (
 
-                    <section className="celular-foto-produto">
+                    <section
+                        ref={produtoRef}
+                        className="celular-foto-produto"
+                    >
 
                         <span className="celular-foto-produto-label">
                             Adicionando fotos para
@@ -1040,7 +1194,10 @@ export default function CelularFoto() {
                     /* PREVIEW DA FOTO */
                     /* ================================================= */
 
-                    <section className="celular-foto-confirmacao">
+                    <section
+                        ref={confirmacaoRef}
+                        className="celular-foto-confirmacao celular-foto-area-scroll"
+                    >
 
                         <div className="celular-foto-confirmacao-topo">
 
@@ -1134,7 +1291,10 @@ export default function CelularFoto() {
                     /* ESCOLHER FOTO */
                     /* ================================================= */
 
-                    <section className="celular-foto-adicionar">
+                    <section
+                        ref={areaPrincipalRef}
+                        className="celular-foto-adicionar celular-foto-area-scroll"
+                    >
 
                         <div className="celular-foto-adicionar-topo">
 
@@ -1252,7 +1412,10 @@ export default function CelularFoto() {
 
                 {imagens.length > 0 && (
 
-                    <section className="celular-foto-imagens">
+                    <section
+                        ref={imagensRef}
+                        className="celular-foto-imagens celular-foto-area-scroll"
+                    >
 
                         <div className="celular-foto-imagens-topo">
 
@@ -1306,6 +1469,24 @@ export default function CelularFoto() {
                         </div>
 
                     </section>
+
+                )}
+
+
+                {/* ================================================= */}
+                {/* VOLTAR AO TOPO */}
+                {/* ================================================= */}
+
+                {(imagens.length > 3 || fotoCapturada) && (
+
+                    <button
+                        type="button"
+                        className="celular-foto-voltar-topo"
+                        onClick={rolarParaTopo}
+                        aria-label="Voltar ao topo"
+                    >
+                        <span aria-hidden="true">↑</span>
+                    </button>
 
                 )}
 

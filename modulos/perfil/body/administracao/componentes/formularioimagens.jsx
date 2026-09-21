@@ -23,6 +23,11 @@ export default function FormularioImagens({
     const [dadosQrCelular, setDadosQrCelular] = useState(null);
     const [erroQrCelular, setErroQrCelular] = useState("");
     const [segundosQrCelular, setSegundosQrCelular] = useState(0);
+    const valorAtualRef = useRef(String(valor || ""));
+
+    useEffect(() => {
+        valorAtualRef.current = String(valor || "");
+    }, [valor]);
     useEffect(() => {
         return () => {
             preview.forEach(url => URL.revokeObjectURL(url));
@@ -51,6 +56,169 @@ export default function FormularioImagens({
         modalQrCelular,
         segundosQrCelular > 0
     ]);
+    // =========================================================
+    // SINCRONIZAR FOTOS ENVIADAS PELO CELULAR
+    // =========================================================
+    //
+    // Durante os 5 minutos do QR Code, consulta o backend
+    // a cada 2 segundos. Se imagem_url mudar, atualiza o
+    // FormularioImagens imediatamente.
+    //
+    // Quando o tempo acaba, este efeito é desmontado e
+    // para de consultar o backend.
+    // =========================================================
+
+    useEffect(() => {
+
+        if (
+            !dadosQrCelular?.token ||
+            segundosQrCelular <= 0
+        ) {
+            return;
+        }
+
+        let cancelado = false;
+        let consultando = false;
+
+        async function sincronizarFotosCelular() {
+
+            if (cancelado || consultando) {
+                return;
+            }
+
+            consultando = true;
+
+            try {
+
+                const resposta = await fetch(
+                    `${API_URL}/upload/client/foto-produto-mobile/${encodeURIComponent(
+                        dadosQrCelular.token
+                    )}/status`
+                );
+
+                const json = await resposta
+                    .json()
+                    .catch(() => ({}));
+
+                if (cancelado) {
+                    return;
+                }
+
+                if (!resposta.ok) {
+
+                    if (
+                        resposta.status === 401 ||
+                        resposta.status === 403 ||
+                        resposta.status === 404 ||
+                        resposta.status === 410
+                    ) {
+                        console.log(
+                            "[FOTO CELULAR] Token expirado. Sincronização encerrada."
+                        );
+
+                        setSegundosQrCelular(0);
+                    }
+
+                    return;
+                }
+
+                const segundosServidor = Number(
+                    json.segundos_restantes
+                );
+
+                if (Number.isFinite(segundosServidor)) {
+
+                    if (segundosServidor <= 0) {
+                        setSegundosQrCelular(0);
+                        return;
+                    }
+
+                    setSegundosQrCelular(anterior =>
+                        Math.min(
+                            anterior || segundosServidor,
+                            segundosServidor
+                        )
+                    );
+                }
+
+                const imagensDoServidor = String(
+                    json.imagem_url ??
+                    json.produto?.imagem_url ??
+                    ""
+                )
+                    .split("|")
+                    .map(url => url.trim())
+                    .filter(Boolean);
+
+                const imagensDoFormulario = String(
+                    valorAtualRef.current || ""
+                )
+                    .split("|")
+                    .map(url => url.trim())
+                    .filter(Boolean);
+
+                const imagensUnificadas = [
+                    ...new Set([
+                        ...imagensDoFormulario,
+                        ...imagensDoServidor
+                    ])
+                ];
+
+                const novoValor =
+                    imagensUnificadas.join("|");
+
+                const valorAtualNormalizado =
+                    [...new Set(imagensDoFormulario)].join("|");
+
+                if (
+                    novoValor &&
+                    novoValor !== valorAtualNormalizado
+                ) {
+
+                    console.log(
+                        "[FOTO CELULAR] Nova imagem detectada:",
+                        novoValor
+                    );
+
+                    valorAtualRef.current = novoValor;
+
+                    alterar(novoValor);
+                }
+
+            } catch (erro) {
+
+                console.error(
+                    "[FOTO CELULAR] Erro ao buscar novas imagens:",
+                    erro
+                );
+
+            } finally {
+
+                consultando = false;
+            }
+        }
+
+        // Busca imediatamente.
+        sincronizarFotosCelular();
+
+        // Continua buscando enquanto o QR estiver válido.
+        const intervalo = window.setInterval(
+            sincronizarFotosCelular,
+            2000
+        );
+
+        return () => {
+            cancelado = true;
+            window.clearInterval(intervalo);
+        };
+
+    }, [
+        dadosQrCelular?.token,
+        segundosQrCelular > 0,
+        alterar
+    ]);
+
+
     function dispositivoMobile() {
         return window.matchMedia("(max-width: 800px)").matches;
     }
@@ -198,6 +366,8 @@ export default function FormularioImagens({
 
         setGerandoQrCelular(true);
         setErroQrCelular("");
+        setDadosQrCelular(null);
+        setSegundosQrCelular(0);
 
         try {
             console.log("[FOTO CELULAR] Preparando produto...");
