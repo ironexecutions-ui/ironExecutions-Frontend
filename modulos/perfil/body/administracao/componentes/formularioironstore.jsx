@@ -114,14 +114,9 @@ export default function FormularioIronStore({
                     // 1. SALVA SEM SAIR DA TELA
                     // 2. ESPERA O PUT TERMINAR
                     // =====================================================
-
                     const salvou = await salvar(false);
 
-                    // =====================================================
-                    // SE NÃO SALVOU, NÃO TENTA ATIVAR
-                    // =====================================================
-
-                    if (salvou !== true) {
+                    if (!salvou) {
                         return;
                     }
 
