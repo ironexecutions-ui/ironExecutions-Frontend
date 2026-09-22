@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import { useVenda } from "./vendaprovider";
 
 import { API_URL } from "../../../../../config";
@@ -7,7 +6,152 @@ import { API_URL } from "../../../../../config";
 import ModalPagamento from "./modalpagamento";
 
 import "./totalvenda.css";
+function DigitoTotalAnimado({ caractere, anterior, direcao }) {
 
+    const mudou =
+        anterior !== undefined &&
+        anterior !== caractere;
+
+    const ehNumero =
+        /\d/.test(caractere);
+
+    const anteriorEhNumero =
+        /\d/.test(anterior || "");
+
+    if (!mudou || (!ehNumero && !anteriorEhNumero)) {
+        return (
+            <span className="cob-total-digito-fixo">
+                {caractere}
+            </span>
+        );
+    }
+
+    return (
+        <span className="cob-total-digito-janela">
+
+            <span
+                className={`cob-total-digito-antigo cob-total-digito-antigo-${direcao}`}
+            >
+                {anterior}
+            </span>
+
+            <span
+                className={`cob-total-digito-novo cob-total-digito-novo-${direcao}`}
+            >
+                {caractere}
+            </span>
+
+        </span>
+    );
+}
+
+
+function TotalValorAnimado({ valor, numeroComparacao }) {
+
+    const valorAnteriorRef =
+        useRef(valor);
+
+    const numeroAnteriorRef =
+        useRef(numeroComparacao);
+
+    const [animacao, setAnimacao] =
+        useState({
+            anterior: valor,
+            atual: valor,
+            direcao: "cima",
+            chave: 0
+        });
+
+
+    useEffect(() => {
+
+        if (valorAnteriorRef.current === valor) {
+            return;
+        }
+
+        const anterior =
+            valorAnteriorRef.current;
+
+        const numeroAnterior =
+            numeroAnteriorRef.current;
+
+        const direcao =
+            numeroComparacao >= numeroAnterior
+                ? "cima"
+                : "baixo";
+
+
+        setAnimacao(estado => ({
+            anterior,
+            atual: valor,
+            direcao,
+            chave: estado.chave + 1
+        }));
+
+
+        valorAnteriorRef.current =
+            valor;
+
+        numeroAnteriorRef.current =
+            numeroComparacao;
+
+    }, [valor, numeroComparacao]);
+
+
+    const atual =
+        Array.from(animacao.atual);
+
+    const anterior =
+        Array.from(animacao.anterior);
+
+
+    const tamanho =
+        Math.max(
+            atual.length,
+            anterior.length
+        );
+
+
+    const atualAlinhado =
+        atual
+            .join("")
+            .padStart(tamanho, " ")
+            .split("");
+
+
+    const anteriorAlinhado =
+        anterior
+            .join("")
+            .padStart(tamanho, " ")
+            .split("");
+
+
+    return (
+        <span
+            className="cob-total-animado"
+            key={animacao.chave}
+        >
+
+            {atualAlinhado.map(
+                (caractere, indice) => (
+
+                    <DigitoTotalAnimado
+                        key={`${animacao.chave}-${indice}`}
+                        caractere={caractere}
+                        anterior={
+                            anteriorAlinhado[indice]
+                        }
+                        direcao={
+                            animacao.direcao
+                        }
+                    />
+
+                )
+            )}
+
+        </span>
+    );
+}
 
 export default function TotalVenda() {
 
@@ -644,8 +788,10 @@ export default function TotalVenda() {
                 }
             >
 
-                {valorExibido()}
-
+                <TotalValorAnimado
+                    valor={valorExibido()}
+                    numeroComparacao={total}
+                />
             </div>
 
 
@@ -665,8 +811,8 @@ export default function TotalVenda() {
 
                 <div
                     className={`cob-fiscal-toggle-container ${vendaVazia
-                            ? "cob-fiscal-toggle-container-inativo"
-                            : ""
+                        ? "cob-fiscal-toggle-container-inativo"
+                        : ""
                         }`}
                 >
                     <div className="cob-fiscal-toggle-info">
@@ -688,8 +834,8 @@ export default function TotalVenda() {
                         aria-label="Ativar ou desativar emissão de NFC-e"
                         disabled={vendaVazia}
                         className={`cob-fiscal-toggle-controle ${emitirNota
-                                ? "cob-fiscal-toggle-controle-ativo"
-                                : "cob-fiscal-toggle-controle-desligado"
+                            ? "cob-fiscal-toggle-controle-ativo"
+                            : "cob-fiscal-toggle-controle-desligado"
                             }`}
                         onClick={() => {
                             if (emitirNota) {
