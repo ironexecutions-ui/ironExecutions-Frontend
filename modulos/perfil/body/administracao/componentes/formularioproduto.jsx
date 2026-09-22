@@ -125,6 +125,7 @@ export default function FormularioProduto({ item, voltar }) {
         setNovaVariedade("");
     }
     const [categorias, setCategorias] = useState([]);
+    const [novaCategoria, setNovaCategoria] = useState("");
     const [tipo, setTipo] = useState(() => identificarTipo(item));
     const [produtos, setProdutos] = useState([]);
 
@@ -523,6 +524,101 @@ export default function FormularioProduto({ item, voltar }) {
             });
         }
     }
+    function obterCategoriasSelecionadas() {
+        return String(form.categoria || "")
+            .split("/")
+            .map(categoria => categoria.trim())
+            .filter(Boolean);
+    }
+
+    function categoriaEstaSelecionada(categoria) {
+        const selecionadas = obterCategoriasSelecionadas();
+
+        return selecionadas.some(
+            selecionada =>
+                selecionada.toLowerCase() === categoria.toLowerCase()
+        );
+    }
+
+    function alternarCategoria(categoria) {
+        const categoriaLimpa = categoria.trim();
+
+        if (!categoriaLimpa) return;
+
+        const selecionadas = obterCategoriasSelecionadas();
+
+        const existe = selecionadas.some(
+            selecionada =>
+                selecionada.toLowerCase() === categoriaLimpa.toLowerCase()
+        );
+
+        let novasCategorias;
+
+        if (existe) {
+            novasCategorias = selecionadas.filter(
+                selecionada =>
+                    selecionada.toLowerCase() !==
+                    categoriaLimpa.toLowerCase()
+            );
+        } else {
+            novasCategorias = [
+                ...selecionadas,
+                categoriaLimpa
+            ];
+        }
+
+        alterar(
+            "categoria",
+            novasCategorias.join("/")
+        );
+    }
+
+    function adicionarNovaCategoria() {
+        const categoriaLimpa = primeiraMaiuscula(
+            novaCategoria.trim()
+        );
+
+        if (!categoriaLimpa) return;
+
+        setCategorias(prev => {
+            const existe = prev.some(
+                categoria =>
+                    categoria.toLowerCase() ===
+                    categoriaLimpa.toLowerCase()
+            );
+
+            if (existe) {
+                return prev;
+            }
+
+            return [
+                ...prev,
+                categoriaLimpa
+            ];
+        });
+
+        if (!categoriaEstaSelecionada(categoriaLimpa)) {
+            const selecionadas = obterCategoriasSelecionadas();
+
+            alterar(
+                "categoria",
+                [
+                    ...selecionadas,
+                    categoriaLimpa
+                ].join("/")
+            );
+        }
+
+        setNovaCategoria("");
+    }
+
+    function adicionarCategoriaEnter(evento) {
+        if (evento.key !== "Enter") return;
+
+        evento.preventDefault();
+
+        adicionarNovaCategoria();
+    }
     async function carregarDados() {
         const token = localStorage.getItem("token");
 
@@ -553,14 +649,16 @@ export default function FormularioProduto({ item, voltar }) {
         const categoriasUnicas = [
             ...new Set(
                 dados
-                    .map(p => p.categoria)
-                    .filter(
-                        c =>
-                            c &&
-                            c.trim() !== ""
+                    .flatMap(produto =>
+                        String(produto.categoria || "")
+                            .split("/")
+                            .map(categoria => categoria.trim())
+                            .filter(Boolean)
                     )
             )
-        ];
+        ].sort((a, b) =>
+            a.localeCompare(b, "pt-BR")
+        );
 
         setCategorias(categoriasUnicas);
     }
@@ -1235,39 +1333,131 @@ export default function FormularioProduto({ item, voltar }) {
                     />
                 </div>
 
-
                 {/* ===================================================== */}
-                {/* CATEGORIA */}
+                {/* CATEGORIAS */}
                 {/* ===================================================== */}
 
-                <div className="formulario-produto-grupo-categoria">
-                    <label className="formulario-produto-label-categoria">
-                        Categoria
+                <div className="formulario-produto-grupo-categoria-multipla">
+
+                    <label className="formulario-produto-label-categoria-multipla">
+                        Categorias
                     </label>
 
-                    <input
-                        className="formulario-produto-campo-categoria"
-                        list="lista-categorias"
-                        placeholder="Categoria"
-                        value={form.categoria || ""}
-                        onChange={e =>
-                            alterar(
-                                "categoria",
-                                primeiraMaiuscula(e.target.value)
+                    <div className="formulario-produto-categorias-selecionadas">
+
+                        {obterCategoriasSelecionadas().length > 0 ? (
+                            obterCategoriasSelecionadas().map(
+                                (categoria, index) => (
+                                    <button
+                                        key={`${categoria}-${index}`}
+                                        type="button"
+                                        className="formulario-produto-categoria-selecionada-chip"
+                                        onClick={() =>
+                                            alternarCategoria(categoria)
+                                        }
+                                        title="Clique para remover"
+                                    >
+                                        <span className="formulario-produto-categoria-selecionada-nome">
+                                            {categoria}
+                                        </span>
+
+                                        <span className="formulario-produto-categoria-selecionada-remover">
+                                            ×
+                                        </span>
+                                    </button>
+                                )
                             )
-                        }
-                    />
+                        ) : (
+                            <span className="formulario-produto-categorias-vazio">
+                                Nenhuma categoria selecionada
+                            </span>
+                        )}
 
-                    <datalist id="lista-categorias">
-                        {categorias.map((cat, i) => (
-                            <option
-                                key={i}
-                                value={cat}
-                            />
-                        ))}
-                    </datalist>
+                    </div>
+
+                    <div className="formulario-produto-categoria-nova-area">
+
+                        <input
+                            className="formulario-produto-categoria-nova-input"
+                            list="lista-categorias"
+                            placeholder="Digite uma nova categoria"
+                            value={novaCategoria}
+                            onChange={evento =>
+                                setNovaCategoria(
+                                    primeiraMaiuscula(
+                                        evento.target.value
+                                    )
+                                )
+                            }
+                            onKeyDown={adicionarCategoriaEnter}
+                        />
+
+                        <datalist id="lista-categorias">
+                            {categorias.map((categoria, index) => (
+                                <option
+                                    key={`${categoria}-${index}`}
+                                    value={categoria}
+                                />
+                            ))}
+                        </datalist>
+
+                        <button
+                            type="button"
+                            className="formulario-produto-categoria-adicionar-botao"
+                            onClick={adicionarNovaCategoria}
+                            disabled={!novaCategoria.trim()}
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                    {categorias.length > 0 && (
+                        <div className="formulario-produto-categorias-disponiveis">
+
+                            <span className="formulario-produto-categorias-disponiveis-titulo">
+                                Categorias disponíveis
+                            </span>
+
+                            <div className="formulario-produto-categorias-botoes">
+
+                                {categorias.map((categoria, index) => {
+
+                                    const selecionada =
+                                        categoriaEstaSelecionada(categoria);
+
+                                    return (
+                                        <button
+                                            key={`${categoria}-${index}`}
+                                            type="button"
+                                            className={
+                                                selecionada
+                                                    ? "formulario-produto-categoria-opcao formulario-produto-categoria-opcao-ativa"
+                                                    : "formulario-produto-categoria-opcao"
+                                            }
+                                            onClick={() =>
+                                                alternarCategoria(categoria)
+                                            }
+                                        >
+                                            {selecionada && (
+                                                <span className="formulario-produto-categoria-check">
+                                                    ✓
+                                                </span>
+                                            )}
+
+                                            <span>
+                                                {categoria}
+                                            </span>
+                                        </button>
+                                    );
+                                })}
+
+                            </div>
+
+                        </div>
+                    )}
+
                 </div>
-
 
                 {/* ===================================================== */}
                 {/* PRODUTO POR PESO */}
