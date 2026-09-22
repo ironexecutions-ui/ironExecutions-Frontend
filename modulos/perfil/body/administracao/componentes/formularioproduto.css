@@ -5480,3 +5480,822 @@
     }
 
 }
+
+/* =========================================================
+   VARIEDADES
+   MELHORIA VISUAL + EDIÇÃO DO NOME
+========================================================= */
+
+.formulario-produto-lista-variedades {
+    gap: 10px !important;
+    padding: 14px !important;
+
+    border: 1px solid rgba(37, 99, 235, 0.16) !important;
+    border-radius: 18px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.07),
+            transparent 38%),
+        linear-gradient(145deg,
+            #fbfdff 0%,
+            #f5f9ff 100%) !important;
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   CARD DE CADA VARIEDADE
+========================================================= */
+
+.formulario-produto-item-variedade {
+    position: relative !important;
+
+    grid-template-columns:
+        minmax(105px, 0.48fr) minmax(210px, 1.35fr) auto !important;
+
+    align-items: end !important;
+
+    gap: 12px !important;
+
+    padding: 13px !important;
+
+    border:
+        1px solid rgba(148, 163, 184, 0.30) !important;
+
+    border-left:
+        3px solid #2563eb !important;
+
+    border-radius: 14px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #fbfdff) !important;
+
+    box-shadow:
+        0 4px 13px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease !important;
+}
+
+
+.formulario-produto-item-variedade:hover {
+    transform: translateY(-2px) !important;
+
+    border-color:
+        rgba(37, 99, 235, 0.30) !important;
+
+    border-left-color:
+        #1d4ed8 !important;
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.10),
+        0 2px 7px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+/* =========================================================
+   ÁREA DO NOME
+========================================================= */
+
+.formulario-produto-variedade-nome-area {
+    position: relative !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.20) !important;
+
+    border-radius: 12px !important;
+
+    background:
+        linear-gradient(135deg,
+            #f5f9ff,
+            #eef6ff) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 2px 6px rgba(37, 99, 235, 0.035) !important;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+/* =========================================================
+   BOTÃO QUE MOSTRA O NOME
+========================================================= */
+
+.formulario-produto-variedade-nome-editar-botao {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 8px !important;
+
+    padding: 0 11px 0 13px !important;
+
+    border: 0 !important;
+    border-radius: 11px !important;
+
+    outline: none !important;
+
+    background: transparent !important;
+
+    cursor: pointer !important;
+
+    text-align: left !important;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.formulario-produto-variedade-nome-editar-botao:hover {
+    background:
+        rgba(219, 234, 254, 0.55) !important;
+}
+
+
+.formulario-produto-variedade-nome-editar-botao:active {
+    transform: scale(0.985) !important;
+}
+
+
+/* =========================================================
+   TEXTO DO NOME
+========================================================= */
+
+.formulario-produto-variedade-nome {
+    min-width: 0 !important;
+    flex: 1 !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    color: #1e3a8a !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.2 !important;
+    letter-spacing: 0.05px !important;
+}
+
+
+/* =========================================================
+   ÍCONE DE EDITAR
+========================================================= */
+
+.formulario-produto-variedade-nome-editar-icone {
+    width: 27px !important;
+    height: 27px !important;
+    min-width: 27px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.18) !important;
+
+    border-radius: 8px !important;
+
+    background:
+        rgba(255, 255, 255, 0.82) !important;
+
+    color: #2563eb !important;
+
+    font-size: 13px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+
+    box-shadow:
+        0 2px 5px rgba(37, 99, 235, 0.07) !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.formulario-produto-variedade-nome-editar-botao:hover .formulario-produto-variedade-nome-editar-icone {
+    transform: scale(1.07) !important;
+
+    border-color: #93c5fd !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+/* =========================================================
+   INPUT DE EDIÇÃO DO NOME
+========================================================= */
+
+.formulario-produto-variedade-nome-edicao-input {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+
+    padding: 0 13px !important;
+
+    box-sizing: border-box !important;
+
+    border: 0 !important;
+    outline: none !important;
+
+    border-radius: 11px !important;
+
+    background: #ffffff !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 750 !important;
+
+    caret-color: #2563eb !important;
+
+    box-shadow:
+        inset 0 0 0 2px #2563eb,
+        inset 0 1px 2px rgba(15, 23, 42, 0.04),
+        0 0 0 3px rgba(37, 99, 235, 0.10) !important;
+
+    animation:
+        formularioProdutoVariedadeInputEntrada 0.18s ease !important;
+}
+
+
+.formulario-produto-variedade-nome-edicao-input::selection {
+    background: #bfdbfe !important;
+    color: #172554 !important;
+}
+
+
+/* =========================================================
+   CÓDIGO DE BARRAS
+========================================================= */
+
+.formulario-produto-variedade-codigo-area {
+    gap: 5px !important;
+}
+
+
+.formulario-produto-variedade-codigo-label {
+    margin: 0 0 0 2px !important;
+
+    color: #64748b !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.25px !important;
+}
+
+
+.formulario-produto-variedade-codigo-input {
+    height: 48px !important;
+
+    padding: 0 13px !important;
+
+    border:
+        1px solid rgba(148, 163, 184, 0.42) !important;
+
+    border-radius: 12px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #fbfdff) !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 650 !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.025) !important;
+}
+
+
+.formulario-produto-variedade-codigo-input:hover {
+    border-color: #93c5fd !important;
+
+    background: #ffffff !important;
+}
+
+
+.formulario-produto-variedade-codigo-input:focus {
+    border-color: #2563eb !important;
+
+    transform: none !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.09),
+        0 5px 14px rgba(37, 99, 235, 0.07) !important;
+}
+
+
+/* =========================================================
+   BOTÃO REMOVER
+========================================================= */
+
+.formulario-produto-variedade-remover {
+    height: 48px !important;
+
+    padding: 0 15px !important;
+
+    border:
+        1px solid rgba(239, 68, 68, 0.18) !important;
+
+    border-radius: 12px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #fff7f7) !important;
+
+    color: #b91c1c !important;
+
+    font-size: 11px !important;
+    font-weight: 850 !important;
+
+    box-shadow:
+        0 2px 6px rgba(185, 28, 28, 0.035) !important;
+}
+
+
+.formulario-produto-variedade-remover:hover {
+    transform: translateY(-1px) !important;
+
+    border-color:
+        rgba(239, 68, 68, 0.35) !important;
+
+    background:
+        linear-gradient(180deg,
+            #fff7f7,
+            #fee2e2) !important;
+
+    color: #991b1b !important;
+
+    box-shadow:
+        0 6px 14px rgba(185, 28, 28, 0.09) !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DO INPUT
+========================================================= */
+
+@keyframes formularioProdutoVariedadeInputEntrada {
+
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .formulario-produto-item-variedade {
+        grid-template-columns:
+            minmax(100px, 0.55fr) minmax(180px, 1.2fr) auto !important;
+
+        gap: 9px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .formulario-produto-lista-variedades {
+        padding: 10px !important;
+        gap: 9px !important;
+
+        border-radius: 15px !important;
+    }
+
+
+    .formulario-produto-item-variedade {
+        grid-template-columns: 1fr !important;
+
+        gap: 9px !important;
+
+        padding: 11px !important;
+
+        border-left-width: 3px !important;
+
+        border-radius: 13px !important;
+    }
+
+
+    .formulario-produto-variedade-nome-area {
+        height: 46px !important;
+    }
+
+
+    .formulario-produto-variedade-nome {
+        font-size: 13px !important;
+    }
+
+
+    .formulario-produto-variedade-nome-editar-icone {
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
+    }
+
+
+    .formulario-produto-variedade-nome-edicao-input {
+        font-size: 16px !important;
+    }
+
+
+    .formulario-produto-variedade-codigo-input {
+        height: 46px !important;
+
+        font-size: 16px !important;
+    }
+
+
+    .formulario-produto-variedade-remover {
+        width: 100% !important;
+        height: 43px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .formulario-produto-lista-variedades {
+        padding: 8px !important;
+    }
+
+
+    .formulario-produto-item-variedade {
+        padding: 9px !important;
+        gap: 8px !important;
+    }
+
+
+    .formulario-produto-variedade-nome-area {
+        height: 44px !important;
+    }
+
+
+    .formulario-produto-variedade-nome-editar-botao {
+        padding: 0 9px 0 11px !important;
+    }
+
+
+    .formulario-produto-variedade-codigo-input {
+        height: 44px !important;
+    }
+
+
+    .formulario-produto-variedade-remover {
+        height: 42px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .formulario-produto-item-variedade,
+    .formulario-produto-variedade-nome-area,
+    .formulario-produto-variedade-nome-editar-botao,
+    .formulario-produto-variedade-nome-editar-icone,
+    .formulario-produto-variedade-nome-edicao-input,
+    .formulario-produto-variedade-codigo-input,
+    .formulario-produto-variedade-remover {
+        animation: none !important;
+        transition: none !important;
+    }
+
+}
+
+/* =========================================================
+   CABEÇALHO DAS IMAGENS DA VARIEDADE
+========================================================= */
+
+.formulario-produto-variedade-imagem-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+
+    margin-bottom: 7px !important;
+}
+
+
+/* =========================================================
+   BOTÃO VER TODAS
+========================================================= */
+
+.formulario-produto-variedade-ver-todas {
+    min-width: max-content !important;
+    height: 27px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 10px !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.20) !important;
+
+    border-radius: 8px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #eff6ff) !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 2px 6px rgba(37, 99, 235, 0.06) !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.formulario-produto-variedade-ver-todas:hover {
+    transform: translateY(-1px) !important;
+
+    border-color: #60a5fa !important;
+
+    background: #dbeafe !important;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+.formulario-produto-variedade-ver-todas-ativo {
+    border-color: #2563eb !important;
+
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 5px 13px rgba(37, 99, 235, 0.20) !important;
+}
+
+
+/* =========================================================
+   IMAGEM OCUPADA POR OUTRA VARIEDADE
+========================================================= */
+
+.formulario-produto-variedade-imagem-ocupada {
+    position: relative !important;
+
+    opacity: 0.48 !important;
+
+    cursor: not-allowed !important;
+
+    filter: grayscale(0.55) !important;
+
+    transform: none !important;
+}
+
+
+.formulario-produto-variedade-imagem-ocupada:hover {
+    transform: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   AVISO EM USO
+========================================================= */
+
+.formulario-produto-variedade-imagem-ocupada-aviso {
+    position: absolute !important;
+
+    left: 50% !important;
+    bottom: 5px !important;
+
+    transform: translateX(-50%) !important;
+
+    padding: 3px 6px !important;
+
+    border-radius: 6px !important;
+
+    background:
+        rgba(15, 23, 42, 0.88) !important;
+
+    color: #ffffff !important;
+
+    font-size: 8px !important;
+    font-weight: 850 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   CHECK DA IMAGEM SELECIONADA
+========================================================= */
+
+.formulario-produto-variedade-imagem-check {
+    position: absolute !important;
+
+    top: 5px !important;
+    right: 5px !important;
+
+    width: 20px !important;
+    height: 20px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border:
+        2px solid #ffffff !important;
+
+    border-radius: 50% !important;
+
+    background: #2563eb !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.30) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   TODAS AS IMAGENS FORAM UTILIZADAS
+========================================================= */
+
+.formulario-produto-variedade-imagens-esgotadas {
+    width: 100% !important;
+    min-height: 54px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+
+    padding: 9px 11px !important;
+
+    box-sizing: border-box !important;
+
+    border:
+        1px dashed rgba(37, 99, 235, 0.28) !important;
+
+    border-radius: 10px !important;
+
+    background:
+        rgba(239, 246, 255, 0.65) !important;
+}
+
+
+.formulario-produto-variedade-imagens-esgotadas-texto {
+    color: #64748b !important;
+
+    font-size: 10px !important;
+    font-weight: 700 !important;
+}
+
+
+.formulario-produto-variedade-imagens-esgotadas-botao {
+    min-width: max-content !important;
+
+    padding: 6px 9px !important;
+
+    border:
+        1px solid #bfdbfe !important;
+
+    border-radius: 7px !important;
+
+    background: #ffffff !important;
+
+    color: #1d4ed8 !important;
+
+    font-size: 9px !important;
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .formulario-produto-variedade-imagem-cabecalho {
+        gap: 7px !important;
+    }
+
+
+    .formulario-produto-variedade-ver-todas {
+        height: 29px !important;
+
+        padding: 0 9px !important;
+
+        font-size: 10px !important;
+    }
+
+
+    .formulario-produto-variedade-imagens-esgotadas {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+
+    .formulario-produto-variedade-imagens-esgotadas-botao {
+        width: 100% !important;
+
+        min-height: 32px !important;
+    }
+
+}
