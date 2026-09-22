@@ -35,7 +35,8 @@ export default function CelularFoto() {
     const [segundosRestantes, setSegundosRestantes] = useState(null);
     const [expirado, setExpirado] = useState(false);
 
-
+    const [fotoProcessada, setFotoProcessada] = useState(null);
+    const [excluindoImagem, setExcluindoImagem] = useState("");
     // =========================================================
     // SCROLL / MOBILIDADE MOBILE
     // =========================================================
@@ -505,6 +506,17 @@ export default function CelularFoto() {
             return null;
         });
 
+
+        setFotoProcessada(anterior => {
+
+            if (anterior?.url) {
+                URL.revokeObjectURL(anterior.url);
+            }
+
+            return null;
+        });
+
+
         if (inputCameraRef.current) {
             inputCameraRef.current.value = "";
         }
@@ -759,11 +771,32 @@ export default function CelularFoto() {
                 return;
             }
 
-            await enviarArquivos(
-                [fotoPronta]
-            );
 
-            limparFoto();
+            // =====================================================
+            // NÃO ENVIA AINDA
+            //
+            // Primeiro mostramos ao usuário exatamente como
+            // ficou a foto depois da remoção do fundo.
+            // =====================================================
+
+            setFotoProcessada(anterior => {
+
+                if (anterior?.url) {
+                    URL.revokeObjectURL(anterior.url);
+                }
+
+                return {
+                    arquivo: fotoPronta,
+                    url: URL.createObjectURL(fotoPronta)
+                };
+            });
+
+
+            setSucesso("");
+
+            window.setTimeout(() => {
+                rolarParaConfirmacao();
+            }, 100);
 
         } catch (erroProcessamento) {
 
@@ -783,7 +816,48 @@ export default function CelularFoto() {
         }
     }
 
+    // =========================================================
+    // CONFIRMAR FOTO PROCESSADA
+    // =========================================================
 
+    async function confirmarFotoProcessada() {
+
+        if (
+            !fotoProcessada?.arquivo ||
+            enviando ||
+            processando
+        ) {
+            return;
+        }
+
+        if (!acessoAtivo()) {
+            return;
+        }
+
+        setErro("");
+        setSucesso("");
+
+        try {
+
+            await enviarArquivos([
+                fotoProcessada.arquivo
+            ]);
+
+            limparFoto();
+
+        } catch (erroConfirmacao) {
+
+            console.error(
+                "[CELULAR FOTO] Erro ao confirmar foto:",
+                erroConfirmacao
+            );
+
+            setErro(
+                erroConfirmacao.message ||
+                "Não foi possível adicionar a foto."
+            );
+        }
+    }
     // =========================================================
     // ENVIAR PARA BACKEND
     // =========================================================
@@ -1078,7 +1152,130 @@ export default function CelularFoto() {
         );
     }
 
+    // =========================================================
+    // EXCLUIR FOTO JÁ ADICIONADA
+    // =========================================================
 
+    async function excluirImagem(imagem) {
+
+        if (
+            !imagem ||
+            excluindoImagem ||
+            enviando ||
+            processando
+        ) {
+            return;
+        }
+
+        if (!acessoAtivo()) {
+            return;
+        }
+
+        const confirmou = window.confirm(
+            "Deseja realmente apagar esta foto?"
+        );
+
+        if (!confirmou) {
+            return;
+        }
+
+        setExcluindoImagem(imagem);
+        setErro("");
+        setSucesso("");
+
+        try {
+
+            console.log(
+                "[CELULAR FOTO] Excluindo imagem:",
+                imagem
+            );
+
+            const resposta = await fetch(
+                `${API_URL}/upload/client/foto-produto-mobile/${encodeURIComponent(token)}/imagem`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        url: imagem
+                    })
+                }
+            );
+
+
+            const dados = await resposta
+                .json()
+                .catch(() => ({}));
+
+
+            console.log(
+                "[CELULAR FOTO] Exclusão:",
+                dados
+            );
+
+
+            if (!resposta.ok) {
+
+                if (
+                    resposta.status === 401 ||
+                    resposta.status === 403 ||
+                    resposta.status === 404 ||
+                    resposta.status === 410
+                ) {
+
+                    setExpirado(true);
+                    setSegundosRestantes(0);
+                }
+
+                throw new Error(
+                    dados.detail ||
+                    dados.mensagem ||
+                    "Não foi possível apagar a foto."
+                );
+            }
+
+
+            const listaAtualizada = String(
+                dados.imagem_url || ""
+            )
+                .split("|")
+                .map(url => url.trim())
+                .filter(Boolean);
+
+
+            setImagens(listaAtualizada);
+
+
+            setProduto(anterior => ({
+                ...(anterior || {}),
+                imagem_url: dados.imagem_url || ""
+            }));
+
+
+            setSucesso(
+                "Foto apagada com sucesso."
+            );
+
+        } catch (erroExcluir) {
+
+            console.error(
+                "[CELULAR FOTO] Erro ao excluir imagem:",
+                erroExcluir
+            );
+
+            setErro(
+                erroExcluir.message ||
+                "Não foi possível apagar a foto."
+            );
+
+        } finally {
+
+            setExcluindoImagem("");
+        }
+    }
     // =========================================================
     // TELA
     // =========================================================
@@ -1279,22 +1476,33 @@ export default function CelularFoto() {
                             </span>
 
                             <h2>
-                                Confira a foto
+                                {fotoProcessada
+                                    ? "Confira o resultado"
+                                    : "Confira a foto"
+                                }
                             </h2>
 
                             <p>
-                                Ao continuar, o fundo será removido
-                                automaticamente e ficará branco.
+                                {fotoProcessada
+                                    ? "O fundo foi removido. Confira o resultado antes de adicionar a foto ao produto."
+                                    : "Remova o fundo para visualizar o resultado antes de adicionar a foto."
+                                }
                             </p>
-
                         </div>
 
 
                         <div className="celular-foto-preview">
 
                             <img
-                                src={fotoCapturada.url}
-                                alt="Foto capturada do produto"
+                                src={
+                                    fotoProcessada?.url ||
+                                    fotoCapturada.url
+                                }
+                                alt={
+                                    fotoProcessada
+                                        ? "Foto com fundo removido"
+                                        : "Foto capturada do produto"
+                                }
                             />
 
 
@@ -1318,7 +1526,6 @@ export default function CelularFoto() {
 
                         </div>
 
-
                         <div className="celular-foto-confirmacao-acoes">
 
                             <button
@@ -1334,24 +1541,42 @@ export default function CelularFoto() {
                             </button>
 
 
-                            <button
-                                type="button"
-                                className="celular-foto-botao-usar"
-                                disabled={
-                                    processando ||
-                                    enviando
-                                }
-                                onClick={usarFoto}
-                            >
+                            {!fotoProcessada ? (
 
-                                {processando
-                                    ? "Removendo fundo..."
-                                    : enviando
-                                        ? "Enviando..."
-                                        : "Usar esta foto"
-                                }
+                                <button
+                                    type="button"
+                                    className="celular-foto-botao-usar"
+                                    disabled={
+                                        processando ||
+                                        enviando
+                                    }
+                                    onClick={usarFoto}
+                                >
 
-                            </button>
+                                    {processando
+                                        ? "Removendo fundo..."
+                                        : "Remover fundo"
+                                    }
+
+                                </button>
+
+                            ) : (
+
+                                <button
+                                    type="button"
+                                    className="celular-foto-botao-usar celular-foto-botao-confirmar-processada"
+                                    disabled={enviando}
+                                    onClick={confirmarFotoProcessada}
+                                >
+
+                                    {enviando
+                                        ? "Adicionando..."
+                                        : "Confirmar e adicionar"
+                                    }
+
+                                </button>
+
+                            )}
 
                         </div>
 
@@ -1530,9 +1755,32 @@ export default function CelularFoto() {
                                             alt={`Foto ${index + 1} do produto`}
                                         />
 
+
                                         <span className="celular-foto-imagem-numero">
                                             {index + 1}
                                         </span>
+
+
+                                        <button
+                                            type="button"
+                                            className="celular-foto-imagem-excluir"
+                                            disabled={
+                                                excluindoImagem === imagem ||
+                                                enviando ||
+                                                processando
+                                            }
+                                            onClick={() =>
+                                                excluirImagem(imagem)
+                                            }
+                                            aria-label={`Apagar foto ${index + 1}`}
+                                        >
+
+                                            {excluindoImagem === imagem
+                                                ? "..."
+                                                : "×"
+                                            }
+
+                                        </button>
 
                                     </div>
 
