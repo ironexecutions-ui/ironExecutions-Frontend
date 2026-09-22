@@ -15,7 +15,7 @@ export default function ModalPagamento({
     const [erroMaquininha, setErroMaquininha] = useState(null);
     const [forcarManual, setForcarManual] = useState(false);
     const [usaMaquininha, setUsaMaquininha] = useState(false);
-    const API_LOCAL = "http://localhost:8888";
+    const API_LOCAL = "http://localhost:8887";
     const [vendaId, setVendaId] = useState(null);
     const criandoVendaRef = useRef(false);
     const [alertaPagamento, setAlertaPagamento] = useState(null);

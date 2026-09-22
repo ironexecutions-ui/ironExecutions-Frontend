@@ -5,7 +5,7 @@ import { API_URL } from "../../../../../config";
 ========================================= */
 
 const API_ONLINE_VENDAS = API_URL;
-const API_LOCAL = "http://localhost:8888";
+const API_LOCAL = "http://localhost:8887";
 
 
 /* =========================================
