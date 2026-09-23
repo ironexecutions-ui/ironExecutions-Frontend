@@ -84,6 +84,7 @@ export default function Etiquetas() {
             nome: "Courier"
         }
     ];
+    const [alertaLimiteEtiquetas, setAlertaLimiteEtiquetas] = useState(null);
     // =========================================================
     // CARREGAR CONFIGURAÇÕES DAS ETIQUETAS DO CACHE
     // =========================================================
@@ -453,14 +454,83 @@ export default function Etiquetas() {
         filtroCodigoBarras
     ]);
 
-    // ===============================
-    // MOVER PARA IMPRESSÃO
-    // ===============================
+    // =========================================================
+    // CONTROLE DE LIMITE DE PRODUTOS PARA IMPRESSÃO
+    // =========================================================
 
-    // ===============================
+    function produtoContaComoComFoto(produto) {
+        return Boolean(
+            produto?.usarImagemEtiqueta &&
+            produto?.imagem_etiqueta
+        );
+    }
+
+    function contarProdutosSelecionados(lista) {
+        let comFoto = 0;
+        let semFoto = 0;
+
+        lista.forEach(produto => {
+            if (produtoContaComoComFoto(produto)) {
+                comFoto += 1;
+            } else {
+                semFoto += 1;
+            }
+        });
+
+        return {
+            comFoto,
+            semFoto
+        };
+    }
+
+    function mostrarAlertaLimite(mensagem) {
+        setAlertaLimiteEtiquetas(mensagem);
+
+        window.setTimeout(() => {
+            setAlertaLimiteEtiquetas(null);
+        }, 4000);
+    }
+
+    function validarLimiteSelecionados(lista) {
+        const {
+            comFoto,
+            semFoto
+        } = contarProdutosSelecionados(lista);
+
+        // Máximo absoluto de produtos com foto
+        if (comFoto > 6) {
+            return {
+                valido: false,
+                mensagem:
+                    "Você pode selecionar no máximo 6 produtos com foto."
+            };
+        }
+
+        // Cada produto com foto reduz 2 posições
+        // da capacidade de produtos sem foto.
+        const limiteSemFoto = 16 - (comFoto * 2);
+
+        if (semFoto > limiteSemFoto) {
+            return {
+                valido: false,
+                mensagem:
+                    comFoto === 0
+                        ? "Você pode selecionar no máximo 16 produtos sem foto."
+                        : `Com ${comFoto} produto${comFoto > 1 ? "s" : ""} com foto, você pode selecionar no máximo ${limiteSemFoto} produto${limiteSemFoto !== 1 ? "s" : ""} sem foto.`
+            };
+        }
+
+        return {
+            valido: true,
+            mensagem: ""
+        };
+    }
+
+
+    // =========================================================
     // MOVER PARA IMPRESSÃO
     // NOVO PRODUTO ENTRA PRIMEIRO
-    // ===============================
+    // =========================================================
 
     function adicionarParaImpressao(produto) {
         setSelecionados(listaAtual => {
@@ -472,18 +542,59 @@ export default function Etiquetas() {
                 return listaAtual;
             }
 
-            return [
-                {
-                    ...produto,
-                    promocao: false,
-                    precoAnterior: "",
-                    quantidadeEtiquetas: 1,
-                    usarImagemEtiqueta: Boolean(produto.imagem_etiqueta),
-                },
+            const novoProduto = {
+                ...produto,
+                promocao: false,
+                precoAnterior: "",
+                quantidadeEtiquetas: 1,
+                usarImagemEtiqueta: Boolean(
+                    produto.imagem_etiqueta
+                ),
+            };
+
+            const novaLista = [
+                novoProduto,
                 ...listaAtual,
             ];
+
+            const validacao =
+                validarLimiteSelecionados(novaLista);
+
+            if (!validacao.valido) {
+                mostrarAlertaLimite(
+                    validacao.mensagem
+                );
+
+                return listaAtual;
+            }
+
+            return novaLista;
         });
     }
+
+
+    // =========================================================
+    // REMOVER DA IMPRESSÃO
+    // =========================================================
+
+    function removerDaImpressao(id) {
+        setSelecionados(listaAtual =>
+            listaAtual.filter(
+                item => item.id !== id
+            )
+        );
+    }
+
+
+    // =========================================================
+    // TIRAR TODOS DA IMPRESSÃO
+    // =========================================================
+
+    function removerTodosDaImpressao() {
+        setSelecionados([]);
+    }
+
+
     // ===============================
     // REMOVER DA IMPRESSÃO
     // ===============================
@@ -802,23 +913,45 @@ export default function Etiquetas() {
     }
 
     function alternarUsoImagemEtiqueta(produtoId) {
-        setSelecionados(listaAtual =>
-            listaAtual.map(item => {
-                if (item.id !== produtoId) {
-                    return item;
-                }
+        setSelecionados(listaAtual => {
+            const produtoAtual = listaAtual.find(
+                item => item.id === produtoId
+            );
 
-                if (!item.imagem_etiqueta) {
-                    abrirModalImagemEtiqueta(item);
+            if (!produtoAtual) {
+                return listaAtual;
+            }
+
+            if (!produtoAtual.imagem_etiqueta) {
+                abrirModalImagemEtiqueta(produtoAtual);
+                return listaAtual;
+            }
+
+            const novaLista = listaAtual.map(item => {
+                if (item.id !== produtoId) {
                     return item;
                 }
 
                 return {
                     ...item,
-                    usarImagemEtiqueta: !item.usarImagemEtiqueta,
+                    usarImagemEtiqueta:
+                        !item.usarImagemEtiqueta,
                 };
-            })
-        );
+            });
+
+            const validacao =
+                validarLimiteSelecionados(novaLista);
+
+            if (!validacao.valido) {
+                mostrarAlertaLimite(
+                    validacao.mensagem
+                );
+
+                return listaAtual;
+            }
+
+            return novaLista;
+        });
     }
 
     async function salvarImagemEtiqueta() {
@@ -2678,15 +2811,26 @@ export default function Etiquetas() {
                         }`}
                 >
                     <div className="etiquetas-coluna-cabecalho etiquetas-impressao-cabecalho-renovado">
-                        <h3>
-                            Impressão
-                        </h3>
+                        <div className="etiquetas-impressao-titulo-contador-area">
+                            <h3>
+                                Impressão
+                            </h3>
 
-                        <span>
-                            {selecionados.length}
-                        </span>
+                            <span>
+                                {selecionados.length}
+                            </span>
+                        </div>
+
+                        {selecionados.length > 0 && (
+                            <button
+                                type="button"
+                                className="etiquetas-impressao-remover-todos-botao"
+                                onClick={removerTodosDaImpressao}
+                            >
+                                Tirar tudo
+                            </button>
+                        )}
                     </div>
-
                     <div className="etiquetas-listagem-impressao-scroll etiquetas-impressao-listagem-renovada">
                         {selecionados.length === 0 ? (
                             <div className="etiquetas-impressao-vazia-area">
@@ -3053,6 +3197,28 @@ export default function Etiquetas() {
                     </div>
                 </div>
             )}
+            {alertaLimiteEtiquetas &&
+                createPortal(
+                    <div className="etiquetas-limite-alerta-overlay">
+                        <div className="etiquetas-limite-alerta-modal">
+                            <div className="etiquetas-limite-alerta-icone">
+                                !
+                            </div>
+
+                            <div className="etiquetas-limite-alerta-conteudo">
+                                <strong>
+                                    Limite de impressão
+                                </strong>
+
+                                <p>
+                                    {alertaLimiteEtiquetas}
+                                </p>
+                            </div>
+                        </div>
+                    </div>,
+                    document.body
+                )
+            }
         </div>
     );
 }
