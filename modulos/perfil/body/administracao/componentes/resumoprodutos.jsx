@@ -13,7 +13,7 @@ export default function ResumoProdutos() {
     const [carregando, setCarregando] = useState(true);
     const duplicados = lista.filter(i => i.duplicado === 1);
 
-    const [limite, setLimite] = useState(30);
+    const [limite, setLimite] = useState(10);
     const [filtroNome, setFiltroNome] = useState("");
     const [filtroCategoria, setFiltroCategoria] = useState("");
     const [precoMin, setPrecoMin] = useState("");
@@ -710,7 +710,35 @@ export default function ResumoProdutos() {
 
         return vencimento <= limite;
     }
+    function obterPrimeiraImagemProduto(item) {
+        const imagemUrl = item?.imagem_url;
 
+        if (Array.isArray(imagemUrl)) {
+            return String(imagemUrl[0] || "").trim();
+        }
+
+        return String(imagemUrl || "")
+            .split("|")
+            .map(imagem => imagem.trim())
+            .filter(Boolean)[0] || "";
+    }
+
+    function formatarPrecoProduto(valor) {
+        const numero = Number(valor);
+
+        if (!Number.isFinite(numero)) {
+            return "R$ 0,00";
+        }
+
+        return numero.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+    }
+
+    function produtoEstaNaIronStore(item) {
+        return Number(item?.disponivel) === 1;
+    }
     return (
         <div className="resumo-produtos">
 
@@ -905,132 +933,267 @@ export default function ResumoProdutos() {
                             <>
                                 <div className="lista-cards">
 
-                                    {itensVisiveis.map(item => (
+                                    {itensVisiveis.map(item => {
 
-                                        <div
-                                            className={`card-produto ${item.duplicado ? "duplicado" : ""
-                                                }`}
-                                            key={item.id}
-                                        >
+                                        const primeiraImagem =
+                                            obterPrimeiraImagemProduto(item);
 
-                                            {/* INFORMAÇÕES */}
+                                        const estaNaIronStore =
+                                            produtoEstaNaIronStore(item);
+
+                                        const unidadeProduto =
+                                            colunaUnidade(item);
+
+                                        const categoriaProduto =
+                                            String(item.categoria || "").trim();
+
+                                        return (
 
                                             <div
-                                                className="card-info"
-                                                onClick={() => {
-                                                    setEditar(item);
-                                                    setModo("editar");
-                                                }}
+                                                className={`card-produto resumo-produto-card-atualizado ${item.duplicado ? "duplicado" : ""
+                                                    }`}
+                                                key={item.id}
                                             >
 
-                                                <h5>{obterNomeBaseProduto(item)}</h5>
-                                                <span className="sub">
-                                                    {colunaUnidade(item)} · {item.categoria}
-                                                </span>
                                                 {/* ===============================================
-    VARIEDADES DO PRODUTO
-=============================================== */}
+                    CONTEÚDO CLICÁVEL PARA EDITAR
+                =============================================== */}
 
-                                                {(
-                                                    Number(item.produto_variedade_id) === 0 &&
-                                                    item.qual_variedad !== null
-                                                ) && (() => {
+                                                <div
+                                                    className="card-info resumo-produto-card-conteudo"
+                                                    onClick={() => {
+                                                        setEditar(item);
+                                                        setModo("editar");
+                                                    }}
+                                                >
 
-                                                    const variedadesProduto =
-                                                        obterVariedadesProduto(item);
+                                                    {/* ===========================================
+                        IMAGEM
+                    =========================================== */}
 
-                                                    if (variedadesProduto.length === 0) {
-                                                        return null;
-                                                    }
+                                                    <div className="resumo-produto-card-imagem-area">
 
-                                                    return (
-                                                        <div className="resumo-produto-variedades-area">
+                                                        {primeiraImagem ? (
 
-                                                            <span className="resumo-produto-variedades-titulo">
-                                                                {item.variedad_primaria || "Variedades"}
-                                                            </span>
+                                                            <img
+                                                                className="resumo-produto-card-imagem"
+                                                                src={primeiraImagem}
+                                                                alt={obterNomeBaseProduto(item)}
+                                                                loading="lazy"
+                                                            />
 
-                                                            <div className="resumo-produto-variedades-lista">
+                                                        ) : (
 
-                                                                {variedadesProduto.map(variedade => (
+                                                            <div className="resumo-produto-card-sem-imagem">
+
+                                                                <span className="resumo-produto-card-sem-imagem-icone">
+                                                                    ◫
+                                                                </span>
+
+                                                                <span className="resumo-produto-card-sem-imagem-texto">
+                                                                    Sem imagem
+                                                                </span>
+
+                                                            </div>
+
+                                                        )}
+
+                                                    </div>
+
+
+                                                    {/* ===========================================
+                        INFORMAÇÕES PRINCIPAIS
+                    =========================================== */}
+
+                                                    <div className="resumo-produto-card-dados">
+
+                                                        <div className="resumo-produto-card-cabecalho">
+
+                                                            <div className="resumo-produto-card-identidade">
+
+                                                                <h5 className="resumo-produto-card-nome">
+                                                                    {obterNomeBaseProduto(item)}
+                                                                </h5>
+
+                                                                <div className="resumo-produto-card-tags">
 
                                                                     <span
-                                                                        key={variedade.id}
-                                                                        className="resumo-produto-variedade-item"
+                                                                        className={`resumo-produto-card-ironstore ${estaNaIronStore
+                                                                            ? "resumo-produto-card-ironstore-ativo"
+                                                                            : "resumo-produto-card-ironstore-inativo"
+                                                                            }`}
                                                                     >
-                                                                        {variedade.nome}
+                                                                        <span className="resumo-produto-card-ironstore-ponto" />
+
+                                                                        {estaNaIronStore
+                                                                            ? "Na IronStore"
+                                                                            : "Fora da IronStore"
+                                                                        }
                                                                     </span>
 
-                                                                ))}
+                                                                    {item.duplicado === 1 && (
+
+                                                                        <span className="resumo-produto-card-duplicado">
+                                                                            Duplicado
+                                                                        </span>
+
+                                                                    )}
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            {/* ===================================
+                                PREÇO
+                            =================================== */}
+
+                                                            <div className="resumo-produto-card-preco-area">
+
+                                                                <span className="resumo-produto-card-preco-label">
+                                                                    Preço
+                                                                </span>
+
+                                                                <strong className="resumo-produto-card-preco">
+                                                                    {formatarPrecoProduto(item.preco)}
+                                                                </strong>
 
                                                             </div>
 
                                                         </div>
-                                                    );
 
-                                                })()}
-                                                <div className="precos">
 
-                                                    <div>
-                                                        <label>Preço </label>
-                                                        <strong>
-                                                            R$ {item.preco}
-                                                        </strong>
+                                                        {/* ===========================================
+                            UNIDADE E CATEGORIA
+                        =========================================== */}
+
+                                                        <div className="resumo-produto-card-detalhes">
+
+                                                            <div className="resumo-produto-card-detalhe">
+
+                                                                <span className="resumo-produto-card-detalhe-label">
+                                                                    Unidade
+                                                                </span>
+
+                                                                <strong className="resumo-produto-card-detalhe-valor">
+                                                                    {unidadeProduto || "Não informada"}
+                                                                </strong>
+
+                                                            </div>
+
+                                                            <div className="resumo-produto-card-detalhe resumo-produto-card-detalhe-categoria">
+
+                                                                <span className="resumo-produto-card-detalhe-label">
+                                                                    Categoria
+                                                                </span>
+
+                                                                <strong className="resumo-produto-card-detalhe-valor">
+                                                                    {categoriaProduto || "Sem categoria"}
+                                                                </strong>
+
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        {/* ===========================================
+                            VARIEDADES
+                        =========================================== */}
+
+                                                        {(
+                                                            Number(item.produto_variedade_id) === 0 &&
+                                                            item.qual_variedad !== null
+                                                        ) && (() => {
+
+                                                            const variedadesProduto =
+                                                                obterVariedadesProduto(item);
+
+                                                            if (variedadesProduto.length === 0) {
+                                                                return null;
+                                                            }
+
+                                                            return (
+
+                                                                <div className="resumo-produto-variedades-area">
+
+                                                                    <span className="resumo-produto-variedades-titulo">
+                                                                        {item.variedad_primaria || "Variedades"}
+                                                                    </span>
+
+                                                                    <div className="resumo-produto-variedades-lista">
+
+                                                                        {variedadesProduto.map(variedade => (
+
+                                                                            <span
+                                                                                key={variedade.id}
+                                                                                className="resumo-produto-variedade-item"
+                                                                            >
+                                                                                {variedade.nome}
+                                                                            </span>
+
+                                                                        ))}
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            );
+
+                                                        })()}
+
                                                     </div>
 
-                                                    <div>
-                                                        <label>Recebido </label>
-                                                        <strong>
-                                                            R$ {item.preco_recebido}
-                                                        </strong>
-                                                    </div>
+                                                </div>
+
+
+                                                {/* ===============================================
+                    AÇÕES
+                =============================================== */}
+
+                                                <div className="card-acoes resumo-produto-card-acoes">
+
+                                                    <button
+                                                        type="button"
+                                                        className={`apagar resumo-produto-card-botao-apagar ${confirmarId === item.id
+                                                            ? "confirmar"
+                                                            : ""
+                                                            }`}
+                                                        onClick={async evento => {
+
+                                                            evento.stopPropagation();
+
+                                                            if (confirmarId !== item.id) {
+                                                                setConfirmarId(item.id);
+                                                                return;
+                                                            }
+
+                                                            await fetch(
+                                                                `${API_URL}/admin/produtos-servicos/${item.id}`,
+                                                                {
+                                                                    method: "DELETE",
+                                                                    headers: {
+                                                                        Authorization: `Bearer ${token}`
+                                                                    }
+                                                                }
+                                                            );
+
+                                                            setConfirmarId(null);
+                                                            carregar();
+                                                        }}
+                                                    >
+                                                        {confirmarId === item.id
+                                                            ? "Confirmar"
+                                                            : "Apagar"
+                                                        }
+                                                    </button>
 
                                                 </div>
 
                                             </div>
 
+                                        );
 
-                                            {/* AÇÕES */}
-
-                                            <div className="card-acoes">
-
-                                                <button
-                                                    className={`apagar ${confirmarId === item.id
-                                                        ? "confirmar"
-                                                        : ""
-                                                        }`}
-                                                    onClick={async () => {
-
-                                                        if (confirmarId !== item.id) {
-                                                            setConfirmarId(item.id);
-                                                            return;
-                                                        }
-
-                                                        await fetch(
-                                                            `${API_URL}/admin/produtos-servicos/${item.id}`,
-                                                            {
-                                                                method: "DELETE",
-                                                                headers: {
-                                                                    Authorization: `Bearer ${token}`
-                                                                }
-                                                            }
-                                                        );
-
-                                                        setConfirmarId(null);
-                                                        carregar();
-                                                    }}
-                                                >
-                                                    {confirmarId === item.id
-                                                        ? "Confirmar"
-                                                        : "Apagar"
-                                                    }
-                                                </button>
-
-                                            </div>
-
-                                        </div>
-
-                                    ))}
+                                    })}
 
                                 </div>
 

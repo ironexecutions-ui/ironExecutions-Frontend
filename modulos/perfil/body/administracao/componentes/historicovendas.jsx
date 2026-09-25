@@ -10,6 +10,7 @@ export default function HistoricoVendas() {
 
     const [previewAtivo, setPreviewAtivo] = useState(false);
     const [podeApagar, setPodeApagar] = useState(false);
+    const [promocoesAtivas, setPromocoesAtivas] = useState(false);
     const [apagandoVenda, setApagandoVenda] = useState(null);
     const [modalExcluirVenda, setModalExcluirVenda] = useState(null);
     const [modalResultadoExclusao, setModalResultadoExclusao] = useState(null);
@@ -46,14 +47,27 @@ export default function HistoricoVendas() {
             const dados = await resp.json();
 
             console.log(
-                "[HISTORICO VENDAS] Permissões:",
-                dados
+                "[HISTORICO VENDAS] Permissões COMPLETAS:",
+                JSON.stringify(dados, null, 2)
+            );
+
+            console.log(
+                "[HISTORICO VENDAS] promocoes recebido:",
+                dados?.promocoes,
+                "tipo:",
+                typeof dados?.promocoes
             );
 
             setPodeApagar(
                 dados?.pode_apagar === true
             );
-
+            setPromocoesAtivas(
+                dados?.promocoes === true
+            );
+            console.log(
+                "[HISTORICO VENDAS] coluna desconto deve aparecer:",
+                dados?.promocoes === true
+            );
         } catch (erro) {
             console.error(
                 "[HISTORICO VENDAS] Erro ao carregar permissões:",
@@ -963,7 +977,13 @@ export default function HistoricoVendas() {
                             <th>Protocolo</th>
                             <th>Data</th>
                             <th>Hora</th>
+
                             <th>Valor</th>
+
+                            {promocoesAtivas && (
+                                <th>Desconto</th>
+                            )}
+
                             <th>Pagamento</th>
                             <th>Status</th>
                             <th>Operador</th>
@@ -1041,14 +1061,27 @@ export default function HistoricoVendas() {
                                     <td className="hv-valor">
 
                                         R$ {
-                                            Number(
-                                                v.valor_pago
+                                            (
+                                                Number(v.valor_pago || 0) +
+                                                Number(v.desconto || 0)
                                             ).toFixed(2)
                                         }
 
                                     </td>
 
+                                    {promocoesAtivas && (
 
+                                        <td className="hv-desconto">
+
+                                            R$ {
+                                                Number(
+                                                    v.desconto || 0
+                                                ).toFixed(2)
+                                            }
+
+                                        </td>
+
+                                    )}
                                     <td
                                         className={
                                             `hv-pagamento ` +
