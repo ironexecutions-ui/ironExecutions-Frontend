@@ -35,7 +35,9 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
     const CACHE_HEADER_COMANDAS = "4f5sd1f4esdf4658esdf";
     const CACHE_LEMBRETES_VISUALIZADOS =
         "iron_header_lembretes_visualizados_v1";
-
+    const [produtosPendentesPreco, setProdutosPendentesPreco] = useState([]);
+    const [avisoFlutuante, setAvisoFlutuante] = useState(null);
+    const [avisoFlutuanteVisivel, setAvisoFlutuanteVisivel] = useState(false);
     const totalNotificacoes =
         Number(lembretesTarefas?.total_hoje || 0) +
         Number(totalPrecosAlterados || 0);
@@ -219,8 +221,22 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                         jsonProdutos?.resumo?.total_preco_alterado || 0
                     )
                 );
+
+                const produtosAlterados = Array.isArray(
+                    jsonProdutos?.produtos_preco_alterado
+                )
+                    ? jsonProdutos.produtos_preco_alterado
+                    : [];
+
+                setProdutosPendentesPreco(
+                    produtosAlterados.map((produto) => ({
+                        ...produto,
+                        tipoAviso: "preco_alterado"
+                    }))
+                );
             } else {
                 setTotalPrecosAlterados(0);
+                setProdutosPendentesPreco([]);
             }
 
         } catch (erro) {
@@ -236,7 +252,110 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
             setTotalPrecosAlterados(0);
         }
     }
+    useEffect(() => {
+        const montarAvisosDisponiveis = () => {
+            const avisos = [];
 
+            const diaHoje = (lembretesTarefas?.dias || []).find(
+                (dia) => Number(dia.deslocamento) === 0
+            );
+
+            (diaHoje?.tarefas || []).forEach((tarefa) => {
+                avisos.push({
+                    chave: `tarefa-${tarefa.tipo}-${tarefa.id}`,
+                    tipo: "tarefa",
+                    titulo: "Tarefa para hoje",
+                    mensagem:
+                        tarefa.tarefa ||
+                        tarefa.nome ||
+                        "Você possui uma tarefa pendente.",
+                    detalhe: tarefa.hora
+                        ? `Hoje às ${String(tarefa.hora).slice(0, 5)}`
+                        : "Para hoje"
+                });
+            });
+
+            produtosPendentesPreco.forEach((produto) => {
+                if (produto.tipoAviso === "sem_preco") {
+                    avisos.push({
+                        chave: `produto-sem-preco-${produto.id}`,
+                        tipo: "produto",
+                        titulo: "Produto sem preço",
+                        mensagem:
+                            produto.nome ||
+                            `Produto #${produto.id}`,
+                        detalhe:
+                            "Defina o preço da etiqueta."
+                    });
+
+                    return;
+                }
+
+                avisos.push({
+                    chave: `produto-alterado-${produto.id}`,
+                    tipo: "produto",
+                    titulo: "Preço alterado",
+                    mensagem:
+                        produto.nome ||
+                        `Produto #${produto.id}`,
+                    detalhe:
+                        "A etiqueta precisa ser revisada."
+                });
+            });
+
+            return avisos;
+        };
+
+        let timeoutEsconder = null;
+        let ultimoIndice = -1;
+
+        const mostrarAviso = () => {
+            const avisos = montarAvisosDisponiveis();
+
+            if (avisos.length === 0) {
+                setAvisoFlutuante(null);
+                setAvisoFlutuanteVisivel(false);
+                return;
+            }
+
+            let indice = Math.floor(
+                Math.random() * avisos.length
+            );
+
+            if (avisos.length > 1) {
+                while (indice === ultimoIndice) {
+                    indice = Math.floor(
+                        Math.random() * avisos.length
+                    );
+                }
+            }
+
+            ultimoIndice = indice;
+
+            setAvisoFlutuante(avisos[indice]);
+            setAvisoFlutuanteVisivel(true);
+
+            timeoutEsconder = setTimeout(() => {
+                setAvisoFlutuanteVisivel(false);
+            }, 3000);
+        };
+
+        const intervalo = setInterval(
+            mostrarAviso,
+            5000
+        );
+
+        return () => {
+            clearInterval(intervalo);
+
+            if (timeoutEsconder) {
+                clearTimeout(timeoutEsconder);
+            }
+        };
+    }, [
+        lembretesTarefas,
+        produtosPendentesPreco
+    ]);
     useEffect(() => {
         if (totalNotificacoes <= 0) {
             setMostrarContadorLembretes(false);
@@ -1082,6 +1201,47 @@ export default function HeaderPerfil({ minimizado, setMinimizado, refreshKey }) 
                     atualizar={carregarLembretesTarefas}
                 />
 
+            )}
+            {avisoFlutuante && (
+                <div
+                    className={`header-perfil-aviso-pendencia ${avisoFlutuanteVisivel
+                        ? "header-perfil-aviso-pendencia-visivel"
+                        : ""
+                        }`}
+                >
+                    <div className="header-perfil-aviso-pendencia-indicador">
+                        <img
+                            src={loja?.imagem}
+                            alt={loja?.loja || "Loja"}
+                            className="header-perfil-aviso-pendencia-logo"
+                        />
+                    </div>
+
+                    <div className="header-perfil-aviso-pendencia-conteudo">
+                        <span className="header-perfil-aviso-pendencia-tipo">
+                            {avisoFlutuante.titulo}
+                        </span>
+
+                        <strong className="header-perfil-aviso-pendencia-titulo">
+                            {avisoFlutuante.mensagem}
+                        </strong>
+
+                        <span className="header-perfil-aviso-pendencia-detalhe">
+                            {avisoFlutuante.detalhe}
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        className="header-perfil-aviso-pendencia-fechar"
+                        onClick={() => setAvisoFlutuanteVisivel(false)}
+                        aria-label="Fechar aviso"
+                    >
+                        ×
+                    </button>
+
+                    <div className="header-perfil-aviso-pendencia-tempo" />
+                </div>
             )}
         </>
     );

@@ -3119,3 +3119,687 @@
         height: 42px !important;
     }
 }
+
+/* =========================================================
+   IRON EXECUTIONS
+   NOTIFICAÇÃO FLUTUANTE PREMIUM
+========================================================= */
+
+.header-perfil-aviso-pendencia {
+    position: fixed !important;
+
+    top: 145px !important;
+    right: 24px !important;
+
+    width: min(410px, calc(100vw - 32px)) !important;
+    min-height: 94px !important;
+
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) 34px !important;
+    align-items: center !important;
+
+    padding: 13px 12px !important;
+    gap: 12px !important;
+
+    border-radius: 20px !important;
+
+    background:
+        radial-gradient(circle at 0% 0%,
+            rgba(37, 99, 235, 0.08),
+            transparent 38%),
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.99),
+            rgba(248, 250, 252, 0.985)) !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+
+    box-shadow:
+        0 24px 65px rgba(15, 23, 42, 0.16),
+        0 8px 22px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+
+    backdrop-filter: blur(24px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+
+    overflow: hidden !important;
+    isolation: isolate !important;
+
+    z-index: 9999999 !important;
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+
+    transform:
+        translate3d(20px, -4px, 0) scale(0.97) !important;
+
+    pointer-events: none !important;
+
+    transition:
+        opacity 0.28s ease,
+        visibility 0.28s ease,
+        transform 0.42s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+/* =========================================================
+   VISÍVEL
+========================================================= */
+
+.header-perfil-aviso-pendencia-visivel {
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    transform:
+        translate3d(0, 0, 0) scale(1) !important;
+
+    pointer-events: auto !important;
+}
+
+
+/* =========================================================
+   DETALHE DE LUZ NO TOPO
+========================================================= */
+
+.header-perfil-aviso-pendencia::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 28px !important;
+    right: 28px !important;
+
+    height: 1px !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.28),
+            rgba(96, 165, 250, 0.18),
+            transparent) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   SOMBRA / LUZ INTERNA
+========================================================= */
+
+.header-perfil-aviso-pendencia::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 100px !important;
+    height: 100px !important;
+
+    top: -55px !important;
+    left: -40px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(37, 99, 235, 0.08) !important;
+
+    filter: blur(25px) !important;
+
+    pointer-events: none !important;
+
+    z-index: -1 !important;
+}
+
+/* =========================================================
+   LOGO DA LOJA NA NOTIFICAÇÃO
+========================================================= */
+
+.header-perfil-aviso-pendencia-indicador {
+    position: relative !important;
+
+    width: 52px !important;
+    min-width: 52px !important;
+    height: 52px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 3px !important;
+
+    border-radius: 15px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.09) !important;
+
+    box-shadow:
+        0 6px 16px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+
+    overflow: hidden !important;
+}
+
+
+/* FOTO / LOGO */
+
+.header-perfil-aviso-pendencia-logo {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    border-radius: 11px !important;
+
+    object-fit: cover !important;
+    object-position: center !important;
+
+    background: #f8fafc !important;
+}
+
+
+/* remove qualquer decoração antiga */
+
+.header-perfil-aviso-pendencia-indicador::before,
+.header-perfil-aviso-pendencia-indicador::after,
+.header-perfil-aviso-pendencia-indicador span,
+.header-perfil-aviso-pendencia-indicador span::before,
+.header-perfil-aviso-pendencia-indicador span::after {
+    display: none !important;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+
+    .header-perfil-aviso-pendencia-indicador {
+        width: 46px !important;
+        min-width: 46px !important;
+        height: 46px !important;
+
+        padding: 3px !important;
+
+        border-radius: 13px !important;
+    }
+
+    .header-perfil-aviso-pendencia-logo {
+        border-radius: 10px !important;
+    }
+}
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.header-perfil-aviso-pendencia-conteudo {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+
+    gap: 4px !important;
+
+    padding: 1px 0 !important;
+}
+
+
+/* =========================================================
+   CATEGORIA
+========================================================= */
+
+.header-perfil-aviso-pendencia-tipo {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    width: fit-content !important;
+
+    margin: 0 !important;
+    padding: 3px 7px !important;
+
+    border-radius: 6px !important;
+
+    background:
+        rgba(37, 99, 235, 0.075) !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.08) !important;
+
+    color: #1d4ed8 !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.15 !important;
+
+    letter-spacing: 0.55px !important;
+
+    text-transform: uppercase !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.header-perfil-aviso-pendencia-titulo {
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 14px !important;
+    font-weight: 750 !important;
+
+    line-height: 1.3 !important;
+
+    letter-spacing: -0.2px !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   DETALHE
+========================================================= */
+
+.header-perfil-aviso-pendencia-detalhe {
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 550 !important;
+
+    line-height: 1.35 !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   FECHAR
+========================================================= */
+
+.header-perfil-aviso-pendencia-fechar {
+    position: relative !important;
+
+    width: 30px !important;
+    min-width: 30px !important;
+    height: 30px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    align-self: start !important;
+
+    margin: 0 !important;
+    padding: 0 0 2px !important;
+
+    border:
+        1px solid transparent !important;
+
+    border-radius: 9px !important;
+
+    background: transparent !important;
+
+    color: #94a3b8 !important;
+
+    font-family: Arial, sans-serif !important;
+
+    font-size: 20px !important;
+    font-weight: 400 !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        color 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+
+.header-perfil-aviso-pendencia-fechar:hover {
+    color: #334155 !important;
+
+    background:
+        rgba(15, 23, 42, 0.055) !important;
+
+    border-color:
+        rgba(15, 23, 42, 0.06) !important;
+
+    transform: scale(1.05) !important;
+}
+
+
+.header-perfil-aviso-pendencia-fechar:active {
+    transform: scale(0.92) !important;
+}
+
+
+/* =========================================================
+   PROGRESSO DE 3 SEGUNDOS
+========================================================= */
+
+.header-perfil-aviso-pendencia-tempo {
+    position: absolute !important;
+
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+
+    width: 100% !important;
+    height: 3px !important;
+
+    background:
+        rgba(15, 23, 42, 0.045) !important;
+
+    overflow: hidden !important;
+}
+
+
+.header-perfil-aviso-pendencia-tempo::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            #172554,
+            #2563eb,
+            #60a5fa) !important;
+
+    transform-origin: left center !important;
+
+    box-shadow:
+        0 0 8px rgba(37, 99, 235, 0.25) !important;
+}
+
+
+.header-perfil-aviso-pendencia-visivel .header-perfil-aviso-pendencia-tempo::after {
+    animation:
+        ironAvisoTempo 3s linear forwards !important;
+}
+
+
+@keyframes ironAvisoTempo {
+
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DO ÍCONE
+========================================================= */
+
+.header-perfil-aviso-pendencia-visivel .header-perfil-aviso-pendencia-indicador {
+    animation:
+        ironAvisoIconeEntrada 0.55s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+
+@keyframes ironAvisoIconeEntrada {
+
+    0% {
+        opacity: 0;
+        transform:
+            scale(0.72) rotate(-5deg);
+    }
+
+    65% {
+        opacity: 1;
+        transform:
+            scale(1.05) rotate(1deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            scale(1) rotate(0);
+    }
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DOS TEXTOS
+========================================================= */
+
+.header-perfil-aviso-pendencia-visivel .header-perfil-aviso-pendencia-conteudo {
+    animation:
+        ironAvisoTextoEntrada 0.42s 0.05s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+
+@keyframes ironAvisoTextoEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateX(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================================
+   HOVER DA NOTIFICAÇÃO
+========================================================= */
+
+.header-perfil-aviso-pendencia-visivel:hover {
+    transform:
+        translate3d(0, -2px, 0) scale(1) !important;
+
+    box-shadow:
+        0 28px 70px rgba(15, 23, 42, 0.19),
+        0 10px 25px rgba(15, 23, 42, 0.09),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .header-perfil-aviso-pendencia {
+        top: 18px !important;
+        right: 16px !important;
+
+        width:
+            min(390px, calc(100vw - 32px)) !important;
+
+        min-height: 88px !important;
+
+        grid-template-columns:
+            48px minmax(0, 1fr) 30px !important;
+
+        gap: 10px !important;
+
+        padding: 11px !important;
+
+        border-radius: 18px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-indicador {
+        width: 46px !important;
+        min-width: 46px !important;
+        height: 46px !important;
+
+        border-radius: 14px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-titulo {
+        font-size: 13px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .header-perfil-aviso-pendencia {
+        top: 12px !important;
+
+        left: 12px !important;
+        right: 12px !important;
+
+        width: auto !important;
+
+        min-height: 82px !important;
+
+        grid-template-columns:
+            44px minmax(0, 1fr) 28px !important;
+
+        gap: 10px !important;
+
+        padding: 10px !important;
+
+        border-radius: 17px !important;
+
+        transform:
+            translate3d(0, -18px, 0) scale(0.98) !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-visivel {
+        transform:
+            translate3d(0, 0, 0) scale(1) !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-visivel:hover {
+        transform:
+            translate3d(0, 0, 0) scale(1) !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-indicador {
+        width: 44px !important;
+        min-width: 44px !important;
+        height: 44px !important;
+
+        border-radius: 13px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-indicador span {
+        width: 18px !important;
+        height: 18px !important;
+
+        border-radius: 5px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-tipo {
+        padding: 2px 6px !important;
+
+        font-size: 8px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-titulo {
+        font-size: 13px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-detalhe {
+        font-size: 10px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-fechar {
+        width: 28px !important;
+        min-width: 28px !important;
+        height: 28px !important;
+
+        font-size: 18px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE MUITO PEQUENO
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .header-perfil-aviso-pendencia {
+        top: 8px !important;
+        left: 8px !important;
+        right: 8px !important;
+
+        grid-template-columns:
+            40px minmax(0, 1fr) 26px !important;
+
+        gap: 8px !important;
+
+        padding: 9px !important;
+
+        border-radius: 15px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-indicador {
+        width: 40px !important;
+        min-width: 40px !important;
+        height: 40px !important;
+
+        border-radius: 12px !important;
+    }
+
+
+    .header-perfil-aviso-pendencia-titulo {
+        font-size: 12px !important;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .header-perfil-aviso-pendencia,
+    .header-perfil-aviso-pendencia *,
+    .header-perfil-aviso-pendencia::before,
+    .header-perfil-aviso-pendencia::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
