@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { API_URL } from "../../../../config";
 import BuscarProduto from "./componentes/buscarproduto";
 import ProdutoAtual from "./componentes/produtoatual";
 import ListaItens from "./componentes/listaitens";
@@ -10,7 +10,7 @@ import {
     VendaProvider,
     useVenda
 } from "./componentes/vendaprovider";
-
+import EmailPromocao from "./componentes/emailpromocao";
 import {
     buscarInputRef
 } from "./componentes/buscarproduto";
@@ -29,7 +29,8 @@ function ProdutividadeConteudo() {
     const {
         itens,
         total,
-
+        emailPromocaoPendente,
+        setEmailPromocaoPendente,
         aumentarQuantidade,
         diminuirQuantidade,
 
@@ -56,7 +57,88 @@ function ProdutividadeConteudo() {
        do React limpar o carrinho.
     =============================== */
     const vendaRapidaBloqueadaRef = React.useRef(false);
+    async function verificarEmailPromocao(vendaId) {
 
+        if (!vendaId) {
+            return;
+        }
+
+        try {
+
+            console.log(
+                "[PROMOÇÃO] Verificando venda:",
+                vendaId
+            );
+
+            const resp = await fetch(
+                `${API_URL}/vendas/${vendaId}/promocao-email`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${localStorage.getItem("token")}`
+                    }
+                }
+            );
+
+            let dados = null;
+
+            try {
+                dados = await resp.json();
+            } catch {
+                dados = null;
+            }
+
+            console.log(
+                "[PROMOÇÃO] Verificação:",
+                dados
+            );
+
+            if (!resp.ok) {
+                return;
+            }
+
+            if (dados?.solicitar_email !== true) {
+
+                console.log(
+                    "[PROMOÇÃO] Venda não solicita e-mail."
+                );
+
+                return;
+            }
+
+            console.log(
+                "[PROMOÇÃO] Venda qualificada para cadastro de e-mail."
+            );
+
+            setEmailPromocaoPendente({
+                vendaId: Number(vendaId),
+
+                valorPago:
+                    Number(
+                        dados?.valor_pago || 0
+                    ),
+
+                minimo:
+                    Number(
+                        dados?.minimo || 0
+                    )
+            });
+
+        } catch (erro) {
+
+            /*
+                Falha na promoção jamais pode
+                transformar venda concluída em erro.
+            */
+
+            console.error(
+                "[PROMOÇÃO] Erro ao verificar promoção:",
+                erro
+            );
+        }
+    }
     /* ===============================
        EXECUTAR VENDA RÁPIDA
     =============================== */
@@ -168,6 +250,26 @@ function ProdutividadeConteudo() {
 
             atualizarVenda:
                 atualizarVendaProcessando
+
+        }).then(resultado => {
+
+            if (
+                resultado?.ok === true &&
+                resultado?.vendaId &&
+                !venda.promocao
+            ) {
+
+                verificarEmailPromocao(
+                    resultado.vendaId
+                );
+            } else if (venda.promocao) {
+
+                console.log(
+                    "[PROMOÇÃO] Venda já utilizou promoção. " +
+                    "EmailPromocao não será exibido."
+                );
+            }
+
         }).catch(erro => {
 
             /*
@@ -301,6 +403,25 @@ function ProdutividadeConteudo() {
             if (
                 resultado.aguardandoPagamento !== true
             ) {
+
+                if (
+                    resultado?.ok === true &&
+                    resultado?.vendaId &&
+                    !venda.promocao
+                ) {
+
+                    verificarEmailPromocao(
+                        resultado.vendaId
+                    );
+
+                } else if (venda.promocao) {
+
+                    console.log(
+                        "[PROMOÇÃO] Venda já utilizou promoção. " +
+                        "EmailPromocao não será exibido."
+                    );
+                }
+
                 return;
             }
 
@@ -680,8 +801,11 @@ function ProdutividadeConteudo() {
                     }}
                     className="prod-card total"
                 >
-                    <TotalVenda />
-                </div>
+                    {emailPromocaoPendente ? (
+                        <EmailPromocao />
+                    ) : (
+                        <TotalVenda />
+                    )}                </div>
 
             </div>
 

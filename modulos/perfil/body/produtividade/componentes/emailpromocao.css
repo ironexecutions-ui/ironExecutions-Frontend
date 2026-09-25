@@ -1,0 +1,1075 @@
+/* =========================================================
+   EMAIL PROMOÇÃO
+   POS PREMIUM / MODERNO
+========================================================= */
+
+.email-promocao {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 280px !important;
+
+    position: relative !important;
+
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border-radius: 24px !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.09) !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(245, 196, 73, 0.20) 0%,
+            rgba(245, 196, 73, 0.05) 27%,
+            transparent 50%),
+        radial-gradient(circle at 0% 100%,
+            rgba(43, 106, 255, 0.12) 0%,
+            transparent 42%),
+        linear-gradient(145deg,
+            #14233a 0%,
+            #0c1829 48%,
+            #07111e 100%) !important;
+
+    box-shadow:
+        0 25px 65px rgba(0, 0, 0, 0.32),
+        0 8px 20px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+
+    isolation: isolate !important;
+}
+
+
+/* =========================================================
+   LUZ SUPERIOR
+========================================================= */
+
+.email-promocao::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 8% !important;
+
+    width: 84% !important;
+    height: 2px !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(245, 198, 76, 0.55),
+            #f8d36b,
+            rgba(245, 198, 76, 0.55),
+            transparent) !important;
+
+    box-shadow:
+        0 0 16px rgba(248, 211, 107, 0.32) !important;
+
+    z-index: 4 !important;
+}
+
+
+/* =========================================================
+   BRILHO DECORATIVO
+========================================================= */
+
+.email-promocao::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 220px !important;
+    height: 220px !important;
+
+    top: -145px !important;
+    right: -80px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(248, 207, 87, 0.13) !important;
+
+    filter: blur(30px) !important;
+
+    pointer-events: none !important;
+
+    z-index: 0 !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.email-promocao-conteudo {
+    width: 100% !important;
+    height: 100% !important;
+
+    position: relative !important;
+    z-index: 2 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    gap: 18px !important;
+
+    padding: 26px 28px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   ÁREA DE TEXTO
+========================================================= */
+
+.email-promocao-textos {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 7px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.email-promocao-textos h2 {
+    width: fit-content !important;
+
+    position: relative !important;
+
+    margin: 0 !important;
+    padding: 0 0 8px 0 !important;
+
+    color: #ffffff !important;
+
+    font-size:
+        clamp(19px,
+            1.8vw,
+            27px) !important;
+
+    font-weight: 900 !important;
+
+    line-height: 1.1 !important;
+
+    letter-spacing: -0.45px !important;
+
+    text-transform: uppercase !important;
+
+    text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.22) !important;
+}
+
+
+/* =========================================================
+   LINHA DO TÍTULO
+========================================================= */
+
+.email-promocao-textos h2::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: 52px !important;
+    height: 3px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(90deg,
+            #f7d367,
+            #c99b28) !important;
+
+    box-shadow:
+        0 0 12px rgba(247, 211, 103, 0.3) !important;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.email-promocao-descricao {
+    max-width: 680px !important;
+
+    margin: 3px 0 0 0 !important;
+    padding: 0 !important;
+
+    color: #b8c5d6 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.45 !important;
+
+    letter-spacing: 0 !important;
+}
+
+
+/* =========================================================
+   AVISO DO HORÁRIO
+========================================================= */
+
+.email-promocao-aviso {
+    width: 100% !important;
+
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 14px !important;
+
+    margin: 8px 0 0 0 !important;
+
+    padding: 12px 14px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border-radius: 14px !important;
+
+    border:
+        1px solid rgba(242, 195, 67, 0.20) !important;
+
+    background:
+        linear-gradient(90deg,
+            rgba(242, 195, 67, 0.12),
+            rgba(242, 195, 67, 0.035)) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025) !important;
+}
+
+
+/* =========================================================
+   BARRA LATERAL DO AVISO
+========================================================= */
+
+.email-promocao-aviso::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 8px !important;
+    bottom: 8px !important;
+    left: 0 !important;
+
+    width: 3px !important;
+
+    border-radius: 0 5px 5px 0 !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffe183,
+            #c9981e) !important;
+}
+
+
+/* =========================================================
+   08:00
+========================================================= */
+
+.email-promocao-relogio {
+    min-width: 67px !important;
+    height: 38px !important;
+
+    flex-shrink: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 10px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 10px !important;
+
+    border:
+        1px solid rgba(248, 210, 98, 0.33) !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 221, 119, 0.17),
+            rgba(205, 158, 34, 0.08)) !important;
+
+    color: #ffe18a !important;
+
+    font-size: 13px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+
+    letter-spacing: 0.6px !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 5px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+
+/* =========================================================
+   TEXTO DO AVISO
+========================================================= */
+
+.email-promocao-aviso>div {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 2px !important;
+}
+
+.email-promocao-aviso strong {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #f4f7fb !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.3 !important;
+
+    letter-spacing: 0 !important;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
+
+.email-promocao-form {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(220px, 1fr) auto !important;
+
+    grid-template-rows:
+        auto 52px !important;
+
+    column-gap: 10px !important;
+    row-gap: 7px !important;
+
+    align-items: end !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.email-promocao-label {
+    grid-column: 1 / -1 !important;
+
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 2px !important;
+
+    color: #dce5ef !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.2 !important;
+
+    letter-spacing: 0.2px !important;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.email-promocao-form input {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+
+    width: 100% !important;
+    height: 52px !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    padding:
+        0 17px !important;
+
+    box-sizing: border-box !important;
+
+    appearance: none !important;
+
+    outline: none !important;
+
+    border-radius: 13px !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.13) !important;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.075),
+            rgba(255, 255, 255, 0.045)) !important;
+
+    color: #ffffff !important;
+
+    caret-color: #f5cc5a !important;
+
+    font-family: inherit !important;
+
+    font-size: 15px !important;
+    font-weight: 600 !important;
+
+    line-height: normal !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.20),
+        0 4px 12px rgba(0, 0, 0, 0.08) !important;
+
+    transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease !important;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.email-promocao-form input::placeholder {
+    color: #718096 !important;
+
+    opacity: 1 !important;
+
+    font-weight: 500 !important;
+}
+
+
+/* =========================================================
+   INPUT HOVER
+========================================================= */
+
+.email-promocao-form input:hover:not(:disabled) {
+    border-color:
+        rgba(247, 207, 90, 0.38) !important;
+
+    background:
+        rgba(255, 255, 255, 0.08) !important;
+}
+
+
+/* =========================================================
+   INPUT FOCUS
+========================================================= */
+
+.email-promocao-form input:focus {
+    border-color: #e7bc46 !important;
+
+    background:
+        rgba(255, 255, 255, 0.09) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(231, 188, 70, 0.12),
+        0 7px 20px rgba(0, 0, 0, 0.15),
+        inset 0 1px 1px rgba(255, 255, 255, 0.04) !important;
+}
+
+
+/* =========================================================
+   INPUT DESABILITADO
+========================================================= */
+
+.email-promocao-form input:disabled {
+    opacity: 0.55 !important;
+
+    cursor: not-allowed !important;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.email-promocao-acoes {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+
+    height: 52px !important;
+
+    display: flex !important;
+    align-items: stretch !important;
+
+    gap: 8px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* =========================================================
+   BASE DOS BOTÕES
+========================================================= */
+
+.email-promocao-acoes button {
+    height: 52px !important;
+
+    position: relative !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 12px !important;
+
+    font-family: inherit !important;
+
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    user-select: none !important;
+
+    -webkit-tap-highlight-color:
+        transparent !important;
+
+    transition:
+        transform 160ms ease,
+        border-color 160ms ease,
+        background 160ms ease,
+        box-shadow 160ms ease,
+        opacity 160ms ease !important;
+}
+
+
+/* =========================================================
+   BOTÃO X
+========================================================= */
+
+.email-promocao-pular {
+    width: 52px !important;
+    min-width: 52px !important;
+
+    padding: 0 !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.11) !important;
+
+    background:
+        rgba(255, 255, 255, 0.045) !important;
+
+    color: #aab6c5 !important;
+
+    font-size: 15px !important;
+
+    filter: grayscale(1) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+}
+
+
+/* =========================================================
+   BOTÃO X HOVER
+========================================================= */
+
+.email-promocao-pular:hover:not(:disabled) {
+    border-color:
+        rgba(255, 104, 104, 0.32) !important;
+
+    background:
+        rgba(255, 77, 77, 0.09) !important;
+
+    color: #ff8c8c !important;
+
+    filter: grayscale(0) !important;
+
+    transform:
+        translateY(-2px) !important;
+
+    box-shadow:
+        0 7px 17px rgba(0, 0, 0, 0.13) !important;
+}
+
+
+/* =========================================================
+   BOTÃO CADASTRAR
+========================================================= */
+
+.email-promocao-salvar {
+    min-width: 140px !important;
+
+    padding:
+        0 20px !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid #ebc95b !important;
+
+    background:
+        linear-gradient(135deg,
+            #ffe487 0%,
+            #edc854 36%,
+            #d9aa31 72%,
+            #c7931c 100%) !important;
+
+    color: #111d2d !important;
+
+    font-size: 12px !important;
+
+    letter-spacing: 0.1px !important;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.2) !important;
+
+    box-shadow:
+        0 9px 22px rgba(213, 167, 40, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.48),
+        inset 0 -1px 0 rgba(110, 74, 0, 0.15) !important;
+}
+
+
+/* =========================================================
+   BRILHO DO BOTÃO
+========================================================= */
+
+.email-promocao-salvar::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -80% !important;
+
+    width: 55% !important;
+    height: 100% !important;
+
+    transform:
+        skewX(-20deg) !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.34),
+            transparent) !important;
+
+    transition:
+        left 500ms ease !important;
+}
+
+
+/* =========================================================
+   HOVER CADASTRAR
+========================================================= */
+
+.email-promocao-salvar:hover:not(:disabled) {
+    border-color:
+        #ffe18a !important;
+
+    background:
+        linear-gradient(135deg,
+            #ffea9b 0%,
+            #f4d469 36%,
+            #e3b73f 72%,
+            #d19e22 100%) !important;
+
+    transform:
+        translateY(-2px) !important;
+
+    box-shadow:
+        0 13px 28px rgba(213, 167, 40, 0.27),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+}
+
+.email-promocao-salvar:hover:not(:disabled)::before {
+    left: 130% !important;
+}
+
+
+/* =========================================================
+   CLICK
+========================================================= */
+
+.email-promocao-salvar:active:not(:disabled),
+.email-promocao-pular:active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.97) !important;
+}
+
+
+/* =========================================================
+   BOTÕES DESABILITADOS
+========================================================= */
+
+.email-promocao-acoes button:disabled {
+    cursor: not-allowed !important;
+
+    opacity: 0.42 !important;
+
+    transform: none !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.email-promocao-erro {
+    grid-column: 1 / -1 !important;
+
+    width: 100% !important;
+
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    margin: 2px 0 0 0 !important;
+
+    padding:
+        9px 12px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 10px !important;
+
+    border:
+        1px solid rgba(255, 100, 100, 0.24) !important;
+
+    background:
+        linear-gradient(90deg,
+            rgba(255, 76, 76, 0.12),
+            rgba(255, 76, 76, 0.045)) !important;
+
+    color: #ffaaaa !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.35 !important;
+
+    box-shadow:
+        inset 3px 0 0 rgba(255, 98, 98, 0.75) !important;
+
+    animation:
+        emailPromocaoErroEntrada 220ms ease-out !important;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO ERRO
+========================================================= */
+
+@keyframes emailPromocaoErroEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DA ÁREA
+========================================================= */
+
+.email-promocao-conteudo {
+    animation:
+        emailPromocaoEntrada 320ms cubic-bezier(0.22,
+            1,
+            0.36,
+            1) !important;
+}
+
+@keyframes emailPromocaoEntrada {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(8px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   TELAS MÉDIAS
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .email-promocao-conteudo {
+        padding:
+            22px 23px !important;
+
+        gap: 15px !important;
+    }
+
+    .email-promocao-textos h2 {
+        font-size: 20px !important;
+    }
+
+    .email-promocao-form {
+        grid-template-columns:
+            minmax(180px, 1fr) auto !important;
+    }
+
+    .email-promocao-salvar {
+        min-width: 120px !important;
+
+        padding:
+            0 15px !important;
+    }
+}
+
+
+/* =========================================================
+   TELAS MAIS ESTREITAS
+========================================================= */
+
+@media (max-width: 820px) {
+
+    .email-promocao {
+        min-height: 320px !important;
+
+        border-radius: 20px !important;
+    }
+
+    .email-promocao-conteudo {
+        padding: 20px !important;
+    }
+
+    .email-promocao-form {
+        display: flex !important;
+        flex-direction: column !important;
+
+        gap: 8px !important;
+    }
+
+    .email-promocao-label {
+        width: 100% !important;
+    }
+
+    .email-promocao-form input {
+        width: 100% !important;
+        height: 50px !important;
+    }
+
+    .email-promocao-acoes {
+        width: 100% !important;
+        height: 50px !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            50px 1fr !important;
+    }
+
+    .email-promocao-acoes button {
+        height: 50px !important;
+    }
+
+    .email-promocao-pular {
+        width: 50px !important;
+        min-width: 50px !important;
+    }
+
+    .email-promocao-salvar {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 560px) {
+
+    .email-promocao {
+        min-height: 0 !important;
+
+        border-radius: 17px !important;
+    }
+
+    .email-promocao-conteudo {
+        gap: 14px !important;
+
+        padding:
+            17px 16px !important;
+    }
+
+    .email-promocao-textos {
+        gap: 6px !important;
+    }
+
+    .email-promocao-textos h2 {
+        font-size: 18px !important;
+
+        letter-spacing:
+            -0.25px !important;
+    }
+
+    .email-promocao-descricao {
+        font-size: 12px !important;
+
+        line-height: 1.4 !important;
+    }
+
+    .email-promocao-aviso {
+        gap: 10px !important;
+
+        padding:
+            10px 11px !important;
+
+        border-radius: 12px !important;
+    }
+
+    .email-promocao-relogio {
+        min-width: 59px !important;
+        height: 34px !important;
+
+        padding:
+            0 7px !important;
+
+        font-size: 11px !important;
+    }
+
+    .email-promocao-aviso strong {
+        font-size: 11px !important;
+
+        line-height: 1.25 !important;
+    }
+
+    .email-promocao-label {
+        font-size: 11px !important;
+    }
+
+    .email-promocao-form input {
+        height: 49px !important;
+
+        padding:
+            0 14px !important;
+
+        border-radius: 11px !important;
+
+        font-size: 14px !important;
+    }
+
+    .email-promocao-acoes {
+        height: 48px !important;
+
+        grid-template-columns:
+            48px 1fr !important;
+    }
+
+    .email-promocao-acoes button {
+        height: 48px !important;
+
+        border-radius: 11px !important;
+    }
+
+    .email-promocao-pular {
+        width: 48px !important;
+        min-width: 48px !important;
+    }
+
+    .email-promocao-salvar {
+        font-size: 12px !important;
+    }
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .email-promocao-conteudo {
+        padding:
+            14px 13px !important;
+    }
+
+    .email-promocao-textos h2 {
+        font-size: 16px !important;
+    }
+
+    .email-promocao-aviso {
+        align-items: flex-start !important;
+    }
+
+    .email-promocao-relogio {
+        min-width: 55px !important;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   REDUZIR ANIMAÇÕES SE O SISTEMA PEDIR
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .email-promocao-conteudo,
+    .email-promocao-erro {
+        animation: none !important;
+    }
+
+    .email-promocao-form input,
+    .email-promocao-acoes button,
+    .email-promocao-salvar::before {
+        transition: none !important;
+    }
+}

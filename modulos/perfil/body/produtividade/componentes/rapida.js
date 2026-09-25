@@ -153,15 +153,31 @@ async function criarVenda(venda) {
                 Authorization:
                     `Bearer ${pegarToken()}`
             },
-
             body: JSON.stringify({
                 pagamento: venda.pagamento,
+
                 valor: venda.total,
+
+                subtotal:
+                    Number(
+                        venda.subtotal ??
+                        venda.total ??
+                        0
+                    ),
+
+                desconto:
+                    Number(
+                        venda.desconto || 0
+                    ),
+
+                promocao_codigo:
+                    venda.promocao?.codigo || null,
+
                 produtos: venda.itens,
 
                 /*
                     Venda rápida continua sem CPF.
-
+            
                     Quando precisar de CPF,
                     usamos o fluxo tradicional.
                 */

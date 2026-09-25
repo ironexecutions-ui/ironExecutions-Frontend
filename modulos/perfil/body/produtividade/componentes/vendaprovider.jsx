@@ -30,9 +30,18 @@ export function VendaProvider({ children }) {
     const [pixRapidoAtual, setPixRapidoAtual] = useState(null);
     const [vendasProcessando, setVendasProcessando] = useState([]);
     /* ===============================
+   EMAIL DE PROMOÇÃO
+=============================== */
+
+    const [
+        emailPromocaoPendente,
+        setEmailPromocaoPendente
+    ] = useState(null);
+    /* ===============================
        ABRIR PIX RÁPIDO
     =============================== */
-
+    const [promocaoAplicada, setPromocaoAplicada] =
+        useState(null);
     const abrirPixRapido = useCallback(
         (dadosPix) => {
 
@@ -70,17 +79,159 @@ export function VendaProvider({ children }) {
 
         setTotal(soma);
     }
+    /* ===============================
+       PROMOÇÃO / DESCONTO
+    =============================== */
 
+    const subtotalVenda =
+        Number(total || 0);
+
+    let valorDesconto = 0;
+
+    if (
+        promocaoAplicada &&
+        subtotalVenda >= Number(promocaoAplicada.minimo || 0)
+    ) {
+
+        if (
+            promocaoAplicada.tipo_desconto === "porcentagem"
+        ) {
+
+            valorDesconto =
+                subtotalVenda *
+                (
+                    Number(promocaoAplicada.desconto || 0) /
+                    100
+                );
+
+        } else {
+
+            valorDesconto =
+                Number(
+                    promocaoAplicada.desconto || 0
+                );
+        }
+    }
+
+    valorDesconto =
+        Math.min(
+            valorDesconto,
+            subtotalVenda
+        );
+
+    valorDesconto =
+        Number(
+            valorDesconto.toFixed(2)
+        );
+
+    const totalComDesconto =
+        Number(
+            Math.max(
+                subtotalVenda - valorDesconto,
+                0
+            ).toFixed(2)
+        );
+
+
+    /* ===============================
+       APLICAR PROMOÇÃO
+    =============================== */
+
+    function aplicarPromocao(promocao) {
+
+        if (!promocao) {
+            return false;
+        }
+
+        if (promocaoAplicada) {
+            return false;
+        }
+
+        const minimo =
+            Number(
+                promocao.minimo || 0
+            );
+
+        if (subtotalVenda < minimo) {
+            return false;
+        }
+
+        console.log(
+            "[PROMOÇÃO] Aplicada:",
+            promocao
+        );
+
+        setPromocaoAplicada(promocao);
+
+        return true;
+    }
+
+
+    /* ===============================
+       REMOVER PROMOÇÃO
+    =============================== */
+
+    function removerPromocao() {
+
+        console.log(
+            "[PROMOÇÃO] Removida:",
+            promocaoAplicada?.codigo
+        );
+
+        setPromocaoAplicada(null);
+    }
+
+
+    /* ===============================
+       REMOVER SE CAIR ABAIXO DO MÍNIMO
+    =============================== */
+
+    useEffect(() => {
+
+        if (!promocaoAplicada) {
+            return;
+        }
+
+        const minimo =
+            Number(
+                promocaoAplicada.minimo || 0
+            );
+
+        if (subtotalVenda < minimo) {
+
+            console.log(
+                "[PROMOÇÃO] Removida por valor mínimo:",
+                {
+                    codigo: promocaoAplicada.codigo,
+                    total: subtotalVenda,
+                    minimo
+                }
+            );
+
+            setPromocaoAplicada(null);
+        }
+
+    }, [
+        subtotalVenda,
+        promocaoAplicada
+    ]);
     /* ===============================
        LIMPAR VENDA ATUAL
     =============================== */
 
     function limparVenda() {
+
         setProdutoAtual(null);
+
         setItens([]);
+
         setTotal(0);
 
-        localStorage.removeItem("itensVenda");
+        setPromocaoAplicada(null);
+
+        localStorage.removeItem(
+            "itensVenda"
+        );
     }
 
     /* ===============================
@@ -469,36 +620,70 @@ export function VendaProvider({ children }) {
                 return null;
             }
 
-            if (total <= 0) {
+            if (totalComDesconto <= 0) {
                 return null;
             }
 
-            const itensSnapshot = itens.map(item => ({
-                ...item
-            }));
+            const itensSnapshot =
+                itens.map(item => ({
+                    ...item
+                }));
 
             return {
-                idLocal: gerarIdVendaLocal(),
 
-                vendaId: null,
+                idLocal:
+                    gerarIdVendaLocal(),
+
+                vendaId:
+                    null,
 
                 pagamento,
 
-                total: Number(total),
+                /* TOTAL ANTES DA PROMOÇÃO */
+                subtotal:
+                    Number(subtotalVenda),
 
-                itens: itensSnapshot,
+                /* VALOR DESCONTADO */
+                desconto:
+                    Number(valorDesconto),
 
-                emitirNota: emitirNota === true,
+                /* TOTAL QUE O CLIENTE PAGA */
+                total:
+                    Number(totalComDesconto),
 
-                status: "aguardando",
+                /* PROMOÇÃO UTILIZADA */
+                promocao:
+                    promocaoAplicada
+                        ? {
+                            ...promocaoAplicada
+                        }
+                        : null,
 
-                erro: null,
+                itens:
+                    itensSnapshot,
 
-                criadoEm: new Date().toISOString()
+                emitirNota:
+                    emitirNota === true,
+
+                status:
+                    "aguardando",
+
+                erro:
+                    null,
+
+                criadoEm:
+                    new Date().toISOString()
             };
         },
 
-        [itens, total, emitirNota]
+        [
+            itens,
+            subtotalVenda,
+            valorDesconto,
+            totalComDesconto,
+            promocaoAplicada,
+            emitirNota
+        ]
     );
     /* ===============================
        ADICIONAR VENDA À FILA
@@ -610,8 +795,21 @@ export function VendaProvider({ children }) {
                 aumentarQuantidade,
                 diminuirQuantidade,
                 removerItem,
-
                 total,
+
+                /* =====================
+                   PROMOÇÃO
+                ===================== */
+
+                promocaoAplicada,
+                setPromocaoAplicada,
+
+                aplicarPromocao,
+                removerPromocao,
+
+                subtotalVenda,
+                valorDesconto,
+                totalComDesconto,
 
                 limparVenda,
 
@@ -642,7 +840,15 @@ export function VendaProvider({ children }) {
                 pixRapidoAtual,
                 setPixRapidoAtual,
                 abrirPixRapido,
-                fecharPixRapido
+                fecharPixRapido,
+
+
+                /* =====================
+                   EMAIL DE PROMOÇÃO
+                ===================== */
+
+                emailPromocaoPendente,
+                setEmailPromocaoPendente
             }}
         >
             {children}

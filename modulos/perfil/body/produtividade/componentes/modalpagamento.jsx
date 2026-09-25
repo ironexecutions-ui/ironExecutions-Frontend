@@ -6,6 +6,11 @@ import { useVenda } from "./vendaprovider";
 
 export default function ModalPagamento({
     total,
+
+    subtotal = null,
+    desconto = 0,
+    promocao = null,
+
     fechar,
     emitirNota = false,
     modoPixRapido = false,
@@ -154,7 +159,8 @@ export default function ModalPagamento({
         setModalAberto,
 
         atualizarVendaProcessando,
-        fecharPixRapido
+        fecharPixRapido,
+        setEmailPromocaoPendente
     } = useVenda();
     /* ===============================
    DADOS DO PIX RÁPIDO
@@ -232,10 +238,28 @@ INICIALIZAR PIX RÁPIDO
             },
             body: JSON.stringify({
                 pagamento: tipoPagamento,
+
                 valor: total,
+
+                subtotal:
+                    subtotal !== null
+                        ? Number(subtotal)
+                        : Number(total),
+
+                desconto:
+                    Number(desconto || 0),
+
+                promocao_codigo:
+                    promocao?.codigo || null,
+
                 produtos: itens,
+
                 forcar_manual: forcarManual,
-                cpf: usarCpf ? cpf : null
+
+                cpf:
+                    usarCpf
+                        ? cpf
+                        : null
             })
         });
 
@@ -344,7 +368,76 @@ INICIALIZAR PIX RÁPIDO
 
         // NÃO fecha o modal automaticamente
     }
+    async function verificarEmailPromocaoVenda(
+        idVenda
+    ) {
 
+        if (!idVenda) {
+            return;
+        }
+
+        try {
+
+            console.log(
+                "[PROMOÇÃO] Verificando venda concluída:",
+                idVenda
+            );
+
+            const resp = await fetch(
+                `${API_URL}/vendas/${idVenda}/promocao-email`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${localStorage.getItem("token")}`
+                    }
+                }
+            );
+
+            let dados = null;
+
+            try {
+                dados = await resp.json();
+            } catch {
+                dados = null;
+            }
+
+            console.log(
+                "[PROMOÇÃO] Resultado:",
+                dados
+            );
+
+            if (!resp.ok) {
+                return;
+            }
+
+            if (dados?.solicitar_email !== true) {
+                return;
+            }
+
+            setEmailPromocaoPendente({
+                vendaId: Number(idVenda),
+
+                valorPago:
+                    Number(
+                        dados?.valor_pago || 0
+                    ),
+
+                minimo:
+                    Number(
+                        dados?.minimo || 0
+                    )
+            });
+
+        } catch (erro) {
+
+            console.error(
+                "[PROMOÇÃO] Falha ao verificar e-mail:",
+                erro
+            );
+        }
+    }
     async function confirmarPagamento() {
         if (imprimindoRef.current) {
             console.warn(
@@ -700,6 +793,8 @@ INICIALIZAR PIX RÁPIDO
                     erroNfce,
                     erroImpressao
                 }
+            ); await verificarEmailPromocaoVenda(
+                vendaId
             );
             setSucesso(true);
 

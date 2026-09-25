@@ -157,13 +157,17 @@ export default function TotalVenda() {
 
     const {
         total,
+        subtotalVenda,
+        valorDesconto,
+        totalComDesconto,
+        promocaoAplicada,
+
         itens,
         limparVenda,
         setLimparBusca,
         emitirNota,
         setEmitirNota
     } = useVenda();
-
 
     const [tema, setTema] = useState("escuro");
 
@@ -678,41 +682,43 @@ export default function TotalVenda() {
        VALOR FORMATADO
     =============================== */
 
+    /* ===============================
+    VALOR FORMATADO
+ =============================== */
+
     function valorExibido() {
+
+        const valorFinal =
+            Number(totalComDesconto || 0);
 
         if (
             mostrarUSD &&
             converte === 1 &&
             cambio &&
-            total > 0
+            valorFinal > 0
         ) {
 
             const convertido =
-                total / cambio;
-
+                valorFinal / cambio;
 
             const inteiro =
                 Math.floor(convertido);
 
-
             const centavos =
                 convertido - inteiro;
-
 
             const valorArredondado =
                 centavos > 0.30
                     ? Math.ceil(convertido)
                     : Math.floor(convertido);
 
-
             return (
                 `US$ ${valorArredondado.toFixed(2)}`
             );
         }
 
-
         return (
-            `R$ ${total.toFixed(2)}`
+            `R$ ${valorFinal.toFixed(2)}`
         );
     }
 
@@ -761,27 +767,32 @@ export default function TotalVenda() {
                 VALOR
             ========================= */}
 
+            {/* =========================
+    VALOR
+========================= */}
+
             <div
-                className={`cob-valor ${total > 0 &&
+                className={`cob-valor ${totalComDesconto > 0 &&
                     converte === 1
                     ? "clicavel"
                     : ""
                     }`}
-                onClick={() => {
+                onMouseEnter={() => {
 
                     if (
-                        total > 0 &&
+                        totalComDesconto > 0 &&
                         converte === 1 &&
                         cambio
                     ) {
-
-                        setMostrarUSD(
-                            valor => !valor
-                        );
+                        setMostrarUSD(true);
                     }
                 }}
+
+                onMouseLeave={() => {
+                    setMostrarUSD(false);
+                }}
                 title={
-                    total > 0 &&
+                    totalComDesconto > 0 &&
                         converte === 1
                         ? "Clique para alternar moeda"
                         : ""
@@ -790,10 +801,10 @@ export default function TotalVenda() {
 
                 <TotalValorAnimado
                     valor={valorExibido()}
-                    numeroComparacao={total}
+                    numeroComparacao={totalComDesconto}
                 />
-            </div>
 
+            </div>
 
             {/* =========================
                 EMITIR NOTA
@@ -900,12 +911,18 @@ export default function TotalVenda() {
             {abrirPagamento && (
 
                 <ModalPagamento
-                    total={total}
+                    total={totalComDesconto}
+
+                    subtotal={subtotalVenda}
+                    desconto={valorDesconto}
+                    promocao={promocaoAplicada}
+
                     emitirNota={
                         podeEmitirNfce
                             ? emitirNota
                             : false
                     }
+
                     fechar={() =>
                         setAbrirPagamento(false)
                     }

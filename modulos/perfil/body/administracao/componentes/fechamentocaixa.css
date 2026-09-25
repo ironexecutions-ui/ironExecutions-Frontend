@@ -1,13 +1,13 @@
 /* =========================================================
-   FECHAMENTO DE CAIXA
+   PROMOÇÕES
    PAINEL PRINCIPAL
 ========================================================= */
 
-.fechamento-caixa-painel-master {
-    width: 100%;
-    min-height: 100%;
-    padding: 24px;
-    box-sizing: border-box;
+.iron-promocoes-area {
+    width: 100% !important;
+    min-height: 100% !important;
+    padding: 24px !important;
+    box-sizing: border-box !important;
 
     background:
         radial-gradient(circle at top right,
@@ -15,10 +15,11 @@
             transparent 32%),
         linear-gradient(145deg,
             #f8f9fb 0%,
-            #f1f3f6 100%);
+            #f1f3f6 100%) !important;
 
-    color: #111827;
-    border-radius: 18px;
+    color: #111827 !important;
+
+    border-radius: 18px !important;
 
     font-family:
         Inter,
@@ -26,7 +27,7 @@
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        sans-serif;
+        sans-serif !important;
 }
 
 
@@ -34,824 +35,1021 @@
    CABEÇALHO
 ========================================================= */
 
-.fechamento-caixa-cabecalho-premium {
-    width: 100%;
+.iron-promocoes-header {
+    width: 100% !important;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
 
-    margin-bottom: 22px;
+    gap: 20px !important;
+
+    margin-bottom: 22px !important;
 }
 
-.fechamento-caixa-titulo-area {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.iron-promocoes-header-textos {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
 }
 
-.fechamento-caixa-titulo-mini {
-    color: #123d72;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.8px;
+.iron-promocoes-header-etiqueta {
+    color: #123d72 !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 1.8px !important;
+
+    text-transform: uppercase !important;
 }
 
-.fechamento-caixa-titulo-principal {
-    margin: 0;
+.iron-promocoes-header-titulo {
+    margin: 0 !important;
 
-    color: #101828;
-    font-size: 27px;
-    font-weight: 800;
-    letter-spacing: -0.7px;
+    color: #101828 !important;
+
+    font-size: 27px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: -0.7px !important;
 }
 
-.fechamento-caixa-subtitulo {
-    margin: 2px 0 0;
+.iron-promocoes-header-descricao {
+    margin: 2px 0 0 !important;
 
-    color: #667085;
-    font-size: 14px;
-    font-weight: 500;
+    color: #667085 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
 }
 
 
 /* =========================================================
-   BOTÃO RESUMO MENSAL
+   RESUMO SUPERIOR
 ========================================================= */
 
-.fechamento-caixa-botao-mensal {
-    min-height: 44px;
+.iron-promocoes-resumo {
+    display: flex !important;
+    align-items: center !important;
 
-    padding: 0 18px;
+    gap: 20px !important;
 
-    border: 1px solid #123d72;
-    border-radius: 10px;
+    padding: 13px 18px !important;
 
-    background: #ffffff;
-    color: #123d72;
+    background: #ffffff !important;
 
-    font-size: 13px;
-    font-weight: 750;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.fechamento-caixa-botao-mensal:hover {
-    background: #123d72;
-    color: #ffffff;
-
-    transform: translateY(-2px);
+    border: 1px solid #e1e5eb !important;
+    border-radius: 12px !important;
 
     box-shadow:
-        0 7px 18px rgba(18, 61, 114, 0.18);
+        0 4px 15px rgba(16, 24, 40, 0.045) !important;
 }
 
-.fechamento-caixa-botao-mensal:active {
-    transform: translateY(0);
+.iron-promocoes-resumo-item {
+    min-width: 75px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    gap: 4px !important;
 }
 
-.fechamento-caixa-botao-mensal-ativo {
-    background: #123d72;
-    color: #ffffff;
+.iron-promocoes-resumo-numero {
+    color: #123d72 !important;
+
+    font-size: 22px !important;
+    font-weight: 850 !important;
+
+    line-height: 1 !important;
+}
+
+.iron-promocoes-resumo-label {
+    color: #667085 !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+}
+
+.iron-promocoes-resumo-divisor {
+    width: 1px !important;
+    height: 34px !important;
+
+    background: #e2e6ec !important;
+}
+
+
+/* =========================================================
+   CARD DE CRIAÇÃO
+========================================================= */
+
+.iron-promocoes-criacao-card {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dfe4ea !important;
+    border-radius: 15px !important;
 
     box-shadow:
-        0 6px 16px rgba(18, 61, 114, 0.18);
+        0 5px 18px rgba(16, 24, 40, 0.05) !important;
 }
 
 
 /* =========================================================
-   ÁREA DOS FILTROS
+   CABEÇALHO CRIAÇÃO
 ========================================================= */
 
-.fechamento-caixa-filtros-premium {
-    width: 100%;
+.iron-promocoes-criacao-header {
+    display: flex !important;
+    align-items: center !important;
 
-    display: grid;
-    grid-template-columns:
-        repeat(4, minmax(140px, 1fr)) auto;
+    gap: 13px !important;
 
-    gap: 14px;
-
-    padding: 18px;
-    margin-bottom: 18px;
-
-    background: rgba(255, 255, 255, 0.92);
-
-    border: 1px solid #e2e6ec;
-    border-radius: 14px;
-
-    box-sizing: border-box;
-
-    box-shadow:
-        0 3px 12px rgba(16, 24, 40, 0.04);
-}
-
-
-/* =========================================================
-   GRUPO DE FILTRO
-========================================================= */
-
-.fechamento-caixa-filtro-grupo {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.fechamento-caixa-filtro-grupo label {
-    color: #344054;
-
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.fechamento-caixa-filtro-grupo input {
-    width: 100%;
-    height: 42px;
-
-    padding: 0 12px;
-
-    box-sizing: border-box;
-
-    border: 1px solid #d5dae2;
-    border-radius: 9px;
-
-    outline: none;
-
-    background: #f9fafb;
-    color: #101828;
-
-    font-size: 13px;
-    font-weight: 600;
-
-    transition:
-        border-color 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.fechamento-caixa-filtro-grupo input:hover {
-    border-color: #9da9b9;
-    background: #ffffff;
-}
-
-.fechamento-caixa-filtro-grupo input:focus {
-    background: #ffffff;
-
-    border-color: #123d72;
-
-    box-shadow:
-        0 0 0 3px rgba(18, 61, 114, 0.09);
-}
-
-
-/* =========================================================
-   BOTÃO LIMPAR
-========================================================= */
-
-.fechamento-caixa-limpar-filtros {
-    align-self: flex-end;
-
-    height: 42px;
-
-    padding: 0 17px;
-
-    border: 1px solid #d0d5dd;
-    border-radius: 9px;
-
-    background: #f5f6f8;
-    color: #344054;
-
-    font-size: 12px;
-    font-weight: 750;
-
-    cursor: pointer;
-
-    white-space: nowrap;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.fechamento-caixa-limpar-filtros:hover {
-    background: #e9edf2;
-    border-color: #b9c1cc;
-
-    transform: translateY(-1px);
-}
-
-
-/* =========================================================
-   INDICADORES
-========================================================= */
-
-.fechamento-caixa-indicadores {
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 14px;
-
-    margin-bottom: 22px;
-}
-
-
-/* =========================================================
-   CARD INDICADOR
-========================================================= */
-
-.fechamento-caixa-indicador-card {
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-
-    min-height: 100px;
-
-    padding: 18px 20px;
-
-    box-sizing: border-box;
-
-    overflow: hidden;
-
-    background: #ffffff;
-
-    border: 1px solid #e1e5eb;
-    border-radius: 14px;
-
-    box-shadow:
-        0 4px 15px rgba(16, 24, 40, 0.045);
-
-    transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        border-color 0.22s ease;
-}
-
-.fechamento-caixa-indicador-card::before {
-    content: "";
-
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 4px;
-    height: 100%;
-
-    background: #123d72;
-}
-
-.fechamento-caixa-indicador-card:hover {
-    transform: translateY(-3px);
-
-    border-color: #c8d2df;
-
-    box-shadow:
-        0 9px 24px rgba(16, 24, 40, 0.08);
-}
-
-.fechamento-caixa-indicador-card span {
-    color: #667085;
-
-    font-size: 12px;
-    font-weight: 650;
-}
-
-.fechamento-caixa-indicador-card strong {
-    color: #123d72;
-
-    font-size: 23px;
-    font-weight: 850;
-    letter-spacing: -0.5px;
-}
-
-
-/* =========================================================
-   RESUMO MENSAL
-========================================================= */
-
-.fechamento-caixa-resumo-mensal {
-    width: 100%;
-
-    margin-bottom: 24px;
-    padding: 20px;
-
-    box-sizing: border-box;
-
-    background: #ffffff;
-
-    border: 1px solid #dfe4ea;
-    border-radius: 15px;
-
-    box-shadow:
-        0 5px 18px rgba(16, 24, 40, 0.05);
-
-    animation:
-        fechamentoResumoEntrada 0.3s ease;
-}
-
-@keyframes fechamentoResumoEntrada {
-    from {
-        opacity: 0;
-        transform: translateY(-7px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* =========================================================
-   CABEÇALHO RESUMO
-========================================================= */
-
-.fechamento-caixa-resumo-mensal-cabecalho {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 17px;
-}
-
-.fechamento-caixa-resumo-mensal-cabecalho span {
-    color: #123d72;
-
-    font-size: 10px;
-    font-weight: 850;
-    letter-spacing: 1.6px;
-}
-
-.fechamento-caixa-resumo-mensal-cabecalho h5 {
-    margin: 3px 0 0;
-
-    color: #101828;
-
-    font-size: 20px;
-    font-weight: 800;
-}
-
-
-/* =========================================================
-   GRID DOS MESES
-========================================================= */
-
-.fechamento-caixa-meses-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fill, minmax(230px, 1fr));
-
-    gap: 12px;
-}
-
-
-/* =========================================================
-   CARD DO MÊS
-========================================================= */
-
-.fechamento-caixa-mes-card {
-    padding: 16px;
-
-    background:
-        linear-gradient(145deg,
-            #fafbfc,
-            #f3f5f8);
-
-    border: 1px solid #e2e6ec;
-    border-radius: 12px;
-
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.fechamento-caixa-mes-card:hover {
-    transform: translateY(-3px);
-
-    border-color: #bdc9d7;
-
-    box-shadow:
-        0 7px 18px rgba(16, 24, 40, 0.07);
-}
-
-.fechamento-caixa-mes-topo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 10px;
-}
-
-.fechamento-caixa-mes-topo strong {
-    color: #101828;
-
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.fechamento-caixa-mes-topo span {
-    color: #667085;
-
-    font-size: 10px;
-    font-weight: 650;
-}
-
-
-/* =========================================================
-   VALOR MENSAL
-========================================================= */
-
-.fechamento-caixa-mes-valor {
-    margin: 14px 0 12px;
-
-    color: #123d72;
-
-    font-size: 24px;
-    font-weight: 850;
-    letter-spacing: -0.5px;
-}
-
-
-/* =========================================================
-   VARIAÇÃO MENSAL
-========================================================= */
-
-.fechamento-caixa-variacao {
-    display: flex;
-    align-items: center;
-
-    gap: 6px;
-
-    padding-top: 10px;
-
-    border-top: 1px solid #e5e7eb;
-
-    font-size: 11px;
-}
-
-.fechamento-caixa-variacao strong {
-    font-size: 12px;
-    font-weight: 850;
-}
-
-.fechamento-caixa-variacao span {
-    color: #667085;
-    font-weight: 600;
-}
-
-.fechamento-caixa-variacao-aumento strong {
-    color: #067647;
-}
-
-.fechamento-caixa-variacao-queda strong {
-    color: #b42318;
-}
-
-.fechamento-caixa-variacao-neutro,
-.fechamento-caixa-variacao-neutra {
-    color: #667085;
-}
-
-
-/* =========================================================
-   LISTAGEM
-========================================================= */
-
-.fechamento-caixa-listagem-area {
-    width: 100%;
-}
-
-
-/* =========================================================
-   GRUPO POR DATA
-========================================================= */
-
-.fechamento-caixa-grupo-data {
-    width: 100%;
-
-    margin-bottom: 20px;
-
-    background: #ffffff;
-
-    border: 1px solid #dfe4ea;
-    border-radius: 14px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 4px 14px rgba(16, 24, 40, 0.045);
-
-    animation:
-        fechamentoGrupoEntrada 0.3s ease;
-}
-
-@keyframes fechamentoGrupoEntrada {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* =========================================================
-   CABEÇALHO DA DATA
-========================================================= */
-
-.fechamento-caixa-data-cabecalho {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 14px 18px;
+    padding: 18px 20px !important;
 
     background:
         linear-gradient(90deg,
             #eef2f6,
-            #f8f9fb);
+            #f8f9fb) !important;
 
-    border-bottom: 1px solid #dfe4ea;
+    border-bottom: 1px solid #dfe4ea !important;
 }
 
+.iron-promocoes-criacao-icone {
+    width: 42px !important;
+    height: 42px !important;
 
-/* =========================================================
-   DATA
-========================================================= */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-.fechamento-caixa-data-info {
-    display: flex;
-    align-items: center;
+    flex-shrink: 0 !important;
 
-    gap: 10px;
-}
+    background: #123d72 !important;
 
-.fechamento-caixa-data-info span {
-    padding: 4px 7px;
+    color: #ffffff !important;
 
-    background: #123d72;
-    color: #ffffff;
+    border-radius: 9px !important;
 
-    border-radius: 5px;
-
-    font-size: 9px;
-    font-weight: 850;
-    letter-spacing: 1px;
-}
-
-.fechamento-caixa-data-info strong {
-    color: #101828;
-
-    font-size: 16px;
-    font-weight: 850;
-}
-
-
-/* =========================================================
-   RESUMO DA DATA
-========================================================= */
-
-.fechamento-caixa-data-resumo {
-    display: flex;
-    align-items: center;
-
-    gap: 14px;
-}
-
-.fechamento-caixa-data-resumo span {
-    color: #667085;
-
-    font-size: 11px;
-    font-weight: 650;
-}
-
-.fechamento-caixa-data-resumo strong {
-    color: #123d72;
-
-    font-size: 15px;
-    font-weight: 850;
-}
-
-
-/* =========================================================
-   ITENS DO DIA
-========================================================= */
-
-.fechamento-caixa-itens-dia {
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* =========================================================
-   ITEM FECHAMENTO
-========================================================= */
-
-.fechamento-caixa-item-interativo {
-    width: 100%;
-
-    display: grid;
-
-    grid-template-columns:
-        90px minmax(180px, 1fr) minmax(160px, 0.6fr) 150px;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 15px 18px;
-
-    border: none;
-    border-bottom: 1px solid #edf0f3;
-
-    background: #ffffff;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    transition:
-        background 0.18s ease,
-        transform 0.18s ease,
-        box-shadow 0.18s ease;
-}
-
-.fechamento-caixa-item-interativo:last-child {
-    border-bottom: none;
-}
-
-.fechamento-caixa-item-interativo:hover {
-    position: relative;
-    z-index: 2;
-
-    background: #f5f8fc;
+    font-size: 17px !important;
+    font-weight: 850 !important;
 
     box-shadow:
-        inset 4px 0 0 #123d72;
+        0 5px 12px rgba(18, 61, 114, 0.18) !important;
+}
+
+.iron-promocoes-criacao-textos {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+.iron-promocoes-criacao-titulo {
+    margin: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 17px !important;
+    font-weight: 800 !important;
+}
+
+.iron-promocoes-criacao-descricao {
+    margin: 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
 }
 
 
 /* =========================================================
-   HORA
+   FORMULÁRIO
 ========================================================= */
 
-.fechamento-caixa-item-hora {
-    color: #123d72;
+.iron-promocoes-formulario {
+    width: 100% !important;
 
-    font-size: 16px;
-    font-weight: 850;
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+}
+
+.iron-promocoes-campo {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 7px !important;
+
+    min-width: 0 !important;
+}
+
+.iron-promocoes-campo-tipo {
+    margin-bottom: 20px !important;
+}
+
+.iron-promocoes-label {
+    margin: 0 !important;
+
+    color: #344054 !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
 }
 
 
 /* =========================================================
-   RESPONSÁVEL
+   TIPO DE DESCONTO
 ========================================================= */
 
-.fechamento-caixa-item-pessoa {
-    display: flex;
-    flex-direction: column;
+.iron-promocoes-tipo-opcoes {
+    width: 100% !important;
 
-    gap: 3px;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+
+    gap: 12px !important;
 }
 
-.fechamento-caixa-item-pessoa span {
-    color: #98a2b3;
+.iron-promocoes-tipo-botao {
+    min-height: 52px !important;
 
-    font-size: 10px;
-    font-weight: 650;
-}
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-.fechamento-caixa-item-pessoa strong {
-    color: #101828;
+    gap: 9px !important;
 
-    font-size: 13px;
-    font-weight: 750;
-}
+    padding: 8px 15px !important;
 
+    box-sizing: border-box !important;
 
-/* =========================================================
-   VALOR
-========================================================= */
+    background: #f9fafb !important;
 
-.fechamento-caixa-item-valor {
-    display: flex;
-    flex-direction: column;
+    border: 1px solid #d5dae2 !important;
+    border-radius: 10px !important;
 
-    gap: 3px;
-}
+    color: #344054 !important;
 
-.fechamento-caixa-item-valor span {
-    color: #98a2b3;
-
-    font-size: 10px;
-    font-weight: 650;
-}
-
-.fechamento-caixa-item-valor strong {
-    color: #123d72;
-
-    font-size: 14px;
-    font-weight: 850;
-}
-
-
-/* =========================================================
-   AÇÃO
-========================================================= */
-
-.fechamento-caixa-item-acao {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    gap: 8px;
-
-    color: #344054;
-
-    font-size: 11px;
-    font-weight: 750;
+    cursor: pointer !important;
 
     transition:
+        background 0.2s ease,
         color 0.2s ease,
-        transform 0.2s ease;
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
 }
 
-.fechamento-caixa-item-acao span {
-    color: #123d72;
+.iron-promocoes-tipo-botao:hover {
+    background: #ffffff !important;
 
-    font-size: 21px;
-    line-height: 1;
+    border-color: #123d72 !important;
 
-    transition:
-        transform 0.2s ease;
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 5px 15px rgba(18, 61, 114, 0.08) !important;
 }
 
-.fechamento-caixa-item-interativo:hover .fechamento-caixa-item-acao {
-    color: #123d72;
+.iron-promocoes-tipo-botao-ativo {
+    background: #123d72 !important;
+
+    border-color: #123d72 !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 6px 16px rgba(18, 61, 114, 0.18) !important;
 }
 
-.fechamento-caixa-item-interativo:hover .fechamento-caixa-item-acao span {
-    transform: translateX(4px);
+.iron-promocoes-tipo-simbolo {
+    min-width: 31px !important;
+    height: 31px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 5px !important;
+
+    box-sizing: border-box !important;
+
+    background: #e9edf2 !important;
+
+    border-radius: 7px !important;
+
+    color: #123d72 !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+}
+
+.iron-promocoes-tipo-botao-ativo .iron-promocoes-tipo-simbolo {
+    background: rgba(255, 255, 255, 0.16) !important;
+
+    color: #ffffff !important;
+}
+
+.iron-promocoes-tipo-texto {
+    color: #344054 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+}
+
+.iron-promocoes-tipo-botao-ativo .iron-promocoes-tipo-texto {
+    color: #ffffff !important;
 }
 
 
 /* =========================================================
-   CARREGANDO
+   GRID CAMPOS
 ========================================================= */
 
-.fechamento-caixa-carregando-premium {
-    width: 100%;
+.iron-promocoes-form-grid {
+    width: 100% !important;
 
-    padding: 45px 20px;
+    display: grid !important;
 
-    box-sizing: border-box;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
 
-    background: #ffffff;
-
-    border: 1px solid #e1e5eb;
-    border-radius: 14px;
-
-    color: #123d72;
-
-    text-align: center;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    animation:
-        fechamentoCarregandoPulso 1.4s ease-in-out infinite;
+    gap: 14px !important;
 }
 
-@keyframes fechamentoCarregandoPulso {
 
-    0%,
-    100% {
-        opacity: 0.55;
-    }
+/* =========================================================
+   INPUT BOX
+========================================================= */
 
-    50% {
-        opacity: 1;
-    }
+.iron-promocoes-input-box {
+    width: 100% !important;
+    height: 44px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+
+    background: #f9fafb !important;
+
+    border: 1px solid #d5dae2 !important;
+    border-radius: 9px !important;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.iron-promocoes-input-box:hover {
+    background: #ffffff !important;
+
+    border-color: #9da9b9 !important;
+}
+
+.iron-promocoes-input-box:focus-within {
+    background: #ffffff !important;
+
+    border-color: #123d72 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 61, 114, 0.09) !important;
+}
+
+
+/* =========================================================
+   PREFIXO INPUT
+========================================================= */
+
+.iron-promocoes-input-prefixo {
+    min-width: 48px !important;
+    height: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 9px !important;
+
+    box-sizing: border-box !important;
+
+    background: #eef2f6 !important;
+
+    border-right: 1px solid #d5dae2 !important;
+
+    color: #123d72 !important;
+
+    font-size: 11px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.iron-promocoes-input {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+
+    padding: 0 12px !important;
+
+    box-sizing: border-box !important;
+
+    background: transparent !important;
+
+    border: none !important;
+    outline: none !important;
+
+    color: #101828 !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+.iron-promocoes-input::placeholder {
+    color: #98a2b3 !important;
+
+    opacity: 1 !important;
+}
+
+.iron-promocoes-input-data {
+    color: #101828 !important;
+}
+
+.iron-promocoes-campo-ajuda {
+    color: #667085 !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   PRÉVIA
+========================================================= */
+
+.iron-promocoes-preview {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    margin-top: 20px !important;
+    padding: 17px 19px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(145deg,
+            #fafbfc,
+            #f3f5f8) !important;
+
+    border: 1px solid #e2e6ec !important;
+    border-radius: 12px !important;
+}
+
+.iron-promocoes-preview-conteudo {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+.iron-promocoes-preview-label {
+    color: #123d72 !important;
+
+    font-size: 9px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 1.2px !important;
+
+    text-transform: uppercase !important;
+}
+
+.iron-promocoes-preview-desconto {
+    color: #123d72 !important;
+
+    font-size: 24px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: -0.5px !important;
+}
+
+.iron-promocoes-preview-condicao {
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    font-weight: 600 !important;
+}
+
+.iron-promocoes-preview-validade {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+
+    gap: 4px !important;
+}
+
+.iron-promocoes-preview-validade-label {
+    color: #667085 !important;
+
+    font-size: 9px !important;
+    font-weight: 750 !important;
+
+    text-transform: uppercase !important;
+
+    letter-spacing: 0.7px !important;
+}
+
+.iron-promocoes-preview-validade-valor {
+    color: #101828 !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   BOTÕES FORMULÁRIO
+========================================================= */
+
+.iron-promocoes-form-acoes {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    gap: 10px !important;
+
+    margin-top: 20px !important;
+}
+
+.iron-promocoes-botao-limpar {
+    min-height: 42px !important;
+
+    padding: 0 17px !important;
+
+    background: #f5f6f8 !important;
+
+    border: 1px solid #d0d5dd !important;
+    border-radius: 9px !important;
+
+    color: #344054 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+.iron-promocoes-botao-limpar:hover {
+    background: #e9edf2 !important;
+
+    border-color: #b9c1cc !important;
+
+    transform: translateY(-1px) !important;
+}
+
+.iron-promocoes-botao-criar {
+    min-width: 155px !important;
+    min-height: 42px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    padding: 0 18px !important;
+
+    background: #123d72 !important;
+
+    border: 1px solid #123d72 !important;
+    border-radius: 9px !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 6px 16px rgba(18, 61, 114, 0.18) !important;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.iron-promocoes-botao-criar:hover:not(:disabled) {
+    background: #0d315e !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 8px 20px rgba(18, 61, 114, 0.24) !important;
+}
+
+.iron-promocoes-botao-criar:disabled {
+    opacity: 0.6 !important;
+
+    cursor: not-allowed !important;
+
+    transform: none !important;
+}
+
+.iron-promocoes-botao-mais {
+    color: #ffffff !important;
+
+    font-size: 17px !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   ÁREA DA LISTA
+========================================================= */
+
+.iron-promocoes-lista-area {
+    width: 100% !important;
+
+    margin-top: 25px !important;
+}
+
+.iron-promocoes-lista-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    margin-bottom: 14px !important;
+}
+
+.iron-promocoes-lista-titulo {
+    margin: 0 !important;
+
+    color: #101828 !important;
+
+    font-size: 19px !important;
+    font-weight: 800 !important;
+}
+
+.iron-promocoes-lista-descricao {
+    margin: 3px 0 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+
+/* =========================================================
+   ATUALIZAR
+========================================================= */
+
+.iron-promocoes-atualizar {
+    min-height: 38px !important;
+
+    padding: 0 14px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #123d72 !important;
+    border-radius: 9px !important;
+
+    color: #123d72 !important;
+
+    font-size: 11px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+.iron-promocoes-atualizar:hover:not(:disabled) {
+    background: #123d72 !important;
+
+    color: #ffffff !important;
+
+    transform: translateY(-1px) !important;
+}
+
+.iron-promocoes-atualizar:disabled {
+    opacity: 0.5 !important;
+
+    cursor: not-allowed !important;
+}
+
+
+/* =========================================================
+   GRID PROMOÇÕES
+========================================================= */
+
+.iron-promocoes-cards {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(280px, 1fr)) !important;
+
+    gap: 14px !important;
+}
+
+
+/* =========================================================
+   CARD PROMOÇÃO
+========================================================= */
+
+.iron-promocoes-card {
+    position: relative !important;
+
+    min-width: 0 !important;
+
+    padding: 18px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #e1e5eb !important;
+    border-radius: 14px !important;
+
+    box-shadow:
+        0 4px 15px rgba(16, 24, 40, 0.045) !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease !important;
+}
+
+.iron-promocoes-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background: #123d72 !important;
+}
+
+.iron-promocoes-card:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: #c8d2df !important;
+
+    box-shadow:
+        0 9px 24px rgba(16, 24, 40, 0.08) !important;
+}
+
+.iron-promocoes-card-expirado {
+    opacity: 0.7 !important;
+}
+
+.iron-promocoes-card-expirado::before {
+    background: #98a2b3 !important;
+}
+
+
+/* =========================================================
+   CARD CABEÇALHO
+========================================================= */
+
+.iron-promocoes-card-header {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+}
+
+.iron-promocoes-card-desconto {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+.iron-promocoes-card-desconto-valor {
+    color: #123d72 !important;
+
+    font-size: 27px !important;
+    font-weight: 850 !important;
+
+    line-height: 1 !important;
+
+    letter-spacing: -0.7px !important;
+}
+
+.iron-promocoes-card-desconto-texto {
+    color: #667085 !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.iron-promocoes-card-status {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 6px !important;
+
+    padding: 6px 9px !important;
+
+    border-radius: 999px !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+}
+
+.iron-promocoes-card-status-ponto {
+    width: 6px !important;
+    height: 6px !important;
+
+    border-radius: 50% !important;
+
+    background: currentColor !important;
+}
+
+.iron-promocoes-card-status-ativo {
+    background: #ecfdf3 !important;
+
+    color: #067647 !important;
+
+    border: 1px solid #abefc6 !important;
+}
+
+.iron-promocoes-card-status-expirado {
+    background: #f2f4f7 !important;
+
+    color: #667085 !important;
+
+    border: 1px solid #e4e7ec !important;
+}
+
+
+/* =========================================================
+   LINHA
+========================================================= */
+
+.iron-promocoes-card-linha {
+    width: 100% !important;
+    height: 1px !important;
+
+    margin: 16px 0 !important;
+
+    background: #e5e7eb !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES
+========================================================= */
+
+.iron-promocoes-card-informacoes {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+
+    gap: 15px !important;
+}
+
+.iron-promocoes-card-info {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+}
+
+.iron-promocoes-card-info-label {
+    color: #98a2b3 !important;
+
+    font-size: 9px !important;
+    font-weight: 750 !important;
+
+    text-transform: uppercase !important;
+
+    letter-spacing: 0.5px !important;
+}
+
+.iron-promocoes-card-info-valor {
+    color: #101828 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.iron-promocoes-card-rodape {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    margin-top: 17px !important;
+    padding-top: 13px !important;
+
+    border-top: 1px solid #e5e7eb !important;
+}
+
+.iron-promocoes-card-id {
+    color: #98a2b3 !important;
+
+    font-size: 9px !important;
+    font-weight: 650 !important;
+}
+
+
+/* =========================================================
+   EXCLUIR
+========================================================= */
+
+.iron-promocoes-card-excluir {
+    min-height: 32px !important;
+
+    padding: 0 11px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #f0b8b3 !important;
+    border-radius: 7px !important;
+
+    color: #b42318 !important;
+
+    font-size: 10px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+.iron-promocoes-card-excluir:hover:not(:disabled) {
+    background: #fef3f2 !important;
+
+    border-color: #d92d20 !important;
+
+    transform: translateY(-1px) !important;
+}
+
+.iron-promocoes-card-excluir:disabled {
+    opacity: 0.5 !important;
+
+    cursor: not-allowed !important;
 }
 
 
@@ -859,39 +1057,219 @@
    VAZIO
 ========================================================= */
 
-.fechamento-caixa-vazio-premium {
-    min-height: 180px;
+.iron-promocoes-vazio {
+    min-height: 190px !important;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-    gap: 6px;
+    gap: 6px !important;
 
-    padding: 25px;
+    padding: 25px !important;
 
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 
-    background: #ffffff;
+    background: #ffffff !important;
 
-    border: 1px dashed #cbd2dc;
-    border-radius: 14px;
+    border: 1px dashed #cbd2dc !important;
+    border-radius: 14px !important;
 
-    text-align: center;
+    text-align: center !important;
 }
 
-.fechamento-caixa-vazio-premium strong {
-    color: #101828;
+.iron-promocoes-vazio-icone {
+    width: 48px !important;
+    height: 48px !important;
 
-    font-size: 15px;
-    font-weight: 800;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 5px !important;
+
+    background: #eef2f6 !important;
+
+    border-radius: 11px !important;
+
+    color: #123d72 !important;
+
+    font-size: 19px !important;
+    font-weight: 850 !important;
 }
 
-.fechamento-caixa-vazio-premium span {
-    color: #667085;
+.iron-promocoes-vazio-titulo {
+    margin: 0 !important;
 
-    font-size: 12px;
+    color: #101828 !important;
+
+    font-size: 15px !important;
+    font-weight: 800 !important;
+}
+
+.iron-promocoes-vazio-descricao {
+    margin: 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.iron-promocoes-loading {
+    width: 100% !important;
+    min-height: 180px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 10px !important;
+
+    padding: 30px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #e1e5eb !important;
+    border-radius: 14px !important;
+}
+
+.iron-promocoes-loading-texto {
+    color: #123d72 !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+.iron-promocoes-loading-spinner {
+    width: 25px !important;
+    height: 25px !important;
+
+    display: inline-block !important;
+
+    border: 3px solid #dfe4ea !important;
+    border-top-color: #123d72 !important;
+
+    border-radius: 50% !important;
+
+    animation:
+        ironPromocoesGirar 0.75s linear infinite !important;
+}
+
+.iron-promocoes-spinner {
+    width: 13px !important;
+    height: 13px !important;
+
+    display: inline-block !important;
+
+    border: 2px solid rgba(255, 255, 255, 0.35) !important;
+    border-top-color: #ffffff !important;
+
+    border-radius: 50% !important;
+
+    animation:
+        ironPromocoesGirar 0.75s linear infinite !important;
+}
+
+@keyframes ironPromocoesGirar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   ALERTAS
+========================================================= */
+
+.iron-promocoes-alerta {
+    position: fixed !important;
+
+    top: 24px !important;
+    right: 24px !important;
+
+    z-index: 999999 !important;
+
+    max-width: 400px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    padding: 13px 16px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 12px 35px rgba(16, 24, 40, 0.2) !important;
+
+    animation:
+        ironPromocoesAlertaEntrada 0.25s ease !important;
+}
+
+.iron-promocoes-alerta-sucesso {
+    background: #067647 !important;
+
+    border: 1px solid #05603a !important;
+}
+
+.iron-promocoes-alerta-erro {
+    background: #b42318 !important;
+
+    border: 1px solid #912018 !important;
+}
+
+.iron-promocoes-alerta-icone {
+    width: 24px !important;
+    height: 24px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+
+    background: rgba(255, 255, 255, 0.15) !important;
+
+    border-radius: 50% !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+}
+
+.iron-promocoes-alerta-texto {
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 650 !important;
+
+    line-height: 1.45 !important;
+}
+
+@keyframes ironPromocoesAlertaEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -899,22 +1277,23 @@
    SCROLLBAR
 ========================================================= */
 
-.fechamento-caixa-painel-master ::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
+.iron-promocoes-area ::-webkit-scrollbar {
+    width: 7px !important;
+    height: 7px !important;
 }
 
-.fechamento-caixa-painel-master ::-webkit-scrollbar-track {
-    background: #eef1f4;
+.iron-promocoes-area ::-webkit-scrollbar-track {
+    background: #eef1f4 !important;
 }
 
-.fechamento-caixa-painel-master ::-webkit-scrollbar-thumb {
-    background: #aeb9c7;
-    border-radius: 20px;
+.iron-promocoes-area ::-webkit-scrollbar-thumb {
+    background: #aeb9c7 !important;
+
+    border-radius: 20px !important;
 }
 
-.fechamento-caixa-painel-master ::-webkit-scrollbar-thumb:hover {
-    background: #123d72;
+.iron-promocoes-area ::-webkit-scrollbar-thumb:hover {
+    background: #123d72 !important;
 }
 
 
@@ -922,20 +1301,16 @@
    TABLET
 ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
 
-    .fechamento-caixa-filtros-premium {
+    .iron-promocoes-form-grid {
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2, minmax(0, 1fr)) !important;
     }
 
-    .fechamento-caixa-limpar-filtros {
-        width: 100%;
-    }
-
-    .fechamento-caixa-item-interativo {
+    .iron-promocoes-cards {
         grid-template-columns:
-            75px 1fr 150px 130px;
+            repeat(2, minmax(0, 1fr)) !important;
     }
 }
 
@@ -944,32 +1319,37 @@
    TABLET PEQUENO
 ========================================================= */
 
-@media (max-width: 800px) {
+@media (max-width: 750px) {
 
-    .fechamento-caixa-painel-master {
-        padding: 16px;
+    .iron-promocoes-area {
+        padding: 16px !important;
+
+        border-radius: 14px !important;
     }
 
-    .fechamento-caixa-cabecalho-premium {
-        align-items: flex-start;
-        flex-direction: column;
+    .iron-promocoes-header {
+        align-items: flex-start !important;
+        flex-direction: column !important;
     }
 
-    .fechamento-caixa-botao-mensal {
-        width: 100%;
+    .iron-promocoes-resumo {
+        width: 100% !important;
+
+        box-sizing: border-box !important;
+
+        justify-content: center !important;
     }
 
-    .fechamento-caixa-indicadores {
-        grid-template-columns: 1fr;
+    .iron-promocoes-resumo-item {
+        flex: 1 !important;
     }
 
-    .fechamento-caixa-item-interativo {
-        grid-template-columns:
-            65px 1fr 140px;
+    .iron-promocoes-form-grid {
+        grid-template-columns: 1fr !important;
     }
 
-    .fechamento-caixa-item-acao {
-        display: none;
+    .iron-promocoes-cards {
+        grid-template-columns: 1fr !important;
     }
 }
 
@@ -980,448 +1360,81 @@
 
 @media (max-width: 600px) {
 
-    .fechamento-caixa-painel-master {
-        padding: 11px;
+    .iron-promocoes-area {
+        padding: 11px !important;
 
-        border-radius: 12px;
+        border-radius: 12px !important;
     }
 
-    .fechamento-caixa-titulo-principal {
-        font-size: 22px;
+    .iron-promocoes-header {
+        gap: 14px !important;
+
+        margin-bottom: 16px !important;
     }
 
-    .fechamento-caixa-subtitulo {
-        font-size: 12px;
+    .iron-promocoes-header-titulo {
+        font-size: 22px !important;
     }
 
-    .fechamento-caixa-filtros-premium {
-        grid-template-columns: 1fr;
-
-        padding: 13px;
+    .iron-promocoes-header-descricao {
+        font-size: 12px !important;
     }
 
-    .fechamento-caixa-indicador-card {
-        min-height: 85px;
-
-        padding: 15px 17px;
+    .iron-promocoes-resumo {
+        padding: 12px !important;
     }
 
-    .fechamento-caixa-indicador-card strong {
-        font-size: 20px;
+    .iron-promocoes-criacao-header {
+        padding: 15px !important;
     }
 
-    .fechamento-caixa-resumo-mensal {
-        padding: 13px;
+    .iron-promocoes-formulario {
+        padding: 14px !important;
     }
 
-    .fechamento-caixa-meses-grid {
-        grid-template-columns: 1fr;
+    .iron-promocoes-tipo-opcoes {
+        grid-template-columns: 1fr !important;
     }
 
-    .fechamento-caixa-data-cabecalho {
-        align-items: flex-start;
-        flex-direction: column;
+    .iron-promocoes-preview {
+        align-items: flex-start !important;
+        flex-direction: column !important;
 
-        padding: 13px;
+        padding: 14px !important;
     }
 
-    .fechamento-caixa-data-resumo {
-        width: 100%;
-
-        justify-content: space-between;
+    .iron-promocoes-preview-validade {
+        align-items: flex-start !important;
     }
 
-    .fechamento-caixa-item-interativo {
-        position: relative;
-
-        grid-template-columns:
-            55px 1fr;
-
-        gap: 10px;
-
-        padding: 14px;
+    .iron-promocoes-form-acoes {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
     }
 
-    .fechamento-caixa-item-hora {
-        grid-row: span 2;
-
-        align-self: center;
-
-        font-size: 14px;
+    .iron-promocoes-botao-limpar,
+    .iron-promocoes-botao-criar {
+        width: 100% !important;
     }
 
-    .fechamento-caixa-item-pessoa {
-        grid-column: 2;
+    .iron-promocoes-lista-header {
+        align-items: flex-start !important;
     }
 
-    .fechamento-caixa-item-valor {
-        grid-column: 2;
+    .iron-promocoes-card {
+        padding: 15px !important;
     }
 
-    .fechamento-caixa-item-valor strong {
-        font-size: 15px;
-    }
-}
-
-
-/* =========================================================
-   MOBILE MUITO PEQUENO
-========================================================= */
-
-@media (max-width: 380px) {
-
-    .fechamento-caixa-painel-master {
-        padding: 8px;
+    .iron-promocoes-card-desconto-valor {
+        font-size: 24px !important;
     }
 
-    .fechamento-caixa-titulo-principal {
-        font-size: 20px;
-    }
-
-    .fechamento-caixa-data-info {
-        gap: 6px;
-    }
-
-    .fechamento-caixa-data-info strong {
-        font-size: 14px;
-    }
-
-    .fechamento-caixa-data-resumo {
-        flex-direction: column;
-        align-items: flex-start;
-
-        gap: 4px;
-    }
-}
-
-/* =========================================================
-   FORÇAR CORES DOS TEXTOS
-   COLOCAR NO FINAL DO CSS
-========================================================= */
-
-/* PRETO PRINCIPAL */
-.fechamento-caixa-titulo-principal,
-.fechamento-caixa-resumo-mensal-cabecalho h5,
-.fechamento-caixa-mes-topo strong,
-.fechamento-caixa-data-info strong,
-.fechamento-caixa-item-pessoa strong,
-.fechamento-caixa-vazio-premium strong {
-    color: #101828 !important;
-}
-
-
-/* AZUL ESCURO PRINCIPAL */
-.fechamento-caixa-titulo-mini,
-.fechamento-caixa-indicador-card strong,
-.fechamento-caixa-resumo-mensal-cabecalho span,
-.fechamento-caixa-mes-valor,
-.fechamento-caixa-data-resumo strong,
-.fechamento-caixa-item-hora,
-.fechamento-caixa-item-valor strong,
-.fechamento-caixa-item-acao span,
-.fechamento-caixa-carregando-premium {
-    color: #123d72 !important;
-}
-
-
-/* CINZA ESCURO */
-.fechamento-caixa-filtro-grupo label,
-.fechamento-caixa-limpar-filtros,
-.fechamento-caixa-item-acao {
-    color: #344054 !important;
-}
-
-
-/* CINZA MÉDIO */
-.fechamento-caixa-subtitulo,
-.fechamento-caixa-indicador-card span,
-.fechamento-caixa-mes-topo span,
-.fechamento-caixa-variacao span,
-.fechamento-caixa-data-resumo span,
-.fechamento-caixa-vazio-premium span,
-.fechamento-caixa-variacao-neutro,
-.fechamento-caixa-variacao-neutra {
-    color: #667085 !important;
-}
-
-
-/* CINZA CLARO PARA TEXTOS SECUNDÁRIOS */
-.fechamento-caixa-item-pessoa span,
-.fechamento-caixa-item-valor span {
-    color: #7c8798 !important;
-}
-
-
-/* INPUTS */
-.fechamento-caixa-filtro-grupo input {
-    color: #101828 !important;
-}
-
-
-/* BOTÃO RESUMO MENSAL */
-.fechamento-caixa-botao-mensal {
-    color: #123d72 !important;
-}
-
-.fechamento-caixa-botao-mensal:hover,
-.fechamento-caixa-botao-mensal-ativo {
-    color: #ffffff !important;
-}
-
-
-/* ETIQUETA "DATA" */
-.fechamento-caixa-data-info span {
-    color: #ffffff !important;
-}
-
-
-/* CRESCIMENTO */
-.fechamento-caixa-variacao-aumento strong {
-    color: #067647 !important;
-}
-
-
-/* QUEDA */
-.fechamento-caixa-variacao-queda strong {
-    color: #b42318 !important;
-}
-
-
-/* HOVER DOS ITENS */
-.fechamento-caixa-item-interativo:hover .fechamento-caixa-item-acao {
-    color: #123d72 !important;
-}
-
-
-/* GARANTIA PARA BOTÕES */
-.fechamento-caixa-item-interativo {
-    color: #101828 !important;
-}
-
-
-/* PLACEHOLDER DOS INPUTS */
-.fechamento-caixa-filtro-grupo input::placeholder {
-    color: #667085 !important;
-}
-
-
-/* TEXTO SELECIONADO */
-.fechamento-caixa-painel-master ::selection {
-    background: #123d72 !important;
-    color: #ffffff !important;
-}
-
-/* =========================================================
-   FILTRO POR FUNCIONÁRIO
-========================================================= */
-
-.fechamento-caixa-funcionarios-filtro {
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 13px;
-
-    padding: 16px 18px;
-
-    border-radius: 18px;
-
-    background:
-        radial-gradient(circle at 0% 0%,
-            rgba(37, 99, 235, 0.08),
-            transparent 38%),
-        linear-gradient(145deg,
-            rgba(255, 255, 255, 0.98),
-            rgba(248, 250, 252, 0.96));
-
-    border: 1px solid rgba(15, 23, 42, 0.09);
-
-    box-shadow:
-        0 8px 22px rgba(15, 23, 42, 0.055),
-        inset 0 1px 0 #ffffff;
-
-    overflow: hidden;
-}
-
-
-/* =========================================================
-   CABEÇALHO
-========================================================= */
-
-.fechamento-caixa-funcionarios-cabecalho {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    min-width: 0;
-}
-
-
-.fechamento-caixa-funcionarios-cabecalho span {
-    color: #64748b;
-
-    font-size: 10px;
-    font-weight: 800;
-
-    letter-spacing: 1.1px;
-}
-
-
-.fechamento-caixa-funcionarios-cabecalho strong {
-    color: #1d4ed8;
-
-    font-size: 12px;
-    font-weight: 800;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-
-/* =========================================================
-   ÁREA DOS BOTÕES
-========================================================= */
-
-.fechamento-caixa-funcionarios-botoes {
-    display: flex;
-
-    gap: 9px;
-
-    flex-wrap: wrap;
-
-    align-items: center;
-}
-
-
-/* =========================================================
-   BOTÃO FUNCIONÁRIO
-========================================================= */
-
-.fechamento-caixa-funcionario-botao {
-    position: relative;
-
-    min-height: 38px;
-
-    padding: 8px 15px;
-
-    border-radius: 12px;
-
-    border: 1px solid #cbd5e1;
-
-    background:
-        linear-gradient(180deg,
-            #ffffff,
-            #f8fafc);
-
-    color: #334155 !important;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 3px 8px rgba(15, 23, 42, 0.045),
-        inset 0 1px 0 #ffffff;
-
-    transition:
-        transform 0.18s ease,
-        color 0.18s ease,
-        border-color 0.18s ease,
-        background 0.18s ease,
-        box-shadow 0.18s ease;
-}
-
-
-/* =========================================================
-   HOVER
-========================================================= */
-
-.fechamento-caixa-funcionario-botao:hover {
-    color: #0c36aa;
-
-    border-color: #60a5fa;
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 17px rgba(37, 99, 235, 0.13),
-        inset 0 1px 0 #ffffff;
-}
-
-
-/* =========================================================
-   FUNCIONÁRIO SELECIONADO
-========================================================= */
-
-.fechamento-caixa-funcionario-botao.fechamento-caixa-funcionario-ativo {
-    color: #ffffff !important;
-
-    border-color: #2563eb;
-
-    background:
-        radial-gradient(circle at 25% 0%,
-            rgba(96, 165, 250, 0.5),
-            transparent 50%),
-        linear-gradient(135deg,
-            #172554,
-            #1e3a8a,
-            #1d4ed8);
-
-    box-shadow:
-        0 8px 20px rgba(37, 99, 235, 0.24),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
-
-    transform: translateY(-1px);
-}
-
-
-.fechamento-caixa-funcionario-botao.fechamento-caixa-funcionario-ativo:hover {
-    color: #ffffff;
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 11px 24px rgba(37, 99, 235, 0.31),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-
-.fechamento-caixa-funcionario-botao:active {
-    transform: scale(0.96);
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .fechamento-caixa-funcionarios-filtro {
-        padding: 14px;
-        border-radius: 15px;
-    }
-
-    .fechamento-caixa-funcionarios-cabecalho {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .fechamento-caixa-funcionarios-botoes {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        width: 100%;
-    }
-
-    .fechamento-caixa-funcionario-botao {
-        width: 100%;
-        padding: 9px 8px;
+    .iron-promocoes-alerta {
+        top: 12px !important;
+        right: 12px !important;
+        left: 12px !important;
+
+        max-width: none !important;
     }
 }
 
@@ -1432,11 +1445,31 @@
 
 @media (max-width: 420px) {
 
-    .fechamento-caixa-funcionarios-botoes {
-        grid-template-columns: 1fr;
+    .iron-promocoes-area {
+        padding: 8px !important;
     }
 
-    .fechamento-caixa-funcionario-botao {
-        min-height: 40px;
+    .iron-promocoes-header-titulo {
+        font-size: 20px !important;
+    }
+
+    .iron-promocoes-form-acoes {
+        grid-template-columns: 1fr !important;
+    }
+
+    .iron-promocoes-card-informacoes {
+        grid-template-columns: 1fr !important;
+    }
+
+    .iron-promocoes-card-header {
+        gap: 8px !important;
+    }
+
+    .iron-promocoes-lista-header {
+        flex-direction: column !important;
+    }
+
+    .iron-promocoes-atualizar {
+        width: 100% !important;
     }
 }

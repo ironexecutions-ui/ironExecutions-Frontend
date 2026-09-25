@@ -9,7 +9,11 @@ export default function ListaItens() {
         itens,
         aumentarQuantidade,
         diminuirQuantidade,
-        removerItem
+        removerItem,
+
+        promocaoAplicada,
+        removerPromocao,
+        valorDesconto
     } = useVenda();
 
     const [tema, setTema] = useState("escuro");
@@ -61,7 +65,10 @@ export default function ListaItens() {
         definirTema();
     }, []);
 
-    if (itens.length === 0) {
+    if (
+        itens.length === 0 &&
+        !promocaoAplicada
+    ) {
         return (
             <div className={`lista-itens-box tema-${tema}`}>
                 <p className="lista-vazio">Nenhum item adicionado</p>
@@ -73,6 +80,7 @@ export default function ListaItens() {
         <div className={`lista-itens-box tema-${tema}`}>
 
             <div className="lista-itens-conteudo">
+
                 {[...itens].reverse().map((item, index) => (
 
                     <div
@@ -86,8 +94,7 @@ export default function ListaItens() {
                                 : ""
                             }`}
                         style={{
-                            animationDelay:
-                                `${index * 40}ms`
+                            animationDelay: `${index * 40}ms`
                         }}
                     >
 
@@ -121,9 +128,7 @@ export default function ListaItens() {
                                     <button
                                         className="btn-menos"
                                         onClick={() =>
-                                            diminuirQuantidade(
-                                                item.id
-                                            )
+                                            diminuirQuantidade(item.id)
                                         }
                                     >
                                         −
@@ -136,9 +141,7 @@ export default function ListaItens() {
                                     <button
                                         className="btn-mais"
                                         onClick={() =>
-                                            aumentarQuantidade(
-                                                item.id
-                                            )
+                                            aumentarQuantidade(item.id)
                                         }
                                     >
                                         +
@@ -148,9 +151,11 @@ export default function ListaItens() {
 
 
                             {item.ehProdutoPeso && (
+
                                 <span className="item-peso-info">
                                     {Number(item.gramas).toLocaleString("pt-BR")}g
                                 </span>
+
                             )}
 
 
@@ -177,8 +182,81 @@ export default function ListaItens() {
                     </div>
 
                 ))}
-            </div>
 
+
+                {/* =========================================
+        PROMOÇÃO APLICADA
+    ========================================= */}
+
+                {promocaoAplicada && (
+
+                    <div className="item-linha item-linha-promocao">
+
+                        <span className="item-nome item-nome-promocao">
+
+                            Promoção
+
+                            <span className="item-promocao-codigo">
+                                {promocaoAplicada.codigo}
+                            </span>
+
+                            <span className="item-und item-promocao-tipo">
+
+                                {promocaoAplicada.tipo_desconto === "porcentagem"
+
+                                    ? `(${Number(
+                                        promocaoAplicada.desconto
+                                    )}% de desconto)`
+
+                                    : `(${Number(
+                                        promocaoAplicada.desconto
+                                    ).toLocaleString(
+                                        "pt-BR",
+                                        {
+                                            style: "currency",
+                                            currency: "BRL"
+                                        }
+                                    )} de desconto)`
+                                }
+
+                            </span>
+
+                        </span>
+
+
+                        <div className="item-controles">
+
+                            <button
+                                type="button"
+                                className="btn-remover btn-remover-promocao"
+                                onClick={removerPromocao}
+                                title="Remover promoção"
+                            >
+                                x
+                            </button>
+
+                        </div>
+
+
+                        <strong className="item-preco item-preco-promocao">
+
+                            - {Number(
+                                valorDesconto || 0
+                            ).toLocaleString(
+                                "pt-BR",
+                                {
+                                    style: "currency",
+                                    currency: "BRL"
+                                }
+                            )}
+
+                        </strong>
+
+                    </div>
+
+                )}
+
+            </div>
         </div>
     );
 }

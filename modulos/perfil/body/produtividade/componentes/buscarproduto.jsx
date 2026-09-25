@@ -15,7 +15,12 @@ export default function BuscarProduto() {
         adicionarItemPeso,
         limparBusca,
         setLimparBusca,
-        setModalAberto
+        setModalAberto,
+
+        promocaoAplicada,
+        aplicarPromocao,
+        subtotalVenda,
+        setEmailPromocaoPendente,
     } = useVenda();
     const [abrirCadastro, setAbrirCadastro] = useState(false);
     const [textoCadastro, setTextoCadastro] = useState("");
@@ -37,7 +42,10 @@ export default function BuscarProduto() {
 
     const [indiceAtivo, setIndiceAtivo] = useState(-1);
     const [tema, setTema] = useState("escuro");
-
+    const [
+        alertaPromocao,
+        setAlertaPromocao
+    ] = useState(null);
     /* ===============================
        IDENTIFICAR PRODUTO POR PESO
     =============================== */
@@ -236,7 +244,269 @@ export default function BuscarProduto() {
             ""
         );
     }
+    /* =========================================================
+       ALERTA DE PROMOÇÃO
+    ========================================================= */
 
+    function mostrarAlertaPromocao(
+        titulo,
+        mensagem
+    ) {
+
+        setAlertaPromocao({
+            titulo,
+            mensagem
+        });
+
+        setTimeout(() => {
+
+            setAlertaPromocao(null);
+
+            requestAnimationFrame(() => {
+                inputRef.current?.focus();
+            });
+
+        }, 3000);
+    }
+
+
+    /* =========================================================
+       VERIFICAR SE O CÓDIGO É UMA PROMOÇÃO
+    ========================================================= */
+
+    async function tentarAplicarPromocao(codigo) {
+
+        try {
+
+            const token =
+                localStorage.getItem("token");
+
+            console.log(
+                "[PROMOÇÃO] Verificando código:",
+                codigo
+            );
+
+            const resp = await fetch(
+                `${API_URL}/promocoes/codigo/${encodeURIComponent(codigo)}`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+            /* =============================================
+               NÃO É UMA PROMOÇÃO
+            ============================================= */
+
+            if (!resp.ok) {
+
+                let erro = null;
+
+                try {
+                    erro = await resp.json();
+                } catch {
+                    erro = null;
+                }
+
+                /* =============================================
+                   PROMOÇÃO VENCIDA
+                ============================================= */
+
+                if (
+                    resp.status === 410 &&
+                    erro?.detail === "PROMOCAO_VENCIDA"
+                ) {
+
+                    console.log(
+                        "[PROMOÇÃO] Promoção vencida:",
+                        codigo
+                    );
+
+                    mostrarAlertaPromocao(
+                        "Promoção vencida",
+                        `A promoção ${codigo.toUpperCase()} já venceu e não pode mais ser utilizada.`
+                    );
+
+                    setTexto("");
+                    setSugestoes([]);
+
+                    return true;
+                }
+
+                /* =============================================
+                   PROMOÇÃO INATIVA
+                ============================================= */
+
+                if (
+                    resp.status === 410 &&
+                    erro?.detail === "PROMOCAO_INATIVA"
+                ) {
+
+                    console.log(
+                        "[PROMOÇÃO] Promoção inativa:",
+                        codigo
+                    );
+
+                    mostrarAlertaPromocao(
+                        "Promoção indisponível",
+                        `A promoção ${codigo.toUpperCase()} não está mais disponível.`
+                    );
+
+                    setTexto("");
+                    setSugestoes([]);
+
+                    return true;
+                }
+
+                /* =============================================
+                   NÃO É PROMOÇÃO
+                ============================================= */
+
+                console.log(
+                    "[PROMOÇÃO] Código não encontrado:",
+                    codigo
+                );
+
+                return false;
+            }
+
+
+            const promocao =
+                await resp.json();
+
+
+            console.log(
+                "[PROMOÇÃO] Encontrada:",
+                promocao
+            );
+
+
+            /* =============================================
+               JÁ TEM PROMOÇÃO
+            ============================================= */
+
+            if (promocaoAplicada) {
+
+                mostrarAlertaPromocao(
+                    "Promoção já aplicada",
+                    `A promoção ${promocaoAplicada.codigo} já está aplicada nesta venda.`
+                );
+
+                setTexto("");
+
+                setSugestoes([]);
+
+                return true;
+            }
+
+
+            /* =============================================
+               VERIFICAR VALOR MÍNIMO
+            ============================================= */
+
+            const minimo =
+                Number(
+                    promocao.minimo || 0
+                );
+
+            const subtotalAtual =
+                Number(
+                    subtotalVenda || 0
+                );
+
+
+            if (subtotalAtual < minimo) {
+
+                const minimoFormatado =
+                    minimo.toLocaleString(
+                        "pt-BR",
+                        {
+                            style: "currency",
+                            currency: "BRL"
+                        }
+                    );
+
+
+                console.log(
+                    "[PROMOÇÃO] Valor mínimo não atingido:",
+                    {
+                        subtotalAtual,
+                        minimo
+                    }
+                );
+
+
+                mostrarAlertaPromocao(
+                    "Valor mínimo necessário",
+                    `Esta promoção requer uma compra mínima de ${minimoFormatado}.`
+                );
+
+
+                setTexto("");
+
+                setSugestoes([]);
+
+                return true;
+            }
+
+
+            /* =============================================
+               APLICAR
+            ============================================= */
+
+            const aplicada =
+                aplicarPromocao(
+                    promocao
+                );
+
+
+            if (!aplicada) {
+
+                mostrarAlertaPromocao(
+                    "Não foi possível aplicar",
+                    "Esta promoção não pode ser utilizada nesta venda."
+                );
+
+                return true;
+            }
+
+
+            console.log(
+                "[PROMOÇÃO] Aplicada com sucesso:",
+                promocao.codigo
+            );
+
+
+            setTexto("");
+
+            setSugestoes([]);
+
+            setIndiceAtivo(-1);
+
+
+            requestAnimationFrame(() => {
+
+                inputRef.current?.focus();
+
+            });
+
+
+            return true;
+
+        } catch (erro) {
+
+            console.error(
+                "[PROMOÇÃO] Erro ao verificar promoção:",
+                erro
+            );
+
+            return false;
+        }
+    }
     /* ===============================
        LER CACHE
     =============================== */
@@ -1118,20 +1388,60 @@ export default function BuscarProduto() {
                7. NÃO EXISTE
             =============================== */
 
+            /* ===============================
+               7. PRODUTO NÃO EXISTE
+            
+               ANTES DE ABRIR CADASTRO,
+               VERIFICAR SE É PROMOÇÃO
+            =============================== */
+
             console.log(
                 "[BUSCA PRODUTO] Produto não encontrado no servidor"
             );
 
+
+            const eraPromocao =
+                await tentarAplicarPromocao(
+                    valorBusca
+                );
+
+
+            if (eraPromocao) {
+
+                console.log(
+                    "[BUSCA PRODUTO] Código tratado como promoção."
+                );
+
+                return;
+            }
+
+
+            /* ===============================
+               NÃO É PRODUTO
+               NÃO É PROMOÇÃO
+            =============================== */
+
             abrirModalCadastro(
                 valorBusca
             );
-
         } catch (erro) {
 
             console.error(
                 "[BUSCA PRODUTO] Erro na consulta ao servidor:",
                 erro
             );
+
+
+            const eraPromocao =
+                await tentarAplicarPromocao(
+                    valorBusca
+                );
+
+
+            if (eraPromocao) {
+                return;
+            }
+
 
             abrirModalCadastro(
                 valorBusca
@@ -1280,8 +1590,24 @@ export default function BuscarProduto() {
                             return;
                         }
 
+                        const valor =
+                            e.target.value;
+
+                        /* =========================================
+                           SE COMEÇOU A DIGITAR UMA NOVA VENDA,
+                           FECHAR EMAIL PROMOCIONAL
+                        ========================================= */
+
+                        if (valor.length > 0) {
+
+                            setEmailPromocaoPendente(
+                                null
+                            );
+
+                        }
+
                         buscar(
-                            e.target.value
+                            valor
                         );
                     }}
 
@@ -1435,6 +1761,44 @@ export default function BuscarProduto() {
                     }}
                 />
             )}
+            {/* =====================================================
+    ALERTA DE PROMOÇÃO
+===================================================== */}
+
+            {alertaPromocao &&
+                createPortal(
+
+                    <div className="promo-codigo-overlay">
+
+                        <div className="promo-codigo-modal">
+
+                            <div className="promo-codigo-simbolo">
+                                %
+                            </div>
+
+
+                            <div className="promo-codigo-info">
+
+                                <strong>
+                                    {alertaPromocao.titulo}
+                                </strong>
+
+                                <span>
+                                    {alertaPromocao.mensagem}
+                                </span>
+
+                            </div>
+
+
+                            <div className="promo-codigo-tempo" />
+
+                        </div>
+
+                    </div>,
+
+                    document.body
+                )
+            }
         </div>
     );
 }
