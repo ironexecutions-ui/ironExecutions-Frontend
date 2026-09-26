@@ -1,8 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+    useEffect,
+    useRef,
+    useState
+} from "react";
+
 import { useParams } from "react-router-dom";
+
 import { removeBackground } from "@imgly/background-removal";
+
 import { API_URL } from "../../../../../config";
+
 import "./celularfoto.css";
+
 
 export default function CelularFoto() {
 
@@ -21,30 +30,52 @@ export default function CelularFoto() {
     const confirmacaoRef = useRef(null);
     const imagensRef = useRef(null);
 
+    // =========================================================
+    // MODO DA CÂMERA
+    // =========================================================
+
+    const modoCameraRef = useRef("branco");
+
+    const [modoFoto, setModoFoto] = useState(null);
+
+    // =========================================================
+    // ESTADOS
+    // =========================================================
+
     const [carregando, setCarregando] = useState(true);
+
     const [processando, setProcessando] = useState(false);
+
     const [enviando, setEnviando] = useState(false);
 
     const [produto, setProduto] = useState(null);
+
     const [fotoCapturada, setFotoCapturada] = useState(null);
+
     const [imagens, setImagens] = useState([]);
 
     const [erro, setErro] = useState("");
+
     const [sucesso, setSucesso] = useState("");
 
-    const [segundosRestantes, setSegundosRestantes] = useState(null);
+    const [segundosRestantes, setSegundosRestantes] =
+        useState(null);
+
     const [expirado, setExpirado] = useState(false);
 
-    const [fotoProcessada, setFotoProcessada] = useState(null);
-    const [excluindoImagem, setExcluindoImagem] = useState("");
+    const [fotoProcessada, setFotoProcessada] =
+        useState(null);
+
+    const [excluindoImagem, setExcluindoImagem] =
+        useState("");
+
+
     // =========================================================
-    // SCROLL / MOBILIDADE MOBILE
+    // SCROLL
     // =========================================================
 
     function obterElementoComScroll() {
 
-        // Nesta tela o scroll é controlado explicitamente pelo <main>.
-        // Isso evita conflitos com #root, body ou layouts globais do sistema.
         return paginaRef.current;
     }
 
@@ -52,6 +83,7 @@ export default function CelularFoto() {
     function rolarPara(ref, opcoes = {}) {
 
         const elemento = ref?.current;
+
         const pagina = paginaRef.current;
 
         if (!elemento || !pagina) {
@@ -109,8 +141,6 @@ export default function CelularFoto() {
 
     function rolarParaConfirmacao() {
 
-        // A confirmação só entra no DOM depois do setFotoCapturada.
-        // Esperamos React renderizar antes de procurar a referência.
         let tentativas = 0;
 
         function tentar() {
@@ -131,17 +161,25 @@ export default function CelularFoto() {
             }
 
             if (tentativas < 12) {
-                window.setTimeout(tentar, 50);
+
+                window.setTimeout(
+                    tentar,
+                    50
+                );
+
             }
+
         }
 
-        window.setTimeout(tentar, 30);
+        window.setTimeout(
+            tentar,
+            30
+        );
     }
 
 
     function rolarParaImagens() {
 
-        // A lista pode estar sendo criada justamente depois do upload.
         let tentativas = 0;
 
         function tentar() {
@@ -162,16 +200,25 @@ export default function CelularFoto() {
             }
 
             if (tentativas < 12) {
-                window.setTimeout(tentar, 50);
+
+                window.setTimeout(
+                    tentar,
+                    50
+                );
+
             }
+
         }
 
-        window.setTimeout(tentar, 30);
+        window.setTimeout(
+            tentar,
+            30
+        );
     }
 
 
     // =========================================================
-    // AJUSTAR ALTURA REAL DO CELULAR
+    // ALTURA REAL MOBILE
     // =========================================================
 
     useEffect(() => {
@@ -233,8 +280,13 @@ export default function CelularFoto() {
     useEffect(() => {
 
         if (!token) {
-            setErro("Link inválido.");
+
+            setErro(
+                "Link inválido."
+            );
+
             setCarregando(false);
+
             return;
         }
 
@@ -252,7 +304,11 @@ export default function CelularFoto() {
         return () => {
 
             if (fotoCapturada?.url) {
-                URL.revokeObjectURL(fotoCapturada.url);
+
+                URL.revokeObjectURL(
+                    fotoCapturada.url
+                );
+
             }
 
         };
@@ -274,29 +330,41 @@ export default function CelularFoto() {
             return;
         }
 
-        const intervalo = window.setInterval(() => {
+        const intervalo =
+            window.setInterval(() => {
 
-            setSegundosRestantes(anterior => {
+                setSegundosRestantes(
+                    anterior => {
 
-                if (anterior <= 1) {
+                        if (anterior <= 1) {
 
-                    window.clearInterval(intervalo);
+                            window.clearInterval(
+                                intervalo
+                            );
 
-                    setExpirado(true);
+                            setExpirado(true);
 
-                    return 0;
-                }
+                            return 0;
+                        }
 
-                return anterior - 1;
-            });
+                        return anterior - 1;
+                    }
+                );
 
-        }, 1000);
+            }, 1000);
 
         return () => {
-            window.clearInterval(intervalo);
+
+            window.clearInterval(
+                intervalo
+            );
+
         };
 
-    }, [segundosRestantes, expirado]);
+    }, [
+        segundosRestantes,
+        expirado
+    ]);
 
 
     // =========================================================
@@ -306,6 +374,7 @@ export default function CelularFoto() {
     async function carregarAcesso() {
 
         setCarregando(true);
+
         setErro("");
 
         try {
@@ -336,7 +405,9 @@ export default function CelularFoto() {
                     resposta.status === 404 ||
                     resposta.status === 410
                 ) {
+
                     setExpirado(true);
+
                 }
 
                 throw new Error(
@@ -359,47 +430,57 @@ export default function CelularFoto() {
                     imagem_url: dados.imagem_url
                 };
 
-            setProduto(produtoRecebido);
+            setProduto(
+                produtoRecebido
+            );
 
 
             // =================================================
             // IMAGENS
             // =================================================
 
-            const imagensExistentes = String(
-                produtoRecebido?.imagem_url || ""
-            )
-                .split("|")
-                .map(url => url.trim())
-                .filter(Boolean);
+            const imagensExistentes =
+                String(
+                    produtoRecebido?.imagem_url || ""
+                )
+                    .split("|")
+                    .map(url => url.trim())
+                    .filter(Boolean);
 
-            setImagens(imagensExistentes);
+            setImagens(
+                imagensExistentes
+            );
 
 
             // =================================================
             // TEMPO
             // =================================================
 
-            const segundos = Number(
-                dados.expira_em_segundos ??
-                dados.segundos_restantes ??
-                300
-            );
+            const segundos =
+                Number(
+                    dados.expira_em_segundos ??
+                    dados.segundos_restantes ??
+                    300
+                );
 
             setSegundosRestantes(
                 Math.max(0, segundos)
             );
 
             if (segundos <= 0) {
+
                 setExpirado(true);
+
             }
 
             window.requestAnimationFrame(() => {
+
                 paginaRef.current?.scrollTo({
                     top: 0,
                     left: 0,
                     behavior: "auto"
                 });
+
             });
 
         } catch (erroCarregar) {
@@ -473,10 +554,11 @@ export default function CelularFoto() {
 
     function formatarTempo(segundos) {
 
-        const total = Math.max(
-            0,
-            Number(segundos || 0)
-        );
+        const total =
+            Math.max(
+                0,
+                Number(segundos || 0)
+            );
 
         const minutos =
             Math.floor(total / 60);
@@ -497,29 +579,66 @@ export default function CelularFoto() {
 
     function limparFoto() {
 
-        setFotoCapturada(anterior => {
+        setFotoCapturada(
+            anterior => {
 
-            if (anterior?.url) {
-                URL.revokeObjectURL(anterior.url);
+                if (anterior?.url) {
+
+                    URL.revokeObjectURL(
+                        anterior.url
+                    );
+
+                }
+
+                return null;
             }
-
-            return null;
-        });
+        );
 
 
-        setFotoProcessada(anterior => {
+        setFotoProcessada(
+            anterior => {
 
-            if (anterior?.url) {
-                URL.revokeObjectURL(anterior.url);
+                if (anterior?.url) {
+
+                    URL.revokeObjectURL(
+                        anterior.url
+                    );
+
+                }
+
+                return null;
             }
+        );
 
-            return null;
-        });
+
+        setModoFoto(null);
 
 
         if (inputCameraRef.current) {
+
             inputCameraRef.current.value = "";
+
         }
+    }
+
+
+    // =========================================================
+    // ABRIR CÂMERA COM MODO
+    // =========================================================
+
+    function abrirCamera(modo) {
+
+        if (!acessoAtivo()) {
+            return;
+        }
+
+        if (enviando) {
+            return;
+        }
+
+        modoCameraRef.current = modo;
+
+        inputCameraRef.current?.click();
     }
 
 
@@ -537,24 +656,65 @@ export default function CelularFoto() {
         }
 
         if (!acessoAtivo()) {
+
             evento.target.value = "";
+
             return;
         }
 
+
+        const modoSelecionado =
+            modoCameraRef.current || "branco";
+
+
         console.log(
             "[CELULAR FOTO] Foto capturada:",
-            arquivo.name
+            arquivo.name,
+            "Modo:",
+            modoSelecionado
         );
+
 
         limparFoto();
 
+
+        const url =
+            URL.createObjectURL(
+                arquivo
+            );
+
+
         setFotoCapturada({
             arquivo,
-            url: URL.createObjectURL(arquivo)
+            url
         });
 
+
+        setModoFoto(
+            modoSelecionado
+        );
+
+
         setErro("");
+
         setSucesso("");
+
+
+        // =====================================================
+        // FOTO NORMAL
+        // Não passa pelo removeBackground.
+        // A própria foto original será usada.
+        // =====================================================
+
+        if (modoSelecionado === "normal") {
+
+            setFotoProcessada({
+                arquivo,
+                url
+            });
+
+        }
+
 
         rolarParaConfirmacao();
     }
@@ -566,19 +726,25 @@ export default function CelularFoto() {
 
     async function selecionarGaleria(evento) {
 
-        const arquivos = Array.from(
-            evento.target.files || []
-        ).filter(
-            arquivo =>
-                arquivo.type.startsWith("image/")
-        );
+        const arquivos =
+            Array.from(
+                evento.target.files || []
+            )
+                .filter(
+                    arquivo =>
+                        arquivo.type.startsWith(
+                            "image/"
+                        )
+                );
 
         if (!arquivos.length) {
             return;
         }
 
         if (!acessoAtivo()) {
+
             evento.target.value = "";
+
             return;
         }
 
@@ -587,7 +753,9 @@ export default function CelularFoto() {
             arquivos.length
         );
 
-        await enviarArquivos(arquivos);
+        await enviarArquivos(
+            arquivos
+        );
 
         evento.target.value = "";
     }
@@ -598,45 +766,58 @@ export default function CelularFoto() {
     // COLOCAR FUNDO BRANCO
     // =========================================================
 
-    async function criarImagemComFundoBranco(arquivo) {
+    async function criarImagemComFundoBranco(
+        arquivo
+    ) {
 
         console.log(
             "[CELULAR FOTO] Removendo fundo..."
         );
 
-        const recorte = await removeBackground(
-            arquivo,
-            {
-                output: {
-                    format: "image/png",
-                    quality: 1
+        const recorte =
+            await removeBackground(
+                arquivo,
+                {
+                    output: {
+                        format: "image/png",
+                        quality: 1
+                    }
                 }
-            }
-        );
+            );
 
         const urlRecorte =
-            URL.createObjectURL(recorte);
+            URL.createObjectURL(
+                recorte
+            );
 
         try {
 
-            const imagem = await new Promise(
-                (resolve, reject) => {
+            const imagem =
+                await new Promise(
+                    (
+                        resolve,
+                        reject
+                    ) => {
 
-                    const img = new Image();
+                        const img =
+                            new Image();
 
-                    img.onload = () =>
-                        resolve(img);
+                        img.onload =
+                            () =>
+                                resolve(img);
 
-                    img.onerror = () =>
-                        reject(
-                            new Error(
-                                "Não foi possível preparar a imagem."
-                            )
-                        );
+                        img.onerror =
+                            () =>
+                                reject(
+                                    new Error(
+                                        "Não foi possível preparar a imagem."
+                                    )
+                                );
 
-                    img.src = urlRecorte;
-                }
-            );
+                        img.src =
+                            urlRecorte;
+                    }
+                );
 
 
             // =================================================
@@ -644,7 +825,9 @@ export default function CelularFoto() {
             // =================================================
 
             const canvas =
-                document.createElement("canvas");
+                document.createElement(
+                    "canvas"
+                );
 
             canvas.width =
                 imagem.naturalWidth;
@@ -652,13 +835,19 @@ export default function CelularFoto() {
             canvas.height =
                 imagem.naturalHeight;
 
+
             const contexto =
-                canvas.getContext("2d");
+                canvas.getContext(
+                    "2d"
+                );
+
 
             if (!contexto) {
+
                 throw new Error(
                     "Não foi possível processar a imagem."
                 );
+
             }
 
 
@@ -666,7 +855,8 @@ export default function CelularFoto() {
             // FUNDO BRANCO
             // =================================================
 
-            contexto.fillStyle = "#ffffff";
+            contexto.fillStyle =
+                "#ffffff";
 
             contexto.fillRect(
                 0,
@@ -693,13 +883,20 @@ export default function CelularFoto() {
 
             const blobFinal =
                 await new Promise(
-                    (resolve, reject) => {
+                    (
+                        resolve,
+                        reject
+                    ) => {
 
                         canvas.toBlob(
                             blob => {
 
                                 if (blob) {
-                                    resolve(blob);
+
+                                    resolve(
+                                        blob
+                                    );
+
                                     return;
                                 }
 
@@ -708,10 +905,12 @@ export default function CelularFoto() {
                                         "Não foi possível finalizar a imagem."
                                     )
                                 );
+
                             },
                             "image/jpeg",
                             0.94
                         );
+
                     }
                 );
 
@@ -734,12 +933,13 @@ export default function CelularFoto() {
             URL.revokeObjectURL(
                 urlRecorte
             );
+
         }
     }
 
 
     // =========================================================
-    // USAR FOTO DA CÂMERA
+    // USAR FOTO
     // =========================================================
 
     async function usarFoto() {
@@ -756,9 +956,35 @@ export default function CelularFoto() {
             return;
         }
 
+
+        // =====================================================
+        // FOTO NORMAL
+        // =====================================================
+
+        if (modoFoto === "normal") {
+
+            setFotoProcessada({
+                arquivo:
+                    fotoCapturada.arquivo,
+
+                url:
+                    fotoCapturada.url
+            });
+
+            return;
+        }
+
+
+        // =====================================================
+        // FOTO COM FUNDO BRANCO
+        // =====================================================
+
         setProcessando(true);
+
         setErro("");
+
         setSucesso("");
+
 
         try {
 
@@ -767,38 +993,56 @@ export default function CelularFoto() {
                     fotoCapturada.arquivo
                 );
 
+
             if (!acessoAtivo()) {
                 return;
             }
 
 
-            // =====================================================
-            // NÃO ENVIA AINDA
-            //
-            // Primeiro mostramos ao usuário exatamente como
-            // ficou a foto depois da remoção do fundo.
-            // =====================================================
+            setFotoProcessada(
+                anterior => {
 
-            setFotoProcessada(anterior => {
+                    if (
+                        anterior?.url &&
+                        anterior.url !==
+                        fotoCapturada.url
+                    ) {
 
-                if (anterior?.url) {
-                    URL.revokeObjectURL(anterior.url);
+                        URL.revokeObjectURL(
+                            anterior.url
+                        );
+
+                    }
+
+                    return {
+                        arquivo:
+                            fotoPronta,
+
+                        url:
+                            URL.createObjectURL(
+                                fotoPronta
+                            )
+                    };
+
                 }
-
-                return {
-                    arquivo: fotoPronta,
-                    url: URL.createObjectURL(fotoPronta)
-                };
-            });
+            );
 
 
             setSucesso("");
 
-            window.setTimeout(() => {
-                rolarParaConfirmacao();
-            }, 100);
 
-        } catch (erroProcessamento) {
+            window.setTimeout(
+                () => {
+
+                    rolarParaConfirmacao();
+
+                },
+                100
+            );
+
+        } catch (
+        erroProcessamento
+        ) {
 
             console.error(
                 "[CELULAR FOTO] Erro ao remover fundo:",
@@ -815,6 +1059,7 @@ export default function CelularFoto() {
             setProcessando(false);
         }
     }
+
 
     // =========================================================
     // CONFIRMAR FOTO PROCESSADA
@@ -834,8 +1079,11 @@ export default function CelularFoto() {
             return;
         }
 
+
         setErro("");
+
         setSucesso("");
+
 
         try {
 
@@ -843,9 +1091,12 @@ export default function CelularFoto() {
                 fotoProcessada.arquivo
             ]);
 
+
             limparFoto();
 
-        } catch (erroConfirmacao) {
+        } catch (
+        erroConfirmacao
+        ) {
 
             console.error(
                 "[CELULAR FOTO] Erro ao confirmar foto:",
@@ -856,13 +1107,18 @@ export default function CelularFoto() {
                 erroConfirmacao.message ||
                 "Não foi possível adicionar a foto."
             );
+
         }
     }
+
+
     // =========================================================
     // ENVIAR PARA BACKEND
     // =========================================================
 
-    async function enviarArquivos(arquivos) {
+    async function enviarArquivos(
+        arquivos
+    ) {
 
         if (
             !arquivos?.length ||
@@ -875,22 +1131,30 @@ export default function CelularFoto() {
             return;
         }
 
+
         setEnviando(true);
+
         setErro("");
+
         setSucesso("");
+
 
         try {
 
             const formData =
                 new FormData();
 
-            arquivos.forEach(arquivo => {
 
-                formData.append(
-                    "arquivos",
-                    arquivo
-                );
-            });
+            arquivos.forEach(
+                arquivo => {
+
+                    formData.append(
+                        "arquivos",
+                        arquivo
+                    );
+
+                }
+            );
 
 
             console.log(
@@ -899,18 +1163,23 @@ export default function CelularFoto() {
             );
 
 
-            const resposta = await fetch(
-                `${API_URL}/upload/client/foto-produto-mobile/${encodeURIComponent(token)}/imagens`,
-                {
-                    method: "POST",
-                    body: formData
-                }
-            );
+            const resposta =
+                await fetch(
+                    `${API_URL}/upload/client/foto-produto-mobile/${encodeURIComponent(token)}/imagens`,
+                    {
+                        method: "POST",
+
+                        body: formData
+                    }
+                );
 
 
-            const dados = await resposta
-                .json()
-                .catch(() => ({}));
+            const dados =
+                await resposta
+                    .json()
+                    .catch(
+                        () => ({})
+                    );
 
 
             console.log(
@@ -929,8 +1198,10 @@ export default function CelularFoto() {
                 ) {
 
                     setExpirado(true);
+
                     setSegundosRestantes(0);
                 }
+
 
                 throw new Error(
                     dados.detail ||
@@ -944,24 +1215,31 @@ export default function CelularFoto() {
             // URLS RETORNADAS
             // =================================================
 
-            const novasUrls = String(
-                dados.urls ||
-                dados.imagem_url ||
-                ""
-            )
-                .split("|")
-                .map(url => url.trim())
-                .filter(Boolean);
+            const novasUrls =
+                String(
+                    dados.urls ||
+                    dados.imagem_url ||
+                    ""
+                )
+                    .split("|")
+                    .map(
+                        url =>
+                            url.trim()
+                    )
+                    .filter(Boolean);
 
 
             if (novasUrls.length) {
 
-                setImagens(anterior => [
-                    ...new Set([
-                        ...anterior,
-                        ...novasUrls
-                    ])
-                ]);
+                setImagens(
+                    anterior => [
+                        ...new Set([
+                            ...anterior,
+                            ...novasUrls
+                        ])
+                    ]
+                );
+
             }
 
 
@@ -977,6 +1255,7 @@ export default function CelularFoto() {
             // =================================================
 
             await atualizarStatus();
+
 
             rolarParaImagens();
 
@@ -1007,18 +1286,25 @@ export default function CelularFoto() {
 
         try {
 
-            const resposta = await fetch(
-                `${API_URL}/upload/client/foto-produto-mobile/${encodeURIComponent(token)}/status`
-            );
+            const resposta =
+                await fetch(
+                    `${API_URL}/upload/client/foto-produto-mobile/${encodeURIComponent(token)}/status`
+                );
 
-            const dados = await resposta
-                .json()
-                .catch(() => ({}));
+
+            const dados =
+                await resposta
+                    .json()
+                    .catch(
+                        () => ({})
+                    );
+
 
             console.log(
                 "[CELULAR FOTO] Status:",
                 dados
             );
+
 
             if (!resposta.ok) {
                 return;
@@ -1027,10 +1313,13 @@ export default function CelularFoto() {
 
             if (dados.produto) {
 
-                setProduto(anterior => ({
-                    ...(anterior || {}),
-                    ...dados.produto
-                }));
+                setProduto(
+                    anterior => ({
+                        ...(anterior || {}),
+                        ...dados.produto
+                    })
+                );
+
             }
 
 
@@ -1038,18 +1327,27 @@ export default function CelularFoto() {
                 dados.produto?.imagem_url ??
                 dados.imagem_url;
 
+
             if (
                 imagemUrl !== undefined
             ) {
 
-                const lista = String(
-                    imagemUrl || ""
-                )
-                    .split("|")
-                    .map(url => url.trim())
-                    .filter(Boolean);
+                const lista =
+                    String(
+                        imagemUrl || ""
+                    )
+                        .split("|")
+                        .map(
+                            url =>
+                                url.trim()
+                        )
+                        .filter(Boolean);
 
-                setImagens(lista);
+
+                setImagens(
+                    lista
+                );
+
             }
 
         } catch (erroStatus) {
@@ -1058,6 +1356,7 @@ export default function CelularFoto() {
                 "[CELULAR FOTO] Erro ao atualizar status:",
                 erroStatus
             );
+
         }
     }
 
@@ -1070,19 +1369,31 @@ export default function CelularFoto() {
 
         limparFoto();
 
-        window.setTimeout(() => {
 
-            rolarPara(
-                areaPrincipalRef,
-                {
-                    atraso: 20,
-                    margem: 74
-                }
-            );
+        window.setTimeout(
+            () => {
 
-            inputCameraRef.current?.click();
+                rolarPara(
+                    areaPrincipalRef,
+                    {
+                        atraso: 20,
+                        margem: 74
+                    }
+                );
 
-        }, 100);
+
+                const modo =
+                    modoFoto ||
+                    "branco";
+
+
+                abrirCamera(
+                    modo
+                );
+
+            },
+            100
+        );
     }
 
 
@@ -1115,7 +1426,7 @@ export default function CelularFoto() {
 
 
     // =========================================================
-    // LINK INVÁLIDO / EXPIRADO
+    // LINK EXPIRADO
     // =========================================================
 
     if (
@@ -1152,11 +1463,14 @@ export default function CelularFoto() {
         );
     }
 
+
     // =========================================================
-    // EXCLUIR FOTO JÁ ADICIONADA
+    // EXCLUIR IMAGEM
     // =========================================================
 
-    async function excluirImagem(imagem) {
+    async function excluirImagem(
+        imagem
+    ) {
 
         if (
             !imagem ||
@@ -1171,17 +1485,26 @@ export default function CelularFoto() {
             return;
         }
 
-        const confirmou = window.confirm(
-            "Deseja realmente apagar esta foto?"
-        );
+
+        const confirmou =
+            window.confirm(
+                "Deseja realmente apagar esta foto?"
+            );
+
 
         if (!confirmou) {
             return;
         }
 
-        setExcluindoImagem(imagem);
+
+        setExcluindoImagem(
+            imagem
+        );
+
         setErro("");
+
         setSucesso("");
+
 
         try {
 
@@ -1190,25 +1513,32 @@ export default function CelularFoto() {
                 imagem
             );
 
-            const resposta = await fetch(
-                `${API_URL}/upload/client/foto-produto-mobile/${encodeURIComponent(token)}/imagem`,
-                {
-                    method: "DELETE",
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+            const resposta =
+                await fetch(
+                    `${API_URL}/upload/client/foto-produto-mobile/${encodeURIComponent(token)}/imagem`,
+                    {
+                        method: "DELETE",
 
-                    body: JSON.stringify({
-                        url: imagem
-                    })
-                }
-            );
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                url: imagem
+                            })
+                    }
+                );
 
 
-            const dados = await resposta
-                .json()
-                .catch(() => ({}));
+            const dados =
+                await resposta
+                    .json()
+                    .catch(
+                        () => ({})
+                    );
 
 
             console.log(
@@ -1227,8 +1557,11 @@ export default function CelularFoto() {
                 ) {
 
                     setExpirado(true);
+
                     setSegundosRestantes(0);
+
                 }
+
 
                 throw new Error(
                     dados.detail ||
@@ -1238,21 +1571,30 @@ export default function CelularFoto() {
             }
 
 
-            const listaAtualizada = String(
-                dados.imagem_url || ""
-            )
-                .split("|")
-                .map(url => url.trim())
-                .filter(Boolean);
+            const listaAtualizada =
+                String(
+                    dados.imagem_url || ""
+                )
+                    .split("|")
+                    .map(
+                        url =>
+                            url.trim()
+                    )
+                    .filter(Boolean);
 
 
-            setImagens(listaAtualizada);
+            setImagens(
+                listaAtualizada
+            );
 
 
-            setProduto(anterior => ({
-                ...(anterior || {}),
-                imagem_url: dados.imagem_url || ""
-            }));
+            setProduto(
+                anterior => ({
+                    ...(anterior || {}),
+                    imagem_url:
+                        dados.imagem_url || ""
+                })
+            );
 
 
             setSucesso(
@@ -1276,6 +1618,8 @@ export default function CelularFoto() {
             setExcluindoImagem("");
         }
     }
+
+
     // =========================================================
     // TELA
     // =========================================================
@@ -1287,7 +1631,6 @@ export default function CelularFoto() {
             className="celular-foto-pagina"
         >
 
-
             {/* ================================================= */}
             {/* INPUT CÂMERA */}
             {/* ================================================= */}
@@ -1298,7 +1641,9 @@ export default function CelularFoto() {
                 accept="image/*"
                 capture="environment"
                 hidden
-                onChange={selecionarFotoCamera}
+                onChange={
+                    selecionarFotoCamera
+                }
             />
 
 
@@ -1312,7 +1657,9 @@ export default function CelularFoto() {
                 accept="image/*"
                 multiple
                 hidden
-                onChange={selecionarGaleria}
+                onChange={
+                    selecionarGaleria
+                }
             />
 
 
@@ -1347,6 +1694,7 @@ export default function CelularFoto() {
 
 
                     {!expirado && (
+
                         <div className="celular-foto-tempo">
 
                             <span className="celular-foto-tempo-ponto" />
@@ -1358,6 +1706,7 @@ export default function CelularFoto() {
                             </strong>
 
                         </div>
+
                     )}
 
                 </header>
@@ -1392,19 +1741,22 @@ export default function CelularFoto() {
 
                             )}
 
-                            {formatarPreco(produto.preco) && (
+                            {formatarPreco(
+                                produto.preco
+                            ) && (
 
-                                <strong className="celular-foto-produto-preco">
-                                    {formatarPreco(
-                                        produto.preco
-                                    )}
-                                </strong>
+                                    <strong className="celular-foto-produto-preco">
+                                        {formatarPreco(
+                                            produto.preco
+                                        )}
+                                    </strong>
 
-                            )}
+                                )}
 
                         </div>
 
                     </section>
+
                 )}
 
 
@@ -1459,9 +1811,8 @@ export default function CelularFoto() {
 
                 ) : fotoCapturada ? (
 
-
                     /* ================================================= */
-                    /* PREVIEW DA FOTO */
+                    /* PREVIEW */
                     /* ================================================= */
 
                     <section
@@ -1472,22 +1823,34 @@ export default function CelularFoto() {
                         <div className="celular-foto-confirmacao-topo">
 
                             <span className="celular-foto-etapa">
-                                Foto capturada
+
+                                {modoFoto === "normal"
+                                    ? "Foto normal"
+                                    : "Foto com fundo branco"
+                                }
+
                             </span>
 
                             <h2>
-                                {fotoProcessada
-                                    ? "Confira o resultado"
-                                    : "Confira a foto"
+                                {modoFoto === "normal"
+                                    ? "Confira a foto"
+                                    : fotoProcessada
+                                        ? "Confira o resultado"
+                                        : "Confira a foto"
                                 }
                             </h2>
 
                             <p>
-                                {fotoProcessada
-                                    ? "O fundo foi removido. Confira o resultado antes de adicionar a foto ao produto."
-                                    : "Remova o fundo para visualizar o resultado antes de adicionar a foto."
+
+                                {modoFoto === "normal"
+                                    ? "A foto será adicionada exatamente como foi tirada, sem remover o fundo."
+                                    : fotoProcessada
+                                        ? "O fundo foi removido. Confira o resultado antes de adicionar a foto ao produto."
+                                        : "Remova o fundo para visualizar o resultado antes de adicionar a foto."
                                 }
+
                             </p>
+
                         </div>
 
 
@@ -1499,9 +1862,11 @@ export default function CelularFoto() {
                                     fotoCapturada.url
                                 }
                                 alt={
-                                    fotoProcessada
-                                        ? "Foto com fundo removido"
-                                        : "Foto capturada do produto"
+                                    modoFoto === "normal"
+                                        ? "Foto normal do produto"
+                                        : fotoProcessada
+                                            ? "Foto com fundo removido"
+                                            : "Foto capturada do produto"
                                 }
                             />
 
@@ -1526,6 +1891,7 @@ export default function CelularFoto() {
 
                         </div>
 
+
                         <div className="celular-foto-confirmacao-acoes">
 
                             <button
@@ -1535,13 +1901,35 @@ export default function CelularFoto() {
                                     processando ||
                                     enviando
                                 }
-                                onClick={refazerFoto}
+                                onClick={
+                                    refazerFoto
+                                }
                             >
                                 Refazer foto
                             </button>
 
 
-                            {!fotoProcessada ? (
+                            {modoFoto === "normal" ? (
+
+                                <button
+                                    type="button"
+                                    className="celular-foto-botao-usar celular-foto-botao-confirmar-processada"
+                                    disabled={
+                                        enviando
+                                    }
+                                    onClick={
+                                        confirmarFotoProcessada
+                                    }
+                                >
+
+                                    {enviando
+                                        ? "Adicionando..."
+                                        : "Adicionar foto"
+                                    }
+
+                                </button>
+
+                            ) : !fotoProcessada ? (
 
                                 <button
                                     type="button"
@@ -1550,7 +1938,9 @@ export default function CelularFoto() {
                                         processando ||
                                         enviando
                                     }
-                                    onClick={usarFoto}
+                                    onClick={
+                                        usarFoto
+                                    }
                                 >
 
                                     {processando
@@ -1565,8 +1955,12 @@ export default function CelularFoto() {
                                 <button
                                     type="button"
                                     className="celular-foto-botao-usar celular-foto-botao-confirmar-processada"
-                                    disabled={enviando}
-                                    onClick={confirmarFotoProcessada}
+                                    disabled={
+                                        enviando
+                                    }
+                                    onClick={
+                                        confirmarFotoProcessada
+                                    }
                                 >
 
                                     {enviando
@@ -1583,7 +1977,6 @@ export default function CelularFoto() {
                     </section>
 
                 ) : (
-
 
                     /* ================================================= */
                     /* ESCOLHER FOTO */
@@ -1605,24 +1998,27 @@ export default function CelularFoto() {
                             </h2>
 
                             <p>
-                                Fotografe o produto inteiro e use
-                                um ambiente bem iluminado para obter
-                                um recorte melhor.
+                                Escolha como deseja fotografar
+                                ou adicionar uma imagem.
                             </p>
 
                         </div>
 
 
                         {/* ================================================= */}
-                        {/* TIRAR FOTO */}
+                        {/* CÂMERA COM FUNDO BRANCO */}
                         {/* ================================================= */}
 
                         <button
                             type="button"
                             className="celular-foto-opcao celular-foto-opcao-camera"
-                            disabled={enviando}
+                            disabled={
+                                enviando
+                            }
                             onClick={() =>
-                                inputCameraRef.current?.click()
+                                abrirCamera(
+                                    "branco"
+                                )
                             }
                         >
 
@@ -1633,11 +2029,51 @@ export default function CelularFoto() {
                             <span className="celular-foto-opcao-conteudo">
 
                                 <strong>
-                                    Tirar foto
+                                    Tirar foto com fundo branco
                                 </strong>
 
                                 <small>
-                                    Fotografar, remover o fundo e deixar branco
+                                    Remove o fundo e deixa o produto em branco
+                                </small>
+
+                            </span>
+
+                            <span className="celular-foto-opcao-seta">
+                                ›
+                            </span>
+
+                        </button>
+
+
+                        {/* ================================================= */}
+                        {/* CÂMERA NORMAL */}
+                        {/* ================================================= */}
+
+                        <button
+                            type="button"
+                            className="celular-foto-opcao celular-foto-opcao-normal"
+                            disabled={
+                                enviando
+                            }
+                            onClick={() =>
+                                abrirCamera(
+                                    "normal"
+                                )
+                            }
+                        >
+
+                            <span className="celular-foto-opcao-icone">
+                                📷
+                            </span>
+
+                            <span className="celular-foto-opcao-conteudo">
+
+                                <strong>
+                                    Tirar foto normal
+                                </strong>
+
+                                <small>
+                                    Mantém a foto original, sem remover o fundo
                                 </small>
 
                             </span>
@@ -1656,7 +2092,9 @@ export default function CelularFoto() {
                         <button
                             type="button"
                             className="celular-foto-opcao celular-foto-opcao-galeria"
-                            disabled={enviando}
+                            disabled={
+                                enviando
+                            }
                             onClick={() =>
                                 inputGaleriaRef.current?.click()
                             }
@@ -1743,7 +2181,10 @@ export default function CelularFoto() {
                         <div className="celular-foto-imagens-grid">
 
                             {imagens.map(
-                                (imagem, index) => (
+                                (
+                                    imagem,
+                                    index
+                                ) => (
 
                                     <div
                                         className="celular-foto-imagem-card"
@@ -1770,7 +2211,9 @@ export default function CelularFoto() {
                                                 processando
                                             }
                                             onClick={() =>
-                                                excluirImagem(imagem)
+                                                excluirImagem(
+                                                    imagem
+                                                )
                                             }
                                             aria-label={`Apagar foto ${index + 1}`}
                                         >
@@ -1798,18 +2241,25 @@ export default function CelularFoto() {
                 {/* VOLTAR AO TOPO */}
                 {/* ================================================= */}
 
-                {(imagens.length > 3 || fotoCapturada) && (
+                {(imagens.length > 3 ||
+                    fotoCapturada) && (
 
-                    <button
-                        type="button"
-                        className="celular-foto-voltar-topo"
-                        onClick={rolarParaTopo}
-                        aria-label="Voltar ao topo"
-                    >
-                        <span aria-hidden="true">↑</span>
-                    </button>
+                        <button
+                            type="button"
+                            className="celular-foto-voltar-topo"
+                            onClick={
+                                rolarParaTopo
+                            }
+                            aria-label="Voltar ao topo"
+                        >
 
-                )}
+                            <span aria-hidden="true">
+                                ↑
+                            </span>
+
+                        </button>
+
+                    )}
 
 
                 {/* ================================================= */}
