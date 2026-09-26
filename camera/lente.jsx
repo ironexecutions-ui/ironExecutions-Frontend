@@ -16,6 +16,7 @@ import "./lente.css";
 
 
 const MAXIMO_ARQUIVOS = 50;
+const LIMITE_DIARIO_CAPTURAS = 50;
 const DURACAO_MAXIMA_VIDEO = 90;
 
 
@@ -113,8 +114,14 @@ export default function Lente({
         flashFoto,
         setFlashFoto
     ] = useState(false);
-
-
+    const [
+        fotoAmpliada,
+        setFotoAmpliada
+    ] = useState(null);
+    const [
+        capturasHoje,
+        setCapturasHoje
+    ] = useState(0);
     /* =====================================================
        INICIAR
     ===================================================== */
@@ -367,8 +374,149 @@ export default function Lente({
         );
 
     }
+    /* =====================================================
+       LIMITE DIÁRIO - CACHE
+    ===================================================== */
+
+    function obterDataLocalHoje() {
+
+        const agora =
+            new Date();
+
+        const ano =
+            agora.getFullYear();
+
+        const mes =
+            String(
+                agora.getMonth() + 1
+            ).padStart(2, "0");
+
+        const dia =
+            String(
+                agora.getDate()
+            ).padStart(2, "0");
+
+        return `${ano}-${mes}-${dia}`;
+    }
 
 
+    function obterChaveLimiteDiario() {
+
+        return (
+            `lente_capturas_${token || "sem-token"}_${obterDataLocalHoje()}`
+        );
+    }
+
+
+    function obterCapturasHoje() {
+
+        try {
+
+            const valor =
+                Number(
+                    localStorage.getItem(
+                        obterChaveLimiteDiario()
+                    ) || 0
+                );
+
+            if (
+                !Number.isFinite(valor) ||
+                valor < 0
+            ) {
+                return 0;
+            }
+
+            return valor;
+
+        } catch (erro) {
+
+            console.error(
+                "[LENTE] Erro ao ler limite diário:",
+                erro
+            );
+
+            return 0;
+        }
+    }
+
+
+    function registrarCapturaDiaria() {
+
+        try {
+
+            const atual =
+                obterCapturasHoje();
+
+            const novoTotal =
+                Math.min(
+                    atual + 1,
+                    LIMITE_DIARIO_CAPTURAS
+                );
+
+            localStorage.setItem(
+                obterChaveLimiteDiario(),
+                String(novoTotal)
+            );
+
+            setCapturasHoje(
+                novoTotal
+            );
+
+            console.log(
+                `[LENTE] Capturas hoje: ${novoTotal}/${LIMITE_DIARIO_CAPTURAS}`
+            );
+
+            return novoTotal;
+
+        } catch (erro) {
+
+            console.error(
+                "[LENTE] Erro ao registrar captura:",
+                erro
+            );
+
+            return capturasHoje;
+        }
+    }
+
+
+    function podeCapturarHoje() {
+
+        const total =
+            obterCapturasHoje();
+
+        setCapturasHoje(
+            total
+        );
+
+        if (
+            total >=
+            LIMITE_DIARIO_CAPTURAS
+        ) {
+
+            setMensagem(
+                "Você atingiu o limite diário de 50 fotos e vídeos. Novas capturas serão liberadas amanhã."
+            );
+
+            return false;
+        }
+
+        return true;
+    }
+    useEffect(() => {
+
+        const total =
+            obterCapturasHoje();
+
+        setCapturasHoje(
+            total
+        );
+
+        console.log(
+            `[LENTE] Limite diário: ${total}/${LIMITE_DIARIO_CAPTURAS}`
+        );
+
+    }, [token]);
     /* =====================================================
        LIMITE
     ===================================================== */
@@ -376,20 +524,24 @@ export default function Lente({
     function podeAdicionarArquivo() {
 
         if (
+            !podeCapturarHoje()
+        ) {
+            return false;
+        }
+
+        if (
             arquivos.length >=
             MAXIMO_ARQUIVOS
         ) {
 
             setMensagem(
-                "Você atingiu o limite de 50 arquivos. Finalize o envio antes de continuar."
+                "Você atingiu o limite de 50 arquivos nesta sessão. Finalize o envio antes de continuar."
             );
 
             return false;
-
         }
 
         return true;
-
     }
 
 
@@ -537,7 +689,7 @@ export default function Lente({
 
                     ]
                 );
-
+                registrarCapturaDiaria();
 
                 setMensagem("");
 
@@ -859,7 +1011,7 @@ export default function Lente({
             ]
         );
 
-
+        registrarCapturaDiaria();
         partesVideoRef.current =
             [];
 
@@ -1699,11 +1851,11 @@ export default function Lente({
                         <div className="lenteProLimite">
 
                             <span>
-                                {totalArquivos}
+                                {capturasHoje}
                             </span>
 
                             <small>
-                                / {MAXIMO_ARQUIVOS}
+                                / {LIMITE_DIARIO_CAPTURAS} hoje
                             </small>
 
                         </div>
@@ -1868,10 +2020,14 @@ export default function Lente({
                                                     ? (
 
                                                         <img
-                                                            src={
-                                                                item.preview
-                                                            }
+                                                            src={item.preview}
                                                             alt=""
+                                                            className="lenteProFotoClicavel"
+                                                            onClick={() =>
+                                                                setFotoAmpliada(
+                                                                    item.preview
+                                                                )
+                                                            }
                                                         />
 
                                                     )
@@ -1996,10 +2152,14 @@ export default function Lente({
                                                     : (
 
                                                         <img
-                                                            src={
-                                                                item.arquivo_url
-                                                            }
+                                                            src={item.arquivo_url}
                                                             alt=""
+                                                            className="lenteProFotoClicavel"
+                                                            onClick={() =>
+                                                                setFotoAmpliada(
+                                                                    item.arquivo_url
+                                                                )
+                                                            }
                                                         />
 
                                                     )}
@@ -2129,7 +2289,26 @@ export default function Lente({
                 )}
 
             </div>
-
+            {fotoAmpliada &&
+                createPortal(
+                    <div
+                        className="lenteProVisualizador"
+                        onClick={() =>
+                            setFotoAmpliada(null)
+                        }
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Visualizar foto"
+                    >
+                        <img
+                            src={fotoAmpliada}
+                            alt="Foto ampliada"
+                            className="lenteProVisualizadorImagem"
+                        />
+                    </div>,
+                    document.body
+                )
+            }
         </div>
 
     );

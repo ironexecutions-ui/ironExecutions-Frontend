@@ -866,8 +866,7 @@ select {
 
     left: 50% !important;
 
-    bottom:
-        max(29px, env(safe-area-inset-bottom)) !important;
+
 
     z-index: 25 !important;
 
@@ -880,30 +879,17 @@ select {
 
     gap: 14px !important;
 
-    width: max-content !important;
+    width: 80% !important;
 
-    max-width: calc(100% - 24px) !important;
+    max-width: calc(110% - 24px) !important;
 
     padding: 10px 13px 7px !important;
 
     border-radius: 999px !important;
 
-    background:
-        rgba(248, 252, 255, 0.93) !important;
 
-    border:
-        1px solid rgba(31, 79, 132, 0.15) !important;
 
-    backdrop-filter:
-        blur(28px) saturate(160%) !important;
 
-    -webkit-backdrop-filter:
-        blur(28px) saturate(160%) !important;
-
-    box-shadow:
-        0 20px 55px rgba(18, 62, 111, 0.22),
-        0 3px 10px rgba(18, 62, 111, 0.08),
-        inset 0 1px 0 #ffffff !important;
 }
 
 
@@ -993,7 +979,7 @@ select {
 
     align-items: center !important;
     justify-content: center !important;
-
+    margin: 10px;
     overflow: hidden !important;
 
     border-radius: 50% !important;
@@ -2844,5 +2830,1396 @@ select {
 
         transition-duration:
             0.01ms !important;
+    }
+}
+
+/* =========================================================
+   LENTE PRO
+   RESPONSIVIDADE AVANÇADA
+   COLOCAR NO FINAL DO CSS
+========================================================= */
+
+/* =========================================================
+   BASE RESPONSIVA
+========================================================= */
+
+.lenteProPagina,
+.lenteProAparelho,
+.lenteProVisor,
+.lenteProGaleriaPagina {
+    max-width: 100vw !important;
+}
+
+.lenteProPagina,
+.lenteProAparelho {
+    min-width: 0 !important;
+}
+
+.lenteProAparelho {
+    height: 100vh !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+}
+
+.lenteProVideo {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+}
+
+/* =========================================================
+   CONTROLES — TAMANHO FLUIDO
+========================================================= */
+
+.lenteProControles {
+    width: auto !important;
+    max-width: calc(100% - 24px) !important;
+
+    gap: clamp(6px, 1.3vw, 14px) !important;
+
+    padding:
+        clamp(7px, 1.2vw, 10px) clamp(8px, 1.4vw, 13px) clamp(6px, 1vw, 9px) !important;
+}
+
+.lenteProControleSecundario {
+    width: clamp(46px, 6vw, 62px) !important;
+    height: clamp(46px, 6vw, 62px) !important;
+
+    min-width: clamp(46px, 6vw, 62px) !important;
+
+    margin:
+        clamp(2px, .7vw, 8px) !important;
+}
+
+.lenteProDisparador {
+    width: clamp(68px, 8vw, 91px) !important;
+    height: clamp(68px, 8vw, 91px) !important;
+
+    min-width: clamp(68px, 8vw, 91px) !important;
+}
+
+.lenteProFinalizarRapido {
+    min-width: clamp(52px, 7vw, 72px) !important;
+    height: clamp(48px, 6vw, 62px) !important;
+
+    padding:
+        0 clamp(8px, 1vw, 13px) !important;
+}
+
+/* =========================================================
+   TOPO FLUIDO
+========================================================= */
+
+.lenteProTopo {
+    left: clamp(8px, 2vw, 18px) !important;
+    right: clamp(8px, 2vw, 18px) !important;
+
+    gap: clamp(7px, 1.5vw, 14px) !important;
+}
+
+.lenteProLoja {
+    max-width: min(430px,
+            calc(100vw - 125px)) !important;
+
+    gap: clamp(7px, 1vw, 12px) !important;
+
+    padding:
+        clamp(5px, .8vw, 8px) clamp(9px, 1.5vw, 15px) clamp(5px, .8vw, 8px) clamp(5px, .8vw, 8px) !important;
+}
+
+.lenteProLojaLogo {
+    width: clamp(40px, 5vw, 52px) !important;
+    height: clamp(40px, 5vw, 52px) !important;
+
+    min-width: clamp(40px, 5vw, 52px) !important;
+}
+
+.lenteProLojaTexto {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.lenteProLojaTexto strong,
+.lenteProLojaTexto small {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+/* =========================================================
+   USUÁRIO
+========================================================= */
+
+.lenteProUsuario {
+    left: clamp(8px, 2vw, 18px) !important;
+
+    max-width: min(390px,
+            calc(100vw - 120px)) !important;
+
+    gap: clamp(6px, 1vw, 10px) !important;
+}
+
+.lenteProUsuarioFoto {
+    width: clamp(37px, 5vw, 45px) !important;
+    height: clamp(37px, 5vw, 45px) !important;
+
+    min-width: clamp(37px, 5vw, 45px) !important;
+}
+
+.lenteProUsuarioInfo {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.lenteProUsuarioInfo strong,
+.lenteProUsuarioInfo small {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+/* =========================================================
+   GALERIA RESPONSIVA AUTOMÁTICA
+========================================================= */
+
+.lenteProGridArquivos {
+    grid-template-columns:
+        repeat(auto-fill,
+            minmax(min(180px, 100%),
+                1fr)) !important;
+
+    gap: clamp(8px, 1.5vw, 14px) !important;
+}
+
+.lenteProArquivoCard {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    aspect-ratio: .82 / 1 !important;
+}
+
+.lenteProSecao,
+.lenteProGaleriaIdentidade {
+    width: min(100%, 1000px) !important;
+}
+
+/* =========================================================
+   BARRA FINAL
+========================================================= */
+
+.lenteProBarraFinalizar {
+    width: min(610px,
+            calc(100vw - 24px)) !important;
+
+    gap: clamp(7px, 1.5vw, 13px) !important;
+}
+
+.lenteProBarraFinalizar>div:not(.lenteProProgresso) {
+    min-width: 0 !important;
+}
+
+.lenteProBarraFinalizar>div>span,
+.lenteProBarraFinalizar>div>small {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.lenteProBarraFinalizar>button {
+    flex-shrink: 0 !important;
+}
+
+/* =========================================================
+   TABLETS GRANDES
+   769px — 1100px
+========================================================= */
+
+@media (max-width: 1100px) and (min-width: 769px) {
+
+    .lenteProPagina {
+        padding: 14px !important;
+    }
+
+    .lenteProAparelho {
+        width: 100% !important;
+
+        height:
+            calc(100dvh - 28px) !important;
+
+        border-radius: 28px !important;
+    }
+
+    .lenteProGridArquivos {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr)) !important;
+    }
+
+    .lenteProGaleriaPagina {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+    }
+}
+
+/* =========================================================
+   TABLET / CELULAR GRANDE
+   ATÉ 768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+    html,
+    body,
+    #root {
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        overflow-x: hidden !important;
+    }
+
+    .lenteProPagina {
+        width: 100% !important;
+
+        min-height: 100dvh !important;
+
+        padding: 0 !important;
+
+        overflow: hidden !important;
+    }
+
+    .lenteProAparelho {
+        width: 100% !important;
+
+        height: 100vh !important;
+        height: 100svh !important;
+        height: 100dvh !important;
+
+        border-radius: 0 !important;
+    }
+
+    /* -------------------------
+       TOPO
+    ------------------------- */
+
+    .lenteProTopo {
+        top:
+            max(8px,
+                calc(env(safe-area-inset-top) + 5px)) !important;
+
+        left: 8px !important;
+        right: 8px !important;
+
+        gap: 7px !important;
+    }
+
+    .lenteProLoja {
+        max-width:
+            calc(100vw - 100px) !important;
+
+        min-height: 48px !important;
+
+        border-radius: 17px !important;
+    }
+
+    .lenteProLojaLogo {
+        width: 42px !important;
+        height: 42px !important;
+
+        min-width: 42px !important;
+
+        border-radius: 13px !important;
+    }
+
+    .lenteProLojaTexto strong {
+        font-size: 12px !important;
+    }
+
+    .lenteProLojaTexto small {
+        font-size: 8px !important;
+    }
+
+    .lenteProLojaLabel {
+        font-size: 7px !important;
+    }
+
+    .lenteProArquivos {
+        min-height: 48px !important;
+
+        padding: 6px !important;
+
+        gap: 5px !important;
+
+        border-radius: 16px !important;
+    }
+
+    .lenteProArquivosTexto {
+        display: none !important;
+    }
+
+    .lenteProArquivosIcone {
+        font-size: 18px !important;
+    }
+
+    .lenteProArquivos strong {
+        min-width: 28px !important;
+        height: 28px !important;
+
+        padding: 0 6px !important;
+    }
+
+    /* -------------------------
+       USUÁRIO
+    ------------------------- */
+
+    .lenteProUsuario {
+        top:
+            max(70px,
+                calc(env(safe-area-inset-top) + 65px)) !important;
+
+        left: 8px !important;
+
+        max-width:
+            calc(100vw - 110px) !important;
+
+        padding:
+            5px 10px 5px 5px !important;
+    }
+
+    .lenteProUsuarioFoto {
+        width: 38px !important;
+        height: 38px !important;
+
+        min-width: 38px !important;
+    }
+
+    .lenteProUsuarioInfo strong {
+        font-size: 11px !important;
+    }
+
+    .lenteProUsuarioInfo small {
+        font-size: 8px !important;
+    }
+
+    .lenteProUsuarioInfo>span {
+        font-size: 6px !important;
+    }
+
+    /* -------------------------
+       REC
+    ------------------------- */
+
+    .lenteProRec {
+        top:
+            max(75px,
+                calc(env(safe-area-inset-top) + 70px)) !important;
+
+        right: 8px !important;
+
+        min-height: 35px !important;
+
+        padding: 0 9px !important;
+
+        gap: 5px !important;
+
+        border-radius: 12px !important;
+    }
+
+    .lenteProRec strong {
+        font-size: 8px !important;
+    }
+
+    .lenteProRec b {
+        font-size: 10px !important;
+    }
+
+    .lenteProRec small {
+        display: none !important;
+    }
+
+    /* -------------------------
+       CONTROLES
+    ------------------------- */
+
+    .lenteProControles {
+        bottom:
+            max(12px,
+                calc(env(safe-area-inset-bottom) + 7px)) !important;
+
+        width: auto !important;
+
+        max-width:
+            calc(100vw - 12px) !important;
+
+        gap: clamp(4px, 1.5vw, 8px) !important;
+
+        padding:
+            7px clamp(5px, 1.4vw, 9px) 5px !important;
+    }
+
+    .lenteProControleSecundario {
+        width: clamp(44px, 12vw, 52px) !important;
+        height: clamp(44px, 12vw, 52px) !important;
+
+        min-width:
+            clamp(44px, 12vw, 52px) !important;
+
+        margin: 0 !important;
+    }
+
+    .lenteProDisparador {
+        width: clamp(66px, 18vw, 76px) !important;
+        height: clamp(66px, 18vw, 76px) !important;
+
+        min-width:
+            clamp(66px, 18vw, 76px) !important;
+    }
+
+    .lenteProFinalizarRapido {
+        min-width:
+            clamp(50px, 13vw, 58px) !important;
+
+        height:
+            clamp(44px, 12vw, 52px) !important;
+
+        padding: 0 7px !important;
+
+        border-radius: 16px !important;
+    }
+
+    .lenteProFinalizarRapido>span {
+        font-size: 17px !important;
+    }
+
+    .lenteProFinalizarRapido small {
+        font-size: 6px !important;
+    }
+
+    .lenteProControles>*:nth-child(1) {
+        margin-bottom: 0 !important;
+    }
+
+    .lenteProControles>*:nth-child(2) {
+        margin-bottom: 8px !important;
+    }
+
+    .lenteProControles>*:nth-child(3) {
+        margin-bottom: 15px !important;
+    }
+
+    .lenteProControles>*:nth-child(4) {
+        margin-bottom: 8px !important;
+    }
+
+    .lenteProControles>*:nth-child(5) {
+        margin-bottom: 0 !important;
+    }
+
+    /* -------------------------
+       MENSAGEM
+    ------------------------- */
+
+    .lenteProMensagem {
+        bottom: 128px !important;
+
+        width: auto !important;
+
+        max-width:
+            calc(100vw - 24px) !important;
+
+        padding: 9px 13px !important;
+
+        font-size: 10px !important;
+    }
+
+    .lenteProLimite {
+        display: none !important;
+    }
+
+    /* -------------------------
+       GALERIA
+    ------------------------- */
+
+    .lenteProGaleriaPagina {
+        padding:
+            max(10px,
+                calc(env(safe-area-inset-top) + 4px)) 10px max(110px,
+                calc(env(safe-area-inset-bottom) + 95px)) !important;
+    }
+
+    .lenteProGaleriaHeader {
+        grid-template-columns:
+            42px minmax(0, 1fr) 42px !important;
+
+        min-height: 48px !important;
+
+        gap: 7px !important;
+
+        margin-bottom: 14px !important;
+    }
+
+    .lenteProVoltar,
+    .lenteProGaleriaUsuario {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .lenteProVoltar {
+        font-size: 29px !important;
+        border-radius: 13px !important;
+    }
+
+    .lenteProGaleriaTitulo {
+        min-width: 0 !important;
+    }
+
+    .lenteProGaleriaTitulo strong {
+        max-width: 100% !important;
+
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+
+        font-size: 16px !important;
+    }
+
+    .lenteProGaleriaIdentidade {
+        margin-bottom: 20px !important;
+
+        padding: 10px !important;
+
+        gap: 10px !important;
+
+        border-radius: 17px !important;
+    }
+
+    .lenteProGaleriaLoja {
+        width: 48px !important;
+        height: 48px !important;
+
+        min-width: 48px !important;
+
+        border-radius: 14px !important;
+    }
+
+    .lenteProGaleriaIdentidade strong {
+        font-size: 14px !important;
+    }
+
+    .lenteProSecao {
+        margin-bottom: 23px !important;
+    }
+
+    .lenteProSecaoTitulo {
+        gap: 8px !important;
+
+        margin-bottom: 9px !important;
+    }
+
+    .lenteProSecaoTitulo strong {
+        font-size: 14px !important;
+    }
+
+    .lenteProGridArquivos {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+
+        gap: 7px !important;
+    }
+
+    .lenteProArquivoCard {
+        border-radius: 13px !important;
+    }
+
+    /* -------------------------
+       BARRA FINAL
+    ------------------------- */
+
+    .lenteProBarraFinalizar {
+        width:
+            calc(100vw - 16px) !important;
+
+        min-height: 62px !important;
+
+        bottom:
+            max(8px,
+                calc(env(safe-area-inset-bottom) + 4px)) !important;
+
+        padding:
+            7px 7px 7px 13px !important;
+
+        gap: 7px !important;
+
+        border-radius: 19px !important;
+    }
+
+    .lenteProBarraFinalizar>div>span {
+        font-size: 11px !important;
+    }
+
+    .lenteProBarraFinalizar>div>small {
+        font-size: 8px !important;
+    }
+
+    .lenteProBarraFinalizar>button {
+        min-width: 95px !important;
+
+        height: 46px !important;
+
+        padding: 0 13px !important;
+
+        border-radius: 14px !important;
+
+        font-size: 10px !important;
+    }
+}
+
+/* =========================================================
+   CELULARES MÉDIOS
+   ATÉ 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .lenteProTopo {
+        left: 7px !important;
+        right: 7px !important;
+    }
+
+    .lenteProLoja {
+        max-width:
+            calc(100vw - 91px) !important;
+    }
+
+    .lenteProLojaLogo {
+        width: 39px !important;
+        height: 39px !important;
+
+        min-width: 39px !important;
+    }
+
+    .lenteProLojaTexto strong {
+        font-size: 11px !important;
+    }
+
+    .lenteProUsuario {
+        max-width:
+            calc(100vw - 100px) !important;
+    }
+
+    .lenteProUsuarioFoto {
+        width: 35px !important;
+        height: 35px !important;
+
+        min-width: 35px !important;
+    }
+
+    .lenteProControles {
+        max-width:
+            calc(100vw - 8px) !important;
+
+        gap: 5px !important;
+
+        padding:
+            6px 6px 5px !important;
+    }
+
+    .lenteProControleSecundario {
+        width: 45px !important;
+        height: 45px !important;
+
+        min-width: 45px !important;
+    }
+
+    .lenteProDisparador {
+        width: 68px !important;
+        height: 68px !important;
+
+        min-width: 68px !important;
+    }
+
+    .lenteProFinalizarRapido {
+        min-width: 50px !important;
+        height: 45px !important;
+    }
+
+    .lenteProGridArquivos {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+
+        gap: 6px !important;
+    }
+}
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ATÉ 390px
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .lenteProLoja {
+        max-width:
+            calc(100vw - 82px) !important;
+    }
+
+    .lenteProLojaLogo {
+        width: 36px !important;
+        height: 36px !important;
+
+        min-width: 36px !important;
+    }
+
+    .lenteProLojaTexto strong {
+        font-size: 10px !important;
+    }
+
+    .lenteProLojaTexto small {
+        font-size: 7px !important;
+    }
+
+    .lenteProArquivos {
+        min-height: 42px !important;
+
+        padding: 5px !important;
+    }
+
+    .lenteProArquivosIcone {
+        display: none !important;
+    }
+
+    .lenteProUsuario {
+        max-width:
+            calc(100vw - 91px) !important;
+
+        padding:
+            4px 8px 4px 4px !important;
+    }
+
+    .lenteProUsuarioFoto {
+        width: 33px !important;
+        height: 33px !important;
+
+        min-width: 33px !important;
+    }
+
+    .lenteProUsuarioInfo strong {
+        font-size: 10px !important;
+    }
+
+    .lenteProRec {
+        padding: 0 7px !important;
+    }
+
+    .lenteProRec strong {
+        font-size: 7px !important;
+    }
+
+    .lenteProRec b {
+        font-size: 9px !important;
+    }
+
+    .lenteProControles {
+        gap: 4px !important;
+
+        padding:
+            6px 5px 4px !important;
+    }
+
+    .lenteProControleSecundario {
+        width: 42px !important;
+        height: 42px !important;
+
+        min-width: 42px !important;
+    }
+
+    .lenteProDisparador {
+        width: 63px !important;
+        height: 63px !important;
+
+        min-width: 63px !important;
+    }
+
+    .lenteProFinalizarRapido {
+        min-width: 46px !important;
+
+        height: 42px !important;
+
+        padding: 0 5px !important;
+    }
+
+    .lenteProFinalizarRapido small {
+        display: none !important;
+    }
+
+    .lenteProTrocar span {
+        font-size: 21px !important;
+    }
+
+    .lenteProGaleriaIcone {
+        font-size: 18px !important;
+    }
+
+    .lenteProMiniaturaNumero {
+        min-width: 17px !important;
+        height: 17px !important;
+
+        font-size: 7px !important;
+    }
+
+    .lenteProGridArquivos {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+
+        gap: 5px !important;
+    }
+
+    .lenteProArquivoCard {
+        border-radius: 11px !important;
+    }
+
+    .lenteProBarraFinalizar {
+        width:
+            calc(100vw - 12px) !important;
+
+        padding:
+            6px 6px 6px 10px !important;
+    }
+
+    .lenteProBarraFinalizar>button {
+        min-width: 85px !important;
+
+        padding: 0 10px !important;
+    }
+}
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+   320px — 350px
+========================================================= */
+
+@media (max-width: 350px) {
+
+    .lenteProTopo {
+        left: 5px !important;
+        right: 5px !important;
+
+        gap: 4px !important;
+    }
+
+    .lenteProLoja {
+        max-width:
+            calc(100vw - 72px) !important;
+
+        min-height: 40px !important;
+
+        padding:
+            4px 6px 4px 4px !important;
+    }
+
+    .lenteProLojaLogo {
+        width: 33px !important;
+        height: 33px !important;
+
+        min-width: 33px !important;
+    }
+
+    .lenteProLojaLabel,
+    .lenteProLojaTexto small {
+        display: none !important;
+    }
+
+    .lenteProArquivos {
+        min-height: 39px !important;
+    }
+
+    .lenteProArquivos strong {
+        min-width: 25px !important;
+        height: 25px !important;
+
+        font-size: 10px !important;
+    }
+
+    .lenteProUsuario {
+        top:
+            max(59px,
+                calc(env(safe-area-inset-top) + 54px)) !important;
+
+        max-width:
+            calc(100vw - 78px) !important;
+    }
+
+    .lenteProRec {
+        top:
+            max(63px,
+                calc(env(safe-area-inset-top) + 58px)) !important;
+
+        min-height: 31px !important;
+    }
+
+    .lenteProRec strong {
+        display: none !important;
+    }
+
+    .lenteProControles {
+        max-width:
+            calc(100vw - 4px) !important;
+
+        gap: 3px !important;
+
+        padding:
+            5px 4px 4px !important;
+    }
+
+    .lenteProControleSecundario {
+        width: 38px !important;
+        height: 38px !important;
+
+        min-width: 38px !important;
+    }
+
+    .lenteProDisparador {
+        width: 58px !important;
+        height: 58px !important;
+
+        min-width: 58px !important;
+
+        padding: 4px !important;
+    }
+
+    .lenteProFinalizarRapido {
+        min-width: 41px !important;
+
+        height: 38px !important;
+    }
+
+    .lenteProFinalizarRapido>span {
+        font-size: 14px !important;
+    }
+
+    .lenteProControles>*:nth-child(2),
+    .lenteProControles>*:nth-child(4) {
+        margin-bottom: 6px !important;
+    }
+
+    .lenteProControles>*:nth-child(3) {
+        margin-bottom: 11px !important;
+    }
+
+    .lenteProMensagem {
+        bottom: 106px !important;
+
+        font-size: 9px !important;
+    }
+
+    .lenteProGaleriaPagina {
+        padding-left: 7px !important;
+        padding-right: 7px !important;
+    }
+
+    .lenteProGaleriaIdentidade {
+        padding: 8px !important;
+    }
+
+    .lenteProGaleriaLoja {
+        width: 42px !important;
+        height: 42px !important;
+
+        min-width: 42px !important;
+    }
+
+    .lenteProGridArquivos {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 6px !important;
+    }
+
+    .lenteProBarraFinalizar>div>small {
+        display: none !important;
+    }
+
+    .lenteProBarraFinalizar>button {
+        min-width: 77px !important;
+
+        height: 42px !important;
+
+        padding: 0 8px !important;
+
+        font-size: 9px !important;
+    }
+}
+
+/* =========================================================
+   TELAS BAIXAS
+   MUITO IMPORTANTE PARA CELULARES
+========================================================= */
+
+@media (max-height: 720px) {
+
+    .lenteProUsuario {
+        top:
+            max(65px,
+                calc(env(safe-area-inset-top) + 59px)) !important;
+    }
+
+    .lenteProRec {
+        top:
+            max(69px,
+                calc(env(safe-area-inset-top) + 63px)) !important;
+    }
+
+    .lenteProControles {
+        bottom:
+            max(7px,
+                calc(env(safe-area-inset-bottom) + 3px)) !important;
+    }
+
+    .lenteProControleSecundario {
+        width: 43px !important;
+        height: 43px !important;
+
+        min-width: 43px !important;
+    }
+
+    .lenteProDisparador {
+        width: 64px !important;
+        height: 64px !important;
+
+        min-width: 64px !important;
+    }
+
+    .lenteProFinalizarRapido {
+        height: 43px !important;
+    }
+
+    .lenteProControles>*:nth-child(2),
+    .lenteProControles>*:nth-child(4) {
+        margin-bottom: 6px !important;
+    }
+
+    .lenteProControles>*:nth-child(3) {
+        margin-bottom: 11px !important;
+    }
+
+    .lenteProMensagem {
+        bottom: 112px !important;
+    }
+}
+
+/* =========================================================
+   TELAS MUITO BAIXAS
+========================================================= */
+
+@media (max-height: 600px) {
+
+    .lenteProUsuarioInfo small {
+        display: none !important;
+    }
+
+    .lenteProUsuario {
+        top:
+            max(58px,
+                calc(env(safe-area-inset-top) + 53px)) !important;
+    }
+
+    .lenteProRec {
+        top:
+            max(61px,
+                calc(env(safe-area-inset-top) + 56px)) !important;
+    }
+
+    .lenteProControles {
+        transform:
+            translateX(-50%) scale(.88) !important;
+
+        transform-origin:
+            bottom center !important;
+    }
+
+    .lenteProMensagem {
+        bottom: 96px !important;
+    }
+}
+
+/* =========================================================
+   LANDSCAPE CELULAR
+========================================================= */
+
+@media (orientation: landscape) and (max-height: 600px) {
+
+    .lenteProTopo {
+        top:
+            max(5px,
+                env(safe-area-inset-top)) !important;
+
+        left:
+            max(7px,
+                env(safe-area-inset-left)) !important;
+
+        right:
+            max(7px,
+                env(safe-area-inset-right)) !important;
+    }
+
+    .lenteProLoja {
+        max-width: 42vw !important;
+    }
+
+    .lenteProUsuario {
+        top: 61px !important;
+
+        left:
+            max(7px,
+                env(safe-area-inset-left)) !important;
+
+        max-width: 38vw !important;
+    }
+
+    .lenteProRec {
+        top: 64px !important;
+
+        right:
+            max(7px,
+                env(safe-area-inset-right)) !important;
+    }
+
+    .lenteProControles {
+        bottom:
+            max(5px,
+                env(safe-area-inset-bottom)) !important;
+
+        transform:
+            translateX(-50%) scale(.78) !important;
+
+        transform-origin:
+            bottom center !important;
+    }
+
+    .lenteProMensagem {
+        bottom: 81px !important;
+    }
+
+    .lenteProLimite {
+        display: none !important;
+    }
+
+    .lenteProGaleriaPagina {
+        padding-bottom:
+            max(90px,
+                calc(env(safe-area-inset-bottom) + 80px)) !important;
+    }
+}
+
+/* =========================================================
+   DESKTOP GRANDE
+========================================================= */
+
+@media (min-width: 1400px) {
+
+    .lenteProAparelho {
+        width: min(1280px, calc(100vw - 48px)) !important;
+
+        height:
+            min(920px,
+                calc(100dvh - 48px)) !important;
+    }
+
+    .lenteProGaleriaIdentidade,
+    .lenteProSecao {
+        max-width: 1050px !important;
+    }
+
+    .lenteProGridArquivos {
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr)) !important;
+    }
+}
+
+/* =========================================================
+   DESKTOP MUITO GRANDE
+========================================================= */
+
+@media (min-width: 1900px) {
+
+    .lenteProAparelho {
+        width: min(1450px, calc(100vw - 70px)) !important;
+
+        height:
+            min(980px,
+                calc(100dvh - 60px)) !important;
+    }
+
+    .lenteProGaleriaIdentidade,
+    .lenteProSecao {
+        max-width: 1180px !important;
+    }
+
+    .lenteProGridArquivos {
+        grid-template-columns:
+            repeat(6, minmax(0, 1fr)) !important;
+    }
+}
+
+/* =========================================================
+   TOUCH
+========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .lenteProArquivos:hover,
+    .lenteProVoltar:hover,
+    .lenteProArquivoCard>button:hover,
+    .lenteProControles button:hover:not(:disabled) {
+        transform: none !important;
+    }
+
+    .lenteProControles button:active:not(:disabled),
+    .lenteProArquivoCard>button:active,
+    .lenteProVoltar:active {
+        transform: scale(.94) !important;
+    }
+}
+
+/* =========================================================
+   SAFE AREA IPHONE
+========================================================= */
+
+@supports (padding: max(0px)) {
+
+    .lenteProTopo {
+        padding-left:
+            env(safe-area-inset-left) !important;
+
+        padding-right:
+            env(safe-area-inset-right) !important;
+    }
+
+    .lenteProGaleriaPagina {
+        padding-left:
+            max(10px,
+                env(safe-area-inset-left)) !important;
+
+        padding-right:
+            max(10px,
+                env(safe-area-inset-right)) !important;
+    }
+}
+
+/* =========================================================
+   VISUALIZADOR DE FOTO EM TELA CHEIA
+========================================================= */
+
+.lenteProFotoClicavel {
+    cursor: zoom-in !important;
+}
+
+.lenteProVisualizador {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    z-index: 2147483647 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding:
+        max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left)) !important;
+
+    background:
+        rgba(2, 8, 23, 0.94) !important;
+
+    backdrop-filter:
+        blur(18px) saturate(120%) !important;
+
+    -webkit-backdrop-filter:
+        blur(18px) saturate(120%) !important;
+
+    cursor: zoom-out !important;
+
+    animation:
+        lenteProVisualizadorEntrada 0.2s ease-out both !important;
+}
+
+.lenteProVisualizadorImagem {
+    display: block !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    max-width: 96vw !important;
+    max-height: 94vh !important;
+    max-height: 94dvh !important;
+
+    object-fit: contain !important;
+
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+
+    cursor: zoom-out !important;
+
+    animation:
+        lenteProVisualizadorImagemEntrada 0.25s cubic-bezier(.2, .8, .2, 1) both !important;
+}
+
+@keyframes lenteProVisualizadorEntrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes lenteProVisualizadorImagemEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(.94) translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1) translateY(0);
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .lenteProVisualizador {
+        padding:
+            max(10px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)) !important;
+    }
+
+    .lenteProVisualizadorImagem {
+        max-width: 100% !important;
+        max-height: 96dvh !important;
+
+        border-radius: 8px !important;
     }
 }
