@@ -1,33 +1,161 @@
 /* =========================================================
-   CONTAINER GERAL
+   CÂMERA — GOLD PREMIUM
+   DOURADO COMO IDENTIDADE PRINCIPAL
 ========================================================= */
 
 .camera-modulo-painel-principal {
-    width: 100%;
-    min-height: 100vh;
+    --ouro-claro: #fff0a8;
+    --ouro-luz: #ffd76a;
+    --ouro: #e6aa2f;
+    --ouro-forte: #c98112;
+    --ouro-escuro: #714005;
 
-    padding: 32px 36px;
+    --preto: #050505;
+    --preto-card: #0c0b09;
 
-    box-sizing: border-box;
+    position: relative !important;
 
-    background: radial-gradient(circle at top left,
-            #e3e3e4 0%,
-            #9798a1 85%,
-            #062199 100%) !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
 
-    color: #e5e7eb !important;
+    padding: clamp(16px, 2.5vw, 34px) !important;
 
-    font-family: "Montserrat", sans-serif;
+    overflow-x: hidden !important;
+
+    color: #fff7dd !important;
+
+    background:
+        radial-gradient(circle at 50% -15%,
+            rgba(255, 206, 85, 0.25) 0%,
+            rgba(197, 125, 10, 0.08) 32%,
+            transparent 55%),
+        radial-gradient(circle at 100% 80%,
+            rgba(218, 147, 24, 0.10),
+            transparent 35%),
+        linear-gradient(145deg,
+            #050505 0%,
+            #0d0a05 50%,
+            #050505 100%) !important;
 }
 
 
 /* =========================================================
-   CABEÇALHO
+   BRILHO DOURADO DE FUNDO
+========================================================= */
+
+.camera-modulo-painel-principal::before {
+    content: "" !important;
+
+    position: fixed !important;
+    top: -240px !important;
+    left: 50% !important;
+
+    width: 700px !important;
+    height: 500px !important;
+
+    transform: translateX(-50%) !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(231, 168, 43, 0.14) !important;
+
+    filter: blur(110px) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO DOURADO
 ========================================================= */
 
 .camera-modulo-cabecalho-superior {
-    width: 100%;
-    margin-bottom: 22px;
+    position: relative !important;
+    z-index: 2 !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    min-height: 105px !important;
+
+    margin-bottom: 24px !important;
+
+    padding:
+        22px clamp(22px, 3vw, 38px) !important;
+
+    border: 1px solid #d99b29 !important;
+
+    border-radius: 25px !important;
+
+    background:
+        linear-gradient(115deg,
+            rgba(68, 41, 5, 0.96) 0%,
+            rgba(26, 18, 7, 0.98) 28%,
+            rgba(12, 11, 9, 0.98) 65%,
+            rgba(66, 39, 4, 0.94) 100%) !important;
+
+    box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.40),
+        0 0 28px rgba(217, 155, 41, 0.13),
+        inset 0 1px 0 rgba(255, 238, 177, 0.35),
+        inset 0 -1px 0 rgba(114, 65, 4, 0.6) !important;
+
+    overflow: hidden !important;
+}
+
+
+/* FAIXA DOURADA SUPERIOR */
+
+.camera-modulo-cabecalho-superior::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    height: 4px !important;
+
+    background:
+        linear-gradient(90deg,
+            #704006 0%,
+            #d68d16 15%,
+            #fff0a8 35%,
+            #e7a629 50%,
+            #fff2b2 68%,
+            #c7780c 87%,
+            #704006 100%) !important;
+
+    box-shadow:
+        0 0 22px rgba(255, 205, 85, 0.55) !important;
+}
+
+
+/* BRILHO NO CABEÇALHO */
+
+.camera-modulo-cabecalho-superior::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 320px !important;
+    height: 170px !important;
+
+    top: -110px !important;
+    left: 70px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(255, 213, 101, 0.14) !important;
+
+    filter: blur(45px) !important;
+
+    pointer-events: none !important;
 }
 
 
@@ -36,339 +164,452 @@
 ========================================================= */
 
 .camera-modulo-titulo-principal {
-    margin: 0 0 5px 0 !important;
+    position: relative !important;
+    z-index: 2 !important;
 
-    font-size: 22px !important;
-    font-weight: 700 !important;
-
-    line-height: 1.3 !important;
-
-    color: #0a0a0a !important;
-
-    letter-spacing: 0.4px;
-
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.25);
-}
-
-
-/* =========================================================
-   DESCRIÇÃO
-========================================================= */
-
-.camera-modulo-descricao-principal {
     margin: 0 !important;
 
-    font-size: 14px !important;
-    font-weight: 500 !important;
+    padding-left: 22px !important;
 
-    line-height: 1.5 !important;
+    font-size: clamp(30px, 3.4vw, 46px) !important;
+    font-weight: 900 !important;
 
-    color: #20242c !important;
+    line-height: 1 !important;
+    letter-spacing: -1.4px !important;
 
-    opacity: 0.85;
+    color: #ffd86a !important;
+
+    background:
+        linear-gradient(180deg,
+            #fff8d2 0%,
+            #ffe18a 25%,
+            #e9a82c 60%,
+            #bc720d 100%) !important;
+
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+
+    -webkit-text-fill-color: transparent !important;
+
+    filter:
+        drop-shadow(0 5px 12px rgba(188, 112, 13, 0.20)) !important;
+}
+
+
+/* BARRA DOURADA */
+
+.camera-modulo-titulo-principal::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+    top: 50% !important;
+
+    width: 6px !important;
+    height: 80% !important;
+
+    transform: translateY(-50%) !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(180deg,
+            #fff7ca,
+            #ffd35c,
+            #d98c16,
+            #8d5005) !important;
+
+    box-shadow:
+        0 0 18px rgba(255, 203, 76, 0.50) !important;
 }
 
 
 /* =========================================================
-   BOTÕES DAS ABAS
+   NAVEGAÇÃO
 ========================================================= */
 
 .camera-modulo-navegacao-abas {
-    display: flex;
-    flex-wrap: wrap;
+    position: relative !important;
+    z-index: 3 !important;
 
-    gap: 12px;
+    width: fit-content !important;
+    max-width: 100% !important;
 
-    width: 100%;
+    display: flex !important;
+    align-items: center !important;
 
-    margin-bottom: 26px;
+    gap: 7px !important;
+
+    margin-bottom: 22px !important;
+
+    padding: 7px !important;
+
+    border:
+        1px solid rgba(224, 161, 40, 0.65) !important;
+
+    border-radius: 19px !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(38, 25, 7, 0.97),
+            rgba(11, 10, 8, 0.98)) !important;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.32),
+        0 0 18px rgba(219, 154, 29, 0.08),
+        inset 0 1px 0 rgba(255, 225, 143, 0.15) !important;
+
+    overflow-x: auto !important;
+
+    scrollbar-width: none !important;
+}
+
+.camera-modulo-navegacao-abas::-webkit-scrollbar {
+    display: none !important;
 }
 
 
 /* =========================================================
-   BOTÃO BASE
+   ABAS
 ========================================================= */
 
 .camera-modulo-botao-aba {
-    position: relative;
+    position: relative !important;
 
-    padding: 12px 18px;
+    min-height: 49px !important;
 
-    border-radius: 14px;
+    flex-shrink: 0 !important;
 
-    border: 1px solid rgba(37, 99, 235, 0.15) !important;
+    padding: 0 clamp(18px, 2vw, 28px) !important;
 
-    background: linear-gradient(180deg,
-            #020617 0%,
-            #020617 100%) !important;
+    border:
+        1px solid rgba(212, 148, 28, 0.18) !important;
 
-    color: #e5e7eb !important;
-
-    font-family: "Montserrat", sans-serif !important;
-
-    font-size: 14px !important;
-    font-weight: 600 !important;
-
-    letter-spacing: 0.3px;
-
-    cursor: pointer;
-
-    overflow: hidden;
+    border-radius: 13px !important;
 
     outline: none !important;
 
+    background:
+        linear-gradient(180deg,
+            rgba(45, 30, 8, 0.50),
+            rgba(15, 13, 10, 0.55)) !important;
+
+    color: #d5b66d !important;
+
+    font-size: 13px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
     transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.15s ease,
-        box-shadow 0.25s ease;
+        transform .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease !important;
 }
-
-
-/* =========================================================
-   EFEITO DE LUZ DO BOTÃO
-========================================================= */
-
-.camera-modulo-botao-aba::before {
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    background: linear-gradient(120deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.08),
-            transparent 70%);
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition: opacity 0.3s ease;
-}
-
-
-/* =========================================================
-   HOVER
-========================================================= */
 
 .camera-modulo-botao-aba:hover {
-    transform: translateY(-1px);
+    color: #ffe397 !important;
 
-    border-color: #2563eb !important;
+    border-color:
+        rgba(237, 177, 57, 0.60) !important;
 
-    box-shadow:
-        0 6px 18px rgba(37, 99, 235, 0.25),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-}
+    background:
+        linear-gradient(180deg,
+            rgba(92, 59, 8, 0.58),
+            rgba(29, 20, 7, 0.70)) !important;
 
-.camera-modulo-botao-aba:hover::before {
-    opacity: 1;
-}
-
-
-/* =========================================================
-   CLIQUE
-========================================================= */
-
-.camera-modulo-botao-aba:active {
-    transform: translateY(0) scale(0.98);
+    transform:
+        translateY(-1px) !important;
 }
 
 
 /* =========================================================
-   BOTÃO ATIVO
+   ABA ATIVA — DOURADO METÁLICO
 ========================================================= */
 
 .camera-modulo-botao-aba-ativo {
-    background: linear-gradient(180deg,
-            #2563eb 0%,
-            #1d4ed8 100%) !important;
+    border:
+        1px solid #ffe49a !important;
 
-    border-color: #2563eb !important;
+    color:
+        #281704 !important;
 
-    color: #ffffff !important;
+    background:
+        linear-gradient(135deg,
+            #fff4bd 0%,
+            #ffd866 18%,
+            #e9a72c 43%,
+            #b96d09 68%,
+            #f1bb48 84%,
+            #fff0a8 100%) !important;
 
     box-shadow:
-        0 10px 28px rgba(37, 99, 235, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        0 10px 28px rgba(218, 150, 23, 0.28),
+        0 0 16px rgba(255, 204, 83, 0.16),
+        inset 0 2px 1px rgba(255, 255, 255, 0.70),
+        inset 0 -2px 3px rgba(111, 60, 2, 0.34) !important;
 
-    transform: translateY(-1px);
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.35) !important;
 }
 
 .camera-modulo-botao-aba-ativo:hover {
-    background: linear-gradient(180deg,
-            #3b82f6 0%,
-            #2563eb 100%) !important;
+    color:
+        #1d1002 !important;
 
-    color: #ffffff !important;
+    background:
+        linear-gradient(135deg,
+            #fff8d1,
+            #ffe27d 20%,
+            #efb33c 48%,
+            #c47a0d 70%,
+            #ffd96d 100%) !important;
+}
 
-    box-shadow:
-        0 12px 32px rgba(37, 99, 235, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+
+/* BRILHO DA ABA ATIVA */
+
+.camera-modulo-botao-aba-ativo::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 3px !important;
+    left: 10% !important;
+    right: 10% !important;
+
+    height: 1px !important;
+
+    background:
+        rgba(255, 255, 255, 0.75) !important;
 }
 
 
 /* =========================================================
-   ÁREA PRINCIPAL DO CONTEÚDO
+   CONTEÚDO
 ========================================================= */
 
 .camera-modulo-area-conteudo {
-    position: relative;
+    position: relative !important;
+    z-index: 2 !important;
 
-    width: 100%;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 450px !important;
 
-    min-height: 340px;
+    padding:
+        clamp(18px, 2.5vw, 32px) !important;
 
-    padding: 26px;
+    border:
+        1px solid rgba(225, 160, 36, 0.58) !important;
 
-    box-sizing: border-box;
+    border-radius: 27px !important;
 
-    border-radius: 18px;
-
-    border: 1px solid rgba(37, 99, 235, 0.18);
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(225, 161, 40, 0.10),
+            transparent 25%),
+        linear-gradient(145deg,
+            rgba(30, 21, 8, 0.96),
+            rgba(12, 11, 9, 0.98) 40%,
+            rgba(8, 8, 8, 0.98)) !important;
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.65),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        0 25px 70px rgba(0, 0, 0, 0.38),
+        0 0 30px rgba(205, 139, 18, 0.07),
+        inset 0 1px 0 rgba(255, 228, 153, 0.14) !important;
 
-    animation: cameraModuloFadeUp 0.35s ease;
-
-    overflow: hidden;
+    overflow: hidden !important;
 }
 
 
-/* =========================================================
-   LINHA DECORATIVA SUPERIOR
-========================================================= */
+/* BORDA DOURADA SUPERIOR DO CONTEÚDO */
 
 .camera-modulo-area-conteudo::before {
-    content: "";
+    content: "" !important;
 
-    position: absolute;
+    position: absolute !important;
 
-    top: 0;
-    left: 24px;
-    right: 24px;
+    top: 0 !important;
+    left: 5% !important;
+    right: 5% !important;
 
-    height: 1px;
+    height: 2px !important;
 
-    background: linear-gradient(90deg,
+    background:
+        linear-gradient(90deg,
             transparent,
-            rgba(37, 99, 235, 0.6),
-            transparent);
+            #a96309,
+            #f0b83d,
+            #fff0a8,
+            #f0b83d,
+            #a96309,
+            transparent) !important;
 
-    pointer-events: none;
+    opacity: .85 !important;
+}
+
+
+/* LUZ DOURADA */
+
+.camera-modulo-area-conteudo::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: -180px !important;
+    right: -100px !important;
+
+    width: 350px !important;
+    height: 350px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(226, 163, 41, 0.10) !important;
+
+    filter:
+        blur(65px) !important;
+
+    pointer-events: none !important;
 }
 
 
 /* =========================================================
-   NOME DA CÂMERA
+   TEXTOS DOS COMPONENTES INTERNOS
 ========================================================= */
 
-.camera-nome-camera-container {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    animation: cameraConteudoEntrada 0.28s ease;
+.camera-modulo-area-conteudo h1,
+.camera-modulo-area-conteudo h2,
+.camera-modulo-area-conteudo h3 {
+    color:
+        #f2bd4c !important;
 }
 
-.camera-nome-camera-titulo {
-    margin: 0 !important;
+.camera-modulo-area-conteudo h4,
+.camera-modulo-area-conteudo strong,
+.camera-modulo-area-conteudo label {
+    color:
+        #fff1c0 !important;
+}
 
-    font-size: 21px !important;
-    font-weight: 700 !important;
-
-    color: #0a0a0a !important;
-
-    letter-spacing: 0.2px;
+.camera-modulo-area-conteudo p,
+.camera-modulo-area-conteudo small {
+    color:
+        #c7b27d !important;
 }
 
 
 /* =========================================================
-   CADASTRADOS
+   INPUTS
 ========================================================= */
 
-.camera-cadastrados-container {
-    width: 100%;
+.camera-modulo-area-conteudo input,
+.camera-modulo-area-conteudo select,
+.camera-modulo-area-conteudo textarea {
+    color:
+        #fff3c7 !important;
 
-    box-sizing: border-box;
+    border:
+        1px solid rgba(216, 151, 29, 0.45) !important;
 
-    animation: cameraConteudoEntrada 0.28s ease;
+    border-radius:
+        13px !important;
+
+    background:
+        linear-gradient(180deg,
+            #171108,
+            #0c0b09) !important;
+
+    outline:
+        none !important;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease !important;
 }
 
-.camera-cadastrados-titulo {
-    margin: 0 !important;
+.camera-modulo-area-conteudo input:focus,
+.camera-modulo-area-conteudo select:focus,
+.camera-modulo-area-conteudo textarea:focus {
+    border-color:
+        #e9aa31 !important;
 
-    font-size: 21px !important;
-    font-weight: 700 !important;
+    background:
+        #181107 !important;
 
-    color: #0a0a0a !important;
+    box-shadow:
+        0 0 0 3px rgba(231, 166, 40, 0.12),
+        0 0 20px rgba(226, 157, 27, 0.08) !important;
+}
 
-    letter-spacing: 0.2px;
+.camera-modulo-area-conteudo input::placeholder,
+.camera-modulo-area-conteudo textarea::placeholder {
+    color:
+        #806b3e !important;
 }
 
 
 /* =========================================================
-   ARQUIVOS
+   BOTÕES INTERNOS
 ========================================================= */
 
-.camera-arquivos-container {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    animation: cameraConteudoEntrada 0.28s ease;
-}
-
-.camera-arquivos-titulo {
-    margin: 0 !important;
-
-    font-size: 21px !important;
-    font-weight: 700 !important;
-
-    color: #0a0a0a !important;
-
-    letter-spacing: 0.2px;
+.camera-modulo-area-conteudo button {
+    border-color:
+        rgba(222, 158, 35, 0.45) !important;
 }
 
 
 /* =========================================================
-   ANIMAÇÃO PRINCIPAL
+   SCROLLBAR DOURADA
 ========================================================= */
 
-@keyframes cameraModuloFadeUp {
+.camera-modulo-painel-principal * {
+    scrollbar-width: thin !important;
 
-    from {
-        opacity: 0;
-        transform: translateY(6px);
-    }
+    scrollbar-color:
+        #c98517 #100d08 !important;
+}
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.camera-modulo-painel-principal *::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+}
+
+.camera-modulo-painel-principal *::-webkit-scrollbar-track {
+    background:
+        #100d08 !important;
+}
+
+.camera-modulo-painel-principal *::-webkit-scrollbar-thumb {
+    border:
+        2px solid #100d08 !important;
+
+    border-radius:
+        999px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffe078,
+            #d58b16,
+            #7f4906) !important;
 }
 
 
 /* =========================================================
-   ANIMAÇÃO DE TROCA DAS ABAS
+   SELEÇÃO
 ========================================================= */
 
-@keyframes cameraConteudoEntrada {
+.camera-modulo-painel-principal ::selection {
+    color:
+        #211302 !important;
 
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    background:
+        #efb43e !important;
 }
 
 
@@ -376,34 +617,43 @@
    TABLET
 ========================================================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
 
     .camera-modulo-painel-principal {
-        padding: 26px 24px;
-    }
-
-    .camera-modulo-titulo-principal {
-        font-size: 20px !important;
+        padding:
+            16px !important;
     }
 
     .camera-modulo-cabecalho-superior {
-        margin-bottom: 18px;
+        min-height:
+            90px !important;
+
+        margin-bottom:
+            16px !important;
+
+        border-radius:
+            21px !important;
     }
 
     .camera-modulo-navegacao-abas {
-        gap: 10px;
+        width:
+            100% !important;
 
-        margin-bottom: 22px;
+        margin-bottom:
+            16px !important;
     }
 
     .camera-modulo-botao-aba {
-        padding: 10px 16px;
-
-        font-size: 13px !important;
+        flex:
+            1 0 auto !important;
     }
 
     .camera-modulo-area-conteudo {
-        padding: 22px;
+        padding:
+            20px !important;
+
+        border-radius:
+            22px !important;
     }
 }
 
@@ -412,118 +662,161 @@
    MOBILE
 ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
 
     .camera-modulo-painel-principal {
-        padding: 20px 16px;
+        padding:
+            9px !important;
 
-        min-height: auto;
+        background:
+            radial-gradient(circle at 50% 0%,
+                rgba(230, 166, 41, 0.18),
+                transparent 35%),
+            linear-gradient(160deg,
+                #050505,
+                #100c05 55%,
+                #050505) !important;
     }
 
-
-    /* CABEÇALHO */
-
     .camera-modulo-cabecalho-superior {
-        margin-bottom: 16px;
+        min-height:
+            75px !important;
 
-        text-align: center;
+        margin-bottom:
+            11px !important;
+
+        padding:
+            15px 17px !important;
+
+        border-radius:
+            17px !important;
+    }
+
+    .camera-modulo-cabecalho-superior::before {
+        height:
+            3px !important;
     }
 
     .camera-modulo-titulo-principal {
-        font-size: 18px !important;
+        padding-left:
+            15px !important;
+
+        font-size:
+            27px !important;
+
+        letter-spacing:
+            -0.8px !important;
     }
 
-    .camera-modulo-descricao-principal {
-        margin-top: 4px !important;
-
-        font-size: 13px !important;
-
-        color: #252a34 !important;
+    .camera-modulo-titulo-principal::before {
+        width:
+            4px !important;
     }
-
-
-    /* BOTÕES */
 
     .camera-modulo-navegacao-abas {
-        flex-direction: column;
+        width:
+            100% !important;
 
-        gap: 10px;
+        gap:
+            4px !important;
 
-        width: 100%;
+        margin-bottom:
+            11px !important;
+
+        padding:
+            5px !important;
+
+        border-radius:
+            15px !important;
     }
 
     .camera-modulo-botao-aba {
-        width: 100%;
+        min-height:
+            44px !important;
 
-        min-height: 46px;
+        padding:
+            0 14px !important;
 
-        padding: 14px;
+        font-size:
+            11px !important;
 
-        border-radius: 16px;
-
-        font-size: 14px !important;
+        border-radius:
+            11px !important;
     }
-
-
-    /* CONTEÚDO */
 
     .camera-modulo-area-conteudo {
-        min-height: auto;
+        min-height:
+            360px !important;
 
-        padding: 18px 16px;
+        padding:
+            14px !important;
 
-        border-radius: 16px;
-    }
-
-    .camera-modulo-area-conteudo::before {
-        left: 16px;
-        right: 16px;
-    }
-
-
-    /* TÍTULOS INTERNOS */
-
-    .camera-nome-camera-titulo,
-    .camera-cadastrados-titulo,
-    .camera-arquivos-titulo {
-        font-size: 18px !important;
+        border-radius:
+            18px !important;
     }
 }
 
 
 /* =========================================================
-   MOBILE PEQUENO
+   CELULAR PEQUENO
 ========================================================= */
 
-@media (max-width: 420px) {
+@media (max-width: 390px) {
 
     .camera-modulo-painel-principal {
-        padding: 16px 12px;
+        padding:
+            6px !important;
+    }
+
+    .camera-modulo-cabecalho-superior {
+        min-height:
+            67px !important;
+
+        padding:
+            12px 14px !important;
     }
 
     .camera-modulo-titulo-principal {
-        font-size: 16px !important;
-
-        letter-spacing: 0.2px;
+        font-size:
+            23px !important;
     }
 
-    .camera-modulo-descricao-principal {
-        font-size: 12px !important;
+    .camera-modulo-navegacao-abas {
+        overflow-x:
+            auto !important;
     }
 
     .camera-modulo-botao-aba {
-        padding: 12px;
+        min-height:
+            41px !important;
 
-        font-size: 13px !important;
+        padding:
+            0 12px !important;
+
+        font-size:
+            10px !important;
     }
 
     .camera-modulo-area-conteudo {
-        padding: 14px 12px;
+        padding:
+            11px !important;
+    }
+}
+
+
+/* =========================================================
+   TOUCH
+========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .camera-modulo-botao-aba:hover {
+        transform:
+            none !important;
     }
 
-    .camera-nome-camera-titulo,
-    .camera-cadastrados-titulo,
-    .camera-arquivos-titulo {
-        font-size: 16px !important;
+    .camera-modulo-botao-aba:active {
+        transform:
+            scale(.96) !important;
     }
 }

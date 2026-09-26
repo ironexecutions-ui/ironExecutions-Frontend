@@ -4223,3 +4223,108 @@ select {
         border-radius: 8px !important;
     }
 }
+
+/* =========================================================
+   FOTO AMPLIADA
+   QUALQUER CLIQUE FECHA
+========================================================= */
+
+.lenteProFotoClicavel {
+    cursor: zoom-in !important;
+}
+
+.lenteProModalFoto {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 20px !important;
+
+    background: rgba(2, 8, 23, 0.94) !important;
+
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+
+    z-index: 2147483647 !important;
+
+    cursor: zoom-out !important;
+
+    animation:
+        lenteProModalFotoEntrada 0.18s ease-out both !important;
+}
+
+.lenteProModalFotoImagem {
+    display: block !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    max-width: 96vw !important;
+    max-height: 94vh !important;
+    max-height: 94dvh !important;
+
+    object-fit: contain !important;
+
+    border-radius: 14px !important;
+
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.55) !important;
+
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-user-drag: none !important;
+
+    pointer-events: none !important;
+
+    animation:
+        lenteProModalFotoImagemEntrada 0.22s cubic-bezier(.2, .8, .2, 1) both !important;
+}
+
+@keyframes lenteProModalFotoEntrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes lenteProModalFotoImagemEntrada {
+
+    from {
+        opacity: 0;
+        transform: scale(.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .lenteProModalFoto {
+        padding:
+            max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)) !important;
+    }
+
+    .lenteProModalFotoImagem {
+        max-width: 100% !important;
+        max-height: 97dvh !important;
+
+        border-radius: 10px !important;
+    }
+}

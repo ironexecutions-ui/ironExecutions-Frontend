@@ -2309,6 +2309,29 @@ export default function Lente({
                     document.body
                 )
             }
+            {/* =====================================================
+    MODAL FOTO AMPLIADA
+    QUALQUER CLIQUE FECHA
+===================================================== */}
+
+            {fotoAmpliada && (
+
+                <div
+                    className="lenteProModalFoto"
+                    onClick={() =>
+                        setFotoAmpliada(null)
+                    }
+                >
+
+                    <img
+                        src={fotoAmpliada}
+                        alt="Foto ampliada"
+                        className="lenteProModalFotoImagem"
+                    />
+
+                </div>
+
+            )}
         </div>
 
     );
