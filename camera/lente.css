@@ -1,37 +1,45 @@
 /* =========================================================
-   LENTE PRO
-   IRON EXECUTIONS CAMERA
-   TEMA LIGHT PREMIUM
+   PAGINA
 ========================================================= */
+/* =========================================================
+   LENTE PRO
+   CONFIGURAÇÕES ISOLADAS
+   Não interfere no restante do sistema
+   ========================================================= */
 
-* {
+.lenteProPagina,
+.lenteProPagina *,
+.lenteProPagina *::before,
+.lenteProPagina *::after {
     box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-    width: 100%;
-    min-height: 100%;
-    margin: 0;
+.lenteProPagina {
+    width: 100% !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif !important;
+
+    color: #101828 !important;
 }
 
-html,
-body {
-    background: #edf5ff !important;
-}
-
-button,
-input,
-textarea,
-select {
+.lenteProPagina button,
+.lenteProPagina input,
+.lenteProPagina textarea,
+.lenteProPagina select {
     font: inherit !important;
 }
-
-
-/* =========================================================
-   PAGINA
-========================================================= */
 
 .lenteProPagina {
     width: 100% !important;

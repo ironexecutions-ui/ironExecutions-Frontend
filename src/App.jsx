@@ -27,6 +27,7 @@ import dass from "./imagens/dass.png";
 import alexsiaUtilidades from "./imagens/alexsiautilidades.png";
 import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto"
 import Camerapublica from "../camera/camerapublica";
+import Apresentacao from "../apresentacao/apresentacao"
 /* =========================================================
    MAPA FIXO
    COMERCIO_ID -> IMAGEM
@@ -205,6 +206,10 @@ function RoteamentoComLoading() {
       <Route
         path="/camera/:token"
         element={<Camerapublica />}
+      />
+      <Route
+        path="/apresentacao-local"
+        element={<Apresentacao />}
       />
       <Route
         path="/rifa-compras/:id?"

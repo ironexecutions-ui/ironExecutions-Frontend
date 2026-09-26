@@ -1,761 +1,552 @@
 /* =========================================================
-   CAMERA — PAINEL PREMIUM
-   TEMA: PRETO + DOURADO METÁLICO
-========================================================= */
+   CÂMERA — PAINEL PRINCIPAL
+   IDENTIDADE COMPATÍVEL COM ADMINISTRAÇÃO
+   ========================================================= */
 
 .camera-modulo-painel-principal {
-    --camera-preto: #070707;
-    --camera-preto-2: #0d0d0d;
-    --camera-preto-3: #141414;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
 
-    --camera-card: rgba(18, 18, 18, 0.92);
-    --camera-card-hover: rgba(27, 27, 27, 0.96);
-
-    --camera-dourado: #d89b25;
-    --camera-dourado-claro: #ffd978;
-    --camera-dourado-forte: #f0b83d;
-    --camera-dourado-escuro: #8d5b0c;
-
-    --camera-texto: #f8f6f0;
-    --camera-texto-secundario: #a9a69e;
-
-    --camera-borda: rgba(222, 166, 56, 0.18);
-    --camera-borda-forte: rgba(240, 184, 61, 0.48);
-
-    position: relative !important;
-
-    width: 100% !important;
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
-
-    padding:
-        clamp(18px, 3vw, 42px) !important;
-
-    overflow-x: hidden !important;
-
-    color: var(--camera-texto) !important;
+    padding: 32px 36px;
 
     background:
-        radial-gradient(circle at 15% 0%,
-            rgba(218, 157, 37, 0.11) 0%,
-            transparent 28%),
-        radial-gradient(circle at 90% 15%,
-            rgba(255, 210, 104, 0.055) 0%,
-            transparent 24%),
-        linear-gradient(145deg,
-            #050505 0%,
-            #0a0a0a 45%,
-            #070707 100%) !important;
+        radial-gradient(circle at top left,
+            #e3e3e4 0%,
+            #c7c9cf 52%,
+            #8f919b 100%) !important;
 
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif !important;
-}
+    color: #0f172a !important;
 
+    font-family: "Montserrat", sans-serif;
 
-/* =========================================================
-   DETALHE DE LUZ DO FUNDO
-========================================================= */
-
-.camera-modulo-painel-principal::before {
-    content: "" !important;
-
-    position: fixed !important;
-
-    width: 420px !important;
-    height: 420px !important;
-
-    top: -220px !important;
-    left: 15% !important;
-
-    border-radius: 50% !important;
-
-    background:
-        rgba(232, 174, 56, 0.09) !important;
-
-    filter: blur(100px) !important;
-
-    pointer-events: none !important;
-
-    z-index: 0 !important;
-}
-
-.camera-modulo-painel-principal::after {
-    content: "" !important;
-
-    position: fixed !important;
-
-    width: 350px !important;
-    height: 350px !important;
-
-    right: -180px !important;
-    bottom: -180px !important;
-
-    border-radius: 50% !important;
-
-    background:
-        rgba(210, 145, 20, 0.06) !important;
-
-    filter: blur(90px) !important;
-
-    pointer-events: none !important;
-
-    z-index: 0 !important;
+    position: relative;
 }
 
 
 /* =========================================================
    CABEÇALHO
-========================================================= */
+   ========================================================= */
 
 .camera-modulo-cabecalho-superior {
-    position: relative !important;
-    z-index: 2 !important;
+    width: 100%;
 
-    width: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
+    margin-bottom: 24px;
 
-    gap: 20px !important;
+    position: relative;
+}
 
-    margin: 0 0 28px !important;
+.camera-modulo-titulo-principal {
+    margin: 0;
 
-    padding:
-        clamp(18px, 2.3vw, 28px) clamp(20px, 3vw, 36px) !important;
+    color: #0a0a0a !important;
 
-    border:
-        1px solid var(--camera-borda) !important;
+    font-size: 24px;
+    line-height: 1.2;
 
-    border-radius: 24px !important;
+    font-weight: 800;
 
-    background:
-        linear-gradient(135deg,
-            rgba(24, 24, 24, 0.96),
-            rgba(10, 10, 10, 0.97)) !important;
+    letter-spacing: 0.3px;
 
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.30),
-        inset 0 1px 0 rgba(255, 255, 255, 0.045) !important;
-
-    overflow: hidden !important;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
 
-/* LINHA DOURADA SUPERIOR */
+/* pequena linha decorativa abaixo do título */
 
-.camera-modulo-cabecalho-superior::before {
-    content: "" !important;
+.camera-modulo-cabecalho-superior::after {
+    content: "";
 
-    position: absolute !important;
+    position: absolute;
 
-    top: 0 !important;
-    left: 8% !important;
-    right: 8% !important;
+    left: 0;
+    bottom: -12px;
 
-    height: 1px !important;
+    width: 64px;
+    height: 3px;
+
+    border-radius: 999px;
 
     background:
         linear-gradient(90deg,
-            transparent,
-            rgba(255, 218, 121, 0.2),
-            #f0b83d,
-            rgba(255, 218, 121, 0.2),
-            transparent) !important;
+            #2563eb,
+            #1d4ed8) !important;
+
+    box-shadow:
+        0 3px 10px rgba(37, 99, 235, 0.28);
 }
 
 
 /* =========================================================
-   TÍTULO
-========================================================= */
+   NAVEGAÇÃO DAS ABAS
+   ========================================================= */
 
-.camera-modulo-titulo-principal {
-    position: relative !important;
+.camera-modulo-navegacao-abas {
+    width: 100%;
 
-    margin: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
 
-    padding-left: 20px !important;
+    gap: 12px;
 
-    color: #ffffff !important;
+    margin-bottom: 26px;
 
-    font-size:
-        clamp(26px, 3vw, 42px) !important;
-
-    font-weight: 800 !important;
-
-    line-height: 1 !important;
-
-    letter-spacing: -1.2px !important;
+    padding-top: 4px;
 }
 
 
-/* BARRA DOURADA DO TÍTULO */
+/* =========================================================
+   BOTÃO BASE
+   ========================================================= */
 
-.camera-modulo-titulo-principal::before {
-    content: "" !important;
+.camera-modulo-botao-aba {
+    position: relative;
 
-    position: absolute !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    left: 0 !important;
-    top: 50% !important;
+    min-height: 46px;
 
-    width: 5px !important;
-    height: 70% !important;
+    padding: 12px 20px;
 
-    transform: translateY(-50%) !important;
+    border-radius: 14px;
 
-    border-radius: 999px !important;
+    border: 1px solid rgba(37, 99, 235, 0.15);
 
     background:
         linear-gradient(180deg,
-            #fff0ae,
-            #f0b83d 42%,
-            #9e6408) !important;
+            #020617 0%,
+            #020617 100%) !important;
+
+    color: #e5e7eb !important;
+
+    font-family: "Montserrat", sans-serif;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+
+    overflow: hidden;
 
     box-shadow:
-        0 0 20px rgba(240, 184, 61, 0.32) !important;
-}
-
-
-/* =========================================================
-   NAVEGAÇÃO
-========================================================= */
-
-.camera-modulo-navegacao-abas {
-    position: relative !important;
-    z-index: 2 !important;
-
-    width: fit-content !important;
-    max-width: 100% !important;
-
-    display: flex !important;
-    align-items: center !important;
-
-    gap: 6px !important;
-
-    margin:
-        0 0 24px 0 !important;
-
-    padding: 6px !important;
-
-    border:
-        1px solid rgba(255, 255, 255, 0.07) !important;
-
-    border-radius: 18px !important;
-
-    background:
-        rgba(13, 13, 13, 0.94) !important;
-
-    box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
-
-    overflow-x: auto !important;
-
-    scrollbar-width: none !important;
-}
-
-.camera-modulo-navegacao-abas::-webkit-scrollbar {
-    display: none !important;
-}
-
-
-/* =========================================================
-   BOTÕES DAS ABAS
-========================================================= */
-
-.camera-modulo-botao-aba {
-    position: relative !important;
-
-    min-height: 48px !important;
-
-    padding:
-        0 clamp(17px, 2vw, 26px) !important;
-
-    flex-shrink: 0 !important;
-
-    border:
-        1px solid transparent !important;
-
-    border-radius: 13px !important;
-
-    outline: none !important;
-
-    background:
-        transparent !important;
-
-    color:
-        #aaa69e !important;
-
-    font-size: 13px !important;
-    font-weight: 700 !important;
-
-    letter-spacing: 0.1px !important;
-
-    cursor: pointer !important;
+        0 5px 16px rgba(0, 0, 0, 0.18);
 
     transition:
-        color 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease !important;
+        transform 0.18s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        color 0.25s ease;
 }
 
-.camera-modulo-botao-aba:hover {
-    color: #ffffff !important;
+
+/* =========================================================
+   REFLEXO DOS BOTÕES
+   ========================================================= */
+
+.camera-modulo-botao-aba::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
 
     background:
-        rgba(255, 255, 255, 0.045) !important;
+        linear-gradient(120deg,
+            transparent 20%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 80%);
+
+    transform:
+        translateX(-100%);
+
+    transition:
+        transform 0.55s ease;
+
+    pointer-events: none;
 }
 
-.camera-modulo-botao-aba:active {
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.camera-modulo-botao-aba:hover {
     transform:
-        scale(0.97) !important;
+        translateY(-2px);
+
+    border-color:
+        #2563eb !important;
+
+    color:
+        #ffffff !important;
+
+    background:
+        linear-gradient(180deg,
+            #07152f 0%,
+            #020617 100%) !important;
+
+    box-shadow:
+        0 9px 24px rgba(37, 99, 235, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.camera-modulo-botao-aba:hover::before {
+    transform:
+        translateX(100%);
 }
 
 
 /* =========================================================
    ABA ATIVA
-========================================================= */
+   ========================================================= */
 
 .camera-modulo-botao-aba-ativo {
-    color:
-        #161006 !important;
+    color: #ffffff !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb 0%,
+            #1d4ed8 100%) !important;
 
     border-color:
-        rgba(255, 224, 145, 0.72) !important;
-
-    background:
-        linear-gradient(135deg,
-            #fff0ae 0%,
-            #e9ad36 38%,
-            #bc7814 72%,
-            #f2c55f 100%) !important;
+        #2563eb !important;
 
     box-shadow:
-        0 7px 22px rgba(211, 148, 28, 0.20),
-        inset 0 1px 1px rgba(255, 255, 255, 0.7),
-        inset 0 -1px 2px rgba(91, 49, 0, 0.22) !important;
+        0 10px 28px rgba(37, 99, 235, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
 
-    text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.28) !important;
-}
-
-.camera-modulo-botao-aba-ativo:hover {
-    color:
-        #0e0b05 !important;
-
-    background:
-        linear-gradient(135deg,
-            #fff4bf,
-            #f0ba48 42%,
-            #c9851a 75%,
-            #f7d16d) !important;
-
-    box-shadow:
-        0 9px 28px rgba(222, 159, 35, 0.28),
-        inset 0 1px 1px rgba(255, 255, 255, 0.75) !important;
+    transform:
+        translateY(-1px);
 }
 
 
-/* INDICADOR INFERIOR */
+/* =========================================================
+   LINHA AZUL DA ABA ATIVA
+   ========================================================= */
 
 .camera-modulo-botao-aba-ativo::after {
-    content: "" !important;
+    content: "";
 
-    position: absolute !important;
+    position: absolute;
 
-    left: 25% !important;
-    right: 25% !important;
-    bottom: -7px !important;
+    left: 18px;
+    right: 18px;
+    bottom: 5px;
 
-    height: 2px !important;
+    height: 2px;
 
-    border-radius: 999px !important;
+    border-radius: 999px;
 
     background:
-        #f0b83d !important;
+        rgba(255, 255, 255, 0.7);
 
-    box-shadow:
-        0 0 10px rgba(240, 184, 61, 0.6) !important;
+    opacity: 0.8;
 }
 
 
 /* =========================================================
    ÁREA DE CONTEÚDO
-========================================================= */
+   ========================================================= */
 
 .camera-modulo-area-conteudo {
-    position: relative !important;
-    z-index: 1 !important;
+    position: relative;
 
-    width: 100% !important;
-    min-width: 0 !important;
+    width: 100%;
 
-    min-height: 420px !important;
+    min-height: 340px;
 
-    padding:
-        clamp(18px, 2.5vw, 32px) !important;
+    box-sizing: border-box;
+
+    padding: 26px;
+
+    border-radius: 18px;
 
     border:
-        1px solid rgba(220, 166, 59, 0.14) !important;
-
-    border-radius: 26px !important;
+        1px solid rgba(37, 99, 235, 0.18);
 
     background:
-        linear-gradient(145deg,
-            rgba(18, 18, 18, 0.95),
-            rgba(10, 10, 10, 0.97)) !important;
+        rgba(255, 255, 255, 0.08);
 
     box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.32),
-        inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+        0 20px 50px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
 
-    overflow: hidden !important;
+    animation:
+        cameraConteudoEntrada 0.35s ease;
 }
 
 
-/* LUZ DOURADA DISCRETA */
+/* =========================================================
+   LINHA DECORATIVA DO CONTEÚDO
+   ========================================================= */
 
 .camera-modulo-area-conteudo::before {
-    content: "" !important;
+    content: "";
 
-    position: absolute !important;
+    position: absolute;
 
-    width: 250px !important;
-    height: 250px !important;
+    top: 0;
+    left: 24px;
+    right: 24px;
 
-    top: -170px !important;
-    right: -80px !important;
-
-    border-radius: 50% !important;
+    height: 1px;
 
     background:
-        rgba(225, 164, 42, 0.08) !important;
+        linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.75),
+            transparent);
 
-    filter:
-        blur(50px) !important;
-
-    pointer-events: none !important;
+    pointer-events: none;
 }
 
 
 /* =========================================================
-   ELEMENTOS INTERNOS GENÉRICOS
-   PARA AJUDAR OS COMPONENTES FILHOS
-========================================================= */
+   EFEITO DE BRILHO DO CONTAINER
+   ========================================================= */
 
-.camera-modulo-area-conteudo h1,
-.camera-modulo-area-conteudo h2,
-.camera-modulo-area-conteudo h3,
-.camera-modulo-area-conteudo h4,
-.camera-modulo-area-conteudo strong {
-    color:
-        #f8f6f0 !important;
-}
+.camera-modulo-area-conteudo::after {
+    content: "";
 
-.camera-modulo-area-conteudo p,
-.camera-modulo-area-conteudo small {
-    color:
-        #a9a69e !important;
-}
+    position: absolute;
 
+    top: 1px;
+    left: 8%;
+    right: 8%;
 
-/* INPUTS */
-
-.camera-modulo-area-conteudo input,
-.camera-modulo-area-conteudo select,
-.camera-modulo-area-conteudo textarea {
-    color:
-        #f8f6f0 !important;
-
-    border:
-        1px solid rgba(255, 255, 255, 0.09) !important;
-
-    border-radius:
-        13px !important;
+    height: 50px;
 
     background:
-        #101010 !important;
+        radial-gradient(ellipse at top,
+            rgba(255, 255, 255, 0.12),
+            transparent 70%);
 
+    pointer-events: none;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO
+   ========================================================= */
+
+@keyframes cameraConteudoEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   FOCO / ACESSIBILIDADE
+   ========================================================= */
+
+.camera-modulo-botao-aba:focus-visible {
     outline:
-        none !important;
+        3px solid rgba(37, 99, 235, 0.32) !important;
 
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease !important;
-}
-
-.camera-modulo-area-conteudo input:focus,
-.camera-modulo-area-conteudo select:focus,
-.camera-modulo-area-conteudo textarea:focus {
-    border-color:
-        rgba(235, 174, 52, 0.72) !important;
-
-    background:
-        #141414 !important;
-
-    box-shadow:
-        0 0 0 3px rgba(232, 169, 43, 0.10) !important;
-}
-
-.camera-modulo-area-conteudo input::placeholder,
-.camera-modulo-area-conteudo textarea::placeholder {
-    color:
-        #6e6b64 !important;
-}
-
-
-/* =========================================================
-   SELEÇÃO
-========================================================= */
-
-.camera-modulo-painel-principal ::selection {
-    color: #0a0804 !important;
-
-    background:
-        #e8ad3a !important;
-}
-
-
-/* =========================================================
-   SCROLLBAR
-========================================================= */
-
-.camera-modulo-painel-principal * {
-    scrollbar-width: thin !important;
-
-    scrollbar-color:
-        #a96f15 #101010 !important;
-}
-
-.camera-modulo-painel-principal *::-webkit-scrollbar {
-    width: 8px !important;
-    height: 8px !important;
-}
-
-.camera-modulo-painel-principal *::-webkit-scrollbar-track {
-    background:
-        #101010 !important;
-}
-
-.camera-modulo-painel-principal *::-webkit-scrollbar-thumb {
-    border:
-        2px solid #101010 !important;
-
-    border-radius:
-        999px !important;
-
-    background:
-        linear-gradient(180deg,
-            #e7aa34,
-            #87540a) !important;
+    outline-offset:
+        3px !important;
 }
 
 
 /* =========================================================
    TABLET
-========================================================= */
+   ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
 
     .camera-modulo-painel-principal {
         padding:
-            18px !important;
+            26px 24px;
     }
 
-    .camera-modulo-cabecalho-superior {
-        margin-bottom:
-            18px !important;
-
-        border-radius:
-            20px !important;
+    .camera-modulo-titulo-principal {
+        font-size:
+            22px;
     }
 
     .camera-modulo-navegacao-abas {
-        width:
-            100% !important;
+        gap:
+            10px;
 
         margin-bottom:
-            18px !important;
+            22px;
     }
 
     .camera-modulo-botao-aba {
-        flex:
-            1 0 auto !important;
+        min-height:
+            44px;
 
-        text-align:
-            center !important;
+        padding:
+            10px 16px;
+
+        font-size:
+            13px;
     }
 
     .camera-modulo-area-conteudo {
         padding:
-            20px !important;
-
-        border-radius:
-            21px !important;
+            22px;
     }
 }
 
 
 /* =========================================================
    MOBILE
-========================================================= */
+   ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
     .camera-modulo-painel-principal {
-        padding:
-            10px !important;
+        min-height:
+            auto;
 
-        background:
-            linear-gradient(160deg,
-                #050505,
-                #0c0b09 55%,
-                #060606) !important;
+        padding:
+            20px 16px;
     }
 
     .camera-modulo-cabecalho-superior {
-        min-height:
-            76px !important;
-
         margin-bottom:
-            12px !important;
-
-        padding:
-            16px 17px !important;
-
-        border-radius:
-            17px !important;
+            22px;
     }
 
     .camera-modulo-titulo-principal {
-        padding-left:
-            14px !important;
-
         font-size:
-            25px !important;
+            20px;
 
-        letter-spacing:
-            -0.7px !important;
-    }
-
-    .camera-modulo-titulo-principal::before {
-        width:
-            4px !important;
+        text-align:
+            left;
     }
 
     .camera-modulo-navegacao-abas {
-        width:
-            100% !important;
+        display:
+            grid;
+
+        grid-template-columns:
+            1fr;
 
         gap:
-            4px !important;
+            10px;
 
         margin-bottom:
-            12px !important;
-
-        padding:
-            5px !important;
-
-        border-radius:
-            15px !important;
+            20px;
     }
 
     .camera-modulo-botao-aba {
+        width:
+            100%;
+
         min-height:
-            44px !important;
+            48px;
 
         padding:
-            0 14px !important;
-
-        font-size:
-            11px !important;
+            13px 16px;
 
         border-radius:
-            11px !important;
+            14px;
+
+        font-size:
+            14px;
     }
 
     .camera-modulo-area-conteudo {
         min-height:
-            360px !important;
+            auto;
 
         padding:
-            14px !important;
+            18px 16px;
 
         border-radius:
-            17px !important;
+            16px;
+    }
+
+    .camera-modulo-area-conteudo::before {
+        left:
+            16px;
+
+        right:
+            16px;
     }
 }
 
 
 /* =========================================================
    MOBILE PEQUENO
-========================================================= */
+   ========================================================= */
 
-@media (max-width: 390px) {
+@media (max-width: 420px) {
 
     .camera-modulo-painel-principal {
         padding:
-            7px !important;
-    }
-
-    .camera-modulo-cabecalho-superior {
-        min-height:
-            68px !important;
-
-        padding:
-            13px 14px !important;
+            16px 12px;
     }
 
     .camera-modulo-titulo-principal {
         font-size:
-            22px !important;
-    }
-
-    .camera-modulo-navegacao-abas {
-        overflow-x:
-            auto !important;
+            18px;
     }
 
     .camera-modulo-botao-aba {
         min-height:
-            41px !important;
+            46px;
 
         padding:
-            0 12px !important;
+            12px;
 
         font-size:
-            10px !important;
+            13px;
     }
 
     .camera-modulo-area-conteudo {
         padding:
-            11px !important;
+            14px 12px;
+
+        border-radius:
+            14px;
     }
 }
 
 
 /* =========================================================
-   TOUCH
-========================================================= */
+   REDUÇÃO DE MOVIMENTO
+   ========================================================= */
 
-@media (hover: none) and (pointer: coarse) {
+@media (prefers-reduced-motion: reduce) {
 
-    .camera-modulo-botao-aba:hover {
-        transform:
+    .camera-modulo-botao-aba,
+    .camera-modulo-area-conteudo {
+        animation:
+            none !important;
+
+        transition:
             none !important;
     }
 
-    .camera-modulo-botao-aba:active {
-        transform:
-            scale(0.96) !important;
+    .camera-modulo-botao-aba::before {
+        transition:
+            none !important;
     }
 }
