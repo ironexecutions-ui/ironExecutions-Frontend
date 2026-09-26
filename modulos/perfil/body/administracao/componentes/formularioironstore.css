@@ -3059,3 +3059,401 @@
     }
 
 }
+
+/* =========================================================
+   IRONSTORE
+   GERADOR DE DESCRIÇÕES COM IA
+   ========================================================= */
+
+.ironstore-produto-ia-descricao {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 16px !important;
+
+    padding: 14px 15px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #bfdbfe !important;
+    border-radius: 15px !important;
+
+    background:
+        radial-gradient(circle at 0% 0%,
+            rgba(37, 99, 235, 0.10),
+            transparent 35%),
+        linear-gradient(135deg,
+            #ffffff,
+            #eff6ff) !important;
+
+    box-shadow:
+        0 7px 20px rgba(37, 99, 235, 0.07),
+        inset 0 1px 0 #ffffff !important;
+
+    box-sizing: border-box !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+.ironstore-produto-ia-descricao:hover {
+    border-color: #93c5fd !important;
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.10),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+.ironstore-produto-ia-descricao-conteudo {
+    min-width: 0 !important;
+
+    flex: 1 1 auto !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+}
+
+
+/* =========================================================
+   ÍCONE IA
+   ========================================================= */
+
+.ironstore-produto-ia-descricao-icone {
+    width: 38px !important;
+    height: 38px !important;
+
+    flex: 0 0 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px solid #93c5fd !important;
+    border-radius: 11px !important;
+
+    background:
+        linear-gradient(145deg,
+            #dbeafe,
+            #bfdbfe) !important;
+
+    color: #1d4ed8 !important;
+
+    font-family: inherit !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+
+    letter-spacing: 0.3px !important;
+
+    box-shadow:
+        inset 0 1px 0 #ffffff,
+        0 4px 10px rgba(37, 99, 235, 0.10) !important;
+}
+
+
+/* =========================================================
+   TEXTOS
+   ========================================================= */
+
+.ironstore-produto-ia-descricao-textos {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 3px !important;
+}
+
+
+.ironstore-produto-ia-descricao-textos strong {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #0f172a !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.3 !important;
+}
+
+
+.ironstore-produto-ia-descricao-textos span {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #64748b !important;
+
+    font-family: inherit !important;
+    font-size: 9.5px !important;
+    font-weight: 550 !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   BOTÃO COPIAR PROMPT
+   ========================================================= */
+
+.ironstore-produto-ia-descricao-botao {
+    min-width: 178px !important;
+    height: 42px !important;
+
+    flex: 0 0 auto !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    padding: 0 15px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #2563eb !important;
+    border-radius: 11px !important;
+
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8) !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 7px 17px rgba(37, 99, 235, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+
+.ironstore-produto-ia-descricao-botao:hover {
+    transform: translateY(-2px) !important;
+
+    background:
+        linear-gradient(135deg,
+            #1d4ed8,
+            #1e40af) !important;
+
+    box-shadow:
+        0 11px 23px rgba(37, 99, 235, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+
+.ironstore-produto-ia-descricao-botao:active {
+    transform: scale(0.97) !important;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.18) !important;
+}
+
+
+.ironstore-produto-ia-descricao-botao:focus-visible {
+    outline: none !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.14),
+        0 8px 20px rgba(37, 99, 235, 0.20) !important;
+}
+
+
+/* =========================================================
+   ÍCONE DO BOTÃO
+   ========================================================= */
+
+.ironstore-produto-ia-descricao-botao-icone {
+    width: 22px !important;
+    height: 22px !important;
+
+    flex: 0 0 22px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 7px !important;
+
+    background: rgba(255, 255, 255, 0.10) !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease !important;
+}
+
+
+.ironstore-produto-ia-descricao-botao:hover .ironstore-produto-ia-descricao-botao-icone {
+    transform: translateY(-1px) !important;
+
+    background: rgba(255, 255, 255, 0.16) !important;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .ironstore-produto-ia-descricao {
+        align-items: stretch !important;
+        flex-direction: column !important;
+
+        gap: 12px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-botao {
+        width: 100% !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .ironstore-produto-ia-descricao {
+        padding: 13px !important;
+
+        gap: 11px !important;
+
+        border-radius: 14px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-conteudo {
+        align-items: flex-start !important;
+
+        gap: 10px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-icone {
+        width: 35px !important;
+        height: 35px !important;
+
+        flex-basis: 35px !important;
+
+        border-radius: 10px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-textos strong {
+        font-size: 11px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-textos span {
+        font-size: 9px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-botao {
+        min-width: 0 !important;
+        width: 100% !important;
+
+        height: 43px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .ironstore-produto-ia-descricao {
+        padding: 11px !important;
+
+        border-radius: 13px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-conteudo {
+        gap: 9px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-icone {
+        width: 33px !important;
+        height: 33px !important;
+
+        flex-basis: 33px !important;
+
+        font-size: 9px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-textos strong {
+        font-size: 10.5px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-textos span {
+        font-size: 8.5px !important;
+    }
+
+
+    .ironstore-produto-ia-descricao-botao {
+        height: 42px !important;
+
+        font-size: 9.5px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstore-produto-ia-descricao,
+    .ironstore-produto-ia-descricao-botao,
+    .ironstore-produto-ia-descricao-botao-icone {
+        transition: none !important;
+    }
+
+}

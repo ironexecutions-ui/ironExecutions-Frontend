@@ -8,7 +8,8 @@ import { URL } from "../../url";
 export default function FormularioIronStore({
     form,
     alterar,
-    salvar
+    salvar,
+    variedades = []
 }) {
 
     const estaDisponivel =
@@ -265,6 +266,134 @@ export default function FormularioIronStore({
     }
 
     /* =========================================================
+       PROMPT PARA IA, DESCRIÇÕES DO PRODUTO
+    ========================================================= */
+
+    async function copiarPromptDescricaoIA() {
+
+        const variedadesTexto =
+            Array.isArray(variedades) && variedades.length > 0
+                ? variedades
+                    .map(variedade =>
+                        String(variedade?.nome || "").trim()
+                    )
+                    .filter(Boolean)
+                    .join(", ")
+                : "";
+
+        const prompt = `
+Crie as descrições comerciais deste produto para uma loja virtual.
+
+Quero que você gere DUAS versões:
+
+1. DESCRIÇÃO CURTA
+Uma frase ou pequeno texto objetivo, comercial e claro, destacando o principal benefício ou característica do produto.
+
+2. DESCRIÇÃO COMPLETA
+Um texto mais detalhado e profissional, apresentando o produto de forma atrativa para o cliente. Inclua as características, materiais, utilização, benefícios, acabamento, medidas, peso, variações e outras informações relevantes que estejam disponíveis.
+
+REGRAS IMPORTANTES:
+- Use somente as informações fornecidas abaixo.
+- Não invente materiais, medidas, funcionalidades, benefícios, composição ou qualquer outra característica que não tenha sido informada.
+- Se alguma informação não estiver disponível, simplesmente não mencione.
+- Escreva em português do Brasil.
+- Não use emojis.
+- Não coloque preços na descrição, a menos que eu peça.
+- Não use frases genéricas como "produto de alta qualidade" sem que isso possa ser sustentado pelas informações fornecidas.
+- A descrição deve parecer escrita por uma pessoa, com linguagem natural e adequada para uma loja virtual.
+- Não coloque títulos como "Descrição curta" ou "Descrição completa" dentro dos textos finais. Apenas entregue os dois textos identificados separadamente.
+
+DADOS DO PRODUTO:
+
+Nome:
+${String(form.nome || "").trim() || "Não informado"}
+
+Categoria:
+${String(form.categoria || "").trim() || "Não informada"}
+
+Descrição atual:
+${String(form.descricao || "").trim() || "Não informada"}
+
+Descrição curta atual:
+${String(form.descricao_curta || "").trim() || "Não informada"}
+
+Variedades:
+${variedadesTexto || "Não informadas"}
+
+Unidade:
+${String(form.unidade || "").trim() || "Não informada"}
+
+Peso:
+${form.peso_g ? `${form.peso_g} g` : "Não informado"}
+
+Altura:
+${form.altura_cm ? `${form.altura_cm} cm` : "Não informada"}
+
+Comprimento:
+${form.cumprimento_cm ? `${form.cumprimento_cm} cm` : "Não informado"}
+
+Largura:
+${form.largura_cm ? `${form.largura_cm} cm` : "Não informada"}
+
+Tipo de destaque:
+${String(form.destaque || "").trim() || "Não informado"}
+
+Agora gere as duas versões solicitadas, mantendo fidelidade total aos dados fornecidos.
+        `.trim();
+
+        try {
+
+            if (
+                navigator.clipboard &&
+                typeof navigator.clipboard.writeText === "function"
+            ) {
+
+                await navigator.clipboard.writeText(prompt);
+
+            } else {
+
+                const textarea =
+                    document.createElement("textarea");
+
+                textarea.value = prompt;
+                textarea.style.position = "fixed";
+                textarea.style.opacity = "0";
+
+                document.body.appendChild(textarea);
+
+                textarea.focus();
+                textarea.select();
+
+                document.execCommand("copy");
+
+                document.body.removeChild(textarea);
+            }
+
+            abrirAlerta({
+                titulo: "Prompt copiado",
+                mensagem:
+                    "O prompt com os detalhes deste produto foi copiado. Agora é só colar na IA para gerar a descrição curta e a descrição completa.",
+                tipo: "sucesso"
+            });
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao copiar prompt para IA:",
+                erro
+            );
+
+            abrirAlerta({
+                titulo: "Não foi possível copiar",
+                mensagem:
+                    "O navegador não permitiu copiar o prompt automaticamente.",
+                tipo: "erro"
+            });
+        }
+    }
+
+
+    /* =========================================================
        SELECIONAR DESTAQUE
     ========================================================= */
 
@@ -488,6 +617,54 @@ export default function FormularioIronStore({
 
 
                 <div className="ironstore-produto-campos">
+
+
+                    {/* =====================================================
+                        GERADOR DE DESCRIÇÕES COM IA
+                    ===================================================== */}
+
+                    <div className="ironstore-produto-ia-descricao">
+
+                        <div className="ironstore-produto-ia-descricao-conteudo">
+
+                            <div className="ironstore-produto-ia-descricao-icone">
+                                IA
+                            </div>
+
+                            <div className="ironstore-produto-ia-descricao-textos">
+
+                                <strong>
+                                    Gerar descrição com IA
+                                </strong>
+
+                                <span>
+                                    Copie um prompt com os detalhes deste produto
+                                    e use na IA para gerar uma descrição curta e
+                                    outra completa.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            className="ironstore-produto-ia-descricao-botao"
+                            onClick={copiarPromptDescricaoIA}
+                        >
+
+                            <span className="ironstore-produto-ia-descricao-botao-icone">
+                                ⧉
+                            </span>
+
+                            <span>
+                                Copiar prompt para IA
+                            </span>
+
+                        </button>
+
+                    </div>
 
 
                     {/* DESCRIÇÃO */}
