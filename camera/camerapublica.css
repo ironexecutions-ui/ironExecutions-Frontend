@@ -1,851 +1,466 @@
 /* =========================================================
-   IRON EXECUTIONS
-   CÂMERA PÚBLICA
-   LOGIN / TOKEN / ACESSO
-========================================================= */
-
-
-/* =========================================================
-   BASE
-========================================================= */
+   CAMERA PÚBLICA
+   Branco + Dourado + Preto
+   ========================================================= */
 
 .camera-publica-login,
-.camera-publica-invalido,
-.camera-publica-status {
-    width: 100% !important;
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
+.camera-publica-status,
+.camera-publica-invalido {
+    --camera-gold: #c99732;
+    --camera-gold-dark: #8f6519;
+    --camera-gold-deep: #68440d;
+    --camera-gold-light: #f2d58a;
+    --camera-gold-soft: #fff8e8;
 
-    box-sizing: border-box !important;
+    --camera-black: #111111;
+    --camera-text: #171717;
+    --camera-muted: #686868;
 
-    position: relative !important;
+    --camera-white: #ffffff;
+    --camera-background: #f7f5ef;
+    --camera-border: rgba(20, 20, 20, 0.08);
 
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    padding: 32px 20px !important;
-
-    overflow: hidden !important;
-
+    box-sizing: border-box;
     font-family:
-        "Montserrat",
+        Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        sans-serif !important;
-
-    background:
-        radial-gradient(circle at 15% 10%,
-            rgba(37, 99, 235, 0.13) 0%,
-            transparent 32%),
-        radial-gradient(circle at 90% 90%,
-            rgba(59, 130, 246, 0.11) 0%,
-            transparent 34%),
-        linear-gradient(145deg,
-            #ffffff 0%,
-            #f8faff 40%,
-            #eef4ff 100%) !important;
-
-    color: #0f172a !important;
+        sans-serif;
 }
 
 
 /* =========================================================
-   EFEITOS DE FUNDO
-========================================================= */
+   FUNDO PRINCIPAL
+   ========================================================= */
 
-.camera-publica-login::before,
-.camera-publica-invalido::before,
-.camera-publica-status::before {
-    content: "" !important;
+.camera-publica-login {
+    width: 100%;
+    min-height: 100dvh;
 
-    position: absolute !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    width: 520px !important;
-    height: 520px !important;
+    padding: 42px 22px;
 
-    top: -310px !important;
-    right: -220px !important;
+    position: relative;
+    overflow: hidden;
 
-    border-radius: 50% !important;
+    background:
+        radial-gradient(circle at 50% -15%,
+            rgba(212, 169, 78, 0.18) 0%,
+            rgba(212, 169, 78, 0.06) 27%,
+            transparent 52%),
+        radial-gradient(circle at 10% 90%,
+            rgba(201, 151, 50, 0.08),
+            transparent 30%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #faf9f5 48%,
+            #f2eee4 100%);
 
-    border:
-        1px solid rgba(37, 99, 235, 0.08) !important;
-
-    box-shadow:
-        0 0 0 55px rgba(37, 99, 235, 0.025),
-        0 0 0 110px rgba(37, 99, 235, 0.018) !important;
-
-    pointer-events: none !important;
+    isolation: isolate;
 }
 
 
-.camera-publica-login::after,
-.camera-publica-invalido::after,
-.camera-publica-status::after {
-    content: "" !important;
+/* =========================================================
+   DECORAÇÃO DO FUNDO
+   ========================================================= */
 
-    position: absolute !important;
+.camera-publica-login::before {
+    content: "";
 
-    width: 400px !important;
-    height: 400px !important;
+    position: absolute;
 
-    bottom: -260px !important;
-    left: -170px !important;
+    width: 520px;
+    height: 520px;
 
-    border-radius: 50% !important;
+    top: -320px;
+    right: -190px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(191, 140, 37, 0.17);
+
+    box-shadow:
+        0 0 0 45px rgba(191, 140, 37, 0.025),
+        0 0 0 90px rgba(191, 140, 37, 0.018);
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+.camera-publica-login::after {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    left: -260px;
+    bottom: -250px;
+
+    border-radius: 50%;
 
     background:
         radial-gradient(circle,
-            rgba(37, 99, 235, 0.11),
-            rgba(37, 99, 235, 0.025) 45%,
-            transparent 72%) !important;
+            rgba(201, 151, 50, 0.12),
+            transparent 67%);
 
-    pointer-events: none !important;
+    pointer-events: none;
+    z-index: -1;
 }
 
 
 /* =========================================================
-   CARD DE LOGIN
-========================================================= */
+   CARD PRINCIPAL
+   ========================================================= */
 
 .camera-publica-login-card {
-    width: 100% !important;
-    max-width: 455px !important;
+    width: 100%;
+    max-width: 470px;
 
-    position: relative !important;
-    z-index: 10 !important;
+    position: relative;
 
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-
-    box-sizing: border-box !important;
-
-    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     padding:
-        43px 40px 31px 40px !important;
+        0 42px 36px;
 
-    border:
-        1px solid rgba(37, 99, 235, 0.12) !important;
-
-    border-radius: 28px !important;
+    border-radius: 32px;
 
     background:
-        linear-gradient(145deg,
-            rgba(255, 255, 255, 0.98) 0%,
-            rgba(255, 255, 255, 0.97) 55%,
-            rgba(247, 250, 255, 0.98) 100%) !important;
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.99) 0%,
+            rgba(255, 255, 255, 0.96) 100%);
+
+    border: 1px solid rgba(160, 117, 30, 0.16);
 
     box-shadow:
-        0 35px 80px rgba(15, 23, 42, 0.14),
-        0 12px 30px rgba(37, 99, 235, 0.07),
-        0 2px 5px rgba(15, 23, 42, 0.03),
-        inset 0 1px 0 #ffffff !important;
+        0 35px 90px rgba(24, 19, 8, 0.13),
+        0 10px 30px rgba(24, 19, 8, 0.07),
+        inset 0 1px 0 #ffffff;
 
-    animation:
-        cameraPublicaCardEntrada 0.55s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    overflow: visible;
 }
 
 
-/* =========================================================
-   LINHA PREMIUM SUPERIOR
-========================================================= */
+/* linha dourada superior */
 
 .camera-publica-login-card::before {
-    content: "" !important;
+    content: "";
 
-    position: absolute !important;
+    position: absolute;
 
-    top: 0 !important;
-    left: 0 !important;
+    top: 0;
+    left: 50%;
 
-    width: 100% !important;
-    height: 4px !important;
+    width: 68%;
+    height: 3px;
+
+    transform: translateX(-50%);
+
+    border-radius: 0 0 999px 999px;
 
     background:
         linear-gradient(90deg,
-            #1d4ed8 0%,
-            #2563eb 28%,
-            #60a5fa 55%,
-            #2563eb 78%,
-            #1d4ed8 100%) !important;
+            transparent,
+            #9d6e19 12%,
+            #e1ba60 40%,
+            #fff0b3 50%,
+            #d7a747 67%,
+            #8b5d11 88%,
+            transparent);
 
     box-shadow:
-        0 3px 15px rgba(37, 99, 235, 0.25) !important;
+        0 2px 12px rgba(197, 145, 39, 0.24);
 }
 
 
 /* =========================================================
-   LUZ INTERNA
-========================================================= */
-
-.camera-publica-login-card::after {
-    content: "" !important;
-
-    position: absolute !important;
-
-    width: 260px !important;
-    height: 260px !important;
-
-    top: -160px !important;
-    right: -100px !important;
-
-    border-radius: 50% !important;
-
-    background:
-        radial-gradient(circle,
-            rgba(37, 99, 235, 0.09),
-            transparent 70%) !important;
-
-    pointer-events: none !important;
-}
-
-
-/* =========================================================
-   CAMERA.PNG
-========================================================= */
+   LOGO DA CÂMERA
+   ========================================================= */
 
 .camera-publica-logo {
-    width: 115px !important;
-    height: 95px !important;
+    width: 138px;
+    height: 138px;
 
-    display: block !important;
+    object-fit: contain;
 
-    position: relative !important;
-    z-index: 2 !important;
+    display: block;
 
-    margin:
-        0 auto 22px auto !important;
+    margin-top: -36px;
+    margin-bottom: 14px;
 
-    object-fit: contain !important;
-    object-position: center !important;
-
-    background: transparent !important;
-
-    border: none !important;
+    border-radius: 50%;
 
     filter:
-        drop-shadow(0 13px 14px rgba(15, 23, 42, 0.20)) !important;
+        drop-shadow(0 13px 17px rgba(0, 0, 0, 0.18)) drop-shadow(0 3px 5px rgba(176, 121, 21, 0.22));
 
-    animation:
-        cameraPublicaCameraEntrada 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative;
+    z-index: 3;
 
     transition:
-        transform 0.3s ease,
-        filter 0.3s ease !important;
+        transform 0.35s ease,
+        filter 0.35s ease;
 }
 
 
-.camera-publica-login-card:hover .camera-publica-logo {
+.camera-publica-logo:hover {
     transform:
-        translateY(-3px) scale(1.025) !important;
+        translateY(-3px) scale(1.025);
 
     filter:
-        drop-shadow(0 17px 17px rgba(15, 23, 42, 0.23)) !important;
+        drop-shadow(0 17px 22px rgba(0, 0, 0, 0.19)) drop-shadow(0 4px 8px rgba(176, 121, 21, 0.27));
 }
 
 
 /* =========================================================
    CABEÇALHO
-========================================================= */
+   ========================================================= */
 
 .camera-publica-login-cabecalho {
-    width: 100% !important;
+    width: 100%;
 
-    position: relative !important;
-    z-index: 2 !important;
+    text-align: center;
 
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-
-    margin-bottom: 23px !important;
-
-    text-align: center !important;
+    margin-bottom: 26px;
 }
 
 
 .camera-publica-login-cabecalho>span {
-    display: inline-flex !important;
-    align-items: center !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    margin-bottom: 8px !important;
+    min-height: 27px;
 
-    color: #2563eb !important;
+    padding: 6px 13px;
 
-    font-size: 9px !important;
-    font-weight: 850 !important;
+    margin-bottom: 10px;
 
-    line-height: 1 !important;
+    border-radius: 999px;
 
-    letter-spacing: 2px !important;
+    background:
+        linear-gradient(135deg,
+            #fff9e9,
+            #f8e8b9);
 
-    text-transform: uppercase !important;
+    border: 1px solid rgba(170, 119, 22, 0.2);
+
+    color: #75500e !important;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 
 .camera-publica-login-cabecalho h1 {
-    max-width: 100% !important;
+    margin: 0;
 
-    margin: 0 !important;
-    padding: 0 !important;
+    color: #111111 !important;
 
-    overflow-wrap: anywhere !important;
+    font-size: clamp(27px, 5vw, 34px);
+    line-height: 1.12;
 
-    color: #050505 !important;
+    font-weight: 800;
+    letter-spacing: -1.15px;
 
-    font-size: 28px !important;
-    font-weight: 850 !important;
-
-    line-height: 1.15 !important;
-
-    letter-spacing: -0.8px !important;
-}
-
-
-/* =========================================================
-   PRIMEIRO ACESSO
-========================================================= */
-
-.camera-publica-primeiro-acesso {
-    width: 100% !important;
-
-    position: relative !important;
-    z-index: 2 !important;
-
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-
-    box-sizing: border-box !important;
-
-    gap: 5px !important;
-
-    margin-bottom: 20px !important;
-
-    padding:
-        15px 16px 15px 18px !important;
-
-    border:
-        1px solid rgba(37, 99, 235, 0.12) !important;
-
-    border-radius: 14px !important;
-
-    background:
-        linear-gradient(135deg,
-            #f8fbff,
-            #eff6ff) !important;
-
-    box-shadow:
-        inset 3px 0 0 #2563eb,
-        0 4px 12px rgba(37, 99, 235, 0.045) !important;
-}
-
-
-.camera-publica-primeiro-acesso strong {
-    color: #111827 !important;
-
-    font-size: 12px !important;
-    font-weight: 800 !important;
-}
-
-
-.camera-publica-primeiro-acesso span {
-    color: #64748b !important;
-
-    font-size: 11px !important;
-    font-weight: 500 !important;
-
-    line-height: 1.5 !important;
+    overflow-wrap: anywhere;
 }
 
 
 /* =========================================================
    EMAIL OBRIGATÓRIO
-========================================================= */
+   ========================================================= */
 
 .camera-publica-email-obrigatorio {
-    width: 100% !important;
+    width: 100%;
 
-    position: relative !important;
-    z-index: 2 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
+    padding: 18px 19px;
 
-    box-sizing: border-box !important;
+    margin-bottom: 21px;
 
-    gap: 6px !important;
-
-    margin-bottom: 21px !important;
-
-    padding:
-        17px 17px 16px 19px !important;
-
-    overflow: hidden !important;
-
-    border:
-        1px solid rgba(37, 99, 235, 0.16) !important;
-
-    border-radius: 15px !important;
+    border-radius: 18px;
 
     background:
         linear-gradient(135deg,
-            #ffffff 0%,
-            #f1f6ff 100%) !important;
+            #fffdf8 0%,
+            #fff8e8 100%);
+
+    border: 1px solid rgba(190, 138, 33, 0.24);
 
     box-shadow:
-        inset 4px 0 0 #2563eb,
-        0 6px 16px rgba(37, 99, 235, 0.06) !important;
+        inset 4px 0 0 #c99732,
+        0 8px 22px rgba(116, 80, 12, 0.055);
 }
 
 
 .camera-publica-email-obrigatorio>span {
-    color: #475569 !important;
+    color: #454545 !important;
 
-    font-size: 10px !important;
-    font-weight: 600 !important;
+    font-size: 12px;
+    line-height: 1.5;
 
-    line-height: 1.4 !important;
+    font-weight: 600;
+
+    margin-bottom: 7px;
 }
 
 
 .camera-publica-email-obrigatorio>strong {
-    width: 100% !important;
+    max-width: 100%;
 
-    overflow: hidden !important;
+    color: #111111 !important;
 
-    color: #1d4ed8 !important;
+    font-size: 14px;
+    line-height: 1.4;
 
-    font-size: 13px !important;
-    font-weight: 800 !important;
+    font-weight: 800;
 
-    line-height: 1.4 !important;
+    overflow-wrap: anywhere;
 
-    white-space: nowrap !important;
-    text-overflow: ellipsis !important;
+    margin-bottom: 6px;
 }
 
 
 .camera-publica-email-obrigatorio>small {
-    color: #64748b !important;
+    color: #777777 !important;
 
-    font-size: 9px !important;
-    font-weight: 550 !important;
+    font-size: 11px;
+    line-height: 1.5;
 
-    line-height: 1.45 !important;
+    font-weight: 500;
 }
 
 
 /* =========================================================
-   GOOGLE
-========================================================= */
+   PRIMEIRO ACESSO
+   ========================================================= */
+
+.camera-publica-primeiro-acesso {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 18px 19px;
+
+    margin-bottom: 21px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(135deg,
+            #fffefb,
+            #fff7df);
+
+    border: 1px solid rgba(192, 142, 39, 0.22);
+
+    box-shadow:
+        inset 4px 0 0 #c99732,
+        0 8px 22px rgba(93, 64, 9, 0.05);
+}
+
+
+.camera-publica-primeiro-acesso strong {
+    color: #111111 !important;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    margin-bottom: 4px;
+}
+
+
+.camera-publica-primeiro-acesso span {
+    color: #626262 !important;
+
+    font-size: 12px;
+    line-height: 1.5;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   GOOGLE LOGIN
+   ========================================================= */
 
 .camera-publica-google {
-    width: 100% !important;
+    width: 100%;
 
-    position: relative !important;
-    z-index: 3 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    padding: 4px 0 3px;
 
-    box-sizing: border-box !important;
-
-    margin-top: 1px !important;
+    position: relative;
 }
 
 
 /*
-   Google renderiza iframe próprio.
-   Aqui garantimos o melhor encaixe possível.
+   O Google usa iframe.
+   Não conseguimos alterar internamente,
+   mas podemos integrar visualmente o container.
 */
 
 .camera-publica-google>div {
-    width: 100% !important;
-
-    display: flex !important;
-    justify-content: center !important;
+    max-width: 100% !important;
 }
 
 
 .camera-publica-google iframe {
     max-width: 100% !important;
 
-    border-radius: 10px !important;
-}
-
-
-/* =========================================================
-   ERRO DE LOGIN
-========================================================= */
-
-.camera-publica-erro {
-    width: 100% !important;
-
-    position: relative !important;
-    z-index: 2 !important;
-
-    box-sizing: border-box !important;
-
-    margin-top: 16px !important;
-
-    padding:
-        12px 14px !important;
-
-    border:
-        1px solid rgba(220, 38, 38, 0.16) !important;
-
-    border-radius: 11px !important;
-
-    background:
-        linear-gradient(135deg,
-            #fffafa,
-            #fef2f2) !important;
-
-    color: #991b1b !important;
-
-    font-size: 10px !important;
-    font-weight: 650 !important;
-
-    line-height: 1.5 !important;
-
-    text-align: center !important;
-
-    box-shadow:
-        0 5px 13px rgba(220, 38, 38, 0.045) !important;
-
-    animation:
-        cameraPublicaErroEntrada 0.28s ease !important;
-}
-
-
-/* =========================================================
-   SEGURANÇA
-========================================================= */
-
-.camera-publica-seguranca {
-    width: 100% !important;
-
-    position: relative !important;
-    z-index: 2 !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    gap: 7px !important;
-
-    margin-top: 23px !important;
-
-    padding-top: 18px !important;
-
-    border-top:
-        1px solid rgba(15, 23, 42, 0.07) !important;
-
-    color: #94a3b8 !important;
-
-    font-size: 9px !important;
-    font-weight: 600 !important;
-
-    letter-spacing: 0.15px !important;
-}
-
-
-.camera-publica-seguranca::before {
-    content: "" !important;
-
-    width: 7px !important;
-    height: 7px !important;
-
-    flex: 0 0 7px !important;
-
-    border-radius: 50% !important;
-
-    background: #22c55e !important;
-
-    box-shadow:
-        0 0 0 3px rgba(34, 197, 94, 0.09) !important;
-}
-
-
-/* =========================================================
-   TOKEN INVÁLIDO
-========================================================= */
-
-.camera-publica-invalido-card {
-    width: 100% !important;
-    max-width: 450px !important;
-
-    position: relative !important;
-    z-index: 10 !important;
-
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-
-    box-sizing: border-box !important;
-
-    overflow: hidden !important;
-
-    padding:
-        48px 38px 40px 38px !important;
-
-    border:
-        1px solid rgba(220, 38, 38, 0.11) !important;
-
-    border-radius: 27px !important;
-
-    background:
-        linear-gradient(145deg,
-            #ffffff,
-            #ffffff 60%,
-            #fffafa) !important;
-
-    text-align: center !important;
-
-    box-shadow:
-        0 35px 80px rgba(15, 23, 42, 0.13),
-        0 9px 25px rgba(220, 38, 38, 0.045),
-        inset 0 1px 0 #ffffff !important;
-
-    animation:
-        cameraPublicaCardEntrada 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-
-.camera-publica-invalido-card::before {
-    content: "" !important;
-
-    position: absolute !important;
-
-    top: 0 !important;
-    left: 0 !important;
-
-    width: 100% !important;
-    height: 4px !important;
-
-    background:
-        linear-gradient(90deg,
-            #b91c1c,
-            #ef4444,
-            #f87171,
-            #ef4444,
-            #b91c1c) !important;
-}
-
-
-/* =========================================================
-   ÍCONE TOKEN INVÁLIDO
-========================================================= */
-
-.camera-publica-invalido-icone {
-    width: 72px !important;
-    height: 72px !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    margin-bottom: 22px !important;
-
-    border:
-        1px solid rgba(220, 38, 38, 0.13) !important;
-
-    border-radius: 22px !important;
-
-    background:
-        linear-gradient(145deg,
-            #fff5f5,
-            #fee2e2) !important;
-
-    color: #dc2626 !important;
-
-    font-size: 32px !important;
-    font-weight: 800 !important;
-
-    box-shadow:
-        0 12px 25px rgba(220, 38, 38, 0.10),
-        inset 0 1px 0 #ffffff !important;
-
-    animation:
-        cameraPublicaInvalidoIcone 0.55s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-
-.camera-publica-invalido-card h1 {
-    margin:
-        0 0 9px 0 !important;
-
-    color: #111827 !important;
-
-    font-size: 25px !important;
-    font-weight: 850 !important;
-
-    line-height: 1.2 !important;
-
-    letter-spacing: -0.6px !important;
-}
-
-
-.camera-publica-invalido-card p {
-    max-width: 330px !important;
-
-    margin:
-        0 auto 11px auto !important;
-
-    color: #475569 !important;
-
-    font-size: 12px !important;
-    font-weight: 550 !important;
-
-    line-height: 1.6 !important;
-}
-
-
-.camera-publica-invalido-card>span {
-    max-width: 310px !important;
-
-    color: #94a3b8 !important;
-
-    font-size: 10px !important;
-    font-weight: 500 !important;
-
-    line-height: 1.5 !important;
-}
-
-
-/* =========================================================
-   VERIFICANDO ACESSO
-========================================================= */
-
-.camera-publica-status {
-    flex-direction: column !important;
-
-    gap: 7px !important;
-
-    text-align: center !important;
-}
-
-
-.camera-publica-status img {
-    width: 110px !important;
-    height: 90px !important;
-
-    position: relative !important;
-    z-index: 3 !important;
-
-    display: block !important;
-
-    margin-bottom: 17px !important;
-
-    object-fit: contain !important;
+    border-radius: 12px !important;
 
     filter:
-        drop-shadow(0 12px 13px rgba(15, 23, 42, 0.19)) !important;
-
-    animation:
-        cameraPublicaLoadingCamera 1.8s ease-in-out infinite !important;
-}
-
-
-.camera-publica-status strong {
-    position: relative !important;
-    z-index: 3 !important;
-
-    color: #111827 !important;
-
-    font-size: 16px !important;
-    font-weight: 800 !important;
-
-    letter-spacing: -0.2px !important;
-}
-
-
-.camera-publica-status span {
-    position: relative !important;
-    z-index: 3 !important;
-
-    color: #64748b !important;
-
-    font-size: 11px !important;
-    font-weight: 500 !important;
+        drop-shadow(0 7px 12px rgba(0, 0, 0, 0.075));
 }
 
 
 /* =========================================================
-   BARRA DE CARREGAMENTO
-========================================================= */
+   ERRO
+   ========================================================= */
 
-.camera-publica-status span::after {
-    content: "" !important;
+.camera-publica-erro {
+    width: 100%;
 
-    display: block !important;
+    margin-top: 17px;
 
-    width: 115px !important;
-    height: 3px !important;
+    padding: 13px 15px;
 
-    margin:
-        18px auto 0 auto !important;
+    border-radius: 14px;
 
-    border-radius: 999px !important;
+    background: #fff3f2;
 
-    background:
-        linear-gradient(90deg,
-            rgba(37, 99, 235, 0.1),
-            #2563eb,
-            rgba(37, 99, 235, 0.1)) !important;
+    border: 1px solid rgba(190, 48, 40, 0.17);
 
-    background-size:
-        200% 100% !important;
+    color: #9f2721 !important;
+
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.45;
+
+    text-align: center;
 
     animation:
-        cameraPublicaBarra 1.15s linear infinite !important;
-}
-
-
-/* =========================================================
-   ANIMAÇÕES
-========================================================= */
-
-@keyframes cameraPublicaCardEntrada {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(18px) scale(0.975);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0) scale(1);
-    }
-}
-
-
-@keyframes cameraPublicaCameraEntrada {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(-10px) scale(0.92);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0) scale(1);
-    }
+        cameraPublicaErroEntrada 0.3s ease both;
 }
 
 
@@ -860,187 +475,377 @@
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
 
-@keyframes cameraPublicaInvalidoIcone {
+/* =========================================================
+   SEGURANÇA
+   ========================================================= */
 
-    from {
-        opacity: 0;
+.camera-publica-seguranca {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        transform:
-            scale(0.72) rotate(-5deg);
-    }
+    gap: 7px;
 
-    to {
-        opacity: 1;
+    margin-top: 25px;
 
-        transform:
-            scale(1) rotate(0);
-    }
+    color: #777777 !important;
+
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: 0.25px;
 }
 
 
-@keyframes cameraPublicaLoadingCamera {
+.camera-publica-seguranca::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            #e1bd68,
+            #9d6d17);
+
+    box-shadow:
+        0 0 0 4px rgba(201, 151, 50, 0.1);
+}
+
+
+/* =========================================================
+   CARREGAMENTO
+   ========================================================= */
+
+.camera-publica-status {
+    width: 100%;
+    min-height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(circle at center,
+            #ffffff 0%,
+            #faf8f2 52%,
+            #f2eee4 100%);
+}
+
+
+.camera-publica-status img {
+    width: 116px;
+    height: 116px;
+
+    object-fit: contain;
+
+    border-radius: 50%;
+
+    margin-bottom: 25px;
+
+    filter:
+        drop-shadow(0 14px 20px rgba(0, 0, 0, 0.15));
+
+    animation:
+        cameraPublicaLogoLoading 2.1s ease-in-out infinite;
+}
+
+
+@keyframes cameraPublicaLogoLoading {
 
     0%,
     100% {
-        transform: translateY(0);
+        transform:
+            translateY(0) scale(1);
     }
 
     50% {
-        transform: translateY(-7px);
+        transform:
+            translateY(-6px) scale(1.025);
     }
+
 }
 
 
-@keyframes cameraPublicaBarra {
+.camera-publica-status strong {
+    color: #111111 !important;
 
-    from {
-        background-position: 200% 0;
-    }
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
 
-    to {
-        background-position: -200% 0;
-    }
+    margin-bottom: 7px;
+}
+
+
+.camera-publica-status span {
+    color: #707070 !important;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   LINK INVÁLIDO
+   ========================================================= */
+
+.camera-publica-invalido {
+    width: 100%;
+    min-height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(circle at 50% 15%,
+            rgba(207, 163, 68, 0.12),
+            transparent 38%),
+        linear-gradient(145deg,
+            #ffffff,
+            #f4f1e9);
+}
+
+
+.camera-publica-invalido-card {
+    width: 100%;
+    max-width: 430px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 42px 35px;
+
+    text-align: center;
+
+    border-radius: 28px;
+
+    background: #ffffff;
+
+    border:
+        1px solid rgba(151, 107, 21, 0.15);
+
+    box-shadow:
+        0 30px 80px rgba(20, 17, 10, 0.12);
+}
+
+
+.camera-publica-invalido-icone {
+    width: 66px;
+    height: 66px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 21px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(145deg,
+            #f4d886,
+            #b7801e);
+
+    border: 5px solid #fff8e7;
+
+    color: #111111 !important;
+
+    font-size: 29px;
+    font-weight: 900;
+
+    box-shadow:
+        0 10px 24px rgba(158, 108, 18, 0.2);
+}
+
+
+.camera-publica-invalido-card h1 {
+    margin:
+        0 0 11px;
+
+    color: #111111 !important;
+
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
+
+
+.camera-publica-invalido-card p {
+    margin:
+        0 0 10px;
+
+    max-width: 330px;
+
+    color: #444444 !important;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    font-weight: 550;
+}
+
+
+.camera-publica-invalido-card>span {
+    max-width: 320px;
+
+    color: #858585 !important;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   SELEÇÃO
+   ========================================================= */
+
+.camera-publica-login ::selection,
+.camera-publica-invalido ::selection,
+.camera-publica-status ::selection {
+    background: #e4c16d;
+    color: #111111;
 }
 
 
 /* =========================================================
    TABLET
-========================================================= */
+   ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
 
-    .camera-publica-login,
-    .camera-publica-invalido,
-    .camera-publica-status {
+    .camera-publica-login {
+        align-items: center;
+
         padding:
-            22px 16px !important;
+            45px 17px 28px;
     }
 
 
     .camera-publica-login-card {
-        max-width: 430px !important;
+        max-width: 440px;
 
         padding:
-            37px 27px 27px 27px !important;
+            0 27px 31px;
 
-        border-radius: 24px !important;
+        border-radius: 27px;
     }
 
 
     .camera-publica-logo {
-        width: 100px !important;
-        height: 82px !important;
+        width: 124px;
+        height: 124px;
 
-        margin-bottom: 19px !important;
+        margin-top: -31px;
+        margin-bottom: 13px;
+    }
+
+
+    .camera-publica-login-cabecalho {
+        margin-bottom: 22px;
     }
 
 
     .camera-publica-login-cabecalho h1 {
-        font-size: 25px !important;
+        font-size: 29px;
     }
 
 
-    .camera-publica-invalido-card {
-        padding:
-            42px 28px 35px 28px !important;
+    .camera-publica-email-obrigatorio,
+    .camera-publica-primeiro-acesso {
+        border-radius: 16px;
 
-        border-radius: 24px !important;
+        padding: 16px 17px;
     }
+
 }
 
 
 /* =========================================================
    CELULAR
-========================================================= */
+   ========================================================= */
 
-@media (max-width: 520px) {
+@media (max-width: 480px) {
 
-    .camera-publica-login,
-    .camera-publica-invalido,
-    .camera-publica-status {
-        align-items: center !important;
+    .camera-publica-login {
+        min-height: 100svh;
 
         padding:
-            18px 13px !important;
+            38px 13px 22px;
     }
 
 
-    /* LOGIN */
-
     .camera-publica-login-card {
-        max-width: 100% !important;
+        width: 100%;
 
         padding:
-            32px 19px 23px 19px !important;
+            0 19px 27px;
 
-        border-radius: 21px !important;
+        border-radius: 24px;
 
         box-shadow:
-            0 25px 55px rgba(15, 23, 42, 0.13),
-            0 8px 20px rgba(37, 99, 235, 0.05),
-            inset 0 1px 0 #ffffff !important;
+            0 25px 55px rgba(23, 18, 8, 0.12),
+            0 7px 18px rgba(23, 18, 8, 0.05);
     }
 
 
     .camera-publica-logo {
-        width: 88px !important;
-        height: 74px !important;
+        width: 112px;
+        height: 112px;
 
-        margin-bottom: 17px !important;
-    }
-
-
-    .camera-publica-login-cabecalho {
-        margin-bottom: 19px !important;
+        margin-top: -27px;
     }
 
 
     .camera-publica-login-cabecalho>span {
-        font-size: 8px !important;
+        font-size: 9px;
 
-        letter-spacing: 1.6px !important;
+        letter-spacing: 1.35px;
+
+        padding: 5px 11px;
     }
 
 
     .camera-publica-login-cabecalho h1 {
-        font-size: 22px !important;
+        font-size: 26px;
 
-        letter-spacing: -0.55px !important;
+        letter-spacing: -0.75px;
     }
 
 
-    /* EMAIL */
+    .camera-publica-email-obrigatorio,
+    .camera-publica-primeiro-acesso {
+        padding: 15px;
 
-    .camera-publica-email-obrigatorio {
-        padding:
-            15px 14px 14px 17px !important;
+        margin-bottom: 18px;
 
-        border-radius: 13px !important;
+        border-radius: 15px;
     }
 
 
     .camera-publica-email-obrigatorio>strong {
-        font-size: 11px !important;
+        font-size: 13px;
     }
 
-
-    /* PRIMEIRO ACESSO */
-
-    .camera-publica-primeiro-acesso {
-        padding:
-            14px 14px 14px 17px !important;
-
-        border-radius: 13px !important;
-    }
-
-
-    /* GOOGLE */
 
     .camera-publica-google {
-        overflow: hidden !important;
+        overflow: hidden;
     }
 
 
@@ -1049,144 +854,450 @@
     }
 
 
-    /* SEGURANÇA */
-
     .camera-publica-seguranca {
-        margin-top: 20px !important;
-
-        padding-top: 16px !important;
+        margin-top: 21px;
     }
 
 
-    /* INVÁLIDO */
-
-    .camera-publica-invalido-card {
-        max-width: 100% !important;
-
-        padding:
-            37px 20px 31px 20px !important;
-
-        border-radius: 21px !important;
-    }
-
-
-    .camera-publica-invalido-icone {
-        width: 64px !important;
-        height: 64px !important;
-
-        margin-bottom: 19px !important;
-
-        border-radius: 19px !important;
-
-        font-size: 28px !important;
-    }
-
-
-    .camera-publica-invalido-card h1 {
-        font-size: 22px !important;
-    }
-
-
-    .camera-publica-invalido-card p {
-        font-size: 11px !important;
-    }
-
-
-    .camera-publica-invalido-card>span {
-        font-size: 9px !important;
-    }
-}
-
-
-/* =========================================================
-   CELULAR PEQUENO
-========================================================= */
-
-@media (max-width: 370px) {
-
-    .camera-publica-login,
     .camera-publica-invalido {
-        padding:
-            10px 9px !important;
-    }
-
-
-    .camera-publica-login-card {
-        padding:
-            29px 14px 20px 14px !important;
-
-        border-radius: 18px !important;
-    }
-
-
-    .camera-publica-logo {
-        width: 78px !important;
-        height: 66px !important;
-    }
-
-
-    .camera-publica-login-cabecalho h1 {
-        font-size: 20px !important;
-    }
-
-
-    .camera-publica-email-obrigatorio>strong {
-        white-space: normal !important;
-
-        overflow-wrap: anywhere !important;
+        padding: 16px;
     }
 
 
     .camera-publica-invalido-card {
-        border-radius: 18px !important;
+        padding:
+            34px 22px;
+
+        border-radius: 24px;
     }
+
 }
 
 
 /* =========================================================
-   TELAS GRANDES
-========================================================= */
+   TELAS MUITO PEQUENAS
+   ========================================================= */
 
-@media (min-width: 1600px) {
+@media (max-width: 350px) {
+
+    .camera-publica-login {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
 
     .camera-publica-login-card {
-        max-width: 480px !important;
-
-        padding:
-            48px 43px 34px 43px !important;
+        padding-left: 14px;
+        padding-right: 14px;
     }
 
 
     .camera-publica-logo {
-        width: 125px !important;
-        height: 103px !important;
+        width: 100px;
+        height: 100px;
     }
 
 
     .camera-publica-login-cabecalho h1 {
-        font-size: 30px !important;
+        font-size: 23px;
     }
+
+
+    .camera-publica-email-obrigatorio,
+    .camera-publica-primeiro-acesso {
+        padding: 13px;
+    }
+
 }
 
 
 /* =========================================================
    ACESSIBILIDADE
-========================================================= */
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
-    .camera-publica-login-card,
     .camera-publica-logo,
-    .camera-publica-invalido-card,
-    .camera-publica-invalido-icone,
-    .camera-publica-erro,
     .camera-publica-status img,
-    .camera-publica-status span::after {
+    .camera-publica-erro {
         animation: none !important;
-    }
-
-
-    .camera-publica-logo {
         transition: none !important;
     }
+
+}
+
+/* =========================================================
+   BOTÃO INSTALAR CÂMERA
+   DOURADO + BRANCO + PRETO
+   ========================================================= */
+
+.camera-publica-instalar {
+    width: 100%;
+
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 50px 1fr 36px;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 18px;
+    padding: 12px 14px;
+
+    border: 1px solid rgba(139, 94, 13, 0.35);
+    border-radius: 18px;
+
+    background:
+        linear-gradient(135deg,
+            #fffdf7 0%,
+            #fff8e7 42%,
+            #f6e3ae 100%);
+
+    box-shadow:
+        0 12px 28px rgba(126, 86, 14, 0.12),
+        0 4px 10px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+
+    cursor: pointer;
+
+    text-align: left;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+/* brilho dourado superior */
+
+.camera-publica-instalar::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+
+    width: 76%;
+    height: 1px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(218, 169, 64, 0.7),
+            #fff2bd,
+            rgba(218, 169, 64, 0.7),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* brilho suave no fundo */
+
+.camera-publica-instalar::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    top: -70px;
+    right: 25px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(255, 222, 137, 0.5),
+            transparent 68%);
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    transition:
+        transform 0.35s ease;
+}
+
+
+.camera-publica-instalar:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(150, 100, 11, 0.52);
+
+    box-shadow:
+        0 17px 35px rgba(126, 86, 14, 0.17),
+        0 5px 13px rgba(0, 0, 0, 0.055),
+        inset 0 1px 0 #ffffff;
+}
+
+
+.camera-publica-instalar:hover::after {
+    transform: scale(1.35);
+}
+
+
+.camera-publica-instalar:active {
+    transform:
+        translateY(0) scale(0.985);
+
+    box-shadow:
+        0 6px 14px rgba(126, 86, 14, 0.12),
+        inset 0 1px 3px rgba(0, 0, 0, 0.04);
+
+    transition-duration: 0.08s;
+}
+
+
+/* =========================================================
+   ÍCONE
+   ========================================================= */
+
+.camera-publica-instalar-icone {
+    width: 48px;
+    height: 48px;
+
+    display: block;
+
+    object-fit: contain;
+
+    border-radius: 50%;
+
+    filter:
+        drop-shadow(0 5px 7px rgba(0, 0, 0, 0.18));
+
+    transition:
+        transform 0.3s cubic-bezier(0.22,
+            1,
+            0.36,
+            1);
+}
+
+
+.camera-publica-instalar:hover .camera-publica-instalar-icone {
+    transform:
+        scale(1.07) rotate(-2deg);
+}
+
+
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+.camera-publica-instalar-texto {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.camera-publica-instalar-texto strong {
+    display: block;
+
+    color: #111111 !important;
+
+    font-size: 14px;
+    line-height: 1.25;
+
+    font-weight: 800;
+
+    letter-spacing: -0.2px;
+}
+
+
+.camera-publica-instalar-texto span {
+    display: block;
+
+    color: #625943 !important;
+
+    font-size: 11px;
+    line-height: 1.35;
+
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   SETA
+   ========================================================= */
+
+.camera-publica-instalar-seta {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    justify-self: end;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(145deg,
+            #d9ac4a,
+            #a66f14);
+
+    border:
+        1px solid rgba(116, 73, 5, 0.22);
+
+    color: #ffffff !important;
+
+    font-size: 17px;
+    line-height: 1;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 5px 11px rgba(129, 84, 10, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.camera-publica-instalar:hover .camera-publica-instalar-seta {
+    transform: translateY(3px);
+
+    box-shadow:
+        0 7px 14px rgba(129, 84, 10, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+
+/* =========================================================
+   FOCO POR TECLADO
+   ========================================================= */
+
+.camera-publica-instalar:focus {
+    outline: none;
+}
+
+
+.camera-publica-instalar:focus-visible {
+    outline:
+        3px solid rgba(207, 161, 59, 0.28);
+
+    outline-offset: 3px;
+
+    border-color: #ba8424;
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .camera-publica-instalar {
+        grid-template-columns:
+            45px 1fr 31px;
+
+        gap: 11px;
+
+        margin-top: 16px;
+
+        padding:
+            11px 12px;
+
+        border-radius: 16px;
+    }
+
+
+    .camera-publica-instalar-icone {
+        width: 43px;
+        height: 43px;
+    }
+
+
+    .camera-publica-instalar-texto strong {
+        font-size: 13px;
+    }
+
+
+    .camera-publica-instalar-texto span {
+        font-size: 10px;
+    }
+
+
+    .camera-publica-instalar-seta {
+        width: 29px;
+        height: 29px;
+
+        font-size: 15px;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+   ========================================================= */
+
+@media (max-width: 350px) {
+
+    .camera-publica-instalar {
+        grid-template-columns:
+            40px 1fr 28px;
+
+        gap: 9px;
+
+        padding:
+            10px;
+    }
+
+
+    .camera-publica-instalar-icone {
+        width: 39px;
+        height: 39px;
+    }
+
+
+    .camera-publica-instalar-texto strong {
+        font-size: 12px;
+    }
+
+
+    .camera-publica-instalar-texto span {
+        font-size: 9px;
+    }
+
+
+    .camera-publica-instalar-seta {
+        width: 27px;
+        height: 27px;
+
+        font-size: 14px;
+    }
+
+}
+
+
+/* =========================================================
+   SEM ANIMAÇÃO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .camera-publica-instalar,
+    .camera-publica-instalar::after,
+    .camera-publica-instalar-icone,
+    .camera-publica-instalar-seta {
+        transition: none !important;
+    }
+
 }

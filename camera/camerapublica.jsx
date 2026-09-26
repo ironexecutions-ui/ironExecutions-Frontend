@@ -60,7 +60,15 @@ export default function Camerapublica() {
         setErro
     ] = useState("");
 
+    const [
+        eventoInstalacao,
+        setEventoInstalacao
+    ] = useState(null);
 
+    const [
+        aplicativoInstalado,
+        setAplicativoInstalado
+    ] = useState(false);
     /* =====================================================
        CARREGAR TOKEN
     ===================================================== */
@@ -70,8 +78,97 @@ export default function Camerapublica() {
         consultarToken();
 
     }, [token]);
+    /* =====================================================
+       INSTALAÇÃO DO APLICATIVO
+    ===================================================== */
+
+    useEffect(() => {
+
+        function prepararInstalacao(evento) {
+
+            evento.preventDefault();
+
+            console.log(
+                "[CÂMERA PÚBLICA] Instalação disponível"
+            );
+
+            setEventoInstalacao(
+                evento
+            );
+        }
 
 
+        function instalado() {
+
+            console.log(
+                "[CÂMERA PÚBLICA] Aplicativo instalado"
+            );
+
+            setAplicativoInstalado(true);
+
+            setEventoInstalacao(null);
+        }
+
+
+        window.addEventListener(
+            "beforeinstallprompt",
+            prepararInstalacao
+        );
+
+        window.addEventListener(
+            "appinstalled",
+            instalado
+        );
+
+
+        return () => {
+
+            window.removeEventListener(
+                "beforeinstallprompt",
+                prepararInstalacao
+            );
+
+            window.removeEventListener(
+                "appinstalled",
+                instalado
+            );
+        };
+
+    }, []);
+    async function instalarAplicativo() {
+
+        if (!eventoInstalacao) {
+            return;
+        }
+
+        try {
+
+            await eventoInstalacao.prompt();
+
+            const resultado =
+                await eventoInstalacao.userChoice;
+
+            console.log(
+                "[CÂMERA PÚBLICA] Resultado instalação:",
+                resultado.outcome
+            );
+
+            if (
+                resultado.outcome ===
+                "accepted"
+            ) {
+
+                setEventoInstalacao(null);
+            }
+
+        } catch (erro) {
+
+            console.error(
+                "[CÂMERA PÚBLICA] Erro ao instalar:",
+                erro
+            );
+        }
+    }
     /* =====================================================
        TITULO E ICONE DA ABA
     ===================================================== */
@@ -597,7 +694,39 @@ export default function Camerapublica() {
 
                     )}
 
+                    {eventoInstalacao && !aplicativoInstalado && (
 
+                        <button
+                            type="button"
+                            className="camera-publica-instalar"
+                            onClick={instalarAplicativo}
+                        >
+
+                            <img
+                                src={cameraImagem}
+                                alt=""
+                                className="camera-publica-instalar-icone"
+                            />
+
+                            <div className="camera-publica-instalar-texto">
+
+                                <strong>
+                                    Instalar câmera
+                                </strong>
+
+                                <span>
+                                    Adicionar ao celular
+                                </span>
+
+                            </div>
+
+                            <span className="camera-publica-instalar-seta">
+                                ↓
+                            </span>
+
+                        </button>
+
+                    )}
                     <div className="camera-publica-seguranca">
 
                         Acesso individual protegido
