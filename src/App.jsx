@@ -790,6 +790,23 @@ export default function App() {
         const usuarioServidor =
           await resposta.json();
 
+        console.log(
+          "[FUNDO] USUÁRIO RETORNADO PELO SERVIDOR:",
+          usuarioServidor
+        );
+
+        console.log(
+          "[FUNDO] COMERCIO_ID:",
+          usuarioServidor?.comercio_id
+        );
+
+        console.log(
+          "[FUNDO] IMAGEM ENCONTRADA:",
+          FUNDOS_POR_COMERCIO[
+          usuarioServidor?.comercio_id
+          ]
+        );
+
 
         if (!componenteAtivo) {
           return;
