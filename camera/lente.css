@@ -1,0 +1,2848 @@
+/* =========================================================
+   LENTE PRO
+   IRON EXECUTIONS CAMERA
+   TEMA LIGHT PREMIUM
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+html,
+body {
+    background: #edf5ff !important;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit !important;
+}
+
+
+/* =========================================================
+   PAGINA
+========================================================= */
+
+.lenteProPagina {
+    width: 100% !important;
+
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+
+    background:
+        radial-gradient(circle at 15% 0%,
+            rgba(47, 128, 237, 0.14),
+            transparent 34%),
+        radial-gradient(circle at 100% 100%,
+            rgba(91, 169, 255, 0.13),
+            transparent 35%),
+        linear-gradient(145deg,
+            #f9fcff 0%,
+            #f1f7ff 42%,
+            #e8f3ff 100%) !important;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif !important;
+
+    color: #101828 !important;
+}
+
+
+/* =========================================================
+   APARELHO
+========================================================= */
+
+.lenteProAparelho {
+    width: 100% !important;
+
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    max-width: 100% !important;
+
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    background: #f4f9ff !important;
+
+    isolation: isolate !important;
+}
+
+
+/* =========================================================
+   VISOR
+========================================================= */
+
+.lenteProVisor {
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(145deg,
+            #eaf3fc,
+            #dceafa) !important;
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.lenteProVideo {
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+
+    background: #dce8f5 !important;
+
+    z-index: 0 !important;
+
+    transform: scale(1.001);
+
+    transition:
+        transform 0.4s ease,
+        filter 0.35s ease !important;
+
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+.lenteProVideoEspelhado {
+    transform: scaleX(-1) scale(1.001) !important;
+}
+
+
+/* =========================================================
+   SOMBRA DO VISOR
+
+   Continua permitindo enxergar os controles quando a
+   imagem da camera estiver muito clara.
+========================================================= */
+
+.lenteProSombra {
+    position: absolute !important;
+    inset: 0 !important;
+
+    z-index: 1 !important;
+
+    pointer-events: none !important;
+
+    background:
+        linear-gradient(to bottom,
+            rgba(4, 27, 54, 0.30) 0%,
+            rgba(4, 27, 54, 0.10) 18%,
+            transparent 36%),
+        linear-gradient(to top,
+            rgba(3, 23, 48, 0.46) 0%,
+            rgba(3, 23, 48, 0.17) 20%,
+            transparent 42%) !important;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.lenteProGrid {
+    position: absolute !important;
+    inset: 0 !important;
+
+    z-index: 2 !important;
+
+    pointer-events: none !important;
+
+    opacity: 0.25 !important;
+}
+
+.lenteProGrid span {
+    position: absolute !important;
+
+    display: block !important;
+
+    background: rgba(255, 255, 255, 0.85) !important;
+
+    box-shadow:
+        0 0 2px rgba(0, 34, 75, 0.2) !important;
+}
+
+.lenteProGrid span:nth-child(1),
+.lenteProGrid span:nth-child(2) {
+    top: 0 !important;
+    bottom: 0 !important;
+
+    width: 1px !important;
+}
+
+.lenteProGrid span:nth-child(1) {
+    left: 33.333% !important;
+}
+
+.lenteProGrid span:nth-child(2) {
+    left: 66.666% !important;
+}
+
+.lenteProGrid span:nth-child(3),
+.lenteProGrid span:nth-child(4) {
+    left: 0 !important;
+    right: 0 !important;
+
+    height: 1px !important;
+}
+
+.lenteProGrid span:nth-child(3) {
+    top: 33.333% !important;
+}
+
+.lenteProGrid span:nth-child(4) {
+    top: 66.666% !important;
+}
+
+
+/* =========================================================
+   FLASH
+========================================================= */
+
+.lenteProFlash {
+    position: fixed !important;
+    inset: 0 !important;
+
+    z-index: 999999999 !important;
+
+    pointer-events: none !important;
+
+    background: #ffffff !important;
+
+    animation:
+        lenteProFlashAnimacao 0.32s ease forwards !important;
+}
+
+@keyframes lenteProFlashAnimacao {
+
+    0% {
+        opacity: 0.96;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+.lenteProTopo {
+    position: absolute !important;
+
+    top: max(18px, env(safe-area-inset-top)) !important;
+
+    left: 18px !important;
+    right: 18px !important;
+
+    z-index: 20 !important;
+
+    display: flex !important;
+
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 14px !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   LOJA
+========================================================= */
+
+.lenteProLoja {
+    min-width: 0 !important;
+
+    max-width: min(430px, 65vw) !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 12px !important;
+
+    padding: 8px 15px 8px 8px !important;
+
+    border-radius: 22px !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(244, 249, 255, 0.92)) !important;
+
+    border:
+        1px solid rgba(35, 87, 145, 0.14) !important;
+
+    backdrop-filter:
+        blur(24px) saturate(150%) !important;
+
+    -webkit-backdrop-filter:
+        blur(24px) saturate(150%) !important;
+
+    box-shadow:
+        0 14px 40px rgba(24, 77, 134, 0.17),
+        0 2px 7px rgba(24, 77, 134, 0.07),
+        inset 0 1px 0 #ffffff !important;
+
+    pointer-events: auto !important;
+}
+
+
+/* =========================================================
+   LOGO LOJA
+========================================================= */
+
+.lenteProLojaLogo {
+    width: 52px !important;
+    height: 52px !important;
+
+    min-width: 52px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+
+    border-radius: 16px !important;
+
+    background: #ffffff !important;
+
+    border:
+        1px solid #dce9f7 !important;
+
+    box-shadow:
+        0 5px 16px rgba(19, 64, 112, 0.13) !important;
+}
+
+.lenteProLojaLogo img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: contain !important;
+
+    padding: 4px !important;
+}
+
+.lenteProLojaLogo span {
+    color: #102f55 !important;
+
+    font-size: 21px !important;
+    font-weight: 900 !important;
+}
+
+
+/* =========================================================
+   TEXTO LOJA
+========================================================= */
+
+.lenteProLojaTexto {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 1px !important;
+}
+
+.lenteProLojaLabel {
+    margin-bottom: 1px !important;
+
+    color: #66809e !important;
+
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 1.4px !important;
+
+    text-transform: uppercase !important;
+}
+
+.lenteProLojaTexto strong {
+    max-width: 280px !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    color: #102d50 !important;
+
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+
+    font-weight: 850 !important;
+
+    letter-spacing: -0.15px !important;
+}
+
+.lenteProLojaTexto small {
+    max-width: 280px !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    color: #5d7189 !important;
+
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   BOTAO ARQUIVOS
+========================================================= */
+
+.lenteProArquivos {
+    min-height: 54px !important;
+
+    padding: 7px 9px 7px 13px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    border:
+        1px solid rgba(26, 79, 138, 0.15) !important;
+
+    border-radius: 19px !important;
+
+    outline: none !important;
+
+    background:
+        rgba(255, 255, 255, 0.95) !important;
+
+    backdrop-filter:
+        blur(24px) saturate(160%) !important;
+
+    -webkit-backdrop-filter:
+        blur(24px) saturate(160%) !important;
+
+    box-shadow:
+        0 14px 35px rgba(22, 72, 126, 0.16),
+        inset 0 1px 0 #ffffff !important;
+
+    cursor: pointer !important;
+
+    pointer-events: auto !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.lenteProArquivos:hover {
+    transform: translateY(-2px) !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 18px 42px rgba(22, 72, 126, 0.20) !important;
+}
+
+.lenteProArquivosIcone {
+    color: #153d69 !important;
+
+    font-size: 20px !important;
+    line-height: 1 !important;
+}
+
+.lenteProArquivosTexto {
+    color: #244d78 !important;
+
+    font-size: 12px !important;
+
+    font-weight: 750 !important;
+}
+
+.lenteProArquivos strong {
+    min-width: 31px !important;
+    height: 31px !important;
+
+    padding: 0 8px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 11px !important;
+
+    background:
+        linear-gradient(145deg,
+            #123d6b,
+            #0b2e55) !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+
+    font-weight: 900 !important;
+
+    box-shadow:
+        0 6px 14px rgba(9, 49, 92, 0.22) !important;
+}
+
+
+/* =========================================================
+   USUARIO
+========================================================= */
+
+.lenteProUsuario {
+    position: absolute !important;
+
+    top: 94px !important;
+    left: 18px !important;
+
+    z-index: 20 !important;
+
+    max-width: min(390px, 70vw) !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    padding: 7px 14px 7px 7px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        rgba(255, 255, 255, 0.94) !important;
+
+    border:
+        1px solid rgba(30, 81, 137, 0.14) !important;
+
+    backdrop-filter:
+        blur(22px) saturate(150%) !important;
+
+    -webkit-backdrop-filter:
+        blur(22px) saturate(150%) !important;
+
+    box-shadow:
+        0 13px 34px rgba(20, 65, 116, 0.16),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   FOTO USUARIO
+========================================================= */
+
+.lenteProUsuarioFoto {
+    width: 45px !important;
+    height: 45px !important;
+
+    min-width: 45px !important;
+
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    overflow: visible !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #e5effa) !important;
+
+    border:
+        2px solid #ffffff !important;
+
+    box-shadow:
+        0 5px 15px rgba(15, 58, 105, 0.20) !important;
+}
+
+.lenteProUsuarioFoto img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+
+    border-radius: 50% !important;
+}
+
+.lenteProUsuarioFoto>span {
+    color: #12375f !important;
+
+    font-size: 17px !important;
+
+    font-weight: 900 !important;
+}
+
+.lenteProUsuarioFoto i {
+    position: absolute !important;
+
+    right: -1px !important;
+    bottom: -1px !important;
+
+    width: 12px !important;
+    height: 12px !important;
+
+    border-radius: 50% !important;
+
+    background: #19b86b !important;
+
+    border:
+        2px solid #ffffff !important;
+
+    box-shadow:
+        0 0 0 2px rgba(25, 184, 107, 0.13) !important;
+}
+
+
+/* =========================================================
+   DADOS USUARIO
+========================================================= */
+
+.lenteProUsuarioInfo {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.lenteProUsuarioInfo>span {
+    color: #72869e !important;
+
+    font-size: 8px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: 1.3px !important;
+
+    text-transform: uppercase !important;
+}
+
+.lenteProUsuarioInfo strong {
+    max-width: 270px !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    margin-top: 1px !important;
+
+    color: #112f52 !important;
+
+    font-size: 13px !important;
+
+    font-weight: 850 !important;
+}
+
+.lenteProUsuarioInfo small {
+    max-width: 270px !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    margin-top: 1px !important;
+
+    color: #61758c !important;
+
+    font-size: 9px !important;
+}
+
+
+/* =========================================================
+   REC
+========================================================= */
+
+.lenteProRec {
+    position: absolute !important;
+
+    top: 102px !important;
+    right: 18px !important;
+
+    z-index: 25 !important;
+
+    min-height: 43px !important;
+
+    padding: 0 14px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    border-radius: 15px !important;
+
+    background:
+        rgba(255, 255, 255, 0.94) !important;
+
+    border:
+        1px solid rgba(211, 43, 63, 0.18) !important;
+
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+
+    box-shadow:
+        0 12px 30px rgba(41, 67, 99, 0.16) !important;
+}
+
+.lenteProRec>span {
+    width: 9px !important;
+    height: 9px !important;
+
+    border-radius: 50% !important;
+
+    background: #e62e43 !important;
+
+    box-shadow:
+        0 0 0 4px rgba(230, 46, 67, 0.12) !important;
+
+    animation:
+        lenteProRecPulse 1s infinite !important;
+}
+
+.lenteProRec strong {
+    color: #c42136 !important;
+
+    font-size: 10px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: 1px !important;
+}
+
+.lenteProRec b {
+    color: #172f4c !important;
+
+    font-size: 13px !important;
+
+    font-weight: 850 !important;
+
+    font-variant-numeric: tabular-nums !important;
+}
+
+.lenteProRec small {
+    color: #718198 !important;
+
+    font-size: 9px !important;
+}
+
+@keyframes lenteProRecPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.35);
+        opacity: 0.55;
+    }
+}
+
+
+/* =========================================================
+   MENSAGEM CAMERA
+========================================================= */
+
+.lenteProMensagem {
+    position: absolute !important;
+
+    left: 50% !important;
+    bottom: 178px !important;
+
+    z-index: 30 !important;
+
+    width: max-content !important;
+
+    max-width: calc(100% - 40px) !important;
+
+    padding: 11px 17px !important;
+
+    transform: translateX(-50%) !important;
+
+    border-radius: 14px !important;
+
+    background:
+        rgba(255, 255, 255, 0.96) !important;
+
+    border:
+        1px solid #d7e5f4 !important;
+
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+
+    box-shadow:
+        0 13px 36px rgba(24, 68, 116, 0.19) !important;
+
+    color: #173a61 !important;
+
+    font-size: 12px !important;
+
+    font-weight: 700 !important;
+
+    text-align: center !important;
+
+    animation:
+        lenteProMensagemEntrada 0.25s ease !important;
+}
+
+@keyframes lenteProMensagemEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(-50%) translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(-50%) translateY(0);
+    }
+}
+
+
+/* =========================================================
+   CONTROLES
+========================================================= */
+
+.lenteProControles {
+    position: absolute !important;
+
+    left: 50% !important;
+
+    bottom:
+        max(29px, env(safe-area-inset-bottom)) !important;
+
+    z-index: 25 !important;
+
+    transform: translateX(-50%) !important;
+
+    display: flex !important;
+
+    align-items: flex-end !important;
+    justify-content: center !important;
+
+    gap: 14px !important;
+
+    width: max-content !important;
+
+    max-width: calc(100% - 24px) !important;
+
+    padding: 10px 13px 7px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        rgba(248, 252, 255, 0.93) !important;
+
+    border:
+        1px solid rgba(31, 79, 132, 0.15) !important;
+
+    backdrop-filter:
+        blur(28px) saturate(160%) !important;
+
+    -webkit-backdrop-filter:
+        blur(28px) saturate(160%) !important;
+
+    box-shadow:
+        0 20px 55px rgba(18, 62, 111, 0.22),
+        0 3px 10px rgba(18, 62, 111, 0.08),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   CURVA CONTROLES
+========================================================= */
+
+.lenteProControles>*:nth-child(1) {
+    margin-bottom: 0 !important;
+}
+
+.lenteProControles>*:nth-child(2) {
+    margin-bottom: 15px !important;
+}
+
+.lenteProControles>*:nth-child(3) {
+    margin-bottom: 27px !important;
+}
+
+.lenteProControles>*:nth-child(4) {
+    margin-bottom: 15px !important;
+}
+
+.lenteProControles>*:nth-child(5) {
+    margin-bottom: 0 !important;
+}
+
+
+/* =========================================================
+   BOTOES
+========================================================= */
+
+.lenteProControles button {
+    flex-shrink: 0 !important;
+
+    border: none !important;
+
+    outline: none !important;
+
+    cursor: pointer !important;
+
+    -webkit-tap-highlight-color:
+        transparent !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease !important;
+}
+
+.lenteProControles button:hover:not(:disabled) {
+    transform:
+        translateY(-3px) scale(1.035) !important;
+}
+
+.lenteProControles button:active:not(:disabled) {
+    transform:
+        scale(0.94) !important;
+}
+
+.lenteProControles button:disabled {
+    opacity: 0.38 !important;
+
+    cursor: not-allowed !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   CONTROLE SECUNDARIO
+========================================================= */
+
+.lenteProControleSecundario {
+    width: 62px !important;
+    height: 62px !important;
+
+    min-width: 62px !important;
+
+    padding: 0 !important;
+
+    position: relative !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+
+    border-radius: 50% !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #edf5fd) !important;
+
+    border:
+        1px solid #ccdef0 !important;
+
+    box-shadow:
+        0 9px 25px rgba(15, 59, 105, 0.17),
+        inset 0 1px 0 #ffffff !important;
+
+    color: #123b68 !important;
+}
+
+
+/* =========================================================
+   MINIATURA
+========================================================= */
+
+.lenteProMiniatura {
+    background: #e5eff9 !important;
+}
+
+.lenteProMiniatura img,
+.lenteProMiniatura video {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+}
+
+.lenteProMiniatura::after {
+    content: "" !important;
+
+    position: absolute !important;
+    inset: 0 !important;
+
+    border-radius: inherit !important;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(10, 55, 102, 0.09) !important;
+
+    pointer-events: none !important;
+}
+
+.lenteProGaleriaIcone {
+    color: #173f6d !important;
+
+    font-size: 22px !important;
+}
+
+.lenteProMiniaturaNumero {
+    position: absolute !important;
+
+    top: 3px !important;
+    right: 3px !important;
+
+    z-index: 5 !important;
+
+    min-width: 20px !important;
+    height: 20px !important;
+
+    padding: 0 5px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 999px !important;
+
+    background: #123c6a !important;
+
+    color: #ffffff !important;
+
+    font-size: 9px !important;
+
+    font-weight: 900 !important;
+
+    box-shadow:
+        0 4px 10px rgba(10, 52, 97, 0.25) !important;
+}
+
+
+/* =========================================================
+   TROCAR CAMERA
+========================================================= */
+
+.lenteProTrocar span {
+    display: block !important;
+
+    color: #123d6b !important;
+
+    font-size: 29px !important;
+    line-height: 1 !important;
+
+    font-weight: 400 !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   DISPARADOR
+========================================================= */
+
+.lenteProDisparador {
+    width: 91px !important;
+    height: 91px !important;
+
+    min-width: 91px !important;
+
+    padding: 7px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(255, 255, 255, 0.82) !important;
+
+    border:
+        2px solid #ffffff !important;
+
+    box-shadow:
+        0 15px 38px rgba(14, 56, 101, 0.24),
+        0 0 0 5px rgba(42, 116, 190, 0.10),
+        inset 0 1px 0 #ffffff !important;
+
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+}
+
+.lenteProDisparador>span {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    border-radius: 50% !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #e9f2fb) !important;
+
+    border:
+        1px solid #d1e0ef !important;
+
+    box-shadow:
+        inset 0 -3px 7px rgba(24, 70, 117, 0.10),
+        0 3px 8px rgba(17, 62, 108, 0.09) !important;
+
+    transition:
+        transform 0.15s ease !important;
+}
+
+.lenteProDisparador:active>span {
+    transform: scale(0.88) !important;
+}
+
+
+/* =========================================================
+   STOP
+========================================================= */
+
+.lenteProDisparadorStop {
+    border-color:
+        rgba(218, 49, 67, 0.22) !important;
+}
+
+.lenteProDisparadorStop>span {
+    width: 34px !important;
+    height: 34px !important;
+
+    border-radius: 8px !important;
+
+    background: #e83348 !important;
+
+    border: none !important;
+
+    box-shadow:
+        0 7px 20px rgba(232, 51, 72, 0.27) !important;
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.lenteProVideoBotao>span {
+    width: 25px !important;
+    height: 25px !important;
+
+    display: block !important;
+
+    position: relative !important;
+
+    border-radius: 50% !important;
+
+    background: #e83348 !important;
+
+    box-shadow:
+        0 5px 14px rgba(232, 51, 72, 0.25) !important;
+}
+
+.lenteProVideoBotao>span::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 6px !important;
+    right: -7px !important;
+
+    width: 0 !important;
+    height: 0 !important;
+
+    border-top:
+        7px solid transparent !important;
+
+    border-bottom:
+        7px solid transparent !important;
+
+    border-left:
+        10px solid #e83348 !important;
+}
+
+.lenteProVideoBotaoAtivo {
+    background:
+        #fff0f2 !important;
+
+    border-color:
+        #f2b8bf !important;
+
+    animation:
+        lenteProVideoAtivo 1.4s infinite !important;
+}
+
+@keyframes lenteProVideoAtivo {
+
+    0%,
+    100% {
+        box-shadow:
+            0 10px 25px rgba(19, 61, 106, 0.15),
+            0 0 0 0 rgba(232, 51, 72, 0.20);
+    }
+
+    50% {
+        box-shadow:
+            0 10px 25px rgba(19, 61, 106, 0.15),
+            0 0 0 8px rgba(232, 51, 72, 0);
+    }
+}
+
+
+/* =========================================================
+   FINALIZAR RAPIDO
+========================================================= */
+
+.lenteProFinalizarRapido {
+    min-width: 72px !important;
+    height: 62px !important;
+
+    padding: 0 13px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 2px !important;
+
+    border-radius: 21px !important;
+
+    background:
+        linear-gradient(145deg,
+            #184e86,
+            #0c315a) !important;
+
+    border:
+        1px solid rgba(9, 45, 82, 0.18) !important;
+
+    box-shadow:
+        0 12px 29px rgba(10, 51, 94, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.19) !important;
+}
+
+.lenteProFinalizarRapido>span {
+    color: #ffffff !important;
+
+    font-size: 20px !important;
+
+    font-weight: 900 !important;
+}
+
+.lenteProFinalizarRapido small {
+    color: #e7f3ff !important;
+
+    font-size: 8px !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   LIMITE
+========================================================= */
+
+.lenteProLimite {
+    position: absolute !important;
+
+    left: 50% !important;
+
+    bottom:
+        max(10px, env(safe-area-inset-bottom)) !important;
+
+    z-index: 20 !important;
+
+    transform: translateX(-50%) !important;
+
+    display: flex !important;
+
+    align-items: baseline !important;
+
+    padding: 4px 9px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        rgba(255, 255, 255, 0.72) !important;
+
+    opacity: 0.92 !important;
+
+    pointer-events: none !important;
+}
+
+.lenteProLimite span {
+    color: #173d68 !important;
+
+    font-size: 10px !important;
+
+    font-weight: 850 !important;
+}
+
+.lenteProLimite small {
+    color: #657d98 !important;
+
+    font-size: 9px !important;
+}
+
+
+/* =========================================================
+   GALERIA
+========================================================= */
+
+.lenteProGaleriaPagina {
+    position: absolute !important;
+    inset: 0 !important;
+
+    z-index: 100 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    padding:
+        max(18px, env(safe-area-inset-top)) 20px max(130px,
+            calc(env(safe-area-inset-bottom) + 110px)) !important;
+
+    background:
+        radial-gradient(circle at 8% -5%,
+            rgba(60, 142, 232, 0.16),
+            transparent 31%),
+        radial-gradient(circle at 100% 80%,
+            rgba(123, 186, 255, 0.12),
+            transparent 30%),
+        linear-gradient(180deg,
+            #fbfdff 0%,
+            #f3f8fe 42%,
+            #eaf3fc 100%) !important;
+
+    color: #102d50 !important;
+
+    scrollbar-width: thin !important;
+
+    scrollbar-color:
+        #b9cee5 transparent !important;
+}
+
+.lenteProGaleriaPagina::-webkit-scrollbar {
+    width: 5px !important;
+}
+
+.lenteProGaleriaPagina::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.lenteProGaleriaPagina::-webkit-scrollbar-thumb {
+    border-radius: 999px !important;
+
+    background:
+        #bfd1e4 !important;
+}
+
+
+/* =========================================================
+   HEADER GALERIA
+========================================================= */
+
+.lenteProGaleriaHeader {
+    width: 100% !important;
+
+    min-height: 62px !important;
+
+    margin: 0 auto 20px !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        52px 1fr 52px !important;
+
+    align-items: center !important;
+
+    gap: 12px !important;
+}
+
+.lenteProVoltar {
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 0 5px !important;
+
+    border:
+        1px solid #d2e2f2 !important;
+
+    border-radius: 16px !important;
+
+    background:
+        #ffffff !important;
+
+    color: #123c68 !important;
+
+    box-shadow:
+        0 7px 19px rgba(25, 68, 115, 0.10) !important;
+
+    font-size: 37px !important;
+    line-height: 1 !important;
+
+    font-weight: 250 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.lenteProVoltar:hover {
+    transform: translateX(-2px) !important;
+
+    box-shadow:
+        0 10px 24px rgba(25, 68, 115, 0.15) !important;
+}
+
+.lenteProGaleriaTitulo {
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+}
+
+.lenteProGaleriaTitulo span {
+    color: #7389a2 !important;
+
+    font-size: 8px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: 1.5px !important;
+}
+
+.lenteProGaleriaTitulo strong {
+    color: #102f54 !important;
+
+    font-size: 20px !important;
+
+    font-weight: 850 !important;
+
+    letter-spacing: -0.4px !important;
+}
+
+
+/* =========================================================
+   FOTO HEADER GALERIA
+========================================================= */
+
+.lenteProGaleriaUsuario {
+    width: 48px !important;
+    height: 48px !important;
+
+    overflow: hidden !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #e8f1fa) !important;
+
+    border:
+        2px solid #ffffff !important;
+
+    box-shadow:
+        0 7px 20px rgba(19, 61, 107, 0.15) !important;
+}
+
+.lenteProGaleriaUsuario img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+}
+
+.lenteProGaleriaUsuario span {
+    color: #12385f !important;
+
+    font-size: 17px !important;
+
+    font-weight: 900 !important;
+}
+
+
+/* =========================================================
+   IDENTIDADE GALERIA
+========================================================= */
+
+.lenteProGaleriaIdentidade {
+    width: 100% !important;
+    max-width: 900px !important;
+
+    margin: 0 auto 27px !important;
+
+    padding: 14px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 13px !important;
+
+    border-radius: 22px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f7fbff) !important;
+
+    border:
+        1px solid #dbe8f5 !important;
+
+    box-shadow:
+        0 12px 32px rgba(23, 68, 116, 0.09),
+        inset 0 1px 0 #ffffff !important;
+}
+
+.lenteProGaleriaLoja {
+    width: 57px !important;
+    height: 57px !important;
+
+    min-width: 57px !important;
+
+    overflow: hidden !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 17px !important;
+
+    background: #ffffff !important;
+
+    border:
+        1px solid #d8e6f3 !important;
+}
+
+.lenteProGaleriaLoja img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+
+    padding: 4px !important;
+}
+
+.lenteProGaleriaLoja span {
+    color: #12375e !important;
+
+    font-size: 20px !important;
+
+    font-weight: 900 !important;
+}
+
+.lenteProGaleriaIdentidade>div:last-child {
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+}
+
+.lenteProGaleriaIdentidade>div:last-child>span {
+    color: #7890a9 !important;
+
+    font-size: 9px !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 0.8px !important;
+}
+
+.lenteProGaleriaIdentidade strong {
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    color: #102f54 !important;
+
+    font-size: 17px !important;
+
+    font-weight: 850 !important;
+}
+
+.lenteProGaleriaIdentidade small {
+    margin-top: 2px !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    color: #657b93 !important;
+
+    font-size: 10px !important;
+}
+
+
+/* =========================================================
+   SECOES GALERIA
+========================================================= */
+
+.lenteProSecao {
+    width: 100% !important;
+
+    max-width: 900px !important;
+
+    margin: 0 auto 31px !important;
+}
+
+.lenteProSecaoTitulo {
+    width: 100% !important;
+
+    margin-bottom: 13px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+}
+
+.lenteProSecaoTitulo>div {
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+}
+
+.lenteProSecaoTitulo span {
+    color: #7990aa !important;
+
+    font-size: 8px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: 1.3px !important;
+}
+
+.lenteProSecaoTitulo strong {
+    margin-top: 2px !important;
+
+    color: #102f54 !important;
+
+    font-size: 17px !important;
+
+    font-weight: 850 !important;
+
+    letter-spacing: -0.3px !important;
+}
+
+.lenteProSecaoTitulo>b {
+    min-width: 37px !important;
+    height: 32px !important;
+
+    padding: 0 9px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 11px !important;
+
+    background:
+        #e7f1fb !important;
+
+    border:
+        1px solid #d3e3f3 !important;
+
+    color: #123d6a !important;
+
+    font-size: 11px !important;
+
+    font-weight: 900 !important;
+}
+
+
+/* =========================================================
+   GRID ARQUIVOS
+========================================================= */
+
+.lenteProGridArquivos {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+}
+
+
+/* =========================================================
+   CARD ARQUIVO
+========================================================= */
+
+.lenteProArquivoCard {
+    position: relative !important;
+
+    width: 100% !important;
+
+    aspect-ratio: 0.82 / 1 !important;
+
+    overflow: hidden !important;
+
+    border-radius: 19px !important;
+
+    background: #e9f1f9 !important;
+
+    border:
+        1px solid #d3e2f1 !important;
+
+    box-shadow:
+        0 9px 25px rgba(23, 65, 111, 0.12) !important;
+
+    animation:
+        lenteProArquivoEntrada 0.3s ease !important;
+}
+
+@keyframes lenteProArquivoEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.96) translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1) translateY(0);
+    }
+}
+
+.lenteProArquivoCard>img,
+.lenteProArquivoCard>video {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+
+    background: #e5edf6 !important;
+}
+
+.lenteProArquivoCard::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    pointer-events: none !important;
+
+    background:
+        linear-gradient(to top,
+            rgba(5, 31, 59, 0.50),
+            transparent 38%) !important;
+}
+
+.lenteProArquivoCard>button {
+    position: absolute !important;
+
+    top: 8px !important;
+    right: 8px !important;
+
+    z-index: 10 !important;
+
+    width: 31px !important;
+    height: 31px !important;
+
+    padding: 0 0 3px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border:
+        1px solid #dce8f4 !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(255, 255, 255, 0.94) !important;
+
+    backdrop-filter:
+        blur(12px) !important;
+
+    color: #c82b3d !important;
+
+    font-size: 22px !important;
+    line-height: 1 !important;
+
+    font-weight: 400 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 14px rgba(14, 53, 94, 0.17) !important;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease !important;
+}
+
+.lenteProArquivoCard>button:hover {
+    transform: scale(1.08) !important;
+
+    background:
+        #d9364a !important;
+
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   TIPO ARQUIVO
+========================================================= */
+
+.lenteProArquivoTipo {
+    position: absolute !important;
+
+    left: 9px !important;
+    bottom: 9px !important;
+
+    z-index: 6 !important;
+
+    padding: 5px 8px !important;
+
+    border-radius: 8px !important;
+
+    background:
+        rgba(255, 255, 255, 0.91) !important;
+
+    backdrop-filter:
+        blur(10px) !important;
+
+    color: #173c66 !important;
+
+    font-size: 8px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: 0.8px !important;
+}
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+.lenteProArquivoData {
+    position: absolute !important;
+
+    left: 9px !important;
+    right: 48px !important;
+    bottom: 10px !important;
+
+    z-index: 6 !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+
+    color: #ffffff !important;
+
+    font-size: 9px !important;
+
+    font-weight: 650 !important;
+
+    text-shadow:
+        0 1px 5px rgba(0, 24, 53, 0.45) !important;
+}
+
+
+/* =========================================================
+   VAZIO
+========================================================= */
+
+.lenteProVazio {
+    width: 100% !important;
+
+    min-height: 170px !important;
+
+    padding: 30px 20px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 22px !important;
+
+    border:
+        1px dashed #c6daee !important;
+
+    background:
+        rgba(255, 255, 255, 0.70) !important;
+
+    text-align: center !important;
+}
+
+.lenteProVazio>div {
+    width: 49px !important;
+    height: 49px !important;
+
+    margin-bottom: 12px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 15px !important;
+
+    background:
+        #e8f2fc !important;
+
+    color: #245985 !important;
+
+    font-size: 21px !important;
+}
+
+.lenteProVazio strong {
+    color: #123456 !important;
+
+    font-size: 13px !important;
+
+    font-weight: 850 !important;
+}
+
+.lenteProVazio span {
+    max-width: 320px !important;
+
+    margin-top: 5px !important;
+
+    color: #6b8097 !important;
+
+    font-size: 10px !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   BARRA FINALIZAR
+========================================================= */
+
+.lenteProBarraFinalizar {
+    position: fixed !important;
+
+    left: 50% !important;
+
+    bottom:
+        max(17px,
+            env(safe-area-inset-bottom)) !important;
+
+    z-index: 500 !important;
+
+    width:
+        min(610px,
+            calc(100% - 28px)) !important;
+
+    min-height: 72px !important;
+
+    padding:
+        10px 10px 10px 17px !important;
+
+    transform:
+        translateX(-50%) !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 13px !important;
+
+    overflow: hidden !important;
+
+    border-radius: 23px !important;
+
+    background:
+        rgba(255, 255, 255, 0.97) !important;
+
+    border:
+        1px solid #d5e4f2 !important;
+
+    backdrop-filter:
+        blur(26px) saturate(150%) !important;
+
+    -webkit-backdrop-filter:
+        blur(26px) saturate(150%) !important;
+
+    box-shadow:
+        0 18px 50px rgba(17, 59, 105, 0.19),
+        0 3px 10px rgba(17, 59, 105, 0.07),
+        inset 0 1px 0 #ffffff !important;
+}
+
+.lenteProBarraFinalizar>div:not(.lenteProProgresso) {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+}
+
+.lenteProBarraFinalizar>div>span {
+    color: #12365c !important;
+
+    font-size: 13px !important;
+
+    font-weight: 850 !important;
+}
+
+.lenteProBarraFinalizar>div>small {
+    margin-top: 2px !important;
+
+    color: #71859c !important;
+
+    font-size: 9px !important;
+}
+
+.lenteProBarraFinalizar>button {
+    min-width: 120px !important;
+    height: 51px !important;
+
+    padding: 0 21px !important;
+
+    border: none !important;
+
+    border-radius: 16px !important;
+
+    background:
+        linear-gradient(145deg,
+            #174d84,
+            #0b315b) !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+
+    font-weight: 900 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 9px 23px rgba(10, 48, 89, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease !important;
+}
+
+.lenteProBarraFinalizar>button:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 12px 28px rgba(10, 48, 89, 0.30) !important;
+}
+
+.lenteProBarraFinalizar>button:disabled {
+    opacity: 0.5 !important;
+
+    cursor: not-allowed !important;
+}
+
+
+/* =========================================================
+   PROGRESSO
+========================================================= */
+
+.lenteProProgresso {
+    position: absolute !important;
+
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 4px !important;
+
+    height: 3px !important;
+
+    overflow: hidden !important;
+
+    border-radius: 999px !important;
+
+    background:
+        #e1ebf5 !important;
+}
+
+.lenteProProgresso span {
+    display: block !important;
+
+    height: 100% !important;
+
+    border-radius: inherit !important;
+
+    background:
+        linear-gradient(90deg,
+            #123d6c,
+            #3e8fd6) !important;
+
+    box-shadow:
+        0 0 9px rgba(44, 123, 194, 0.34) !important;
+
+    transition:
+        width 0.3s ease !important;
+}
+
+
+/* =========================================================
+   MENSAGEM GALERIA
+========================================================= */
+
+.lenteProGaleriaMensagem {
+    width: min(900px, 100%) !important;
+
+    margin: 0 auto 25px !important;
+
+    padding: 13px 16px !important;
+
+    border-radius: 14px !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid #d8e6f4 !important;
+
+    color: #254a70 !important;
+
+    font-size: 11px !important;
+
+    font-weight: 650 !important;
+
+    text-align: center !important;
+
+    box-shadow:
+        0 7px 20px rgba(24, 68, 116, 0.07) !important;
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 901px) {
+
+    .lenteProPagina {
+        padding: 22px !important;
+    }
+
+    .lenteProAparelho {
+        width: min(100%, 1180px) !important;
+
+        height:
+            calc(100vh - 44px) !important;
+
+        height:
+            calc(100dvh - 44px) !important;
+
+        border-radius: 34px !important;
+
+        border:
+            1px solid #cfdfef !important;
+
+        box-shadow:
+            0 30px 90px rgba(19, 65, 114, 0.20),
+            0 7px 24px rgba(19, 65, 114, 0.09) !important;
+    }
+
+    .lenteProGaleriaPagina {
+        border-radius: inherit !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .lenteProPagina {
+        display: block !important;
+
+        background:
+            #f3f8fe !important;
+    }
+
+    .lenteProAparelho {
+        width: 100% !important;
+
+        height: 100vh !important;
+        height: 100dvh !important;
+
+        border-radius: 0 !important;
+    }
+
+    .lenteProTopo {
+        top:
+            max(10px,
+                calc(env(safe-area-inset-top) + 5px)) !important;
+
+        left: 10px !important;
+        right: 10px !important;
+
+        gap: 8px !important;
+    }
+
+    .lenteProLoja {
+        max-width: calc(100% - 112px) !important;
+
+        gap: 8px !important;
+
+        padding:
+            6px 10px 6px 6px !important;
+
+        border-radius: 18px !important;
+    }
+
+    .lenteProLojaLogo {
+        width: 43px !important;
+        height: 43px !important;
+
+        min-width: 43px !important;
+
+        border-radius: 13px !important;
+    }
+
+    .lenteProLojaTexto strong {
+        max-width: 47vw !important;
+
+        font-size: 12px !important;
+    }
+
+    .lenteProLojaTexto small {
+        max-width: 47vw !important;
+
+        font-size: 8px !important;
+    }
+
+    .lenteProLojaLabel {
+        font-size: 7px !important;
+    }
+
+    .lenteProArquivos {
+        min-height: 48px !important;
+
+        padding:
+            6px 7px 6px 10px !important;
+
+        border-radius: 16px !important;
+    }
+
+    .lenteProArquivosTexto {
+        display: none !important;
+    }
+
+    .lenteProArquivosIcone {
+        font-size: 18px !important;
+    }
+
+    .lenteProArquivos strong {
+        min-width: 28px !important;
+        height: 28px !important;
+
+        border-radius: 9px !important;
+    }
+
+    .lenteProUsuario {
+        top:
+            max(76px,
+                calc(env(safe-area-inset-top) + 70px)) !important;
+
+        left: 10px !important;
+
+        max-width: 68vw !important;
+
+        gap: 7px !important;
+
+        padding:
+            5px 10px 5px 5px !important;
+    }
+
+    .lenteProUsuarioFoto {
+        width: 38px !important;
+        height: 38px !important;
+
+        min-width: 38px !important;
+    }
+
+    .lenteProUsuarioInfo strong {
+        max-width: 48vw !important;
+
+        font-size: 11px !important;
+    }
+
+    .lenteProUsuarioInfo small {
+        max-width: 48vw !important;
+
+        font-size: 8px !important;
+    }
+
+    .lenteProUsuarioInfo>span {
+        font-size: 6px !important;
+    }
+
+    .lenteProRec {
+        top:
+            max(82px,
+                calc(env(safe-area-inset-top) + 76px)) !important;
+
+        right: 10px !important;
+
+        min-height: 36px !important;
+
+        padding: 0 9px !important;
+
+        border-radius: 12px !important;
+    }
+
+    .lenteProRec strong {
+        font-size: 8px !important;
+    }
+
+    .lenteProRec b {
+        font-size: 11px !important;
+    }
+
+    .lenteProRec small {
+        display: none !important;
+    }
+
+    .lenteProMensagem {
+        bottom: 142px !important;
+
+        max-width:
+            calc(100% - 28px) !important;
+
+        padding: 9px 13px !important;
+
+        font-size: 10px !important;
+    }
+
+    .lenteProControles {
+        bottom:
+            max(19px,
+                calc(env(safe-area-inset-bottom) + 10px)) !important;
+
+        gap: 8px !important;
+
+        max-width:
+            calc(100% - 14px) !important;
+
+        padding:
+            8px 9px 6px !important;
+    }
+
+    .lenteProControles>*:nth-child(1) {
+        margin-bottom: 0 !important;
+    }
+
+    .lenteProControles>*:nth-child(2) {
+        margin-bottom: 9px !important;
+    }
+
+    .lenteProControles>*:nth-child(3) {
+        margin-bottom: 18px !important;
+    }
+
+    .lenteProControles>*:nth-child(4) {
+        margin-bottom: 9px !important;
+    }
+
+    .lenteProControles>*:nth-child(5) {
+        margin-bottom: 0 !important;
+    }
+
+    .lenteProControleSecundario {
+        width: 49px !important;
+        height: 49px !important;
+
+        min-width: 49px !important;
+    }
+
+    .lenteProDisparador {
+        width: 72px !important;
+        height: 72px !important;
+
+        min-width: 72px !important;
+
+        padding: 5px !important;
+    }
+
+    .lenteProTrocar span {
+        font-size: 24px !important;
+    }
+
+    .lenteProVideoBotao>span {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .lenteProVideoBotao>span::after {
+        top: 5px !important;
+        right: -6px !important;
+
+        border-top-width:
+            5px !important;
+
+        border-bottom-width:
+            5px !important;
+
+        border-left-width:
+            8px !important;
+    }
+
+    .lenteProFinalizarRapido {
+        min-width: 57px !important;
+        height: 49px !important;
+
+        padding: 0 8px !important;
+
+        border-radius: 16px !important;
+    }
+
+    .lenteProFinalizarRapido>span {
+        font-size: 17px !important;
+    }
+
+    .lenteProFinalizarRapido small {
+        font-size: 6px !important;
+    }
+
+    .lenteProLimite {
+        display: none !important;
+    }
+
+
+    /* GALERIA */
+
+    .lenteProGaleriaPagina {
+        padding:
+            max(12px,
+                calc(env(safe-area-inset-top) + 5px)) 12px max(115px,
+                calc(env(safe-area-inset-bottom) + 100px)) !important;
+    }
+
+    .lenteProGaleriaHeader {
+        grid-template-columns:
+            44px 1fr 44px !important;
+
+        min-height: 50px !important;
+
+        margin-bottom: 15px !important;
+
+        gap: 8px !important;
+    }
+
+    .lenteProVoltar {
+        width: 42px !important;
+        height: 42px !important;
+
+        border-radius: 14px !important;
+
+        font-size: 31px !important;
+    }
+
+    .lenteProGaleriaUsuario {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    .lenteProGaleriaTitulo strong {
+        font-size: 17px !important;
+    }
+
+    .lenteProGaleriaTitulo span {
+        font-size: 7px !important;
+    }
+
+    .lenteProGaleriaIdentidade {
+        margin-bottom: 23px !important;
+
+        padding: 11px !important;
+
+        border-radius: 18px !important;
+    }
+
+    .lenteProGaleriaLoja {
+        width: 49px !important;
+        height: 49px !important;
+
+        min-width: 49px !important;
+
+        border-radius: 14px !important;
+    }
+
+    .lenteProGaleriaIdentidade strong {
+        font-size: 14px !important;
+    }
+
+    .lenteProGaleriaIdentidade small {
+        font-size: 9px !important;
+    }
+
+    .lenteProSecao {
+        margin-bottom: 26px !important;
+    }
+
+    .lenteProSecaoTitulo {
+        margin-bottom: 10px !important;
+    }
+
+    .lenteProSecaoTitulo strong {
+        font-size: 15px !important;
+    }
+
+    .lenteProGridArquivos {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+
+        gap: 7px !important;
+    }
+
+    .lenteProArquivoCard {
+        border-radius: 14px !important;
+    }
+
+    .lenteProArquivoCard>button {
+        top: 5px !important;
+        right: 5px !important;
+
+        width: 26px !important;
+        height: 26px !important;
+
+        font-size: 18px !important;
+    }
+
+    .lenteProArquivoTipo {
+        left: 6px !important;
+        bottom: 6px !important;
+
+        padding: 4px 6px !important;
+
+        font-size: 6px !important;
+    }
+
+    .lenteProArquivoData {
+        left: 6px !important;
+        bottom: 7px !important;
+
+        font-size: 7px !important;
+    }
+
+    .lenteProVazio {
+        min-height: 140px !important;
+
+        padding: 24px 15px !important;
+
+        border-radius: 18px !important;
+    }
+
+    .lenteProBarraFinalizar {
+        width:
+            calc(100% - 18px) !important;
+
+        min-height: 65px !important;
+
+        bottom:
+            max(9px,
+                calc(env(safe-area-inset-bottom) + 4px)) !important;
+
+        padding:
+            8px 8px 8px 14px !important;
+
+        border-radius: 20px !important;
+    }
+
+    .lenteProBarraFinalizar>button {
+        min-width: 100px !important;
+
+        height: 47px !important;
+
+        padding: 0 15px !important;
+
+        border-radius: 14px !important;
+
+        font-size: 11px !important;
+    }
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .lenteProControles {
+        gap: 5px !important;
+
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+    }
+
+    .lenteProControleSecundario {
+        width: 45px !important;
+        height: 45px !important;
+
+        min-width: 45px !important;
+    }
+
+    .lenteProDisparador {
+        width: 67px !important;
+        height: 67px !important;
+
+        min-width: 67px !important;
+    }
+
+    .lenteProFinalizarRapido {
+        min-width: 52px !important;
+        height: 45px !important;
+    }
+
+    .lenteProLojaTexto strong,
+    .lenteProLojaTexto small {
+        max-width: 43vw !important;
+    }
+
+    .lenteProUsuario {
+        max-width: 63vw !important;
+    }
+
+    .lenteProUsuarioInfo strong,
+    .lenteProUsuarioInfo small {
+        max-width: 42vw !important;
+    }
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+========================================================= */
+
+@media (max-width: 340px) {
+
+    .lenteProLoja {
+        max-width:
+            calc(100% - 92px) !important;
+    }
+
+    .lenteProLojaLogo {
+        width: 38px !important;
+        height: 38px !important;
+
+        min-width: 38px !important;
+    }
+
+    .lenteProArquivos {
+        min-height: 43px !important;
+    }
+
+    .lenteProArquivosIcone {
+        display: none !important;
+    }
+
+    .lenteProUsuario {
+        top: 69px !important;
+    }
+
+    .lenteProRec {
+        top: 73px !important;
+    }
+
+    .lenteProControles {
+        gap: 4px !important;
+    }
+
+    .lenteProControleSecundario {
+        width: 41px !important;
+        height: 41px !important;
+
+        min-width: 41px !important;
+    }
+
+    .lenteProDisparador {
+        width: 61px !important;
+        height: 61px !important;
+
+        min-width: 61px !important;
+    }
+
+    .lenteProFinalizarRapido {
+        min-width: 48px !important;
+        height: 41px !important;
+    }
+}
+
+
+/* =========================================================
+   LANDSCAPE
+========================================================= */
+
+@media (orientation: landscape) and (max-height: 520px) {
+
+    .lenteProTopo {
+        top: 8px !important;
+    }
+
+    .lenteProUsuario {
+        top: 67px !important;
+    }
+
+    .lenteProRec {
+        top: 71px !important;
+    }
+
+    .lenteProControles {
+        bottom: 9px !important;
+
+        transform:
+            translateX(-50%) scale(0.86) !important;
+
+        transform-origin:
+            bottom center !important;
+    }
+
+    .lenteProMensagem {
+        bottom: 102px !important;
+    }
+
+    .lenteProLimite {
+        display: none !important;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lenteProPagina *,
+    .lenteProPagina *::before,
+    .lenteProPagina *::after {
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
+}

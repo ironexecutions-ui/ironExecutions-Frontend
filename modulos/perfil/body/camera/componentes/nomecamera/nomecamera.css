@@ -1,0 +1,1314 @@
+/* =========================================================
+   IRON EXECUTIONS
+   CAMERA - IDENTIFICACAO
+   TEMA CLARO / AZUL / PRETO
+========================================================= */
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.camera-nome-camera-container {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    position: relative !important;
+
+    box-sizing: border-box !important;
+
+    font-family:
+        "Montserrat",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    color: #111827 !important;
+
+    animation:
+        cameraNomeEntrada 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+/* =========================================================
+   CABECALHO
+========================================================= */
+
+.camera-nome-camera-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    margin: 0 0 25px 0 !important;
+
+    padding:
+        0 0 20px 0 !important;
+
+    border-bottom:
+        1px solid rgba(15, 23, 42, 0.10) !important;
+}
+
+
+.camera-nome-camera-titulo {
+    margin: 0 0 7px 0 !important;
+    padding: 0 !important;
+
+    color: #0a0a0a !important;
+
+    font-size: 22px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.2 !important;
+
+    letter-spacing: -0.45px !important;
+}
+
+
+.camera-nome-camera-descricao {
+    max-width: 650px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #475569 !important;
+
+    font-size: 13px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.6 !important;
+}
+
+
+/* =========================================================
+   CARD CAMERA CADASTRADA
+========================================================= */
+
+.camera-identificacao-card {
+    width: 100% !important;
+    max-width: 780px !important;
+
+    position: relative !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border-radius: 22px !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.15) !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fbfdff 50%,
+            #f4f8ff 100%) !important;
+
+    box-shadow:
+        0 22px 50px rgba(15, 23, 42, 0.11),
+        0 6px 18px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+
+    animation:
+        cameraCardEntrada 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+/* =========================================================
+   LINHA SUPERIOR AZUL
+========================================================= */
+
+.camera-identificacao-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 4px !important;
+
+    z-index: 5 !important;
+
+    background:
+        linear-gradient(90deg,
+            #1d4ed8 0%,
+            #2563eb 40%,
+            #60a5fa 70%,
+            #2563eb 100%) !important;
+
+    box-shadow:
+        0 2px 12px rgba(37, 99, 235, 0.25) !important;
+}
+
+
+/* =========================================================
+   LUZ DECORATIVA
+========================================================= */
+
+.camera-identificacao-card::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: -170px !important;
+    right: -130px !important;
+
+    width: 360px !important;
+    height: 360px !important;
+
+    border-radius: 50% !important;
+
+    background:
+        radial-gradient(circle,
+            rgba(37, 99, 235, 0.12) 0%,
+            rgba(37, 99, 235, 0.045) 45%,
+            transparent 72%) !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   TOPO DO CARD
+========================================================= */
+
+.camera-identificacao-topo {
+    width: 100% !important;
+
+    position: relative !important;
+    z-index: 2 !important;
+
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 24px !important;
+
+    padding:
+        25px 28px 17px 28px !important;
+}
+
+
+/* =========================================================
+   CAMERA.PNG
+========================================================= */
+
+.camera-identificacao-icone {
+    width: 92px !important;
+    height: 78px !important;
+
+    flex: 0 0 92px !important;
+
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: none !important;
+
+    background: transparent !important;
+
+    box-shadow: none !important;
+
+    overflow: visible !important;
+}
+
+
+.camera-identificacao-icone::before,
+.camera-identificacao-icone::after {
+    content: none !important;
+    display: none !important;
+}
+
+
+.camera-identificacao-imagem {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: 92px !important;
+    max-height: 78px !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    border: none !important;
+
+    background: transparent !important;
+
+    filter:
+        drop-shadow(0 9px 11px rgba(15, 23, 42, 0.20)) !important;
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease !important;
+}
+
+
+.camera-identificacao-card:hover .camera-identificacao-imagem {
+    transform:
+        translateY(-3px) scale(1.035) !important;
+
+    filter:
+        drop-shadow(0 13px 15px rgba(15, 23, 42, 0.25)) !important;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.camera-identificacao-status {
+    min-height: 33px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    padding: 0 13px !important;
+
+    border-radius: 999px !important;
+
+    border:
+        1px solid rgba(22, 163, 74, 0.17) !important;
+
+    background: #f0fdf4 !important;
+
+    color: #166534 !important;
+
+    font-size: 10px !important;
+    font-weight: 750 !important;
+
+    letter-spacing: 0.2px !important;
+
+    box-shadow:
+        0 4px 12px rgba(22, 163, 74, 0.06),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+.camera-identificacao-status-ponto {
+    width: 7px !important;
+    height: 7px !important;
+
+    flex: 0 0 7px !important;
+
+    border-radius: 50% !important;
+
+    background: #16a34a !important;
+
+    box-shadow:
+        0 0 0 4px rgba(22, 163, 74, 0.09),
+        0 0 10px rgba(22, 163, 74, 0.25) !important;
+
+    animation:
+        cameraStatusPulse 2.3s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
+   CORPO
+========================================================= */
+
+.camera-identificacao-corpo {
+    width: 100% !important;
+
+    position: relative !important;
+    z-index: 2 !important;
+
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    padding:
+        7px 28px 29px 28px !important;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.camera-identificacao-label {
+    display: block !important;
+
+    margin: 0 0 7px 0 !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    line-height: 1 !important;
+
+    letter-spacing: 1.15px !important;
+
+    text-transform: uppercase !important;
+}
+
+
+/* =========================================================
+   NOME DA CAMERA
+========================================================= */
+
+.camera-identificacao-nome {
+    display: block !important;
+
+    width: fit-content !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    color: #0a0a0a !important;
+
+    font-size: clamp(28px,
+            3vw,
+            38px) !important;
+
+    font-weight: 850 !important;
+
+    line-height: 1.1 !important;
+
+    letter-spacing: -1px !important;
+
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
+
+/* DETALHE ABAIXO DO NOME */
+
+.camera-identificacao-nome::after {
+    content: "" !important;
+
+    display: block !important;
+
+    width: 52px !important;
+    height: 3px !important;
+
+    margin-top: 12px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(90deg,
+            #1d4ed8,
+            #3b82f6,
+            #93c5fd) !important;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.17) !important;
+}
+
+
+/* =========================================================
+   INFORMACAO
+========================================================= */
+
+.camera-identificacao-info {
+    display: block !important;
+
+    margin-top: 13px !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   RODAPE CARD
+========================================================= */
+
+.camera-identificacao-rodape {
+    width: 100% !important;
+
+    position: relative !important;
+    z-index: 2 !important;
+
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    padding:
+        16px 28px 19px 28px !important;
+
+    border-top:
+        1px solid rgba(15, 23, 42, 0.07) !important;
+
+    background:
+        linear-gradient(180deg,
+            rgba(248, 250, 252, 0.5),
+            rgba(241, 245, 249, 0.78)) !important;
+}
+
+
+/* =========================================================
+   EDITAR NOME
+========================================================= */
+
+.camera-identificacao-editar {
+    min-width: 120px !important;
+    min-height: 41px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 18px !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.22) !important;
+
+    border-radius: 11px !important;
+
+    outline: none !important;
+
+    background: #ffffff !important;
+
+    color: #1d4ed8 !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 4px 11px rgba(15, 23, 42, 0.07),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.16s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.camera-identificacao-editar:hover {
+    transform: translateY(-2px) !important;
+
+    border-color: #2563eb !important;
+
+    background: #eff6ff !important;
+
+    color: #1d4ed8 !important;
+
+    box-shadow:
+        0 9px 20px rgba(37, 99, 235, 0.13) !important;
+}
+
+
+.camera-identificacao-editar:active {
+    transform: scale(0.98) !important;
+}
+
+
+/* =========================================================
+   FORMULARIO
+========================================================= */
+
+.camera-nome-camera-formulario {
+    width: 100% !important;
+    max-width: 780px !important;
+
+    position: relative !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    padding: 27px !important;
+
+    border-radius: 20px !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.14) !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fbfdff 55%,
+            #f6f9ff 100%) !important;
+
+    box-shadow:
+        0 20px 45px rgba(15, 23, 42, 0.10),
+        0 5px 14px rgba(15, 23, 42, 0.045),
+        inset 0 1px 0 #ffffff !important;
+
+    animation:
+        cameraFormularioEntrada 0.38s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+.camera-nome-camera-formulario::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 3px !important;
+
+    background:
+        linear-gradient(90deg,
+            #1d4ed8,
+            #3b82f6,
+            #93c5fd) !important;
+}
+
+
+/* =========================================================
+   LABEL DO INPUT
+========================================================= */
+
+.camera-nome-camera-label {
+    display: block !important;
+
+    margin: 0 0 9px 2px !important;
+
+    color: #111827 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    letter-spacing: 0.1px !important;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.camera-nome-camera-input {
+    width: 100% !important;
+    height: 54px !important;
+
+    box-sizing: border-box !important;
+
+    padding: 0 16px !important;
+
+    border:
+        1px solid rgba(71, 85, 105, 0.20) !important;
+
+    border-radius: 13px !important;
+
+    outline: none !important;
+
+    background: #ffffff !important;
+
+    color: #0a0a0a !important;
+
+    font-family: inherit !important;
+
+    font-size: 14px !important;
+    font-weight: 650 !important;
+
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, 0.04),
+        inset 0 1px 2px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+
+.camera-nome-camera-input::placeholder {
+    color: #94a3b8 !important;
+
+    font-weight: 500 !important;
+}
+
+
+.camera-nome-camera-input:hover:not(:disabled) {
+    border-color:
+        rgba(37, 99, 235, 0.42) !important;
+}
+
+
+.camera-nome-camera-input:focus {
+    border-color: #2563eb !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.11),
+        0 7px 18px rgba(37, 99, 235, 0.08) !important;
+}
+
+
+.camera-nome-camera-input:disabled {
+    cursor: not-allowed !important;
+
+    background: #f1f5f9 !important;
+
+    color: #64748b !important;
+
+    opacity: 0.75 !important;
+}
+
+
+/* =========================================================
+   RODAPE FORMULARIO
+========================================================= */
+
+.camera-nome-camera-rodape {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 16px !important;
+
+    margin-top: 17px !important;
+}
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
+
+.camera-nome-camera-contador {
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+
+    font-variant-numeric: tabular-nums !important;
+}
+
+
+/* =========================================================
+   ACOES
+========================================================= */
+
+.camera-nome-camera-acoes {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 9px !important;
+}
+
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.camera-nome-camera-cancelar {
+    min-height: 43px !important;
+
+    padding: 0 17px !important;
+
+    border:
+        1px solid rgba(71, 85, 105, 0.18) !important;
+
+    border-radius: 11px !important;
+
+    outline: none !important;
+
+    background: #ffffff !important;
+
+    color: #334155 !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.05) !important;
+
+    transition:
+        transform 0.16s ease,
+        background 0.2s ease,
+        border-color 0.2s ease !important;
+}
+
+
+.camera-nome-camera-cancelar:hover:not(:disabled) {
+    transform: translateY(-1px) !important;
+
+    background: #f8fafc !important;
+
+    border-color: #94a3b8 !important;
+
+    color: #0f172a !important;
+}
+
+
+/* =========================================================
+   BOTAO PRINCIPAL
+========================================================= */
+
+.camera-nome-camera-botao {
+    min-width: 165px !important;
+    min-height: 43px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 19px !important;
+
+    border:
+        1px solid #2563eb !important;
+
+    border-radius: 11px !important;
+
+    outline: none !important;
+
+    background:
+        linear-gradient(180deg,
+            #3b82f6 0%,
+            #2563eb 45%,
+            #1d4ed8 100%) !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    letter-spacing: 0.1px !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 9px 20px rgba(37, 99, 235, 0.27),
+        inset 0 1px 0 rgba(255, 255, 255, 0.23) !important;
+
+    transition:
+        transform 0.16s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease !important;
+}
+
+
+.camera-nome-camera-botao:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+
+    filter: brightness(1.04) !important;
+
+    box-shadow:
+        0 13px 27px rgba(37, 99, 235, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+
+.camera-nome-camera-botao:active:not(:disabled) {
+    transform: scale(0.98) !important;
+}
+
+
+.camera-nome-camera-botao:disabled {
+    cursor: not-allowed !important;
+
+    border-color: #cbd5e1 !important;
+
+    background: #e2e8f0 !important;
+
+    color: #94a3b8 !important;
+
+    box-shadow: none !important;
+
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   MENSAGENS
+========================================================= */
+
+.camera-nome-camera-mensagem {
+    width: 100% !important;
+    max-width: 780px !important;
+
+    box-sizing: border-box !important;
+
+    margin-top: 15px !important;
+
+    padding: 13px 15px !important;
+
+    border-radius: 11px !important;
+
+    font-size: 12px !important;
+    font-weight: 650 !important;
+
+    line-height: 1.45 !important;
+
+    animation:
+        cameraMensagemEntrada 0.25s ease !important;
+}
+
+
+.camera-nome-camera-mensagem-sucesso {
+    border:
+        1px solid rgba(22, 163, 74, 0.18) !important;
+
+    background: #f0fdf4 !important;
+
+    color: #166534 !important;
+
+    box-shadow:
+        0 4px 12px rgba(22, 163, 74, 0.05) !important;
+}
+
+
+.camera-nome-camera-mensagem-erro {
+    border:
+        1px solid rgba(220, 38, 38, 0.18) !important;
+
+    background: #fef2f2 !important;
+
+    color: #991b1b !important;
+
+    box-shadow:
+        0 4px 12px rgba(220, 38, 38, 0.05) !important;
+}
+
+
+/* =========================================================
+   CARREGANDO
+========================================================= */
+
+.camera-nome-camera-carregando {
+    width: 100% !important;
+    max-width: 780px !important;
+
+    min-height: 170px !important;
+
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.13) !important;
+
+    border-radius: 20px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f5f8ff) !important;
+
+    color: #2563eb !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+
+.camera-nome-camera-carregando::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -60% !important;
+
+    width: 45% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.07),
+            transparent) !important;
+
+    transform: skewX(-18deg) !important;
+
+    animation:
+        cameraLoading 1.5s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
+   ANIMACOES
+========================================================= */
+
+@keyframes cameraNomeEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes cameraCardEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+@keyframes cameraFormularioEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes cameraMensagemEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes cameraStatusPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 4px rgba(22, 163, 74, 0.08),
+            0 0 8px rgba(22, 163, 74, 0.20);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 6px rgba(22, 163, 74, 0.045),
+            0 0 13px rgba(22, 163, 74, 0.30);
+    }
+}
+
+
+@keyframes cameraLoading {
+
+    0% {
+        left: -60%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+
+    .camera-identificacao-card,
+    .camera-nome-camera-formulario,
+    .camera-nome-camera-mensagem,
+    .camera-nome-camera-carregando {
+        max-width: 100% !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .camera-nome-camera-cabecalho {
+        margin-bottom: 19px !important;
+
+        padding-bottom: 16px !important;
+    }
+
+
+    .camera-nome-camera-titulo {
+        font-size: 19px !important;
+    }
+
+
+    .camera-nome-camera-descricao {
+        font-size: 12px !important;
+    }
+
+
+    /* CARD */
+
+    .camera-identificacao-card {
+        border-radius: 17px !important;
+    }
+
+
+    .camera-identificacao-topo {
+        padding:
+            20px 18px 15px 18px !important;
+
+        gap: 14px !important;
+    }
+
+
+    .camera-identificacao-icone {
+        width: 72px !important;
+        height: 62px !important;
+
+        flex-basis: 72px !important;
+    }
+
+
+    .camera-identificacao-imagem {
+        max-width: 72px !important;
+        max-height: 62px !important;
+    }
+
+
+    .camera-identificacao-status {
+        min-height: 29px !important;
+
+        padding: 0 10px !important;
+
+        font-size: 9px !important;
+    }
+
+
+    .camera-identificacao-corpo {
+        padding:
+            5px 18px 23px 18px !important;
+    }
+
+
+    .camera-identificacao-label {
+        font-size: 9px !important;
+    }
+
+
+    .camera-identificacao-nome {
+        font-size: 26px !important;
+
+        letter-spacing: -0.7px !important;
+    }
+
+
+    .camera-identificacao-info {
+        font-size: 10px !important;
+    }
+
+
+    .camera-identificacao-rodape {
+        padding:
+            14px 18px 17px 18px !important;
+    }
+
+
+    .camera-identificacao-editar {
+        width: 100% !important;
+
+        min-height: 44px !important;
+    }
+
+
+    /* FORMULARIO */
+
+    .camera-nome-camera-formulario {
+        padding: 20px 17px !important;
+
+        border-radius: 17px !important;
+    }
+
+
+    .camera-nome-camera-input {
+        height: 51px !important;
+
+        font-size: 14px !important;
+    }
+
+
+    .camera-nome-camera-rodape {
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        gap: 12px !important;
+    }
+
+
+    .camera-nome-camera-contador {
+        width: 100% !important;
+
+        text-align: right !important;
+    }
+
+
+    .camera-nome-camera-acoes {
+        width: 100% !important;
+
+        flex-direction: column-reverse !important;
+
+        gap: 8px !important;
+    }
+
+
+    .camera-nome-camera-cancelar,
+    .camera-nome-camera-botao {
+        width: 100% !important;
+
+        min-height: 47px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .camera-nome-camera-titulo {
+        font-size: 17px !important;
+    }
+
+
+    .camera-identificacao-topo {
+        align-items: center !important;
+
+        padding:
+            18px 15px 14px 15px !important;
+    }
+
+
+    .camera-identificacao-icone {
+        width: 61px !important;
+        height: 54px !important;
+
+        flex-basis: 61px !important;
+    }
+
+
+    .camera-identificacao-imagem {
+        max-width: 61px !important;
+        max-height: 54px !important;
+    }
+
+
+    .camera-identificacao-status {
+        white-space: nowrap !important;
+    }
+
+
+    .camera-identificacao-corpo {
+        padding:
+            5px 15px 21px 15px !important;
+    }
+
+
+    .camera-identificacao-nome {
+        font-size: 23px !important;
+    }
+
+
+    .camera-identificacao-rodape {
+        padding:
+            13px 15px 15px 15px !important;
+    }
+
+
+    .camera-nome-camera-formulario {
+        padding: 17px 14px !important;
+    }
+
+
+    .camera-nome-camera-input {
+        height: 49px !important;
+
+        padding: 0 14px !important;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .camera-nome-camera-container,
+    .camera-identificacao-card,
+    .camera-nome-camera-formulario,
+    .camera-nome-camera-mensagem,
+    .camera-identificacao-status-ponto,
+    .camera-nome-camera-carregando::after {
+        animation: none !important;
+    }
+
+
+    .camera-identificacao-imagem,
+    .camera-identificacao-editar,
+    .camera-nome-camera-input,
+    .camera-nome-camera-cancelar,
+    .camera-nome-camera-botao {
+        transition: none !important;
+    }
+}

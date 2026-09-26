@@ -1,0 +1,1301 @@
+/* =========================================================
+   IRON EXECUTIONS
+   CAMERA / CADASTRADOS
+   TEMA CLARO PREMIUM
+========================================================= */
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
+
+.camera-cadastrados-container {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    position: relative !important;
+
+    box-sizing: border-box !important;
+
+    font-family:
+        "Montserrat",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    color: #0f172a !important;
+
+    animation:
+        cameraCadastradosEntrada 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+/* =========================================================
+   CABECALHO
+========================================================= */
+
+.camera-cadastrados-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 24px !important;
+
+    box-sizing: border-box !important;
+
+    margin: 0 0 25px 0 !important;
+    padding: 0 0 21px 0 !important;
+
+    border-bottom:
+        1px solid rgba(15, 23, 42, 0.1) !important;
+}
+
+
+.camera-cadastrados-titulo {
+    margin: 0 0 6px 0 !important;
+    padding: 0 !important;
+
+    color: #0a0a0a !important;
+
+    font-size: 22px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.2 !important;
+
+    letter-spacing: -0.45px !important;
+}
+
+
+.camera-cadastrados-descricao {
+    max-width: 650px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 13px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   BOTAO CADASTRAR NOVO
+========================================================= */
+
+.camera-cadastrados-novo {
+    min-width: 172px !important;
+    min-height: 46px !important;
+
+    flex-shrink: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 9px !important;
+
+    padding: 0 19px !important;
+
+    border:
+        1px solid #2563eb !important;
+
+    border-radius: 13px !important;
+
+    outline: none !important;
+
+    background:
+        linear-gradient(180deg,
+            #3b82f6 0%,
+            #2563eb 48%,
+            #1d4ed8 100%) !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    letter-spacing: 0.1px !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 9px 21px rgba(37, 99, 235, 0.27),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+
+    transition:
+        transform 0.17s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease !important;
+}
+
+
+.camera-cadastrados-novo:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+
+    filter: brightness(1.04) !important;
+
+    box-shadow:
+        0 13px 27px rgba(37, 99, 235, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+}
+
+
+.camera-cadastrados-novo:active:not(:disabled) {
+    transform:
+        translateY(0) scale(0.98) !important;
+}
+
+
+.camera-cadastrados-novo:disabled {
+    cursor: not-allowed !important;
+
+    border-color: #cbd5e1 !important;
+
+    background: #e2e8f0 !important;
+
+    color: #94a3b8 !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   + DO BOTAO
+========================================================= */
+
+.camera-cadastrados-novo-mais {
+    width: 23px !important;
+    height: 23px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex: 0 0 23px !important;
+
+    border-radius: 7px !important;
+
+    background:
+        rgba(255, 255, 255, 0.16) !important;
+
+    color: #ffffff !important;
+
+    font-size: 19px !important;
+    font-weight: 400 !important;
+
+    line-height: 1 !important;
+}
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+.camera-cadastrados-mensagem {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    margin: 0 0 18px 0 !important;
+
+    padding: 13px 16px !important;
+
+    border:
+        1px solid rgba(220, 38, 38, 0.16) !important;
+
+    border-radius: 12px !important;
+
+    background: #fef2f2 !important;
+
+    color: #991b1b !important;
+
+    font-size: 12px !important;
+    font-weight: 650 !important;
+
+    line-height: 1.5 !important;
+
+    box-shadow:
+        0 4px 12px rgba(220, 38, 38, 0.04) !important;
+
+    animation:
+        cameraCadastradosMensagem 0.25s ease !important;
+}
+
+
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
+
+.camera-cadastrados-carregando {
+    width: 100% !important;
+
+    min-height: 180px !important;
+
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.13) !important;
+
+    border-radius: 18px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f5f8ff) !important;
+
+    color: #2563eb !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    box-shadow:
+        0 14px 35px rgba(15, 23, 42, 0.07) !important;
+}
+
+
+.camera-cadastrados-carregando::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -60% !important;
+
+    width: 45% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.06),
+            transparent) !important;
+
+    transform: skewX(-18deg) !important;
+
+    animation:
+        cameraCadastradosLoading 1.5s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
+   LISTA VAZIA
+========================================================= */
+
+.camera-cadastrados-vazio {
+    width: 100% !important;
+
+    min-height: 230px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    box-sizing: border-box !important;
+
+    padding: 35px 25px !important;
+
+    border:
+        1px dashed rgba(37, 99, 235, 0.25) !important;
+
+    border-radius: 18px !important;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.95),
+            rgba(245, 248, 255, 0.85)) !important;
+
+    text-align: center !important;
+}
+
+
+.camera-cadastrados-vazio::before {
+    content: "+" !important;
+
+    width: 52px !important;
+    height: 52px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 8px !important;
+
+    border-radius: 15px !important;
+
+    background: #eff6ff !important;
+
+    color: #2563eb !important;
+
+    font-size: 29px !important;
+    font-weight: 400 !important;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+.camera-cadastrados-vazio strong {
+    color: #111827 !important;
+
+    font-size: 15px !important;
+    font-weight: 800 !important;
+}
+
+
+.camera-cadastrados-vazio span {
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   LISTA
+========================================================= */
+
+.camera-cadastrados-lista {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 14px !important;
+}
+
+
+/* =========================================================
+   CARD DO CADASTRADO
+========================================================= */
+
+.camera-cadastrado-card {
+    width: 100% !important;
+
+    position: relative !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        auto minmax(0, 1fr) auto !important;
+
+    align-items: center !important;
+
+    gap: 17px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    padding: 17px 18px !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.09) !important;
+
+    border-radius: 17px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #ffffff 55%,
+            #f8faff 100%) !important;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.065),
+        0 2px 5px rgba(15, 23, 42, 0.025),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+
+    animation:
+        cameraCadastradoCardEntrada 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+/* DETALHE AZUL */
+
+.camera-cadastrado-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #60a5fa) !important;
+
+    opacity: 0.8 !important;
+}
+
+
+.camera-cadastrado-card:hover {
+    transform: translateY(-2px) !important;
+
+    border-color:
+        rgba(37, 99, 235, 0.18) !important;
+
+    box-shadow:
+        0 14px 32px rgba(15, 23, 42, 0.09),
+        0 4px 9px rgba(37, 99, 235, 0.035),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   FOTO
+========================================================= */
+
+.camera-cadastrado-foto {
+    width: 58px !important;
+    height: 58px !important;
+
+    flex: 0 0 58px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.14) !important;
+
+    border-radius: 15px !important;
+
+    background:
+        linear-gradient(145deg,
+            #eff6ff,
+            #dbeafe) !important;
+
+    color: #2563eb !important;
+
+    font-size: 22px !important;
+    font-weight: 800 !important;
+
+    box-shadow:
+        0 5px 13px rgba(37, 99, 235, 0.09),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+
+.camera-cadastrado-foto img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+
+.camera-cadastrado-foto span {
+    color: #2563eb !important;
+
+    font-size: 21px !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   INFORMACOES
+========================================================= */
+
+.camera-cadastrado-informacoes {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: flex-start !important;
+
+    gap: 4px !important;
+}
+
+
+/* NOME */
+
+.camera-cadastrado-nome {
+    width: 100% !important;
+
+    overflow: hidden !important;
+
+    color: #0a0a0a !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.3 !important;
+
+    letter-spacing: -0.15px !important;
+
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
+
+/* EMAIL */
+
+.camera-cadastrado-email {
+    width: 100% !important;
+
+    overflow: hidden !important;
+
+    color: #475569 !important;
+
+    font-size: 11px !important;
+    font-weight: 550 !important;
+
+    line-height: 1.4 !important;
+
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
+
+/* TOKEN */
+
+.camera-cadastrado-token {
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    max-width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    margin-top: 3px !important;
+
+    padding:
+        4px 8px !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.1) !important;
+
+    border-radius: 7px !important;
+
+    background: #f5f8ff !important;
+
+    color: #2563eb !important;
+
+    font-family:
+        "Consolas",
+        "Courier New",
+        monospace !important;
+
+    font-size: 10px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.3 !important;
+
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
+
+/* =========================================================
+   ACOES
+========================================================= */
+
+.camera-cadastrado-acoes {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    gap: 8px !important;
+}
+
+
+/* =========================================================
+   BOTAO QR CODE
+========================================================= */
+
+.camera-cadastrado-qrcode {
+    min-width: 126px !important;
+    min-height: 40px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 15px !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.2) !important;
+
+    border-radius: 11px !important;
+
+    outline: none !important;
+
+    background: #ffffff !important;
+
+    color: #1d4ed8 !important;
+
+    font-family: inherit !important;
+
+    font-size: 11px !important;
+    font-weight: 750 !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 4px 11px rgba(15, 23, 42, 0.055),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.16s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+.camera-cadastrado-qrcode:hover {
+    transform: translateY(-1px) !important;
+
+    border-color: #2563eb !important;
+
+    background: #eff6ff !important;
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+.camera-cadastrado-qrcode:active {
+    transform: scale(0.98) !important;
+}
+
+
+/* QUANDO QR ESTA ABERTO */
+
+.camera-cadastrado-qrcode-ativo {
+    border-color: #2563eb !important;
+
+    background: #2563eb !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 7px 17px rgba(37, 99, 235, 0.24) !important;
+}
+
+
+.camera-cadastrado-qrcode-ativo:hover {
+    background: #1d4ed8 !important;
+
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   AREA DO QR CODE
+========================================================= */
+
+.camera-cadastrado-qr-area {
+    grid-column:
+        1 / -1 !important;
+
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        190px minmax(0, 1fr) !important;
+
+    align-items: center !important;
+
+    gap: 25px !important;
+
+    box-sizing: border-box !important;
+
+    margin-top: 3px !important;
+
+    padding:
+        22px 23px !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.12) !important;
+
+    border-radius: 15px !important;
+
+    background:
+        linear-gradient(145deg,
+            #f8fbff 0%,
+            #f3f7ff 100%) !important;
+
+    animation:
+        cameraQrEntrada 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+/* =========================================================
+   CAIXA QR
+========================================================= */
+
+.camera-cadastrado-qr-box {
+    width: 180px !important;
+    height: 180px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    padding: 10px !important;
+
+    border:
+        1px solid rgba(15, 23, 42, 0.09) !important;
+
+    border-radius: 17px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.09),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   IMAGEM QR
+========================================================= */
+
+.camera-cadastrado-qr-imagem {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+
+    border-radius: 7px !important;
+
+    image-rendering: auto !important;
+}
+
+
+/* =========================================================
+   DADOS DO QR
+========================================================= */
+
+.camera-cadastrado-qr-dados {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: flex-start !important;
+
+    gap: 7px !important;
+}
+
+
+.camera-cadastrado-qr-dados>strong {
+    margin: 0 !important;
+
+    color: #111827 !important;
+
+    font-size: 16px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.3 !important;
+
+    letter-spacing: -0.25px !important;
+}
+
+
+.camera-cadastrado-qr-dados>span {
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   LINK
+========================================================= */
+
+.camera-cadastrado-link {
+    width: 100% !important;
+    max-width: 520px !important;
+
+    box-sizing: border-box !important;
+
+    margin-top: 6px !important;
+
+    padding:
+        11px 13px !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.12) !important;
+
+    border-radius: 10px !important;
+
+    background: #ffffff !important;
+
+    color: #1d4ed8 !important;
+
+    font-family:
+        "Consolas",
+        "Courier New",
+        monospace !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+
+    line-height: 1.4 !important;
+
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.025) !important;
+}
+
+
+/* =========================================================
+   BAIXAR QR CODE
+========================================================= */
+
+.camera-cadastrado-baixar {
+    min-width: 140px !important;
+    min-height: 41px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-top: 5px !important;
+
+    padding: 0 16px !important;
+
+    border:
+        1px solid #2563eb !important;
+
+    border-radius: 11px !important;
+
+    outline: none !important;
+
+    background:
+        linear-gradient(180deg,
+            #3b82f6,
+            #2563eb) !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+
+    font-size: 11px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 7px 17px rgba(37, 99, 235, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+
+    transition:
+        transform 0.16s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease !important;
+}
+
+
+.camera-cadastrado-baixar:hover {
+    transform: translateY(-2px) !important;
+
+    filter: brightness(1.04) !important;
+
+    box-shadow:
+        0 11px 23px rgba(37, 99, 235, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+
+.camera-cadastrado-baixar:active {
+    transform: scale(0.98) !important;
+}
+
+
+/* =========================================================
+   ANIMACOES
+========================================================= */
+
+@keyframes cameraCadastradosEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes cameraCadastradoCardEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(8px) scale(0.995);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+@keyframes cameraQrEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-6px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+@keyframes cameraCadastradosMensagem {
+
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes cameraCadastradosLoading {
+
+    from {
+        left: -60%;
+    }
+
+    to {
+        left: 120%;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .camera-cadastrado-card {
+        grid-template-columns:
+            auto minmax(0, 1fr) !important;
+    }
+
+
+    .camera-cadastrado-acoes {
+        grid-column: 1 / -1 !important;
+
+        justify-content: flex-end !important;
+
+        padding-top: 4px !important;
+    }
+
+
+    .camera-cadastrado-qr-area {
+        grid-template-columns:
+            170px minmax(0, 1fr) !important;
+    }
+
+
+    .camera-cadastrado-qr-box {
+        width: 160px !important;
+        height: 160px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* CABECALHO */
+
+    .camera-cadastrados-cabecalho {
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        gap: 16px !important;
+
+        margin-bottom: 19px !important;
+
+        padding-bottom: 18px !important;
+    }
+
+
+    .camera-cadastrados-titulo {
+        font-size: 19px !important;
+    }
+
+
+    .camera-cadastrados-descricao {
+        font-size: 12px !important;
+    }
+
+
+    .camera-cadastrados-novo {
+        width: 100% !important;
+
+        min-height: 49px !important;
+
+        font-size: 13px !important;
+    }
+
+
+    /* CARD */
+
+    .camera-cadastrado-card {
+        grid-template-columns:
+            52px minmax(0, 1fr) !important;
+
+        align-items: center !important;
+
+        gap: 13px !important;
+
+        padding:
+            15px 14px !important;
+
+        border-radius: 15px !important;
+    }
+
+
+    .camera-cadastrado-foto {
+        width: 52px !important;
+        height: 52px !important;
+
+        flex-basis: 52px !important;
+
+        border-radius: 13px !important;
+    }
+
+
+    .camera-cadastrado-nome {
+        font-size: 13px !important;
+    }
+
+
+    .camera-cadastrado-email {
+        font-size: 10px !important;
+    }
+
+
+    .camera-cadastrado-token {
+        max-width: 100% !important;
+
+        font-size: 9px !important;
+    }
+
+
+    .camera-cadastrado-acoes {
+        grid-column: 1 / -1 !important;
+
+        width: 100% !important;
+
+        padding-top: 3px !important;
+    }
+
+
+    .camera-cadastrado-qrcode {
+        width: 100% !important;
+
+        min-height: 44px !important;
+    }
+
+
+    /* QR */
+
+    .camera-cadastrado-qr-area {
+        grid-column: 1 / -1 !important;
+
+        grid-template-columns: 1fr !important;
+
+        justify-items: center !important;
+
+        gap: 19px !important;
+
+        padding:
+            20px 15px !important;
+    }
+
+
+    .camera-cadastrado-qr-box {
+        width: 210px !important;
+        height: 210px !important;
+    }
+
+
+    .camera-cadastrado-qr-dados {
+        width: 100% !important;
+
+        align-items: center !important;
+
+        text-align: center !important;
+    }
+
+
+    .camera-cadastrado-qr-dados>strong {
+        font-size: 15px !important;
+    }
+
+
+    .camera-cadastrado-link {
+        max-width: 100% !important;
+
+        text-align: left !important;
+    }
+
+
+    .camera-cadastrado-baixar {
+        width: 100% !important;
+
+        min-height: 45px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .camera-cadastrados-titulo {
+        font-size: 17px !important;
+    }
+
+
+    .camera-cadastrado-card {
+        grid-template-columns:
+            47px minmax(0, 1fr) !important;
+
+        gap: 11px !important;
+
+        padding:
+            13px 12px !important;
+    }
+
+
+    .camera-cadastrado-foto {
+        width: 47px !important;
+        height: 47px !important;
+
+        flex-basis: 47px !important;
+    }
+
+
+    .camera-cadastrado-token {
+        width: 100% !important;
+    }
+
+
+    .camera-cadastrado-qr-area {
+        padding:
+            17px 12px !important;
+
+        border-radius: 13px !important;
+    }
+
+
+    .camera-cadastrado-qr-box {
+        width: 190px !important;
+        height: 190px !important;
+    }
+
+
+    .camera-cadastrado-link {
+        font-size: 9px !important;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .camera-cadastrados-container,
+    .camera-cadastrado-card,
+    .camera-cadastrado-qr-area,
+    .camera-cadastrados-mensagem,
+    .camera-cadastrados-carregando::after {
+        animation: none !important;
+    }
+
+
+    .camera-cadastrados-novo,
+    .camera-cadastrado-card,
+    .camera-cadastrado-qrcode,
+    .camera-cadastrado-baixar {
+        transition: none !important;
+    }
+}

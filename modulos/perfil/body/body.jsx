@@ -16,7 +16,7 @@ import Gerencial from "./gerencial/ferencial";
 import Fiscal from "./fiscal/fiscal";
 import Controle from "./controle/controle";
 import Funcionarios from "./funcionarios/clientes_exibicao";
-
+import Camera from "./camera/camera";
 import Configuracoes from "./configuracoes/configuracoes";
 
 export default function Body({ setHeaderMinimizado, atualizarHeader }) {
@@ -29,9 +29,9 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
 
     const [ComponenteAtivo, setComponenteAtivo] = useState(null);
     const [cliente, setCliente] = useState(null);
-
     const componentes = {
         "Produtividade": Produtividade,
+
         "Administracao": Administracao,
         "Administração": Administracao,
 
@@ -39,11 +39,19 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
         "IronStore": DeliveryEVendasOnline,
 
         "Mesas, salão e cozinha": MesasSalaoECozinha,
+
         "Rifa": Rifa,
+
         "Agendamentos": Agendamentos,
+
         "Gerencial": Gerencial,
+
         "Fiscal": Fiscal,
+
+        "Câmera": Camera,
+
         "Controle": Controle,
+
         "Configurações": Configuracoes
     };
 

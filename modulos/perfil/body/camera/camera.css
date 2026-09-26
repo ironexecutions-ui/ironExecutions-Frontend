@@ -1,0 +1,529 @@
+/* =========================================================
+   CONTAINER GERAL
+========================================================= */
+
+.camera-modulo-painel-principal {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 32px 36px;
+
+    box-sizing: border-box;
+
+    background: radial-gradient(circle at top left,
+            #e3e3e4 0%,
+            #9798a1 85%,
+            #062199 100%) !important;
+
+    color: #e5e7eb !important;
+
+    font-family: "Montserrat", sans-serif;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.camera-modulo-cabecalho-superior {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.camera-modulo-titulo-principal {
+    margin: 0 0 5px 0 !important;
+
+    font-size: 22px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.3 !important;
+
+    color: #0a0a0a !important;
+
+    letter-spacing: 0.4px;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.camera-modulo-descricao-principal {
+    margin: 0 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
+
+    color: #20242c !important;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================================
+   BOTÕES DAS ABAS
+========================================================= */
+
+.camera-modulo-navegacao-abas {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    width: 100%;
+
+    margin-bottom: 26px;
+}
+
+
+/* =========================================================
+   BOTÃO BASE
+========================================================= */
+
+.camera-modulo-botao-aba {
+    position: relative;
+
+    padding: 12px 18px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(37, 99, 235, 0.15) !important;
+
+    background: linear-gradient(180deg,
+            #020617 0%,
+            #020617 100%) !important;
+
+    color: #e5e7eb !important;
+
+    font-family: "Montserrat", sans-serif !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    outline: none !important;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.15s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   EFEITO DE LUZ DO BOTÃO
+========================================================= */
+
+.camera-modulo-botao-aba::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(120deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.08),
+            transparent 70%);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity 0.3s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.camera-modulo-botao-aba:hover {
+    transform: translateY(-1px);
+
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.camera-modulo-botao-aba:hover::before {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   CLIQUE
+========================================================= */
+
+.camera-modulo-botao-aba:active {
+    transform: translateY(0) scale(0.98);
+}
+
+
+/* =========================================================
+   BOTÃO ATIVO
+========================================================= */
+
+.camera-modulo-botao-aba-ativo {
+    background: linear-gradient(180deg,
+            #2563eb 0%,
+            #1d4ed8 100%) !important;
+
+    border-color: #2563eb !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 10px 28px rgba(37, 99, 235, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    transform: translateY(-1px);
+}
+
+.camera-modulo-botao-aba-ativo:hover {
+    background: linear-gradient(180deg,
+            #3b82f6 0%,
+            #2563eb 100%) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 12px 32px rgba(37, 99, 235, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+
+/* =========================================================
+   ÁREA PRINCIPAL DO CONTEÚDO
+========================================================= */
+
+.camera-modulo-area-conteudo {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 340px;
+
+    padding: 26px;
+
+    box-sizing: border-box;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(37, 99, 235, 0.18);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    animation: cameraModuloFadeUp 0.35s ease;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   LINHA DECORATIVA SUPERIOR
+========================================================= */
+
+.camera-modulo-area-conteudo::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 24px;
+    right: 24px;
+
+    height: 1px;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(37, 99, 235, 0.6),
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   NOME DA CÂMERA
+========================================================= */
+
+.camera-nome-camera-container {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    animation: cameraConteudoEntrada 0.28s ease;
+}
+
+.camera-nome-camera-titulo {
+    margin: 0 !important;
+
+    font-size: 21px !important;
+    font-weight: 700 !important;
+
+    color: #0a0a0a !important;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* =========================================================
+   CADASTRADOS
+========================================================= */
+
+.camera-cadastrados-container {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    animation: cameraConteudoEntrada 0.28s ease;
+}
+
+.camera-cadastrados-titulo {
+    margin: 0 !important;
+
+    font-size: 21px !important;
+    font-weight: 700 !important;
+
+    color: #0a0a0a !important;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* =========================================================
+   ARQUIVOS
+========================================================= */
+
+.camera-arquivos-container {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    animation: cameraConteudoEntrada 0.28s ease;
+}
+
+.camera-arquivos-titulo {
+    margin: 0 !important;
+
+    font-size: 21px !important;
+    font-weight: 700 !important;
+
+    color: #0a0a0a !important;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO PRINCIPAL
+========================================================= */
+
+@keyframes cameraModuloFadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DE TROCA DAS ABAS
+========================================================= */
+
+@keyframes cameraConteudoEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+
+    .camera-modulo-painel-principal {
+        padding: 26px 24px;
+    }
+
+    .camera-modulo-titulo-principal {
+        font-size: 20px !important;
+    }
+
+    .camera-modulo-cabecalho-superior {
+        margin-bottom: 18px;
+    }
+
+    .camera-modulo-navegacao-abas {
+        gap: 10px;
+
+        margin-bottom: 22px;
+    }
+
+    .camera-modulo-botao-aba {
+        padding: 10px 16px;
+
+        font-size: 13px !important;
+    }
+
+    .camera-modulo-area-conteudo {
+        padding: 22px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .camera-modulo-painel-principal {
+        padding: 20px 16px;
+
+        min-height: auto;
+    }
+
+
+    /* CABEÇALHO */
+
+    .camera-modulo-cabecalho-superior {
+        margin-bottom: 16px;
+
+        text-align: center;
+    }
+
+    .camera-modulo-titulo-principal {
+        font-size: 18px !important;
+    }
+
+    .camera-modulo-descricao-principal {
+        margin-top: 4px !important;
+
+        font-size: 13px !important;
+
+        color: #252a34 !important;
+    }
+
+
+    /* BOTÕES */
+
+    .camera-modulo-navegacao-abas {
+        flex-direction: column;
+
+        gap: 10px;
+
+        width: 100%;
+    }
+
+    .camera-modulo-botao-aba {
+        width: 100%;
+
+        min-height: 46px;
+
+        padding: 14px;
+
+        border-radius: 16px;
+
+        font-size: 14px !important;
+    }
+
+
+    /* CONTEÚDO */
+
+    .camera-modulo-area-conteudo {
+        min-height: auto;
+
+        padding: 18px 16px;
+
+        border-radius: 16px;
+    }
+
+    .camera-modulo-area-conteudo::before {
+        left: 16px;
+        right: 16px;
+    }
+
+
+    /* TÍTULOS INTERNOS */
+
+    .camera-nome-camera-titulo,
+    .camera-cadastrados-titulo,
+    .camera-arquivos-titulo {
+        font-size: 18px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .camera-modulo-painel-principal {
+        padding: 16px 12px;
+    }
+
+    .camera-modulo-titulo-principal {
+        font-size: 16px !important;
+
+        letter-spacing: 0.2px;
+    }
+
+    .camera-modulo-descricao-principal {
+        font-size: 12px !important;
+    }
+
+    .camera-modulo-botao-aba {
+        padding: 12px;
+
+        font-size: 13px !important;
+    }
+
+    .camera-modulo-area-conteudo {
+        padding: 14px 12px;
+    }
+
+    .camera-nome-camera-titulo,
+    .camera-cadastrados-titulo,
+    .camera-arquivos-titulo {
+        font-size: 16px !important;
+    }
+}
