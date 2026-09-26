@@ -24,6 +24,8 @@ import ironExecutions from "./imagens/ironexecutions.png";
 import missionaryStoreBrasil from "./imagens/missionarystorebrasil.png";
 import teste from "./imagens/teste.png";
 import dass from "./imagens/dass.png";
+import neide from "./imagens/neidefashion.png";
+
 import alexsiaUtilidades from "./imagens/alexsiautilidades.png";
 import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto"
 import Camerapublica from "../camera/camerapublica";
@@ -38,7 +40,8 @@ const FUNDOS_POR_COMERCIO = {
   25: missionaryStoreBrasil,
   27: teste,
   28: dass,
-  29: alexsiaUtilidades
+  29: alexsiaUtilidades,
+  38: neide
 };
 
 
