@@ -7793,3 +7793,318 @@
         transition: none !important;
     }
 }
+
+/* =========================================================
+   PREÇO ONLINE + APLICAÇÃO DE PERCENTUAL
+========================================================= */
+
+.formulario-produto-preco-online-area {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 9px !important;
+}
+
+.formulario-produto-preco-online-controles {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.formulario-produto-preco-online-percentual {
+    flex: 1 !important;
+    min-width: 0 !important;
+    height: 49px !important;
+
+    padding: 0 14px !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 13px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 650 !important;
+
+    outline: none !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035),
+        0 2px 5px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.2s ease !important;
+}
+
+.formulario-produto-preco-online-percentual:hover {
+    border-color: #94a3b8 !important;
+
+    background: #ffffff !important;
+}
+
+.formulario-produto-preco-online-percentual:focus {
+    border-color: #2563eb !important;
+
+    background: #ffffff !important;
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10),
+        0 8px 18px rgba(37, 99, 235, 0.10) !important;
+}
+
+
+/* =========================================================
+   BOTÃO APLICAR %
+========================================================= */
+
+.formulario-produto-botao-aplicar-percentual {
+    position: relative !important;
+
+    flex-shrink: 0 !important;
+
+    height: 49px !important;
+
+    padding: 0 17px !important;
+
+    border: 1px solid #2563eb !important;
+    border-radius: 13px !important;
+
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8) !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.15px !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 7px 18px rgba(37, 99, 235, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.formulario-produto-botao-aplicar-percentual::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: -100% !important;
+
+    width: 55% !important;
+    height: 100% !important;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.30),
+            transparent) !important;
+
+    transform: skewX(-22deg) !important;
+
+    transition: left 0.55s ease !important;
+}
+
+.formulario-produto-botao-aplicar-percentual:hover::before {
+    left: 150% !important;
+}
+
+.formulario-produto-botao-aplicar-percentual:hover {
+    transform: translateY(-2px) !important;
+
+    background:
+        linear-gradient(135deg,
+            #1d4ed8,
+            #1e40af) !important;
+
+    box-shadow:
+        0 11px 25px rgba(37, 99, 235, 0.27),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+.formulario-produto-botao-aplicar-percentual:active {
+    transform: scale(0.97) !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÃO DO PERCENTUAL SALVO
+========================================================= */
+
+.formulario-produto-percentual-info {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+
+    min-height: 32px !important;
+
+    padding: 7px 11px !important;
+
+    border-radius: 10px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(37, 99, 235, 0.06),
+            rgba(14, 165, 233, 0.04)) !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.12) !important;
+
+    color: #475569 !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+}
+
+.formulario-produto-percentual-info strong {
+    color: #1d4ed8 !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   VALOR RESULTANTE DO PREÇO ONLINE
+========================================================= */
+
+.formulario-produto-preco-online-resultado {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    margin-top: 2px !important;
+
+    padding: 10px 13px !important;
+
+    border-radius: 12px !important;
+
+    background:
+        linear-gradient(135deg,
+            #eff6ff,
+            #f0f9ff) !important;
+
+    border:
+        1px solid rgba(37, 99, 235, 0.14) !important;
+
+    box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.formulario-produto-preco-online-resultado span {
+    color: #475569 !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+.formulario-produto-preco-online-resultado strong {
+    color: #0f3b91 !important;
+
+    font-size: 15px !important;
+    font-weight: 850 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .formulario-produto-preco-online-controles {
+        gap: 7px !important;
+    }
+
+    .formulario-produto-preco-online-percentual {
+        height: 46px !important;
+
+        padding: 0 12px !important;
+
+        font-size: 12px !important;
+    }
+
+    .formulario-produto-botao-aplicar-percentual {
+        height: 46px !important;
+
+        padding: 0 13px !important;
+
+        font-size: 11px !important;
+    }
+
+    .formulario-produto-percentual-info {
+        font-size: 10px !important;
+    }
+
+    .formulario-produto-preco-online-resultado {
+        padding: 9px 11px !important;
+    }
+
+    .formulario-produto-preco-online-resultado strong {
+        font-size: 14px !important;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    .formulario-produto-preco-online-controles {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .formulario-produto-preco-online-percentual {
+        width: 100% !important;
+    }
+
+    .formulario-produto-botao-aplicar-percentual {
+        width: 100% !important;
+    }
+
+    .formulario-produto-percentual-info {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .formulario-produto-preco-online-percentual,
+    .formulario-produto-botao-aplicar-percentual,
+    .formulario-produto-botao-aplicar-percentual::before {
+        transition: none !important;
+        animation: none !important;
+    }
+}
