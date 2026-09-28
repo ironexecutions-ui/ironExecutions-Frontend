@@ -559,13 +559,29 @@ export default function BuscarProduto() {
         const produtosIndexados = {};
 
         lista.forEach((produto) => {
-            const codigo = pegarCodigoProduto(produto);
-
-            if (!codigo) {
+            if (!produto || !produto.id) {
                 return;
             }
 
-            produtosIndexados[codigo] = produto;
+            const codigo = pegarCodigoProduto(produto);
+
+            /*
+                Produtos com código continuam sendo indexados
+                pelo código de barras / QRCode.
+
+                Produtos sem código também precisam entrar no cache.
+                Nesse caso usamos o ID do produto como chave interna.
+
+                Isso é importante porque a busca por nome usa
+                Object.values(cache.produtos). Sem essa entrada,
+                o produto existe no servidor, mas desaparece do
+                catálogo local.
+            */
+            const chave = codigo
+                ? codigo
+                : `produto_id_${produto.id}`;
+
+            produtosIndexados[chave] = produto;
         });
 
         const atualizadoEm = new Date().toISOString();
@@ -763,16 +779,23 @@ export default function BuscarProduto() {
        algo que ainda não estava local.
     =============================== */
     function salvarProdutoNoCache(produto) {
-        const codigo =
-            pegarCodigoProduto(produto);
-
-        if (!codigo) {
+        if (!produto || !produto.id) {
             return;
         }
 
+        const codigo = pegarCodigoProduto(produto);
+
         const cache = lerCacheProdutos();
 
-        cache.produtos[codigo] = produto;
+        /*
+            Se tiver código, mantemos a busca rápida pelo código.
+            Se não tiver código, usamos o ID como chave interna.
+        */
+        const chave = codigo
+            ? codigo
+            : `produto_id_${produto.id}`;
+
+        cache.produtos[chave] = produto;
 
         localStorage.setItem(
             CACHE_PRODUTOS_KEY,
