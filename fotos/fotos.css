@@ -1370,3 +1370,133 @@
     }
 
 }
+
+.fotos-produtos-login {
+    width: min(460px, 100%) !important;
+    margin: 80px auto !important;
+    padding: 34px !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    border: 1px solid #e4e7eb !important;
+    border-radius: 18px !important;
+    box-shadow: 0 18px 50px rgba(7, 22, 41, 0.08) !important;
+}
+
+.fotos-produtos-login-cabecalho {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-bottom: 26px !important;
+}
+
+.fotos-produtos-login-label {
+    color: #b8941f !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.4px !important;
+}
+
+.fotos-produtos-login-titulo {
+    margin: 0 !important;
+    color: #0b1f3a !important;
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+    font-weight: 900 !important;
+}
+
+.fotos-produtos-login-subtitulo {
+    margin: 4px 0 0 !important;
+    color: #667085 !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+}
+
+.fotos-produtos-login-form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+}
+
+.fotos-produtos-login-campo {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 7px !important;
+}
+
+.fotos-produtos-login-campo label {
+    color: #0b1f3a !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+}
+
+.fotos-produtos-login-campo input {
+    width: 100% !important;
+    min-height: 48px !important;
+    padding: 0 14px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #d9dee5 !important;
+    border-radius: 11px !important;
+    outline: none !important;
+    background: #ffffff !important;
+    color: #0b1f3a !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+}
+
+.fotos-produtos-login-campo input:focus {
+    border-color: #b8941f !important;
+    box-shadow: 0 0 0 3px rgba(184, 148, 31, 0.10) !important;
+}
+
+.fotos-produtos-login-botao {
+    width: 100% !important;
+    min-height: 50px !important;
+    border: 0 !important;
+    border-radius: 11px !important;
+    background: #0b1f3a !important;
+    color: #ffffff !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    cursor: pointer !important;
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease !important;
+}
+
+.fotos-produtos-login-botao:hover {
+    background: #142d4d !important;
+    transform: translateY(-1px) !important;
+}
+
+.fotos-produtos-login-botao:disabled {
+    opacity: 0.6 !important;
+    cursor: wait !important;
+    transform: none !important;
+}
+
+.fotos-produtos-login-erro {
+    margin-bottom: 18px !important;
+    padding: 12px 14px !important;
+    border: 1px solid rgba(190, 45, 45, 0.18) !important;
+    border-radius: 10px !important;
+    background: rgba(190, 45, 45, 0.06) !important;
+    color: #a52b2b !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    font-weight: 700 !important;
+}
+
+@media (max-width: 560px) {
+
+    .fotos-produtos-login {
+        margin: 30px auto !important;
+        padding: 24px !important;
+        border-radius: 15px !important;
+    }
+
+    .fotos-produtos-login-titulo {
+        font-size: 24px !important;
+    }
+
+}

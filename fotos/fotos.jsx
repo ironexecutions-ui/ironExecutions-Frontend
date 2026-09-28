@@ -8,27 +8,6 @@ import { API_URL } from "../config";
 import "./fotos.css";
 
 
-// =========================================================
-// FOTOS PRODUTOS
-// =========================================================
-//
-// Lista os links temporários disponíveis para tirar fotos
-// pelo celular.
-//
-// Cada link permanece disponível por 5 minutos.
-//
-// Fluxo:
-//
-// /fotos
-//     ↓
-// lista dos acessos temporários ativos
-//     ↓
-// /adicionar-foto/{token}
-//     ↓
-// celular tira as fotos
-//
-// =========================================================
-
 
 export default function FotosProdutos() {
 
@@ -48,12 +27,172 @@ export default function FotosProdutos() {
         erro,
         setErro
     ] = useState("");
+    const [
+        autenticado,
+        setAutenticado
+    ] = useState(
+        !!localStorage.getItem("token")
+    );
 
+    const [
+        loginEmail,
+        setLoginEmail
+    ] = useState("");
+
+    const [
+        loginSenha,
+        setLoginSenha
+    ] = useState("");
+
+    const [
+        loginCarregando,
+        setLoginCarregando
+    ] = useState(false);
+
+    const [
+        loginErro,
+        setLoginErro
+    ] = useState("");
 
     const token =
         localStorage.getItem("token");
 
+    // =====================================================
+    // LOGIN LOCAL DA PÁGINA
+    // =====================================================
 
+    async function fazerLoginFotos(e) {
+
+        e.preventDefault();
+
+        setLoginErro("");
+        setLoginCarregando(true);
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/login/email`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        email: loginEmail,
+                        senha: loginSenha
+                    })
+                }
+            );
+
+            const dados =
+                await resposta.json();
+
+            if (!resposta.ok) {
+
+                setLoginErro(
+                    dados?.detail ||
+                    "E-mail ou senha inválidos."
+                );
+
+                return;
+            }
+
+            const novoToken =
+                dados?.token ||
+                dados?.access_token ||
+                dados?.jwt ||
+                dados?.accessToken;
+
+            if (!novoToken) {
+
+                setLoginErro(
+                    "O servidor não retornou o token de acesso."
+                );
+
+                return;
+            }
+
+            localStorage.setItem(
+                "token",
+                novoToken
+            );
+
+            // =================================================
+            // SALVAR DADOS DO USUÁRIO
+            // =================================================
+
+            try {
+
+                const partes =
+                    novoToken.split(".");
+
+                if (partes.length >= 2) {
+
+                    const payloadBase64 =
+                        partes[1]
+                            .replace(/-/g, "+")
+                            .replace(/_/g, "/");
+
+                    const payload =
+                        JSON.parse(
+                            decodeURIComponent(
+                                atob(payloadBase64)
+                                    .split("")
+                                    .map(
+                                        caractere =>
+                                            `%${(
+                                                "00" +
+                                                caractere
+                                                    .charCodeAt(0)
+                                                    .toString(16)
+                                            ).slice(-2)}`
+                                    )
+                                    .join("")
+                            )
+                        );
+
+                    localStorage.setItem(
+                        "cliente",
+                        JSON.stringify(payload)
+                    );
+                }
+
+            } catch (erroToken) {
+
+                console.warn(
+                    "[FOTOS] Não foi possível ler o payload do token.",
+                    erroToken
+                );
+            }
+
+            // =================================================
+            // LOGIN CONCLUÍDO
+            // =================================================
+
+            setAutenticado(true);
+            setLoginEmail("");
+            setLoginSenha("");
+            setLoginErro("");
+
+        } catch (erro) {
+
+            console.error(
+                "[FOTOS] Erro no login:",
+                erro
+            );
+
+            setLoginErro(
+                "Não foi possível conectar ao servidor."
+            );
+
+        } finally {
+
+            setLoginCarregando(false);
+        }
+    }
     // =====================================================
     // CARREGAR LINKS DISPONÍVEIS
     // =====================================================
@@ -71,10 +210,10 @@ export default function FotosProdutos() {
             // VALIDAR LOGIN
             // =============================================
 
-            if (!token) {
+            if (!localStorage.getItem("token")) {
 
-                window.location.href =
-                    "/login";
+                setAutenticado(false);
+                setCarregando(false);
 
                 return;
             }
@@ -111,8 +250,8 @@ export default function FotosProdutos() {
                     "usuario"
                 );
 
-                window.location.href =
-                    "/login";
+                setAutenticado(false);
+                setCarregando(false);
 
                 return;
             }
@@ -183,26 +322,17 @@ export default function FotosProdutos() {
     }
 
 
-    // =====================================================
-    // CARREGAR AO ABRIR A PÁGINA
-    // =====================================================
-
     useEffect(() => {
 
-        carregarProdutos();
+        if (autenticado) {
+            carregarProdutos();
+        } else {
+            setCarregando(false);
+        }
 
-    }, []);
+    }, [autenticado]);
 
 
-    // =====================================================
-    // ABRIR LINK
-    // =====================================================
-    //
-    // O link já vem pronto da API:
-    //
-    // https://ironexecutions.com.br/adicionar-foto/{token}
-    //
-    // ================================================
 
     function abrirLink(produto) {
 
@@ -251,7 +381,103 @@ export default function FotosProdutos() {
         );
     }
 
+    if (!autenticado) {
 
+        return (
+            <div className="fotos-produtos-pagina">
+
+                <div className="fotos-produtos-login">
+
+                    <div className="fotos-produtos-login-cabecalho">
+
+                        <span className="fotos-produtos-login-label">
+                            GESTÃO DE IMAGENS
+                        </span>
+
+                        <h1 className="fotos-produtos-login-titulo">
+                            Acesso necessário
+                        </h1>
+
+                        <p className="fotos-produtos-login-subtitulo">
+                            Entre na sua conta para acessar
+                            os links disponíveis para fotos.
+                        </p>
+
+                    </div>
+
+                    {loginErro && (
+                        <div className="fotos-produtos-login-erro">
+                            {loginErro}
+                        </div>
+                    )}
+
+                    <form
+                        className="fotos-produtos-login-form"
+                        onSubmit={fazerLoginFotos}
+                    >
+
+                        <div className="fotos-produtos-login-campo">
+
+                            <label>
+                                E-mail
+                            </label>
+
+                            <input
+                                type="email"
+                                value={loginEmail}
+                                onChange={(e) =>
+                                    setLoginEmail(
+                                        e.target.value
+                                    )
+                                }
+                                autoComplete="email"
+                                placeholder="Digite seu e-mail"
+                                required
+                            />
+
+                        </div>
+
+                        <div className="fotos-produtos-login-campo">
+
+                            <label>
+                                Senha
+                            </label>
+
+                            <input
+                                type="password"
+                                value={loginSenha}
+                                onChange={(e) =>
+                                    setLoginSenha(
+                                        e.target.value
+                                    )
+                                }
+                                autoComplete="current-password"
+                                placeholder="Digite sua senha"
+                                required
+                            />
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="fotos-produtos-login-botao"
+                            disabled={loginCarregando}
+                        >
+
+                            {loginCarregando
+                                ? "Entrando..."
+                                : "Entrar"
+                            }
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        );
+    }
     // =====================================================
     // LISTA
     // =====================================================
