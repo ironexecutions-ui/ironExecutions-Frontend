@@ -878,9 +878,7 @@ Agora gere as duas versões solicitadas, mantendo fidelidade total aos dados for
                                             }
                                         />
 
-                                        <span className="ironstore-produto-preco-percentual-simbolo">
-                                            %
-                                        </span>
+
 
                                     </div>
 

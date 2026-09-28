@@ -3605,7 +3605,7 @@
             #0f172a,
             #172554);
 
-    color: #ffffff;
+    color: #ffffff !important;
 
     font-family: inherit;
     font-size: 11px;
