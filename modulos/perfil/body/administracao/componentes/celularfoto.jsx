@@ -3,7 +3,7 @@ import React, {
     useRef,
     useState
 } from "react";
-
+import logoIE from "./ie.png";
 import {
     useParams,
     useNavigate
@@ -1713,13 +1713,16 @@ export default function CelularFoto() {
                     <div className="celular-foto-marca">
 
                         <div className="celular-foto-marca-icone">
-                            IE
+                            <img
+                                src={logoIE}
+                                alt="Iron Executions"
+                            />
                         </div>
 
                         <div className="celular-foto-marca-textos">
 
                             <strong>
-                                IronExecutions
+                                Iron Executions
                             </strong>
 
                             <span>

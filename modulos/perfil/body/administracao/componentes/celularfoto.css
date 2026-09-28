@@ -3163,3 +3163,27 @@
         transition: none !important;
     }
 }
+
+
+.celular-foto-marca-icone {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(11, 31, 58, 0.10) !important;
+    box-shadow: 0 5px 16px rgba(7, 22, 41, 0.08) !important;
+    box-sizing: border-box !important;
+}
+
+.celular-foto-marca-icone img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: contain !important;
+    object-position: center !important;
+}
