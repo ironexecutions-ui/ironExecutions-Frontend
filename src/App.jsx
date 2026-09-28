@@ -6,8 +6,10 @@ import {
   useLocation,
   Navigate
 } from "react-router-dom";
+
 import "./app.css";
 import "./app-responsivo.css";
+
 import Sobre from "../sobre/sobre";
 import ModalLembretesTarefas from "../modulos/perfil/header/modals/tarefas";
 import RifaCompras from "../public/rifas/rifacompras";
@@ -20,17 +22,20 @@ import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
 import RegistroEmails from "./registroemails";
 import PainelGeral from "../painelgeral/painel";
+
 import ironExecutions from "./imagens/ironexecutions.png";
 import missionaryStoreBrasil from "./imagens/missionarystorebrasil.png";
 import teste from "./imagens/teste.png";
 import dass from "./imagens/dass.png";
 import neide from "./imagens/neidefashion.png";
-
 import alexsiaUtilidades from "./imagens/alexsiautilidades.png";
-import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto"
+
+import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto";
 import Camerapublica from "../camera/camerapublica";
-import Apresentacao from "../apresentacao/apresentacao"
-import FotosProdutos from "../fotos/fotos"
+import Apresentacao from "../apresentacao/apresentacao";
+import FotosProdutos from "../fotos/fotos";
+
+
 /* =========================================================
    MAPA FIXO
    COMERCIO_ID -> IMAGEM
@@ -108,6 +113,7 @@ function salvarCacheFundo(dados) {
       "[FUNDO] Não foi possível salvar cache:",
       erro
     );
+
   }
 }
 
@@ -121,7 +127,9 @@ function removerCacheFundo() {
   localStorage.removeItem(
     CACHE_FUNDO_COMERCIO
   );
+
 }
+
 
 /* =========================================================
    NORMALIZAR LINK PÚBLICO DA RIFA
@@ -169,10 +177,13 @@ function RifaComprasNormalizada() {
         replace
       />
     );
+
   }
 
   return <RifaCompras />;
 }
+
+
 /* =========================================================
    ROTEAMENTO
 ========================================================= */
@@ -207,30 +218,37 @@ function RoteamentoComLoading() {
   return (
 
     <Routes>
+
       <Route
         path="/camera/:token"
         element={<Camerapublica />}
       />
+
       <Route
         path="/apresentacao-local"
         element={<Apresentacao />}
       />
+
       <Route
         path="/rifa-compras/:id?"
         element={<RifaComprasNormalizada />}
       />
+
       <Route
         path="/sp"
         element={<RegistroEmails />}
       />
+
       <Route
         path="/fotos"
         element={<FotosProdutos />}
       />
+
       <Route
         path="/adicionar-foto/:token"
         element={<CelularFoto />}
       />
+
       <Route
         path="/cadastrocomercio"
         element={<CadastroComercio />}
@@ -254,47 +272,44 @@ function RoteamentoComLoading() {
         path="/codigo"
         element={<Codigo />}
       />
+
       <Route
         path="/painel"
         element={<PainelGeral />}
       />
-
 
       <Route
         path="/sobre/:modulo"
         element={<Sobre />}
       />
 
-
-
-
-
     </Routes>
 
   );
 }
 
+
 /* =========================================================
    LEMBRETES POR INATIVIDADE
+
+   5 MINUTOS
 ========================================================= */
 
-/*
-    TESTE:
-    5 segundos sem nenhuma atividade.
-*/
 const TEMPO_INATIVIDADE_LEMBRETES =
   5 * 60 * 1000;
 
 
-/*
-    PRODUÇÃO:
-    Depois dos testes, substituir a constante acima por:
+/* =========================================================
+   ROTAS SEM LEMBRETES
+========================================================= */
 
-    const TEMPO_INATIVIDADE_LEMBRETES =
-        5 * 60 * 1000;
+const ROTAS_SEM_LEMBRETES = [
+  "/",
+  "/apresentacao-local",
+  "/painel"
+];
 
-    Isso corresponde a 5 minutos.
-*/
+
 /* =========================================================
    APP
 ========================================================= */
@@ -304,15 +319,19 @@ export default function App() {
   const [fundoComercio, setFundoComercio] =
     useState(null);
 
+
   const [
     lembretesInatividade,
     setLembretesInatividade
   ] = useState(null);
 
+
   const [
     abrirLembretesInatividade,
     setAbrirLembretesInatividade
   ] = useState(false);
+
+
   /* =========================================================
      CARREGAR LEMBRETES
   ========================================================= */
@@ -321,6 +340,7 @@ export default function App() {
 
     const token =
       localStorage.getItem("token");
+
 
     if (!token) {
 
@@ -381,224 +401,305 @@ export default function App() {
       return null;
     }
   }
+
+
   /* =========================================================
      DETECTOR GLOBAL DE INATIVIDADE
-  
-     TESTE:
-     abre após 5 segundos sem atividade.
-  
-     PRODUÇÃO:
-     alterar TEMPO_INATIVIDADE_LEMBRETES
-     para 5 * 60 * 1000.
   ========================================================= */
 
-  useEffect(() => {
+  function ControleInatividade() {
 
-    let timerInatividade = null;
-
-    let componenteAtivo = true;
-
-
-    /* =====================================================
-       ABRIR LEMBRETES
-    ===================================================== */
-
-    async function abrirPorInatividade() {
-
-      const token =
-        localStorage.getItem(
-          "token"
-        );
+    const location =
+      useLocation();
 
 
-      /*
+    const rotaAtual =
+      location.pathname;
+
+
+    const rotaBloqueada =
+      ROTAS_SEM_LEMBRETES.includes(
+        rotaAtual
+      );
+
+
+    useEffect(() => {
+
+      let timerInatividade = null;
+
+      let componenteAtivo = true;
+
+
+      /* =====================================================
+         ABRIR LEMBRETES
+      ===================================================== */
+
+      async function abrirPorInatividade() {
+
+        /*
+          Verifica a rota novamente quando
+          o contador terminar.
+        */
+
+        const caminhoAtual =
+          window.location.pathname;
+
+
+        if (
+          ROTAS_SEM_LEMBRETES.includes(
+            caminhoAtual
+          )
+        ) {
+
+          setAbrirLembretesInatividade(
+            false
+          );
+
+          return;
+        }
+
+
+        const token =
+          localStorage.getItem("token");
+
+
+        /*
           Sem login não mostramos o modal.
-      */
+        */
 
-      if (!token) {
-        return;
-      }
+        if (!token) {
+          return;
+        }
 
 
-      try {
+        try {
 
-        const response =
-          await fetch(
-            `${API_URL}/tarefas/lembretes`,
-            {
-              headers: {
-                Authorization:
-                  `Bearer ${token}`
+          const response =
+            await fetch(
+              `${API_URL}/tarefas/lembretes`,
+              {
+                headers: {
+                  Authorization:
+                    `Bearer ${token}`
+                }
               }
-            }
+            );
+
+
+          if (!response.ok) {
+            return;
+          }
+
+
+          const resultado =
+            await response.json();
+
+
+          if (!componenteAtivo) {
+            return;
+          }
+
+
+          /*
+            Verifica novamente a rota depois
+            que a API respondeu.
+          */
+
+          const caminhoDepois =
+            window.location.pathname;
+
+
+          if (
+            ROTAS_SEM_LEMBRETES.includes(
+              caminhoDepois
+            )
+          ) {
+
+            setAbrirLembretesInatividade(
+              false
+            );
+
+            return;
+          }
+
+
+          setLembretesInatividade(
+            resultado
           );
 
 
-        if (!response.ok) {
+          /*
+            Só abre se realmente existir
+            alguma tarefa.
+          */
+
+          if (
+            Number(
+              resultado?.total || 0
+            ) > 0
+          ) {
+
+            setAbrirLembretesInatividade(
+              true
+            );
+
+          }
+
+        } catch (erro) {
+
+          console.error(
+            "[INATIVIDADE] Erro ao carregar lembretes:",
+            erro
+          );
+
+        }
+      }
+
+
+      /* =====================================================
+         INICIAR / REINICIAR CONTADOR
+      ===================================================== */
+
+      function reiniciarContador() {
+
+        if (timerInatividade) {
+
+          clearTimeout(
+            timerInatividade
+          );
+
+        }
+
+
+        /*
+          Se estiver em uma rota bloqueada,
+          não inicia o contador.
+        */
+
+        if (rotaBloqueada) {
+
+          setAbrirLembretesInatividade(
+            false
+          );
+
           return;
         }
 
 
-        const resultado =
-          await response.json();
+        timerInatividade =
+          setTimeout(
+            abrirPorInatividade,
+            TEMPO_INATIVIDADE_LEMBRETES
+          );
+
+      }
 
 
-        if (!componenteAtivo) {
-          return;
-        }
+      /* =====================================================
+         ATIVIDADE DETECTADA
+      ===================================================== */
 
+      function registrarAtividade() {
 
-        setLembretesInatividade(
-          resultado
+        /*
+          Qualquer atividade fecha
+          o modal.
+        */
+
+        setAbrirLembretesInatividade(
+          false
         );
 
 
         /*
-            Só abre se realmente existir
-            alguma tarefa dentro do período.
+          Reinicia os 5 minutos.
         */
 
-        if (
-          Number(
-            resultado?.total || 0
-          ) > 0
-        ) {
-
-          setAbrirLembretesInatividade(
-            true
-          );
-
-        }
-
-      } catch (erro) {
-
-        console.error(
-          "[INATIVIDADE] Erro ao carregar lembretes:",
-          erro
-        );
-
-      }
-    }
-
-
-    /* =====================================================
-       INICIAR / REINICIAR CONTADOR
-    ===================================================== */
-
-    function reiniciarContador() {
-
-      if (timerInatividade) {
-
-        clearTimeout(
-          timerInatividade
-        );
+        reiniciarContador();
 
       }
 
 
-      timerInatividade =
-        setTimeout(
-          abrirPorInatividade,
-          TEMPO_INATIVIDADE_LEMBRETES
-        );
-    }
+      /* =====================================================
+         EVENTOS GLOBAIS
+      ===================================================== */
 
-
-    /* =====================================================
-       ATIVIDADE DETECTADA
-    ===================================================== */
-
-    function registrarAtividade() {
-
-      /*
-          Qualquer atividade fecha imediatamente
-          o modal aberto por inatividade.
-      */
-
-      setAbrirLembretesInatividade(
-        false
-      );
-
-
-      /*
-          Começamos novamente a contagem.
-      */
-
-      reiniciarContador();
-    }
-
-
-    /* =====================================================
-       EVENTOS GLOBAIS
-    ===================================================== */
-
-    const eventos = [
-      "mousemove",
-      "mousedown",
-      "keydown",
-      "touchstart",
-      "scroll"
-    ];
-
-
-    eventos.forEach(
-      (evento) => {
-
-        window.addEventListener(
-          evento,
-          registrarAtividade,
-          {
-            passive: true
-          }
-        );
-
-      }
-    );
-
-
-    /*
-        Começa a contar assim que o App
-        estiver carregado.
-    */
-
-    reiniciarContador();
-
-
-    /* =====================================================
-       CLEANUP
-    ===================================================== */
-
-    return () => {
-
-      componenteAtivo = false;
-
-
-      if (timerInatividade) {
-
-        clearTimeout(
-          timerInatividade
-        );
-
-      }
+      const eventos = [
+        "mousemove",
+        "mousedown",
+        "keydown",
+        "touchstart",
+        "scroll"
+      ];
 
 
       eventos.forEach(
         (evento) => {
 
-          window.removeEventListener(
+          window.addEventListener(
             evento,
-            registrarAtividade
+            registrarAtividade,
+            {
+              passive: true
+            }
           );
 
         }
       );
 
-    };
 
-  }, []);
-  /* =======================================================
+      /*
+        Começa a contar somente
+        se a rota permitir.
+      */
+
+      reiniciarContador();
+
+
+      /* =====================================================
+         CLEANUP
+      ===================================================== */
+
+      return () => {
+
+        componenteAtivo = false;
+
+
+        if (timerInatividade) {
+
+          clearTimeout(
+            timerInatividade
+          );
+
+        }
+
+
+        eventos.forEach(
+          (evento) => {
+
+            window.removeEventListener(
+              evento,
+              registrarAtividade
+            );
+
+          }
+        );
+
+      };
+
+    }, [
+      rotaAtual,
+      rotaBloqueada
+    ]);
+
+
+    return null;
+  }
+
+
+  /* =========================================================
      KEEP ALIVE BACKEND
-  ======================================================= */
+  ========================================================= */
 
   useEffect(() => {
 
@@ -613,9 +714,9 @@ export default function App() {
   }, []);
 
 
-  /* =======================================================
+  /* =========================================================
      FUNDO DO COMÉRCIO COM CACHE
-  ======================================================= */
+  ========================================================= */
 
   useEffect(() => {
 
@@ -635,7 +736,9 @@ export default function App() {
       if (!token) {
 
         if (componenteAtivo) {
+
           setFundoComercio(null);
+
         }
 
         return;
@@ -734,7 +837,9 @@ export default function App() {
             "[FUNDO] Fundo carregado pelo usuario local:",
             usuarioLocal.comercio_id
           );
+
         }
+
       }
 
 
@@ -769,12 +874,24 @@ export default function App() {
             "[AUTH] Token expirado ou inválido. Encerrando sessão."
           );
 
-          localStorage.removeItem("token");
-          localStorage.removeItem("usuario");
+
+          localStorage.removeItem(
+            "token"
+          );
+
+
+          localStorage.removeItem(
+            "usuario"
+          );
+
 
           removerCacheFundo();
 
-          window.location.replace("/");
+
+          window.location.replace(
+            "/"
+          );
+
 
           return;
         }
@@ -789,21 +906,25 @@ export default function App() {
           throw new Error(
             `Erro /retorno/me: ${resposta.status}`
           );
+
         }
 
 
         const usuarioServidor =
           await resposta.json();
 
+
         console.log(
           "[FUNDO] USUÁRIO RETORNADO PELO SERVIDOR:",
           usuarioServidor
         );
 
+
         console.log(
           "[FUNDO] COMERCIO_ID:",
           usuarioServidor?.comercio_id
         );
+
 
         console.log(
           "[FUNDO] IMAGEM ENCONTRADA:",
@@ -822,15 +943,20 @@ export default function App() {
            4. NÃO TEM COMÉRCIO
         ================================================= */
 
-        if (!usuarioServidor?.comercio_id) {
+        if (
+          !usuarioServidor?.comercio_id
+        ) {
 
           setFundoComercio(null);
 
+
           removerCacheFundo();
+
 
           console.log(
             "[FUNDO] Usuário sem comércio."
           );
+
 
           return;
         }
@@ -872,6 +998,7 @@ export default function App() {
             "[FUNDO] Comércio sem fundo personalizado:",
             comercioIdServidor
           );
+
 
           return;
         }
@@ -980,6 +1107,7 @@ export default function App() {
           "[FUNDO] Servidor indisponível. Mantendo cache.",
           erro
         );
+
       }
     }
 
@@ -996,13 +1124,20 @@ export default function App() {
   }, []);
 
 
-  /* =======================================================
+  /* =========================================================
      RENDER
-  ======================================================= */
+  ========================================================= */
 
   return (
 
     <Router>
+
+      {/* =====================================================
+          CONTROLE GLOBAL DAS TAREFAS
+      ===================================================== */}
+
+      <ControleInatividade />
+
 
       <div
         className="app"
