@@ -3,17 +3,11 @@ import { useParams } from "react-router-dom";
 import { API_URL } from "../config";
 
 export default function Geral() {
-
-    const {
-        idComercioCriptografado
-    } = useParams();
+    const { idComercioCriptografado } = useParams();
 
     useEffect(() => {
-
-        async function acessarLoja() {
-
+        async function acessar() {
             try {
-
                 if (!idComercioCriptografado) {
                     window.location.replace("/");
                     return;
@@ -22,50 +16,36 @@ export default function Geral() {
                 const resposta = await fetch(
                     `${API_URL}/link/geral/${encodeURIComponent(
                         idComercioCriptografado
-                    )}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            Accept: "application/json"
-                        }
-                    }
+                    )}`
                 );
 
-                const resultado = await resposta
-                    .json()
-                    .catch(() => ({}));
+                const dados = await resposta.json();
 
                 if (
                     !resposta.ok ||
-                    !resultado.ok ||
-                    !resultado.token
+                    !dados.ok ||
+                    !dados.token
                 ) {
                     window.location.replace("/");
                     return;
                 }
 
                 window.location.replace(
-                    `/camera/${encodeURIComponent(
-                        resultado.token
-                    )}`
+                    `/camera/${encodeURIComponent(dados.token)}`
                 );
 
-            } catch (error) {
-
+            } catch (erro) {
                 console.error(
                     "[LINK GERAL] Erro:",
-                    error
+                    erro
                 );
 
                 window.location.replace("/");
             }
         }
 
-        acessarLoja();
-
-    }, [
-        idComercioCriptografado
-    ]);
+        acessar();
+    }, [idComercioCriptografado]);
 
     return null;
 }
