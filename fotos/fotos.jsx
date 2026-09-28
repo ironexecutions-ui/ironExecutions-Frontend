@@ -155,7 +155,11 @@ export default function FotosProdutos() {
 
             setProdutos(
                 Array.isArray(dados?.links)
-                    ? dados.links
+                    ? [...dados.links].sort(
+                        (a, b) =>
+                            Number(b?.segundos_restantes || 0) -
+                            Number(a?.segundos_restantes || 0)
+                    )
                     : []
             );
 
