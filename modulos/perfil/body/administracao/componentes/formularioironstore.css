@@ -3457,3 +3457,203 @@
     }
 
 }
+
+/* =========================================================
+   PREÇO ONLINE, ACRÉSCIMO POR PERCENTUAL
+========================================================= */
+
+.ironstore-produto-preco-percentual {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.ironstore-produto-preco-percentual-campo {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.ironstore-produto-preco-percentual-label {
+    display: block;
+    padding: 0 2px;
+    color: #334155;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.ironstore-produto-preco-percentual-input-area {
+    width: 100%;
+    height: 47px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+    box-sizing: border-box;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fafc);
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.025),
+        0 2px 5px rgba(15, 23, 42, 0.02);
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ironstore-produto-preco-percentual-input-area:hover {
+    border-color: #94a3b8;
+    background: #ffffff;
+}
+
+.ironstore-produto-preco-percentual-input-area:focus-within {
+    border-color: #2563eb;
+    background: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10),
+        0 8px 20px rgba(37, 99, 235, 0.09);
+}
+
+.ironstore-produto-preco-percentual-input {
+    min-width: 0;
+    width: 100%;
+    height: 100%;
+
+    flex: 1;
+
+    padding: 0 13px;
+
+    border: 0;
+    outline: none;
+
+    background: transparent;
+
+    color: #0f172a;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ironstore-produto-preco-percentual-input::placeholder {
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.ironstore-produto-preco-percentual-simbolo {
+    min-width: 45px;
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 8px;
+    padding: 0 9px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+
+    background: #f1f5f9;
+
+    color: #64748b;
+
+    font-size: 9px;
+    font-weight: 850;
+}
+
+.ironstore-produto-preco-percentual-botao {
+    height: 47px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #1d4ed8;
+    border-radius: 13px;
+
+    background:
+        radial-gradient(circle at 20% 0%,
+            rgba(96, 165, 250, 0.40),
+            transparent 52%),
+        linear-gradient(135deg,
+            #0f172a,
+            #172554);
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 850;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.17),
+        0 3px 8px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.ironstore-produto-preco-percentual-botao:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.04);
+
+    box-shadow:
+        0 12px 24px rgba(37, 99, 235, 0.23),
+        0 4px 10px rgba(15, 23, 42, 0.10);
+}
+
+.ironstore-produto-preco-percentual-botao:active {
+    transform: scale(0.97);
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .ironstore-produto-preco-percentual {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .ironstore-produto-preco-percentual-botao {
+        width: 100%;
+    }
+}

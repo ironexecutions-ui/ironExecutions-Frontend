@@ -18,6 +18,15 @@ export default function FormularioIronStore({
     const [alterandoDisponibilidade, setAlterandoDisponibilidade] =
         React.useState(false);
 
+    const [percentualPrecoOnline, setPercentualPrecoOnline] =
+        React.useState(() => {
+            const valorSalvo = localStorage.getItem(
+                "ironstore_percentual_preco_online"
+            );
+
+            return valorSalvo ?? "";
+        });
+
     const [modalAlerta, setModalAlerta] = React.useState({
         aberto: false,
         titulo: "",
@@ -390,6 +399,60 @@ Agora gere as duas versões solicitadas, mantendo fidelidade total aos dados for
                 tipo: "erro"
             });
         }
+    }
+
+
+    /* =========================================================
+       PREÇO ONLINE POR PERCENTUAL
+    ========================================================= */
+
+    function alterarPercentualPrecoOnline(valor) {
+        setPercentualPrecoOnline(valor);
+
+        localStorage.setItem(
+            "ironstore_percentual_preco_online",
+            valor
+        );
+    }
+
+
+    function aplicarPercentualPrecoOnline() {
+        const precoReal = Number(form.preco);
+        const percentual = Number(percentualPrecoOnline);
+
+        if (!Number.isFinite(precoReal) || precoReal <= 0) {
+            abrirAlerta({
+                titulo: "Preço real não informado",
+                mensagem:
+                    "Informe o preço real do produto antes de aplicar o percentual.",
+                tipo: "aviso"
+            });
+
+            return;
+        }
+
+        if (
+            percentualPrecoOnline === "" ||
+            !Number.isFinite(percentual) ||
+            percentual < 0
+        ) {
+            abrirAlerta({
+                titulo: "Percentual inválido",
+                mensagem:
+                    "Informe um percentual igual ou maior que zero.",
+                tipo: "aviso"
+            });
+
+            return;
+        }
+
+        const precoOnline =
+            precoReal * (1 + percentual / 100);
+
+        alterar(
+            "preco_ironstore",
+            precoOnline.toFixed(2)
+        );
     }
 
 
@@ -791,8 +854,52 @@ Agora gere as duas versões solicitadas, mantendo fidelidade total aos dados for
                             </div>
 
 
+                            <div className="ironstore-produto-preco-percentual">
+
+                                <div className="ironstore-produto-preco-percentual-campo">
+
+                                    <label className="ironstore-produto-preco-percentual-label">
+                                        Acréscimo sobre o preço real
+                                    </label>
+
+                                    <div className="ironstore-produto-preco-percentual-input-area">
+
+                                        <input
+                                            className="ironstore-produto-preco-percentual-input"
+                                            type="number"
+                                            min="0"
+                                            step="0.01"
+                                            placeholder="Ex: 20"
+                                            value={percentualPrecoOnline}
+                                            onChange={(e) =>
+                                                alterarPercentualPrecoOnline(
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+
+                                        <span className="ironstore-produto-preco-percentual-simbolo">
+                                            %
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    type="button"
+                                    className="ironstore-produto-preco-percentual-botao"
+                                    onClick={aplicarPercentualPrecoOnline}
+                                >
+                                    Aplicar %
+                                </button>
+
+                            </div>
+
+
                             <span className="ironstore-produto-preco-online-explicacao">
-                                Deixe vazio para utilizar o mesmo preço do caixa.
+                                Deixe vazio para utilizar o mesmo preço do caixa. O percentual fica salvo neste navegador.
                             </span>
 
                         </div>
