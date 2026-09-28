@@ -38,14 +38,16 @@ export default function Geral() {
                 if (
                     !resposta.ok ||
                     !resultado.ok ||
-                    !resultado.url
+                    !resultado.token
                 ) {
                     window.location.replace("/");
                     return;
                 }
 
                 window.location.replace(
-                    resultado.url
+                    `/camera/${encodeURIComponent(
+                        resultado.token
+                    )}`
                 );
 
             } catch (error) {
