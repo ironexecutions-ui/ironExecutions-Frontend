@@ -32,6 +32,8 @@ import alexsiaUtilidades from "./imagens/alexsiautilidades.png";
 
 import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto";
 import Camerapublica from "../camera/camerapublica";
+import Geral from "../camera/geral";
+
 import Apresentacao from "../apresentacao/apresentacao";
 import FotosProdutos from "../fotos/fotos";
 
@@ -218,7 +220,10 @@ function RoteamentoComLoading() {
   return (
 
     <Routes>
-
+      <Route
+        path="/link/geral/:idComercioCriptografado"
+        element={<Geral />}
+      />
       <Route
         path="/camera/:token"
         element={<Camerapublica />}
