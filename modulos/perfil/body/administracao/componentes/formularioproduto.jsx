@@ -15,6 +15,8 @@ export default function FormularioProduto({ item, voltar }) {
     const [cadastroIronStore, setCadastroIronStore] = useState(false);
     const [variedades, setVariedades] = useState([]);
     const [novaVariedade, setNovaVariedade] = useState("");
+    const [quantidadeDigitosCodigoVariedade, setQuantidadeDigitosCodigoVariedade] = useState("8");
+    const [gerandoCodigosVariedades, setGerandoCodigosVariedades] = useState(false);
     const [temModuloIronStore, setTemModuloIronStore] = useState(false);
     const [imagemVariedadeAmpliada, setImagemVariedadeAmpliada] =
         useState("");
@@ -241,6 +243,113 @@ export default function FormularioProduto({ item, voltar }) {
                     : variedade
             )
         );
+    }
+
+    async function gerarCodigosVariedades() {
+        if (variedades.length === 0) {
+            abrirAlerta({
+                titulo: "Nenhuma variedade",
+                mensagem: "Adicione pelo menos uma variedade antes de gerar os códigos.",
+                tipo: "aviso"
+            });
+            return;
+        }
+
+        const quantidadeDigitos = Number(
+            quantidadeDigitosCodigoVariedade
+        );
+
+        if (
+            !Number.isInteger(quantidadeDigitos) ||
+            quantidadeDigitos < 1 ||
+            quantidadeDigitos > 20
+        ) {
+            abrirAlerta({
+                titulo: "Quantidade de dígitos inválida",
+                mensagem: "Informe uma quantidade entre 1 e 20 dígitos.",
+                tipo: "aviso"
+            });
+            return;
+        }
+
+        setGerandoCodigosVariedades(true);
+
+        try {
+            const token = localStorage.getItem("token");
+
+            const resposta = await fetch(
+                `${API_URL}/admin/produtos-servicos/gerar-codigos-variedades`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        quantidade: quantidadeDigitos,
+                        quantidade_codigos: variedades.length
+                    })
+                }
+            );
+
+            const dados = await resposta.json().catch(() => ({}));
+
+            if (!resposta.ok) {
+                abrirAlerta({
+                    titulo: "Não foi possível gerar os códigos",
+                    mensagem:
+                        typeof dados?.detail === "string"
+                            ? dados.detail
+                            : "O servidor não conseguiu gerar códigos únicos para todas as variedades.",
+                    tipo: "erro"
+                });
+                return;
+            }
+
+            const codigos = Array.isArray(dados.codigos)
+                ? dados.codigos
+                : [];
+
+            if (codigos.length !== variedades.length) {
+                abrirAlerta({
+                    titulo: "Geração incompleta",
+                    mensagem:
+                        "O servidor não retornou um código para cada variedade.",
+                    tipo: "erro"
+                });
+                return;
+            }
+
+            setVariedades(prev =>
+                prev.map((variedade, index) => ({
+                    ...variedade,
+                    codigo_barras: String(codigos[index] || "")
+                }))
+            );
+
+            abrirAlerta({
+                titulo: "Códigos gerados",
+                mensagem:
+                    `${codigos.length} código${codigos.length === 1 ? "" : "s"} foi${codigos.length === 1 ? "" : "ram"} gerado${codigos.length === 1 ? "" : "s"} com ${quantidadeDigitos} dígito${quantidadeDigitos === 1 ? "" : "s"}.`,
+                tipo: "sucesso"
+            });
+
+        } catch (erro) {
+            console.error(
+                "Erro ao gerar códigos das variedades:",
+                erro
+            );
+
+            abrirAlerta({
+                titulo: "Erro ao gerar códigos",
+                mensagem:
+                    "Não foi possível conectar ao servidor para gerar os códigos.",
+                tipo: "erro"
+            });
+
+        } finally {
+            setGerandoCodigosVariedades(false);
+        }
     }
 
     function obterImagensProduto() {
@@ -1906,8 +2015,180 @@ export default function FormularioProduto({ item, voltar }) {
 
 
                     {/* ================================================= */}
-                    {/* LISTA DAS VARIEDADES ADICIONADAS */}
+                    {/* GERAR CÓDIGOS DAS VARIEDADES */}
                     {/* ================================================= */}
+
+                    <div
+                        className="formulario-produto-gerador-codigos"
+                        style={{
+                            width: "100%",
+                            boxSizing: "border-box",
+                            marginTop: "4px",
+                            padding: "18px",
+                            border: "1px solid rgba(37, 99, 235, 0.20)",
+                            borderRadius: "17px",
+                            background:
+                                "radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.12), transparent 38%), linear-gradient(145deg, #f8fbff 0%, #eef5ff 100%)",
+                            boxShadow:
+                                "0 8px 24px rgba(37, 99, 235, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95)"
+                        }}
+                    >
+                        <div
+                            className="formulario-produto-gerador-codigos-info"
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: "24px",
+                                boxSizing: "border-box"
+                            }}
+                        >
+                            <div
+                                className="formulario-produto-gerador-codigos-info"
+                                style={{
+                                    minWidth: 0,
+                                    flex: "1 1 auto",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "5px"
+                                }}
+                            >
+                                <span
+                                    className="formulario-produto-gerador-codigos-titulo"
+                                    style={{
+                                        display: "block",
+                                        color: "#0f2f75",
+                                        fontSize: "15px",
+                                        fontWeight: 850,
+                                        lineHeight: 1.2,
+                                        letterSpacing: "-0.15px"
+                                    }}
+                                >
+                                    Gerar códigos
+                                </span>
+
+                                <span
+                                    className="formulario-produto-gerador-codigos-descricao"
+                                    style={{
+                                        display: "block",
+                                        color: "#64748b",
+                                        fontSize: "12px",
+                                        fontWeight: 550,
+                                        lineHeight: 1.5
+                                    }}
+                                >
+                                    Gere automaticamente um código único para cada variedade deste produto.
+                                </span>
+                            </div>
+
+                            <div
+                                className="formulario-produto-gerador-codigos-controles"
+                                style={{
+                                    flex: "0 0 auto",
+                                    display: "flex",
+                                    alignItems: "flex-end",
+                                    gap: "9px"
+                                }}
+                            >
+                                <label
+                                    className="formulario-produto-gerador-codigos-digitos-label"
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        height: "44px",
+                                        margin: 0,
+                                        padding: "0 2px",
+                                        color: "#334155",
+                                        fontSize: "11px",
+                                        fontWeight: 800,
+                                        whiteSpace: "nowrap"
+                                    }}
+                                >
+                                    Dígitos
+                                </label>
+
+                                <input
+                                    className="formulario-produto-gerador-codigos-digitos-input"
+                                    type="number"
+                                    min="1"
+                                    max="20"
+                                    inputMode="numeric"
+                                    value={quantidadeDigitosCodigoVariedade}
+                                    onChange={evento =>
+                                        setQuantidadeDigitosCodigoVariedade(
+                                            evento.target.value
+                                        )
+                                    }
+                                    disabled={gerandoCodigosVariedades}
+                                    style={{
+                                        width: "82px",
+                                        height: "44px",
+                                        boxSizing: "border-box",
+                                        padding: "0 12px",
+                                        border: "1px solid #bfdbfe",
+                                        borderRadius: "11px",
+                                        outline: "none",
+                                        background:
+                                            "linear-gradient(180deg, #ffffff, #f8fbff)",
+                                        color: "#0f172a",
+                                        fontSize: "13px",
+                                        fontWeight: 750,
+                                        textAlign: "center",
+                                        boxShadow:
+                                            "inset 0 1px 2px rgba(15, 23, 42, 0.04), 0 3px 8px rgba(37, 99, 235, 0.04)"
+                                    }}
+                                />
+
+                                <button
+                                    type="button"
+                                    className="formulario-produto-gerador-codigos-botao"
+                                    onClick={gerarCodigosVariedades}
+                                    disabled={
+                                        gerandoCodigosVariedades ||
+                                        variedades.length === 0
+                                    }
+                                    style={{
+                                        position: "relative",
+                                        height: "44px",
+                                        minWidth: "138px",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        padding: "0 18px",
+                                        boxSizing: "border-box",
+                                        border: "1px solid #1d4ed8",
+                                        borderRadius: "11px",
+                                        background:
+                                            "radial-gradient(circle at 20% 0%, rgba(96, 165, 250, 0.40), transparent 52%), linear-gradient(135deg, #0f172a, #172554)",
+                                        color: "#ffffff",
+                                        fontSize: "12px",
+                                        fontWeight: 850,
+                                        letterSpacing: "0.1px",
+                                        cursor:
+                                            gerandoCodigosVariedades ||
+                                                variedades.length === 0
+                                                ? "not-allowed"
+                                                : "pointer",
+                                        opacity:
+                                            gerandoCodigosVariedades ||
+                                                variedades.length === 0
+                                                ? 0.58
+                                                : 1,
+                                        boxShadow:
+                                            "0 8px 20px rgba(37, 99, 235, 0.20), 0 3px 8px rgba(15, 23, 42, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.15)",
+                                        transition:
+                                            "transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease"
+                                    }}
+                                >
+                                    {gerandoCodigosVariedades
+                                        ? "Gerando..."
+                                        : "Gerar códigos"}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
 
                     {/* ================================================= */}
                     {/* LISTA DAS VARIEDADES ADICIONADAS */}
