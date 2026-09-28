@@ -25,6 +25,11 @@ export default function FormularioProduto({ item, voltar }) {
         itens: [],
         tipo: "aviso"
     });
+    const [modalSaidaSemImagem, setModalSaidaSemImagem] = useState({
+        aberto: false,
+        variedades: []
+    });
+
     const [variedadeEditandoIndex, setVariedadeEditandoIndex] = useState(null);
     const [nomeVariedadeEditando, setNomeVariedadeEditando] = useState("");
     const [variedadesMostrandoTodasImagens, setVariedadesMostrandoTodasImagens] =
@@ -244,24 +249,27 @@ export default function FormularioProduto({ item, voltar }) {
             .map(imagem => imagem.trim())
             .filter(Boolean);
     }
-    function obterImagensDisponiveisParaVariedade(index) {
-        const todasImagens = obterImagensProduto();
-
-        const imagensUsadasPorOutrasVariedades = new Set(
-            variedades
-                .filter((_, i) => i !== index)
-                .map(variedade =>
-                    String(variedade.imagem_url || "").trim()
-                )
-                .filter(Boolean)
-        );
-
-        return todasImagens.filter(
-            imagem =>
-                !imagensUsadasPorOutrasVariedades.has(imagem)
-        );
+    function obterImagensDaVariedade(variedade) {
+        return String(variedade?.imagem_url || "")
+            .split("|")
+            .map(imagem => imagem.trim())
+            .filter(Boolean);
     }
+
+
     function alterarImagemVariedade(index, imagemUrl) {
+        const imagemClicada = String(imagemUrl || "").trim();
+
+        if (!imagemClicada) {
+            return;
+        }
+
+        const imagensDoProduto = obterImagensProduto();
+
+        if (!imagensDoProduto.includes(imagemClicada)) {
+            return;
+        }
+
         setVariedades(prev =>
             prev.map((variedade, i) => {
 
@@ -269,85 +277,58 @@ export default function FormularioProduto({ item, voltar }) {
                     return variedade;
                 }
 
-                const imagemAtual =
-                    String(variedade.imagem_url || "").trim();
+                const imagensAtuais =
+                    obterImagensDaVariedade(variedade);
 
-                const imagemClicada =
-                    String(imagemUrl || "").trim();
+                const imagemJaSelecionada =
+                    imagensAtuais.includes(imagemClicada);
+
+                const novasImagens =
+                    imagemJaSelecionada
+                        ? imagensAtuais.filter(
+                            imagem => imagem !== imagemClicada
+                        )
+                        : [
+                            ...imagensAtuais,
+                            imagemClicada
+                        ];
 
                 return {
                     ...variedade,
-                    imagem_url:
-                        imagemAtual === imagemClicada
-                            ? ""
-                            : imagemClicada
+                    imagem_url: novasImagens.join("|")
                 };
             })
         );
-    }
-
-
-    function imagemUsadaPorOutraVariedade(index, imagem) {
-        return variedades.some(
-            (variedade, i) =>
-                i !== index &&
-                String(variedade.imagem_url || "").trim() === imagem
-        );
-    }
-
-
-    function alternarTodasImagensVariedade(index) {
-        setVariedadesMostrandoTodasImagens(prev => ({
-            ...prev,
-            [index]: !prev[index]
-        }));
     }
 
 
     function selecionarImagemVariedade(index, imagem) {
-        const usadaPorOutra = imagemUsadaPorOutraVariedade(
-            index,
-            imagem
-        );
-
-        if (usadaPorOutra) {
-            return;
-        }
-
         alterarImagemVariedade(index, imagem);
     }
 
 
-
     useEffect(() => {
-        const imagensDisponiveis = String(
-            form.imagem_url || ""
-        )
-            .split("|")
-            .map(imagem => imagem.trim())
-            .filter(Boolean);
+        const imagensDisponiveis = obterImagensProduto();
 
         setVariedades(prev =>
             prev.map(variedade => {
-                const imagemSelecionadaExiste =
-                    imagensDisponiveis.includes(
-                        variedade.imagem_url
-                    );
 
-                if (imagemSelecionadaExiste) {
-                    return variedade;
-                }
+                const imagensDaVariedade =
+                    obterImagensDaVariedade(variedade);
+
+                const imagensValidas =
+                    imagensDaVariedade.filter(
+                        imagem => imagensDisponiveis.includes(imagem)
+                    );
 
                 return {
                     ...variedade,
-                    imagem_url:
-                        imagensDisponiveis.length === 1
-                            ? imagensDisponiveis[0]
-                            : ""
+                    imagem_url: imagensValidas.join("|")
                 };
             })
         );
     }, [form.imagem_url]);
+
 
     useEffect(() => {
         if (!imagemVariedadeAmpliada) return undefined;
@@ -892,6 +873,28 @@ export default function FormularioProduto({ item, voltar }) {
         }
 
         // =====================================================
+        // VALIDAR IMAGEM DAS VARIEDADES
+        // =====================================================
+
+        const variedadesSemImagem = variedades
+            .filter(variedade =>
+                obterImagensDaVariedade(variedade).length === 0
+            )
+            .map(variedade => variedade.nome.trim())
+            .filter(Boolean);
+
+        if (variedadesSemImagem.length > 0) {
+
+            setModalSaidaSemImagem({
+                aberto: true,
+                variedades: variedadesSemImagem
+            });
+
+            return false;
+        }
+
+
+        // =====================================================
         // PAYLOAD PRINCIPAL
         // =====================================================
 
@@ -971,7 +974,7 @@ export default function FormularioProduto({ item, voltar }) {
                     (variedade.codigo_barras || "").trim() || null,
 
                 imagem_url:
-                    (variedade.imagem_url || "").trim() || null
+                    obterImagensDaVariedade(variedade).join("|") || null
             }))
         };
 
@@ -2077,32 +2080,14 @@ export default function FormularioProduto({ item, voltar }) {
                                                             <div className="formulario-produto-variedade-imagem-cabecalho">
 
                                                                 <span className="formulario-produto-variedade-imagem-label">
-                                                                    Imagem desta variedade
+                                                                    Imagens desta variedade
                                                                 </span>
 
-                                                                {obterImagensProduto().length > 0 && (
-
-                                                                    <button
-                                                                        type="button"
-                                                                        className={
-                                                                            `formulario-produto-variedade-ver-todas ${variedadesMostrandoTodasImagens[index]
-                                                                                ? "formulario-produto-variedade-ver-todas-ativo"
-                                                                                : ""
-                                                                            }`
-                                                                        }
-                                                                        onClick={() =>
-                                                                            alternarTodasImagensVariedade(
-                                                                                index
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        {variedadesMostrandoTodasImagens[index]
-                                                                            ? "Ocultar usadas"
-                                                                            : "Ver todas"
-                                                                        }
-                                                                    </button>
-
-                                                                )}
+                                                                <span className="formulario-produto-variedade-imagem-contador">
+                                                                    {obterImagensDaVariedade(variedade).length}
+                                                                    {" "}
+                                                                    selecionada{obterImagensDaVariedade(variedade).length === 1 ? "" : "s"}
+                                                                </span>
 
                                                             </div>
 
@@ -2117,102 +2102,60 @@ export default function FormularioProduto({ item, voltar }) {
 
                                                                 <div className="formulario-produto-variedade-imagens-opcoes">
 
-                                                                    {(
-                                                                        variedadesMostrandoTodasImagens[index]
-                                                                            ? obterImagensProduto()
-                                                                            : obterImagensDisponiveisParaVariedade(index)
-                                                                    ).map((imagem, imagemIndex) => {
+                                                                    {obterImagensProduto().map(
+                                                                        (imagem, imagemIndex) => {
 
-                                                                        const selecionada =
-                                                                            variedade.imagem_url === imagem;
+                                                                            const selecionada =
+                                                                                obterImagensDaVariedade(
+                                                                                    variedade
+                                                                                ).includes(imagem);
 
-                                                                        const usadaPorOutra =
-                                                                            imagemUsadaPorOutraVariedade(
-                                                                                index,
-                                                                                imagem
-                                                                            );
-
-                                                                        return (
-
-                                                                            <button
-                                                                                key={`${variedade.id}-imagem-${imagemIndex}`}
-                                                                                type="button"
-                                                                                disabled={usadaPorOutra}
-                                                                                className={
-                                                                                    `formulario-produto-variedade-imagem-opcao ${selecionada
-                                                                                        ? "formulario-produto-variedade-imagem-selecionada"
-                                                                                        : ""
-                                                                                    } ${usadaPorOutra
-                                                                                        ? "formulario-produto-variedade-imagem-ocupada"
-                                                                                        : ""
-                                                                                    }`
-                                                                                }
-                                                                                onClick={() =>
-                                                                                    selecionarImagemVariedade(
-                                                                                        index,
-                                                                                        imagem
-                                                                                    )
-                                                                                }
-                                                                                onDoubleClick={() =>
-                                                                                    setImagemVariedadeAmpliada(
-                                                                                        imagem
-                                                                                    )
-                                                                                }
-                                                                                title={
-                                                                                    usadaPorOutra
-                                                                                        ? "Esta imagem já está sendo usada por outra variedade"
-                                                                                        : `Selecionar para ${variedade.nome}`
-                                                                                }
-                                                                            >
-
-                                                                                <img
-                                                                                    src={imagem}
-                                                                                    alt={`Imagem de ${variedade.nome}`}
-                                                                                    className="formulario-produto-variedade-imagem-miniatura"
-                                                                                />
-
-                                                                                {usadaPorOutra && (
-                                                                                    <span className="formulario-produto-variedade-imagem-ocupada-aviso">
-                                                                                        Em uso
-                                                                                    </span>
-                                                                                )}
-
-                                                                                {selecionada && (
-                                                                                    <span className="formulario-produto-variedade-imagem-check">
-                                                                                        ✓
-                                                                                    </span>
-                                                                                )}
-
-                                                                            </button>
-
-                                                                        );
-                                                                    })}
-
-
-                                                                    {!variedadesMostrandoTodasImagens[index] &&
-                                                                        obterImagensDisponiveisParaVariedade(index).length === 0 && (
-
-                                                                            <div className="formulario-produto-variedade-imagens-esgotadas">
-
-                                                                                <span className="formulario-produto-variedade-imagens-esgotadas-texto">
-                                                                                    Todas as imagens já foram usadas
-                                                                                </span>
+                                                                            return (
 
                                                                                 <button
+                                                                                    key={`${variedade.id}-imagem-${imagemIndex}`}
                                                                                     type="button"
-                                                                                    className="formulario-produto-variedade-imagens-esgotadas-botao"
+                                                                                    className={
+                                                                                        `formulario-produto-variedade-imagem-opcao ${selecionada
+                                                                                            ? "formulario-produto-variedade-imagem-selecionada"
+                                                                                            : ""
+                                                                                        }`
+                                                                                    }
                                                                                     onClick={() =>
-                                                                                        alternarTodasImagensVariedade(
-                                                                                            index
+                                                                                        selecionarImagemVariedade(
+                                                                                            index,
+                                                                                            imagem
                                                                                         )
                                                                                     }
+                                                                                    onDoubleClick={() =>
+                                                                                        setImagemVariedadeAmpliada(
+                                                                                            imagem
+                                                                                        )
+                                                                                    }
+                                                                                    title={
+                                                                                        selecionada
+                                                                                            ? `Remover esta imagem de ${variedade.nome}`
+                                                                                            : `Adicionar esta imagem a ${variedade.nome}`
+                                                                                    }
                                                                                 >
-                                                                                    Ver todas as imagens
+
+                                                                                    <img
+                                                                                        src={imagem}
+                                                                                        alt={`Imagem de ${variedade.nome}`}
+                                                                                        className="formulario-produto-variedade-imagem-miniatura"
+                                                                                    />
+
+                                                                                    {selecionada && (
+                                                                                        <span className="formulario-produto-variedade-imagem-check">
+                                                                                            ✓
+                                                                                        </span>
+                                                                                    )}
+
                                                                                 </button>
 
-                                                                            </div>
-
-                                                                        )}
+                                                                            );
+                                                                        }
+                                                                    )}
 
                                                                 </div>
 
@@ -2301,6 +2244,7 @@ export default function FormularioProduto({ item, voltar }) {
                     alterar("imagem_url", imgs)
                 }
                 obterProdutoId={obterProdutoIdParaFotos}
+                voltarParaListaFotos={voltar}
             />
 
             {modalAlerta.aberto &&
@@ -2403,6 +2347,133 @@ export default function FormularioProduto({ item, voltar }) {
                     document.body
                 )
             }
+            {modalSaidaSemImagem.aberto &&
+                createPortal(
+                    <div
+                        className="formulario-produto-alerta-overlay"
+                        onMouseDown={() =>
+                            setModalSaidaSemImagem({
+                                aberto: false,
+                                variedades: []
+                            })
+                        }
+                    >
+
+                        <div
+                            className="formulario-produto-alerta-modal aviso"
+                            onMouseDown={evento =>
+                                evento.stopPropagation()
+                            }
+                        >
+
+                            <div className="formulario-produto-alerta-cabecalho">
+
+                                <div className="formulario-produto-alerta-indicador aviso">
+                                    !
+                                </div>
+
+                                <div className="formulario-produto-alerta-textos">
+
+                                    <strong className="formulario-produto-alerta-titulo">
+                                        Variedade sem imagem
+                                    </strong>
+
+                                    <span className="formulario-produto-alerta-mensagem">
+                                        Existe pelo menos uma variedade sem imagem. Deseja sair sem salvar?
+                                    </span>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    className="formulario-produto-alerta-fechar"
+                                    onClick={() =>
+                                        setModalSaidaSemImagem({
+                                            aberto: false,
+                                            variedades: []
+                                        })
+                                    }
+                                    aria-label="Continuar editando"
+                                >
+                                    ×
+                                </button>
+
+                            </div>
+
+
+                            <div className="formulario-produto-alerta-pendencias">
+
+                                <span className="formulario-produto-alerta-pendencias-titulo">
+                                    Variedades pendentes
+                                </span>
+
+                                <div className="formulario-produto-alerta-lista">
+
+                                    {modalSaidaSemImagem.variedades.map(
+                                        (nome, index) => (
+
+                                            <div
+                                                key={`${nome}-${index}`}
+                                                className="formulario-produto-alerta-item"
+                                            >
+
+                                                <span className="formulario-produto-alerta-numero">
+                                                    {index + 1}
+                                                </span>
+
+                                                <span className="formulario-produto-alerta-item-texto">
+                                                    {nome}
+                                                </span>
+
+                                            </div>
+
+                                        )
+                                    )}
+
+                                </div>
+
+                            </div>
+
+
+                            <div className="formulario-produto-alerta-acoes">
+
+                                <button
+                                    type="button"
+                                    className="formulario-produto-alerta-entendi"
+                                    onClick={() =>
+                                        setModalSaidaSemImagem({
+                                            aberto: false,
+                                            variedades: []
+                                        })
+                                    }
+                                >
+                                    Continuar editando
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="formulario-produto-alerta-sair"
+                                    onClick={() => {
+                                        setModalSaidaSemImagem({
+                                            aberto: false,
+                                            variedades: []
+                                        });
+
+                                        voltar();
+                                    }}
+                                >
+                                    Sair sem salvar
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>,
+                    document.body
+                )
+            }
+
             {imagemVariedadeAmpliada &&
                 createPortal(
                     <div

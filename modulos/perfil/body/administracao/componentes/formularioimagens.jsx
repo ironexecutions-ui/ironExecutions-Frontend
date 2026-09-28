@@ -7,7 +7,8 @@ import "./formularioimagens.css";
 export default function FormularioImagens({
     valor,
     alterar,
-    obterProdutoId
+    obterProdutoId,
+    voltarParaListaFotos
 }) {
     const imagensSalvas = String(valor || "").split("|").filter(Boolean);
     const [preview, setPreview] = useState([]);

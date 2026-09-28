@@ -4,8 +4,10 @@ import React, {
     useState
 } from "react";
 
-import { useParams } from "react-router-dom";
-
+import {
+    useParams,
+    useNavigate
+} from "react-router-dom";
 import { removeBackground } from "@imgly/background-removal";
 
 import { API_URL } from "../../../../../config";
@@ -16,7 +18,7 @@ import "./celularfoto.css";
 export default function CelularFoto() {
 
     const { token } = useParams();
-
+    const navigate = useNavigate();
     const inputCameraRef = useRef(null);
     const inputGaleriaRef = useRef(null);
 
@@ -1438,7 +1440,23 @@ export default function CelularFoto() {
             <main className="celular-foto-pagina">
 
                 <section className="celular-foto-expirado">
+                    <div className="celular-foto-navegacao-lista">
 
+                        <button
+                            type="button"
+                            className="celular-foto-botao-lista"
+                            onClick={() => navigate("/fotos")}
+                        >
+                            <span aria-hidden="true">
+                                ←
+                            </span>
+
+                            <span>
+                                Ir para lista de fotos
+                            </span>
+                        </button>
+
+                    </div>
                     <div className="celular-foto-expirado-icone">
                         ⏱
                     </div>
@@ -1669,7 +1687,27 @@ export default function CelularFoto() {
                 {/* ================================================= */}
                 {/* CABEÇALHO */}
                 {/* ================================================= */}
+                {/* ================================================= */}
+                {/* VOLTAR PARA LISTA DE FOTOS */}
+                {/* ================================================= */}
 
+                <div className="celular-foto-navegacao-lista">
+
+                    <button
+                        type="button"
+                        className="celular-foto-botao-lista"
+                        onClick={() => navigate("/fotos")}
+                    >
+                        <span aria-hidden="true">
+                            ←
+                        </span>
+
+                        <span>
+                            Ir para lista de fotos
+                        </span>
+                    </button>
+
+                </div>
                 <header className="celular-foto-cabecalho">
 
                     <div className="celular-foto-marca">
@@ -1789,7 +1827,23 @@ export default function CelularFoto() {
                 {expirado ? (
 
                     <section className="celular-foto-expirado celular-foto-expirado-interno">
+                        <div className="celular-foto-navegacao-lista">
 
+                            <button
+                                type="button"
+                                className="celular-foto-botao-lista"
+                                onClick={() => navigate("/fotos")}
+                            >
+                                <span aria-hidden="true">
+                                    ←
+                                </span>
+
+                                <span>
+                                    Ir para lista de fotos
+                                </span>
+                            </button>
+
+                        </div>
                         <div className="celular-foto-expirado-icone">
                             ⏱
                         </div>

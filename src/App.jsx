@@ -30,6 +30,7 @@ import alexsiaUtilidades from "./imagens/alexsiautilidades.png";
 import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto"
 import Camerapublica from "../camera/camerapublica";
 import Apresentacao from "../apresentacao/apresentacao"
+import FotosProdutos from "../fotos/fotos"
 /* =========================================================
    MAPA FIXO
    COMERCIO_ID -> IMAGEM
@@ -221,6 +222,10 @@ function RoteamentoComLoading() {
       <Route
         path="/sp"
         element={<RegistroEmails />}
+      />
+      <Route
+        path="/fotos"
+        element={<FotosProdutos />}
       />
       <Route
         path="/adicionar-foto/:token"
