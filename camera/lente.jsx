@@ -670,28 +670,30 @@ export default function Lente({
                     );
 
 
+                const itemFoto = {
+                    id:
+                        crypto.randomUUID(),
+
+                    tipo:
+                        "foto",
+
+                    arquivo,
+
+                    preview
+                };
+
                 setArquivos(
                     anteriores => [
-
                         ...anteriores,
-
-                        {
-                            id:
-                                crypto.randomUUID(),
-
-                            tipo:
-                                "foto",
-
-                            arquivo,
-
-                            preview
-                        }
-
+                        itemFoto
                     ]
                 );
+
                 registrarCapturaDiaria();
 
-                setMensagem("");
+                enviarArquivoAutomaticamente(
+                    itemFoto
+                );
 
             },
 
@@ -991,29 +993,33 @@ export default function Lente({
             );
 
 
+        const itemVideo = {
+            id:
+                crypto.randomUUID(),
+
+            tipo:
+                "video",
+
+            arquivo,
+
+            preview
+        };
+
         setArquivos(
             anteriores => [
-
                 ...anteriores,
-
-                {
-                    id:
-                        crypto.randomUUID(),
-
-                    tipo:
-                        "video",
-
-                    arquivo,
-
-                    preview
-                }
-
+                itemVideo
             ]
         );
 
         registrarCapturaDiaria();
+
         partesVideoRef.current =
             [];
+
+        enviarArquivoAutomaticamente(
+            itemVideo
+        );
 
     }
 
@@ -1057,153 +1063,88 @@ export default function Lente({
 
 
     /* =====================================================
-       ENVIAR
+       ENVIAR AUTOMATICAMENTE
     ===================================================== */
 
-    async function finalizarEnvio() {
+    async function enviarArquivoAutomaticamente(item) {
 
-        if (
-            !arquivos.length
-        ) {
-
-            setMensagem(
-                "Nenhum arquivo foi capturado."
-            );
-
+        if (!item?.arquivo) {
             return;
-
         }
-
-
-        if (gravando) {
-
-            setMensagem(
-                "Finalize a gravação do vídeo primeiro."
-            );
-
-            return;
-
-        }
-
 
         try {
 
             setEnviando(true);
-
             setMensagem("");
-
             setProgresso(0);
 
+            const formData =
+                new FormData();
 
-            let enviados = 0;
+            formData.append(
+                "token",
+                token
+            );
 
+            formData.append(
+                "arquivo",
+                item.arquivo
+            );
 
-            for (
-                const item of arquivos
+            const resposta =
+                await fetch(
+                    `${API_URL}/camera-publica/arquivo`,
+                    {
+                        method:
+                            "POST",
+
+                        body:
+                            formData
+                    }
+                );
+
+            const resultado =
+                await resposta
+                    .json()
+                    .catch(
+                        () => ({})
+                    );
+
+            if (
+                !resposta.ok
             ) {
 
-                const formData =
-                    new FormData();
-
-
-                formData.append(
-                    "token",
-                    token
-                );
-
-
-                formData.append(
-                    "arquivo",
-                    item.arquivo
-                );
-
-
-                const resposta =
-                    await fetch(
-                        `${API_URL}/camera-publica/arquivo`,
-                        {
-                            method:
-                                "POST",
-
-                            body:
-                                formData
-                        }
-                    );
-
-
-                const resultado =
-                    await resposta
-                        .json()
-                        .catch(
-                            () => ({})
-                        );
-
-
-                if (
-                    !resposta.ok
-                ) {
-
-                    throw new Error(
-                        resultado.detail ||
-                        `Erro ao enviar ${item.arquivo.name}`
-                    );
-
-                }
-
-
-                enviados++;
-
-
-                setProgresso(
-                    Math.round(
-                        (
-                            enviados /
-                            arquivos.length
-                        ) *
-                        100
-                    )
+                throw new Error(
+                    resultado.detail ||
+                    `Erro ao enviar ${item.arquivo.name}`
                 );
 
             }
 
+            setProgresso(100);
 
-            arquivos.forEach(
-                item => {
-
-                    if (
-                        item.preview
-                    ) {
-
-                        URL.revokeObjectURL(
-                            item.preview
-                        );
-
-                    }
-
-                }
+            removerLocal(
+                item.id
             );
-
-
-            setArquivos([]);
 
             await carregarArquivosServidor();
 
             setMensagem(
-                "Arquivos enviados com sucesso."
+                item.tipo === "foto"
+                    ? "Foto enviada com sucesso."
+                    : "Vídeo enviado com sucesso."
             );
-
-            setModoArquivos(true);
 
         } catch (erro) {
 
             console.error(
-                "[LENTE] Erro envio:",
+                "[LENTE] Erro envio automático:",
                 erro
             );
 
             setMensagem(
                 erro.message ||
-                "Não foi possível enviar os arquivos."
+                "Não foi possível enviar o arquivo."
             );
 
         } finally {
@@ -1817,34 +1758,6 @@ export default function Lente({
 
                             </button>
 
-
-                            {/* FINALIZAR */}
-
-                            <button
-                                type="button"
-                                className="lenteProFinalizarRapido"
-                                onClick={
-                                    finalizarEnvio
-                                }
-                                disabled={
-                                    enviando ||
-                                    gravando ||
-                                    !arquivos.length
-                                }
-                            >
-
-                                <span>
-                                    {enviando
-                                        ? `${progresso}%`
-                                        : "✓"}
-                                </span>
-
-                                <small>
-                                    Finalizar
-                                </small>
-
-                            </button>
-
                         </div>
 
 
@@ -1985,7 +1898,7 @@ export default function Lente({
                                 <div>
 
                                     <span>
-                                        AGUARDANDO ENVIO
+                                        ENVIANDO AUTOMATICAMENTE
                                     </span>
 
                                     <strong>
@@ -2204,7 +2117,7 @@ export default function Lente({
                                     </strong>
 
                                     <span>
-                                        Quando você finalizar uma sessão, os arquivos aparecerão aqui.
+                                        Os arquivos enviados aparecerão aqui automaticamente.
                                     </span>
 
                                 </div>
@@ -2215,66 +2128,6 @@ export default function Lente({
 
 
                         {/* FINALIZAR */}
-
-                        {arquivos.length > 0 && (
-
-                            <div className="lenteProBarraFinalizar">
-
-                                {enviando && (
-
-                                    <div className="lenteProProgresso">
-
-                                        <span
-                                            style={{
-                                                width:
-                                                    `${progresso}%`
-                                            }}
-                                        />
-
-                                    </div>
-
-                                )}
-
-
-                                <div>
-
-                                    <span>
-                                        {arquivos.length}{" "}
-                                        {arquivos.length === 1
-                                            ? "arquivo"
-                                            : "arquivos"}
-                                    </span>
-
-                                    <small>
-                                        {enviando
-                                            ? `Enviando ${progresso}%`
-                                            : "Prontos para enviar"}
-                                    </small>
-
-                                </div>
-
-
-                                <button
-                                    type="button"
-                                    onClick={
-                                        finalizarEnvio
-                                    }
-                                    disabled={
-                                        enviando ||
-                                        gravando
-                                    }
-                                >
-
-                                    {enviando
-                                        ? `${progresso}%`
-                                        : "Finalizar"}
-
-                                </button>
-
-                            </div>
-
-                        )}
-
 
                         {mensagem && (
 
