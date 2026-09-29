@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 import Controlee from "./componentes/controle";
@@ -7,7 +8,6 @@ import Tarefas from "./componentes/tarefas";
 import "./menucontrole.css";
 
 export default function Controle() {
-
     const [abaAtiva, setAbaAtiva] = useState("tabelas");
 
     const cliente = JSON.parse(
@@ -16,11 +16,18 @@ export default function Controle() {
 
     const isAdmin = cliente.funcao === "Administrador(a)";
 
+    const irParaApresentacao = () => {
+        window.open(
+            "/apresentacao-local",
+            "_blank",
+            "noopener,noreferrer"
+        );
+    };
+
     return (
         <div className="menu-controle-container">
 
             {/* ===== BOTÕES ===== */}
-
             <div className="menu-controle-botoes">
 
                 {isAdmin && (
@@ -47,10 +54,16 @@ export default function Controle() {
                     Tarefas
                 </button>
 
+                <button
+                    className="menu-controle-btn"
+                    onClick={irParaApresentacao}
+                >
+                    Apresentação
+                </button>
+
             </div>
 
             {/* ===== CONTEÚDO ===== */}
-
             <div className="menu-controle-conteudo">
 
                 {abaAtiva === "tabelas" && (
@@ -70,3 +83,4 @@ export default function Controle() {
         </div>
     );
 }
+

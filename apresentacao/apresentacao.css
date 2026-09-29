@@ -3142,238 +3142,73 @@
 }
 
 /* =========================================================
-   APRESENTAÇÃO
-   SOMENTE IMAGENS VERTICAIS OU QUADRADAS
+   CORREÇÃO DO SHOWCASE
+   SOMENTE POSIÇÃO DAS IMAGENS
+   NÃO ALTERA TEXTOS, FONTES OU CONTEÚDO
 ========================================================= */
 
-
-/* =========================================================
-   1 IMAGEM
-========================================================= */
-
-.apresentacao-showcase--1 {
-
-    grid-template-columns:
-        minmax(280px, min(68vw, 720px)) !important;
-
-    grid-template-rows:
-        minmax(0, 1fr) !important;
-
-    justify-content: center !important;
-}
-
-
-/* =========================================================
-   2 IMAGENS
-   Duas colunas iguais.
-========================================================= */
-
-.apresentacao-showcase--2 {
-
-    grid-template-columns:
-        repeat(2, minmax(280px, 1fr)) !important;
-
-    grid-template-rows:
-        minmax(0, 1fr) !important;
-}
-
-.apresentacao-showcase--2 .apresentacao-media--hero {
-
-    grid-column: auto !important;
-    grid-row: 1 !important;
-}
-
-.apresentacao-showcase--2 .apresentacao-media:nth-child(2) {
-
-    grid-column: auto !important;
-    grid-row: 1 !important;
-}
-
-
-/* =========================================================
-   3 IMAGENS
-   Três colunas iguais.
-   
-   IMPORTANTE:
-   Os layouts antigos "esquerda", "direita",
-   "topo", "baixo", "cinema" etc. criavam
-   imagens panorâmicas.
-
-   Agora todos trabalham com cartões
-   verticais/quadrados.
-========================================================= */
-
-.apresentacao-showcase--layout-esquerda,
-.apresentacao-showcase--layout-direita,
-.apresentacao-showcase--layout-topo,
-.apresentacao-showcase--layout-baixo,
-.apresentacao-showcase--layout-triplo,
-.apresentacao-showcase--layout-centro,
-.apresentacao-showcase--layout-mosaico,
-.apresentacao-showcase--layout-cinema {
+/* 3 imagens: somente corrige a distribuição dos cards */
+.apresentacao-showcase--3 {
+    display: grid !important;
 
     grid-template-columns:
         repeat(3, minmax(0, 1fr)) !important;
 
     grid-template-rows:
         minmax(0, 1fr) !important;
+
+    gap:
+        clamp(14px, 1.35vw, 24px) !important;
 }
 
-
-/* =========================================================
-   CANCELAR SPANS DOS LAYOUTS ANTIGOS
-========================================================= */
-
-.apresentacao-showcase--layout-esquerda .apresentacao-media,
-
-.apresentacao-showcase--layout-direita .apresentacao-media,
-
-.apresentacao-showcase--layout-topo .apresentacao-media,
-
-.apresentacao-showcase--layout-baixo .apresentacao-media,
-
-.apresentacao-showcase--layout-triplo .apresentacao-media,
-
-.apresentacao-showcase--layout-centro .apresentacao-media,
-
-.apresentacao-showcase--layout-mosaico .apresentacao-media,
-
-.apresentacao-showcase--layout-cinema .apresentacao-media {
-
+.apresentacao-showcase--3 .apresentacao-media {
     grid-column: auto !important;
-
     grid-row: 1 !important;
-
-    min-width: 0 !important;
-}
-
-
-/* =========================================================
-   CARDS
-========================================================= */
-
-.apresentacao-media {
-
     min-width: 0 !important;
     min-height: 0 !important;
-
-    overflow: hidden !important;
 }
 
-
-/* =========================================================
-   IMAGEM
-========================================================= */
-
-.apresentacao-media__visual {
-
-    position: absolute !important;
-
-    inset: 0 !important;
-
-    overflow: hidden !important;
+.apresentacao-showcase--3 .apresentacao-media:nth-child(1) {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
 }
 
-
-.apresentacao-media__image {
-
-    width: 100% !important;
-
-    height: 100% !important;
-
-    display: block !important;
-
-    object-fit: cover !important;
+.apresentacao-showcase--3 .apresentacao-media:nth-child(2) {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
 }
 
-
-/* =========================================================
-   TELAS GRANDES
-========================================================= */
-
-@media (min-width: 901px) {
-
-    .apresentacao-showcase--2 .apresentacao-media,
-
-    .apresentacao-showcase--layout-esquerda .apresentacao-media,
-
-    .apresentacao-showcase--layout-direita .apresentacao-media,
-
-    .apresentacao-showcase--layout-topo .apresentacao-media,
-
-    .apresentacao-showcase--layout-baixo .apresentacao-media,
-
-    .apresentacao-showcase--layout-triplo .apresentacao-media,
-
-    .apresentacao-showcase--layout-centro .apresentacao-media,
-
-    .apresentacao-showcase--layout-mosaico .apresentacao-media,
-
-    .apresentacao-showcase--layout-cinema .apresentacao-media {
-
-        min-width: 0 !important;
-
-        min-height: 0 !important;
-    }
+.apresentacao-showcase--3 .apresentacao-media:nth-child(3) {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
 }
 
+/*
+   IMPORTANTE:
+   Não mexer em:
+   .apresentacao-media__content
+   .apresentacao-media__title
+   .apresentacao-media__label
+   .apresentacao-media__price
+   .apresentacao-media__number
+   .apresentacao-media__person
 
-/* =========================================================
-   MOBILE
-========================================================= */
+   O texto permanece exatamente nas regras anteriores.
+*/
 
 @media (max-width: 900px) {
-
-    .apresentacao-showcase--1 {
-
-        grid-template-columns:
-            minmax(260px, 1fr) !important;
-
-        grid-template-rows:
-            minmax(0, 1fr) !important;
-
-        justify-content: stretch !important;
-    }
-
-
-    .apresentacao-showcase--2,
-    .apresentacao-showcase--layout-esquerda,
-    .apresentacao-showcase--layout-direita,
-    .apresentacao-showcase--layout-topo,
-    .apresentacao-showcase--layout-baixo,
-    .apresentacao-showcase--layout-triplo,
-    .apresentacao-showcase--layout-centro,
-    .apresentacao-showcase--layout-mosaico,
-    .apresentacao-showcase--layout-cinema {
-
-        grid-template-columns:
-            1fr !important;
-
+    .apresentacao-showcase--3 {
+        grid-template-columns: 1fr !important;
         grid-template-rows:
             repeat(3, minmax(360px, 1fr)) !important;
+
+        overflow-y: auto !important;
     }
 
-
-    .apresentacao-showcase--2 .apresentacao-media,
-
-    .apresentacao-showcase--layout-esquerda .apresentacao-media,
-
-    .apresentacao-showcase--layout-direita .apresentacao-media,
-
-    .apresentacao-showcase--layout-topo .apresentacao-media,
-
-    .apresentacao-showcase--layout-baixo .apresentacao-media,
-
-    .apresentacao-showcase--layout-triplo .apresentacao-media,
-
-    .apresentacao-showcase--layout-centro .apresentacao-media,
-
-    .apresentacao-showcase--layout-mosaico .apresentacao-media,
-
-    .apresentacao-showcase--layout-cinema .apresentacao-media {
-
+    .apresentacao-showcase--3 .apresentacao-media:nth-child(1),
+    .apresentacao-showcase--3 .apresentacao-media:nth-child(2),
+    .apresentacao-showcase--3 .apresentacao-media:nth-child(3) {
         grid-column: 1 !important;
-
         grid-row: auto !important;
     }
 }

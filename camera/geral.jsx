@@ -1,13 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../config";
 
 export default function Geral() {
+
     const { idComercioCriptografado } = useParams();
 
+    const executado = useRef(false);
+
     useEffect(() => {
+
+        if (executado.current) {
+            return;
+        }
+
+        executado.current = true;
+
         async function acessar() {
+
             try {
+
                 if (!idComercioCriptografado) {
                     window.location.replace("/");
                     return;
@@ -19,7 +31,9 @@ export default function Geral() {
                     )}`
                 );
 
-                const dados = await resposta.json();
+                const dados = await resposta
+                    .json()
+                    .catch(() => ({}));
 
                 if (
                     !resposta.ok ||
@@ -31,10 +45,13 @@ export default function Geral() {
                 }
 
                 window.location.replace(
-                    `/camera/${encodeURIComponent(dados.token)}`
+                    `/camera/${encodeURIComponent(
+                        dados.token
+                    )}`
                 );
 
             } catch (erro) {
+
                 console.error(
                     "[LINK GERAL] Erro:",
                     erro
@@ -45,6 +62,7 @@ export default function Geral() {
         }
 
         acessar();
+
     }, [idComercioCriptografado]);
 
     return null;

@@ -124,7 +124,7 @@ export default function Apresentacao() {
 
     const filaVideosRef =
         useRef([]);
-
+    const indiceImagensRef = useRef(0);
     const contadorSlidesRef =
         useRef(0);
 
@@ -218,107 +218,83 @@ export default function Apresentacao() {
             );
 
         }, []);
-    // =====================================================
-    // PEGAR PRÓXIMAS IMAGENS
-    // =====================================================
 
-    const pegarProximasImagens =
-        useCallback(() => {
 
-            let fila = [
-                ...filaImagensRef.current
-            ];
+    const pegarProximasImagens = useCallback(() => {
 
-            if (fila.length === 0) {
-                return [];
+        const imagens = filaImagens;
+
+        if (!Array.isArray(imagens) || imagens.length === 0) {
+            return [];
+        }
+
+        // Se tiver menos de 3 imagens, não tem como montar 3.
+        if (imagens.length < QUANTIDADE_POR_SLIDE) {
+            return [...imagens];
+        }
+
+        // Garante que o índice esteja correto.
+        let inicio = indiceImagensRef.current;
+
+        if (
+            !Number.isInteger(inicio) ||
+            inicio < 0 ||
+            inicio >= imagens.length
+        ) {
+            inicio = 0;
+        }
+
+        const selecionadas = [];
+
+        // Pega exatamente 3 imagens.
+        for (
+            let i = 0;
+            i < QUANTIDADE_POR_SLIDE;
+            i++
+        ) {
+
+            const indice =
+                (inicio + i) % imagens.length;
+
+            const imagem = imagens[indice];
+
+            if (imagem) {
+                selecionadas.push(imagem);
             }
+        }
 
-            if (
-                fila.length <
-                QUANTIDADE_POR_SLIDE
-            ) {
+        // Avança exatamente 3 posições para o próximo slide.
+        indiceImagensRef.current =
+            (
+                inicio + QUANTIDADE_POR_SLIDE
+            ) % imagens.length;
 
-                fila = embaralhar(
-                    [
-                        ...fila,
-                        ...filaImagens
-                    ]
-                );
-            }
-
-            const selecionadas = [];
-
-            const usadas = new Set();
-
-            while (
-                selecionadas.length <
-                QUANTIDADE_POR_SLIDE &&
-                fila.length > 0
-            ) {
-
-                const item = fila.shift();
-
-                const chave =
-                    criarChaveMidia(item);
-
-                if (usadas.has(chave)) {
-                    continue;
+        // Segurança: com 3 ou mais imagens,
+        // nunca deixa passar um slide com 1 ou 2.
+        if (
+            imagens.length >= QUANTIDADE_POR_SLIDE &&
+            selecionadas.length !== QUANTIDADE_POR_SLIDE
+        ) {
+            console.error(
+                "[APRESENTACAO] Erro ao montar slide:",
+                {
+                    total: imagens.length,
+                    selecionadas: selecionadas.length
                 }
+            );
 
-                usadas.add(chave);
+            return [];
+        }
 
-                selecionadas.push(item);
-            }
+        console.log(
+            "[APRESENTACAO] Slide:",
+            selecionadas.length,
+            "imagens"
+        );
 
-            if (
-                selecionadas.length <
-                QUANTIDADE_POR_SLIDE &&
-                filaImagens.length > 0
-            ) {
+        return selecionadas;
 
-                const alternativas =
-                    embaralhar(filaImagens);
-
-                for (
-                    const item
-                    of alternativas
-                ) {
-
-                    if (
-                        selecionadas.length >=
-                        QUANTIDADE_POR_SLIDE
-                    ) {
-                        break;
-                    }
-
-                    const chave =
-                        criarChaveMidia(item);
-
-                    if (usadas.has(chave)) {
-                        continue;
-                    }
-
-                    usadas.add(chave);
-
-                    selecionadas.push(item);
-                }
-            }
-
-            if (fila.length === 0) {
-
-                fila = embaralhar(
-                    filaImagens
-                );
-            }
-
-            filaImagensRef.current =
-                fila;
-
-            return selecionadas;
-
-        }, [filaImagens]);
-
-
+    }, [filaImagens]);
     // =====================================================
     // PEGAR PRÓXIMO VÍDEO
     // =====================================================
@@ -580,12 +556,9 @@ export default function Apresentacao() {
         }, [dados]);
 
 
-    // =====================================================
-    // SALVAR FILAS
-    // =====================================================
+
 
     useEffect(() => {
-
         const imagens =
             midiasPreparadas.imagens;
 
@@ -595,18 +568,17 @@ export default function Apresentacao() {
         setFilaImagens(imagens);
         setFilaVideos(videos);
 
-        filaImagensRef.current =
-            embaralhar(imagens);
+        filaImagensRef.current = imagens;
 
         filaVideosRef.current =
             embaralhar(videos);
 
+        indiceImagensRef.current = 0;
+
         contadorSlidesRef.current = 0;
 
         setContadorSlides(0);
-
     }, [midiasPreparadas]);
-
 
     // =====================================================
     // TROCAR PARA PRÓXIMO SLIDE

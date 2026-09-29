@@ -1,9 +1,11 @@
 import React, {
     useEffect,
+    useMemo,
     useState
 } from "react";
 
 import QRCode from "qrcode";
+import { createPortal } from "react-dom";
 
 import { API_URL } from "../../../../../../config";
 
@@ -12,17 +14,360 @@ import "./cadastrados.css";
 
 export default function Cadastrados() {
 
-    const [cadastrados, setCadastrados] = useState([]);
+    /* =====================================================
+       ESTADOS
+    ===================================================== */
 
-    const [carregando, setCarregando] = useState(true);
+    const [cadastrados, setCadastrados] =
+        useState([]);
 
-    const [cadastrando, setCadastrando] = useState(false);
+    const [carregando, setCarregando] =
+        useState(true);
 
-    const [qrCodes, setQrCodes] = useState({});
+    const [cadastrando, setCadastrando] =
+        useState(false);
 
-    const [qrAberto, setQrAberto] = useState(null);
+    const [atualizando, setAtualizando] =
+        useState(false);
 
-    const [mensagem, setMensagem] = useState("");
+    const [qrCodes, setQrCodes] =
+        useState({});
+
+    const [qrAberto, setQrAberto] =
+        useState(null);
+
+    const [mensagem, setMensagem] =
+        useState("");
+
+    const [busca, setBusca] =
+        useState("");
+
+    const [copiado, setCopiado] =
+        useState(null);
+    const [apagando, setApagando] =
+        useState(null);
+
+    const [limpandoIncompletos, setLimpandoIncompletos] =
+        useState(false);
+
+    const [alerta, setAlerta] =
+        useState(null);
+    /* =====================================================
+       APAGAR CADASTRO
+    ===================================================== */
+
+    async function apagarCadastro(cadastro) {
+
+        if (apagando) {
+            return;
+        }
+
+        const nome =
+            cadastro.nome ||
+            cadastro.email ||
+            "este cadastro";
+
+        const confirmou = await abrirAlertaConfirmacao({
+            tipo: "perigo",
+            titulo: "Apagar cadastro?",
+            mensagem:
+                `Você está prestes a apagar ${nome}. ` +
+                "Essa ação não pode ser desfeita.",
+            confirmarTexto: "Apagar cadastro",
+            cancelarTexto: "Cancelar"
+        });
+
+        if (!confirmou) {
+            return;
+        }
+
+        try {
+
+            setApagando(cadastro.id);
+            setMensagem("");
+
+            const token =
+                localStorage.getItem("token");
+
+            if (!token) {
+
+                throw new Error(
+                    "Sessão não encontrada."
+                );
+
+            }
+
+            const resposta = await fetch(
+                `${API_URL}/camera/cadastrados/${cadastro.id}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+            const dados =
+                await resposta
+                    .json()
+                    .catch(() => ({}));
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.detail ||
+                    "Não foi possível apagar o cadastro."
+                );
+
+            }
+
+            setCadastrados(
+                anteriores =>
+                    anteriores.filter(
+                        item =>
+                            item.id !== cadastro.id
+                    )
+            );
+
+            setQrAberto(
+                anterior =>
+                    anterior === cadastro.id
+                        ? null
+                        : anterior
+            );
+
+            setQrCodes(
+                anteriores => {
+
+                    const novos = {
+                        ...anteriores
+                    };
+
+                    delete novos[cadastro.id];
+
+                    return novos;
+                }
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[CÂMERA CADASTRADOS] Erro ao apagar:",
+                erro
+            );
+
+            setMensagem(
+                erro.message ||
+                "Não foi possível apagar o cadastro."
+            );
+
+        } finally {
+
+            setApagando(null);
+
+        }
+    }
+    /* =====================================================
+       APAGAR CADASTROS INCOMPLETOS
+    ===================================================== */
+
+    async function apagarIncompletos() {
+
+        if (limpandoIncompletos) {
+            return;
+        }
+
+        const incompletos =
+            cadastrados.filter(cadastro => {
+
+                const nome =
+                    String(
+                        cadastro.nome || ""
+                    ).trim();
+
+                const email =
+                    String(
+                        cadastro.email || ""
+                    ).trim();
+
+                const foto =
+                    String(
+                        cadastro.foto || ""
+                    ).trim();
+
+                return (
+                    !nome &&
+                    !email &&
+                    !foto
+                );
+            });
+
+        if (incompletos.length === 0) {
+
+            setMensagem(
+                "Não existem cadastros incompletos para apagar."
+            );
+
+            return;
+        }
+
+        const confirmou = await abrirAlertaConfirmacao({
+            tipo: "perigo",
+            titulo: "Limpar cadastros incompletos?",
+            mensagem:
+                `Foram encontrados ${incompletos.length} ` +
+                `cadastro(s) sem nome, e-mail e foto. ` +
+                "Todos esses cadastros serão apagados.",
+            confirmarTexto: "Apagar todos",
+            cancelarTexto: "Cancelar"
+        });
+
+        if (!confirmou) {
+            return;
+        }
+
+        try {
+
+            setLimpandoIncompletos(true);
+            setMensagem("");
+
+            const token =
+                localStorage.getItem("token");
+
+            if (!token) {
+
+                throw new Error(
+                    "Sessão não encontrada."
+                );
+
+            }
+
+            const resposta = await fetch(
+                `${API_URL}/camera/cadastrados/incompletos`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+            const dados =
+                await resposta
+                    .json()
+                    .catch(() => ({}));
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.detail ||
+                    "Não foi possível limpar os cadastros incompletos."
+                );
+
+            }
+
+            setCadastrados(
+                anteriores =>
+                    anteriores.filter(cadastro => {
+
+                        const nome =
+                            String(
+                                cadastro.nome || ""
+                            ).trim();
+
+                        const email =
+                            String(
+                                cadastro.email || ""
+                            ).trim();
+
+                        const foto =
+                            String(
+                                cadastro.foto || ""
+                            ).trim();
+
+                        return (
+                            nome ||
+                            email ||
+                            foto
+                        );
+
+                    })
+            );
+
+            setQrAberto(null);
+
+            setQrCodes({});
+
+            setMensagem(
+                dados.mensagem ||
+                `${dados.quantidade || 0} cadastro(s) incompleto(s) apagado(s).`
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[CÂMERA CADASTRADOS] Erro ao limpar incompletos:",
+                erro
+            );
+
+            setMensagem(
+                erro.message ||
+                "Não foi possível limpar os cadastros incompletos."
+            );
+
+        } finally {
+
+            setLimpandoIncompletos(false);
+
+        }
+    }
+    /* =====================================================
+       ALERTA PERSONALIZADO
+    ===================================================== */
+
+    function abrirAlertaConfirmacao({
+        tipo = "perigo",
+        titulo,
+        mensagem,
+        confirmarTexto = "Confirmar",
+        cancelarTexto = "Cancelar"
+    }) {
+
+        return new Promise(resolve => {
+
+            setAlerta({
+                tipo,
+                titulo,
+                mensagem,
+                confirmarTexto,
+                cancelarTexto,
+                resolver: resolve
+            });
+
+        });
+    }
+
+
+    function fecharAlerta(resultado) {
+
+        if (!alerta) {
+            return;
+        }
+
+        const resolver =
+            alerta.resolver;
+
+        setAlerta(null);
+
+        if (resolver) {
+            resolver(resultado);
+        }
+
+    }
 
 
     /* =====================================================
@@ -41,23 +386,19 @@ export default function Cadastrados() {
         try {
 
             setCarregando(true);
+            setMensagem("");
 
             const token =
                 localStorage.getItem("token");
 
+
             if (!token) {
 
-                console.error(
-                    "[CÂMERA CADASTRADOS] Token não encontrado"
+                throw new Error(
+                    "Sessão não encontrada."
                 );
 
-                return;
             }
-
-
-            console.log(
-                "[CÂMERA CADASTRADOS] Carregando..."
-            );
 
 
             const resposta = await fetch(
@@ -89,16 +430,9 @@ export default function Cadastrados() {
             }
 
 
-            console.log(
-                "[CÂMERA CADASTRADOS] Recebidos:",
-                dados
-            );
-
-
             setCadastrados(
                 dados.cadastrados || []
             );
-
 
         } catch (erro) {
 
@@ -115,6 +449,32 @@ export default function Cadastrados() {
         } finally {
 
             setCarregando(false);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ATUALIZAR
+    ===================================================== */
+
+    async function atualizarLista() {
+
+        if (atualizando) {
+            return;
+        }
+
+        try {
+
+            setAtualizando(true);
+            setMensagem("");
+
+            await carregarCadastrados();
+
+        } finally {
+
+            setAtualizando(false);
 
         }
 
@@ -151,11 +511,6 @@ export default function Cadastrados() {
             }
 
 
-            console.log(
-                "[CÂMERA CADASTRADOS] Criando cadastro..."
-            );
-
-
             const resposta = await fetch(
                 `${API_URL}/camera/cadastrados`,
                 {
@@ -185,20 +540,9 @@ export default function Cadastrados() {
             }
 
 
-            console.log(
-                "[CÂMERA CADASTRADOS] Criado:",
-                dados
-            );
-
-
             const novoCadastro =
                 dados.cadastro;
 
-
-            /*
-             * Coloca imediatamente
-             * no começo da lista.
-             */
 
             setCadastrados(
                 anteriores => [
@@ -207,11 +551,6 @@ export default function Cadastrados() {
                 ]
             );
 
-
-            /*
-             * Já abre o QR Code
-             * automaticamente.
-             */
 
             await abrirQrCode(
                 novoCadastro
@@ -240,6 +579,19 @@ export default function Cadastrados() {
 
 
     /* =====================================================
+       LINK DE ACESSO
+    ===================================================== */
+
+    function obterLink(cadastro) {
+
+        return (
+            `https://ironexecutions.com.br/camera/${cadastro.token}`
+        );
+
+    }
+
+
+    /* =====================================================
        GERAR / ABRIR QR CODE
     ===================================================== */
 
@@ -247,12 +599,9 @@ export default function Cadastrados() {
 
         try {
 
-            /*
-             * Se clicar novamente no mesmo,
-             * fecha o QR.
-             */
-
-            if (qrAberto === cadastro.id) {
+            if (
+                qrAberto === cadastro.id
+            ) {
 
                 setQrAberto(null);
 
@@ -262,12 +611,8 @@ export default function Cadastrados() {
 
 
             const link =
-                `https://ironexecutions.com.br/camera/${cadastro.token}`
+                obterLink(cadastro);
 
-            /*
-             * Se já geramos anteriormente,
-             * não precisa gerar novamente.
-             */
 
             if (qrCodes[cadastro.id]) {
 
@@ -278,12 +623,6 @@ export default function Cadastrados() {
                 return;
 
             }
-
-
-            console.log(
-                "[CÂMERA QR] Gerando:",
-                link
-            );
 
 
             const imagemQr =
@@ -339,16 +678,12 @@ export default function Cadastrados() {
         try {
 
             const link =
-                `https://ironexecutions.com.br/camera/${cadastro.token}`
+                obterLink(cadastro);
+
 
             let imagemQr =
                 qrCodes[cadastro.id];
 
-
-            /*
-             * Caso ainda não tenha sido
-             * gerado, gera agora.
-             */
 
             if (!imagemQr) {
 
@@ -407,6 +742,126 @@ export default function Cadastrados() {
 
 
     /* =====================================================
+       COPIAR LINK
+    ===================================================== */
+
+    async function copiarLink(cadastro) {
+
+        try {
+
+            const link =
+                obterLink(cadastro);
+
+
+            await navigator.clipboard.writeText(
+                link
+            );
+
+
+            setCopiado(
+                cadastro.id
+            );
+
+
+            setTimeout(() => {
+
+                setCopiado(null);
+
+            }, 2200);
+
+
+        } catch (erro) {
+
+            console.error(
+                "[CÂMERA LINK] Erro ao copiar:",
+                erro
+            );
+
+            setMensagem(
+                "Não foi possível copiar o link."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ABRIR CÂMERA
+    ===================================================== */
+
+    function abrirCamera(cadastro) {
+
+        const link =
+            obterLink(cadastro);
+
+
+        window.open(
+            link,
+            "_blank",
+            "noopener,noreferrer"
+        );
+
+    }
+
+
+    /* =====================================================
+       FILTRAR CADASTRADOS
+    ===================================================== */
+
+    const cadastradosFiltrados =
+        useMemo(() => {
+
+            const termo =
+                busca
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!termo) {
+
+                return cadastrados;
+
+            }
+
+
+            return cadastrados.filter(
+                cadastro => {
+
+                    const nome =
+                        String(
+                            cadastro.nome || ""
+                        ).toLowerCase();
+
+
+                    const email =
+                        String(
+                            cadastro.email || ""
+                        ).toLowerCase();
+
+
+                    const token =
+                        String(
+                            cadastro.token || ""
+                        ).toLowerCase();
+
+
+                    return (
+                        nome.includes(termo) ||
+                        email.includes(termo) ||
+                        token.includes(termo)
+                    );
+
+                }
+            );
+
+        }, [
+            cadastrados,
+            busca
+        ]);
+
+
+    /* =====================================================
        RENDER
     ===================================================== */
 
@@ -415,54 +870,188 @@ export default function Cadastrados() {
         <div className="camera-cadastrados-container">
 
 
-            {/* =============================================
-                CABECALHO
-            ============================================= */}
+            {/* =================================================
+                CABEÇALHO
+            ================================================= */}
 
             <div className="camera-cadastrados-cabecalho">
 
-                <div>
+                <div className="camera-cadastrados-cabecalho-texto">
+
+                    <span className="camera-cadastrados-kicker">
+                        CONTROLE DE ACESSOS
+                    </span>
 
                     <h2 className="camera-cadastrados-titulo">
                         Cadastrados
                     </h2>
 
                     <p className="camera-cadastrados-descricao">
-                        Gerencie as pessoas cadastradas
-                        para utilizar a câmera.
+                        Gerencie as pessoas autorizadas a
+                        acessar a câmera e seus respectivos
+                        links de acesso.
                     </p>
 
                 </div>
 
 
-                <button
-                    type="button"
-                    className="camera-cadastrados-novo"
-                    onClick={cadastrarNovo}
-                    disabled={cadastrando}
-                >
+                <div className="camera-cadastrados-cabecalho-acoes">
+                    <button
+                        type="button"
+                        className="camera-cadastrados-limpar"
+                        onClick={apagarIncompletos}
+                        disabled={
+                            limpandoIncompletos ||
+                            carregando
+                        }
+                        title="Apagar cadastros que ainda não foram preenchidos"
+                    >
+                        <span>
+                            {limpandoIncompletos ? "..." : "⌫"}
+                        </span>
 
-                    <span className="camera-cadastrados-novo-mais">
-                        +
-                    </span>
+                        {limpandoIncompletos
+                            ? "Limpando..."
+                            : "Limpar incompletos"
+                        }
+                    </button>
+                    <button
+                        type="button"
+                        className="camera-cadastrados-atualizar"
+                        onClick={atualizarLista}
+                        disabled={
+                            carregando ||
+                            atualizando
+                        }
+                        title="Atualizar lista"
+                    >
 
-                    {cadastrando
-                        ? "Cadastrando..."
-                        : "Cadastrar novo"
-                    }
+                        <span
+                            className={
+                                atualizando
+                                    ? "camera-cadastrados-rotacionando"
+                                    : ""
+                            }
+                        >
+                            ↻
+                        </span>
 
-                </button>
+                        Atualizar
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        className="camera-cadastrados-novo"
+                        onClick={cadastrarNovo}
+                        disabled={cadastrando}
+                    >
+
+                        <span>
+                            +
+                        </span>
+
+                        {cadastrando
+                            ? "Cadastrando..."
+                            : "Cadastrar novo"
+                        }
+
+                    </button>
+
+                </div>
 
             </div>
 
 
-            {/* =============================================
+            {/* =================================================
+                RESUMO
+            ================================================= */}
+
+            {!carregando && (
+
+                <div className="camera-cadastrados-resumo">
+
+                    <div className="camera-cadastrados-resumo-card">
+
+                        <div>
+
+                            <span>
+                                Total de acessos
+                            </span>
+
+                            <strong>
+                                {cadastrados.length}
+                            </strong>
+
+                        </div>
+
+                        <div className="camera-cadastrados-resumo-icone">
+                            #
+                        </div>
+
+                    </div>
+
+
+                    <div className="camera-cadastrados-resumo-card">
+
+                        <div>
+
+                            <span>
+                                Resultados
+                            </span>
+
+                            <strong>
+                                {cadastradosFiltrados.length}
+                            </strong>
+
+                        </div>
+
+                        <div className="camera-cadastrados-resumo-icone camera-cadastrados-resumo-icone-azul">
+                            ✓
+                        </div>
+
+                    </div>
+
+
+                    <div className="camera-cadastrados-resumo-card">
+
+                        <div>
+
+                            <span>
+                                QR Codes
+                            </span>
+
+                            <strong>
+                                {Object.keys(
+                                    qrCodes
+                                ).length}
+                            </strong>
+
+                        </div>
+
+                        <div className="camera-cadastrados-resumo-icone camera-cadastrados-resumo-icone-roxo">
+                            QR
+                        </div>
+
+                    </div>
+
+                </div>
+
+            )}
+
+
+            {/* =================================================
                 MENSAGEM
-            ============================================= */}
+            ================================================= */}
 
             {mensagem && (
 
                 <div className="camera-cadastrados-mensagem">
+
+                    <span>
+                        !
+                    </span>
 
                     {mensagem}
 
@@ -471,37 +1060,60 @@ export default function Cadastrados() {
             )}
 
 
-            {/* =============================================
-                CARREGANDO
-            ============================================= */}
-
-            {carregando && (
-
-                <div className="camera-cadastrados-carregando">
-
-                    Carregando cadastrados...
-
-                </div>
-
-            )}
-
-
-            {/* =============================================
-                LISTA VAZIA
-            ============================================= */}
+            {/* =================================================
+                BARRA DE FERRAMENTAS
+            ================================================= */}
 
             {!carregando &&
-                cadastrados.length === 0 && (
+                cadastrados.length > 0 && (
 
-                    <div className="camera-cadastrados-vazio">
+                    <div className="camera-cadastrados-ferramentas">
 
-                        <strong>
-                            Nenhum cadastro
-                        </strong>
+                        <div className="camera-cadastrados-busca">
 
-                        <span>
-                            Clique em "Cadastrar novo"
-                            para gerar o primeiro acesso.
+                            <span>
+                                ⌕
+                            </span>
+
+                            <input
+                                type="text"
+                                value={busca}
+                                onChange={evento =>
+                                    setBusca(
+                                        evento.target.value
+                                    )
+                                }
+                                placeholder="Buscar por nome, e-mail ou token..."
+                            />
+
+                            {busca && (
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setBusca("")
+                                    }
+                                    title="Limpar busca"
+                                >
+                                    ×
+                                </button>
+
+                            )}
+
+                        </div>
+
+
+                        <span className="camera-cadastrados-resultados">
+
+                            {cadastradosFiltrados.length}
+
+                            {" "}
+
+                            {cadastradosFiltrados.length === 1
+                                ? "resultado"
+                                : "resultados"
+                            }
+
                         </span>
 
                     </div>
@@ -509,115 +1121,373 @@ export default function Cadastrados() {
                 )}
 
 
-            {/* =============================================
-                LISTA
-            ============================================= */}
+            {/* =================================================
+                CARREGANDO
+            ================================================= */}
+
+            {carregando && (
+
+                <div className="camera-cadastrados-carregando">
+
+                    <div className="camera-cadastrados-spinner" />
+
+                    <strong>
+                        Carregando acessos
+                    </strong>
+
+                    <span>
+                        Buscando os cadastrados da câmera.
+                    </span>
+
+                </div>
+
+            )}
+
+
+            {/* =================================================
+                LISTA VAZIA
+            ================================================= */}
 
             {!carregando &&
-                cadastrados.length > 0 && (
+                cadastrados.length === 0 && (
+
+                    <div className="camera-cadastrados-vazio">
+
+                        <div className="camera-cadastrados-vazio-icone">
+                            +
+                        </div>
+
+                        <strong>
+                            Nenhum acesso cadastrado
+                        </strong>
+
+                        <span>
+                            Crie um novo cadastro para gerar
+                            um acesso exclusivo à câmera.
+                        </span>
+
+                        <button
+                            type="button"
+                            onClick={cadastrarNovo}
+                            disabled={cadastrando}
+                        >
+                            {cadastrando
+                                ? "Criando acesso..."
+                                : "Criar primeiro acesso"
+                            }
+                        </button>
+
+                    </div>
+
+                )}
+
+
+            {/* =================================================
+                NENHUM RESULTADO
+            ================================================= */}
+
+            {!carregando &&
+                cadastrados.length > 0 &&
+                cadastradosFiltrados.length === 0 && (
+
+                    <div className="camera-cadastrados-vazio camera-cadastrados-vazio-busca">
+
+                        <div className="camera-cadastrados-vazio-icone">
+                            ⌕
+                        </div>
+
+                        <strong>
+                            Nenhum resultado encontrado
+                        </strong>
+
+                        <span>
+                            Tente buscar por outro nome,
+                            e-mail ou token.
+                        </span>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setBusca("")
+                            }
+                        >
+                            Limpar busca
+                        </button>
+
+                    </div>
+
+                )}
+
+
+            {/* =================================================
+                LISTA
+            ================================================= */}
+
+            {!carregando &&
+                cadastradosFiltrados.length > 0 && (
 
                     <div className="camera-cadastrados-lista">
 
-                        {cadastrados.map(
+                        {cadastradosFiltrados.map(
                             cadastro => {
 
                                 const link =
-                                    `https://ironexecutions.com.br/camera/${cadastro.token}`
+                                    obterLink(
+                                        cadastro
+                                    );
+
+
                                 const aberto =
-                                    qrAberto === cadastro.id;
+                                    qrAberto ===
+                                    cadastro.id;
+
+
+                                const foiCopiado =
+                                    copiado ===
+                                    cadastro.id;
 
 
                                 return (
 
                                     <div
-                                        className="camera-cadastrado-card"
+                                        className={
+                                            aberto
+                                                ? "camera-cadastrado-card camera-cadastrado-card-aberto"
+                                                : "camera-cadastrado-card"
+                                        }
                                         key={cadastro.id}
                                     >
 
 
-                                        {/* FOTO */}
+                                        {/* =====================================
+                                            CONTEÚDO PRINCIPAL
+                                        ===================================== */}
 
-                                        <div className="camera-cadastrado-foto">
+                                        <div className="camera-cadastrado-principal">
 
-                                            {cadastro.foto ? (
 
-                                                <img
-                                                    src={cadastro.foto}
-                                                    alt={
-                                                        cadastro.nome ||
-                                                        "Cadastrado"
+                                            {/* FOTO */}
+
+                                            <div className="camera-cadastrado-foto">
+
+                                                {cadastro.foto ? (
+
+                                                    <img
+                                                        src={
+                                                            cadastro.foto
+                                                        }
+                                                        alt={
+                                                            cadastro.nome ||
+                                                            "Cadastrado"
+                                                        }
+                                                    />
+
+                                                ) : (
+
+                                                    <span>
+                                                        {(cadastro.nome ||
+                                                            "?")
+                                                            .charAt(0)
+                                                            .toUpperCase()
+                                                        }
+                                                    </span>
+
+                                                )}
+
+                                            </div>
+
+
+                                            {/* INFORMAÇÕES */}
+
+                                            <div className="camera-cadastrado-informacoes">
+
+                                                <div className="camera-cadastrado-identificacao">
+
+                                                    <strong className="camera-cadastrado-nome">
+
+                                                        {cadastro.nome ||
+                                                            "Não informado"
+                                                        }
+
+                                                    </strong>
+
+                                                    <span className="camera-cadastrado-status">
+
+                                                        <i />
+
+                                                        Acesso ativo
+
+                                                    </span>
+
+                                                </div>
+
+
+                                                <span className="camera-cadastrado-email">
+
+                                                    {cadastro.email ||
+                                                        "E-mail não informado"
                                                     }
-                                                />
 
-                                            ) : (
-
-                                                <span>
-                                                    ?
                                                 </span>
 
-                                            )}
+
+                                                <div className="camera-cadastrado-token-area">
+
+                                                    <span>
+                                                        TOKEN
+                                                    </span>
+
+                                                    <code>
+                                                        {cadastro.token}
+                                                    </code>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            {/* AÇÕES */}
+
+                                            <div className="camera-cadastrado-acoes">
+
+
+                                                <button
+                                                    type="button"
+                                                    className="camera-cadastrado-acao"
+                                                    onClick={() =>
+                                                        copiarLink(
+                                                            cadastro
+                                                        )
+                                                    }
+                                                    title="Copiar link"
+                                                >
+
+                                                    <span>
+                                                        {foiCopiado
+                                                            ? "✓"
+                                                            : "⧉"
+                                                        }
+                                                    </span>
+
+                                                    {foiCopiado
+                                                        ? "Copiado"
+                                                        : "Copiar link"
+                                                    }
+
+                                                </button>
+
+
+                                                <button
+                                                    type="button"
+                                                    className="camera-cadastrado-acao"
+                                                    onClick={() =>
+                                                        abrirCamera(
+                                                            cadastro
+                                                        )
+                                                    }
+                                                    title="Abrir câmera"
+                                                >
+
+                                                    <span>
+                                                        ↗
+                                                    </span>
+
+                                                    Abrir acesso
+
+                                                </button>
+
+
+                                                <button
+                                                    type="button"
+                                                    className={
+                                                        aberto
+                                                            ? "camera-cadastrado-acao camera-cadastrado-acao-principal camera-cadastrado-acao-ativo"
+                                                            : "camera-cadastrado-acao camera-cadastrado-acao-principal"
+                                                    }
+                                                    onClick={() =>
+                                                        abrirQrCode(
+                                                            cadastro
+                                                        )
+                                                    }
+                                                    title="Gerar QR Code"
+                                                >
+
+                                                    <span>
+                                                        QR
+                                                    </span>
+
+                                                    {aberto
+                                                        ? "Fechar QR"
+                                                        : "QR Code"
+                                                    }
+
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="camera-cadastrado-acao camera-cadastrado-acao-excluir"
+                                                    onClick={() =>
+                                                        apagarCadastro(cadastro)
+                                                    }
+                                                    disabled={
+                                                        apagando === cadastro.id
+                                                    }
+                                                    title="Apagar cadastro"
+                                                >
+                                                    <span>
+                                                        {apagando === cadastro.id
+                                                            ? "..."
+                                                            : "×"
+                                                        }
+                                                    </span>
+
+                                                    {apagando === cadastro.id
+                                                        ? "Apagando..."
+                                                        : "Apagar"
+                                                    }
+                                                </button>
+                                            </div>
 
                                         </div>
 
 
-                                        {/* INFORMACOES */}
+                                        {/* =====================================
+                                            LINK
+                                        ===================================== */}
 
-                                        <div className="camera-cadastrado-informacoes">
+                                        <div className="camera-cadastrado-link-area">
 
-                                            <strong className="camera-cadastrado-nome">
+                                            <div>
 
-                                                {cadastro.nome ||
-                                                    "Não informado"}
+                                                <span>
+                                                    LINK DE ACESSO
+                                                </span>
 
-                                            </strong>
+                                                <code>
+                                                    {link}
+                                                </code>
 
-
-                                            <span className="camera-cadastrado-email">
-
-                                                {cadastro.email ||
-                                                    "Não informado"}
-
-                                            </span>
-
-
-                                            <span className="camera-cadastrado-token">
-
-                                                Token: {cadastro.token}
-
-                                            </span>
-
-                                        </div>
-
-
-                                        {/* ACOES */}
-
-                                        <div className="camera-cadastrado-acoes">
+                                            </div>
 
                                             <button
                                                 type="button"
-                                                className={
-                                                    aberto
-                                                        ? "camera-cadastrado-qrcode camera-cadastrado-qrcode-ativo"
-                                                        : "camera-cadastrado-qrcode"
-                                                }
                                                 onClick={() =>
-                                                    abrirQrCode(
+                                                    copiarLink(
                                                         cadastro
                                                     )
                                                 }
                                             >
-
-                                                {aberto
-                                                    ? "Fechar QR Code"
-                                                    : "Gerar QR Code"
+                                                {foiCopiado
+                                                    ? "Copiado"
+                                                    : "Copiar"
                                                 }
-
                                             </button>
 
                                         </div>
 
 
-                                        {/* QR CODE */}
+                                        {/* =====================================
+                                            QR CODE
+                                        ===================================== */}
 
                                         {aberto && (
 
@@ -635,7 +1505,7 @@ export default function Cadastrados() {
                                                                     cadastro.id
                                                                     ]
                                                                 }
-                                                                alt="QR Code"
+                                                                alt="QR Code de acesso"
                                                                 className="camera-cadastrado-qr-imagem"
                                                             />
 
@@ -646,37 +1516,55 @@ export default function Cadastrados() {
 
                                                 <div className="camera-cadastrado-qr-dados">
 
-                                                    <strong>
-                                                        QR Code de acesso
-                                                    </strong>
-
-                                                    <span>
-                                                        Aponte a câmera
-                                                        do celular para
-                                                        acessar.
+                                                    <span className="camera-cadastrado-qr-kicker">
+                                                        ACESSO RÁPIDO
                                                     </span>
 
+                                                    <strong>
+                                                        QR Code da câmera
+                                                    </strong>
 
-                                                    <div className="camera-cadastrado-link">
+                                                    <p>
+                                                        Aponte a câmera do
+                                                        celular para acessar
+                                                        diretamente o ambiente
+                                                        da câmera.
+                                                    </p>
+
+
+                                                    <div className="camera-cadastrado-qr-link">
 
                                                         {link}
 
                                                     </div>
 
 
-                                                    <button
-                                                        type="button"
-                                                        className="camera-cadastrado-baixar"
-                                                        onClick={() =>
-                                                            baixarQrCode(
-                                                                cadastro
-                                                            )
-                                                        }
-                                                    >
+                                                    <div className="camera-cadastrado-qr-acoes">
 
-                                                        Baixar QR Code
+                                                        <button
+                                                            type="button"
+                                                            onClick={() =>
+                                                                baixarQrCode(
+                                                                    cadastro
+                                                                )
+                                                            }
+                                                        >
+                                                            Baixar QR Code
+                                                        </button>
 
-                                                    </button>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() =>
+                                                                abrirCamera(
+                                                                    cadastro
+                                                                )
+                                                            }
+                                                        >
+                                                            Abrir acesso
+                                                        </button>
+
+                                                    </div>
 
                                                 </div>
 
@@ -693,6 +1581,83 @@ export default function Cadastrados() {
 
                     </div>
 
+                )}
+
+            {alerta &&
+                createPortal(
+                    <div
+                        className="camera-cadastrados-alerta-overlay"
+                        onMouseDown={evento => {
+
+                            if (
+                                evento.target ===
+                                evento.currentTarget
+                            ) {
+                                fecharAlerta(false);
+                            }
+
+                        }}
+                    >
+
+                        <div
+                            className={
+                                `camera-cadastrados-alerta ` +
+                                `camera-cadastrados-alerta-${alerta.tipo}`
+                            }
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="camera-cadastrados-alerta-titulo"
+                        >
+
+                            <div className="camera-cadastrados-alerta-icone">
+                                {alerta.tipo === "perigo"
+                                    ? "!"
+                                    : "✓"
+                                }
+                            </div>
+
+                            <div className="camera-cadastrados-alerta-conteudo">
+
+                                <h3
+                                    id="camera-cadastrados-alerta-titulo"
+                                >
+                                    {alerta.titulo}
+                                </h3>
+
+                                <p>
+                                    {alerta.mensagem}
+                                </p>
+
+                                <div className="camera-cadastrados-alerta-acoes">
+
+                                    <button
+                                        type="button"
+                                        className="camera-cadastrados-alerta-cancelar"
+                                        onClick={() =>
+                                            fecharAlerta(false)
+                                        }
+                                    >
+                                        {alerta.cancelarTexto}
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="camera-cadastrados-alerta-confirmar"
+                                        onClick={() =>
+                                            fecharAlerta(true)
+                                        }
+                                    >
+                                        {alerta.confirmarTexto}
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>,
+                    document.body
                 )}
 
         </div>

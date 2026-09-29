@@ -1,0 +1,1055 @@
+/* =========================================================
+   ESPAÇO DA CÂMERA
+========================================================= */
+
+.camera-espaco-container {
+    width: 100%;
+    min-height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+
+    font-family: "Montserrat", sans-serif;
+    color: #0f172a;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.camera-espaco-cabecalho {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+
+    margin-bottom: 26px;
+}
+
+.camera-espaco-cabecalho-texto {
+    min-width: 0;
+}
+
+.camera-espaco-kicker {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 9px;
+    padding: 5px 9px;
+
+    border: 1px solid #dbeafe;
+    border-radius: 6px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 0.9px;
+}
+
+.camera-espaco-cabecalho h2 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 27px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+.camera-espaco-cabecalho p {
+    max-width: 650px;
+
+    margin: 8px 0 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   BOTÃO ATUALIZAR
+========================================================= */
+
+.camera-espaco-atualizar {
+    flex-shrink: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 38px;
+    padding: 0 15px;
+
+    border: 1px solid #dbe3ec;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #334155;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, 0.04);
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.camera-espaco-atualizar span {
+    display: inline-flex;
+
+    font-size: 17px;
+    line-height: 1;
+
+    transition:
+        transform 0.35s ease;
+}
+
+.camera-espaco-atualizar:hover {
+    border-color: #bfdbfe;
+    background: #f8fbff;
+    color: #2563eb;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+.camera-espaco-atualizar:hover span {
+    transform: rotate(180deg);
+}
+
+.camera-espaco-atualizar:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.camera-espaco-resumo {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.camera-espaco-card {
+    position: relative;
+
+    min-width: 0;
+    min-height: 154px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 3px 14px rgba(15, 23, 42, 0.035);
+
+    overflow: hidden;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.camera-espaco-card::after {
+    content: "";
+
+    position: absolute;
+
+    right: -28px;
+    bottom: -40px;
+
+    width: 105px;
+    height: 105px;
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.025);
+
+    pointer-events: none;
+}
+
+.camera-espaco-card:hover {
+    border-color: #d7dee8;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.07);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   TOPO DO CARD
+========================================================= */
+
+.camera-espaco-card-topo {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 15px;
+}
+
+.camera-espaco-card-topo>span {
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.3;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   ÍCONES DOS CARDS
+========================================================= */
+
+.camera-espaco-card-icone {
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #f1f5f9;
+    color: #475569;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.camera-espaco-card-icone-azul {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.camera-espaco-card-icone-verde {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.camera-espaco-card-icone-roxo {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+
+/* =========================================================
+   VALOR DO CARD
+========================================================= */
+
+.camera-espaco-card>strong {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+
+    color: #0f172a;
+
+    font-size: 25px;
+    line-height: 1.15;
+    font-weight: 800;
+
+    letter-spacing: -0.6px;
+}
+
+.camera-espaco-card>strong small {
+    color: #64748b;
+
+    font-size: 12px;
+    line-height: 1;
+
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.camera-espaco-card .camera-espaco-disponivel {
+    color: #16a34a;
+}
+
+.camera-espaco-card .camera-espaco-disponivel small {
+    color: #16a34a;
+}
+
+
+/* =========================================================
+   TEXTO INFERIOR DO CARD
+========================================================= */
+
+.camera-espaco-card>p {
+    position: relative;
+    z-index: 1;
+
+    margin: 9px 0 0;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+    line-height: 1.45;
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   PAINEL PRINCIPAL
+========================================================= */
+
+.camera-espaco-painel {
+    width: 100%;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.045);
+}
+
+
+/* =========================================================
+   CABEÇALHO DO PAINEL
+========================================================= */
+
+.camera-espaco-painel-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.camera-espaco-painel-cabecalho>div:first-child {
+    min-width: 0;
+}
+
+.camera-espaco-painel-kicker {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+    line-height: 1.2;
+    font-weight: 800;
+
+    letter-spacing: 0.9px;
+}
+
+.camera-espaco-painel-cabecalho h3 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 800;
+}
+
+.camera-espaco-painel-cabecalho p {
+    margin: 6px 0 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.camera-espaco-status {
+    flex-shrink: 0;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.camera-espaco-status>span {
+    width: 6px;
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+.camera-espaco-status-normal {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.camera-espaco-status-normal>span {
+    background: #22c55e;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.10);
+}
+
+.camera-espaco-status-atencao {
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.camera-espaco-status-atencao>span {
+    background: #f59e0b;
+
+    box-shadow:
+        0 0 0 3px rgba(245, 158, 11, 0.10);
+}
+
+.camera-espaco-status-critico {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.camera-espaco-status-critico>span {
+    background: #ef4444;
+
+    box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.10);
+}
+
+
+/* =========================================================
+   ÁREA DE USO
+========================================================= */
+
+.camera-espaco-uso {
+    padding: 25px 0 22px;
+}
+
+
+/* =========================================================
+   VALORES DO USO
+========================================================= */
+
+.camera-espaco-uso-valores {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 18px;
+}
+
+.camera-espaco-uso-valores>div:first-child {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.camera-espaco-uso-valores>div:first-child strong {
+    color: #0f172a;
+
+    font-size: 31px;
+    line-height: 1;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+}
+
+.camera-espaco-uso-valores>div:first-child span {
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.camera-espaco-uso-total {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.camera-espaco-uso-total strong {
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.camera-espaco-uso-total span {
+    color: #94a3b8;
+
+    font-size: 11px;
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   BARRA
+========================================================= */
+
+.camera-espaco-barra {
+    width: 100%;
+    height: 13px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #eef2f7;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035);
+}
+
+.camera-espaco-barra-progresso {
+    height: 100%;
+
+    min-width: 0;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(90deg,
+            #2563eb 0%,
+            #3b82f6 100%);
+
+    box-shadow:
+        0 1px 4px rgba(37, 99, 235, 0.20);
+
+    transition:
+        width 0.55s cubic-bezier(0.22,
+            1,
+            0.36,
+            1);
+}
+
+
+/* =========================================================
+   LEGENDA
+========================================================= */
+
+.camera-espaco-legenda {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 11px;
+}
+
+.camera-espaco-legenda>span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #64748b;
+
+    font-size: 10px;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.camera-espaco-legenda-ponto {
+    width: 7px;
+    height: 7px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+}
+
+.camera-espaco-legenda-ponto-usado {
+    background: #2563eb;
+}
+
+.camera-espaco-legenda-ponto-disponivel {
+    background: #dbe3ec;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES INFERIORES
+========================================================= */
+
+.camera-espaco-informacoes {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    border-top: 1px solid #f1f5f9;
+}
+
+.camera-espaco-informacoes>div {
+    min-width: 0;
+
+    padding: 18px 20px 2px;
+
+    border-right: 1px solid #f1f5f9;
+}
+
+.camera-espaco-informacoes>div:first-child {
+    padding-left: 0;
+}
+
+.camera-espaco-informacoes>div:last-child {
+    padding-right: 0;
+    border-right: 0;
+}
+
+.camera-espaco-informacoes span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+    line-height: 1.3;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.camera-espaco-informacoes strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.camera-espaco-informacoes .camera-espaco-info-verde {
+    color: #16a34a;
+}
+
+
+/* =========================================================
+   CARREGANDO
+========================================================= */
+
+.camera-espaco-carregando {
+    width: 100%;
+    min-height: 350px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+
+    text-align: center;
+}
+
+.camera-espaco-carregando strong {
+    color: #0f172a;
+
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.camera-espaco-carregando span {
+    max-width: 430px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.camera-espaco-spinner {
+    width: 34px;
+    height: 34px;
+
+    margin-bottom: 6px;
+
+    border: 3px solid #dbeafe;
+    border-top-color: #2563eb;
+
+    border-radius: 50%;
+
+    animation:
+        camera-espaco-girar 0.8s linear infinite;
+}
+
+@keyframes camera-espaco-girar {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+.camera-espaco-erro {
+    width: 100%;
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #fecaca;
+    border-radius: 16px;
+
+    background: #fffafa;
+
+    text-align: center;
+}
+
+.camera-espaco-erro-icone {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 3px;
+
+    border-radius: 50%;
+
+    background: #fef2f2;
+    color: #dc2626;
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.camera-espaco-erro strong {
+    color: #991b1b;
+
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.camera-espaco-erro span {
+    max-width: 500px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.camera-espaco-erro button {
+    min-height: 36px;
+
+    margin-top: 5px;
+    padding: 0 15px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.camera-espaco-erro button:hover {
+    background: #1d4ed8;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.18);
+}
+
+.camera-espaco-erro button:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .camera-espaco-resumo {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .camera-espaco-informacoes {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .camera-espaco-informacoes>div {
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .camera-espaco-informacoes>div:nth-child(2) {
+        border-right: 0;
+    }
+
+    .camera-espaco-informacoes>div:nth-child(3) {
+        padding-left: 0;
+    }
+
+    .camera-espaco-informacoes>div:nth-child(3),
+    .camera-espaco-informacoes>div:nth-child(4) {
+        padding-bottom: 2px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET PEQUENO
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .camera-espaco-container {
+        padding: 22px;
+    }
+
+    .camera-espaco-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .camera-espaco-atualizar {
+        align-self: flex-start;
+    }
+
+    .camera-espaco-painel-cabecalho {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .camera-espaco-container {
+        padding: 16px;
+    }
+
+    .camera-espaco-cabecalho {
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .camera-espaco-cabecalho h2 {
+        font-size: 22px;
+    }
+
+    .camera-espaco-cabecalho p {
+        font-size: 12px;
+    }
+
+    .camera-espaco-resumo {
+        grid-template-columns: 1fr;
+
+        gap: 11px;
+    }
+
+    .camera-espaco-card {
+        min-height: 140px;
+
+        padding: 18px;
+    }
+
+    .camera-espaco-card>strong {
+        font-size: 23px;
+    }
+
+    .camera-espaco-painel {
+        padding: 19px;
+
+        border-radius: 14px;
+    }
+
+    .camera-espaco-painel-cabecalho {
+        padding-bottom: 18px;
+    }
+
+    .camera-espaco-uso {
+        padding: 20px 0 18px;
+    }
+
+    .camera-espaco-uso-valores {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .camera-espaco-uso-valores>div:first-child strong {
+        font-size: 28px;
+    }
+
+    .camera-espaco-informacoes {
+        grid-template-columns: 1fr;
+    }
+
+    .camera-espaco-informacoes>div,
+    .camera-espaco-informacoes>div:nth-child(3),
+    .camera-espaco-informacoes>div:nth-child(4) {
+        padding: 14px 0;
+
+        border-right: 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .camera-espaco-informacoes>div:last-child {
+        border-bottom: 0;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .camera-espaco-container {
+        padding: 12px;
+    }
+
+    .camera-espaco-cabecalho h2 {
+        font-size: 20px;
+    }
+
+    .camera-espaco-kicker {
+        font-size: 9px;
+    }
+
+    .camera-espaco-card {
+        padding: 16px;
+    }
+
+    .camera-espaco-card>strong {
+        font-size: 21px;
+    }
+
+    .camera-espaco-painel {
+        padding: 16px;
+    }
+
+    .camera-espaco-uso-valores>div:first-child strong {
+        font-size: 26px;
+    }
+
+    .camera-espaco-status {
+        font-size: 9px;
+    }
+
+}

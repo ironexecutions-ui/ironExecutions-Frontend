@@ -5,7 +5,7 @@ import "./camera.css";
 import NomeCamera from "./componentes/nomecamera/nomecamera";
 import Cadastrados from "./componentes/cadastrados/cadastrados";
 import Arquivos from "./componentes/arquivos/arquivos";
-
+import Espaco from "./componentes/espaco/espaco";
 export default function Camera() {
 
     const [abaAtiva, setAbaAtiva] = useState("arquivos");
@@ -67,8 +67,17 @@ export default function Camera() {
                 >
                     Arquivos
                 </button>
-
-            </div>
+                <button
+                    type="button"
+                    className={
+                        abaAtiva === "espaco"
+                            ? "camera-modulo-botao-aba camera-modulo-botao-aba-ativo"
+                            : "camera-modulo-botao-aba"
+                    }
+                    onClick={() => setAbaAtiva("espaco")}
+                >
+                    Espaço
+                </button>            </div>
 
 
             {/* =============================================
@@ -88,7 +97,9 @@ export default function Camera() {
                 {abaAtiva === "arquivos" && (
                     <Arquivos />
                 )}
-
+                {abaAtiva === "espaco" && (
+                    <Espaco />
+                )}
             </div>
 
         </div>

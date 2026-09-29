@@ -4,6 +4,7 @@ import React, {
     useState
 } from "react";
 
+import { createPortal } from "react-dom";
 import { API_URL } from "../../../../../../config";
 
 import "./arquivos.css";
@@ -45,6 +46,11 @@ export default function Arquivos() {
         mensagem,
         setMensagem
     ] = useState("");
+
+    const [
+        arquivoVisualizando,
+        setArquivoVisualizando
+    ] = useState(null);
 
 
     /* =====================================================
@@ -184,6 +190,104 @@ export default function Arquivos() {
         );
     }
 
+
+    /* =====================================================
+       VISUALIZAÇÃO
+    ===================================================== */
+
+    function formatarTamanho(tamanho) {
+        const valor = Number(tamanho);
+        if (!Number.isFinite(valor)) return "0,00 MB";
+        return `${valor.toFixed(2).replace(".", ",")} MB`;
+    }
+
+    function abrirVisualizacao(arquivo) {
+        setArquivoVisualizando(arquivo);
+    }
+    function navegarArquivo(direcao) {
+
+        if (!arquivoVisualizando || !arquivos.length) {
+            return;
+        }
+
+        const indiceAtual =
+            arquivos.findIndex(
+                arquivo =>
+                    arquivo.id === arquivoVisualizando.id
+            );
+
+        if (indiceAtual === -1) {
+            return;
+        }
+
+        let novoIndice =
+            indiceAtual + direcao;
+
+        // Volta para o último ao apertar esquerda no primeiro
+        if (novoIndice < 0) {
+            novoIndice = arquivos.length - 1;
+        }
+
+        // Vai para o primeiro ao apertar direita no último
+        if (novoIndice >= arquivos.length) {
+            novoIndice = 0;
+        }
+
+        setArquivoVisualizando(
+            arquivos[novoIndice]
+        );
+    }
+    function fecharVisualizacao() {
+        setArquivoVisualizando(null);
+    }
+
+    useEffect(() => {
+
+        function tratarTecla(evento) {
+
+            if (!arquivoVisualizando) {
+                return;
+            }
+
+            if (evento.key === "Escape") {
+                setArquivoVisualizando(null);
+                return;
+            }
+
+            if (evento.key === "ArrowLeft") {
+                evento.preventDefault();
+                navegarArquivo(-1);
+                return;
+            }
+
+            if (evento.key === "ArrowRight") {
+                evento.preventDefault();
+                navegarArquivo(1);
+                return;
+            }
+        }
+
+        if (arquivoVisualizando) {
+
+            document.addEventListener(
+                "keydown",
+                tratarTecla
+            );
+
+            document.body.style.overflow = "hidden";
+        }
+
+        return () => {
+
+            document.removeEventListener(
+                "keydown",
+                tratarTecla
+            );
+
+            document.body.style.overflow = "";
+        };
+
+    }, [arquivoVisualizando, arquivos]);
 
     /* =====================================================
        PASTAS
@@ -1036,7 +1140,11 @@ export default function Arquivos() {
                                                         </button>
 
 
-                                                        <div className="camera-arquivos-preview">
+                                                        <div
+                                                            className="camera-arquivos-preview"
+                                                            onClick={() => abrirVisualizacao(arquivo)}
+                                                            style={{ cursor: "pointer" }}
+                                                        >
 
                                                             {arquivo.tipo ===
                                                                 "video" ? (
@@ -1084,6 +1192,12 @@ export default function Arquivos() {
                                                                 )}
                                                             </span>
 
+                                                            <span>
+                                                                {formatarTamanho(
+                                                                    arquivo.tamanho
+                                                                )}
+                                                            </span>
+
                                                         </div>
 
 
@@ -1103,7 +1217,65 @@ export default function Arquivos() {
                                                                     Baixar
                                                                 </span>
                                                             </button>
+                                                            <button
+                                                                type="button"
+                                                                onClick={(evento) => {
+                                                                    evento.stopPropagation();
+                                                                    navegarArquivo(-1);
+                                                                }}
+                                                                aria-label="Arquivo anterior"
+                                                                style={{
+                                                                    position: "fixed",
+                                                                    left: "22px",
+                                                                    top: "50%",
+                                                                    transform: "translateY(-50%)",
+                                                                    zIndex: 1000001,
+                                                                    width: "52px",
+                                                                    height: "52px",
+                                                                    border: "0",
+                                                                    borderRadius: "50%",
+                                                                    fontSize: "34px",
+                                                                    lineHeight: 1,
+                                                                    cursor: "pointer",
+                                                                    display: "flex",
+                                                                    alignItems: "center",
+                                                                    justifyContent: "center",
+                                                                    opacity: 0
 
+                                                                }}
+                                                            >
+
+                                                            </button>
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={(evento) => {
+                                                                    evento.stopPropagation();
+                                                                    navegarArquivo(1);
+                                                                }}
+                                                                aria-label="Próximo arquivo"
+                                                                style={{
+                                                                    position: "fixed",
+                                                                    right: "22px",
+                                                                    top: "50%",
+                                                                    transform: "translateY(-50%)",
+                                                                    zIndex: 1000001,
+                                                                    width: "52px",
+                                                                    height: "52px",
+                                                                    border: "0",
+                                                                    borderRadius: "50%",
+                                                                    fontSize: "34px",
+                                                                    lineHeight: 1,
+                                                                    cursor: "pointer",
+                                                                    display: "flex",
+                                                                    alignItems: "center",
+                                                                    justifyContent: "center",
+                                                                    opacity: 0
+
+                                                                }}
+                                                            >
+
+                                                            </button>
                                                             <button
                                                                 type="button"
                                                                 className="camera-arquivos-acao-apagar"
@@ -1140,6 +1312,119 @@ export default function Arquivos() {
                 </div>
 
             )}
+
+
+            {arquivoVisualizando &&
+                createPortal(
+                    <div
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Visualização do arquivo"
+                        onClick={fecharVisualizacao}
+                        style={{
+                            position: "fixed",
+                            inset: 0,
+                            zIndex: 999999,
+                            width: "100vw",
+                            height: "100vh",
+                            background: "rgba(0, 0, 0, 0.94)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "24px",
+                            boxSizing: "border-box"
+                        }}
+                    >
+
+                        <button
+                            type="button"
+                            onClick={fecharVisualizacao}
+                            aria-label="Fechar visualização"
+                            style={{
+                                position: "fixed",
+                                top: "18px",
+                                right: "22px",
+                                zIndex: 1000001,
+                                width: "46px",
+                                height: "46px",
+                                border: "0",
+                                borderRadius: "50%",
+                                background: "rgba(255, 255, 255, 0.14)",
+                                color: "#fff",
+                                fontSize: "30px",
+                                lineHeight: 1,
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}
+                        >
+                            ×
+                        </button>
+
+                        <div
+                            onClick={(evento) =>
+                                evento.stopPropagation()
+                            }
+                            style={{
+                                maxWidth: "96vw",
+                                maxHeight: "94vh",
+                                width: "auto",
+                                height: "auto",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}
+                        >
+
+                            {arquivoVisualizando.tipo === "video" ? (
+
+                                <video
+                                    src={
+                                        arquivoVisualizando.arquivo_url
+                                    }
+                                    controls
+                                    autoPlay
+                                    playsInline
+                                    style={{
+                                        display: "block",
+                                        maxWidth: "96vw",
+                                        maxHeight: "94vh",
+                                        width: "auto",
+                                        height: "auto",
+                                        objectFit: "contain"
+                                    }}
+                                />
+
+                            ) : (
+
+                                <img
+                                    src={
+                                        arquivoVisualizando.arquivo_url
+                                    }
+                                    alt={
+                                        arquivoVisualizando.cadastrado_nome ||
+                                        "Foto"
+                                    }
+                                    style={{
+                                        display: "block",
+                                        maxWidth: "96vw",
+                                        maxHeight: "94vh",
+                                        width: "auto",
+                                        height: "auto",
+                                        objectFit: "contain"
+                                    }}
+                                />
+
+                            )}
+
+                        </div>
+
+                    </div>,
+
+                    document.body
+                )
+            }
 
         </div>
     );
