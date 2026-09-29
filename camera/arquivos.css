@@ -1,4 +1,4 @@
-.arquivosCameraMobile {
+.aaaarquivosCameraMobile {
     position: fixed;
     inset: 0;
     z-index: 999999;
@@ -12,7 +12,7 @@
     font-family: inherit;
 }
 
-.arquivosCameraMobileTopo {
+.aaaarquivosCameraMobileTopo {
     min-height: 68px;
     padding: 10px 14px;
     box-sizing: border-box;
@@ -24,8 +24,8 @@
     flex-shrink: 0;
 }
 
-.arquivosCameraMobileVoltar,
-.arquivosCameraMobileAtualizar {
+.aaaarquivosCameraMobileVoltar,
+.aaaarquivosCameraMobileAtualizar {
     width: 44px;
     height: 44px;
     flex: 0 0 44px;
@@ -40,20 +40,20 @@
     cursor: pointer;
 }
 
-.arquivosCameraMobileAtualizar {
+.aaaarquivosCameraMobileAtualizar {
     font-size: 23px;
 }
 
-.arquivosCameraMobileVoltar:active,
-.arquivosCameraMobileAtualizar:active {
+.aaaarquivosCameraMobileVoltar:active,
+.aaaarquivosCameraMobileAtualizar:active {
     transform: scale(0.94);
 }
 
-.arquivosCameraMobileAtualizar:disabled {
+.aaaarquivosCameraMobileAtualizar:disabled {
     opacity: 0.45;
 }
 
-.arquivosCameraMobileTitulo {
+.aaaarquivosCameraMobileTitulo {
     min-width: 0;
     flex: 1;
     display: flex;
@@ -61,14 +61,14 @@
     gap: 2px;
 }
 
-.arquivosCameraMobileTitulo span {
+.aaaarquivosCameraMobileTitulo span {
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.16em;
     color: rgba(255, 255, 255, 0.45);
 }
 
-.arquivosCameraMobileTitulo strong {
+.aaaarquivosCameraMobileTitulo strong {
     font-size: 18px;
     line-height: 1.1;
     white-space: nowrap;
@@ -76,7 +76,7 @@
     text-overflow: ellipsis;
 }
 
-.arquivosCameraMobileConteudo {
+.aaaarquivosCameraMobileConteudo {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
@@ -86,7 +86,7 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.arquivosCameraMobileResumo {
+.aaaarquivosCameraMobileResumo {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -94,39 +94,39 @@
     margin-bottom: 14px;
 }
 
-.arquivosCameraMobileResumo>div {
+.aaaarquivosCameraMobileResumo>div {
     display: flex;
     align-items: baseline;
     gap: 8px;
 }
 
-.arquivosCameraMobileResumo span {
+.aaaarquivosCameraMobileResumo span {
     font-size: 11px;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.45);
     letter-spacing: 0.08em;
 }
 
-.arquivosCameraMobileResumo strong {
+.aaaarquivosCameraMobileResumo strong {
     font-size: 24px;
     line-height: 1;
 }
 
-.arquivosCameraMobileSelecionados {
+.aaaarquivosCameraMobileSelecionados {
     padding: 8px 12px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.07);
 }
 
-.arquivosCameraMobileSelecionados strong {
+.aaaarquivosCameraMobileSelecionados strong {
     font-size: 15px;
 }
 
-.arquivosCameraMobileSelecionados span {
+.aaaarquivosCameraMobileSelecionados span {
     font-size: 10px;
 }
 
-.arquivosCameraMobileAbas {
+.aaaarquivosCameraMobileAbas {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6px;
@@ -136,7 +136,7 @@
     border-radius: 14px;
 }
 
-.arquivosCameraMobileAba {
+.aaaarquivosCameraMobileAba {
     min-height: 42px;
     border: 0;
     border-radius: 11px;
@@ -147,12 +147,12 @@
     cursor: pointer;
 }
 
-.arquivosCameraMobileAbaAtiva {
+.aaaarquivosCameraMobileAbaAtiva {
     background: #ffffff;
     color: #090909;
 }
 
-.arquivosCameraMobileSelecao {
+.aaaarquivosCameraMobileSelecao {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -160,8 +160,8 @@
     margin-bottom: 14px;
 }
 
-.arquivosCameraMobileSelecao>button,
-.arquivosCameraMobileSelecao>div button {
+.aaaarquivosCameraMobileSelecao>button,
+.aaaarquivosCameraMobileSelecao>div button {
     min-height: 40px;
     padding: 0 13px;
     border: 0;
@@ -172,25 +172,25 @@
     font-weight: 700;
 }
 
-.arquivosCameraMobileSelecao>div {
+.aaaarquivosCameraMobileSelecao>div {
     display: flex;
     gap: 6px;
 }
 
-.arquivosCameraMobileSelecao>div button:first-child {
+.aaaarquivosCameraMobileSelecao>div button:first-child {
     background: #ffffff;
     color: #090909;
 }
 
-.arquivosCameraMobileSelecao>div button:last-child {
+.aaaarquivosCameraMobileSelecao>div button:last-child {
     background: #7d1d1d;
 }
 
-.arquivosCameraMobileSelecao button:disabled {
+.aaaarquivosCameraMobileSelecao button:disabled {
     opacity: 0.4;
 }
 
-.arquivosCameraMobileMensagem {
+.aaaarquivosCameraMobileMensagem {
     padding: 12px 14px;
     margin-bottom: 14px;
     border-radius: 12px;
@@ -201,20 +201,20 @@
     line-height: 1.4;
 }
 
-.arquivosCameraMobilePastas {
+.aaaarquivosCameraMobilePastas {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.arquivosCameraMobilePasta {
+.aaaarquivosCameraMobilePasta {
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.035);
 }
 
-.arquivosCameraMobilePastaTopo {
+.aaaarquivosCameraMobilePastaTopo {
     min-height: 64px;
     display: flex;
     align-items: center;
@@ -223,7 +223,7 @@
     box-sizing: border-box;
 }
 
-.arquivosCameraMobilePastaAbrir {
+.aaaarquivosCameraMobilePastaAbrir {
     flex: 1;
     min-width: 0;
     min-height: 50px;
@@ -237,7 +237,7 @@
     cursor: pointer;
 }
 
-.arquivosCameraMobilePastaAbrir>span {
+.aaaarquivosCameraMobilePastaAbrir>span {
     width: 30px;
     height: 30px;
     flex: 0 0 30px;
@@ -249,26 +249,26 @@
     font-size: 19px;
 }
 
-.arquivosCameraMobilePastaAbrir>div {
+.aaaarquivosCameraMobilePastaAbrir>div {
     min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 3px;
 }
 
-.arquivosCameraMobilePastaAbrir strong {
+.aaaarquivosCameraMobilePastaAbrir strong {
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.arquivosCameraMobilePastaAbrir small {
+.aaaarquivosCameraMobilePastaAbrir small {
     font-size: 10px;
     color: rgba(255, 255, 255, 0.4);
 }
 
-.arquivosCameraMobilePastaSelecionar {
+.aaaarquivosCameraMobilePastaSelecionar {
     min-height: 40px;
     padding: 0 10px;
     border: 0;
@@ -279,19 +279,19 @@
     font-weight: 700;
 }
 
-.arquivosCameraMobilePastaSelecionarAtivo {
+.aaaarquivosCameraMobilePastaSelecionarAtivo {
     background: #ffffff;
     color: #090909;
 }
 
-.arquivosCameraMobileGrid {
+.aaaarquivosCameraMobileGrid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     padding: 0 7px 7px;
 }
 
-.arquivosCameraMobileCard {
+.aaaarquivosCameraMobileCard {
     min-width: 0;
     overflow: hidden;
     position: relative;
@@ -300,11 +300,11 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.arquivosCameraMobileCardSelecionado {
+.aaaarquivosCameraMobileCardSelecionado {
     border-color: rgba(255, 255, 255, 0.8);
 }
 
-.arquivosCameraMobileCheck {
+.aaaarquivosCameraMobileCheck {
     position: absolute;
     top: 8px;
     left: 8px;
@@ -323,13 +323,13 @@
     font-weight: 900;
 }
 
-.arquivosCameraMobileCheckAtivo {
+.aaaarquivosCameraMobileCheckAtivo {
     background: #ffffff;
     border-color: #ffffff;
     color: #090909;
 }
 
-.arquivosCameraMobilePreview {
+.aaaarquivosCameraMobilePreview {
     position: relative;
     display: block;
     width: 100%;
@@ -341,15 +341,15 @@
     cursor: pointer;
 }
 
-.arquivosCameraMobilePreview img,
-.arquivosCameraMobilePreview video {
+.aaaarquivosCameraMobilePreview img,
+.aaaarquivosCameraMobilePreview video {
     width: 100%;
     height: 100%;
     display: block;
     object-fit: cover;
 }
 
-.arquivosCameraMobilePreview>span {
+.aaaarquivosCameraMobilePreview>span {
     position: absolute;
     right: 7px;
     bottom: 7px;
@@ -362,7 +362,7 @@
     letter-spacing: 0.08em;
 }
 
-.arquivosCameraMobileInfo {
+.aaaarquivosCameraMobileInfo {
     min-width: 0;
     padding: 9px 9px 5px;
     display: flex;
@@ -370,14 +370,14 @@
     gap: 3px;
 }
 
-.arquivosCameraMobileInfo strong {
+.aaaarquivosCameraMobileInfo strong {
     font-size: 11px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.arquivosCameraMobileInfo small {
+.aaaarquivosCameraMobileInfo small {
     font-size: 9px;
     color: rgba(255, 255, 255, 0.42);
     white-space: nowrap;
@@ -385,14 +385,14 @@
     text-overflow: ellipsis;
 }
 
-.arquivosCameraMobileAcoes {
+.aaaarquivosCameraMobileAcoes {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5px;
     padding: 5px 7px 7px;
 }
 
-.arquivosCameraMobileAcoes button {
+.aaaarquivosCameraMobileAcoes button {
     min-height: 36px;
     border: 0;
     border-radius: 9px;
@@ -406,21 +406,21 @@
     font-weight: 800;
 }
 
-.arquivosCameraMobileAcoes button span {
+.aaaarquivosCameraMobileAcoes button span {
     font-size: 9px;
     font-weight: 700;
 }
 
-.arquivosCameraMobileAcoes button:last-child {
+.aaaarquivosCameraMobileAcoes button:last-child {
     background: rgba(130, 25, 25, 0.8);
 }
 
-.arquivosCameraMobileAcoes button:disabled {
+.aaaarquivosCameraMobileAcoes button:disabled {
     opacity: 0.4;
 }
 
-.arquivosCameraMobileCarregando,
-.arquivosCameraMobileVazio {
+.aaaarquivosCameraMobileCarregando,
+.aaaarquivosCameraMobileVazio {
     min-height: 50vh;
     display: flex;
     flex-direction: column;
@@ -432,7 +432,7 @@
     box-sizing: border-box;
 }
 
-.arquivosCameraMobileCarregando div {
+.aaaarquivosCameraMobileCarregando div {
     width: 34px;
     height: 34px;
     border: 3px solid rgba(255, 255, 255, 0.12);
@@ -441,20 +441,20 @@
     animation: arquivosCameraMobileGiro 0.8s linear infinite;
 }
 
-.arquivosCameraMobileCarregando strong,
-.arquivosCameraMobileVazio strong {
+.aaaarquivosCameraMobileCarregando strong,
+.aaaarquivosCameraMobileVazio strong {
     font-size: 15px;
 }
 
-.arquivosCameraMobileCarregando span,
-.arquivosCameraMobileVazio span {
+.aaaarquivosCameraMobileCarregando span,
+.aaaarquivosCameraMobileVazio span {
     max-width: 280px;
     color: rgba(255, 255, 255, 0.42);
     font-size: 11px;
     line-height: 1.5;
 }
 
-.arquivosCameraMobileVazio div {
+.aaaarquivosCameraMobileVazio div {
     width: 64px;
     height: 64px;
     margin-bottom: 4px;
@@ -466,7 +466,7 @@
     font-size: 28px;
 }
 
-.arquivosCameraMobileVisualizador {
+.aaaarquivosCameraMobileVisualizador {
     position: fixed;
     inset: 0;
     z-index: 1000000;
@@ -478,7 +478,7 @@
     box-sizing: border-box;
 }
 
-.arquivosCameraMobileMidia {
+.aaaarquivosCameraMobileMidia {
     width: 100%;
     height: 100%;
     display: flex;
@@ -486,8 +486,8 @@
     justify-content: center;
 }
 
-.arquivosCameraMobileMidia img,
-.arquivosCameraMobileMidia video {
+.aaaarquivosCameraMobileMidia img,
+.aaaarquivosCameraMobileMidia video {
     display: block;
     max-width: 100%;
     max-height: 100%;
@@ -497,9 +497,9 @@
     border-radius: 6px;
 }
 
-.arquivosCameraMobileFechar,
-.arquivosCameraMobileAnterior,
-.arquivosCameraMobileProximo {
+.aaaarquivosCameraMobileFechar,
+.aaaarquivosCameraMobileAnterior,
+.aaaarquivosCameraMobileProximo {
     position: fixed;
     z-index: 1000002;
     width: 46px;
@@ -514,24 +514,24 @@
     font-size: 28px;
 }
 
-.arquivosCameraMobileFechar {
+.aaaarquivosCameraMobileFechar {
     top: 14px;
     right: 14px;
 }
 
-.arquivosCameraMobileAnterior {
+.aaaarquivosCameraMobileAnterior {
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.arquivosCameraMobileProximo {
+.aaaarquivosCameraMobileProximo {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.arquivosCameraMobileVisualizadorInfo {
+.aaaarquivosCameraMobileVisualizadorInfo {
     position: fixed;
     left: 16px;
     right: 16px;
@@ -546,11 +546,11 @@
     gap: 3px;
 }
 
-.arquivosCameraMobileVisualizadorInfo strong {
+.aaaarquivosCameraMobileVisualizadorInfo strong {
     font-size: 13px;
 }
 
-.arquivosCameraMobileVisualizadorInfo span {
+.aaaarquivosCameraMobileVisualizadorInfo span {
     font-size: 10px;
     color: rgba(255, 255, 255, 0.5);
 }
@@ -563,12 +563,12 @@
 
 @media (min-width: 700px) {
 
-    .arquivosCameraMobileConteudo {
+    .aaaarquivosCameraMobileConteudo {
         width: 600px;
         margin: 0 auto;
     }
 
-    .arquivosCameraMobileGrid {
+    .aaaarquivosCameraMobileGrid {
         grid-template-columns:
             repeat(3, minmax(0, 1fr));
     }
@@ -581,187 +581,187 @@
    NÃO ALTERA LAYOUT
 ========================================================= */
 
-.arquivosCameraMobile {
+.aaaarquivosCameraMobile {
     background: #ffffff;
     color: #111827;
 }
 
-.arquivosCameraMobileTopo {
+.aaaarquivosCameraMobileTopo {
     background: #ffffff;
     border-bottom-color: #e5e7eb;
 }
 
-.arquivosCameraMobileVoltar,
-.arquivosCameraMobileAtualizar {
+.aaaarquivosCameraMobileVoltar,
+.aaaarquivosCameraMobileAtualizar {
     background: #f5f7fa;
     color: #0d2747;
     border: 1px solid #e1e5ea;
 }
 
-.arquivosCameraMobileTitulo span {
+.aaaarquivosCameraMobileTitulo span {
     color: #b58a32;
 }
 
-.arquivosCameraMobileTitulo strong {
+.aaaarquivosCameraMobileTitulo strong {
     color: #0d2747;
 }
 
-.arquivosCameraMobileResumo span {
+.aaaarquivosCameraMobileResumo span {
     color: #667085;
 }
 
-.arquivosCameraMobileResumo strong {
+.aaaarquivosCameraMobileResumo strong {
     color: #0d2747;
 }
 
-.arquivosCameraMobileSelecionados {
+.aaaarquivosCameraMobileSelecionados {
     background: #fbf5e7;
     border: 1px solid #e5d5aa;
 }
 
-.arquivosCameraMobileSelecionados strong {
+.aaaarquivosCameraMobileSelecionados strong {
     color: #b58a32;
 }
 
-.arquivosCameraMobileSelecionados span {
+.aaaarquivosCameraMobileSelecionados span {
     color: #344054;
 }
 
-.arquivosCameraMobileAbas {
+.aaaarquivosCameraMobileAbas {
     background: #f2f4f7;
 }
 
-.arquivosCameraMobileAba {
+.aaaarquivosCameraMobileAba {
     color: #667085;
 }
 
-.arquivosCameraMobileAbaAtiva {
+.aaaarquivosCameraMobileAbaAtiva {
     background: #ffffff;
     color: #0d2747;
 }
 
-.arquivosCameraMobileSelecao>button,
-.arquivosCameraMobileSelecao>div button {
+.aaaarquivosCameraMobileSelecao>button,
+.aaaarquivosCameraMobileSelecao>div button {
     background: #f5f7fa;
     color: #0d2747;
     border: 1px solid #e1e5ea;
 }
 
-.arquivosCameraMobileSelecao>div button:first-child {
+.aaaarquivosCameraMobileSelecao>div button:first-child {
     background: #0d2747;
     color: #ffffff;
 }
 
-.arquivosCameraMobileSelecao>div button:last-child {
+.aaaarquivosCameraMobileSelecao>div button:last-child {
     background: #fff5f4;
     color: #b42318;
 }
 
-.arquivosCameraMobilePasta {
+.aaaarquivosCameraMobilePasta {
     background: #ffffff;
     border-color: #e2e6eb;
 }
 
-.arquivosCameraMobilePastaAbrir {
+.aaaarquivosCameraMobilePastaAbrir {
     color: #0d2747;
 }
 
-.arquivosCameraMobilePastaAbrir>span {
+.aaaarquivosCameraMobilePastaAbrir>span {
     background: #fbf5e7;
     color: #b58a32;
 }
 
-.arquivosCameraMobilePastaAbrir strong {
+.aaaarquivosCameraMobilePastaAbrir strong {
     color: #0d2747;
 }
 
-.arquivosCameraMobilePastaAbrir small {
+.aaaarquivosCameraMobilePastaAbrir small {
     color: #7a8493;
 }
 
-.arquivosCameraMobilePastaSelecionar {
+.aaaarquivosCameraMobilePastaSelecionar {
     background: #f5f7fa;
     color: #0d2747;
     border: 1px solid #e1e5ea;
 }
 
-.arquivosCameraMobilePastaSelecionarAtivo {
+.aaaarquivosCameraMobilePastaSelecionarAtivo {
     background: #b58a32;
     color: #ffffff;
 }
 
-.arquivosCameraMobileCard {
+.aaaarquivosCameraMobileCard {
     background: #ffffff;
     border-color: #e1e5ea;
 }
 
-.arquivosCameraMobileCardSelecionado {
+.aaaarquivosCameraMobileCardSelecionado {
     border-color: #b58a32;
 }
 
-.arquivosCameraMobileCheck {
+.aaaarquivosCameraMobileCheck {
     background: rgba(255, 255, 255, 0.95);
     color: #0d2747;
     border-color: #d5dbe2;
 }
 
-.arquivosCameraMobileCheckAtivo {
+.aaaarquivosCameraMobileCheckAtivo {
     background: #b58a32;
     border-color: #b58a32;
     color: #ffffff;
 }
 
-.arquivosCameraMobileInfo {
+.aaaarquivosCameraMobileInfo {
     background: #ffffff;
 }
 
-.arquivosCameraMobileInfo strong {
+.aaaarquivosCameraMobileInfo strong {
     color: #0d2747;
 }
 
-.arquivosCameraMobileInfo small {
+.aaaarquivosCameraMobileInfo small {
     color: #7a8493;
 }
 
-.arquivosCameraMobileAcoes button {
+.aaaarquivosCameraMobileAcoes button {
     background: #f5f7fa;
     color: #0d2747;
     border: 1px solid #e1e5ea;
 }
 
-.arquivosCameraMobileAcoes button:last-child {
+.aaaarquivosCameraMobileAcoes button:last-child {
     background: #fff5f4;
     color: #b42318;
 }
 
-.arquivosCameraMobileCarregando,
-.arquivosCameraMobileVazio {
+.aaaarquivosCameraMobileCarregando,
+.aaaarquivosCameraMobileVazio {
     background: #ffffff;
 }
 
-.arquivosCameraMobileCarregando strong,
-.arquivosCameraMobileVazio strong {
+.aaaarquivosCameraMobileCarregando strong,
+.aaaarquivosCameraMobileVazio strong {
     color: #0d2747;
 }
 
-.arquivosCameraMobileCarregando span,
-.arquivosCameraMobileVazio span {
+.aaaarquivosCameraMobileCarregando span,
+.aaaarquivosCameraMobileVazio span {
     color: #7a8493;
 }
 
-.arquivosCameraMobileVazio div {
+.aaaarquivosCameraMobileVazio div {
     background: #fbf5e7;
     color: #b58a32;
 }
 
-.arquivosCameraMobileVisualizadorInfo {
+.aaaarquivosCameraMobileVisualizadorInfo {
     background: rgba(13, 39, 71, 0.92);
 }
 
-.arquivosCameraMobileVisualizadorInfo strong {
+.aaaarquivosCameraMobileVisualizadorInfo strong {
     color: #ffffff;
 }
 
-.arquivosCameraMobileVisualizadorInfo span {
+.aaaarquivosCameraMobileVisualizadorInfo span {
     color: rgba(255, 255, 255, 0.65);
 }

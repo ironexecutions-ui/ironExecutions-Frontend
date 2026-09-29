@@ -952,13 +952,13 @@ export default function ArquivosCameraMobile({
 
     return (
 
-        <div className="arquivosCameraMobile">
+        <div className="aaaarquivosCameraMobile">
 
-            <header className="arquivosCameraMobileTopo">
+            <header className="aaaarquivosCameraMobileTopo">
 
                 <button
                     type="button"
-                    className="arquivosCameraMobileVoltar"
+                    className="aaaarquivosCameraMobileVoltar"
                     onClick={onVoltar}
                     aria-label="Voltar"
                 >
@@ -966,7 +966,7 @@ export default function ArquivosCameraMobile({
                 </button>
 
 
-                <div className="arquivosCameraMobileTitulo">
+                <div className="aaaarquivosCameraMobileTitulo">
 
                     <span>
                         BIBLIOTECA
@@ -981,7 +981,7 @@ export default function ArquivosCameraMobile({
 
                 <button
                     type="button"
-                    className="arquivosCameraMobileAtualizar"
+                    className="aaaarquivosCameraMobileAtualizar"
                     onClick={
                         carregarArquivos
                     }
@@ -997,9 +997,9 @@ export default function ArquivosCameraMobile({
             </header>
 
 
-            <main className="arquivosCameraMobileConteudo">
+            <main className="aaaarquivosCameraMobileConteudo">
 
-                <section className="arquivosCameraMobileResumo">
+                <section className="aaaarquivosCameraMobileResumo">
 
                     <div>
 
@@ -1016,7 +1016,7 @@ export default function ArquivosCameraMobile({
 
                     {selecionados.length > 0 && (
 
-                        <div className="arquivosCameraMobileSelecionados">
+                        <div className="aaaarquivosCameraMobileSelecionados">
 
                             <strong>
                                 {selecionados.length}
@@ -1033,7 +1033,7 @@ export default function ArquivosCameraMobile({
                 </section>
 
 
-                <div className="arquivosCameraMobileAbas">
+                <div className="aaaarquivosCameraMobileAbas">
 
                     <button
                         type="button"
@@ -1073,7 +1073,7 @@ export default function ArquivosCameraMobile({
 
                 {arquivos.length > 0 && (
 
-                    <section className="arquivosCameraMobileSelecao">
+                    <section className="aaaarquivosCameraMobileSelecao">
 
                         <button
                             type="button"
@@ -1128,7 +1128,7 @@ export default function ArquivosCameraMobile({
 
                 {mensagem && (
 
-                    <div className="arquivosCameraMobileMensagem">
+                    <div className="aaaarquivosCameraMobileMensagem">
 
                         {mensagem}
 
@@ -1139,7 +1139,7 @@ export default function ArquivosCameraMobile({
 
                 {carregando ? (
 
-                    <div className="arquivosCameraMobileCarregando">
+                    <div className="aaaarquivosCameraMobileCarregando">
 
                         <div />
 
@@ -1155,7 +1155,7 @@ export default function ArquivosCameraMobile({
 
                 ) : pastas.length === 0 ? (
 
-                    <div className="arquivosCameraMobileVazio">
+                    <div className="aaaarquivosCameraMobileVazio">
 
                         <div>
                             ▦
@@ -1174,7 +1174,7 @@ export default function ArquivosCameraMobile({
 
                 ) : (
 
-                    <div className="arquivosCameraMobilePastas">
+                    <div className="aaaarquivosCameraMobilePastas">
 
                         {pastas.map(
                             pasta => {
@@ -1208,14 +1208,14 @@ export default function ArquivosCameraMobile({
                                         key={
                                             pasta.chave
                                         }
-                                        className="arquivosCameraMobilePasta"
+                                        className="aaaarquivosCameraMobilePasta"
                                     >
 
-                                        <div className="arquivosCameraMobilePastaTopo">
+                                        <div className="aaaarquivosCameraMobilePastaTopo">
 
                                             <button
                                                 type="button"
-                                                className="arquivosCameraMobilePastaAbrir"
+                                                className="aaaarquivosCameraMobilePastaAbrir"
                                                 onClick={() =>
                                                     alternarPasta(
                                                         pasta.chave
@@ -1270,7 +1270,7 @@ export default function ArquivosCameraMobile({
 
                                         {aberta && (
 
-                                            <div className="arquivosCameraMobileGrid">
+                                            <div className="aaaarquivosCameraMobileGrid">
 
                                                 {pasta.arquivos.map(
                                                     arquivo => {
@@ -1321,7 +1321,7 @@ export default function ArquivosCameraMobile({
 
                                                                 <button
                                                                     type="button"
-                                                                    className="arquivosCameraMobilePreview"
+                                                                    className="aaaarquivosCameraMobilePreview"
                                                                     onClick={() =>
                                                                         abrirVisualizacao(
                                                                             arquivo
@@ -1367,7 +1367,7 @@ export default function ArquivosCameraMobile({
                                                                 </button>
 
 
-                                                                <div className="arquivosCameraMobileInfo">
+                                                                <div className="aaaarquivosCameraMobileInfo">
 
                                                                     <strong>
                                                                         {arquivo.cadastrado_nome ||
@@ -1389,7 +1389,7 @@ export default function ArquivosCameraMobile({
                                                                 </div>
 
 
-                                                                <div className="arquivosCameraMobileAcoes">
+                                                                <div className="aaaarquivosCameraMobileAcoes">
 
                                                                     <button
                                                                         type="button"
@@ -1456,7 +1456,7 @@ export default function ArquivosCameraMobile({
             {arquivoVisualizando && (
 
                 <div
-                    className="arquivosCameraMobileVisualizador"
+                    className="aaaarquivosCameraMobileVisualizador"
                     onClick={
                         fecharVisualizacao
                     }
@@ -1464,7 +1464,7 @@ export default function ArquivosCameraMobile({
 
                     <button
                         type="button"
-                        className="arquivosCameraMobileFechar"
+                        className="aaaarquivosCameraMobileFechar"
                         onClick={
                             fecharVisualizacao
                         }
@@ -1475,7 +1475,7 @@ export default function ArquivosCameraMobile({
 
                     <button
                         type="button"
-                        className="arquivosCameraMobileAnterior"
+                        className="aaaarquivosCameraMobileAnterior"
                         onClick={evento => {
 
                             evento.stopPropagation();
@@ -1489,7 +1489,7 @@ export default function ArquivosCameraMobile({
 
 
                     <div
-                        className="arquivosCameraMobileMidia"
+                        className="aaaarquivosCameraMobileMidia"
                         onClick={evento =>
                             evento.stopPropagation()
                         }
@@ -1527,7 +1527,7 @@ export default function ArquivosCameraMobile({
 
                     <button
                         type="button"
-                        className="arquivosCameraMobileProximo"
+                        className="aaaarquivosCameraMobileProximo"
                         onClick={evento => {
 
                             evento.stopPropagation();
@@ -1541,7 +1541,7 @@ export default function ArquivosCameraMobile({
 
 
                     <div
-                        className="arquivosCameraMobileVisualizadorInfo"
+                        className="aaaarquivosCameraMobileVisualizadorInfo"
                         onClick={evento =>
                             evento.stopPropagation()
                         }
