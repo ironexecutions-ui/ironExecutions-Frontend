@@ -595,43 +595,66 @@ export default function ArquivosCameraMobile({
 
     async function baixarSelecionados() {
 
-        if (
-            !selecionados.length
-        ) {
+        if (!selecionados.length) {
             return;
         }
-
 
         try {
 
             setProcessando(true);
             setMensagem("");
 
-            const token =
-                obterToken();
+            const token = obterToken();
 
-            const resposta =
-                await fetch(
-                    `${API_URL}/camera-publica/admin/arquivos/zip`,
-                    {
-                        method: "POST",
+            // =====================================================
+            // NORMALIZAR IDS
+            // =====================================================
 
-                        headers: {
-                            Authorization:
-                                `Bearer ${token}`,
+            const ids = Array.from(
+                new Set(
+                    selecionados
+                        .map(id => Number(id))
+                        .filter(
+                            id =>
+                                Number.isInteger(id) &&
+                                id > 0
+                        )
+                )
+            );
 
-                            "Content-Type":
-                                "application/json"
-                        },
+            if (!ids.length) {
 
-                        body:
-                            JSON.stringify({
-                                ids:
-                                    selecionados
-                            })
-                    }
+                throw new Error(
+                    "Nenhum arquivo válido foi selecionado."
                 );
+            }
 
+            console.log(
+                "[CÂMERA ADMIN] IDs enviados para ZIP:",
+                ids
+            );
+
+            const resposta = await fetch(
+                `${API_URL}/camera-publica/admin/arquivos/zip`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`,
+
+                        "Content-Type":
+                            "application/json",
+
+                        Accept:
+                            "application/zip"
+                    },
+
+                    body: JSON.stringify({
+                        ids: ids
+                    })
+                }
+            );
 
             if (!resposta.ok) {
 
@@ -642,17 +665,19 @@ export default function ArquivosCameraMobile({
                             () => ({})
                         );
 
+                console.error(
+                    "[CÂMERA ADMIN] Erro ZIP:",
+                    resultado
+                );
+
                 throw new Error(
                     resultado.detail ||
                     "Não foi possível gerar o ZIP."
                 );
-
             }
-
 
             const blob =
                 await resposta.blob();
-
 
             salvarBlob(
                 blob,
@@ -660,6 +685,11 @@ export default function ArquivosCameraMobile({
             );
 
         } catch (erro) {
+
+            console.error(
+                "[CÂMERA ADMIN] Erro ao baixar ZIP:",
+                erro
+            );
 
             setMensagem(
                 erro.message
@@ -670,9 +700,7 @@ export default function ArquivosCameraMobile({
             setProcessando(false);
 
         }
-
     }
-
 
     /* =====================================================
        APAGAR
