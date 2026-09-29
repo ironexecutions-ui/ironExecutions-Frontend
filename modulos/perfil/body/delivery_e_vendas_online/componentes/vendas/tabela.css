@@ -3363,3 +3363,366 @@
     }
 
 }
+
+
+/* =========================================================
+   RESUMO DA VENDA
+========================================================= */
+
+.ironstore-pedidos-operacao-modal .ironstore-pedidos-operacao-resumo {
+    margin: 20px 24px 0 !important;
+    padding: 20px !important;
+
+    display: block !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.02) !important;
+}
+
+
+.ironstore-pedidos-operacao-modal .ironstore-pedidos-operacao-resumo .ironstore-pedidos-operacao-secao-titulo {
+    margin-bottom: 16px !important;
+
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+
+    gap: 16px !important;
+}
+
+
+.ironstore-pedidos-operacao-modal .ironstore-pedidos-operacao-resumo .ironstore-pedidos-operacao-secao-titulo span {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-pedidos-operacao-modal .ironstore-pedidos-operacao-resumo .ironstore-pedidos-operacao-secao-titulo strong {
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA VENDA
+========================================================= */
+
+.ironstore-pedidos-operacao-resumo-info {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 10px !important;
+
+    margin-bottom: 18px !important;
+}
+
+
+.ironstore-pedidos-operacao-resumo-info>div {
+    min-width: 0 !important;
+
+    padding: 13px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+
+    border: 1px solid #eef2f7 !important;
+    border-radius: 10px !important;
+
+    background: #f8fafc !important;
+}
+
+
+.ironstore-pedidos-operacao-resumo-info span {
+    color: #94a3b8 !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.045em !important;
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-pedidos-operacao-resumo-info strong {
+    overflow-wrap: anywhere !important;
+
+    color: #334155 !important;
+
+    font-size: 12px !important;
+    font-weight: 750 !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   PRODUTOS COMPRADOS
+========================================================= */
+
+.ironstore-pedidos-operacao-produtos {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 8px !important;
+}
+
+
+.ironstore-pedidos-operacao-produtos>strong {
+    margin-bottom: 3px !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+}
+
+
+.ironstore-pedidos-operacao-produto {
+    min-width: 0 !important;
+
+    padding: 13px 14px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 18px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 11px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 100%) !important;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease !important;
+}
+
+
+.ironstore-pedidos-operacao-produto:hover {
+    border-color: #dbeafe !important;
+
+    box-shadow:
+        0 5px 16px rgba(15, 23, 42, 0.05) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+
+.ironstore-pedidos-operacao-produto>div:first-child {
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+}
+
+
+.ironstore-pedidos-operacao-produto>div:first-child strong {
+    overflow-wrap: anywhere !important;
+
+    color: #1e293b !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.4 !important;
+}
+
+
+.ironstore-pedidos-operacao-produto>div:first-child span {
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 550 !important;
+}
+
+
+.ironstore-pedidos-operacao-produto>div:last-child {
+    flex: 0 0 auto !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: flex-end !important;
+
+    gap: 3px !important;
+}
+
+
+.ironstore-pedidos-operacao-produto>div:last-child span {
+    color: #94a3b8 !important;
+
+    font-size: 10px !important;
+    font-weight: 600 !important;
+
+    white-space: nowrap !important;
+}
+
+
+.ironstore-pedidos-operacao-produto>div:last-child strong {
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   DOCUMENTO DE ENTREGA
+========================================================= */
+
+.ironstore-pedidos-operacao-documento {
+    margin: 20px 24px 0 !important;
+    padding: 20px !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.02) !important;
+}
+
+
+.ironstore-pedidos-operacao-documento .ironstore-pedidos-operacao-secao-titulo {
+    margin-bottom: 16px !important;
+
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+
+    gap: 16px !important;
+}
+
+
+.ironstore-pedidos-operacao-documento .ironstore-pedidos-operacao-secao-titulo span {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+}
+
+
+.ironstore-pedidos-operacao-documento .ironstore-pedidos-operacao-secao-titulo strong {
+    padding: 5px 9px !important;
+
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 999px !important;
+
+    background: #f0fdf4 !important;
+
+    color: #15803d !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   DETALHES DO DOCUMENTO
+========================================================= */
+
+.ironstore-pedidos-operacao-documento .ironstore-pedidos-operacao-frete-detalhes {
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+}
+
+
+.ironstore-pedidos-operacao-documento .ironstore-pedidos-operacao-frete-detalhes>a {
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    text-decoration: none !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   DOCUMENTO NÃO EMITIDO
+========================================================= */
+
+.ironstore-pedidos-operacao-documento .ironstore-pedidos-operacao-frete-alerta {
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .ironstore-pedidos-operacao-resumo-info {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .ironstore-pedidos-operacao-documento .ironstore-pedidos-operacao-frete-detalhes {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .ironstore-pedidos-operacao-produto {
+        align-items: flex-start !important;
+
+        flex-direction: column !important;
+    }
+
+
+    .ironstore-pedidos-operacao-produto>div:last-child {
+        width: 100% !important;
+
+        align-items: flex-start !important;
+    }
+
+
+    .ironstore-pedidos-operacao-modal .ironstore-pedidos-operacao-resumo .ironstore-pedidos-operacao-secao-titulo,
+
+    .ironstore-pedidos-operacao-documento .ironstore-pedidos-operacao-secao-titulo {
+        align-items: flex-start !important;
+
+        flex-direction: column !important;
+    }
+
+}

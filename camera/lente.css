@@ -4336,3 +4336,1465 @@
         border-radius: 10px !important;
     }
 }
+
+/* =========================================================
+   CAMERA ARQUIVOS
+   VISUAL LENTE PRO
+   COLOCAR NO FINAL DO CSS
+========================================================= */
+
+.camera-arquivos-container,
+.camera-arquivos-container * {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
+
+.camera-arquivos-container {
+    width: 100% !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+
+    margin: 0 !important;
+    padding:
+        max(18px, env(safe-area-inset-top)) 18px calc(125px + env(safe-area-inset-bottom)) !important;
+
+    background:
+        radial-gradient(circle at 8% -5%,
+            rgba(60, 142, 232, 0.16),
+            transparent 31%),
+        radial-gradient(circle at 100% 80%,
+            rgba(123, 186, 255, 0.12),
+            transparent 30%),
+        linear-gradient(180deg,
+            #fbfdff 0%,
+            #f3f8fe 42%,
+            #eaf3fc 100%) !important;
+
+    color: #102d50 !important;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif !important;
+
+    overflow-x: hidden !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.camera-arquivos-cabecalho {
+    width: 100% !important;
+
+    max-width: 1000px !important;
+
+    margin: 0 auto 18px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 12px !important;
+}
+
+
+/* =========================================================
+   BOTÃO VOLTAR
+========================================================= */
+
+.camera-arquivos-voltar {
+    width: 48px !important;
+    height: 48px !important;
+
+    min-width: 48px !important;
+
+    padding: 0 0 4px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border:
+        1px solid #d2e2f2 !important;
+
+    border-radius: 16px !important;
+
+    outline: none !important;
+
+    background:
+        rgba(255, 255, 255, 0.96) !important;
+
+    color: #123c68 !important;
+
+    font-size: 35px !important;
+    line-height: 1 !important;
+
+    font-weight: 250 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 7px 19px rgba(25, 68, 115, 0.10),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.camera-arquivos-voltar:hover {
+    transform: translateX(-2px) !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 10px 24px rgba(25, 68, 115, 0.15) !important;
+}
+
+.camera-arquivos-voltar:active {
+    transform: scale(0.94) !important;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.camera-arquivos-titulo {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    justify-content: center !important;
+}
+
+.camera-arquivos-titulo span {
+    color: #7389a2 !important;
+
+    font-size: 8px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: 1.5px !important;
+
+    text-transform: uppercase !important;
+}
+
+.camera-arquivos-titulo strong {
+    margin-top: 2px !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+
+    color: #102f54 !important;
+
+    font-size: 21px !important;
+
+    font-weight: 850 !important;
+
+    letter-spacing: -0.4px !important;
+}
+
+
+/* =========================================================
+   CONTROLES DO TOPO
+========================================================= */
+
+.camera-arquivos-controles {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 7px !important;
+}
+
+
+/* =========================================================
+   BOTÕES SUPERIORES
+========================================================= */
+
+.camera-arquivos-selecionar-todos,
+.camera-arquivos-atualizar {
+    min-height: 43px !important;
+
+    padding: 0 13px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border:
+        1px solid #d4e3f1 !important;
+
+    border-radius: 14px !important;
+
+    outline: none !important;
+
+    background:
+        rgba(255, 255, 255, 0.95) !important;
+
+    color: #244d78 !important;
+
+    font-size: 10px !important;
+
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 7px 18px rgba(22, 72, 126, 0.09),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.camera-arquivos-selecionar-todos:hover,
+.camera-arquivos-atualizar:hover {
+    transform: translateY(-2px) !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 11px 25px rgba(22, 72, 126, 0.14) !important;
+}
+
+.camera-arquivos-selecionar-todos:active,
+.camera-arquivos-atualizar:active {
+    transform: scale(0.96) !important;
+}
+
+
+/* =========================================================
+   BARRA DE SELEÇÃO
+========================================================= */
+
+.camera-arquivos-barra-selecao {
+    width: 100% !important;
+
+    max-width: 1000px !important;
+
+    margin: 0 auto 18px !important;
+
+    padding: 11px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    border:
+        1px solid #d7e5f3 !important;
+
+    border-radius: 19px !important;
+
+    background:
+        rgba(255, 255, 255, 0.92) !important;
+
+    backdrop-filter:
+        blur(22px) saturate(150%) !important;
+
+    -webkit-backdrop-filter:
+        blur(22px) saturate(150%) !important;
+
+    box-shadow:
+        0 12px 30px rgba(23, 68, 116, 0.09),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   TOTAL SELECIONADO
+========================================================= */
+
+.camera-arquivos-barra-total {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+
+    display: flex !important;
+
+    align-items: baseline !important;
+
+    gap: 5px !important;
+}
+
+.camera-arquivos-barra-total strong {
+    color: #123d6b !important;
+
+    font-size: 19px !important;
+
+    font-weight: 900 !important;
+}
+
+.camera-arquivos-barra-total span {
+    color: #71859c !important;
+
+    font-size: 9px !important;
+
+    font-weight: 750 !important;
+}
+
+
+/* =========================================================
+   AÇÕES DA SELEÇÃO
+========================================================= */
+
+.camera-arquivos-acoes-selecao {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 7px !important;
+}
+
+.camera-arquivos-baixar-varios,
+.camera-arquivos-apagar-varios {
+    min-height: 39px !important;
+
+    padding: 0 12px !important;
+
+    border-radius: 12px !important;
+
+    border: none !important;
+
+    outline: none !important;
+
+    font-size: 9px !important;
+
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease !important;
+}
+
+.camera-arquivos-baixar-varios {
+    background:
+        linear-gradient(145deg,
+            #174d84,
+            #0b315b) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 7px 18px rgba(10, 48, 89, 0.22) !important;
+}
+
+.camera-arquivos-apagar-varios {
+    background:
+        #fff1f3 !important;
+
+    border:
+        1px solid #f0c7cd !important;
+
+    color: #c52d40 !important;
+}
+
+.camera-arquivos-baixar-varios:hover,
+.camera-arquivos-apagar-varios:hover {
+    transform: translateY(-2px) !important;
+}
+
+.camera-arquivos-baixar-varios:active,
+.camera-arquivos-apagar-varios:active {
+    transform: scale(0.95) !important;
+}
+
+.camera-arquivos-baixar-varios:disabled,
+.camera-arquivos-apagar-varios:disabled {
+    opacity: 0.45 !important;
+
+    cursor: not-allowed !important;
+}
+
+
+/* =========================================================
+   GRUPO / SEÇÃO
+========================================================= */
+
+.camera-arquivos-grupo {
+    width: 100% !important;
+
+    max-width: 1000px !important;
+
+    margin:
+        0 auto 28px !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO DO GRUPO
+========================================================= */
+
+.camera-arquivos-grupo-header {
+    width: 100% !important;
+
+    margin-bottom: 12px !important;
+
+    padding: 0 2px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+}
+
+.camera-arquivos-grupo-header>div {
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+}
+
+.camera-arquivos-grupo-header span {
+    color: #7990aa !important;
+
+    font-size: 8px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: 1.3px !important;
+
+    text-transform: uppercase !important;
+}
+
+.camera-arquivos-grupo-header strong {
+    margin-top: 2px !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+
+    color: #102f54 !important;
+
+    font-size: 16px !important;
+
+    font-weight: 850 !important;
+
+    letter-spacing: -0.3px !important;
+}
+
+
+/* =========================================================
+   CONTADOR DO GRUPO
+========================================================= */
+
+.camera-arquivos-grupo-total {
+    min-width: 36px !important;
+
+    height: 31px !important;
+
+    padding: 0 9px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    border-radius: 11px !important;
+
+    background:
+        #e7f1fb !important;
+
+    border:
+        1px solid #d3e3f3 !important;
+
+    color: #123d6a !important;
+
+    font-size: 10px !important;
+
+    font-weight: 900 !important;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.camera-arquivos-grid {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 11px !important;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.camera-arquivos-card {
+    position: relative !important;
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    overflow: hidden !important;
+
+    border-radius: 19px !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid #d5e3f1 !important;
+
+    box-shadow:
+        0 9px 25px rgba(23, 65, 111, 0.11),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.camera-arquivos-card:hover {
+    transform: translateY(-3px) !important;
+
+    border-color:
+        #bdd3e8 !important;
+
+    box-shadow:
+        0 15px 32px rgba(23, 65, 111, 0.16) !important;
+}
+
+
+/* =========================================================
+   CARD SELECIONADO
+========================================================= */
+
+.camera-arquivos-card-selecionado {
+    border:
+        2px solid #174d84 !important;
+
+    box-shadow:
+        0 12px 28px rgba(23, 77, 132, 0.20),
+        0 0 0 3px rgba(44, 126, 198, 0.10) !important;
+
+    transform: translateY(-2px) !important;
+}
+
+
+/* =========================================================
+   CHECK
+========================================================= */
+
+.camera-arquivos-check {
+    position: absolute !important;
+
+    top: 8px !important;
+    left: 8px !important;
+
+    z-index: 20 !important;
+
+    width: 30px !important;
+    height: 30px !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border:
+        1px solid rgba(210, 226, 242, 0.95) !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(255, 255, 255, 0.94) !important;
+
+    backdrop-filter:
+        blur(12px) !important;
+
+    -webkit-backdrop-filter:
+        blur(12px) !important;
+
+    color: #174d84 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 900 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 5px 14px rgba(14, 53, 94, 0.17) !important;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease !important;
+}
+
+.camera-arquivos-check:hover {
+    transform: scale(1.08) !important;
+}
+
+.camera-arquivos-check-ativo {
+    background:
+        linear-gradient(145deg,
+            #174d84,
+            #0b315b) !important;
+
+    border-color:
+        #174d84 !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 6px 17px rgba(10, 48, 89, 0.28) !important;
+}
+
+
+/* =========================================================
+   PREVIEW
+========================================================= */
+
+.camera-arquivos-preview {
+    position: relative !important;
+
+    width: 100% !important;
+
+    aspect-ratio: 0.82 / 1 !important;
+
+    overflow: hidden !important;
+
+    background:
+        #e5edf6 !important;
+
+    cursor: pointer !important;
+}
+
+.camera-arquivos-preview img,
+.camera-arquivos-preview video {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+
+    background:
+        #e5edf6 !important;
+}
+
+.camera-arquivos-preview::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    pointer-events: none !important;
+
+    background:
+        linear-gradient(to top,
+            rgba(5, 31, 59, 0.52),
+            transparent 40%) !important;
+}
+
+
+/* =========================================================
+   TIPO
+========================================================= */
+
+.camera-arquivos-tipo {
+    position: absolute !important;
+
+    left: 8px !important;
+    bottom: 8px !important;
+
+    z-index: 6 !important;
+
+    padding: 5px 8px !important;
+
+    border-radius: 8px !important;
+
+    background:
+        rgba(255, 255, 255, 0.92) !important;
+
+    backdrop-filter:
+        blur(10px) !important;
+
+    -webkit-backdrop-filter:
+        blur(10px) !important;
+
+    color: #173c66 !important;
+
+    font-size: 8px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: 0.8px !important;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DO CARD
+========================================================= */
+
+.camera-arquivos-card-info {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    padding: 10px 10px 11px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 3px !important;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #f8fbff) !important;
+}
+
+.camera-arquivos-card-info strong {
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+
+    color: #102f54 !important;
+
+    font-size: 11px !important;
+
+    line-height: 1.25 !important;
+
+    font-weight: 850 !important;
+}
+
+.camera-arquivos-card-info span {
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
+
+    color: #6d8198 !important;
+
+    font-size: 8px !important;
+
+    line-height: 1.25 !important;
+
+    font-weight: 650 !important;
+}
+
+
+/* =========================================================
+   AÇÕES DO CARD
+========================================================= */
+
+.camera-arquivos-card-acoes {
+    width: 100% !important;
+
+    padding: 0 9px 9px !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        1fr 1fr !important;
+
+    gap: 6px !important;
+
+    background:
+        linear-gradient(180deg,
+            #f8fbff,
+            #f5f9fd) !important;
+}
+
+.camera-arquivos-card-acoes button {
+    min-height: 34px !important;
+
+    padding: 0 7px !important;
+
+    border-radius: 10px !important;
+
+    border:
+        1px solid #d5e3f0 !important;
+
+    outline: none !important;
+
+    background:
+        #ffffff !important;
+
+    color: #234c76 !important;
+
+    font-size: 8px !important;
+
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 4px 10px rgba(24, 68, 116, 0.06) !important;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease !important;
+}
+
+.camera-arquivos-card-acoes button:hover {
+    transform: translateY(-1px) !important;
+
+    border-color:
+        #b9d0e7 !important;
+
+    background:
+        #f5faff !important;
+}
+
+.camera-arquivos-card-acoes button:active {
+    transform: scale(0.95) !important;
+}
+
+
+/* =========================================================
+   BOTÃO APAGAR
+========================================================= */
+
+.camera-arquivos-card-acoes button:last-child {
+    color: #c62d40 !important;
+
+    border-color:
+        #efcfd4 !important;
+
+    background:
+        #fff8f9 !important;
+}
+
+.camera-arquivos-card-acoes button:last-child:hover {
+    border-color:
+        #e5aeb7 !important;
+
+    background:
+        #fff0f2 !important;
+
+    color: #b92135 !important;
+}
+
+
+/* =========================================================
+   ESTADO VAZIO
+========================================================= */
+
+.camera-arquivos-vazio {
+    width: 100% !important;
+
+    max-width: 1000px !important;
+
+    min-height: 190px !important;
+
+    margin: 25px auto !important;
+
+    padding: 30px 20px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    text-align: center !important;
+
+    border:
+        1px dashed #c6daee !important;
+
+    border-radius: 22px !important;
+
+    background:
+        rgba(255, 255, 255, 0.72) !important;
+
+    box-shadow:
+        inset 0 1px 0 #ffffff !important;
+}
+
+.camera-arquivos-vazio strong {
+    color: #123456 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 850 !important;
+}
+
+.camera-arquivos-vazio span {
+    max-width: 330px !important;
+
+    margin-top: 6px !important;
+
+    color: #6b8097 !important;
+
+    font-size: 10px !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   MENSAGEM / ERRO
+========================================================= */
+
+.camera-arquivos-mensagem {
+    width: 100% !important;
+
+    max-width: 900px !important;
+
+    margin: 0 auto 20px !important;
+
+    padding: 12px 15px !important;
+
+    border-radius: 14px !important;
+
+    border:
+        1px solid #d8e6f4 !important;
+
+    background:
+        #ffffff !important;
+
+    color: #254a70 !important;
+
+    font-size: 10px !important;
+
+    font-weight: 700 !important;
+
+    text-align: center !important;
+
+    box-shadow:
+        0 7px 20px rgba(24, 68, 116, 0.07) !important;
+}
+
+
+/* =========================================================
+   VISUALIZADOR
+========================================================= */
+
+.camera-arquivos-visualizador {
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    z-index: 999999 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    padding:
+        max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)) !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    background:
+        rgba(3, 20, 38, 0.94) !important;
+
+    backdrop-filter:
+        blur(18px) !important;
+
+    -webkit-backdrop-filter:
+        blur(18px) !important;
+}
+
+
+/* =========================================================
+   CONTEÚDO VISUALIZADOR
+========================================================= */
+
+.camera-arquivos-visualizador img,
+.camera-arquivos-visualizador video {
+    max-width: 100% !important;
+
+    max-height: 88vh !important;
+    max-height: 88dvh !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    display: block !important;
+
+    object-fit: contain !important;
+
+    border-radius: 16px !important;
+
+    background:
+        #071b31 !important;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45) !important;
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR VISUALIZADOR
+========================================================= */
+
+.camera-arquivos-visualizador-fechar {
+    position: absolute !important;
+
+    top:
+        max(16px, env(safe-area-inset-top)) !important;
+
+    right: 16px !important;
+
+    z-index: 30 !important;
+
+    width: 45px !important;
+    height: 45px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.18) !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(255, 255, 255, 0.12) !important;
+
+    color: #ffffff !important;
+
+    font-size: 25px !important;
+
+    cursor: pointer !important;
+
+    backdrop-filter:
+        blur(12px) !important;
+
+    -webkit-backdrop-filter:
+        blur(12px) !important;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25) !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.camera-arquivos-visualizador-fechar:hover {
+    transform: scale(1.06) !important;
+
+    background:
+        rgba(255, 255, 255, 0.20) !important;
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO VISUALIZADOR
+========================================================= */
+
+.camera-arquivos-visualizador-anterior,
+.camera-arquivos-visualizador-proximo {
+    position: absolute !important;
+
+    top: 50% !important;
+
+    z-index: 20 !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    transform: translateY(-50%) !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.18) !important;
+
+    border-radius: 50% !important;
+
+    background:
+        rgba(255, 255, 255, 0.12) !important;
+
+    color: #ffffff !important;
+
+    font-size: 27px !important;
+
+    cursor: pointer !important;
+
+    backdrop-filter:
+        blur(12px) !important;
+
+    -webkit-backdrop-filter:
+        blur(12px) !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.camera-arquivos-visualizador-anterior {
+    left: 14px !important;
+}
+
+.camera-arquivos-visualizador-proximo {
+    right: 14px !important;
+}
+
+.camera-arquivos-visualizador-anterior:hover,
+.camera-arquivos-visualizador-proximo:hover {
+    background:
+        rgba(255, 255, 255, 0.20) !important;
+}
+
+.camera-arquivos-visualizador-anterior:active {
+    transform:
+        translateY(-50%) scale(0.92) !important;
+}
+
+.camera-arquivos-visualizador-proximo:active {
+    transform:
+        translateY(-50%) scale(0.92) !important;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .camera-arquivos-container {
+        padding:
+            max(14px, env(safe-area-inset-top)) 13px calc(118px + env(safe-area-inset-bottom)) !important;
+    }
+
+    .camera-arquivos-cabecalho {
+        gap: 8px !important;
+    }
+
+    .camera-arquivos-titulo strong {
+        font-size: 18px !important;
+    }
+
+    .camera-arquivos-controles {
+        gap: 5px !important;
+    }
+
+    .camera-arquivos-selecionar-todos,
+    .camera-arquivos-atualizar {
+        min-width: 42px !important;
+
+        padding: 0 9px !important;
+
+        font-size: 8px !important;
+    }
+
+    .camera-arquivos-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 9px !important;
+    }
+
+    .camera-arquivos-card {
+        border-radius: 17px !important;
+    }
+
+    .camera-arquivos-card-info {
+        padding: 9px !important;
+    }
+
+    .camera-arquivos-card-info strong {
+        font-size: 10px !important;
+    }
+
+    .camera-arquivos-card-acoes {
+        padding:
+            0 8px 8px !important;
+    }
+
+    .camera-arquivos-card-acoes button {
+        min-height: 32px !important;
+
+        font-size: 7px !important;
+    }
+
+    .camera-arquivos-barra-selecao {
+        padding: 9px !important;
+
+        border-radius: 17px !important;
+    }
+
+    .camera-arquivos-acoes-selecao {
+        gap: 5px !important;
+    }
+
+    .camera-arquivos-baixar-varios,
+    .camera-arquivos-apagar-varios {
+        min-height: 36px !important;
+
+        padding: 0 9px !important;
+
+        font-size: 8px !important;
+    }
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .camera-arquivos-container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .camera-arquivos-voltar {
+        width: 43px !important;
+        height: 43px !important;
+
+        min-width: 43px !important;
+
+        border-radius: 14px !important;
+
+        font-size: 31px !important;
+    }
+
+    .camera-arquivos-titulo span {
+        font-size: 7px !important;
+    }
+
+    .camera-arquivos-titulo strong {
+        font-size: 16px !important;
+    }
+
+    .camera-arquivos-selecionar-todos {
+        max-width: 43px !important;
+
+        overflow: hidden !important;
+
+        white-space: nowrap !important;
+    }
+
+    .camera-arquivos-grid {
+        gap: 7px !important;
+    }
+
+    .camera-arquivos-check {
+        width: 27px !important;
+        height: 27px !important;
+
+        top: 6px !important;
+        left: 6px !important;
+    }
+
+    .camera-arquivos-tipo {
+        left: 6px !important;
+        bottom: 6px !important;
+
+        padding: 4px 6px !important;
+
+        font-size: 7px !important;
+    }
+
+    .camera-arquivos-card-info {
+        padding: 8px !important;
+    }
+
+    .camera-arquivos-card-info strong {
+        font-size: 9px !important;
+    }
+
+    .camera-arquivos-card-info span {
+        font-size: 7px !important;
+    }
+
+    .camera-arquivos-card-acoes {
+        grid-template-columns: 1fr !important;
+
+        gap: 4px !important;
+
+        padding:
+            0 7px 7px !important;
+    }
+
+    .camera-arquivos-card-acoes button {
+        min-height: 29px !important;
+
+        font-size: 7px !important;
+    }
+
+    .camera-arquivos-barra-selecao {
+        align-items: stretch !important;
+
+        flex-direction: column !important;
+    }
+
+    .camera-arquivos-acoes-selecao {
+        width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            1fr 1fr !important;
+    }
+
+    .camera-arquivos-baixar-varios,
+    .camera-arquivos-apagar-varios {
+        width: 100% !important;
+    }
+}
+
+
+/* =========================================================
+   CELULAR MUITO PEQUENO
+========================================================= */
+
+@media (max-width: 340px) {
+
+    .camera-arquivos-container {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    .camera-arquivos-grid {
+        grid-template-columns: 1fr 1fr !important;
+
+        gap: 6px !important;
+    }
+
+    .camera-arquivos-grupo-header strong {
+        font-size: 14px !important;
+    }
+
+    .camera-arquivos-card {
+        border-radius: 14px !important;
+    }
+
+    .camera-arquivos-card-info {
+        padding: 7px !important;
+    }
+
+    .camera-arquivos-card-acoes {
+        padding:
+            0 6px 6px !important;
+    }
+}
+
+
+/* =========================================================
+   LANDSCAPE
+========================================================= */
+
+@media (orientation: landscape) and (max-height: 520px) {
+
+    .camera-arquivos-container {
+        padding-top: 10px !important;
+
+        padding-bottom: 80px !important;
+    }
+
+    .camera-arquivos-cabecalho {
+        margin-bottom: 10px !important;
+    }
+
+    .camera-arquivos-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr)) !important;
+    }
+
+    .camera-arquivos-card-info {
+        padding: 7px !important;
+    }
+
+    .camera-arquivos-card-acoes {
+        padding-bottom: 6px !important;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+.camera-arquivos-container button:focus-visible {
+    outline:
+        3px solid rgba(62, 143, 214, 0.30) !important;
+
+    outline-offset: 2px !important;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .camera-arquivos-container *,
+    .camera-arquivos-container *::before,
+    .camera-arquivos-container *::after {
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
+}

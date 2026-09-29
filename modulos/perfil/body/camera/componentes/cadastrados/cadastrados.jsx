@@ -49,13 +49,131 @@ export default function Cadastrados() {
 
     const [limpandoIncompletos, setLimpandoIncompletos] =
         useState(false);
-
+    const [alterandoAdmin, setAlterandoAdmin] =
+        useState(null);
     const [alerta, setAlerta] =
         useState(null);
     /* =====================================================
        APAGAR CADASTRO
     ===================================================== */
+    async function alterarAdministrador(cadastro) {
 
+        if (alterandoAdmin) {
+            return;
+        }
+
+        const ehAdministrador =
+            Number(cadastro.admin) === 1;
+
+        const nome =
+            cadastro.nome ||
+            cadastro.email ||
+            "este cadastro";
+
+        const confirmou =
+            await abrirAlertaConfirmacao({
+                tipo: ehAdministrador
+                    ? "perigo"
+                    : "sucesso",
+
+                titulo: ehAdministrador
+                    ? "Remover administrador?"
+                    : "Tornar administrador?",
+
+                mensagem: ehAdministrador
+                    ? `Você está prestes a remover o acesso de administrador de ${nome}.`
+                    : `Você está prestes a tornar ${nome} um administrador.`,
+
+                confirmarTexto: ehAdministrador
+                    ? "Remover administrador"
+                    : "Tornar administrador",
+
+                cancelarTexto: "Cancelar"
+            });
+
+        if (!confirmou) {
+            return;
+        }
+
+        try {
+
+            setAlterandoAdmin(cadastro.id);
+            setMensagem("");
+
+            const token =
+                localStorage.getItem("token");
+
+            if (!token) {
+                throw new Error(
+                    "Sessão não encontrada."
+                );
+            }
+
+            const resposta = await fetch(
+                `${API_URL}/camera/cadastrados/${cadastro.id}/admin`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+            const dados =
+                await resposta
+                    .json()
+                    .catch(() => ({}));
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.detail ||
+                    "Não foi possível alterar o administrador."
+                );
+
+            }
+
+            setCadastrados(
+                anteriores =>
+                    anteriores.map(item =>
+                        item.id === cadastro.id
+                            ? {
+                                ...item,
+                                admin: dados.admin
+                            }
+                            : item
+                    )
+            );
+
+            setMensagem(
+                dados.mensagem ||
+                (
+                    dados.admin === 1
+                        ? "Administrador ativado com sucesso."
+                        : "Administrador removido com sucesso."
+                )
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[CÂMERA CADASTRADOS] Erro ao alterar administrador:",
+                erro
+            );
+
+            setMensagem(
+                erro.message ||
+                "Não foi possível alterar o administrador."
+            );
+
+        } finally {
+
+            setAlterandoAdmin(null);
+
+        }
+    }
     async function apagarCadastro(cadastro) {
 
         if (apagando) {
@@ -1421,6 +1539,41 @@ export default function Cadastrados() {
                                                         : "QR Code"
                                                     }
 
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className={
+                                                        Number(cadastro.admin) === 1
+                                                            ? "camera-cadastrado-acao camera-cadastrado-acao-admin camera-cadastrado-acao-admin-ativo"
+                                                            : "camera-cadastrado-acao camera-cadastrado-acao-admin"
+                                                    }
+                                                    onClick={() =>
+                                                        alterarAdministrador(cadastro)
+                                                    }
+                                                    disabled={
+                                                        alterandoAdmin === cadastro.id
+                                                    }
+                                                    title={
+                                                        Number(cadastro.admin) === 1
+                                                            ? "Remover administrador"
+                                                            : "Tornar administrador"
+                                                    }
+                                                >
+                                                    <span>
+                                                        {alterandoAdmin === cadastro.id
+                                                            ? "..."
+                                                            : Number(cadastro.admin) === 1
+                                                                ? "★"
+                                                                : "☆"
+                                                        }
+                                                    </span>
+
+                                                    {alterandoAdmin === cadastro.id
+                                                        ? "Alterando..."
+                                                        : Number(cadastro.admin) === 1
+                                                            ? "Administrador"
+                                                            : "Tornar admin"
+                                                    }
                                                 </button>
                                                 <button
                                                     type="button"

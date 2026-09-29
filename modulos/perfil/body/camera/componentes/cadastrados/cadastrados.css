@@ -2615,3 +2615,71 @@
     }
 
 }
+
+/* =========================================================
+   ADMINISTRADOR
+========================================================= */
+
+.camera-cadastrado-acao-admin {
+    border-color: #e2e8f0 !important;
+    background: #ffffff !important;
+    color: #64748b !important;
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.camera-cadastrado-acao-admin:hover {
+    border-color: #c4b5fd !important;
+    background: #faf5ff !important;
+    color: #7c3aed !important;
+
+    box-shadow:
+        0 4px 10px rgba(124, 58, 237, 0.08) !important;
+}
+
+.camera-cadastrado-acao-admin:active {
+    transform: scale(0.98);
+}
+
+.camera-cadastrado-acao-admin:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   ADMINISTRADOR ATIVO
+========================================================= */
+
+.camera-cadastrado-acao-admin-ativo {
+    border-color: #ddd6fe !important;
+    background: #f5f3ff !important;
+    color: #7c3aed !important;
+
+    box-shadow:
+        0 3px 9px rgba(124, 58, 237, 0.08) !important;
+}
+
+.camera-cadastrado-acao-admin-ativo:hover {
+    border-color: #c4b5fd !important;
+    background: #ede9fe !important;
+    color: #6d28d9 !important;
+
+    box-shadow:
+        0 5px 13px rgba(124, 58, 237, 0.12) !important;
+}
+
+.camera-cadastrado-acao-admin>span {
+    font-size: 13px !important;
+    line-height: 1 !important;
+    font-weight: 800 !important;
+}
+
+.camera-cadastrado-acao-admin-ativo>span {
+    color: #7c3aed !important;
+}

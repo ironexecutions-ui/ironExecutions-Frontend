@@ -3,6 +3,7 @@ import React, {
     useRef,
     useState
 } from "react";
+import ArquivosCameraMobile from "./arquivos";
 import { createPortal } from "react-dom";
 import {
     useParams
@@ -73,7 +74,10 @@ export default function Lente({
         setModoArquivos
     ] = useState(false);
 
-
+    const [
+        modoArquivosAdmin,
+        setModoArquivosAdmin
+    ] = useState(false);
     const [
         gravando,
         setGravando
@@ -1504,7 +1508,23 @@ export default function Lente({
                                 </strong>
 
                             </button>
+                            {Number(usuario?.admin) === 1 && (
+                                <button
+                                    type="button"
+                                    className="lenteProArquivos lenteProArquivosAdministrador"
+                                    onClick={() =>
+                                        setModoArquivosAdmin(true)
+                                    }
+                                >
+                                    <span className="lenteProArquivosIcone">
+                                        ★
+                                    </span>
 
+                                    <span className="lenteProArquivosTexto">
+                                        Todos
+                                    </span>
+                                </button>
+                            )}
                         </div>
 
 
@@ -2184,6 +2204,13 @@ export default function Lente({
 
                 </div>
 
+            )}
+            {modoArquivosAdmin && (
+                <ArquivosCameraMobile
+                    onVoltar={() =>
+                        setModoArquivosAdmin(false)
+                    }
+                />
             )}
         </div>
 
