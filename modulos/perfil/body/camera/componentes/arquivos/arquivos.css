@@ -1,20 +1,34 @@
 /* =========================================================
    IRON EXECUTIONS
-   CÂMERA - ARQUIVOS
-   TEMA CLARO / AZUL / PRETO
-========================================================= */
-
-
-/* =========================================================
-   CONTAINER
+   CÂMERA • ARQUIVOS
+   DESIGN SYSTEM
 ========================================================= */
 
 .camera-arquivos-container {
+    --camera-blue: #2563eb;
+    --camera-blue-dark: #1d4ed8;
+    --camera-blue-light: #eff6ff;
+    --camera-blue-soft: #dbeafe;
+
+    --camera-black: #0f172a;
+    --camera-text: #1e293b;
+    --camera-muted: #64748b;
+    --camera-border: #e2e8f0;
+
+    --camera-white: #ffffff;
+    --camera-surface: #f8fafc;
+
+    --camera-danger: #dc2626;
+    --camera-danger-dark: #b91c1c;
+    --camera-danger-light: #fef2f2;
+
     width: 100% !important;
     max-width: 100% !important;
     min-height: 100% !important;
 
     box-sizing: border-box !important;
+
+    padding: 0 !important;
 
     font-family:
         "Montserrat",
@@ -23,31 +37,42 @@
         "Segoe UI",
         sans-serif !important;
 
-    color: #111827 !important;
+    color: var(--camera-text) !important;
 
     animation:
-        cameraArquivosEntrada 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        cameraArquivosEntrada 0.3s ease both !important;
 }
 
 
 /* =========================================================
-   CABEÇALHO
+   RESET LOCAL
+========================================================= */
+
+.camera-arquivos-container *,
+.camera-arquivos-container *::before,
+.camera-arquivos-container *::after {
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO PRINCIPAL
 ========================================================= */
 
 .camera-arquivos-cabecalho {
     width: 100% !important;
 
     display: flex !important;
-    align-items: flex-end !important;
+    align-items: center !important;
     justify-content: space-between !important;
 
-    gap: 24px !important;
+    gap: 30px !important;
 
-    margin: 0 0 25px 0 !important;
-    padding: 0 0 20px 0 !important;
+    margin: 0 0 24px 0 !important;
+    padding: 0 0 22px 0 !important;
 
     border-bottom:
-        1px solid rgba(15, 23, 42, 0.10) !important;
+        1px solid var(--camera-border) !important;
 }
 
 
@@ -57,272 +82,251 @@
 
 
 .camera-arquivos-cabecalho-texto>span {
-    display: block !important;
+    display: inline-flex !important;
+    align-items: center !important;
 
-    margin: 0 0 7px 0 !important;
+    margin: 0 0 8px 0 !important;
+    padding: 5px 9px !important;
 
-    color: #2563eb !important;
+    border-radius: 6px !important;
 
-    font-size: 10px !important;
+    background: var(--camera-blue-light) !important;
+
+    color: var(--camera-blue-dark) !important;
+
+    font-size: 9px !important;
     font-weight: 800 !important;
 
     line-height: 1 !important;
-    letter-spacing: 1.15px !important;
+    letter-spacing: 1px !important;
 
     text-transform: uppercase !important;
 }
 
 
 .camera-arquivos-titulo {
-    margin: 0 0 6px 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
 
-    color: #0a0a0a !important;
+    color: var(--camera-black) !important;
 
-    font-size: 22px !important;
+    font-size: 25px !important;
     font-weight: 800 !important;
 
-    line-height: 1.2 !important;
-    letter-spacing: -0.45px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.7px !important;
 }
 
 
 .camera-arquivos-cabecalho-texto>p {
-    margin: 0 !important;
+    margin: 7px 0 0 0 !important;
     padding: 0 !important;
 
-    color: #64748b !important;
+    color: var(--camera-muted) !important;
 
-    font-size: 12px !important;
-    font-weight: 550 !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
 
-    line-height: 1.45 !important;
+    line-height: 1.4 !important;
 }
 
 
 /* =========================================================
-   MODOS DE AGRUPAMENTO
+   SELETOR DE AGRUPAMENTO
 ========================================================= */
 
 .camera-arquivos-modo {
-    display: flex !important;
+    display: inline-flex !important;
     align-items: center !important;
 
-    gap: 8px !important;
+    gap: 4px !important;
 
     flex-shrink: 0 !important;
+
+    padding: 4px !important;
+
+    border:
+        1px solid var(--camera-border) !important;
+
+    border-radius: 10px !important;
+
+    background: #f8fafc !important;
 }
 
 
 .camera-arquivos-modo-botao {
-    min-height: 40px !important;
+    min-height: 36px !important;
 
-    padding: 0 15px !important;
+    padding: 0 14px !important;
 
-    border:
-        1px solid rgba(37, 99, 235, 0.16) !important;
-
-    border-radius: 11px !important;
+    border: 0 !important;
+    border-radius: 7px !important;
 
     outline: none !important;
 
-    background: #ffffff !important;
+    background: transparent !important;
 
-    color: #334155 !important;
+    color: var(--camera-muted) !important;
 
     font-family: inherit !important;
 
-    font-size: 11px !important;
-    font-weight: 750 !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
 
     cursor: pointer !important;
 
-    box-shadow:
-        0 4px 11px rgba(15, 23, 42, 0.055),
-        inset 0 1px 0 #ffffff !important;
-
     transition:
-        transform 0.16s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        color 0.2s ease !important;
+        background 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease !important;
 }
 
 
 .camera-arquivos-modo-botao:hover {
-    transform: translateY(-1px) !important;
+    background: #ffffff !important;
 
-    border-color: #2563eb !important;
-
-    background: #eff6ff !important;
-
-    color: #1d4ed8 !important;
-
-    box-shadow:
-        0 8px 18px rgba(37, 99, 235, 0.12) !important;
+    color: var(--camera-text) !important;
 }
 
 
 .camera-arquivos-modo-botao.camera-arquivos-modo-ativo {
-    border-color: #2563eb !important;
-
-    background:
-        linear-gradient(180deg,
-            #3b82f6 0%,
-            #2563eb 48%,
-            #1d4ed8 100%) !important;
+    background: var(--camera-blue) !important;
 
     color: #ffffff !important;
 
     box-shadow:
-        0 8px 18px rgba(37, 99, 235, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+        0 3px 8px rgba(37, 99, 235, 0.22) !important;
 }
 
 
 .camera-arquivos-modo-botao.camera-arquivos-modo-ativo:hover {
-    background:
-        linear-gradient(180deg,
-            #60a5fa 0%,
-            #2563eb 48%,
-            #1d4ed8 100%) !important;
+    background: var(--camera-blue-dark) !important;
 
     color: #ffffff !important;
 }
 
 
 /* =========================================================
-   MENSAGEM
+   MENSAGEM DE ERRO
 ========================================================= */
 
 .camera-arquivos-mensagem {
     width: 100% !important;
 
-    box-sizing: border-box !important;
-
     margin: 0 0 18px 0 !important;
-
-    padding: 13px 15px !important;
+    padding: 12px 14px !important;
 
     border:
-        1px solid rgba(220, 38, 38, 0.18) !important;
+        1px solid #fecaca !important;
 
-    border-radius: 11px !important;
+    border-left:
+        3px solid var(--camera-danger) !important;
 
-    background: #fef2f2 !important;
+    border-radius: 8px !important;
 
-    color: #991b1b !important;
+    background: var(--camera-danger-light) !important;
 
-    font-size: 12px !important;
+    color: var(--camera-danger-dark) !important;
+
+    font-size: 11px !important;
     font-weight: 650 !important;
 
     line-height: 1.45 !important;
-
-    box-shadow:
-        0 4px 12px rgba(220, 38, 38, 0.05) !important;
-
-    animation:
-        cameraArquivosMensagem 0.25s ease !important;
 }
 
 
 /* =========================================================
-   BARRA DE SELEÇÃO
+   BARRA DE CONTROLE
 ========================================================= */
 
 .camera-arquivos-barra {
     width: 100% !important;
 
-    box-sizing: border-box !important;
-
     display: flex !important;
     align-items: center !important;
 
-    gap: 12px !important;
+    gap: 10px !important;
 
-    margin: 0 0 20px 0 !important;
-
-    padding: 13px 15px !important;
+    margin: 0 0 22px 0 !important;
+    padding: 10px !important;
 
     border:
-        1px solid rgba(37, 99, 235, 0.13) !important;
+        1px solid var(--camera-border) !important;
 
-    border-radius: 15px !important;
+    border-radius: 10px !important;
 
-    background:
-        linear-gradient(145deg,
-            #ffffff 0%,
-            #fbfdff 55%,
-            #f5f8ff 100%) !important;
+    background: var(--camera-white) !important;
 
     box-shadow:
-        0 10px 25px rgba(15, 23, 42, 0.07),
-        inset 0 1px 0 #ffffff !important;
+        0 2px 7px rgba(15, 23, 42, 0.035) !important;
 }
 
 
 .camera-arquivos-selecionar-tudo {
-    min-height: 38px !important;
+    min-height: 34px !important;
 
-    padding: 0 14px !important;
+    padding: 0 12px !important;
 
     border:
-        1px solid rgba(37, 99, 235, 0.18) !important;
+        1px solid var(--camera-border) !important;
 
-    border-radius: 10px !important;
+    border-radius: 7px !important;
 
     outline: none !important;
 
     background: #ffffff !important;
 
-    color: #1d4ed8 !important;
+    color: var(--camera-text) !important;
 
     font-family: inherit !important;
 
-    font-size: 11px !important;
-    font-weight: 750 !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
 
     cursor: pointer !important;
 
     transition:
-        transform 0.16s ease,
-        background 0.2s ease,
-        border-color 0.2s ease !important;
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease !important;
 }
 
 
 .camera-arquivos-selecionar-tudo:hover {
-    transform: translateY(-1px) !important;
+    border-color: var(--camera-blue) !important;
 
-    border-color: #2563eb !important;
+    background: var(--camera-blue-light) !important;
 
-    background: #eff6ff !important;
+    color: var(--camera-blue-dark) !important;
 }
 
 
 .camera-arquivos-barra-total {
     display: flex !important;
-    align-items: baseline !important;
+    align-items: center !important;
 
     gap: 5px !important;
 
     margin-left: auto !important;
 
-    color: #64748b !important;
+    color: var(--camera-muted) !important;
 
-    font-size: 11px !important;
+    font-size: 10px !important;
     font-weight: 600 !important;
 }
 
 
 .camera-arquivos-barra-total strong {
-    color: #0f172a !important;
+    min-width: 24px !important;
 
-    font-size: 17px !important;
-    font-weight: 850 !important;
+    color: var(--camera-black) !important;
+
+    font-size: 15px !important;
+    font-weight: 800 !important;
 
     line-height: 1 !important;
+
+    text-align: center !important;
 
     font-variant-numeric: tabular-nums !important;
 }
@@ -332,99 +336,95 @@
     display: flex !important;
     align-items: center !important;
 
-    gap: 8px !important;
+    gap: 7px !important;
 }
 
 
+/* =========================================================
+   BOTÕES DE AÇÃO EM MASSA
+========================================================= */
+
 .camera-arquivos-baixar-varios,
 .camera-arquivos-apagar-varios {
-    min-height: 38px !important;
+    min-height: 34px !important;
 
-    padding: 0 14px !important;
+    padding: 0 12px !important;
 
-    border-radius: 10px !important;
+    border-radius: 7px !important;
 
     outline: none !important;
 
     font-family: inherit !important;
 
-    font-size: 11px !important;
-    font-weight: 750 !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
 
     cursor: pointer !important;
 
     transition:
-        transform 0.16s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease !important;
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.15s ease !important;
 }
 
 
 .camera-arquivos-baixar-varios {
     border:
-        1px solid #2563eb !important;
+        1px solid var(--camera-blue) !important;
 
-    background:
-        linear-gradient(180deg,
-            #3b82f6 0%,
-            #2563eb 50%,
-            #1d4ed8 100%) !important;
+    background: var(--camera-blue) !important;
 
     color: #ffffff !important;
-
-    box-shadow:
-        0 7px 17px rgba(37, 99, 235, 0.22) !important;
 }
 
 
 .camera-arquivos-baixar-varios:hover:not(:disabled) {
-    transform: translateY(-1px) !important;
+    background: var(--camera-blue-dark) !important;
 
-    box-shadow:
-        0 10px 22px rgba(37, 99, 235, 0.30) !important;
+    transform: translateY(-1px) !important;
 }
 
 
 .camera-arquivos-apagar-varios {
     border:
-        1px solid rgba(220, 38, 38, 0.18) !important;
+        1px solid #fecaca !important;
 
     background: #ffffff !important;
 
-    color: #b91c1c !important;
+    color: var(--camera-danger-dark) !important;
 }
 
 
 .camera-arquivos-apagar-varios:hover:not(:disabled) {
+    border-color: #fca5a5 !important;
+
+    background: var(--camera-danger-light) !important;
+
+    color: var(--camera-danger) !important;
+
     transform: translateY(-1px) !important;
-
-    border-color: #dc2626 !important;
-
-    background: #fef2f2 !important;
 }
 
 
 .camera-arquivos-baixar-varios:disabled,
 .camera-arquivos-apagar-varios:disabled {
-    cursor: not-allowed !important;
+    opacity: 0.5 !important;
 
-    opacity: 0.55 !important;
+    cursor: not-allowed !important;
 
     transform: none !important;
 }
 
 
 /* =========================================================
-   CARREGANDO
+   CARREGAMENTO
 ========================================================= */
 
 .camera-arquivos-carregando {
     width: 100% !important;
 
-    min-height: 250px !important;
-
-    box-sizing: border-box !important;
+    min-height: 300px !important;
 
     display: flex !important;
     flex-direction: column !important;
@@ -434,33 +434,29 @@
 
     gap: 8px !important;
 
-    padding: 30px !important;
+    padding: 35px !important;
 
     border:
-        1px solid rgba(37, 99, 235, 0.13) !important;
+        1px solid var(--camera-border) !important;
 
-    border-radius: 20px !important;
+    border-radius: 12px !important;
 
-    background:
-        linear-gradient(145deg,
-            #ffffff 0%,
-            #f5f8ff 100%) !important;
-
-    color: #2563eb !important;
+    background: #ffffff !important;
 
     box-shadow:
-        0 18px 40px rgba(15, 23, 42, 0.08) !important;
+        0 4px 14px rgba(15, 23, 42, 0.04) !important;
 }
 
 
 .camera-arquivos-carregando-icone {
-    width: 34px !important;
-    height: 34px !important;
+    width: 32px !important;
+    height: 32px !important;
 
     border:
-        3px solid rgba(37, 99, 235, 0.15) !important;
+        3px solid #dbeafe !important;
 
-    border-top-color: #2563eb !important;
+    border-top-color:
+        var(--camera-blue) !important;
 
     border-radius: 50% !important;
 
@@ -470,31 +466,28 @@
 
 
 .camera-arquivos-carregando strong {
-    color: #0f172a !important;
+    color: var(--camera-black) !important;
 
-    font-size: 13px !important;
+    font-size: 12px !important;
     font-weight: 750 !important;
 }
 
 
 .camera-arquivos-carregando span {
-    color: #64748b !important;
+    color: var(--camera-muted) !important;
 
-    font-size: 11px !important;
-    font-weight: 550 !important;
+    font-size: 10px !important;
 }
 
 
 /* =========================================================
-   VAZIO
+   ESTADO VAZIO
 ========================================================= */
 
 .camera-arquivos-vazio {
     width: 100% !important;
 
-    min-height: 280px !important;
-
-    box-sizing: border-box !important;
+    min-height: 300px !important;
 
     display: flex !important;
     flex-direction: column !important;
@@ -504,21 +497,17 @@
 
     gap: 7px !important;
 
-    padding: 35px !important;
+    padding: 40px 25px !important;
 
     border:
-        1px solid rgba(37, 99, 235, 0.12) !important;
+        1px dashed #cbd5e1 !important;
 
-    border-radius: 20px !important;
+    border-radius: 12px !important;
 
     background:
-        linear-gradient(145deg,
+        linear-gradient(180deg,
             #ffffff 0%,
-            #f8fbff 100%) !important;
-
-    box-shadow:
-        0 18px 40px rgba(15, 23, 42, 0.07),
-        inset 0 1px 0 #ffffff !important;
+            #f8fafc 100%) !important;
 }
 
 
@@ -530,40 +519,34 @@
     align-items: center !important;
     justify-content: center !important;
 
-    margin-bottom: 7px !important;
+    margin-bottom: 6px !important;
 
-    border:
-        1px solid rgba(37, 99, 235, 0.13) !important;
+    border-radius: 12px !important;
 
-    border-radius: 17px !important;
+    background: var(--camera-blue-light) !important;
 
-    background: #eff6ff !important;
+    color: var(--camera-blue) !important;
 
-    color: #2563eb !important;
-
-    font-size: 28px !important;
-
-    box-shadow:
-        0 9px 22px rgba(37, 99, 235, 0.09) !important;
+    font-size: 25px !important;
 }
 
 
 .camera-arquivos-vazio strong {
-    color: #0f172a !important;
+    color: var(--camera-black) !important;
 
-    font-size: 15px !important;
+    font-size: 14px !important;
     font-weight: 800 !important;
 }
 
 
 .camera-arquivos-vazio span {
-    max-width: 430px !important;
+    max-width: 440px !important;
 
     text-align: center !important;
 
-    color: #64748b !important;
+    color: var(--camera-muted) !important;
 
-    font-size: 11px !important;
+    font-size: 10px !important;
     font-weight: 500 !important;
 
     line-height: 1.5 !important;
@@ -571,7 +554,7 @@
 
 
 /* =========================================================
-   PASTAS
+   LISTA DE PASTAS
 ========================================================= */
 
 .camera-arquivos-pastas {
@@ -580,36 +563,33 @@
     display: flex !important;
     flex-direction: column !important;
 
-    gap: 16px !important;
+    gap: 14px !important;
 }
 
+
+/* =========================================================
+   PASTA
+========================================================= */
 
 .camera-arquivos-pasta {
     width: 100% !important;
 
     position: relative !important;
 
-    box-sizing: border-box !important;
-
     overflow: hidden !important;
 
     border:
-        1px solid rgba(37, 99, 235, 0.14) !important;
+        1px solid var(--camera-border) !important;
 
-    border-radius: 18px !important;
+    border-radius: 12px !important;
 
-    background:
-        linear-gradient(145deg,
-            #ffffff 0%,
-            #fbfdff 55%,
-            #f5f8ff 100%) !important;
+    background: #ffffff !important;
 
     box-shadow:
-        0 13px 30px rgba(15, 23, 42, 0.075),
-        inset 0 1px 0 #ffffff !important;
+        0 3px 12px rgba(15, 23, 42, 0.045) !important;
 
     animation:
-        cameraArquivosPastaEntrada 0.35s ease both !important;
+        cameraArquivosPastaEntrada 0.3s ease both !important;
 }
 
 
@@ -622,13 +602,9 @@
     left: 0 !important;
 
     width: 100% !important;
-    height: 3px !important;
+    height: 2px !important;
 
-    background:
-        linear-gradient(90deg,
-            #1d4ed8 0%,
-            #2563eb 45%,
-            #60a5fa 100%) !important;
+    background: var(--camera-blue) !important;
 }
 
 
@@ -639,7 +615,7 @@
 .camera-arquivos-pasta-cabecalho {
     width: 100% !important;
 
-    box-sizing: border-box !important;
+    min-height: 65px !important;
 
     display: flex !important;
     align-items: center !important;
@@ -647,15 +623,12 @@
 
     gap: 15px !important;
 
-    padding: 16px 18px !important;
+    padding: 12px 15px !important;
 
     border-bottom:
-        1px solid rgba(15, 23, 42, 0.07) !important;
+        1px solid #edf1f5 !important;
 
-    background:
-        linear-gradient(180deg,
-            rgba(248, 250, 252, 0.70),
-            rgba(241, 245, 249, 0.35)) !important;
+    background: #ffffff !important;
 }
 
 
@@ -665,16 +638,16 @@
     display: flex !important;
     align-items: center !important;
 
-    gap: 12px !important;
+    gap: 10px !important;
 
     padding: 0 !important;
 
-    border: none !important;
+    border: 0 !important;
     outline: none !important;
 
     background: transparent !important;
 
-    color: #0f172a !important;
+    color: var(--camera-black) !important;
 
     font-family: inherit !important;
 
@@ -685,37 +658,34 @@
 
 
 .camera-arquivos-pasta-icone {
-    width: 30px !important;
-    height: 30px !important;
+    width: 31px !important;
+    height: 31px !important;
 
-    flex: 0 0 30px !important;
+    flex: 0 0 31px !important;
 
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
 
-    border:
-        1px solid rgba(37, 99, 235, 0.14) !important;
+    border-radius: 8px !important;
 
-    border-radius: 9px !important;
+    background: var(--camera-blue-light) !important;
 
-    background: #eff6ff !important;
+    color: var(--camera-blue) !important;
 
-    color: #2563eb !important;
-
-    font-size: 15px !important;
+    font-size: 14px !important;
     font-weight: 800 !important;
 
     transition:
-        background 0.2s ease,
-        transform 0.2s ease !important;
+        background 0.18s ease,
+        color 0.18s ease !important;
 }
 
 
 .camera-arquivos-pasta-abrir:hover .camera-arquivos-pasta-icone {
-    background: #dbeafe !important;
+    background: var(--camera-blue-soft) !important;
 
-    transform: scale(1.04) !important;
+    color: var(--camera-blue-dark) !important;
 }
 
 
@@ -734,10 +704,10 @@
 
     overflow: hidden !important;
 
-    color: #0f172a !important;
+    color: var(--camera-black) !important;
 
-    font-size: 13px !important;
-    font-weight: 800 !important;
+    font-size: 12px !important;
+    font-weight: 750 !important;
 
     line-height: 1.3 !important;
 
@@ -747,85 +717,81 @@
 
 
 .camera-arquivos-pasta-info span {
-    color: #64748b !important;
+    color: var(--camera-muted) !important;
 
-    font-size: 10px !important;
+    font-size: 9px !important;
     font-weight: 600 !important;
 }
 
 
 .camera-arquivos-pasta-selecionar {
-    min-height: 36px !important;
+    min-height: 32px !important;
 
     flex-shrink: 0 !important;
 
-    padding: 0 13px !important;
+    padding: 0 11px !important;
 
     border:
-        1px solid rgba(37, 99, 235, 0.17) !important;
+        1px solid #dbe3ec !important;
 
-    border-radius: 10px !important;
+    border-radius: 7px !important;
 
     outline: none !important;
 
     background: #ffffff !important;
 
-    color: #1d4ed8 !important;
+    color: var(--camera-text) !important;
 
     font-family: inherit !important;
 
-    font-size: 10px !important;
-    font-weight: 750 !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
 
     cursor: pointer !important;
 
     transition:
-        transform 0.16s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease !important;
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease !important;
 }
 
 
 .camera-arquivos-pasta-selecionar:hover {
-    transform: translateY(-1px) !important;
+    border-color: var(--camera-blue) !important;
 
-    border-color: #2563eb !important;
+    background: var(--camera-blue-light) !important;
 
-    background: #eff6ff !important;
+    color: var(--camera-blue-dark) !important;
 }
 
 
 .camera-arquivos-pasta-selecionar.camera-arquivos-pasta-selecionar-ativo {
-    border-color: #2563eb !important;
+    border-color: var(--camera-blue) !important;
 
-    background: #eff6ff !important;
+    background: var(--camera-blue-light) !important;
 
-    color: #1d4ed8 !important;
-
-    box-shadow:
-        inset 0 0 0 1px rgba(37, 99, 235, 0.06) !important;
+    color: var(--camera-blue-dark) !important;
 }
 
 
 /* =========================================================
-   GRID
+   GRID DE ARQUIVOS
 ========================================================= */
 
 .camera-arquivos-grid {
     width: 100% !important;
 
-    box-sizing: border-box !important;
-
     display: grid !important;
 
     grid-template-columns:
         repeat(auto-fill,
-            minmax(235px, 1fr)) !important;
+            minmax(230px, 1fr)) !important;
 
-    gap: 15px !important;
+    gap: 14px !important;
 
-    padding: 17px !important;
+    padding: 15px !important;
+
+    background: #f8fafc !important;
 }
 
 
@@ -840,45 +806,43 @@
 
     overflow: hidden !important;
 
-    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
 
     border:
-        1px solid rgba(15, 23, 42, 0.09) !important;
+        1px solid #e2e8f0 !important;
 
-    border-radius: 15px !important;
+    border-radius: 10px !important;
 
     background: #ffffff !important;
 
     box-shadow:
-        0 7px 18px rgba(15, 23, 42, 0.075),
-        inset 0 1px 0 #ffffff !important;
+        0 2px 8px rgba(15, 23, 42, 0.04) !important;
 
     transition:
         transform 0.18s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease !important;
+        border-color 0.18s ease,
+        box-shadow 0.18s ease !important;
 }
 
 
 .camera-arquivos-card:hover {
-    transform: translateY(-3px) !important;
+    transform: translateY(-2px) !important;
 
     border-color:
-        rgba(37, 99, 235, 0.24) !important;
+        #bfdbfe !important;
 
     box-shadow:
-        0 14px 28px rgba(15, 23, 42, 0.12),
-        0 4px 12px rgba(37, 99, 235, 0.05) !important;
+        0 8px 20px rgba(15, 23, 42, 0.08) !important;
 }
 
 
 .camera-arquivos-card.camera-arquivos-card-selecionado {
     border:
-        2px solid #2563eb !important;
+        2px solid var(--camera-blue) !important;
 
     box-shadow:
-        0 12px 28px rgba(37, 99, 235, 0.17),
-        0 0 0 3px rgba(37, 99, 235, 0.07) !important;
+        0 5px 18px rgba(37, 99, 235, 0.12) !important;
 }
 
 
@@ -889,13 +853,13 @@
 .camera-arquivos-check {
     position: absolute !important;
 
-    top: 10px !important;
-    left: 10px !important;
+    top: 9px !important;
+    left: 9px !important;
 
     z-index: 10 !important;
 
-    width: 27px !important;
-    height: 27px !important;
+    width: 25px !important;
+    height: 25px !important;
 
     display: flex !important;
     align-items: center !important;
@@ -904,49 +868,47 @@
     padding: 0 !important;
 
     border:
-        1px solid rgba(255, 255, 255, 0.90) !important;
+        1px solid rgba(255, 255, 255, 0.95) !important;
 
-    border-radius: 8px !important;
+    border-radius: 7px !important;
 
     outline: none !important;
 
     background:
-        rgba(255, 255, 255, 0.92) !important;
+        rgba(255, 255, 255, 0.94) !important;
 
-    color: #2563eb !important;
+    color: var(--camera-blue) !important;
 
     font-family: inherit !important;
 
-    font-size: 14px !important;
-    font-weight: 850 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
 
     cursor: pointer !important;
 
     box-shadow:
-        0 5px 13px rgba(15, 23, 42, 0.15) !important;
+        0 3px 8px rgba(15, 23, 42, 0.18) !important;
 
-    backdrop-filter: blur(8px) !important;
+    backdrop-filter: blur(7px) !important;
 
     transition:
-        transform 0.16s ease,
-        background 0.2s ease,
-        border-color 0.2s ease !important;
+        background 0.16s ease,
+        border-color 0.16s ease,
+        transform 0.16s ease !important;
 }
 
 
 .camera-arquivos-check:hover {
-    transform: scale(1.07) !important;
+    border-color: var(--camera-blue) !important;
 
-    border-color: #2563eb !important;
-
-    background: #ffffff !important;
+    transform: scale(1.05) !important;
 }
 
 
 .camera-arquivos-check.camera-arquivos-check-ativo {
-    border-color: #2563eb !important;
+    border-color: var(--camera-blue) !important;
 
-    background: #2563eb !important;
+    background: var(--camera-blue) !important;
 
     color: #ffffff !important;
 }
@@ -959,16 +921,31 @@
 .camera-arquivos-preview {
     width: 100% !important;
 
-    aspect-ratio: 16 / 10 !important;
-
     position: relative !important;
 
     overflow: hidden !important;
 
+    aspect-ratio: 16 / 10 !important;
+
     background:
-        linear-gradient(145deg,
-            #e2e8f0,
-            #f8fafc) !important;
+        #e2e8f0 !important;
+
+    cursor: pointer !important;
+
+    user-select: none !important;
+
+    transition:
+        filter 0.18s ease !important;
+}
+
+
+.camera-arquivos-preview:hover {
+    filter: brightness(0.93) !important;
+}
+
+
+.camera-arquivos-preview:active {
+    transform: scale(0.995) !important;
 }
 
 
@@ -976,15 +953,15 @@
 .camera-arquivos-preview video {
     display: block !important;
 
-    width: 100% !important;
+    width: 70% !important;
     height: 100% !important;
 
     object-fit: cover !important;
     object-position: center !important;
 
-    border: none !important;
+    border: 0 !important;
 
-    background: #f1f5f9 !important;
+    background: #e2e8f0 !important;
 }
 
 
@@ -993,24 +970,27 @@
 }
 
 
-.camera-arquivos-tipo {
+/* =========================================================
+   OVERLAY "VER COMPLETO"
+========================================================= */
+
+.camera-arquivos-preview::after {
+    content: "VER COMPLETO" !important;
+
     position: absolute !important;
 
-    right: 9px !important;
-    bottom: 9px !important;
+    left: 50% !important;
+    top: 50% !important;
 
-    min-height: 24px !important;
+    transform:
+        translate(-50%, -50%) !important;
 
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    padding: 0 9px !important;
+    padding: 7px 10px !important;
 
     border:
-        1px solid rgba(255, 255, 255, 0.55) !important;
+        1px solid rgba(255, 255, 255, 0.25) !important;
 
-    border-radius: 7px !important;
+    border-radius: 6px !important;
 
     background:
         rgba(15, 23, 42, 0.78) !important;
@@ -1020,17 +1000,64 @@
     font-size: 8px !important;
     font-weight: 800 !important;
 
-    letter-spacing: 0.8px !important;
+    letter-spacing: 0.6px !important;
 
-    box-shadow:
-        0 4px 10px rgba(15, 23, 42, 0.18) !important;
+    opacity: 0 !important;
 
-    backdrop-filter: blur(7px) !important;
+    pointer-events: none !important;
+
+    backdrop-filter: blur(5px) !important;
+
+    transition:
+        opacity 0.18s ease !important;
+
+    z-index: 5 !important;
+}
+
+
+
+
+/* =========================================================
+   TIPO DO ARQUIVO
+========================================================= */
+
+.camera-arquivos-tipo {
+    position: absolute !important;
+
+    right: 8px !important;
+    bottom: 8px !important;
+
+    z-index: 6 !important;
+
+    min-height: 22px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 7px !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.25) !important;
+
+    border-radius: 5px !important;
+
+    background:
+        rgba(15, 23, 42, 0.78) !important;
+
+    color: #ffffff !important;
+
+    font-size: 7px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.6px !important;
+
+    backdrop-filter: blur(5px) !important;
 }
 
 
 /* =========================================================
-   INFORMAÇÕES DO CARD
+   INFORMAÇÕES
 ========================================================= */
 
 .camera-arquivos-card-info {
@@ -1041,17 +1068,19 @@
 
     gap: 4px !important;
 
-    padding: 13px 14px 11px 14px !important;
+    padding: 12px 12px 10px 12px !important;
+
+    background: #ffffff !important;
 }
 
 
 .camera-arquivos-card-info strong {
     overflow: hidden !important;
 
-    color: #0f172a !important;
+    color: var(--camera-black) !important;
 
-    font-size: 12px !important;
-    font-weight: 800 !important;
+    font-size: 11px !important;
+    font-weight: 750 !important;
 
     line-height: 1.35 !important;
 
@@ -1061,37 +1090,88 @@
 
 
 .camera-arquivos-card-info span {
-    color: #64748b !important;
+    color: var(--camera-muted) !important;
 
-    font-size: 10px !important;
-    font-weight: 550 !important;
+    font-size: 9px !important;
+    font-weight: 500 !important;
 
     line-height: 1.35 !important;
 }
 
 
 /* =========================================================
-   AÇÕES DO CARD
+   TAMANHO DO ARQUIVO
+========================================================= */
+
+.camera-arquivos-card-info .camera-arquivos-tamanho {
+    display: inline-flex !important;
+
+    width: fit-content !important;
+
+    margin-top: 1px !important;
+
+    padding: 3px 6px !important;
+
+    border:
+        1px solid #dbeafe !important;
+
+    border-radius: 5px !important;
+
+    background: var(--camera-blue-light) !important;
+
+    color: var(--camera-blue-dark) !important;
+
+    font-size: 8px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.2 !important;
+
+    font-variant-numeric: tabular-nums !important;
+}
+
+
+/* =========================================================
+   AÇÕES DOS CARDS
 ========================================================= */
 
 .camera-arquivos-card-acoes {
     width: 100% !important;
 
-    box-sizing: border-box !important;
-
     display: grid !important;
 
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns:
+        1fr 1fr !important;
 
     gap: 7px !important;
 
     padding: 0 12px 12px 12px !important;
+
+    background: #ffffff !important;
 }
 
 
+/*
+   Esses dois botões estão no JSX apenas para
+   navegação do visualizador. Eles já possuem
+   position fixed inline, mas não devem ocupar
+   espaço dentro da grade do card.
+*/
+
+.camera-arquivos-card-acoes button[aria-label="Arquivo anterior"],
+.camera-arquivos-card-acoes button[aria-label="Próximo arquivo"] {
+    display: none !important;
+}
+
+
+/* =========================================================
+   BOTÕES DOS CARDS
+========================================================= */
+
 .camera-arquivos-acao-baixar,
 .camera-arquivos-acao-apagar {
-    min-height: 36px !important;
+    min-height: 34px !important;
+
+    width: 100% !important;
 
     display: inline-flex !important;
     align-items: center !important;
@@ -1101,66 +1181,74 @@
 
     padding: 0 8px !important;
 
-    border-radius: 9px !important;
+    border-radius: 7px !important;
 
     outline: none !important;
 
     font-family: inherit !important;
 
-    font-size: 10px !important;
-    font-weight: 750 !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
 
     cursor: pointer !important;
 
     transition:
-        transform 0.16s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease !important;
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.15s ease !important;
 }
 
 
 .camera-arquivos-acao-baixar {
     border:
-        1px solid rgba(37, 99, 235, 0.18) !important;
+        1px solid #bfdbfe !important;
 
-    background: #eff6ff !important;
+    background:
+        var(--camera-blue-light) !important;
 
-    color: #1d4ed8 !important;
+    color:
+        var(--camera-blue-dark) !important;
 }
 
 
 .camera-arquivos-acao-baixar:hover {
+    border-color:
+        var(--camera-blue) !important;
+
+    background:
+        var(--camera-blue) !important;
+
+    color:
+        #ffffff !important;
+
     transform: translateY(-1px) !important;
-
-    border-color: #2563eb !important;
-
-    background: #dbeafe !important;
-
-    box-shadow:
-        0 6px 14px rgba(37, 99, 235, 0.10) !important;
 }
 
 
 .camera-arquivos-acao-apagar {
     border:
-        1px solid rgba(220, 38, 38, 0.16) !important;
+        1px solid #fecaca !important;
 
-    background: #ffffff !important;
+    background:
+        #ffffff !important;
 
-    color: #b91c1c !important;
+    color:
+        var(--camera-danger-dark) !important;
 }
 
 
 .camera-arquivos-acao-apagar:hover {
+    border-color:
+        var(--camera-danger) !important;
+
+    background:
+        var(--camera-danger-light) !important;
+
+    color:
+        var(--camera-danger) !important;
+
     transform: translateY(-1px) !important;
-
-    border-color: #dc2626 !important;
-
-    background: #fef2f2 !important;
-
-    box-shadow:
-        0 6px 14px rgba(220, 38, 38, 0.08) !important;
 }
 
 
@@ -1171,12 +1259,14 @@
 
 
 /* =========================================================
-   FOCUS
+   MODAL
+   O JSX possui estilos inline, então aqui fazemos
+   apenas pequenos ajustes complementares.
 ========================================================= */
 
 .camera-arquivos-container button:focus-visible {
     outline:
-        3px solid rgba(37, 99, 235, 0.20) !important;
+        2px solid rgba(37, 99, 235, 0.45) !important;
 
     outline-offset: 2px !important;
 }
@@ -1187,11 +1277,12 @@
 ========================================================= */
 
 @keyframes cameraArquivosEntrada {
+
     from {
         opacity: 0;
 
         transform:
-            translateY(6px);
+            translateY(5px);
     }
 
     to {
@@ -1204,28 +1295,12 @@
 
 
 @keyframes cameraArquivosPastaEntrada {
+
     from {
         opacity: 0;
 
         transform:
-            translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-@keyframes cameraArquivosMensagem {
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(-4px);
+            translateY(7px);
     }
 
     to {
@@ -1238,8 +1313,10 @@
 
 
 @keyframes cameraArquivosSpin {
+
     to {
-        transform: rotate(360deg);
+        transform:
+            rotate(360deg);
     }
 }
 
@@ -1248,7 +1325,7 @@
    TABLET
 ========================================================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
 
     .camera-arquivos-grid {
         grid-template-columns:
@@ -1260,26 +1337,21 @@
 
 
 /* =========================================================
-   MOBILE
+   TABLET PEQUENO
 ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
 
     .camera-arquivos-cabecalho {
         align-items: stretch !important;
 
         flex-direction: column !important;
 
-        gap: 17px !important;
+        gap: 16px !important;
 
-        margin-bottom: 19px !important;
+        margin-bottom: 20px !important;
 
-        padding-bottom: 16px !important;
-    }
-
-
-    .camera-arquivos-titulo {
-        font-size: 19px !important;
+        padding-bottom: 18px !important;
     }
 
 
@@ -1291,56 +1363,7 @@
     .camera-arquivos-modo-botao {
         flex: 1 1 0 !important;
 
-        min-height: 42px !important;
-    }
-
-
-    .camera-arquivos-barra {
-        flex-wrap: wrap !important;
-
-        gap: 9px !important;
-
-        padding: 12px !important;
-    }
-
-
-    .camera-arquivos-barra-total {
-        margin-left: auto !important;
-    }
-
-
-    .camera-arquivos-acoes-selecao {
-        width: 100% !important;
-
-        display: grid !important;
-
-        grid-template-columns: 1fr 1fr !important;
-    }
-
-
-    .camera-arquivos-baixar-varios,
-    .camera-arquivos-apagar-varios {
-        width: 100% !important;
-
-        min-height: 42px !important;
-    }
-
-
-    .camera-arquivos-pasta-cabecalho {
-        align-items: stretch !important;
-
-        flex-direction: column !important;
-
-        gap: 11px !important;
-
-        padding: 15px !important;
-    }
-
-
-    .camera-arquivos-pasta-selecionar {
-        width: 100% !important;
-
-        min-height: 40px !important;
+        min-height: 38px !important;
     }
 
 
@@ -1355,16 +1378,96 @@
     }
 
 
-    .camera-arquivos-card-acoes {
-        grid-template-columns: 1fr !important;
+    .camera-arquivos-pasta-cabecalho {
+        padding: 13px !important;
+    }
 
-        gap: 6px !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .camera-arquivos-titulo {
+        font-size: 21px !important;
+    }
+
+
+    .camera-arquivos-barra {
+        flex-wrap: wrap !important;
+
+        gap: 8px !important;
+
+        padding: 9px !important;
+    }
+
+
+    .camera-arquivos-barra-total {
+        margin-left: auto !important;
+    }
+
+
+    .camera-arquivos-acoes-selecao {
+        width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            1fr 1fr !important;
+    }
+
+
+    .camera-arquivos-baixar-varios,
+    .camera-arquivos-apagar-varios {
+        width: 100% !important;
+
+        min-height: 38px !important;
+    }
+
+
+    .camera-arquivos-pasta-cabecalho {
+        align-items: stretch !important;
+
+        flex-direction: column !important;
+
+        gap: 10px !important;
+    }
+
+
+    .camera-arquivos-pasta-selecionar {
+        width: 100% !important;
+
+        min-height: 36px !important;
+    }
+
+
+    .camera-arquivos-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr)) !important;
+
+        gap: 9px !important;
+
+        padding: 9px !important;
+    }
+
+
+    .camera-arquivos-card-acoes {
+        gap: 5px !important;
+
+        padding:
+            0 9px 9px 9px !important;
     }
 
 
     .camera-arquivos-acao-baixar,
     .camera-arquivos-acao-apagar {
-        min-height: 38px !important;
+        min-height: 34px !important;
+
+        font-size: 8px !important;
     }
 
 }
@@ -1374,15 +1477,15 @@
    MOBILE PEQUENO
 ========================================================= */
 
-@media (max-width: 420px) {
+@media (max-width: 430px) {
 
     .camera-arquivos-titulo {
-        font-size: 17px !important;
+        font-size: 19px !important;
     }
 
 
     .camera-arquivos-cabecalho-texto>span {
-        font-size: 9px !important;
+        font-size: 8px !important;
     }
 
 
@@ -1391,15 +1494,10 @@
     }
 
 
-    .camera-arquivos-modo {
-        gap: 6px !important;
-    }
-
-
     .camera-arquivos-modo-botao {
         padding: 0 9px !important;
 
-        font-size: 10px !important;
+        font-size: 9px !important;
     }
 
 
@@ -1416,30 +1514,36 @@
         grid-template-columns:
             1fr !important;
 
-        padding: 10px !important;
+        padding: 8px !important;
     }
 
 
     .camera-arquivos-preview {
-        aspect-ratio: 16 / 10 !important;
+        aspect-ratio:
+            16 / 10 !important;
+    }
+
+
+    .camera-arquivos-card-info {
+        padding:
+            10px 10px 8px 10px !important;
     }
 
 
     .camera-arquivos-card-acoes {
-        grid-template-columns: 1fr 1fr !important;
-    }
+        grid-template-columns:
+            1fr 1fr !important;
 
-
-    .camera-arquivos-acao-baixar,
-    .camera-arquivos-acao-apagar {
-        min-height: 40px !important;
+        padding:
+            0 10px 10px 10px !important;
     }
 
 
     .camera-arquivos-vazio {
         min-height: 240px !important;
 
-        padding: 25px 16px !important;
+        padding:
+            25px 16px !important;
     }
 
 
@@ -1459,7 +1563,6 @@
 
     .camera-arquivos-container,
     .camera-arquivos-pasta,
-    .camera-arquivos-mensagem,
     .camera-arquivos-carregando-icone,
     .camera-arquivos-card,
     .camera-arquivos-modo-botao,
@@ -1474,151 +1577,6 @@
         animation: none !important;
 
         transition: none !important;
-    }
-
-}
-
-/* =========================================================
-   TAMANHO DO ARQUIVO
-========================================================= */
-
-.camera-arquivos-card-info .camera-arquivos-tamanho {
-    display: inline-flex !important;
-
-    width: fit-content !important;
-
-    margin-top: 2px !important;
-    padding: 3px 7px !important;
-
-    border:
-        1px solid rgba(37, 99, 235, 0.14) !important;
-
-    border-radius: 6px !important;
-
-    background: #eff6ff !important;
-
-    color: #2563eb !important;
-
-    font-size: 9px !important;
-    font-weight: 750 !important;
-
-    line-height: 1.2 !important;
-
-    font-variant-numeric: tabular-nums !important;
-}
-
-
-/* =========================================================
-   PREVIEW CLICÁVEL
-========================================================= */
-
-.camera-arquivos-preview {
-    cursor: pointer !important;
-
-    user-select: none !important;
-
-    transition:
-        transform 0.18s ease,
-        filter 0.18s ease !important;
-}
-
-
-.camera-arquivos-preview:hover {
-    filter: brightness(0.94) !important;
-}
-
-
-.camera-arquivos-preview:active {
-    transform: scale(0.985) !important;
-}
-
-
-/* =========================================================
-   INDICAÇÃO DE VISUALIZAÇÃO
-========================================================= */
-
-.camera-arquivos-preview::after {
-    content: "VER COMPLETO" !important;
-
-    position: absolute !important;
-
-    left: 50% !important;
-    top: 50% !important;
-
-    transform:
-        translate(-50%, -50%) scale(0.92) !important;
-
-    padding: 8px 11px !important;
-
-    border:
-        1px solid rgba(255, 255, 255, 0.35) !important;
-
-    border-radius: 8px !important;
-
-    background:
-        rgba(15, 23, 42, 0.78) !important;
-
-    color: #ffffff !important;
-
-    font-size: 8px !important;
-    font-weight: 800 !important;
-
-    letter-spacing: 0.7px !important;
-
-    opacity: 0 !important;
-
-    pointer-events: none !important;
-
-    box-shadow:
-        0 6px 16px rgba(0, 0, 0, 0.20) !important;
-
-    backdrop-filter: blur(7px) !important;
-
-    transition:
-        opacity 0.18s ease,
-        transform 0.18s ease !important;
-
-    z-index: 5 !important;
-}
-
-
-.camera-arquivos-preview:hover::after {
-    opacity: 1 !important;
-
-    transform:
-        translate(-50%, -50%) scale(1) !important;
-}
-
-
-/* =========================================================
-   TIPO DO ARQUIVO FICA ACIMA DO OVERLAY
-========================================================= */
-
-.camera-arquivos-preview .camera-arquivos-tipo {
-    z-index: 6 !important;
-}
-
-
-/* =========================================================
-   MODAL - MELHORIA VISUAL
-   O JSX já possui o modal inline.
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .camera-arquivos-preview::after {
-        padding: 7px 9px !important;
-
-        font-size: 7px !important;
-    }
-
-}
-
-
-@media (max-width: 420px) {
-
-    .camera-arquivos-preview::after {
-        display: none !important;
     }
 
 }
