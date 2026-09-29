@@ -765,3 +765,34 @@
 .aaaarquivosCameraMobileVisualizadorInfo span {
     color: rgba(255, 255, 255, 0.65);
 }
+
+/* =========================================================
+   BOTÃO ZIP - LOADING
+========================================================= */
+
+@keyframes arquivosCameraMobileZipSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.aaaarquivosCameraMobileSelecao button {
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease,
+        transform 0.15s ease;
+}
+
+.aaaarquivosCameraMobileSelecao button:not(:disabled):hover {
+    transform: translateY(-1px);
+}
+
+.aaaarquivosCameraMobileSelecao button:disabled {
+    transform: none;
+}

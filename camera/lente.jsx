@@ -113,7 +113,17 @@ export default function Lente({
         setCameraAtual
     ] = useState("environment");
 
+    const [
+        zoomAtual,
+        setZoomAtual
+    ] = useState(1);
 
+    const [
+        zoomDisponivel,
+        setZoomDisponivel
+    ] = useState(false);
+
+    const zoomCameraRef = useRef(null);
     const [
         flashFoto,
         setFlashFoto
@@ -263,11 +273,9 @@ export default function Lente({
 
             pararCamera();
 
-
             if (
                 !navigator.mediaDevices ||
-                !navigator.mediaDevices
-                    .getUserMedia
+                !navigator.mediaDevices.getUserMedia
             ) {
 
                 throw new Error(
@@ -276,7 +284,6 @@ export default function Lente({
 
             }
 
-
             const stream =
                 await navigator.mediaDevices
                     .getUserMedia({
@@ -284,8 +291,7 @@ export default function Lente({
                         video: {
 
                             facingMode: {
-                                ideal:
-                                    facingMode
+                                ideal: facingMode
                             },
 
                             width: {
@@ -302,10 +308,63 @@ export default function Lente({
 
                     });
 
-
             streamRef.current =
                 stream;
 
+            const videoTrack =
+                stream.getVideoTracks()[0];
+
+            zoomCameraRef.current =
+                videoTrack || null;
+
+            /*
+             * Verifica se o navegador/aparelho
+             * disponibiliza controle nativo de zoom.
+             */
+
+            const capabilities =
+                videoTrack?.getCapabilities?.() || {};
+
+            const possuiZoom =
+                typeof capabilities.zoom === "object";
+
+            setZoomDisponivel(
+                possuiZoom
+            );
+
+            /*
+             * Começa sempre em 1x.
+             */
+
+            setZoomAtual(1);
+
+            if (
+                videoTrack &&
+                possuiZoom
+            ) {
+
+                try {
+
+                    await videoTrack.applyConstraints({
+
+                        advanced: [
+                            {
+                                zoom: 1
+                            }
+                        ]
+
+                    });
+
+                } catch (erroZoom) {
+
+                    console.warn(
+                        "[LENTE] Não foi possível definir zoom inicial:",
+                        erroZoom
+                    );
+
+                }
+
+            }
 
             if (
                 videoRef.current
@@ -334,7 +393,110 @@ export default function Lente({
         }
 
     }
+    async function alterarZoom(
+        novoZoom
+    ) {
 
+        if (
+            gravando
+        ) {
+            return;
+        }
+
+        const track =
+            zoomCameraRef.current;
+
+        if (!track) {
+            return;
+        }
+
+        const capabilities =
+            track.getCapabilities?.() || {};
+
+        const capacidadeZoom =
+            capabilities.zoom;
+
+        if (
+            !capacidadeZoom
+        ) {
+
+            console.warn(
+                "[LENTE] Este dispositivo não disponibiliza zoom nativo."
+            );
+
+            return;
+
+        }
+
+        const minimo =
+            Number.isFinite(
+                capacidadeZoom.min
+            )
+                ? capacidadeZoom.min
+                : 1;
+
+        const maximo =
+            Number.isFinite(
+                capacidadeZoom.max
+            )
+                ? capacidadeZoom.max
+                : 1;
+
+        const passo =
+            Number.isFinite(
+                capacidadeZoom.step
+            )
+                ? capacidadeZoom.step
+                : 0.1;
+
+        /*
+         * Ajusta o valor solicitado para
+         * o intervalo realmente suportado
+         * pelo aparelho.
+         */
+
+        const zoomAjustado =
+            Math.min(
+                maximo,
+                Math.max(
+                    minimo,
+                    novoZoom
+                )
+            );
+
+        const zoomFinal =
+            Math.round(
+                zoomAjustado / passo
+            ) * passo;
+
+        try {
+
+            await track.applyConstraints({
+
+                advanced: [
+                    {
+                        zoom: zoomFinal
+                    }
+                ]
+
+            });
+
+            setZoomAtual(
+                Number(
+                    zoomFinal.toFixed(2)
+                )
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[LENTE] Erro ao alterar zoom:",
+                erro
+            );
+
+        }
+
+    }
 
     function pararCamera() {
 
@@ -1628,7 +1790,65 @@ export default function Lente({
                         {/* =================================
                             CONTROLES
                         ================================= */}
+                        {cameraAtual === "environment" && (
+                            <div className="lenteProZoom">
 
+                                <button
+                                    type="button"
+                                    className={
+                                        zoomAtual === 0.6
+                                            ? "lenteProZoomBotao lenteProZoomAtivo"
+                                            : "lenteProZoomBotao"
+                                    }
+                                    onClick={() =>
+                                        alterarZoom(0.6)
+                                    }
+                                    disabled={
+                                        gravando ||
+                                        !zoomDisponivel
+                                    }
+                                >
+                                    0.6x
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className={
+                                        zoomAtual === 1
+                                            ? "lenteProZoomBotao lenteProZoomAtivo"
+                                            : "lenteProZoomBotao"
+                                    }
+                                    onClick={() =>
+                                        alterarZoom(1)
+                                    }
+                                    disabled={
+                                        gravando ||
+                                        !zoomDisponivel
+                                    }
+                                >
+                                    1x
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className={
+                                        zoomAtual === 2
+                                            ? "lenteProZoomBotao lenteProZoomAtivo"
+                                            : "lenteProZoomBotao"
+                                    }
+                                    onClick={() =>
+                                        alterarZoom(2)
+                                    }
+                                    disabled={
+                                        gravando ||
+                                        !zoomDisponivel
+                                    }
+                                >
+                                    2x
+                                </button>
+
+                            </div>
+                        )}
                         <div className="lenteProControles">
 
 

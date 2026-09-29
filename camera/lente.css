@@ -5984,3 +5984,171 @@
     }
 
 }
+
+/* =========================================================
+   ZOOM DA CAMERA
+========================================================= */
+
+.lenteProZoom {
+    position: absolute !important;
+
+    left: 50% !important;
+    bottom: 155px !important;
+
+    z-index: 24 !important;
+
+    transform: translateX(-50%) !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 4px !important;
+
+    padding: 5px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        rgba(255, 255, 255, 0.88) !important;
+
+    border:
+        1px solid rgba(35, 87, 145, 0.16) !important;
+
+    backdrop-filter:
+        blur(20px) saturate(150%) !important;
+
+    -webkit-backdrop-filter:
+        blur(20px) saturate(150%) !important;
+
+    box-shadow:
+        0 10px 28px rgba(18, 64, 112, 0.17),
+        0 2px 7px rgba(18, 64, 112, 0.08),
+        inset 0 1px 0 #ffffff !important;
+
+    pointer-events: auto !important;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+
+/* =========================================================
+   BOTAO ZOOM
+========================================================= */
+
+.lenteProZoomBotao {
+    min-width: 45px !important;
+    height: 34px !important;
+
+    padding: 0 9px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: none !important;
+    outline: none !important;
+
+    border-radius: 999px !important;
+
+    background:
+        transparent !important;
+
+    color:
+        #55718f !important;
+
+    font-size: 11px !important;
+
+    font-weight: 850 !important;
+
+    letter-spacing: -0.1px !important;
+
+    cursor: pointer !important;
+
+    -webkit-tap-highlight-color:
+        transparent !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.18s ease !important;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.lenteProZoomBotao:hover:not(:disabled) {
+    color:
+        #123d6b !important;
+
+    background:
+        rgba(232, 242, 252, 0.85) !important;
+
+    transform:
+        translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   BOTAO ATIVO
+========================================================= */
+
+.lenteProZoomBotao.lenteProZoomAtivo {
+    color:
+        #ffffff !important;
+
+    background:
+        linear-gradient(145deg,
+            #184e86,
+            #0c315a) !important;
+
+    box-shadow:
+        0 5px 13px rgba(12, 49, 90, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+
+/* =========================================================
+   ATIVO HOVER
+========================================================= */
+
+.lenteProZoomBotao.lenteProZoomAtivo:hover:not(:disabled) {
+    color:
+        #ffffff !important;
+
+    background:
+        linear-gradient(145deg,
+            #1b568f,
+            #0d3765) !important;
+
+    transform:
+        translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   CLIQUE
+========================================================= */
+
+.lenteProZoomBotao:active:not(:disabled) {
+    transform:
+        scale(0.93) !important;
+}
+
+
+/* =========================================================
+   DESABILITADO
+========================================================= */
+
+.lenteProZoomBotao:disabled {
+    opacity: 0.38 !important;
+
+    cursor: not-allowed !important;
+
+    pointer-events: none !important;
+}
