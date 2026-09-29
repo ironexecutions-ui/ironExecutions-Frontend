@@ -952,44 +952,140 @@ export default function ArquivosCameraMobile({
 
     return (
 
-        <div className="aaaarquivosCameraMobile">
+        <div
+            className="aaaarquivosCameraMobile"
+            style={{
+                width: "100%",
+                minHeight: "100vh",
+                boxSizing: "border-box",
+                background: "#f4f7fb",
+                color: "#0f172a",
+                fontFamily: "'Montserrat', 'Segoe UI', Arial, sans-serif",
+                padding: "0",
+                overflowX: "hidden"
+            }}
+        >
 
-            <header className="aaaarquivosCameraMobileTopo">
+            {/* =====================================================
+            TOPO
+        ===================================================== */}
+
+            <header
+                className="aaaarquivosCameraMobileTopo"
+                style={{
+                    width: "100%",
+                    minHeight: "76px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                    padding: "14px 22px",
+                    boxSizing: "border-box",
+                    background: "#ffffff",
+                    borderBottom: "1px solid #e2e8f0",
+                    boxShadow: "0 2px 12px rgba(15, 23, 42, 0.05)",
+                    position: "relative",
+                    zIndex: 10
+                }}
+            >
+
+                {/* VOLTAR */}
 
                 <button
                     type="button"
                     className="aaaarquivosCameraMobileVoltar"
                     onClick={onVoltar}
                     aria-label="Voltar"
+                    style={{
+                        width: "42px",
+                        height: "42px",
+                        flexShrink: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        border: "1px solid #dbe3ec",
+                        borderRadius: "10px",
+                        background: "#ffffff",
+                        color: "#1e293b",
+                        fontSize: "27px",
+                        fontWeight: "400",
+                        lineHeight: 1,
+                        cursor: "pointer",
+                        transition: "all 0.2s ease"
+                    }}
                 >
                     ‹
                 </button>
 
 
-                <div className="aaaarquivosCameraMobileTitulo">
+                {/* IDENTIDADE */}
 
-                    <span>
+                <div
+                    className="aaaarquivosCameraMobileTitulo"
+                    style={{
+                        minWidth: 0,
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "3px"
+                    }}
+                >
+
+                    <span
+                        style={{
+                            color: "#2563eb",
+                            fontSize: "9px",
+                            fontWeight: 800,
+                            letterSpacing: "1.4px",
+                            lineHeight: 1
+                        }}
+                    >
                         BIBLIOTECA
                     </span>
 
-                    <strong>
+                    <strong
+                        style={{
+                            color: "#0f172a",
+                            fontSize: "19px",
+                            fontWeight: 800,
+                            lineHeight: 1.15,
+                            letterSpacing: "-0.4px"
+                        }}
+                    >
                         Todos os arquivos
                     </strong>
 
                 </div>
 
 
+                {/* ATUALIZAR */}
+
                 <button
                     type="button"
                     className="aaaarquivosCameraMobileAtualizar"
-                    onClick={
-                        carregarArquivos
-                    }
-                    disabled={
-                        carregando ||
-                        processando
-                    }
+                    onClick={carregarArquivos}
+                    disabled={carregando || processando}
                     aria-label="Atualizar"
+                    style={{
+                        width: "42px",
+                        height: "42px",
+                        flexShrink: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        border: "1px solid #dbe3ec",
+                        borderRadius: "10px",
+                        background: "#ffffff",
+                        color: "#2563eb",
+                        fontSize: "20px",
+                        fontWeight: 700,
+                        cursor: carregando || processando
+                            ? "not-allowed"
+                            : "pointer",
+                        opacity: carregando || processando
+                            ? 0.5
+                            : 1,
+                        transition: "all 0.2s ease"
+                    }}
                 >
                     ↻
                 </button>
@@ -997,17 +1093,70 @@ export default function ArquivosCameraMobile({
             </header>
 
 
-            <main className="aaaarquivosCameraMobileConteudo">
+            {/* =====================================================
+            CONTEÚDO
+        ===================================================== */}
 
-                <section className="aaaarquivosCameraMobileResumo">
+            <main
+                className="aaaarquivosCameraMobileConteudo"
+                style={{
+                    width: "100%",
+                    maxWidth: "1450px",
+                    margin: "0 auto",
+                    padding: "24px",
+                    boxSizing: "border-box"
+                }}
+            >
 
-                    <div>
+                {/* =================================================
+                RESUMO
+            ================================================= */}
 
-                        <span>
+                <section
+                    className="aaaarquivosCameraMobileResumo"
+                    style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "18px",
+                        marginBottom: "18px",
+                        padding: "20px 22px",
+                        boxSizing: "border-box",
+                        background: "#ffffff",
+                        border: "1px solid #e2e8f0",
+                        borderRadius: "14px",
+                        boxShadow: "0 4px 16px rgba(15, 23, 42, 0.045)"
+                    }}
+                >
+
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "4px"
+                        }}
+                    >
+
+                        <span
+                            style={{
+                                color: "#64748b",
+                                fontSize: "9px",
+                                fontWeight: 800,
+                                letterSpacing: "1px"
+                            }}
+                        >
                             ARQUIVOS
                         </span>
 
-                        <strong>
+                        <strong
+                            style={{
+                                color: "#0f172a",
+                                fontSize: "25px",
+                                fontWeight: 800,
+                                lineHeight: 1
+                            }}
+                        >
                             {arquivos.length}
                         </strong>
 
@@ -1016,13 +1165,37 @@ export default function ArquivosCameraMobile({
 
                     {selecionados.length > 0 && (
 
-                        <div className="aaaarquivosCameraMobileSelecionados">
+                        <div
+                            className="aaaarquivosCameraMobileSelecionados"
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "9px",
+                                padding: "9px 13px",
+                                border: "1px solid #bfdbfe",
+                                borderRadius: "9px",
+                                background: "#eff6ff",
+                                color: "#1d4ed8"
+                            }}
+                        >
 
-                            <strong>
+                            <strong
+                                style={{
+                                    fontSize: "16px",
+                                    fontWeight: 800
+                                }}
+                            >
                                 {selecionados.length}
                             </strong>
 
-                            <span>
+                            <span
+                                style={{
+                                    fontSize: "9px",
+                                    fontWeight: 700,
+                                    textTransform: "uppercase",
+                                    letterSpacing: "0.5px"
+                                }}
+                            >
                                 selecionados
                             </span>
 
@@ -1033,7 +1206,24 @@ export default function ArquivosCameraMobile({
                 </section>
 
 
-                <div className="aaaarquivosCameraMobileAbas">
+                {/* =================================================
+                ABAS
+            ================================================= */}
+
+                <div
+                    className="aaaarquivosCameraMobileAbas"
+                    style={{
+                        width: "100%",
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "5px",
+                        marginBottom: "14px",
+                        padding: "4px",
+                        boxSizing: "border-box",
+                        background: "#e8edf3",
+                        borderRadius: "10px"
+                    }}
+                >
 
                     <button
                         type="button"
@@ -1043,10 +1233,30 @@ export default function ArquivosCameraMobile({
                                 : "arquivosCameraMobileAba"
                         }
                         onClick={() =>
-                            setAgrupamento(
-                                "pessoa"
-                            )
+                            setAgrupamento("pessoa")
                         }
+                        style={{
+                            minHeight: "40px",
+                            border: "0",
+                            borderRadius: "7px",
+                            background:
+                                agrupamento === "pessoa"
+                                    ? "#ffffff"
+                                    : "transparent",
+                            color:
+                                agrupamento === "pessoa"
+                                    ? "#2563eb"
+                                    : "#64748b",
+                            fontFamily: "inherit",
+                            fontSize: "10px",
+                            fontWeight: 750,
+                            cursor: "pointer",
+                            boxShadow:
+                                agrupamento === "pessoa"
+                                    ? "0 2px 7px rgba(15, 23, 42, 0.08)"
+                                    : "none",
+                            transition: "all 0.2s ease"
+                        }}
                     >
                         Pessoas
                     </button>
@@ -1060,10 +1270,30 @@ export default function ArquivosCameraMobile({
                                 : "arquivosCameraMobileAba"
                         }
                         onClick={() =>
-                            setAgrupamento(
-                                "data"
-                            )
+                            setAgrupamento("data")
                         }
+                        style={{
+                            minHeight: "40px",
+                            border: "0",
+                            borderRadius: "7px",
+                            background:
+                                agrupamento === "data"
+                                    ? "#ffffff"
+                                    : "transparent",
+                            color:
+                                agrupamento === "data"
+                                    ? "#2563eb"
+                                    : "#64748b",
+                            fontFamily: "inherit",
+                            fontSize: "10px",
+                            fontWeight: 750,
+                            cursor: "pointer",
+                            boxShadow:
+                                agrupamento === "data"
+                                    ? "0 2px 7px rgba(15, 23, 42, 0.08)"
+                                    : "none",
+                            transition: "all 0.2s ease"
+                        }}
                     >
                         Datas
                     </button>
@@ -1071,35 +1301,87 @@ export default function ArquivosCameraMobile({
                 </div>
 
 
+                {/* =================================================
+                SELEÇÃO
+            ================================================= */}
+
                 {arquivos.length > 0 && (
 
-                    <section className="aaaarquivosCameraMobileSelecao">
+                    <section
+                        className="aaaarquivosCameraMobileSelecao"
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "12px",
+                            flexWrap: "wrap",
+                            marginBottom: "18px",
+                            padding: "12px",
+                            boxSizing: "border-box",
+                            background: "#ffffff",
+                            border: "1px solid #e2e8f0",
+                            borderRadius: "11px"
+                        }}
+                    >
 
                         <button
                             type="button"
-                            onClick={
-                                selecionarTudo
-                            }
+                            onClick={selecionarTudo}
+                            style={{
+                                minHeight: "36px",
+                                padding: "0 13px",
+                                border: "1px solid #dbe3ec",
+                                borderRadius: "8px",
+                                background: "#ffffff",
+                                color: "#1e293b",
+                                fontFamily: "inherit",
+                                fontSize: "9px",
+                                fontWeight: 750,
+                                cursor: "pointer",
+                                transition: "all 0.2s ease"
+                            }}
                         >
-                            {selecionados.length ===
-                                arquivos.length
-                                ? "Desmarcar tudo"
-                                : "Selecionar tudo"}
+                            {selecionados.length === arquivos.length
+                                ? "✓ Desmarcar tudo"
+                                : "□ Selecionar tudo"}
                         </button>
 
 
                         {selecionados.length > 0 && (
 
-                            <div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "7px",
+                                    marginLeft: "auto"
+                                }}
+                            >
 
                                 <button
                                     type="button"
-                                    onClick={
-                                        baixarSelecionados
-                                    }
-                                    disabled={
-                                        processando
-                                    }
+                                    onClick={baixarSelecionados}
+                                    disabled={processando}
+                                    style={{
+                                        minHeight: "36px",
+                                        padding: "0 14px",
+                                        border: "1px solid #2563eb",
+                                        borderRadius: "8px",
+                                        background: "#2563eb",
+                                        color: "#ffffff",
+                                        fontFamily: "inherit",
+                                        fontSize: "9px",
+                                        fontWeight: 750,
+                                        cursor: processando
+                                            ? "not-allowed"
+                                            : "pointer",
+                                        opacity: processando
+                                            ? 0.55
+                                            : 1,
+                                        boxShadow:
+                                            "0 3px 8px rgba(37, 99, 235, 0.18)"
+                                    }}
                                 >
                                     ↓ ZIP
                                 </button>
@@ -1107,12 +1389,25 @@ export default function ArquivosCameraMobile({
 
                                 <button
                                     type="button"
-                                    onClick={
-                                        apagarSelecionados
-                                    }
-                                    disabled={
-                                        processando
-                                    }
+                                    onClick={apagarSelecionados}
+                                    disabled={processando}
+                                    style={{
+                                        minHeight: "36px",
+                                        padding: "0 14px",
+                                        border: "1px solid #fecaca",
+                                        borderRadius: "8px",
+                                        background: "#fff",
+                                        color: "#b91c1c",
+                                        fontFamily: "inherit",
+                                        fontSize: "9px",
+                                        fontWeight: 750,
+                                        cursor: processando
+                                            ? "not-allowed"
+                                            : "pointer",
+                                        opacity: processando
+                                            ? 0.55
+                                            : 1
+                                    }}
                                 >
                                     × Apagar
                                 </button>
@@ -1126,28 +1421,109 @@ export default function ArquivosCameraMobile({
                 )}
 
 
+                {/* =================================================
+                MENSAGEM
+            ================================================= */}
+
                 {mensagem && (
 
-                    <div className="aaaarquivosCameraMobileMensagem">
+                    <div
+                        className="aaaarquivosCameraMobileMensagem"
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            marginBottom: "18px",
+                            padding: "13px 15px",
+                            boxSizing: "border-box",
+                            border: "1px solid #fecaca",
+                            borderLeft: "3px solid #dc2626",
+                            borderRadius: "9px",
+                            background: "#fef2f2",
+                            color: "#991b1b",
+                            fontSize: "10px",
+                            fontWeight: 650,
+                            lineHeight: 1.4
+                        }}
+                    >
 
-                        {mensagem}
+                        <span
+                            style={{
+                                width: "22px",
+                                height: "22px",
+                                flexShrink: 0,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                borderRadius: "50%",
+                                background: "#fee2e2",
+                                color: "#dc2626",
+                                fontWeight: 800
+                            }}
+                        >
+                            !
+                        </span>
+
+                        <span>
+                            {mensagem}
+                        </span>
 
                     </div>
 
                 )}
 
 
+                {/* =================================================
+                LOADING
+            ================================================= */}
+
                 {carregando ? (
 
-                    <div className="aaaarquivosCameraMobileCarregando">
+                    <div
+                        className="aaaarquivosCameraMobileCarregando"
+                        style={{
+                            width: "100%",
+                            minHeight: "320px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "12px",
+                            background: "#ffffff",
+                            border: "1px solid #e2e8f0",
+                            borderRadius: "14px",
+                            boxShadow: "0 4px 16px rgba(15, 23, 42, 0.04)"
+                        }}
+                    >
 
-                        <div />
+                        <div
+                            style={{
+                                width: "36px",
+                                height: "36px",
+                                border: "3px solid #dbeafe",
+                                borderTopColor: "#2563eb",
+                                borderRadius: "50%",
+                                animation: "arquivosCameraMobileSpin 0.8s linear infinite"
+                            }}
+                        />
 
-                        <strong>
+                        <strong
+                            style={{
+                                color: "#0f172a",
+                                fontSize: "12px",
+                                fontWeight: 750
+                            }}
+                        >
                             Carregando arquivos
                         </strong>
 
-                        <span>
+                        <span
+                            style={{
+                                color: "#64748b",
+                                fontSize: "10px"
+                            }}
+                        >
                             Aguarde...
                         </span>
 
@@ -1155,26 +1531,87 @@ export default function ArquivosCameraMobile({
 
                 ) : pastas.length === 0 ? (
 
-                    <div className="aaaarquivosCameraMobileVazio">
+                    /* =================================================
+                       VAZIO
+                    ================================================= */
 
-                        <div>
+                    <div
+                        className="aaaarquivosCameraMobileVazio"
+                        style={{
+                            width: "100%",
+                            minHeight: "330px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "9px",
+                            padding: "40px 25px",
+                            boxSizing: "border-box",
+                            background: "#ffffff",
+                            border: "1px dashed #cbd5e1",
+                            borderRadius: "14px"
+                        }}
+                    >
+
+                        <div
+                            style={{
+                                width: "66px",
+                                height: "66px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginBottom: "7px",
+                                borderRadius: "15px",
+                                background: "#eff6ff",
+                                color: "#2563eb",
+                                fontSize: "28px",
+                                boxShadow:
+                                    "inset 0 0 0 1px #dbeafe"
+                            }}
+                        >
                             ▦
                         </div>
 
-                        <strong>
+                        <strong
+                            style={{
+                                color: "#0f172a",
+                                fontSize: "14px",
+                                fontWeight: 800
+                            }}
+                        >
                             Nenhum arquivo
                         </strong>
 
-                        <span>
-                            As fotos e vídeos enviados
-                            pelas câmeras aparecerão aqui.
+                        <span
+                            style={{
+                                maxWidth: "420px",
+                                color: "#64748b",
+                                fontSize: "10px",
+                                fontWeight: 500,
+                                lineHeight: 1.5,
+                                textAlign: "center"
+                            }}
+                        >
+                            As fotos e vídeos enviados pelas câmeras aparecerão aqui.
                         </span>
 
                     </div>
 
                 ) : (
 
-                    <div className="aaaarquivosCameraMobilePastas">
+                    /* =================================================
+                       PASTAS
+                    ================================================= */
+
+                    <div
+                        className="aaaarquivosCameraMobilePastas"
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "14px"
+                        }}
+                    >
 
                         {pastas.map(
                             pasta => {
@@ -1196,22 +1633,47 @@ export default function ArquivosCameraMobile({
                                     ids.length > 0 &&
                                     ids.every(
                                         id =>
-                                            selecionados.includes(
-                                                id
-                                            )
+                                            selecionados.includes(id)
                                     );
 
 
                                 return (
 
                                     <section
-                                        key={
-                                            pasta.chave
-                                        }
+                                        key={pasta.chave}
                                         className="aaaarquivosCameraMobilePasta"
+                                        style={{
+                                            width: "100%",
+                                            overflow: "hidden",
+                                            background: "#ffffff",
+                                            border: "1px solid #e2e8f0",
+                                            borderRadius: "14px",
+                                            boxShadow:
+                                                "0 4px 15px rgba(15, 23, 42, 0.045)"
+                                        }}
                                     >
 
-                                        <div className="aaaarquivosCameraMobilePastaTopo">
+                                        {/* =========================
+                                        CABEÇALHO PASTA
+                                    ========================= */}
+
+                                        <div
+                                            className="aaaarquivosCameraMobilePastaTopo"
+                                            style={{
+                                                width: "100%",
+                                                minHeight: "70px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "space-between",
+                                                gap: "14px",
+                                                padding: "12px 15px",
+                                                boxSizing: "border-box",
+                                                borderBottom: aberta
+                                                    ? "1px solid #edf1f5"
+                                                    : "0",
+                                                background: "#ffffff"
+                                            }}
+                                        >
 
                                             <button
                                                 type="button"
@@ -1221,22 +1683,94 @@ export default function ArquivosCameraMobile({
                                                         pasta.chave
                                                     )
                                                 }
+                                                style={{
+                                                    minWidth: 0,
+                                                    flex: 1,
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    gap: "10px",
+                                                    padding: "0",
+                                                    border: "0",
+                                                    background: "transparent",
+                                                    color: "#0f172a",
+                                                    textAlign: "left",
+                                                    cursor: "pointer",
+                                                    fontFamily: "inherit"
+                                                }}
                                             >
 
-                                                <span>
+                                                <span
+                                                    style={{
+                                                        width: "30px",
+                                                        height: "30px",
+                                                        flexShrink: 0,
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                        borderRadius: "8px",
+                                                        background: "#eff6ff",
+                                                        color: "#2563eb",
+                                                        fontSize: "17px",
+                                                        fontWeight: 800
+                                                    }}
+                                                >
                                                     {aberta
                                                         ? "⌄"
                                                         : "›"}
                                                 </span>
 
 
-                                                <div>
+                                                <div
+                                                    style={{
+                                                        width: "34px",
+                                                        height: "34px",
+                                                        flexShrink: 0,
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                        borderRadius: "9px",
+                                                        background: "#2563eb",
+                                                        color: "#ffffff",
+                                                        fontSize: "13px",
+                                                        fontWeight: 800,
+                                                        textTransform: "uppercase"
+                                                    }}
+                                                >
+                                                    {pasta.titulo
+                                                        ?.charAt(0)
+                                                        ?.toUpperCase() || "?"}
+                                                </div>
 
-                                                    <strong>
+
+                                                <div
+                                                    style={{
+                                                        minWidth: 0,
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        gap: "3px"
+                                                    }}
+                                                >
+
+                                                    <strong
+                                                        style={{
+                                                            overflow: "hidden",
+                                                            color: "#0f172a",
+                                                            fontSize: "11px",
+                                                            fontWeight: 750,
+                                                            whiteSpace: "nowrap",
+                                                            textOverflow: "ellipsis"
+                                                        }}
+                                                    >
                                                         {pasta.titulo}
                                                     </strong>
 
-                                                    <small>
+                                                    <small
+                                                        style={{
+                                                            color: "#64748b",
+                                                            fontSize: "9px",
+                                                            fontWeight: 600
+                                                        }}
+                                                    >
                                                         {pasta.arquivos.length}
                                                         {" "}
                                                         arquivo(s)
@@ -1259,6 +1793,29 @@ export default function ArquivosCameraMobile({
                                                         pasta.arquivos
                                                     )
                                                 }
+                                                style={{
+                                                    minHeight: "34px",
+                                                    flexShrink: 0,
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    gap: "5px",
+                                                    padding: "0 11px",
+                                                    border: todosSelecionados
+                                                        ? "1px solid #2563eb"
+                                                        : "1px solid #dbe3ec",
+                                                    borderRadius: "8px",
+                                                    background: todosSelecionados
+                                                        ? "#eff6ff"
+                                                        : "#ffffff",
+                                                    color: todosSelecionados
+                                                        ? "#1d4ed8"
+                                                        : "#475569",
+                                                    fontFamily: "inherit",
+                                                    fontSize: "8px",
+                                                    fontWeight: 750,
+                                                    cursor: "pointer"
+                                                }}
                                             >
                                                 {todosSelecionados
                                                     ? "✓"
@@ -1268,9 +1825,25 @@ export default function ArquivosCameraMobile({
                                         </div>
 
 
+                                        {/* =========================
+                                        GRID
+                                    ========================= */}
+
                                         {aberta && (
 
-                                            <div className="aaaarquivosCameraMobileGrid">
+                                            <div
+                                                className="aaaarquivosCameraMobileGrid"
+                                                style={{
+                                                    width: "100%",
+                                                    display: "grid",
+                                                    gridTemplateColumns:
+                                                        "repeat(auto-fill, minmax(220px, 1fr))",
+                                                    gap: "12px",
+                                                    padding: "14px",
+                                                    boxSizing: "border-box",
+                                                    background: "#f8fafc"
+                                                }}
+                                            >
 
                                                 {pasta.arquivos.map(
                                                     arquivo => {
@@ -1290,15 +1863,30 @@ export default function ArquivosCameraMobile({
                                                         return (
 
                                                             <article
-                                                                key={
-                                                                    arquivo.id
-                                                                }
+                                                                key={arquivo.id}
                                                                 className={
                                                                     selecionado
                                                                         ? "arquivosCameraMobileCard arquivosCameraMobileCardSelecionado"
                                                                         : "arquivosCameraMobileCard"
                                                                 }
+                                                                style={{
+                                                                    position: "relative",
+                                                                    minWidth: 0,
+                                                                    overflow: "hidden",
+                                                                    display: "flex",
+                                                                    flexDirection: "column",
+                                                                    background: "#ffffff",
+                                                                    border: selecionado
+                                                                        ? "2px solid #2563eb"
+                                                                        : "1px solid #e2e8f0",
+                                                                    borderRadius: "11px",
+                                                                    boxShadow: selecionado
+                                                                        ? "0 5px 18px rgba(37, 99, 235, 0.13)"
+                                                                        : "0 2px 8px rgba(15, 23, 42, 0.035)"
+                                                                }}
                                                             >
+
+                                                                {/* CHECK */}
 
                                                                 <button
                                                                     type="button"
@@ -1312,12 +1900,43 @@ export default function ArquivosCameraMobile({
                                                                             arquivo.id
                                                                         )
                                                                     }
+                                                                    style={{
+                                                                        position: "absolute",
+                                                                        top: "9px",
+                                                                        left: "9px",
+                                                                        zIndex: 5,
+                                                                        width: "26px",
+                                                                        height: "26px",
+                                                                        display: "flex",
+                                                                        alignItems: "center",
+                                                                        justifyContent: "center",
+                                                                        padding: "0",
+                                                                        border: selecionado
+                                                                            ? "1px solid #2563eb"
+                                                                            : "1px solid rgba(255,255,255,0.9)",
+                                                                        borderRadius: "7px",
+                                                                        background: selecionado
+                                                                            ? "#2563eb"
+                                                                            : "rgba(255,255,255,0.94)",
+                                                                        color: selecionado
+                                                                            ? "#ffffff"
+                                                                            : "#2563eb",
+                                                                        fontSize: "13px",
+                                                                        fontWeight: 800,
+                                                                        cursor: "pointer",
+                                                                        boxShadow:
+                                                                            "0 3px 8px rgba(15,23,42,0.18)",
+                                                                        backdropFilter:
+                                                                            "blur(5px)"
+                                                                    }}
                                                                 >
                                                                     {selecionado
                                                                         ? "✓"
                                                                         : ""}
                                                                 </button>
 
+
+                                                                {/* PREVIEW */}
 
                                                                 <button
                                                                     type="button"
@@ -1327,6 +1946,17 @@ export default function ArquivosCameraMobile({
                                                                             arquivo
                                                                         )
                                                                     }
+                                                                    style={{
+                                                                        position: "relative",
+                                                                        width: "100%",
+                                                                        height: "180px",
+                                                                        display: "block",
+                                                                        padding: "0",
+                                                                        overflow: "hidden",
+                                                                        border: "0",
+                                                                        background: "#e2e8f0",
+                                                                        cursor: "pointer"
+                                                                    }}
                                                                 >
 
                                                                     {video ? (
@@ -1338,6 +1968,13 @@ export default function ArquivosCameraMobile({
                                                                             muted
                                                                             playsInline
                                                                             preload="metadata"
+                                                                            style={{
+                                                                                display: "block",
+                                                                                width: "100%",
+                                                                                height: "100%",
+                                                                                objectFit: "cover",
+                                                                                background: "#e2e8f0"
+                                                                            }}
                                                                         />
 
                                                                     ) : (
@@ -1351,36 +1988,99 @@ export default function ArquivosCameraMobile({
                                                                                 "Foto"
                                                                             }
                                                                             loading="lazy"
+                                                                            style={{
+                                                                                display: "block",
+                                                                                width: "100%",
+                                                                                height: "100%",
+                                                                                objectFit: "cover",
+                                                                                background: "#e2e8f0"
+                                                                            }}
                                                                         />
 
                                                                     )}
 
 
-                                                                    <span>
-
+                                                                    <span
+                                                                        style={{
+                                                                            position: "absolute",
+                                                                            right: "8px",
+                                                                            bottom: "8px",
+                                                                            minHeight: "22px",
+                                                                            display: "flex",
+                                                                            alignItems: "center",
+                                                                            padding: "0 7px",
+                                                                            border: "1px solid rgba(255,255,255,0.25)",
+                                                                            borderRadius: "5px",
+                                                                            background: "rgba(15,23,42,0.78)",
+                                                                            color: "#ffffff",
+                                                                            fontSize: "7px",
+                                                                            fontWeight: 800,
+                                                                            letterSpacing: "0.7px",
+                                                                            backdropFilter: "blur(5px)"
+                                                                        }}
+                                                                    >
                                                                         {video
                                                                             ? "VÍDEO"
                                                                             : "FOTO"}
-
                                                                     </span>
 
                                                                 </button>
 
 
-                                                                <div className="aaaarquivosCameraMobileInfo">
+                                                                {/* INFO */}
 
-                                                                    <strong>
+                                                                <div
+                                                                    className="aaaarquivosCameraMobileInfo"
+                                                                    style={{
+                                                                        minWidth: 0,
+                                                                        display: "flex",
+                                                                        flexDirection: "column",
+                                                                        gap: "6px",
+                                                                        padding: "11px 12px 9px"
+                                                                    }}
+                                                                >
+
+                                                                    <strong
+                                                                        style={{
+                                                                            overflow: "hidden",
+                                                                            color: "#0f172a",
+                                                                            fontSize: "10px",
+                                                                            fontWeight: 750,
+                                                                            whiteSpace: "nowrap",
+                                                                            textOverflow: "ellipsis"
+                                                                        }}
+                                                                    >
                                                                         {arquivo.cadastrado_nome ||
                                                                             "Sem nome"}
                                                                     </strong>
 
-                                                                    <small>
+
+                                                                    <small
+                                                                        style={{
+                                                                            color: "#64748b",
+                                                                            fontSize: "8px",
+                                                                            fontWeight: 550,
+                                                                            lineHeight: 1.3
+                                                                        }}
+                                                                    >
                                                                         {formatarDataHora(
                                                                             arquivo.data
                                                                         )}
                                                                     </small>
 
-                                                                    <small>
+
+                                                                    <small
+                                                                        style={{
+                                                                            width: "fit-content",
+                                                                            padding: "3px 6px",
+                                                                            border: "1px solid #dbeafe",
+                                                                            borderRadius: "5px",
+                                                                            background: "#eff6ff",
+                                                                            color: "#1d4ed8",
+                                                                            fontSize: "8px",
+                                                                            fontWeight: 700
+                                                                        }}
+                                                                    >
                                                                         {formatarTamanho(
                                                                             arquivo.tamanho
                                                                         )}
@@ -1389,7 +2089,19 @@ export default function ArquivosCameraMobile({
                                                                 </div>
 
 
-                                                                <div className="aaaarquivosCameraMobileAcoes">
+                                                                {/* AÇÕES */}
+
+                                                                <div
+                                                                    className="aaaarquivosCameraMobileAcoes"
+                                                                    style={{
+                                                                        width: "100%",
+                                                                        display: "grid",
+                                                                        gridTemplateColumns: "1fr 1fr",
+                                                                        gap: "6px",
+                                                                        padding: "0 12px 12px",
+                                                                        boxSizing: "border-box"
+                                                                    }}
+                                                                >
 
                                                                     <button
                                                                         type="button"
@@ -1398,14 +2110,34 @@ export default function ArquivosCameraMobile({
                                                                                 arquivo
                                                                             )
                                                                         }
-                                                                        disabled={
-                                                                            processando
-                                                                        }
+                                                                        disabled={processando}
+                                                                        style={{
+                                                                            minHeight: "33px",
+                                                                            display: "flex",
+                                                                            alignItems: "center",
+                                                                            justifyContent: "center",
+                                                                            gap: "4px",
+                                                                            border: "1px solid #bfdbfe",
+                                                                            borderRadius: "7px",
+                                                                            background: "#eff6ff",
+                                                                            color: "#1d4ed8",
+                                                                            fontFamily: "inherit",
+                                                                            fontSize: "8px",
+                                                                            fontWeight: 750,
+                                                                            cursor: processando
+                                                                                ? "not-allowed"
+                                                                                : "pointer",
+                                                                            opacity: processando
+                                                                                ? 0.5
+                                                                                : 1
+                                                                        }}
                                                                     >
                                                                         ↓
+
                                                                         <span>
                                                                             Baixar
                                                                         </span>
+
                                                                     </button>
 
 
@@ -1416,14 +2148,34 @@ export default function ArquivosCameraMobile({
                                                                                 arquivo
                                                                             )
                                                                         }
-                                                                        disabled={
-                                                                            processando
-                                                                        }
+                                                                        disabled={processando}
+                                                                        style={{
+                                                                            minHeight: "33px",
+                                                                            display: "flex",
+                                                                            alignItems: "center",
+                                                                            justifyContent: "center",
+                                                                            gap: "4px",
+                                                                            border: "1px solid #fecaca",
+                                                                            borderRadius: "7px",
+                                                                            background: "#ffffff",
+                                                                            color: "#b91c1c",
+                                                                            fontFamily: "inherit",
+                                                                            fontSize: "8px",
+                                                                            fontWeight: 750,
+                                                                            cursor: processando
+                                                                                ? "not-allowed"
+                                                                                : "pointer",
+                                                                            opacity: processando
+                                                                                ? 0.5
+                                                                                : 1
+                                                                        }}
                                                                     >
                                                                         ×
+
                                                                         <span>
                                                                             Apagar
                                                                         </span>
+
                                                                     </button>
 
                                                                 </div>
@@ -1453,25 +2205,62 @@ export default function ArquivosCameraMobile({
             </main>
 
 
+            {/* =====================================================
+            VISUALIZADOR
+        ===================================================== */}
+
             {arquivoVisualizando && (
 
                 <div
                     className="aaaarquivosCameraMobileVisualizador"
-                    onClick={
-                        fecharVisualizacao
-                    }
+                    onClick={fecharVisualizacao}
+                    style={{
+                        position: "fixed",
+                        inset: 0,
+                        zIndex: 999999,
+                        width: "100vw",
+                        height: "100vh",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "70px 80px",
+                        boxSizing: "border-box",
+                        background: "rgba(5, 10, 20, 0.96)",
+                        backdropFilter: "blur(12px)"
+                    }}
                 >
+
+                    {/* FECHAR */}
 
                     <button
                         type="button"
                         className="aaaarquivosCameraMobileFechar"
-                        onClick={
-                            fecharVisualizacao
-                        }
+                        onClick={fecharVisualizacao}
+                        style={{
+                            position: "fixed",
+                            top: "18px",
+                            right: "20px",
+                            zIndex: 1000001,
+                            width: "46px",
+                            height: "46px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "1px solid rgba(255,255,255,0.15)",
+                            borderRadius: "50%",
+                            background: "rgba(255,255,255,0.10)",
+                            color: "#ffffff",
+                            fontSize: "28px",
+                            lineHeight: 1,
+                            cursor: "pointer",
+                            backdropFilter: "blur(8px)"
+                        }}
                     >
                         ×
                     </button>
 
+
+                    {/* ANTERIOR */}
 
                     <button
                         type="button"
@@ -1483,16 +2272,48 @@ export default function ArquivosCameraMobile({
                             navegarArquivo(-1);
 
                         }}
+                        style={{
+                            position: "fixed",
+                            left: "22px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            zIndex: 1000001,
+                            width: "52px",
+                            height: "52px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "1px solid rgba(255,255,255,0.14)",
+                            borderRadius: "50%",
+                            background: "rgba(255,255,255,0.10)",
+                            color: "#ffffff",
+                            fontSize: "38px",
+                            fontWeight: 300,
+                            lineHeight: 1,
+                            cursor: "pointer",
+                            backdropFilter: "blur(8px)"
+                        }}
                     >
                         ‹
                     </button>
 
+
+                    {/* MÍDIA */}
 
                     <div
                         className="aaaarquivosCameraMobileMidia"
                         onClick={evento =>
                             evento.stopPropagation()
                         }
+                        style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            boxSizing: "border-box"
+                        }}
                     >
 
                         {arquivoEhVideo(
@@ -1506,6 +2327,17 @@ export default function ArquivosCameraMobile({
                                 controls
                                 autoPlay
                                 playsInline
+                                style={{
+                                    display: "block",
+                                    maxWidth: "92vw",
+                                    maxHeight: "82vh",
+                                    width: "auto",
+                                    height: "auto",
+                                    objectFit: "contain",
+                                    borderRadius: "8px",
+                                    boxShadow:
+                                        "0 25px 70px rgba(0,0,0,0.45)"
+                                }}
                             />
 
                         ) : (
@@ -1518,12 +2350,25 @@ export default function ArquivosCameraMobile({
                                     arquivoVisualizando.cadastrado_nome ||
                                     "Foto"
                                 }
+                                style={{
+                                    display: "block",
+                                    maxWidth: "92vw",
+                                    maxHeight: "82vh",
+                                    width: "auto",
+                                    height: "auto",
+                                    objectFit: "contain",
+                                    borderRadius: "8px",
+                                    boxShadow:
+                                        "0 25px 70px rgba(0,0,0,0.45)"
+                                }}
                             />
 
                         )}
 
                     </div>
 
+
+                    {/* PRÓXIMO */}
 
                     <button
                         type="button"
@@ -1535,24 +2380,84 @@ export default function ArquivosCameraMobile({
                             navegarArquivo(1);
 
                         }}
+                        style={{
+                            position: "fixed",
+                            right: "22px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            zIndex: 1000001,
+                            width: "52px",
+                            height: "52px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "1px solid rgba(255,255,255,0.14)",
+                            borderRadius: "50%",
+                            background: "rgba(255,255,255,0.10)",
+                            color: "#ffffff",
+                            fontSize: "38px",
+                            fontWeight: 300,
+                            lineHeight: 1,
+                            cursor: "pointer",
+                            backdropFilter: "blur(8px)"
+                        }}
                     >
                         ›
                     </button>
 
+
+                    {/* INFORMAÇÕES */}
 
                     <div
                         className="aaaarquivosCameraMobileVisualizadorInfo"
                         onClick={evento =>
                             evento.stopPropagation()
                         }
+                        style={{
+                            position: "fixed",
+                            left: "50%",
+                            bottom: "22px",
+                            transform: "translateX(-50%)",
+                            zIndex: 1000001,
+                            minWidth: "280px",
+                            maxWidth: "calc(100vw - 40px)",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: "5px",
+                            padding: "11px 17px",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                            borderRadius: "10px",
+                            background: "rgba(15,23,42,0.76)",
+                            color: "#ffffff",
+                            backdropFilter: "blur(12px)",
+                            boxShadow:
+                                "0 10px 30px rgba(0,0,0,0.25)"
+                        }}
                     >
 
-                        <strong>
+                        <strong
+                            style={{
+                                maxWidth: "100%",
+                                overflow: "hidden",
+                                color: "#ffffff",
+                                fontSize: "10px",
+                                fontWeight: 750,
+                                whiteSpace: "nowrap",
+                                textOverflow: "ellipsis"
+                            }}
+                        >
                             {arquivoVisualizando.cadastrado_nome ||
                                 "Arquivo"}
                         </strong>
 
-                        <span>
+                        <span
+                            style={{
+                                color: "rgba(255,255,255,0.62)",
+                                fontSize: "8px",
+                                fontWeight: 500
+                            }}
+                        >
                             {formatarDataHora(
                                 arquivoVisualizando.data
                             )}
