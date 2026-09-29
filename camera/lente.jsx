@@ -123,6 +123,17 @@ export default function Lente({
         setZoomDisponivel
     ] = useState(false);
 
+    const [
+        lenteUltraDisponivel,
+        setLenteUltraDisponivel
+    ] = useState(false);
+
+    const cameraPrincipalRef =
+        useRef(null);
+
+    const lenteUltraRef =
+        useRef(null);
+
     const zoomCameraRef = useRef(null);
     const [
         flashFoto,
@@ -263,8 +274,125 @@ export default function Lente({
        CAMERA
     ===================================================== */
 
+    function identificarLenteUltra(device) {
+
+        if (!device) {
+            return false;
+        }
+
+        const texto =
+            `${device.label || ""} ${device.groupId || ""}`
+                .toLowerCase();
+
+        return (
+            texto.includes("ultrawide") ||
+            texto.includes("ultra wide") ||
+            texto.includes("ultra-wide") ||
+            texto.includes("ultra wide angle") ||
+            texto.includes("ultra-wide angle") ||
+            texto.includes("0.5x") ||
+            texto.includes("0.6x") ||
+            texto.includes("0,5x") ||
+            texto.includes("0,6x") ||
+            texto.includes("wide angle")
+        );
+    }
+
+
+    async function atualizarLentesDisponiveis(
+        deviceIdAtual,
+        facingMode
+    ) {
+
+        if (
+            !navigator.mediaDevices?.enumerateDevices
+        ) {
+            return;
+        }
+
+        try {
+
+            const dispositivos =
+                await navigator.mediaDevices
+                    .enumerateDevices();
+
+            const cameras =
+                dispositivos.filter(
+                    dispositivo =>
+                        dispositivo.kind ===
+                        "videoinput"
+                );
+
+            if (
+                facingMode !==
+                "environment"
+            ) {
+                setLenteUltraDisponivel(false);
+                return;
+            }
+
+            const cameraAtualEncontrada =
+                cameras.find(
+                    dispositivo =>
+                        dispositivo.deviceId ===
+                        deviceIdAtual
+                );
+
+            if (
+                cameraAtualEncontrada
+            ) {
+
+                cameraPrincipalRef.current =
+                    cameraAtualEncontrada;
+            }
+
+            const ultra =
+                cameras.find(
+                    dispositivo =>
+                        dispositivo.deviceId !==
+                        deviceIdAtual &&
+                        identificarLenteUltra(dispositivo)
+                );
+
+            lenteUltraRef.current =
+                ultra || null;
+
+            setLenteUltraDisponivel(
+                Boolean(ultra)
+            );
+
+            console.log(
+                "[LENTE] Câmeras encontradas:",
+                cameras.map(
+                    dispositivo => ({
+                        id:
+                            dispositivo.deviceId,
+                        label:
+                            dispositivo.label
+                    })
+                )
+            );
+
+            console.log(
+                "[LENTE] Ultrawide:",
+                ultra || "não identificada"
+            );
+
+        } catch (erro) {
+
+            console.warn(
+                "[LENTE] Não foi possível listar as câmeras:",
+                erro
+            );
+
+        }
+
+    }
+
+
     async function iniciarCamera(
-        facingMode = cameraAtual
+        facingMode = cameraAtual,
+        deviceId = null
     ) {
 
         try {
@@ -284,25 +412,38 @@ export default function Lente({
 
             }
 
+            const configuracaoVideo = {
+
+                width: {
+                    ideal: 1920
+                },
+
+                height: {
+                    ideal: 1080
+                }
+
+            };
+
+            if (deviceId) {
+
+                configuracaoVideo.deviceId = {
+                    exact: deviceId
+                };
+
+            } else {
+
+                configuracaoVideo.facingMode = {
+                    ideal: facingMode
+                };
+
+            }
+
             const stream =
                 await navigator.mediaDevices
                     .getUserMedia({
 
-                        video: {
-
-                            facingMode: {
-                                ideal: facingMode
-                            },
-
-                            width: {
-                                ideal: 1920
-                            },
-
-                            height: {
-                                ideal: 1080
-                            }
-
-                        },
+                        video:
+                            configuracaoVideo,
 
                         audio: true
 
@@ -317,19 +458,50 @@ export default function Lente({
             zoomCameraRef.current =
                 videoTrack || null;
 
-            /*
-             * Verifica se o navegador/aparelho
-             * disponibiliza controle nativo de zoom.
-             */
+            const settings =
+                videoTrack?.getSettings?.() || {};
 
             const capabilities =
                 videoTrack?.getCapabilities?.() || {};
 
             const possuiZoom =
-                typeof capabilities.zoom === "object";
+                typeof capabilities.zoom ===
+                "object";
 
             setZoomDisponivel(
                 possuiZoom
+            );
+
+            /*
+             * Guarda a câmera principal somente
+             * quando estamos usando a câmera traseira
+             * normal, e não uma lente alternativa.
+             */
+
+            if (
+                facingMode ===
+                "environment" &&
+                !deviceId
+            ) {
+
+                cameraPrincipalRef.current = {
+                    deviceId:
+                        settings.deviceId || "",
+                    label:
+                        "Câmera traseira principal"
+                };
+
+            }
+
+            /*
+             * Depois que a permissão foi concedida,
+             * o navegador passa a fornecer os nomes
+             * das câmeras em enumerateDevices().
+             */
+
+            await atualizarLentesDisponiveis(
+                settings.deviceId,
+                facingMode
             );
 
             /*
@@ -393,14 +565,147 @@ export default function Lente({
         }
 
     }
+
+
     async function alterarZoom(
         novoZoom
     ) {
 
-        if (
-            gravando
-        ) {
+        if (gravando) {
             return;
+        }
+
+        /*
+         * 0.6x não deve ser tratado como zoom
+         * quando o aparelho possui uma lente
+         * ultrawide separada.
+         */
+
+        if (
+            novoZoom === 0.6 &&
+            cameraAtual === "environment"
+        ) {
+
+            const ultra =
+                lenteUltraRef.current;
+
+            if (ultra?.deviceId) {
+
+                console.log(
+                    "[LENTE] Ativando lente ultrawide:",
+                    ultra.label
+                );
+
+                await iniciarCamera(
+                    "environment",
+                    ultra.deviceId
+                );
+
+                setZoomAtual(0.6);
+
+                return;
+
+            }
+
+            /*
+             * Alguns aparelhos expõem a ultrawide
+             * diretamente como um intervalo de zoom.
+             */
+
+            const track =
+                zoomCameraRef.current;
+
+            const capabilities =
+                track?.getCapabilities?.() || {};
+
+            const capacidadeZoom =
+                capabilities.zoom;
+
+            if (
+                capacidadeZoom &&
+                Number.isFinite(
+                    capacidadeZoom.min
+                ) &&
+                capacidadeZoom.min <= 0.6
+            ) {
+
+                try {
+
+                    await track.applyConstraints({
+
+                        advanced: [
+                            {
+                                zoom: 0.6
+                            }
+                        ]
+
+                    });
+
+                    setZoomAtual(0.6);
+
+                    return;
+
+                } catch (erro) {
+
+                    console.warn(
+                        "[LENTE] Zoom 0.6 direto falhou:",
+                        erro
+                    );
+
+                }
+
+            }
+
+            setMensagem(
+                "A lente 0.6x não foi disponibilizada pelo navegador neste aparelho."
+            );
+
+            return;
+        }
+
+        /*
+         * Se estamos na ultrawide e o usuário escolhe
+         * 1x ou 2x, voltamos para a câmera principal.
+         */
+
+        if (
+            cameraAtual === "environment" &&
+            novoZoom >= 1
+        ) {
+
+            const principal =
+                cameraPrincipalRef.current;
+
+            const deviceIdPrincipal =
+                typeof principal === "object"
+                    ? principal.deviceId
+                    : principal;
+
+            if (
+                deviceIdPrincipal &&
+                zoomCameraRef.current
+            ) {
+
+                const atual =
+                    zoomCameraRef.current
+                        .getSettings?.()
+                        ?.deviceId;
+
+                if (
+                    atual &&
+                    atual !==
+                    deviceIdPrincipal
+                ) {
+
+                    await iniciarCamera(
+                        "environment",
+                        deviceIdPrincipal
+                    );
+
+                }
+
+            }
+
         }
 
         const track =
@@ -416,12 +721,14 @@ export default function Lente({
         const capacidadeZoom =
             capabilities.zoom;
 
-        if (
-            !capacidadeZoom
-        ) {
+        if (!capacidadeZoom) {
 
-            console.warn(
-                "[LENTE] Este dispositivo não disponibiliza zoom nativo."
+            if (novoZoom === 1) {
+                setZoomAtual(1);
+            }
+
+            setMensagem(
+                "Este dispositivo não disponibiliza controle de zoom nativo."
             );
 
             return;
@@ -450,17 +757,22 @@ export default function Lente({
                 : 0.1;
 
         /*
-         * Ajusta o valor solicitado para
-         * o intervalo realmente suportado
-         * pelo aparelho.
+         * 1x e 2x são aplicados somente dentro
+         * do intervalo realmente suportado.
          */
+
+        const zoomSolicitado =
+            Math.max(
+                1,
+                novoZoom
+            );
 
         const zoomAjustado =
             Math.min(
                 maximo,
                 Math.max(
                     minimo,
-                    novoZoom
+                    zoomSolicitado
                 )
             );
 
@@ -487,6 +799,8 @@ export default function Lente({
                 )
             );
 
+            setMensagem("");
+
         } catch (erro) {
 
             console.error(
@@ -494,9 +808,14 @@ export default function Lente({
                 erro
             );
 
+            setMensagem(
+                "Não foi possível aplicar este nível de zoom."
+            );
+
         }
 
     }
+
 
     function pararCamera() {
 
@@ -1805,7 +2124,10 @@ export default function Lente({
                                     }
                                     disabled={
                                         gravando ||
-                                        !zoomDisponivel
+                                        (
+                                            !zoomDisponivel &&
+                                            !lenteUltraDisponivel
+                                        )
                                     }
                                 >
                                     0.6x
@@ -1823,7 +2145,10 @@ export default function Lente({
                                     }
                                     disabled={
                                         gravando ||
-                                        !zoomDisponivel
+                                        (
+                                            !zoomDisponivel &&
+                                            !lenteUltraDisponivel
+                                        )
                                     }
                                 >
                                     1x
@@ -1841,7 +2166,10 @@ export default function Lente({
                                     }
                                     disabled={
                                         gravando ||
-                                        !zoomDisponivel
+                                        (
+                                            !zoomDisponivel &&
+                                            !lenteUltraDisponivel
+                                        )
                                     }
                                 >
                                     2x
