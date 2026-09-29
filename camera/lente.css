@@ -5798,3 +5798,189 @@
             0.01ms !important;
     }
 }
+
+/* =========================================================
+   BOTÕES DO TOPO
+   NUNCA COMPRIMIR ÍCONE OU TEXTO
+========================================================= */
+
+.lenteProTopo {
+    min-width: 0 !important;
+}
+
+
+/* Todos os botões do topo */
+.lenteProArquivos {
+    flex: 0 0 auto !important;
+
+    width: max-content !important;
+    min-width: max-content !important;
+
+    flex-shrink: 0 !important;
+
+    white-space: nowrap !important;
+
+    overflow: visible !important;
+}
+
+
+/* Ícone nunca desaparece */
+.lenteProArquivosIcone {
+    flex: 0 0 auto !important;
+
+    min-width: 20px !important;
+
+    width: 20px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* Texto nunca pode ser esmagado */
+.lenteProArquivosTexto {
+    flex: 0 0 auto !important;
+
+    min-width: max-content !important;
+
+    width: max-content !important;
+
+    white-space: nowrap !important;
+
+    display: inline-block !important;
+}
+
+
+/* Número também não pode encolher */
+.lenteProArquivos strong {
+    flex: 0 0 auto !important;
+
+    min-width: 31px !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   BOTÃO "TODOS"
+========================================================= */
+
+.lenteProArquivosAdministrador {
+    flex: 0 0 auto !important;
+
+    min-width: 82px !important;
+
+    width: max-content !important;
+
+    padding-left: 11px !important;
+    padding-right: 11px !important;
+
+    gap: 7px !important;
+}
+
+
+/* =========================================================
+   TELAS PEQUENAS
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .lenteProTopo {
+        left: 10px !important;
+        right: 10px !important;
+
+        gap: 8px !important;
+    }
+
+    .lenteProArquivos {
+        min-height: 48px !important;
+
+        padding-left: 9px !important;
+        padding-right: 9px !important;
+
+        gap: 6px !important;
+
+        border-radius: 16px !important;
+    }
+
+    .lenteProArquivosIcone {
+        width: 19px !important;
+        min-width: 19px !important;
+
+        font-size: 18px !important;
+    }
+
+    .lenteProArquivosTexto {
+        font-size: 11px !important;
+    }
+
+    .lenteProArquivos strong {
+        min-width: 27px !important;
+        height: 27px !important;
+
+        padding: 0 6px !important;
+
+        font-size: 11px !important;
+    }
+
+    .lenteProArquivosAdministrador {
+        min-width: 72px !important;
+
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .lenteProTopo {
+        gap: 5px !important;
+    }
+
+    .lenteProLoja {
+        max-width: calc(100vw - 155px) !important;
+    }
+
+    .lenteProArquivos {
+        min-width: max-content !important;
+
+        padding-left: 7px !important;
+        padding-right: 7px !important;
+
+        gap: 4px !important;
+    }
+
+    .lenteProArquivosIcone {
+        width: 18px !important;
+        min-width: 18px !important;
+
+        font-size: 17px !important;
+    }
+
+    .lenteProArquivosTexto {
+        font-size: 10px !important;
+    }
+
+    .lenteProArquivos strong {
+        min-width: 25px !important;
+        height: 25px !important;
+
+        padding: 0 5px !important;
+
+        font-size: 10px !important;
+    }
+
+    .lenteProArquivosAdministrador {
+        min-width: 67px !important;
+    }
+
+}
