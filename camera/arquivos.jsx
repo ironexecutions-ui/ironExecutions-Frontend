@@ -1393,10 +1393,18 @@ export default function ArquivosCameraMobile({
                                     disabled={processando}
                                     style={{
                                         minHeight: "36px",
-                                        padding: "0 14px",
+                                        minWidth: "110px",
+                                        padding: "0 15px",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: "7px",
+                                        flexShrink: 0,
                                         border: "1px solid #2563eb",
                                         borderRadius: "8px",
-                                        background: "#2563eb",
+                                        background: processando
+                                            ? "#1d4ed8"
+                                            : "#2563eb",
                                         color: "#ffffff",
                                         fontFamily: "inherit",
                                         fontSize: "9px",
@@ -1405,13 +1413,50 @@ export default function ArquivosCameraMobile({
                                             ? "not-allowed"
                                             : "pointer",
                                         opacity: processando
-                                            ? 0.55
+                                            ? 0.85
                                             : 1,
-                                        boxShadow:
-                                            "0 3px 8px rgba(37, 99, 235, 0.18)"
+                                        boxShadow: processando
+                                            ? "0 2px 6px rgba(37, 99, 235, 0.15)"
+                                            : "0 3px 8px rgba(37, 99, 235, 0.18)",
+                                        transition: "all 0.2s ease",
+                                        whiteSpace: "nowrap"
                                     }}
                                 >
-                                    ↓ ZIP
+                                    {processando ? (
+                                        <>
+                                            <span
+                                                style={{
+                                                    width: "13px",
+                                                    height: "13px",
+                                                    border: "2px solid rgba(255,255,255,0.35)",
+                                                    borderTopColor: "#ffffff",
+                                                    borderRadius: "50%",
+                                                    animation: "arquivosCameraMobileZipSpin 0.7s linear infinite",
+                                                    flexShrink: 0
+                                                }}
+                                            />
+
+                                            <span>
+                                                Gerando ZIP...
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span
+                                                style={{
+                                                    fontSize: "13px",
+                                                    lineHeight: 1,
+                                                    flexShrink: 0
+                                                }}
+                                            >
+                                                ↓
+                                            </span>
+
+                                            <span>
+                                                ZIP
+                                            </span>
+                                        </>
+                                    )}
                                 </button>
 
 
