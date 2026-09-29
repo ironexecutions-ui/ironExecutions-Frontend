@@ -2638,6 +2638,18 @@ export default function FormularioProduto({ item, voltar }) {
                                 variedades: []
                             })
                         }
+                        style={{
+                            position: "fixed",
+                            inset: 0,
+                            zIndex: 99999,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "24px",
+                            background: "rgba(15, 23, 42, 0.58)",
+                            backdropFilter: "blur(8px)",
+                            WebkitBackdropFilter: "blur(8px)"
+                        }}
                     >
 
                         <div
@@ -2645,21 +2657,94 @@ export default function FormularioProduto({ item, voltar }) {
                             onMouseDown={evento =>
                                 evento.stopPropagation()
                             }
+                            style={{
+                                position: "relative",
+                                width: "100%",
+                                maxWidth: "560px",
+                                maxHeight: "calc(100vh - 48px)",
+                                overflow: "hidden",
+                                display: "flex",
+                                flexDirection: "column",
+                                background:
+                                    "linear-gradient(145deg, #ffffff 0%, #f8fafc 55%, #eef2f7 100%)",
+                                border: "1px solid rgba(15, 23, 42, 0.10)",
+                                borderRadius: "24px",
+                                boxShadow:
+                                    "0 30px 80px rgba(15, 23, 42, 0.22), 0 12px 30px rgba(15, 23, 42, 0.10), inset 0 1px 0 #ffffff",
+                                animation:
+                                    "formularioProdutoAlertaEntrada 0.28s cubic-bezier(0.22, 1, 0.36, 1)"
+                            }}
                         >
 
-                            <div className="formulario-produto-alerta-cabecalho">
+                            <div
+                                className="formulario-produto-alerta-cabecalho"
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "15px",
+                                    padding: "22px 22px 18px",
+                                    borderBottom:
+                                        "1px solid rgba(15, 23, 42, 0.07)"
+                                }}
+                            >
 
-                                <div className="formulario-produto-alerta-indicador aviso">
+                                <div
+                                    className="formulario-produto-alerta-indicador aviso"
+                                    style={{
+                                        flex: "0 0 44px",
+                                        width: "44px",
+                                        height: "44px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        borderRadius: "14px",
+                                        background:
+                                            "linear-gradient(135deg, #fef3c7, #fde68a)",
+                                        border:
+                                            "1px solid rgba(217, 119, 6, 0.25)",
+                                        color: "#92400e",
+                                        fontSize: "22px",
+                                        fontWeight: "900",
+                                        boxShadow:
+                                            "0 8px 20px rgba(217, 119, 6, 0.14)"
+                                    }}
+                                >
                                     !
                                 </div>
 
-                                <div className="formulario-produto-alerta-textos">
+                                <div
+                                    className="formulario-produto-alerta-textos"
+                                    style={{
+                                        minWidth: 0,
+                                        flex: 1,
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: "5px"
+                                    }}
+                                >
 
-                                    <strong className="formulario-produto-alerta-titulo">
+                                    <strong
+                                        className="formulario-produto-alerta-titulo"
+                                        style={{
+                                            color: "#0f172a",
+                                            fontSize: "17px",
+                                            fontWeight: "850",
+                                            lineHeight: "1.25",
+                                            letterSpacing: "-0.2px"
+                                        }}
+                                    >
                                         Variedade sem imagem
                                     </strong>
 
-                                    <span className="formulario-produto-alerta-mensagem">
+                                    <span
+                                        className="formulario-produto-alerta-mensagem"
+                                        style={{
+                                            color: "#64748b",
+                                            fontSize: "13px",
+                                            fontWeight: "500",
+                                            lineHeight: "1.5"
+                                        }}
+                                    >
                                         Existe pelo menos uma variedade sem imagem. Deseja sair sem salvar?
                                     </span>
 
@@ -2675,6 +2760,26 @@ export default function FormularioProduto({ item, voltar }) {
                                         })
                                     }
                                     aria-label="Continuar editando"
+                                    style={{
+                                        flex: "0 0 36px",
+                                        width: "36px",
+                                        height: "36px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        padding: 0,
+                                        border: "1px solid #e2e8f0",
+                                        borderRadius: "11px",
+                                        background: "#ffffff",
+                                        color: "#64748b",
+                                        fontSize: "24px",
+                                        lineHeight: 1,
+                                        cursor: "pointer",
+                                        boxShadow:
+                                            "0 4px 12px rgba(15, 23, 42, 0.06)",
+                                        transition:
+                                            "all 0.2s ease"
+                                    }}
                                 >
                                     ×
                                 </button>
@@ -2682,13 +2787,39 @@ export default function FormularioProduto({ item, voltar }) {
                             </div>
 
 
-                            <div className="formulario-produto-alerta-pendencias">
+                            <div
+                                className="formulario-produto-alerta-pendencias"
+                                style={{
+                                    padding: "20px 22px 18px"
+                                }}
+                            >
 
-                                <span className="formulario-produto-alerta-pendencias-titulo">
+                                <span
+                                    className="formulario-produto-alerta-pendencias-titulo"
+                                    style={{
+                                        display: "block",
+                                        marginBottom: "11px",
+                                        color: "#334155",
+                                        fontSize: "12px",
+                                        fontWeight: "800",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.6px"
+                                    }}
+                                >
                                     Variedades pendentes
                                 </span>
 
-                                <div className="formulario-produto-alerta-lista">
+                                <div
+                                    className="formulario-produto-alerta-lista"
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: "8px",
+                                        maxHeight: "220px",
+                                        overflowY: "auto",
+                                        paddingRight: "3px"
+                                    }}
+                                >
 
                                     {modalSaidaSemImagem.variedades.map(
                                         (nome, index) => (
@@ -2696,13 +2827,53 @@ export default function FormularioProduto({ item, voltar }) {
                                             <div
                                                 key={`${nome}-${index}`}
                                                 className="formulario-produto-alerta-item"
+                                                style={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    gap: "11px",
+                                                    minHeight: "48px",
+                                                    padding: "8px 12px",
+                                                    border:
+                                                        "1px solid rgba(15, 23, 42, 0.07)",
+                                                    borderRadius: "13px",
+                                                    background:
+                                                        "linear-gradient(135deg, #ffffff, #f8fafc)",
+                                                    boxShadow:
+                                                        "0 4px 12px rgba(15, 23, 42, 0.045)"
+                                                }}
                                             >
 
-                                                <span className="formulario-produto-alerta-numero">
+                                                <span
+                                                    className="formulario-produto-alerta-numero"
+                                                    style={{
+                                                        flex: "0 0 30px",
+                                                        width: "30px",
+                                                        height: "30px",
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                        borderRadius: "9px",
+                                                        background:
+                                                            "linear-gradient(135deg, #0f172a, #172554)",
+                                                        color: "#ffffff",
+                                                        fontSize: "11px",
+                                                        fontWeight: "800"
+                                                    }}
+                                                >
                                                     {index + 1}
                                                 </span>
 
-                                                <span className="formulario-produto-alerta-item-texto">
+                                                <span
+                                                    className="formulario-produto-alerta-item-texto"
+                                                    style={{
+                                                        minWidth: 0,
+                                                        color: "#1e293b",
+                                                        fontSize: "13px",
+                                                        fontWeight: "650",
+                                                        lineHeight: "1.4",
+                                                        wordBreak: "break-word"
+                                                    }}
+                                                >
                                                     {nome}
                                                 </span>
 
@@ -2716,7 +2887,17 @@ export default function FormularioProduto({ item, voltar }) {
                             </div>
 
 
-                            <div className="formulario-produto-alerta-acoes">
+                            <div
+                                className="formulario-produto-alerta-acoes"
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr 1fr",
+                                    gap: "10px",
+                                    padding: "16px 22px 22px",
+                                    borderTop:
+                                        "1px solid rgba(15, 23, 42, 0.07)"
+                                }}
+                            >
 
                                 <button
                                     type="button"
@@ -2727,6 +2908,24 @@ export default function FormularioProduto({ item, voltar }) {
                                             variedades: []
                                         })
                                     }
+                                    style={{
+                                        width: "100%",
+                                        minHeight: "46px",
+                                        padding: "0 18px",
+                                        border:
+                                            "1px solid #cbd5e1",
+                                        borderRadius: "13px",
+                                        background:
+                                            "linear-gradient(180deg, #ffffff, #f1f5f9)",
+                                        color: "#334155",
+                                        fontSize: "13px",
+                                        fontWeight: "800",
+                                        cursor: "pointer",
+                                        boxShadow:
+                                            "0 5px 14px rgba(15, 23, 42, 0.06), inset 0 1px 0 #ffffff",
+                                        transition:
+                                            "all 0.2s ease"
+                                    }}
                                 >
                                     Continuar editando
                                 </button>
@@ -2741,6 +2940,24 @@ export default function FormularioProduto({ item, voltar }) {
                                         });
 
                                         voltar();
+                                    }}
+                                    style={{
+                                        width: "100%",
+                                        minHeight: "46px",
+                                        padding: "0 18px",
+                                        border:
+                                            "1px solid rgba(220, 38, 38, 0.35)",
+                                        borderRadius: "13px",
+                                        background:
+                                            "linear-gradient(135deg, #dc2626, #b91c1c)",
+                                        color: "#ffffff",
+                                        fontSize: "13px",
+                                        fontWeight: "850",
+                                        cursor: "pointer",
+                                        boxShadow:
+                                            "0 9px 22px rgba(220, 38, 38, 0.20)",
+                                        transition:
+                                            "all 0.2s ease"
                                     }}
                                 >
                                     Sair sem salvar
