@@ -5,6 +5,7 @@ import Supervisionar from "./supervisionar";
 import Modulos from "./modulos";
 import Distribuicao from "./distribucao";
 import Json from "./json";
+import Panfletos from "./panfletos";
 const CACHE_HISTORICO_SQL =
     "painel_g_historico_sql_v1";
 
@@ -754,6 +755,7 @@ export default function PainelG() {
             supervisionar: "Supervisionar",
             modulos: "Módulos",
             distribuicao: "Distribuição",
+            panfletos: "Panfletos",
             json: "JSON"
         };
         document.title =
@@ -1143,6 +1145,19 @@ ATALHOS SQL DA TABELA
                 <button
                     type="button"
                     className={
+                        painelGSecaoAtiva === "panfletos"
+                            ? "painel-g-menu-botao painel-g-menu-botao-ativo"
+                            : "painel-g-menu-botao"
+                    }
+                    onClick={() =>
+                        setPainelGSecaoAtiva("panfletos")
+                    }
+                >
+                    Panfletos
+                </button>
+                <button
+                    type="button"
+                    className={
                         painelGSecaoAtiva === "json"
                             ? "painel-g-menu-botao painel-g-menu-botao-ativo"
                             : "painel-g-menu-botao"
@@ -1177,6 +1192,9 @@ ATALHOS SQL DA TABELA
             )}
             {painelGSecaoAtiva === "distribuicao" && (
                 <Distribuicao />
+            )}
+            {painelGSecaoAtiva === "panfletos" && (
+                <Panfletos />
             )}
             {/* =====================================================
                 TABELAS
