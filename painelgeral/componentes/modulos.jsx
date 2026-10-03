@@ -168,20 +168,19 @@ export default function Modulos() {
             }
 
             const resposta = await fetch(
-                `${API_URL}/panel/database/modulos`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        comercio_cadastrado_id:
-                            comercioSelecionado.id,
-                        modulo: modulo.modulo,
-                        ativo: novoStatus
-                    })
-                }
+                `${API_URL}/panel/database/modulos/${modulo.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    comercio_cadastrado_id:
+                        comercioSelecionado.id,
+                    modulo: modulo.modulo,
+                    ativo: novoStatus
+                })
+            }
             );
 
             const dados = await resposta.json();
@@ -195,11 +194,10 @@ export default function Modulos() {
 
             setModulos(lista =>
                 lista.map(item =>
-                    item.modulo === modulo.modulo
-                        ? {
-                            ...item,
-                            ativo: novoStatus
-                        }
+                    item.id === modulo.id ? {
+                        ...item,
+                        ativo: novoStatus
+                    }
                         : item
                 )
             );
