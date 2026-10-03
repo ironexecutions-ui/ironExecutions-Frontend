@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../config";
 import "./painelg.css";
 import Supervisionar from "./supervisionar";
-
-
+import Modulos from "./modulos";
+import Distribuicao from "./distribucao";
 import Json from "./json";
 const CACHE_HISTORICO_SQL =
     "painel_g_historico_sql_v1";
@@ -752,9 +752,10 @@ export default function PainelG() {
             tabelas: "Tabelas",
             sql: "Terminal SQL",
             supervisionar: "Supervisionar",
+            modulos: "Módulos",
+            distribuicao: "Distribuição",
             json: "JSON"
         };
-
         document.title =
             titulosPainelG[painelGSecaoAtiva] || "Painel";
 
@@ -1116,6 +1117,32 @@ ATALHOS SQL DA TABELA
                 <button
                     type="button"
                     className={
+                        painelGSecaoAtiva === "modulos"
+                            ? "painel-g-menu-botao painel-g-menu-botao-ativo"
+                            : "painel-g-menu-botao"
+                    }
+                    onClick={() =>
+                        setPainelGSecaoAtiva("modulos")
+                    }
+                >
+                    Módulos
+                </button>
+                <button
+                    type="button"
+                    className={
+                        painelGSecaoAtiva === "distribuicao"
+                            ? "painel-g-menu-botao painel-g-menu-botao-ativo"
+                            : "painel-g-menu-botao"
+                    }
+                    onClick={() =>
+                        setPainelGSecaoAtiva("distribuicao")
+                    }
+                >
+                    Distribuição
+                </button>
+                <button
+                    type="button"
+                    className={
                         painelGSecaoAtiva === "json"
                             ? "painel-g-menu-botao painel-g-menu-botao-ativo"
                             : "painel-g-menu-botao"
@@ -1144,6 +1171,12 @@ ATALHOS SQL DA TABELA
             )}
             {painelGSecaoAtiva === "json" && (
                 <Json />
+            )}
+            {painelGSecaoAtiva === "modulos" && (
+                <Modulos />
+            )}
+            {painelGSecaoAtiva === "distribuicao" && (
+                <Distribuicao />
             )}
             {/* =====================================================
                 TABELAS

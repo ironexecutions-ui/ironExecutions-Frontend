@@ -14,6 +14,9 @@ export default function Supervisionar() {
     const [supervisaoCarregando, setSupervisaoCarregando] = useState(true);
     const [supervisaoEntrandoId, setSupervisaoEntrandoId] = useState(null);
     const [supervisaoErro, setSupervisaoErro] = useState("");
+    const [supervisaoBusca, setSupervisaoBusca] = useState("");
+    const [supervisaoSomenteTeste, setSupervisaoSomenteTeste] = useState(false);
+    const [supervisaoAlterandoTesteId, setSupervisaoAlterandoTesteId] = useState(null);
 
     const token = localStorage.getItem("token");
 
@@ -94,12 +97,73 @@ export default function Supervisionar() {
 
 
     /* =====================================================
-       ENTRAR NO COMÉRCIO
+       ALTERAR MODO TESTE
     ===================================================== */
 
+    async function alterarModoTesteSupervisao(comercio) {
+
+        if (supervisaoAlterandoTesteId !== null) {
+            return;
+        }
+
+        setSupervisaoAlterandoTesteId(comercio.id);
+        setSupervisaoErro("");
+
+        const novoTeste = Number(comercio.teste) === 1 ? 0 : 1;
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/panel/database/supervisionar/teste`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        comercio_id: comercio.id,
+                        teste: novoTeste
+                    })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.detail ||
+                    "Erro ao alterar o modo de teste"
+                );
+            }
+
+            setSupervisaoComercios(comercios =>
+                comercios.map(item =>
+                    item.id === comercio.id
+                        ? { ...item, teste: novoTeste }
+                        : item
+                )
+            );
+
+        } catch (error) {
+
+            console.error(
+                "[SUPERVISIONAR] Erro ao alterar teste:",
+                error
+            );
+
+            setSupervisaoErro(error.message);
+
+        } finally {
+
+            setSupervisaoAlterandoTesteId(null);
+        }
+    }
+
+
     /* =====================================================
-      ENTRAR NO COMÉRCIO
-   ===================================================== */
+       ENTRAR NO COMÉRCIO
+    ===================================================== */
 
     async function entrarComercioSupervisao(comercio) {
 
@@ -187,6 +251,27 @@ export default function Supervisionar() {
 
 
     /* =====================================================
+       FILTRAR EMPRESAS
+    ===================================================== */
+
+    const supervisaoComerciosFiltrados =
+        supervisaoComercios.filter(comercio => {
+
+            const nome = String(comercio.loja || "").toLowerCase();
+            const busca = supervisaoBusca.trim().toLowerCase();
+
+            const correspondeNome =
+                !busca || nome.includes(busca);
+
+            const correspondeTeste =
+                !supervisaoSomenteTeste ||
+                Number(comercio.teste) === 1;
+
+            return correspondeNome && correspondeTeste;
+        });
+
+
+    /* =====================================================
        RETURN
     ===================================================== */
 
@@ -232,6 +317,45 @@ export default function Supervisionar() {
 
 
             {/* =================================================
+                FILTROS
+            ================================================= */}
+
+            <div className="supervisao-empresas-filtros">
+
+                <div className="supervisao-empresas-busca-area">
+
+                    <input
+                        type="text"
+                        value={supervisaoBusca}
+                        onChange={event =>
+                            setSupervisaoBusca(event.target.value)
+                        }
+                        placeholder="Filtrar por nome da empresa"
+                        className="supervisao-empresas-busca"
+                    />
+
+                </div>
+
+                <button
+                    type="button"
+                    className={
+                        supervisaoSomenteTeste
+                            ? "supervisao-empresas-filtro-teste supervisao-empresas-filtro-teste-ativo"
+                            : "supervisao-empresas-filtro-teste"
+                    }
+                    onClick={() =>
+                        setSupervisaoSomenteTeste(valor => !valor)
+                    }
+                >
+                    {supervisaoSomenteTeste
+                        ? "Mostrar todas"
+                        : "Somente modo teste"}
+                </button>
+
+            </div>
+
+
+            {/* =================================================
                 ERRO
             ================================================= */}
 
@@ -267,11 +391,11 @@ export default function Supervisionar() {
                 EMPRESAS
             ================================================= */}
 
-            {!supervisaoCarregando && supervisaoComercios.length > 0 && (
+            {!supervisaoCarregando && supervisaoComerciosFiltrados.length > 0 && (
 
                 <div className="supervisao-empresas-grid">
 
-                    {supervisaoComercios.map(comercio => {
+                    {supervisaoComerciosFiltrados.map(comercio => {
 
                         const entrando =
                             supervisaoEntrandoId === comercio.id;
@@ -345,6 +469,12 @@ export default function Supervisionar() {
 
                                     </div>
 
+                                    {Number(comercio.teste) === 1 && (
+                                        <span className="supervisao-empresa-card-teste">
+                                            EMPRESA DE TESTE
+                                        </span>
+                                    )}
+
 
                                     <strong className="supervisao-empresa-card-nome">
                                         {comercio.loja || "Empresa sem nome"}
@@ -381,6 +511,33 @@ export default function Supervisionar() {
                                         </div>
 
                                     </div>
+
+
+                                    {/* =====================================
+                                        MODO TESTE
+                                    ===================================== */}
+
+                                    <button
+                                        type="button"
+                                        className={
+                                            Number(comercio.teste) === 1
+                                                ? "supervisao-empresa-card-teste-acao supervisao-empresa-card-teste-acao-ativo"
+                                                : "supervisao-empresa-card-teste-acao"
+                                        }
+                                        disabled={
+                                            supervisaoAlterandoTesteId !== null ||
+                                            supervisaoEntrandoId !== null
+                                        }
+                                        onClick={() =>
+                                            alterarModoTesteSupervisao(comercio)
+                                        }
+                                    >
+                                        {supervisaoAlterandoTesteId === comercio.id
+                                            ? "Alterando..."
+                                            : Number(comercio.teste) === 1
+                                                ? "Remover modo teste"
+                                                : "Marcar como teste"}
+                                    </button>
 
 
                                     {/* =====================================
@@ -423,7 +580,7 @@ export default function Supervisionar() {
             ================================================= */}
 
             {!supervisaoCarregando &&
-                supervisaoComercios.length === 0 && (
+                supervisaoComerciosFiltrados.length === 0 && (
 
                     <div className="supervisao-empresas-vazio">
 
@@ -432,7 +589,9 @@ export default function Supervisionar() {
                         </h2>
 
                         <p>
-                            Não existem registros em comercios_cadastradas.
+                            {supervisaoComercios.length === 0
+                                ? "Não existem registros em comercios_cadastradas."
+                                : "Nenhuma empresa corresponde aos filtros selecionados."}
                         </p>
 
                     </div>

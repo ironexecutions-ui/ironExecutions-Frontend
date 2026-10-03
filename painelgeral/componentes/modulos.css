@@ -1,0 +1,1487 @@
+/* ============================================================
+   MODULOS - CSS PRINCIPAL
+   ESTE CSS USA EXATAMENTE AS CLASSES DO modulos.jsx
+============================================================ */
+
+.painel-modulos-container {
+    width: 100% !important;
+    min-height: 100vh !important;
+    padding: 30px !important;
+    box-sizing: border-box !important;
+
+    background: #f4f6f9 !important;
+    color: #172033 !important;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif !important;
+}
+
+
+/* ============================================================
+   CABEÇALHO
+============================================================ */
+
+.painel-modulos-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 25px !important;
+
+    margin-bottom: 25px !important;
+}
+
+.painel-modulos-cabecalho-conteudo {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 15px !important;
+}
+
+.painel-modulos-cabecalho-icone {
+    width: 52px !important;
+    height: 52px !important;
+
+    min-width: 52px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 14px !important;
+
+    background: #2563eb !important;
+    color: #ffffff !important;
+
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+}
+
+.painel-modulos-cabecalho-icone span {
+    font-size: 23px !important;
+}
+
+.painel-modulos-cabecalho-label {
+    display: block !important;
+
+    margin-bottom: 5px !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.4px !important;
+}
+
+.painel-modulos-titulo {
+    margin: 0 !important;
+
+    color: #111827 !important;
+
+    font-size: 26px !important;
+    font-weight: 750 !important;
+    line-height: 1.2 !important;
+}
+
+.painel-modulos-subtitulo {
+    margin: 6px 0 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 13px !important;
+}
+
+
+/* ============================================================
+   BOTÃO ATUALIZAR
+============================================================ */
+
+.painel-modulos-atualizar {
+    height: 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    padding: 0 16px !important;
+
+    border: 1px solid #d9dee7 !important;
+    border-radius: 10px !important;
+
+    background: #ffffff !important;
+    color: #344054 !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04) !important;
+}
+
+.painel-modulos-atualizar:hover {
+    background: #f8fafc !important;
+    border-color: #bfc7d4 !important;
+}
+
+.painel-modulos-atualizar:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+.painel-modulos-atualizar-icone {
+    font-size: 18px !important;
+}
+
+
+/* ============================================================
+   ERRO
+============================================================ */
+
+.painel-modulos-erro {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 12px !important;
+
+    margin-bottom: 20px !important;
+    padding: 14px 16px !important;
+
+    border: 1px solid #fecaca !important;
+    border-radius: 12px !important;
+
+    background: #fff1f2 !important;
+    color: #b91c1c !important;
+}
+
+.painel-modulos-erro-icone {
+    width: 30px !important;
+    height: 30px !important;
+
+    min-width: 30px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    background: #fee2e2 !important;
+
+    font-weight: 800 !important;
+}
+
+.painel-modulos-erro strong {
+    display: block !important;
+
+    font-size: 12px !important;
+}
+
+.painel-modulos-erro span {
+    display: block !important;
+
+    margin-top: 3px !important;
+
+    color: #7f1d1d !important;
+
+    font-size: 12px !important;
+}
+
+
+/* ============================================================
+   LAYOUT PRINCIPAL
+============================================================ */
+
+.painel-modulos-layout {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns: 300px minmax(0, 1fr) !important;
+
+    gap: 20px !important;
+
+    align-items: start !important;
+}
+
+
+/* ============================================================
+   PAINEL DE COMÉRCIOS
+============================================================ */
+
+.painel-modulos-comercios {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #e1e6ee !important;
+    border-radius: 16px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 4px 15px rgba(16, 24, 40, 0.05) !important;
+}
+
+.painel-modulos-comercios-cabecalho {
+    padding: 18px !important;
+
+    border-bottom: 1px solid #edf0f4 !important;
+}
+
+.painel-modulos-comercios-cabecalho>div {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+}
+
+.painel-modulos-comercios-titulo {
+    color: #172033 !important;
+
+    font-size: 14px !important;
+    font-weight: 750 !important;
+}
+
+.painel-modulos-comercios-contador {
+    min-width: 22px !important;
+    height: 22px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 6px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 7px !important;
+
+    background: #eef2f7 !important;
+    color: #475467 !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+}
+
+.painel-modulos-comercios-cabecalho small {
+    display: block !important;
+
+    margin-top: 5px !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 10px !important;
+}
+
+
+/* ============================================================
+   BUSCA
+============================================================ */
+
+.painel-modulos-busca {
+    position: relative !important;
+
+    margin: 14px !important;
+}
+
+.painel-modulos-busca input {
+    width: 100% !important;
+    height: 40px !important;
+
+    box-sizing: border-box !important;
+
+    padding: 0 36px !important;
+
+    border: 1px solid #dfe4eb !important;
+    border-radius: 9px !important;
+
+    outline: none !important;
+
+    background: #f8fafc !important;
+    color: #172033 !important;
+
+    font-size: 12px !important;
+}
+
+.painel-modulos-busca input:focus {
+    border-color: #2563eb !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10) !important;
+}
+
+.painel-modulos-busca-icone {
+    position: absolute !important;
+
+    left: 12px !important;
+    top: 50% !important;
+
+    transform: translateY(-50%) !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 18px !important;
+
+    z-index: 2 !important;
+}
+
+.painel-modulos-busca-limpar {
+    position: absolute !important;
+
+    right: 7px !important;
+    top: 50% !important;
+
+    width: 26px !important;
+    height: 26px !important;
+
+    transform: translateY(-50%) !important;
+
+    border: 0 !important;
+    border-radius: 6px !important;
+
+    background: transparent !important;
+
+    color: #98a2b3 !important;
+
+    cursor: pointer !important;
+
+    font-size: 18px !important;
+}
+
+.painel-modulos-busca-limpar:hover {
+    background: #e9edf3 !important;
+}
+
+
+/* ============================================================
+   LISTA DE COMÉRCIOS
+============================================================ */
+
+.painel-modulos-lista-comercios {
+    width: 100% !important;
+
+    max-height: 600px !important;
+
+    overflow-y: auto !important;
+
+    padding: 0 8px 10px !important;
+
+    box-sizing: border-box !important;
+}
+
+.painel-modulos-lista-comercios::-webkit-scrollbar {
+    width: 5px !important;
+}
+
+.painel-modulos-lista-comercios::-webkit-scrollbar-thumb {
+    background: #d0d5dd !important;
+
+    border-radius: 20px !important;
+}
+
+
+/* ============================================================
+   ITEM COMÉRCIO
+============================================================ */
+
+.painel-modulos-comercio-item {
+    width: 100% !important;
+
+    min-height: 62px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+
+    margin: 0 0 4px !important;
+    padding: 9px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid transparent !important;
+    border-radius: 11px !important;
+
+    background: transparent !important;
+    color: #172033 !important;
+
+    text-align: left !important;
+
+    cursor: pointer !important;
+}
+
+.painel-modulos-comercio-item:hover {
+    background: #f7f9fc !important;
+
+    border-color: #edf0f4 !important;
+}
+
+.painel-modulos-comercio-item-ativo {
+    background: #eff6ff !important;
+
+    border-color: #bfdbfe !important;
+}
+
+.painel-modulos-comercio-item-ativo:hover {
+    background: #eff6ff !important;
+
+    border-color: #93c5fd !important;
+}
+
+
+/* ============================================================
+   IMAGEM COMÉRCIO
+============================================================ */
+
+.painel-modulos-comercio-imagem {
+    width: 40px !important;
+    height: 40px !important;
+
+    min-width: 40px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+
+    background: #f1f5f9 !important;
+
+    color: #64748b !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+.painel-modulos-comercio-imagem img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+}
+
+
+/* ============================================================
+   INFORMAÇÕES COMÉRCIO
+============================================================ */
+
+.painel-modulos-comercio-info {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+}
+
+.painel-modulos-comercio-info strong {
+    display: block !important;
+
+    overflow: hidden !important;
+
+    color: #344054 !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.painel-modulos-comercio-item-ativo .painel-modulos-comercio-info strong {
+    color: #1d4ed8 !important;
+}
+
+.painel-modulos-comercio-info span {
+    display: block !important;
+
+    margin-top: 3px !important;
+
+    overflow: hidden !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 10px !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.painel-modulos-comercio-seta {
+    color: #98a2b3 !important;
+
+    font-size: 15px !important;
+}
+
+
+/* ============================================================
+   ÁREA DOS MÓDULOS
+============================================================ */
+
+.painel-modulos-area {
+    width: 100% !important;
+
+    min-width: 0 !important;
+}
+
+
+/* ============================================================
+   ESTADO SEM COMÉRCIO
+============================================================ */
+
+.painel-modulos-selecione {
+    width: 100% !important;
+    min-height: 500px !important;
+
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 40px !important;
+
+    border: 1px solid #e1e6ee !important;
+    border-radius: 16px !important;
+
+    background: #ffffff !important;
+
+    text-align: center !important;
+
+    box-shadow:
+        0 4px 15px rgba(16, 24, 40, 0.04) !important;
+}
+
+.painel-modulos-selecione-icone {
+    width: 68px !important;
+    height: 68px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 18px !important;
+
+    border-radius: 18px !important;
+
+    background: #eff6ff !important;
+    color: #2563eb !important;
+}
+
+.painel-modulos-selecione-icone span {
+    font-size: 27px !important;
+}
+
+.painel-modulos-selecione-label {
+    margin-bottom: 6px !important;
+
+    color: #2563eb !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 1.3px !important;
+}
+
+.painel-modulos-selecione h2 {
+    margin: 0 !important;
+
+    color: #172033 !important;
+
+    font-size: 21px !important;
+    font-weight: 750 !important;
+}
+
+.painel-modulos-selecione p {
+    max-width: 400px !important;
+
+    margin: 8px 0 0 !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+}
+
+
+/* ============================================================
+   COMÉRCIO SELECIONADO
+============================================================ */
+
+.painel-modulos-comercio-cabecalho {
+    width: 100% !important;
+
+    min-height: 90px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    padding: 16px 20px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #e1e6ee !important;
+    border-radius: 16px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 4px 15px rgba(16, 24, 40, 0.04) !important;
+}
+
+.painel-modulos-comercio-identidade {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 14px !important;
+
+    min-width: 0 !important;
+}
+
+.painel-modulos-comercio-cabecalho-imagem {
+    width: 60px !important;
+    height: 60px !important;
+
+    min-width: 60px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+
+    background: #f1f5f9 !important;
+
+    color: #64748b !important;
+
+    font-size: 19px !important;
+    font-weight: 800 !important;
+}
+
+.painel-modulos-comercio-cabecalho-imagem img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+}
+
+.painel-modulos-comercio-cabecalho-info {
+    min-width: 0 !important;
+}
+
+.painel-modulos-comercio-cabecalho-info>span {
+    display: block !important;
+
+    margin-bottom: 3px !important;
+
+    color: #2563eb !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 1px !important;
+}
+
+.painel-modulos-comercio-cabecalho-info h2 {
+    margin: 0 !important;
+
+    overflow: hidden !important;
+
+    color: #172033 !important;
+
+    font-size: 19px !important;
+    font-weight: 750 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.painel-modulos-comercio-cabecalho-info p {
+    margin: 4px 0 0 !important;
+
+    color: #667085 !important;
+
+    font-size: 11px !important;
+}
+
+.painel-modulos-comercio-indicador {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    padding: 8px 11px !important;
+
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 8px !important;
+
+    background: #f0fdf4 !important;
+    color: #15803d !important;
+
+    font-size: 10px !important;
+    font-weight: 700 !important;
+
+    white-space: nowrap !important;
+}
+
+.painel-modulos-comercio-indicador-ponto {
+    width: 7px !important;
+    height: 7px !important;
+
+    border-radius: 50% !important;
+
+    background: #22c55e !important;
+}
+
+
+/* ============================================================
+   RESUMO
+============================================================ */
+
+.painel-modulos-resumo {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    margin-top: 14px !important;
+}
+
+.painel-modulos-resumo-card {
+    min-width: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+
+    padding: 15px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #e1e6ee !important;
+    border-radius: 13px !important;
+
+    background: #ffffff !important;
+}
+
+.painel-modulos-resumo-card-icone {
+    width: 35px !important;
+    height: 35px !important;
+
+    min-width: 35px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 9px !important;
+
+    background: #f2f4f7 !important;
+    color: #667085 !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+.painel-modulos-resumo-card span {
+    display: block !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 9px !important;
+}
+
+.painel-modulos-resumo-card strong {
+    display: block !important;
+
+    margin-top: 2px !important;
+
+    color: #172033 !important;
+
+    font-size: 20px !important;
+    font-weight: 750 !important;
+}
+
+.painel-modulos-resumo-ativo {
+    border-color: #dcfce7 !important;
+}
+
+.painel-modulos-resumo-ativo .painel-modulos-resumo-card-icone {
+    background: #f0fdf4 !important;
+    color: #16a34a !important;
+}
+
+.painel-modulos-resumo-inativo {
+    border-color: #fee2e2 !important;
+}
+
+.painel-modulos-resumo-inativo .painel-modulos-resumo-card-icone {
+    background: #fef2f2 !important;
+    color: #dc2626 !important;
+}
+
+.painel-modulos-resumo-percentual .painel-modulos-resumo-card-icone {
+    background: #eff6ff !important;
+    color: #2563eb !important;
+}
+
+
+/* ============================================================
+   TÍTULO DA LISTA
+============================================================ */
+
+.painel-modulos-secao-titulo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+
+    margin: 25px 0 12px !important;
+}
+
+.painel-modulos-secao-titulo>div>span {
+    display: block !important;
+
+    margin-bottom: 4px !important;
+
+    color: #2563eb !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 1.2px !important;
+}
+
+.painel-modulos-secao-titulo h3 {
+    margin: 0 !important;
+
+    color: #172033 !important;
+
+    font-size: 17px !important;
+    font-weight: 750 !important;
+}
+
+.painel-modulos-secao-titulo small {
+    color: #98a2b3 !important;
+
+    font-size: 10px !important;
+}
+
+
+/* ============================================================
+   LISTA DE MÓDULOS
+============================================================ */
+
+.painel-modulos-lista {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 8px !important;
+}
+
+
+/* ============================================================
+   CARD MÓDULO
+============================================================ */
+
+.painel-modulo-card {
+    position: relative !important;
+
+    width: 100% !important;
+    min-height: 78px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid #e1e6ee !important;
+    border-radius: 13px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 2px 7px rgba(16, 24, 40, 0.035) !important;
+}
+
+.painel-modulo-card-ativo {
+    border-color: #d5eadb !important;
+}
+
+.painel-modulo-card-inativo {
+    border-color: #e1e5eb !important;
+}
+
+.painel-modulo-card-indicador {
+    width: 4px !important;
+    min-width: 4px !important;
+
+    align-self: stretch !important;
+
+    background: #cbd5e1 !important;
+}
+
+.painel-modulo-card-ativo .painel-modulo-card-indicador {
+    background: #16a34a !important;
+}
+
+
+/* ============================================================
+   ÍCONE
+============================================================ */
+
+.painel-modulo-card-icone {
+    width: 36px !important;
+    height: 36px !important;
+
+    min-width: 36px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-left: 14px !important;
+
+    border-radius: 9px !important;
+
+    background: #f2f4f7 !important;
+    color: #98a2b3 !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+.painel-modulo-card-ativo .painel-modulo-card-icone {
+    background: #f0fdf4 !important;
+    color: #16a34a !important;
+}
+
+
+/* ============================================================
+   INFORMAÇÕES
+============================================================ */
+
+.painel-modulo-card-info {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+
+    padding: 13px 14px !important;
+}
+
+.painel-modulo-card-topo {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+}
+
+.painel-modulo-card-label {
+    display: block !important;
+
+    margin-bottom: 3px !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 8px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 1px !important;
+}
+
+.painel-modulo-card-topo h3 {
+    margin: 0 !important;
+
+    color: #344054 !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ============================================================
+   STATUS
+============================================================ */
+
+.painel-modulo-status {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 5px !important;
+
+    padding: 5px 8px !important;
+
+    border-radius: 6px !important;
+
+    font-size: 8px !important;
+    font-weight: 800 !important;
+}
+
+.painel-modulo-status>span {
+    width: 5px !important;
+    height: 5px !important;
+
+    border-radius: 50% !important;
+}
+
+.painel-modulo-status-ativo {
+    background: #f0fdf4 !important;
+    color: #15803d !important;
+}
+
+.painel-modulo-status-ativo>span {
+    background: #22c55e !important;
+}
+
+.painel-modulo-status-inativo {
+    background: #f2f4f7 !important;
+    color: #667085 !important;
+}
+
+.painel-modulo-status-inativo>span {
+    background: #98a2b3 !important;
+}
+
+
+/* ============================================================
+   DETALHES
+============================================================ */
+
+.painel-modulo-card-detalhes {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+
+    gap: 5px 15px !important;
+
+    margin-top: 6px !important;
+}
+
+.painel-modulo-card-detalhes span {
+    color: #98a2b3 !important;
+
+    font-size: 9px !important;
+}
+
+
+/* ============================================================
+   BOTÃO DO MÓDULO
+============================================================ */
+
+.painel-modulo-acao {
+    width: 135px !important;
+    min-width: 135px !important;
+    height: 36px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-right: 14px !important;
+
+    padding: 0 12px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 8px !important;
+
+    font-size: 10px !important;
+    font-weight: 750 !important;
+
+    cursor: pointer !important;
+}
+
+.painel-modulo-acao:disabled {
+    opacity: 0.55 !important;
+
+    cursor: not-allowed !important;
+}
+
+.painel-modulo-acao-ativar {
+    border: 1px solid #bbf7d0 !important;
+
+    background: #f0fdf4 !important;
+    color: #15803d !important;
+}
+
+.painel-modulo-acao-ativar:hover:not(:disabled) {
+    background: #dcfce7 !important;
+}
+
+.painel-modulo-acao-desativar {
+    border: 1px solid #fecaca !important;
+
+    background: #fff7f7 !important;
+    color: #dc2626 !important;
+}
+
+.painel-modulo-acao-desativar:hover:not(:disabled) {
+    background: #fef2f2 !important;
+}
+
+
+/* ============================================================
+   LOADING
+============================================================ */
+
+.painel-modulos-carregando-area {
+    min-height: 250px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px solid #e1e6ee !important;
+    border-radius: 14px !important;
+
+    background: #ffffff !important;
+
+    text-align: center !important;
+}
+
+.painel-modulos-spinner {
+    width: 16px !important;
+    height: 16px !important;
+
+    display: inline-block !important;
+
+    border: 2px solid #dbeafe !important;
+    border-top-color: #2563eb !important;
+
+    border-radius: 50% !important;
+
+    animation:
+        painelModulosLoading 0.7s linear infinite !important;
+}
+
+.painel-modulos-spinner-grande {
+    width: 28px !important;
+    height: 28px !important;
+
+    margin-bottom: 14px !important;
+
+    border-width: 3px !important;
+}
+
+.painel-modulos-spinner.pequeno {
+    width: 12px !important;
+    height: 12px !important;
+
+    border-width: 2px !important;
+}
+
+@keyframes painelModulosLoading {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* ============================================================
+   VAZIO
+============================================================ */
+
+.painel-modulos-vazio {
+    min-height: 250px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 35px !important;
+
+    border: 1px dashed #d0d5dd !important;
+    border-radius: 14px !important;
+
+    background: #fafbfc !important;
+
+    text-align: center !important;
+}
+
+.painel-modulos-vazio-icone {
+    width: 52px !important;
+    height: 52px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin-bottom: 13px !important;
+
+    border-radius: 14px !important;
+
+    background: #f2f4f7 !important;
+    color: #98a2b3 !important;
+
+    font-size: 20px !important;
+}
+
+.painel-modulos-vazio strong {
+    color: #475467 !important;
+
+    font-size: 13px !important;
+}
+
+.painel-modulos-vazio>span {
+    max-width: 420px !important;
+
+    margin-top: 6px !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+}
+
+
+/* ============================================================
+   VAZIO DA LISTA
+============================================================ */
+
+.painel-modulos-vazio-pequeno {
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    padding: 30px 15px !important;
+
+    text-align: center !important;
+}
+
+.painel-modulos-vazio-pequeno>span {
+    margin-bottom: 8px !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 22px !important;
+}
+
+.painel-modulos-vazio-pequeno strong {
+    color: #667085 !important;
+
+    font-size: 11px !important;
+}
+
+.painel-modulos-vazio-pequeno small {
+    margin-top: 5px !important;
+
+    color: #98a2b3 !important;
+
+    font-size: 9px !important;
+}
+
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+
+@media (max-width: 1100px) {
+
+    .painel-modulos-layout {
+        grid-template-columns: 260px minmax(0, 1fr) !important;
+    }
+
+    .painel-modulos-resumo {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .painel-modulos-container {
+        padding: 20px !important;
+    }
+
+    .painel-modulos-layout {
+        grid-template-columns: 1fr !important;
+    }
+
+    .painel-modulos-comercios {
+        position: static !important;
+    }
+
+    .painel-modulos-lista-comercios {
+        max-height: 280px !important;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .painel-modulos-cabecalho {
+        align-items: stretch !important;
+
+        flex-direction: column !important;
+    }
+
+    .painel-modulos-atualizar {
+        width: 100% !important;
+    }
+
+    .painel-modulos-comercio-cabecalho {
+        align-items: flex-start !important;
+
+        flex-direction: column !important;
+    }
+
+    .painel-modulos-comercio-indicador {
+        width: 100% !important;
+
+        box-sizing: border-box !important;
+
+        justify-content: center !important;
+    }
+
+    .painel-modulo-card {
+        align-items: flex-start !important;
+
+        flex-wrap: wrap !important;
+
+        padding-bottom: 12px !important;
+    }
+
+    .painel-modulo-card-info {
+        min-width: 0 !important;
+    }
+
+    .painel-modulo-acao {
+        width: calc(100% - 68px) !important;
+
+        margin-left: 54px !important;
+        margin-right: 14px !important;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .painel-modulos-container {
+        padding: 12px !important;
+    }
+
+    .painel-modulos-cabecalho-conteudo {
+        align-items: flex-start !important;
+    }
+
+    .painel-modulos-cabecalho-icone {
+        width: 44px !important;
+        height: 44px !important;
+
+        min-width: 44px !important;
+    }
+
+    .painel-modulos-titulo {
+        font-size: 21px !important;
+    }
+
+    .painel-modulos-subtitulo {
+        font-size: 11px !important;
+    }
+
+    .painel-modulos-resumo {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .painel-modulos-resumo-card {
+        padding: 11px !important;
+    }
+
+    .painel-modulos-resumo-card-icone {
+        width: 30px !important;
+        height: 30px !important;
+
+        min-width: 30px !important;
+    }
+
+    .painel-modulos-resumo-card strong {
+        font-size: 17px !important;
+    }
+
+    .painel-modulos-comercio-identidade {
+        width: 100% !important;
+    }
+
+    .painel-modulos-comercio-cabecalho-info h2 {
+        font-size: 17px !important;
+
+        white-space: normal !important;
+    }
+
+    .painel-modulo-card-topo {
+        align-items: flex-start !important;
+
+        flex-direction: column !important;
+    }
+
+    .painel-modulo-status {
+        align-self: flex-start !important;
+    }
+
+}
+
+
+@media (max-width: 360px) {
+
+    .painel-modulos-resumo {
+        grid-template-columns: 1fr !important;
+    }
+
+    .painel-modulo-card-detalhes {
+        align-items: flex-start !important;
+
+        flex-direction: column !important;
+    }
+
+}
