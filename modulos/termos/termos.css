@@ -1,0 +1,1173 @@
+/* =========================================================
+   TERMOS E CONDIÇÕES
+   Iron Executions
+   ========================================================= */
+
+.termos-pagina {
+    min-height: 100vh;
+    width: 100%;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(15, 45, 82, 0.06), transparent 28%),
+        radial-gradient(circle at 90% 20%, rgba(15, 45, 82, 0.045), transparent 30%),
+        #f6f8fb;
+    color: #0b2340;
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    padding: 28px 20px 60px;
+    box-sizing: border-box;
+}
+
+.termos-conteudo {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   CABEÇALHO PRINCIPAL
+   ========================================================= */
+
+.termos-aliança {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(248, 250, 253, 0.98));
+    border: 1px solid #dce4ed;
+    border-top: 3px solid #0b2340;
+    border-radius: 0 0 24px 24px;
+    padding: 46px 54px 52px;
+    box-shadow:
+        0 20px 60px rgba(15, 35, 60, 0.08),
+        0 3px 12px rgba(15, 35, 60, 0.04);
+}
+
+.termos-aliança::before {
+    content: "";
+    position: absolute;
+    width: 330px;
+    height: 330px;
+    top: -220px;
+    right: -100px;
+    border: 1px solid rgba(11, 35, 64, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.termos-aliança::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    bottom: -130px;
+    left: -70px;
+    border: 1px solid rgba(11, 35, 64, 0.05);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BOTÃO VOLTAR
+   ========================================================= */
+
+.termos-botao-voltar {
+    position: relative;
+    z-index: 3;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 38px;
+    padding: 0 15px;
+
+    border: 1px solid #d5dfeb;
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.9);
+    color: #173b61;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.termos-botao-voltar:hover {
+    background: #ffffff;
+    border-color: #aebfd2;
+    color: #081d36;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(15, 35, 60, 0.08);
+}
+
+
+/* =========================================================
+   ÁREA DAS MARCAS
+   ========================================================= */
+
+.termos-aliança-conteudo {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 100px minmax(0, 1fr);
+    align-items: center;
+
+    gap: 28px;
+
+    margin-top: 22px;
+    padding: 18px 30px 34px;
+
+    border-bottom: 1px solid #e1e7ef;
+}
+
+
+/* =========================================================
+   MARCAS
+   ========================================================= */
+
+.termos-marca {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.ironexecutions-marca {
+    justify-self: center;
+}
+
+.comercio-marca {
+    justify-self: center;
+}
+
+
+/* =========================================================
+   LOGO IRON EXECUTIONS
+   ========================================================= */
+
+.termos-logo-ironexecutions-imagem {
+    display: block;
+
+    width: 70px;
+    max-width: 190px;
+    border-radius: 30%;
+    object-fit: contain;
+
+    margin-bottom: 10px;
+
+    filter:
+        drop-shadow(0 7px 12px rgba(0, 0, 0, 0.08));
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+}
+
+.termos-logo-ironexecutions-imagem:hover {
+    transform: translateY(-2px);
+    filter:
+        drop-shadow(0 10px 18px rgba(0, 0, 0, 0.11));
+}
+
+
+/* =========================================================
+   NOME IRON EXECUTIONS
+   ========================================================= */
+
+.termos-ironexecutions-nome {
+    color: #071c35;
+
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+
+    text-transform: uppercase;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   LOGO DO COMÉRCIO
+   ========================================================= */
+
+.termos-logo-comercio {
+    display: block;
+
+    width: 70px;
+    max-width: 190px;
+
+    object-fit: contain;
+    border-radius: 30%;
+    margin-bottom: 10px;
+
+    filter:
+        drop-shadow(0 7px 12px rgba(0, 0, 0, 0.08));
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+}
+
+.termos-logo-comercio:hover {
+    transform: translateY(-2px);
+    filter:
+        drop-shadow(0 10px 18px rgba(0, 0, 0, 0.11));
+}
+
+
+/* =========================================================
+   NOME DO COMÉRCIO
+   ========================================================= */
+
+.termos-comercio-nome {
+    max-width: 300px;
+
+    color: #071c35;
+
+    font-size: 18px;
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: -0.035em;
+
+    margin-bottom: 8px;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   LEGENDAS
+   ========================================================= */
+
+.termos-marca-legenda {
+    display: block;
+
+    color: #60758d;
+
+    font-size: 10px;
+    line-height: 1.3;
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   SÍMBOLO DA PARCERIA
+   ========================================================= */
+
+.termos-aliança-simbolo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.termos-aliança-linha {
+    width: 28px;
+    height: 1px;
+    background: #ccd7e4;
+}
+
+.termos-aliança-icone {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #cfdae7;
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #315476;
+
+    font-size: 17px;
+    font-weight: 400;
+
+    box-shadow:
+        0 7px 20px rgba(15, 35, 60, 0.08);
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.termos-aliança-titulo {
+    position: relative;
+    z-index: 2;
+
+    max-width: 780px;
+
+    margin: 34px auto 0;
+
+    text-align: center;
+}
+
+.termos-aliança-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 25px;
+    padding: 0 12px;
+
+    border: 1px solid #d5e0ec;
+    border-radius: 999px;
+
+    background: #f8fafc;
+
+    color: #285078;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.termos-aliança-titulo h1 {
+    margin: 13px 0 10px;
+
+    color: #071d38;
+
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.05;
+    font-weight: 900;
+
+    letter-spacing: -0.055em;
+}
+
+.termos-aliança-titulo p {
+    max-width: 690px;
+
+    margin: 0 auto;
+
+    color: #647b94;
+
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   SEÇÕES
+   ========================================================= */
+
+.termos-secao {
+    margin-top: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe6ee;
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 38px rgba(15, 35, 60, 0.055);
+}
+
+.termos-secao-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 24px 28px;
+
+    border-bottom: 1px solid #e7edf3;
+}
+
+.termos-secao-cabecalho h2 {
+    margin: 0;
+
+    color: #0a2441;
+
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: 800;
+
+    letter-spacing: -0.025em;
+}
+
+.termos-secao-cabecalho p {
+    margin: 5px 0 0;
+
+    color: #71849a;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.termos-status-pendente,
+.termos-status-aceito {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 27px;
+    padding: 0 11px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.termos-status-pendente {
+    border: 1px solid #ecd9a5;
+    background: #fffaf0;
+    color: #946c18;
+}
+
+.termos-status-aceito {
+    border: 1px solid #cce2d4;
+    background: #f3faf5;
+    color: #39734e;
+}
+
+.termos-contador-pendente {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 30px;
+    height: 30px;
+
+    padding: 0 9px;
+
+    border-radius: 9px;
+
+    background: #0b2340;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   LISTA DE TERMOS
+   ========================================================= */
+
+.termos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 22px;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.termos-card {
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid #dfe6ee;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.termos-card:hover {
+    border-color: #c8d5e3;
+
+    box-shadow:
+        0 12px 32px rgba(15, 35, 60, 0.07);
+
+    transform: translateY(-1px);
+}
+
+.termos-card-pendente {
+    border-color: #d7c58e;
+    box-shadow:
+        0 5px 20px rgba(112, 87, 20, 0.055);
+}
+
+.termos-card-pendente::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 4px;
+    height: 100%;
+
+    background: #b58a25;
+}
+
+.termos-card-aceito {
+    opacity: 0.88;
+}
+
+
+/* =========================================================
+   TOPO DO CARD
+   ========================================================= */
+
+.termos-card-topo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 21px 23px;
+
+    border-bottom: 1px solid #edf1f5;
+}
+
+.termos-card-topo>div:first-child {
+    min-width: 0;
+}
+
+.termos-card-numero {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #7890a8;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.termos-card h3 {
+    margin: 0;
+
+    color: #0b2745;
+
+    font-size: 19px;
+    line-height: 1.3;
+    font-weight: 800;
+
+    letter-spacing: -0.025em;
+}
+
+.termos-card-data {
+    flex-shrink: 0;
+    margin: 5px 19px !important;
+    color: #8192a5;
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.termos-card-badge-pendente,
+.termos-card-badge-aceito {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    min-height: 26px;
+    padding: 0 10px;
+
+    border-radius: 7px;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.termos-card-badge-pendente {
+    border: 1px solid #e9d59a;
+    background: #fff9eb;
+    color: #936d1d;
+}
+
+.termos-card-badge-aceito {
+    border: 1px solid #c9dfd1;
+    background: #f1f9f3;
+    color: #3b7650;
+}
+
+
+/* =========================================================
+   CONTEÚDO DAS CLÁUSULAS
+   ========================================================= */
+
+.termos-card-clausulas {
+    padding: 25px 25px 27px;
+
+    color: #05080c;
+
+    font-size: 18px;
+    line-height: 1.85;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    white-space: pre-wrap;
+    font-weight: bolder;
+    word-break: break-word;
+}
+
+.termos-card-clausulas p {
+    margin: 0 0 15px;
+}
+
+.termos-card-clausulas p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   RODAPÉ DO CARD
+   ========================================================= */
+
+.termos-card-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px 23px;
+
+    border-top: 1px solid #edf1f5;
+
+    background: #fafbfd;
+}
+
+.termos-card-assinatura {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    color: #6d8196;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.termos-card-assinatura strong {
+    color: #35516e;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   BOTÃO ACEITAR
+   ========================================================= */
+
+.termos-botao-aceitar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 0 20px;
+
+    border: 1px solid #071d35;
+    border-radius: 9px;
+
+    background: #0b2340;
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 16px rgba(11, 35, 64, 0.14);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.termos-botao-aceitar:hover {
+    background: #12385f;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 9px 22px rgba(11, 35, 64, 0.2);
+}
+
+.termos-botao-aceitar:active {
+    transform: translateY(0);
+}
+
+.termos-botao-aceitar:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.6;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   TERMOS ACEITOS
+   ========================================================= */
+
+.termos-secao-aceitos {
+    opacity: 0.94;
+}
+
+.termos-secao-aceitos .termos-lista {
+    padding-top: 18px;
+}
+
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
+
+.termos-erro {
+    margin-top: 24px;
+
+    padding: 17px 19px;
+
+    border: 1px solid #e5c9c9;
+    border-radius: 12px;
+
+    background: #fff7f7;
+
+    color: #914747;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.termos-sucesso,
+.termos-mensagem {
+    margin-top: 24px;
+
+    padding: 17px 19px;
+
+    border: 1px solid #cde1d3;
+    border-radius: 12px;
+
+    background: #f4faf5;
+
+    color: #3d704d;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.termos-botao-recarregar {
+    margin-top: 12px;
+
+    min-height: 38px;
+    padding: 0 15px;
+
+    border: 1px solid #cbd7e4;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #173b61;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.termos-botao-recarregar:hover {
+    border-color: #9fb2c7;
+    background: #f7f9fb;
+}
+
+
+/* =========================================================
+   CARREGAMENTO
+   ========================================================= */
+
+.termos-carregamento {
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    color: #647b93;
+
+    font-size: 13px;
+}
+
+.termos-spinner {
+    width: 30px;
+    height: 30px;
+
+    border: 3px solid #dce4ed;
+    border-top-color: #0b2340;
+
+    border-radius: 50%;
+
+    animation: termosSpinner 0.8s linear infinite;
+}
+
+@keyframes termosSpinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   ESTADO VAZIO
+   ========================================================= */
+
+.termos-vazio {
+    margin-top: 30px;
+
+    padding: 55px 30px;
+
+    border: 1px solid #dfe6ee;
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 38px rgba(15, 35, 60, 0.045);
+}
+
+.termos-vazio h3 {
+    margin: 0 0 8px;
+
+    color: #102b49;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.termos-vazio p {
+    max-width: 500px;
+
+    margin: 0 auto;
+
+    color: #71849a;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+.termos-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 10px 0;
+
+    color: #8998a9;
+
+    font-size: 10px;
+    line-height: 1.6;
+
+    text-align: center;
+
+    letter-spacing: 0.03em;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .termos-pagina {
+        padding: 18px 14px 40px;
+    }
+
+    .termos-aliança {
+        padding: 34px 28px 40px;
+        border-radius: 0 0 20px 20px;
+    }
+
+    .termos-aliança-conteudo {
+        grid-template-columns: 1fr 60px 1fr;
+
+        gap: 15px;
+
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .termos-aliança-linha {
+        width: 16px;
+    }
+
+    .termos-logo-ironexecutions-imagem,
+    .termos-logo-comercio {
+        max-width: 150px;
+        height: 52px;
+    }
+
+    .termos-ironexecutions-nome,
+    .termos-comercio-nome {
+        font-size: 16px;
+    }
+
+    .termos-aliança-titulo h1 {
+        font-size: 36px;
+    }
+}
+
+
+@media (max-width: 680px) {
+
+    .termos-pagina {
+        padding: 10px 9px 30px;
+    }
+
+    .termos-aliança {
+        padding: 24px 17px 32px;
+    }
+
+    .termos-botao-voltar {
+        min-height: 36px;
+        padding: 0 13px;
+    }
+
+    .termos-aliança-conteudo {
+        grid-template-columns: 1fr;
+        gap: 18px;
+
+        margin-top: 20px;
+        padding: 20px 0 26px;
+    }
+
+    .termos-aliança-simbolo {
+        order: 2;
+    }
+
+    .ironexecutions-marca {
+        order: 1;
+    }
+
+    .comercio-marca {
+        order: 3;
+    }
+
+    .termos-aliança-simbolo {
+        width: 100%;
+    }
+
+    .termos-aliança-linha {
+        flex: 1;
+        max-width: 80px;
+    }
+
+    .termos-logo-ironexecutions-imagem,
+    .termos-logo-comercio {
+        height: 58px;
+        max-width: 190px;
+    }
+
+    .termos-ironexecutions-nome,
+    .termos-comercio-nome {
+        font-size: 17px;
+    }
+
+    .termos-aliança-titulo {
+        margin-top: 27px;
+    }
+
+    .termos-aliança-titulo h1 {
+        font-size: 31px;
+        letter-spacing: -0.045em;
+    }
+
+    .termos-aliança-titulo p {
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    .termos-secao {
+        margin-top: 18px;
+        border-radius: 15px;
+    }
+
+    .termos-secao-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+
+        padding: 19px;
+    }
+
+    .termos-lista {
+        padding: 12px;
+    }
+
+    .termos-card-topo {
+        flex-direction: column;
+
+        padding: 18px;
+    }
+
+    .termos-card-data {
+        order: 3;
+    }
+
+    .termos-card-clausulas {
+        padding: 20px 18px;
+
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .termos-card-rodape {
+        align-items: stretch;
+        flex-direction: column;
+
+        padding: 16px 18px;
+    }
+
+    .termos-botao-aceitar {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    .termos-pagina {
+        padding: 7px 6px 25px;
+    }
+
+    .termos-aliança {
+        padding: 20px 13px 27px;
+    }
+
+    .termos-logo-ironexecutions-imagem,
+    .termos-logo-comercio {
+        height: 52px;
+        max-width: 165px;
+    }
+
+    .termos-ironexecutions-nome,
+    .termos-comercio-nome {
+        font-size: 15px;
+    }
+
+    .termos-marca-legenda {
+        font-size: 8px;
+        letter-spacing: 0.1em;
+    }
+
+    .termos-aliança-titulo h1 {
+        font-size: 27px;
+    }
+
+    .termos-aliança-titulo p {
+        font-size: 12px;
+    }
+
+    .termos-card h3 {
+        font-size: 17px;
+    }
+
+    .termos-card-clausulas {
+        font-size: 12.5px;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+.termos-botao-voltar:focus-visible,
+.termos-botao-aceitar:focus-visible,
+.termos-botao-recarregar:focus-visible {
+    outline: 3px solid rgba(43, 91, 135, 0.25);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .termos-logo-ironexecutions-imagem,
+    .termos-logo-comercio,
+    .termos-card,
+    .termos-botao-voltar,
+    .termos-botao-aceitar,
+    .termos-spinner {
+        animation: none;
+        transition: none;
+    }
+}

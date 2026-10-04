@@ -9,7 +9,7 @@ import {
 
 import "./app.css";
 import "./app-responsivo.css";
-
+import Termos from "../modulos/termos/termos"
 import Sobre from "../sobre/sobre";
 import ModalLembretesTarefas from "../modulos/perfil/header/modals/tarefas";
 import RifaCompras from "../public/rifas/rifacompras";
@@ -52,7 +52,8 @@ const FUNDOS_POR_COMERCIO = {
   38: neide
 };
 
-
+const CACHE_AVISO_TERMOS =
+  "iron_app_aviso_termos_v1";
 /* =========================================================
    CHAVE DO CACHE
 ========================================================= */
@@ -95,7 +96,75 @@ function lerCacheFundo() {
   }
 }
 
+function obterDataLocalHojeTermos() {
 
+  const agora = new Date();
+
+  const ano =
+    agora.getFullYear();
+
+  const mes =
+    String(
+      agora.getMonth() + 1
+    ).padStart(2, "0");
+
+  const dia =
+    String(
+      agora.getDate()
+    ).padStart(2, "0");
+
+  return `${ano}-${mes}-${dia}`;
+}
+
+
+function lerCacheAvisoTermos() {
+
+  try {
+
+    const salvo =
+      localStorage.getItem(
+        CACHE_AVISO_TERMOS
+      );
+
+    if (!salvo) {
+      return null;
+    }
+
+    return JSON.parse(salvo);
+
+  } catch (erro) {
+
+    console.warn(
+      "[TERMOS] Cache inválido:",
+      erro
+    );
+
+    localStorage.removeItem(
+      CACHE_AVISO_TERMOS
+    );
+
+    return null;
+  }
+}
+
+
+function salvarCacheAvisoTermos(dados) {
+
+  try {
+
+    localStorage.setItem(
+      CACHE_AVISO_TERMOS,
+      JSON.stringify(dados)
+    );
+
+  } catch (erro) {
+
+    console.warn(
+      "[TERMOS] Não foi possível salvar cache:",
+      erro
+    );
+  }
+}
 /* =========================================================
    SALVAR CACHE
 ========================================================= */
@@ -185,7 +254,25 @@ function RifaComprasNormalizada() {
   return <RifaCompras />;
 }
 
+function ControleTermos({
+  verificarTermosPendentes,
+  setTermosPendentes,
+  setAbrirModalTermos
+}) {
+  const location = useLocation();
 
+  useEffect(() => {
+    if (location.pathname !== "/ironbusiness/perfil") {
+      setTermosPendentes([]);
+      setAbrirModalTermos(false);
+      return;
+    }
+
+    verificarTermosPendentes();
+  }, [location.pathname]);
+
+  return null;
+}
 /* =========================================================
    ROTEAMENTO
 ========================================================= */
@@ -287,7 +374,12 @@ function RoteamentoComLoading() {
         path="/sobre/:modulo"
         element={<Sobre />}
       />
-
+      <Route
+        path="/termos"
+        element={
+          <Termos />
+        }
+      />
     </Routes>
 
   );
@@ -336,7 +428,251 @@ export default function App() {
     setAbrirLembretesInatividade
   ] = useState(false);
 
+  const [termosPendentes, setTermosPendentes] =
+    useState([]);
 
+  const [abrirModalTermos, setAbrirModalTermos] =
+    useState(false);
+
+  const [carregandoTermos, setCarregandoTermos] =
+    useState(false);
+
+
+  async function verificarTermosPendentes() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("[TERMOS] Nenhum token encontrado.");
+      setTermosPendentes([]);
+      setAbrirModalTermos(false);
+      return;
+    }
+
+    try {
+      setCarregandoTermos(true);
+
+      console.log("[TERMOS] Verificando termos pendentes...");
+
+      const resposta = await fetch(
+        `${API_URL}/termos`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      console.log("[TERMOS] Status da API:", resposta.status);
+
+      if (resposta.status === 401 || resposta.status === 403) {
+        console.log("[TERMOS] Usuário não autorizado.");
+
+        setTermosPendentes([]);
+        setAbrirModalTermos(false);
+
+        return;
+      }
+
+      if (!resposta.ok) {
+        throw new Error(
+          `Erro ao verificar termos: ${resposta.status}`
+        );
+      }
+
+      const dados = await resposta.json();
+
+      console.log("[TERMOS] Resposta:", dados);
+
+      const pendentes = Array.isArray(
+        dados?.termos_pendentes
+      )
+        ? dados.termos_pendentes
+        : [];
+
+      const comercioId =
+        dados?.comercio_id ?? null;
+
+      console.log(
+        "[TERMOS] Comércio:",
+        comercioId
+      );
+
+      console.log(
+        "[TERMOS] Termos pendentes:",
+        pendentes.length
+      );
+
+      setTermosPendentes(pendentes);
+
+      /*
+       * Nenhum termo pendente.
+       * Não abre o modal.
+       */
+      if (pendentes.length === 0) {
+        console.log(
+          "[TERMOS] Nenhum termo pendente."
+        );
+
+        setAbrirModalTermos(false);
+
+        return;
+      }
+
+      /*
+       * Descobre o ID do usuário diretamente
+       * do JWT.
+       */
+      let usuarioId = null;
+
+      try {
+        const partes = token.split(".");
+
+        if (partes.length === 3) {
+          let payloadBase64 = partes[1];
+
+          payloadBase64 = payloadBase64
+            .replace(/-/g, "+")
+            .replace(/_/g, "/");
+
+          const payload = JSON.parse(
+            atob(payloadBase64)
+          );
+
+          usuarioId =
+            payload?.id ??
+            payload?.cliente_id ??
+            null;
+        }
+      } catch (erro) {
+        console.warn(
+          "[TERMOS] Não foi possível ler o usuário do token:",
+          erro
+        );
+      }
+
+      console.log(
+        "[TERMOS] Usuário:",
+        usuarioId
+      );
+
+      /*
+       * Verifica se o usuário clicou em
+       * "Depois" hoje.
+       */
+      const cache = lerCacheAvisoTermos();
+
+      const hoje =
+        obterDataLocalHojeTermos();
+
+      const mesmoUsuario =
+        cache?.usuario_id &&
+        usuarioId &&
+        String(cache.usuario_id) ===
+        String(usuarioId);
+
+      const mesmoComercio =
+        cache?.comercio_id &&
+        comercioId &&
+        String(cache.comercio_id) ===
+        String(comercioId);
+
+      const foiDispensadoHoje =
+        cache?.data === hoje &&
+        mesmoUsuario &&
+        mesmoComercio;
+
+      if (foiDispensadoHoje) {
+        console.log(
+          "[TERMOS] Modal já foi dispensado hoje."
+        );
+
+        setAbrirModalTermos(false);
+
+        return;
+      }
+
+      /*
+       * Existem termos pendentes e o usuário
+       * ainda não dispensou o aviso hoje.
+       */
+      console.log(
+        "[TERMOS] Abrindo modal de termos pendentes."
+      );
+
+      setAbrirModalTermos(true);
+
+    } catch (erro) {
+      console.error(
+        "[TERMOS] Erro ao verificar termos:",
+        erro
+      );
+
+      setTermosPendentes([]);
+      setAbrirModalTermos(false);
+
+    } finally {
+      setCarregandoTermos(false);
+    }
+  }
+
+
+
+  useEffect(() => {
+    const caminhoAtual = window.location.pathname;
+
+    if (caminhoAtual !== "/ironbusiness/perfil") {
+      setTermosPendentes([]);
+      setAbrirModalTermos(false);
+      return;
+    }
+
+    verificarTermosPendentes();
+  }, []);
+  function adiarAvisoTermos() {
+
+    const usuario =
+      (() => {
+
+        try {
+
+          return JSON.parse(
+            localStorage.getItem(
+              "usuario"
+            ) || "null"
+          );
+
+        } catch {
+
+          return null;
+        }
+
+      })();
+
+    salvarCacheAvisoTermos({
+      usuario_id:
+        usuario?.id || null,
+
+      comercio_id:
+        usuario?.comercio_id || null,
+
+      data:
+        obterDataLocalHojeTermos(),
+
+      termos_pendentes:
+        termosPendentes.map(
+          termo => termo.id
+        )
+    });
+
+    setAbrirModalTermos(false);
+  }
+  function irParaTermos() {
+    setAbrirModalTermos(false);
+
+    window.open("/termos", "_blank");
+  }
   /* =========================================================
      CARREGAR LEMBRETES
   ========================================================= */
@@ -1137,12 +1473,13 @@ export default function App() {
 
     <Router>
 
-      {/* =====================================================
-          CONTROLE GLOBAL DAS TAREFAS
-      ===================================================== */}
+      <ControleTermos
+        verificarTermosPendentes={verificarTermosPendentes}
+        setTermosPendentes={setTermosPendentes}
+        setAbrirModalTermos={setAbrirModalTermos}
+      />
 
       <ControleInatividade />
-
 
       <div
         className="app"
@@ -1169,7 +1506,70 @@ export default function App() {
       >
 
         <RoteamentoComLoading />
+        {abrirModalTermos && termosPendentes.length > 0 && (
+          <div className="modal-termos-overlay">
+            <div className="modal-termos">
 
+              <div className="modal-termos-header">
+                <div>
+                  <span className="modal-termos-tag">
+                    ATENÇÃO
+                  </span>
+
+                  <h2>
+                    Novos termos disponíveis
+                  </h2>
+                </div>
+              </div>
+
+              <div className="modal-termos-body">
+
+                <p className="modal-termos-intro">
+                  Existem termos de uso que precisam ser revisados
+                  e aceitos para continuar utilizando a plataforma.
+                </p>
+
+                <div className="modal-termos-lista">
+
+
+
+                </div>
+
+                <div className="modal-termos-aviso">
+                  <strong>
+                    A aceitação é necessária.
+                  </strong>
+
+                  <span>
+                    Você poderá revisar todo o conteúdo antes de aceitar.
+                  </span>
+                </div>
+
+              </div>
+
+              <div className="modal-termos-footer">
+
+                <button
+                  type="button"
+                  className="modal-termos-btn-depois"
+                  onClick={adiarAvisoTermos}
+                >
+                  Depois
+                </button>
+
+                <button
+                  type="button"
+                  className="modal-termos-btn-aceitar"
+                  onClick={irParaTermos}
+                >
+                  Ver termos
+                </button>
+
+              </div>
+
+            </div>
+          </div>
+        )}
 
         {abrirLembretesInatividade &&
           lembretesInatividade && (

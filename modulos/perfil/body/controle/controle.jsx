@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import Controlee from "./componentes/controle";
@@ -19,6 +18,14 @@ export default function Controle() {
     const irParaApresentacao = () => {
         window.open(
             "/apresentacao-local",
+            "_blank",
+            "noopener,noreferrer"
+        );
+    };
+
+    const irParaTermos = () => {
+        window.open(
+            "/termos",
             "_blank",
             "noopener,noreferrer"
         );
@@ -56,6 +63,13 @@ export default function Controle() {
 
                 <button
                     className="menu-controle-btn"
+                    onClick={irParaTermos}
+                >
+                    Termos
+                </button>
+
+                <button
+                    className="menu-controle-btn"
                     onClick={irParaApresentacao}
                 >
                     Apresentação
@@ -83,4 +97,3 @@ export default function Controle() {
         </div>
     );
 }
-
