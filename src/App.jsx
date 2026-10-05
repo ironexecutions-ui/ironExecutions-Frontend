@@ -484,7 +484,6 @@ export default function App() {
       const dados = await resposta.json();
 
       console.log("[TERMOS] Resposta:", dados);
-
       const pendentes = Array.isArray(
         dados?.termos_pendentes
       )
@@ -494,9 +493,17 @@ export default function App() {
       const comercioId =
         dados?.comercio_id ?? null;
 
+      const comercioEmTeste =
+        Number(dados?.teste) === 1;
+
       console.log(
         "[TERMOS] Comércio:",
         comercioId
+      );
+
+      console.log(
+        "[TERMOS] Comércio em teste:",
+        comercioEmTeste
       );
 
       console.log(
@@ -506,10 +513,18 @@ export default function App() {
 
       setTermosPendentes(pendentes);
 
-      /*
-       * Nenhum termo pendente.
-       * Não abre o modal.
-       */
+
+      if (comercioEmTeste) {
+        console.log(
+          "[TERMOS] Comércio está em teste. Modal não será exibido."
+        );
+
+        setTermosPendentes([]);
+        setAbrirModalTermos(false);
+
+        return;
+      }
+
       if (pendentes.length === 0) {
         console.log(
           "[TERMOS] Nenhum termo pendente."
@@ -520,10 +535,6 @@ export default function App() {
         return;
       }
 
-      /*
-       * Descobre o ID do usuário diretamente
-       * do JWT.
-       */
       let usuarioId = null;
 
       try {
@@ -557,10 +568,6 @@ export default function App() {
         usuarioId
       );
 
-      /*
-       * Verifica se o usuário clicou em
-       * "Depois" hoje.
-       */
       const cache = lerCacheAvisoTermos();
 
       const hoje =
@@ -1506,6 +1513,7 @@ export default function App() {
       >
 
         <RoteamentoComLoading />
+
         {abrirModalTermos && termosPendentes.length > 0 && (
           <div className="modal-termos-overlay">
             <div className="modal-termos">
@@ -1513,11 +1521,11 @@ export default function App() {
               <div className="modal-termos-header">
                 <div>
                   <span className="modal-termos-tag">
-                    ATENÇÃO
+                    ATUALIZAÇÃO
                   </span>
 
                   <h2>
-                    Novos termos disponíveis
+                    Termos atualizados
                   </h2>
                 </div>
               </div>
@@ -1525,25 +1533,13 @@ export default function App() {
               <div className="modal-termos-body">
 
                 <p className="modal-termos-intro">
-                  Existem termos de uso que precisam ser revisados
-                  e aceitos para continuar utilizando a plataforma.
+                  Os termos de uso da plataforma foram atualizados.
                 </p>
 
-                <div className="modal-termos-lista">
-
-
-
-                </div>
-
-                <div className="modal-termos-aviso">
-                  <strong>
-                    A aceitação é necessária.
-                  </strong>
-
-                  <span>
-                    Você poderá revisar todo o conteúdo antes de aceitar.
-                  </span>
-                </div>
+                <p className="modal-termos-intro">
+                  Recomendamos que você revise as novas condições
+                  antes de continuar utilizando a plataforma.
+                </p>
 
               </div>
 

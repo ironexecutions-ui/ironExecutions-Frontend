@@ -20,14 +20,15 @@ html {
   scroll-behavior: smooth;
 }
 
+
 /* =========================================================
-   MODAL DE TERMOS
+   MODAL DE ATUALIZAÇÃO DOS TERMOS
    ========================================================= */
 
 .modal-termos-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999999999999999999999999999;
+  z-index: 99999;
 
   display: flex;
   align-items: center;
@@ -35,31 +36,38 @@ html {
 
   padding: 24px;
 
-  background: rgba(8, 18, 35, 0.62);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(3, 7, 18, 0.68);
 
-  animation: modalTermosOverlayEntrada 0.2s ease-out;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  animation: modalTermosOverlayEntrada 0.25s ease-out;
 }
 
-.modal-termos {
-  width: min(560px, 100%);
-  max-height: min(720px, calc(100vh - 48px));
 
-  display: flex;
-  flex-direction: column;
+/* =========================================================
+   CARD PRINCIPAL
+   ========================================================= */
+
+.modal-termos {
+  position: relative;
+
+  width: 100%;
+  max-width: 520px;
 
   overflow: hidden;
 
   background: #ffffff;
-  border: 1px solid #e5eaf0;
-  border-radius: 18px;
+
+  border: 1px solid rgba(15, 23, 42, 0.08);
+
+  border-radius: 22px;
 
   box-shadow:
-    0 30px 80px rgba(7, 22, 40, 0.22),
-    0 8px 24px rgba(7, 22, 40, 0.10);
+    0 30px 80px rgba(0, 0, 0, 0.22),
+    0 10px 30px rgba(0, 0, 0, 0.10);
 
-  animation: modalTermosEntrada 0.25s ease-out;
+  animation: modalTermosEntrada 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 
@@ -68,49 +76,71 @@ html {
    ========================================================= */
 
 .modal-termos-header {
+  position: relative;
+
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
 
-  padding: 28px 30px 22px;
+  padding: 30px 32px 24px;
 
-  background: #ffffff;
-  border-bottom: 1px solid #edf0f4;
+  background:
+    linear-gradient(180deg,
+      #ffffff 0%,
+      #f8fafc 100%);
+
+  border-bottom: 1px solid #eef1f5;
 }
+
 
 .modal-termos-header>div {
   width: 100%;
 }
 
+
+/* =========================================================
+   TAG
+   ========================================================= */
+
 .modal-termos-tag {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 
-  margin-bottom: 10px;
-  padding: 5px 10px;
+  margin-bottom: 12px;
 
-  border-radius: 6px;
+  padding: 6px 10px;
 
-  background: #eef3f9;
-  border: 1px solid #d9e3ef;
+  border-radius: 7px;
 
-  color: #17365d;
+  background: #eff6ff;
+
+  border: 1px solid #dbeafe;
+
+  color: #2563eb;
 
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.8px;
   line-height: 1;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
 
 .modal-termos-header h2 {
   margin: 0;
 
-  color: #102a43;
+  color: #0f172a;
 
   font-size: 25px;
   font-weight: 750;
-  line-height: 1.25;
-  letter-spacing: -0.4px;
+  line-height: 1.2;
+
+  letter-spacing: -0.025em;
 }
 
 
@@ -119,45 +149,36 @@ html {
    ========================================================= */
 
 .modal-termos-body {
-  flex: 1;
-
-  padding: 26px 30px;
-
-  overflow-y: auto;
+  padding: 28px 32px 30px;
 
   background: #ffffff;
 }
 
-.modal-termos-body::-webkit-scrollbar {
-  width: 6px;
-}
 
-.modal-termos-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.modal-termos-body::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 20px;
-}
-
-.modal-termos-body::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
+/* =========================================================
+   TEXTOS
+   ========================================================= */
 
 .modal-termos-intro {
-  margin: 0 0 22px;
+  margin: 0;
 
-  color: #374151;
+  color: #475569;
 
   font-size: 15px;
   font-weight: 400;
-  line-height: 1.65;
+
+  line-height: 1.7;
+}
+
+
+.modal-termos-intro+.modal-termos-intro {
+  margin-top: 12px;
 }
 
 
 /* =========================================================
-   LISTA DE TERMOS
+   LISTA
+   Caso futuramente seja utilizada
    ========================================================= */
 
 .modal-termos-lista {
@@ -165,66 +186,40 @@ html {
   flex-direction: column;
   gap: 10px;
 
-  margin-bottom: 22px;
-}
-
-
-/* Caso você coloque os termos dentro da lista */
-
-.modal-termos-lista>div {
-  padding: 14px 16px;
-
-  background: #f8fafc;
-
-  border: 1px solid #e4e9ef;
-  border-radius: 10px;
-
-  color: #18212f;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.modal-termos-lista>div:hover {
-  background: #f3f7fb;
-  border-color: #cbd8e6;
-  transform: translateY(-1px);
+  margin-top: 20px;
 }
 
 
 /* =========================================================
    AVISO
+   Caso futuramente seja utilizado
    ========================================================= */
 
 .modal-termos-aviso {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 
-  padding: 16px 18px;
+  margin-top: 22px;
+  padding: 15px 16px;
 
-  background: #f7f9fc;
+  background: #f8fafc;
 
-  border: 1px solid #dfe6ee;
-  border-left: 4px solid #173f70;
-  border-radius: 10px;
-}
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
 
-.modal-termos-aviso strong {
-  color: #102a43;
-
-  font-size: 14px;
-  font-weight: 750;
-  line-height: 1.4;
-}
-
-.modal-termos-aviso span {
-  color: #596579;
+  color: #475569;
 
   font-size: 13px;
   line-height: 1.5;
+}
+
+
+.modal-termos-aviso strong {
+  color: #0f172a;
+
+  font-size: 13px;
+  font-weight: 700;
 }
 
 
@@ -236,95 +231,137 @@ html {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   gap: 12px;
 
-  padding: 20px 30px 24px;
+  padding: 20px 32px 26px;
 
   background: #ffffff;
-  border-top: 1px solid #edf0f4;
+
+  border-top: 1px solid #eef1f5;
 }
 
 
 /* =========================================================
-   BOTÃO DEPOIS
+   BOTÃO "DEPOIS"
    ========================================================= */
 
 .modal-termos-btn-depois {
-  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  padding: 0 20px;
+  min-width: 100px;
+  height: 44px;
 
-  border: 1px solid #d6dde6;
-  border-radius: 9px;
+  padding: 0 18px;
+
+  border: 1px solid #dbe1e8;
+  border-radius: 10px;
 
   background: #ffffff;
 
-  color: #334155;
+  color: #475569;
 
+  font-family: inherit;
   font-size: 14px;
   font-weight: 650;
 
   cursor: pointer;
 
   transition:
-    background 0.2s ease,
+    background-color 0.2s ease,
     border-color 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
 
 .modal-termos-btn-depois:hover {
-  background: #f7f9fb;
-  border-color: #b8c4d1;
-  color: #102a43;
+  background: #f8fafc;
+
+  border-color: #cbd5e1;
+
+  color: #1e293b;
+
+  transform: translateY(-1px);
 }
 
+
 .modal-termos-btn-depois:active {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
 
 
 /* =========================================================
-   BOTÃO PRINCIPAL
+   BOTÃO "VER TERMOS"
    ========================================================= */
 
 .modal-termos-btn-aceitar {
-  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  padding: 0 22px;
+  min-width: 120px;
+  height: 44px;
 
-  border: 1px solid #173f70;
-  border-radius: 9px;
+  padding: 0 20px;
 
-  background: #173f70;
+  border: 1px solid #2563eb;
+  border-radius: 10px;
+
+  background: #2563eb;
 
   color: #ffffff;
 
+  font-family: inherit;
   font-size: 14px;
   font-weight: 700;
 
   cursor: pointer;
 
-  box-shadow: 0 4px 12px rgba(23, 63, 112, 0.18);
+  box-shadow:
+    0 5px 14px rgba(37, 99, 235, 0.20);
 
   transition:
-    background 0.2s ease,
+    background-color 0.2s ease,
     border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
 
 .modal-termos-btn-aceitar:hover {
-  background: #12345e;
-  border-color: #12345e;
+  background: #1d4ed8;
 
-  box-shadow: 0 7px 18px rgba(23, 63, 112, 0.25);
+  border-color: #1d4ed8;
 
   transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 18px rgba(37, 99, 235, 0.28);
 }
+
 
 .modal-termos-btn-aceitar:active {
   transform: translateY(0);
+
+  box-shadow:
+    0 4px 10px rgba(37, 99, 235, 0.18);
+}
+
+
+/* =========================================================
+   FOCO DOS BOTÕES
+   ========================================================= */
+
+.modal-termos-btn-depois:focus-visible,
+.modal-termos-btn-aceitar:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.18);
 }
 
 
@@ -342,10 +379,11 @@ html {
   }
 }
 
+
 @keyframes modalTermosEntrada {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.985);
+    transform: translateY(18px) scale(0.97);
   }
 
   to {
@@ -356,25 +394,723 @@ html {
 
 
 /* =========================================================
-   RESPONSIVO
+   RESPONSIVIDADE
    ========================================================= */
 
 @media (max-width: 600px) {
-  .modal-termos-overlay {
-    align-items: flex-end;
 
+  .modal-termos-overlay {
+    align-items: center;
+
+    padding: 16px;
+  }
+
+
+  .modal-termos {
+    max-width: 100%;
+
+    border-radius: 18px;
+  }
+
+
+  .modal-termos-header {
+    padding: 25px 22px 20px;
+  }
+
+
+  .modal-termos-header h2 {
+    font-size: 22px;
+  }
+
+
+  .modal-termos-body {
+    padding: 23px 22px 25px;
+  }
+
+
+  .modal-termos-intro {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+
+  .modal-termos-footer {
+    padding: 17px 22px 22px;
+
+    gap: 10px;
+  }
+
+
+  .modal-termos-btn-depois,
+  .modal-termos-btn-aceitar {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 44px;
+  }
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .modal-termos-overlay {
     padding: 12px;
   }
 
-  .modal-termos {
-    width: 100%;
-    max-height: calc(100vh - 24px);
 
+  .modal-termos {
     border-radius: 16px;
   }
 
+
   .modal-termos-header {
-    padding: 23px 22px 19px;
+    padding: 22px 18px 18px;
+  }
+
+
+  .modal-termos-header h2 {
+    font-size: 20px;
+  }
+
+
+  .modal-termos-body {
+    padding: 20px 18px 22px;
+  }
+
+
+  .modal-termos-footer {
+    padding: 15px 18px 18px;
+  }
+
+
+  .modal-termos-btn-depois,
+  .modal-termos-btn-aceitar {
+    font-size: 13px;
+  }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE / REDUÇÃO DE MOVIMENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .modal-termos-overlay,
+  .modal-termos,
+  .modal-termos-btn-depois,
+  .modal-termos-btn-aceitar {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* =========================================================
+   MODAL DE TERMOS — REFINAMENTO PREMIUM
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   OVERLAY
+   --------------------------------------------------------- */
+
+.modal-termos-overlay {
+  background:
+    radial-gradient(circle at 50% 40%,
+      rgba(37, 99, 235, 0.08),
+      transparent 45%),
+    rgba(2, 6, 23, 0.72);
+
+  backdrop-filter: blur(12px) saturate(115%);
+  -webkit-backdrop-filter: blur(12px) saturate(115%);
+
+  padding: 20px;
+
+  animation: modalTermosOverlayEntrada 0.28s ease-out;
+}
+
+
+/* ---------------------------------------------------------
+   CARD
+   --------------------------------------------------------- */
+
+.modal-termos {
+  max-width: 540px;
+
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.25),
+    0 15px 40px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(15, 23, 42, 0.03);
+
+  animation:
+    modalTermosEntrada 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+
+  transform-origin: center;
+}
+
+
+/* ---------------------------------------------------------
+   BARRA SUPERIOR DE DESTAQUE
+   --------------------------------------------------------- */
+
+.modal-termos::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 3px;
+
+  background:
+    linear-gradient(90deg,
+      #2563eb,
+      #3b82f6,
+      #60a5fa);
+
+  z-index: 5;
+}
+
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
+.modal-termos-header {
+  padding: 30px 32px 25px;
+
+  background:
+    radial-gradient(circle at top right,
+      rgba(37, 99, 235, 0.07),
+      transparent 42%),
+    linear-gradient(180deg,
+      #ffffff 0%,
+      #f8fafc 100%);
+
+  border-bottom: 1px solid #edf1f5;
+}
+
+
+/* ---------------------------------------------------------
+   TAG
+   --------------------------------------------------------- */
+
+.modal-termos-tag {
+  position: relative;
+
+  margin-bottom: 14px;
+
+  padding: 7px 11px;
+
+  border-radius: 8px;
+
+  background: rgba(37, 99, 235, 0.07);
+
+  border: 1px solid rgba(37, 99, 235, 0.14);
+
+  color: #2563eb;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.11em;
+
+  box-shadow:
+    0 2px 6px rgba(37, 99, 235, 0.05);
+}
+
+
+/* pequeno ponto antes da tag */
+
+.modal-termos-tag::before {
+  content: "";
+
+  width: 6px;
+  height: 6px;
+
+  margin-right: 7px;
+
+  border-radius: 50%;
+
+  background: #3b82f6;
+
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.10);
+}
+
+
+/* ---------------------------------------------------------
+   TÍTULO
+   --------------------------------------------------------- */
+
+.modal-termos-header h2 {
+  color: #0b1220;
+
+  font-size: 26px;
+  font-weight: 760;
+
+  line-height: 1.18;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* ---------------------------------------------------------
+   BODY
+   --------------------------------------------------------- */
+
+.modal-termos-body {
+  padding: 28px 32px 30px;
+
+  background: #ffffff;
+}
+
+
+/* ---------------------------------------------------------
+   TEXTO
+   --------------------------------------------------------- */
+
+.modal-termos-intro {
+  max-width: 460px;
+
+  color: #526071;
+
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+
+/* primeiro texto */
+
+.modal-termos-intro:first-child {
+  color: #273449;
+
+  font-weight: 500;
+}
+
+
+/* ---------------------------------------------------------
+   DESTAQUE VISUAL NO CONTEÚDO
+   --------------------------------------------------------- */
+
+.modal-termos-body::before {
+  content: "";
+
+  display: block;
+
+  width: 38px;
+  height: 4px;
+
+  margin-bottom: 20px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(90deg,
+      #2563eb,
+      #60a5fa);
+}
+
+
+/* ---------------------------------------------------------
+   AVISO
+   --------------------------------------------------------- */
+
+.modal-termos-aviso {
+  position: relative;
+
+  overflow: hidden;
+
+  margin-top: 24px;
+
+  padding: 16px 17px 16px 18px;
+
+  background:
+    linear-gradient(135deg,
+      #f8fafc,
+      #f1f5f9);
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 14px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+
+/* barra lateral */
+
+.modal-termos-aviso::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 3px;
+
+  background: #2563eb;
+}
+
+
+.modal-termos-aviso strong {
+  color: #172033;
+
+  font-weight: 750;
+}
+
+
+/* ---------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------- */
+
+.modal-termos-footer {
+  position: relative;
+
+  padding: 20px 32px 27px;
+
+  background: #ffffff;
+
+  border-top: 1px solid #edf1f5;
+}
+
+
+/* sombra interna superior */
+
+.modal-termos-footer::before {
+  content: "";
+
+  position: absolute;
+
+  top: -1px;
+  left: 32px;
+  right: 32px;
+
+  height: 1px;
+
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(15, 23, 42, 0.06),
+      transparent);
+}
+
+
+/* ---------------------------------------------------------
+   BOTÃO DEPOIS
+   --------------------------------------------------------- */
+
+.modal-termos-btn-depois {
+  position: relative;
+
+  min-width: 104px;
+  height: 46px;
+
+  padding: 0 19px;
+
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  border: 1px solid #d9e0e8;
+
+  color: #475569;
+
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.03);
+
+  font-size: 14px;
+  font-weight: 650;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+
+.modal-termos-btn-depois:hover {
+  background: #f8fafc;
+
+  border-color: #cbd5e1;
+
+  color: #1e293b;
+
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.06);
+
+  transform: translateY(-1px);
+}
+
+
+.modal-termos-btn-depois:active {
+  transform: translateY(0);
+
+  box-shadow:
+    0 2px 5px rgba(15, 23, 42, 0.05);
+}
+
+
+/* ---------------------------------------------------------
+   BOTÃO VER TERMOS
+   --------------------------------------------------------- */
+
+.modal-termos-btn-aceitar {
+  position: relative;
+
+  min-width: 126px;
+  height: 46px;
+
+  padding: 0 21px;
+
+  overflow: hidden;
+
+  border-radius: 11px;
+
+  background:
+    linear-gradient(180deg,
+      #3b82f6 0%,
+      #2563eb 100%);
+
+  border: 1px solid #2563eb;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 7px 18px rgba(37, 99, 235, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+
+/* brilho */
+
+.modal-termos-btn-aceitar::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 70%;
+  height: 100%;
+
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.16),
+      transparent);
+
+  transform: skewX(-20deg);
+
+  transition: left 0.45s ease;
+}
+
+
+.modal-termos-btn-aceitar:hover::before {
+  left: 140%;
+}
+
+
+.modal-termos-btn-aceitar:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.03);
+
+  box-shadow:
+    0 10px 25px rgba(37, 99, 235, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+
+.modal-termos-btn-aceitar:active {
+  transform: translateY(0);
+
+  box-shadow:
+    0 5px 12px rgba(37, 99, 235, 0.22);
+}
+
+
+/* ---------------------------------------------------------
+   FOCO
+   --------------------------------------------------------- */
+
+.modal-termos-btn-depois:focus-visible,
+.modal-termos-btn-aceitar:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.14),
+    0 5px 15px rgba(37, 99, 235, 0.15);
+}
+
+
+/* ---------------------------------------------------------
+   LISTA — CASO UTILIZADA
+   --------------------------------------------------------- */
+
+.modal-termos-lista {
+  margin-top: 22px;
+
+  gap: 9px;
+}
+
+
+.modal-termos-lista>* {
+  position: relative;
+
+  padding-left: 22px;
+}
+
+
+.modal-termos-lista>*::before {
+  content: "";
+
+  position: absolute;
+
+  left: 3px;
+  top: 0.65em;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+}
+
+
+/* ---------------------------------------------------------
+   SCROLL INTERNO — CASO O CONTEÚDO CRESÇA
+   --------------------------------------------------------- */
+
+.modal-termos {
+  max-height: calc(100vh - 40px);
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+.modal-termos-header,
+.modal-termos-footer {
+  flex-shrink: 0;
+}
+
+
+.modal-termos-body {
+  overflow-y: auto;
+}
+
+
+/* scrollbar */
+
+.modal-termos-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+
+.modal-termos-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.modal-termos-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+
+  border-radius: 999px;
+}
+
+
+.modal-termos-body::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVO
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  .modal-termos-overlay {
+    padding: 14px;
+  }
+
+  .modal-termos {
+    max-height: calc(100vh - 28px);
+
+    border-radius: 20px;
+  }
+
+  .modal-termos-header {
+    padding: 27px 22px 22px;
+  }
+
+  .modal-termos-header h2 {
+    font-size: 23px;
+  }
+
+  .modal-termos-body {
+    padding: 24px 22px 26px;
+  }
+
+  .modal-termos-footer {
+    padding: 17px 22px 22px;
+  }
+
+  .modal-termos-footer::before {
+    left: 22px;
+    right: 22px;
+  }
+
+  .modal-termos-btn-depois,
+  .modal-termos-btn-aceitar {
+    height: 45px;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   CELULARES PEQUENOS
+   --------------------------------------------------------- */
+
+@media (max-width: 380px) {
+
+  .modal-termos-overlay {
+    padding: 10px;
+  }
+
+  .modal-termos {
+    border-radius: 17px;
+  }
+
+  .modal-termos-header {
+    padding: 23px 18px 19px;
   }
 
   .modal-termos-header h2 {
@@ -382,17 +1118,39 @@ html {
   }
 
   .modal-termos-body {
-    padding: 22px;
+    padding: 21px 18px 23px;
   }
 
   .modal-termos-footer {
-    flex-direction: column-reverse;
+    padding: 15px 18px 18px;
 
-    padding: 16px 22px 20px;
+    flex-direction: column;
   }
 
   .modal-termos-btn-depois,
   .modal-termos-btn-aceitar {
     width: 100%;
+  }
+
+  .modal-termos-footer::before {
+    left: 18px;
+    right: 18px;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   ACESSIBILIDADE
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .modal-termos-overlay,
+  .modal-termos,
+  .modal-termos-btn-depois,
+  .modal-termos-btn-aceitar,
+  .modal-termos-btn-aceitar::before {
+    animation: none;
+    transition: none;
   }
 }
