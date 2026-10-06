@@ -1888,3 +1888,583 @@
         height: 205px;
     }
 }
+
+/* =========================================================
+   ÁREA AUTENTICADA + COMPARTILHAMENTO COM MISSIONÁRIOS
+   ========================================================= */
+
+.camera-publica-autenticada {
+    width: 100%;
+    min-height: 100dvh;
+    position: relative;
+}
+
+
+/* =========================================================
+   CARD DE COMPARTILHAMENTO
+   ========================================================= */
+
+.camera-publica-missionarios-autenticado {
+    width: min(92%, 620px);
+    margin: 24px auto 30px;
+    padding: 22px 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #fffaf0 55%,
+            #f5e6bd 100%);
+
+    border: 1px solid rgba(180, 128, 25, 0.25);
+    border-radius: 22px;
+
+    box-shadow:
+        0 18px 45px rgba(45, 32, 10, 0.10),
+        0 5px 14px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 #ffffff;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.camera-publica-missionarios-autenticado-titulo {
+    color: #171717;
+
+    font-size: 18px;
+    line-height: 1.25;
+
+    font-weight: 800;
+    letter-spacing: -0.35px;
+
+    margin-bottom: 7px;
+}
+
+
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+.camera-publica-missionarios-autenticado-texto {
+    max-width: 500px;
+
+    color: #66605a;
+
+    font-size: 12px;
+    line-height: 1.55;
+
+    font-weight: 500;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   AÇÕES
+   ========================================================= */
+
+.camera-publica-missionarios-autenticado-acoes {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+   BOTÃO COPIAR
+   ========================================================= */
+
+.camera-publica-missionarios-autenticado-copiar {
+    min-height: 44px;
+
+    padding: 0 20px;
+
+    border: 1px solid rgba(139, 94, 13, 0.45);
+    border-radius: 12px;
+
+    background:
+        linear-gradient(145deg,
+            #d9ad4f 0%,
+            #b57d1c 100%);
+
+    color: #ffffff !important;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 16px rgba(126, 86, 14, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+.camera-publica-missionarios-autenticado-copiar:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.04);
+
+    box-shadow:
+        0 11px 22px rgba(126, 86, 14, 0.23),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+
+.camera-publica-missionarios-autenticado-copiar:active {
+    transform: translateY(0) scale(0.98);
+
+    box-shadow:
+        0 4px 10px rgba(126, 86, 14, 0.15);
+}
+
+
+/* =========================================================
+   BOTÃO QR CODE
+   ========================================================= */
+
+.camera-publica-missionarios-autenticado-qrcode {
+    min-height: 44px;
+
+    padding: 0 20px;
+
+    border: 1px solid rgba(139, 94, 13, 0.35);
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #76520f !important;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 14px rgba(40, 30, 10, 0.07),
+        inset 0 1px 0 #ffffff;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.camera-publica-missionarios-autenticado-qrcode:hover {
+    transform: translateY(-2px);
+
+    background: #fffaf0;
+
+    border-color: rgba(139, 94, 13, 0.55);
+
+    box-shadow:
+        0 10px 20px rgba(40, 30, 10, 0.10);
+}
+
+
+.camera-publica-missionarios-autenticado-qrcode:active {
+    transform: translateY(0) scale(0.98);
+}
+
+
+/* =========================================================
+   QR CODE
+   ========================================================= */
+
+.camera-publica-qrcode-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 999999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(10, 8, 4, 0.72);
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+
+    box-sizing: border-box;
+
+    animation:
+        cameraPublicaQrOverlayEntrada 0.22s ease both;
+}
+
+
+.camera-publica-qrcode-modal {
+    width: min(100%, 430px);
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 30px 28px 25px;
+
+    box-sizing: border-box;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #fffdf8 100%);
+
+    border: 1px solid rgba(180, 128, 25, 0.25);
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.32),
+        0 10px 30px rgba(0, 0, 0, 0.15);
+
+    animation:
+        cameraPublicaQrModalEntrada 0.25s cubic-bezier(0.22,
+            1,
+            0.36,
+            1) both;
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR
+   ========================================================= */
+
+.camera-publica-qrcode-fechar {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #444444 !important;
+
+    font-size: 23px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.camera-publica-qrcode-fechar:hover {
+    transform: rotate(5deg) scale(1.05);
+
+    background: #fff7e5;
+}
+
+
+.camera-publica-qrcode-fechar:active {
+    transform: scale(0.94);
+}
+
+
+/* =========================================================
+   CABEÇALHO DO QR CODE
+   ========================================================= */
+
+.camera-publica-qrcode-cabecalho {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 0 30px;
+
+    box-sizing: border-box;
+
+    margin-bottom: 20px;
+}
+
+
+.camera-publica-qrcode-cabecalho strong {
+    color: #171717 !important;
+
+    font-size: 19px;
+    line-height: 1.25;
+
+    font-weight: 800;
+    letter-spacing: -0.35px;
+
+    margin-bottom: 7px;
+}
+
+
+.camera-publica-qrcode-cabecalho span {
+    max-width: 300px;
+
+    color: #737373 !important;
+
+    font-size: 12px;
+    line-height: 1.5;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   IMAGEM QR CODE
+   ========================================================= */
+
+.camera-publica-qrcode-imagem {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+}
+
+
+.camera-publica-qrcode-imagem img {
+    width: min(100%, 310px);
+    height: auto;
+
+    display: block;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(0, 0, 0, 0.07);
+
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   RODAPÉ QR CODE
+   ========================================================= */
+
+.camera-publica-qrcode-rodape {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    margin-top: 15px;
+}
+
+
+.camera-publica-qrcode-rodape span {
+    color: #8a671e !important;
+
+    font-size: 11px;
+    line-height: 1.4;
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes cameraPublicaQrOverlayEntrada {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes cameraPublicaQrModalEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .camera-publica-missionarios-autenticado {
+        width: calc(100% - 24px);
+
+        margin-top: 18px;
+        margin-bottom: 22px;
+
+        padding: 19px 16px;
+
+        border-radius: 19px;
+    }
+
+
+    .camera-publica-missionarios-autenticado-titulo {
+        font-size: 16px;
+    }
+
+
+    .camera-publica-missionarios-autenticado-texto {
+        font-size: 11px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .camera-publica-missionarios-autenticado-acoes {
+        gap: 8px;
+    }
+
+
+    .camera-publica-missionarios-autenticado-copiar,
+    .camera-publica-missionarios-autenticado-qrcode {
+        flex: 1;
+
+        min-width: 0;
+
+        padding-left: 12px;
+        padding-right: 12px;
+
+        font-size: 11px;
+    }
+
+
+    .camera-publica-qrcode-overlay {
+        padding: 14px;
+    }
+
+
+    .camera-publica-qrcode-modal {
+        padding: 27px 18px 21px;
+
+        border-radius: 21px;
+    }
+
+
+    .camera-publica-qrcode-cabecalho {
+        padding: 0 22px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .camera-publica-qrcode-cabecalho strong {
+        font-size: 17px;
+    }
+
+
+    .camera-publica-qrcode-imagem img {
+        width: min(100%, 280px);
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .camera-publica-missionarios-autenticado-acoes {
+        flex-direction: column;
+        width: 100%;
+    }
+
+
+    .camera-publica-missionarios-autenticado-copiar,
+    .camera-publica-missionarios-autenticado-qrcode {
+        width: 100%;
+        flex: none;
+    }
+
+
+    .camera-publica-qrcode-modal {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+
+    .camera-publica-qrcode-imagem img {
+        width: min(100%, 245px);
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .camera-publica-qrcode-overlay,
+    .camera-publica-qrcode-modal {
+
+        animation: none !important;
+
+    }
+
+}

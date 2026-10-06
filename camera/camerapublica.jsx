@@ -26,7 +26,8 @@ const GOOGLE_CLIENT_ID =
 
 
 export default function Camerapublica() {
-
+    const LINK_MISSIONARIOS =
+        "https://docs.google.com/forms/d/e/1FAIpQLSfCrRkoxJ4g8r9QcDbnj4kMXKxC3lda5XgPiL_m6RN2PEWTOw/viewform";
     const { token } =
         useParams();
 
@@ -86,12 +87,9 @@ export default function Camerapublica() {
         copiandoLinkMissionarios,
         setCopiandoLinkMissionarios
     ] = useState(false);
-    async function copiarLinkMissionarios() {
-        const link = dados?.link_missionarios;
 
-        if (!link) {
-            return;
-        }
+    async function copiarLinkMissionarios() {
+        const link = LINK_MISSIONARIOS;
 
         try {
             await navigator.clipboard.writeText(link);
@@ -117,11 +115,7 @@ export default function Camerapublica() {
 
 
     async function abrirQrCodeMissionarios() {
-        const link = dados?.link_missionarios;
-
-        if (!link) {
-            return;
-        }
+        const link = LINK_MISSIONARIOS;
 
         try {
 
@@ -644,19 +638,120 @@ export default function Camerapublica() {
        USUARIO AUTENTICADO
     ===================================================== */
 
+    /* =====================================================
+       USUARIO AUTENTICADO
+    ===================================================== */
+
     if (usuario) {
 
         return (
 
-            <Lente
-                usuario={usuario}
-                camera={dados}
-            />
+            <div className="camera-publica-autenticada">
+
+                <Lente
+                    usuario={usuario}
+                    camera={dados}
+                />
+
+                <div className="camera-publica-missionarios-autenticado">
+
+                    <div className="camera-publica-missionarios-autenticado-titulo">
+                        Envie para seus missionários
+                    </div>
+
+                    <div className="camera-publica-missionarios-autenticado-texto">
+                        Compartilhe este link com seus familiares
+                        para que eles possam acompanhar suas fotos.
+                    </div>
+
+                    <div className="camera-publica-missionarios-autenticado-acoes">
+
+                        <button
+                            type="button"
+                            className="camera-publica-missionarios-autenticado-copiar"
+                            onClick={copiarLinkMissionarios}
+                        >
+                            {copiandoLinkMissionarios
+                                ? "Link copiado"
+                                : "Copiar link"}
+                        </button>
+
+                        <button
+                            type="button"
+                            className="camera-publica-missionarios-autenticado-qrcode"
+                            onClick={abrirQrCodeMissionarios}
+                        >
+                            QR Code
+                        </button>
+
+                    </div>
+
+                </div>
+
+                {modalQrCode && qrCodeDataUrl && (
+
+                    <div
+                        className="camera-publica-qrcode-overlay"
+                        onClick={fecharQrCodeMissionarios}
+                    >
+
+                        <div
+                            className="camera-publica-qrcode-modal"
+                            onClick={(evento) => {
+                                evento.stopPropagation();
+                            }}
+                        >
+
+                            <button
+                                type="button"
+                                className="camera-publica-qrcode-fechar"
+                                onClick={fecharQrCodeMissionarios}
+                                aria-label="Fechar QR Code"
+                            >
+                                ×
+                            </button>
+
+                            <div className="camera-publica-qrcode-cabecalho">
+
+                                <strong>
+                                    QR Code para missionários
+                                </strong>
+
+                                <span>
+                                    Aponte a câmera do celular
+                                    para acessar o formulário.
+                                </span>
+
+                            </div>
+
+                            <div className="camera-publica-qrcode-imagem">
+
+                                <img
+                                    src={qrCodeDataUrl}
+                                    alt="QR Code para missionários"
+                                />
+
+                            </div>
+
+                            <div className="camera-publica-qrcode-rodape">
+
+                                <span>
+                                    Formulário para os missionários
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                )}
+
+            </div>
 
         );
 
     }
-
 
     /* =====================================================
        LOGIN
