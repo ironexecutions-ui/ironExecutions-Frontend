@@ -6152,3 +6152,590 @@
 
     pointer-events: none !important;
 }
+
+/* =========================================================
+   VISUALIZADOR DE FOTOS - GALERIA PROFISSIONAL
+   ========================================================= */
+
+.lenteProGaleriaVisualizador {
+    position: fixed;
+    inset: 0;
+
+    z-index: 999999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background:
+        radial-gradient(circle at center,
+            rgba(30, 30, 35, 0.96) 0%,
+            rgba(5, 5, 7, 0.98) 65%,
+            rgba(0, 0, 0, 1) 100%);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    animation: lenteProGaleriaEntrada 0.22s ease-out;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DE ENTRADA
+   ========================================================= */
+
+@keyframes lenteProGaleriaEntrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorConteudo {
+    position: relative;
+
+    width: min(94vw, 1250px);
+    height: min(92vh, 900px);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+}
+
+
+/* =========================================================
+   ÁREA DA IMAGEM
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorImagemArea {
+    position: relative;
+
+    width: 100%;
+    height: calc(100% - 64px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+}
+
+
+/* =========================================================
+   IMAGEM
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorImagem {
+    display: block;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    user-select: none;
+    -webkit-user-drag: none;
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.65),
+        0 8px 30px rgba(0, 0, 0, 0.35);
+
+    animation: lenteProGaleriaImagemEntrada 0.25s ease-out;
+}
+
+
+@keyframes lenteProGaleriaImagemEntrada {
+    from {
+        opacity: 0;
+        transform: scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorFechar {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 10;
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+
+    background: rgba(20, 20, 24, 0.72);
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.3);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.lenteProGaleriaVisualizadorFechar:hover {
+    background: rgba(255, 255, 255, 0.14);
+
+    border-color: rgba(255, 255, 255, 0.24);
+
+    color: #ffffff;
+
+    transform: scale(1.05);
+}
+
+
+.lenteProGaleriaVisualizadorFechar:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorAnterior,
+.lenteProGaleriaVisualizadorProxima {
+    position: absolute;
+
+    top: 50%;
+
+    z-index: 10;
+
+    width: 52px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+
+    background: rgba(20, 20, 24, 0.72);
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-family: Arial, sans-serif;
+    font-size: 46px;
+    font-weight: 200;
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.32);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.lenteProGaleriaVisualizadorAnterior {
+    left: -8px;
+
+    transform: translateY(-50%);
+}
+
+
+.lenteProGaleriaVisualizadorProxima {
+    right: -8px;
+
+    transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   HOVER NAVEGAÇÃO
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorAnterior:hover {
+    background: rgba(255, 255, 255, 0.14);
+
+    border-color: rgba(255, 255, 255, 0.24);
+
+    color: #ffffff;
+
+    transform:
+        translateY(-50%) translateX(-3px);
+}
+
+
+.lenteProGaleriaVisualizadorProxima:hover {
+    background: rgba(255, 255, 255, 0.14);
+
+    border-color: rgba(255, 255, 255, 0.24);
+
+    color: #ffffff;
+
+    transform:
+        translateY(-50%) translateX(3px);
+}
+
+
+.lenteProGaleriaVisualizadorAnterior:active,
+.lenteProGaleriaVisualizadorProxima:active {
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorRodape {
+    width: 100%;
+
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 16px;
+
+    padding: 4px 0;
+}
+
+
+/* =========================================================
+   CONTADOR
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorContador {
+    min-width: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(255, 255, 255, 0.62);
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   BOTÃO DOWNLOAD
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorBaixar {
+    min-height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 10px 19px;
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 11px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.15),
+            rgba(255, 255, 255, 0.08));
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.22);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.lenteProGaleriaVisualizadorBaixar:hover {
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.21),
+            rgba(255, 255, 255, 0.11));
+
+    border-color: rgba(255, 255, 255, 0.28);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+.lenteProGaleriaVisualizadorBaixar:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 5px 16px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================================
+   FOCO ACESSÍVEL
+   ========================================================= */
+
+.lenteProGaleriaVisualizadorFechar:focus-visible,
+.lenteProGaleriaVisualizadorAnterior:focus-visible,
+.lenteProGaleriaVisualizadorProxima:focus-visible,
+.lenteProGaleriaVisualizadorBaixar:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.65);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .lenteProGaleriaVisualizador {
+        padding: 12px;
+
+        background:
+            radial-gradient(circle at center,
+                rgba(18, 18, 21, 0.98) 0%,
+                rgba(0, 0, 0, 1) 100%);
+    }
+
+
+    .lenteProGaleriaVisualizadorConteudo {
+        width: 100%;
+        height: 91vh;
+
+        gap: 12px;
+    }
+
+
+    .lenteProGaleriaVisualizadorImagemArea {
+        height: calc(100% - 58px);
+
+        border-radius: 12px;
+    }
+
+
+    .lenteProGaleriaVisualizadorImagem {
+        max-width: 100%;
+        max-height: 100%;
+
+        border-radius: 8px;
+
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.65);
+    }
+
+
+    /* FECHAR */
+
+    .lenteProGaleriaVisualizadorFechar {
+        top: 8px;
+        right: 8px;
+
+        width: 40px;
+        height: 40px;
+
+        font-size: 25px;
+
+        background: rgba(20, 20, 24, 0.78);
+    }
+
+
+    /* NAVEGAÇÃO */
+
+    .lenteProGaleriaVisualizadorAnterior,
+    .lenteProGaleriaVisualizadorProxima {
+        width: 40px;
+        height: 52px;
+
+        border-radius: 12px;
+
+        font-size: 37px;
+
+        background: rgba(20, 20, 24, 0.76);
+    }
+
+
+    .lenteProGaleriaVisualizadorAnterior {
+        left: -2px;
+    }
+
+
+    .lenteProGaleriaVisualizadorProxima {
+        right: -2px;
+    }
+
+
+    /* RODAPÉ */
+
+    .lenteProGaleriaVisualizadorRodape {
+        min-height: 44px;
+
+        gap: 11px;
+    }
+
+
+    .lenteProGaleriaVisualizadorContador {
+        min-width: 45px;
+
+        font-size: 11px;
+    }
+
+
+    /* DOWNLOAD */
+
+    .lenteProGaleriaVisualizadorBaixar {
+        min-height: 39px;
+
+        padding: 9px 15px;
+
+        border-radius: 10px;
+
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .lenteProGaleriaVisualizador {
+        padding: 8px;
+    }
+
+
+    .lenteProGaleriaVisualizadorConteudo {
+        height: 92vh;
+    }
+
+
+    .lenteProGaleriaVisualizadorAnterior,
+    .lenteProGaleriaVisualizadorProxima {
+        width: 36px;
+        height: 48px;
+
+        font-size: 33px;
+    }
+
+
+    .lenteProGaleriaVisualizadorAnterior {
+        left: 0;
+    }
+
+
+    .lenteProGaleriaVisualizadorProxima {
+        right: 0;
+    }
+
+
+    .lenteProGaleriaVisualizadorBaixar {
+        min-height: 37px;
+
+        padding: 8px 12px;
+
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   REDUZIR ANIMAÇÕES
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lenteProGaleriaVisualizador,
+    .lenteProGaleriaVisualizadorImagem {
+        animation: none;
+    }
+
+    .lenteProGaleriaVisualizadorFechar,
+    .lenteProGaleriaVisualizadorAnterior,
+    .lenteProGaleriaVisualizadorProxima,
+    .lenteProGaleriaVisualizadorBaixar {
+        transition: none;
+    }
+}

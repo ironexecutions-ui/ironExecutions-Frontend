@@ -143,6 +143,11 @@ export default function Lente({
         fotoAmpliada,
         setFotoAmpliada
     ] = useState(null);
+
+    const [
+        indiceFotoAmpliada,
+        setIndiceFotoAmpliada
+    ] = useState(0);
     const [
         capturasHoje,
         setCapturasHoje
@@ -150,7 +155,198 @@ export default function Lente({
     /* =====================================================
        INICIAR
     ===================================================== */
+    /* =====================================================
+       VISUALIZADOR DE FOTOS
+    ===================================================== */
 
+    function obterFotosGaleria() {
+
+        return arquivosServidor.filter(
+            item =>
+                item?.arquivo_url &&
+                !arquivoEhVideo(item.arquivo_url)
+        );
+
+    }
+
+
+    function abrirFotoGaleria(url) {
+
+        const fotos =
+            obterFotosGaleria();
+
+        const indice =
+            fotos.findIndex(
+                item =>
+                    item.arquivo_url === url
+            );
+
+        if (indice === -1) {
+            return;
+        }
+
+        setIndiceFotoAmpliada(indice);
+        setFotoAmpliada(url);
+    }
+
+
+    function fecharFotoGaleria() {
+
+        setFotoAmpliada(null);
+        setIndiceFotoAmpliada(0);
+
+    }
+
+
+    function fotoAnterior() {
+
+        const fotos =
+            obterFotosGaleria();
+
+        if (!fotos.length) {
+            return;
+        }
+
+        const novoIndice =
+            indiceFotoAmpliada <= 0
+                ? fotos.length - 1
+                : indiceFotoAmpliada - 1;
+
+        setIndiceFotoAmpliada(
+            novoIndice
+        );
+
+        setFotoAmpliada(
+            fotos[novoIndice].arquivo_url
+        );
+
+    }
+
+
+    function proximaFoto() {
+
+        const fotos =
+            obterFotosGaleria();
+
+        if (!fotos.length) {
+            return;
+        }
+
+        const novoIndice =
+            indiceFotoAmpliada >= fotos.length - 1
+                ? 0
+                : indiceFotoAmpliada + 1;
+
+        setIndiceFotoAmpliada(
+            novoIndice
+        );
+
+        setFotoAmpliada(
+            fotos[novoIndice].arquivo_url
+        );
+
+    }
+
+
+    async function baixarFotoAtual() {
+        if (!fotoAmpliada) return;
+
+        try {
+            const resposta = await fetch(fotoAmpliada);
+
+            if (!resposta.ok) {
+                throw new Error(
+                    `Erro ao baixar imagem: ${resposta.status}`
+                );
+            }
+
+            const blob = await resposta.blob();
+
+            const urlBlob = window.URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+
+            link.href = urlBlob;
+            link.download = `foto-${Date.now()}.jpg`;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+            window.URL.revokeObjectURL(urlBlob);
+
+        } catch (erro) {
+            console.error(
+                "[LENTE] Erro ao baixar foto:",
+                erro
+            );
+
+            alert(
+                "Não foi possível baixar esta foto."
+            );
+        }
+    }
+
+
+    /* =====================================================
+       TECLADO DO VISUALIZADOR
+    ===================================================== */
+
+    useEffect(() => {
+
+        if (!fotoAmpliada) {
+            return;
+        }
+
+        function controlarTeclado(evento) {
+
+            if (evento.key === "Escape") {
+
+                fecharFotoGaleria();
+
+                return;
+            }
+
+            if (evento.key === "ArrowLeft") {
+
+                evento.preventDefault();
+
+                fotoAnterior();
+
+                return;
+            }
+
+            if (evento.key === "ArrowRight") {
+
+                evento.preventDefault();
+
+                proximaFoto();
+
+            }
+
+        }
+
+        window.addEventListener(
+            "keydown",
+            controlarTeclado
+        );
+
+        return () => {
+
+            window.removeEventListener(
+                "keydown",
+                controlarTeclado
+            );
+
+        };
+
+    }, [
+        fotoAmpliada,
+        indiceFotoAmpliada,
+        arquivosServidor
+    ]);
     useEffect(() => {
 
         iniciarCamera(
@@ -2637,7 +2833,7 @@ export default function Lente({
                                                             alt=""
                                                             className="lenteProFotoClicavel"
                                                             onClick={() =>
-                                                                setFotoAmpliada(
+                                                                abrirFotoGaleria(
                                                                     item.arquivo_url
                                                                 )
                                                             }
@@ -2710,49 +2906,113 @@ export default function Lente({
                 )}
 
             </div>
+
+
             {fotoAmpliada &&
                 createPortal(
+
                     <div
-                        className="lenteProVisualizador"
-                        onClick={() =>
-                            setFotoAmpliada(null)
-                        }
+                        className="lenteProGaleriaVisualizador"
+                        onClick={fecharFotoGaleria}
                         role="dialog"
                         aria-modal="true"
-                        aria-label="Visualizar foto"
+                        aria-label="Visualizador de fotos"
                     >
-                        <img
-                            src={fotoAmpliada}
-                            alt="Foto ampliada"
-                            className="lenteProVisualizadorImagem"
-                        />
+
+                        <button
+                            type="button"
+                            className="lenteProGaleriaVisualizadorFechar"
+                            onClick={fecharFotoGaleria}
+                            aria-label="Fechar"
+                        >
+                            ×
+                        </button>
+
+
+                        <button
+                            type="button"
+                            className="lenteProGaleriaVisualizadorAnterior"
+                            onClick={(evento) => {
+
+                                evento.stopPropagation();
+
+                                fotoAnterior();
+
+                            }}
+                            aria-label="Foto anterior"
+                        >
+                            ‹
+                        </button>
+
+
+                        <div
+                            className="lenteProGaleriaVisualizadorConteudo"
+                            onClick={(evento) =>
+                                evento.stopPropagation()
+                            }
+                        >
+
+                            <div className="lenteProGaleriaVisualizadorImagemArea">
+
+                                <img
+                                    src={fotoAmpliada}
+                                    alt="Foto ampliada"
+                                    className="lenteProGaleriaVisualizadorImagem"
+                                />
+
+                            </div>
+
+
+                            <div className="lenteProGaleriaVisualizadorRodape">
+
+                                <span className="lenteProGaleriaVisualizadorContador">
+
+                                    {indiceFotoAmpliada + 1}
+
+                                    {" / "}
+
+                                    {obterFotosGaleria().length}
+
+                                </span>
+
+
+                                <button
+                                    type="button"
+                                    className="lenteProGaleriaVisualizadorBaixar"
+                                    onClick={baixarFotoAtual}
+                                >
+                                    ↓ Baixar foto
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            className="lenteProGaleriaVisualizadorProxima"
+                            onClick={(evento) => {
+
+                                evento.stopPropagation();
+
+                                proximaFoto();
+
+                            }}
+                            aria-label="Próxima foto"
+                        >
+                            ›
+                        </button>
+
                     </div>,
+
                     document.body
+
                 )
             }
-            {/* =====================================================
-    MODAL FOTO AMPLIADA
-    QUALQUER CLIQUE FECHA
-===================================================== */}
 
-            {fotoAmpliada && (
 
-                <div
-                    className="lenteProModalFoto"
-                    onClick={() =>
-                        setFotoAmpliada(null)
-                    }
-                >
 
-                    <img
-                        src={fotoAmpliada}
-                        alt="Foto ampliada"
-                        className="lenteProModalFotoImagem"
-                    />
-
-                </div>
-
-            )}
             {modoArquivosAdmin && (
                 <ArquivosCameraMobile
                     onVoltar={() =>

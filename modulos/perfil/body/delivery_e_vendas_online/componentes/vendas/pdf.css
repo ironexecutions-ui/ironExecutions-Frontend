@@ -1,0 +1,716 @@
+/* =========================================================
+   PDF PRODUTOS - IRONSTORE
+   Missionary Store Brasil
+   ========================================================= */
+
+.pdfprodutos-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.pdfprodutos-botao {
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-width: 220px;
+    padding: 14px 24px;
+
+    border-radius: 10px;
+
+    background: #111827;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+
+    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.pdfprodutos-botao:hover {
+    background: #1f2937;
+    transform: translateY(-1px);
+    box-shadow: 0 9px 24px rgba(17, 24, 39, 0.24);
+}
+
+.pdfprodutos-botao:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.18);
+}
+
+.pdfprodutos-botao:disabled {
+    cursor: wait;
+    opacity: 0.65;
+    transform: none;
+}
+
+.pdfprodutos-botao-icone {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.pdfprodutos-botao-texto {
+    line-height: 1;
+}
+
+/* =========================================================
+   DOCUMENTO PDF
+   ========================================================= */
+
+.pdfprodutos-documento {
+    width: 100%;
+    max-width: 210mm;
+    margin: 0 auto;
+
+    background: #ffffff;
+    color: #171717;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* =========================================================
+   CAPA
+   ========================================================= */
+
+.pdfprodutos-capa {
+    min-height: 270mm;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 24mm 18mm;
+
+    box-sizing: border-box;
+
+    page-break-after: always;
+    break-after: page;
+
+    background: #ffffff;
+}
+
+.pdfprodutos-capa-topo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.pdfprodutos-capa-marca {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pdfprodutos-capa-logo {
+    width: 110px;
+    max-height: 70px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+.pdfprodutos-capa-nome {
+    margin: 0;
+
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+
+    color: #111827;
+}
+
+.pdfprodutos-capa-dominio {
+    margin: 0;
+
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.pdfprodutos-capa-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pdfprodutos-capa-titulo {
+    margin: 0;
+
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -1.8px;
+
+    color: #111827;
+}
+
+.pdfprodutos-capa-subtitulo {
+    max-width: 520px;
+
+    margin: 0;
+
+    font-size: 16px;
+    line-height: 1.6;
+
+    color: #4b5563;
+}
+
+.pdfprodutos-capa-estatisticas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+
+    max-width: 620px;
+}
+
+.pdfprodutos-capa-estatistica {
+    padding: 18px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    background: #f9fafb;
+}
+
+.pdfprodutos-capa-estatistica-numero {
+    display: block;
+
+    font-size: 25px;
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.pdfprodutos-capa-estatistica-label {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.pdfprodutos-capa-data {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+/* =========================================================
+   CABEÇALHO DAS PÁGINAS
+   ========================================================= */
+
+.pdfprodutos-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10mm 14mm 6mm;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.pdfprodutos-cabecalho-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pdfprodutos-cabecalho-logo {
+    width: 42px;
+    height: 42px;
+
+    object-fit: contain;
+}
+
+.pdfprodutos-cabecalho-nome {
+    margin: 0;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.pdfprodutos-cabecalho-dominio {
+    margin: 2px 0 0;
+
+    font-size: 9px;
+    color: #9ca3af;
+}
+
+.pdfprodutos-cabecalho-direita {
+    font-size: 9px;
+    color: #6b7280;
+    text-align: right;
+}
+
+/* =========================================================
+   LISTA DE PRODUTOS
+   ========================================================= */
+
+.pdfprodutos-lista {
+    padding: 7mm 14mm 12mm;
+}
+
+.pdfprodutos-categoria {
+    margin: 14px 0 10px;
+
+    padding-bottom: 6px;
+
+    border-bottom: 2px solid #111827;
+
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+.pdfprodutos-categoria:first-child {
+    margin-top: 0;
+}
+
+.pdfprodutos-categoria-titulo {
+    margin: 0;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.pdfprodutos-categoria-contador {
+    margin-left: 7px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    color: #9ca3af;
+}
+
+/* =========================================================
+   PRODUTO
+   ========================================================= */
+
+.pdfprodutos-item {
+    display: grid;
+    grid-template-columns: 54mm minmax(0, 1fr);
+
+    gap: 7mm;
+
+    padding: 7mm 0;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.pdfprodutos-item-imagem-area {
+    width: 54mm;
+    height: 54mm;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+
+    background: #f8fafc;
+}
+
+.pdfprodutos-item-imagem {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+.pdfprodutos-item-imagem-vazia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color: #9ca3af;
+
+    font-size: 10px;
+    text-align: center;
+}
+
+.pdfprodutos-item-conteudo {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 7px;
+}
+
+.pdfprodutos-item-nome {
+    margin: 0;
+
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.pdfprodutos-item-descricao {
+    margin: 0;
+
+    font-size: 10.5px;
+    line-height: 1.55;
+
+    color: #4b5563;
+}
+
+.pdfprodutos-item-preco {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-top: 4px;
+}
+
+.pdfprodutos-item-preco-anterior {
+    font-size: 10px;
+
+    color: #9ca3af;
+    text-decoration: line-through;
+}
+
+.pdfprodutos-item-preco-atual {
+    font-size: 22px;
+    line-height: 1.1;
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.pdfprodutos-item-preco-label {
+    margin-top: 3px;
+
+    font-size: 8px;
+    font-weight: 600;
+
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+/* =========================================================
+   PROMOÇÃO
+   ========================================================= */
+
+.pdfprodutos-item-promocao {
+    display: inline-flex;
+    align-items: center;
+
+    width: fit-content;
+
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    background: #f3f4f6;
+
+    color: #374151;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =========================================================
+   VARIAÇÕES
+   ========================================================= */
+
+.pdfprodutos-variedades {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin-top: 5px;
+}
+
+.pdfprodutos-variedades-titulo {
+    margin: 0;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    color: #374151;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.pdfprodutos-variedade {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 5px 7px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+
+    background: #fafafa;
+}
+
+.pdfprodutos-variedade-nome {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 9px;
+    color: #4b5563;
+}
+
+.pdfprodutos-variedade-preco {
+    flex-shrink: 0;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    color: #111827;
+}
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+.pdfprodutos-rodape {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding: 7mm 14mm 9mm;
+
+    border-top: 1px solid #e5e7eb;
+
+    color: #6b7280;
+}
+
+.pdfprodutos-rodape-esquerda {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.pdfprodutos-rodape-logo {
+    width: 35px;
+    height: 35px;
+
+    flex-shrink: 0;
+
+    object-fit: contain;
+}
+
+.pdfprodutos-rodape-info {
+    min-width: 0;
+}
+
+.pdfprodutos-rodape-nome {
+    margin: 0 0 3px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    color: #374151;
+}
+
+.pdfprodutos-rodape-mensagem {
+    max-width: 300px;
+
+    margin: 0 0 5px;
+
+    font-size: 8px;
+    line-height: 1.4;
+
+    color: #6b7280;
+}
+
+.pdfprodutos-rodape-detalhe {
+    margin: 1px 0;
+
+    font-size: 8px;
+    line-height: 1.35;
+}
+
+.pdfprodutos-rodape-direita {
+    max-width: 180px;
+
+    font-size: 8px;
+    line-height: 1.5;
+
+    text-align: right;
+}
+
+.pdfprodutos-rodape-social {
+    margin-top: 4px;
+
+    font-weight: 700;
+
+    color: #374151;
+}
+
+/* =========================================================
+   MENSAGEM QUANDO NÃO HÁ PRODUTOS
+   ========================================================= */
+
+.pdfprodutos-vazio {
+    padding: 40px 20px;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+.pdfprodutos-vazio-titulo {
+    margin: 0 0 6px;
+
+    font-size: 18px;
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.pdfprodutos-vazio-texto {
+    margin: 0;
+
+    font-size: 11px;
+}
+
+/* =========================================================
+   IMPRESSÃO
+   ========================================================= */
+
+@media print {
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    html,
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+
+        background: #ffffff !important;
+    }
+
+    .pdfprodutos-container {
+        display: none !important;
+    }
+
+    .pdfprodutos-documento {
+        width: 210mm;
+        max-width: none;
+
+        margin: 0;
+
+        background: #ffffff;
+    }
+
+    .pdfprodutos-capa {
+        width: 210mm;
+        min-height: 297mm;
+
+        padding: 24mm 18mm;
+
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .pdfprodutos-cabecalho {
+        padding-top: 8mm;
+    }
+
+    .pdfprodutos-lista {
+        padding-top: 5mm;
+    }
+
+    .pdfprodutos-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .pdfprodutos-categoria {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    .pdfprodutos-rodape {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .pdfprodutos-item-imagem {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media screen and (max-width: 700px) {
+
+    .pdfprodutos-container {
+        padding: 15px;
+    }
+
+    .pdfprodutos-botao {
+        width: 100%;
+        min-width: 0;
+    }
+}

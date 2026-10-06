@@ -1,7 +1,8 @@
 import React, {
+    useEffect,
     useState
 } from "react";
-
+import { API_URL } from "../../../../config";
 import Vendas from "./componentes/vendas/vendas";
 import Apresentacao from "./componentes/vendas/apresentacao";
 import Modelos from "./componentes/vendas/modelos";
@@ -9,6 +10,7 @@ import Dominio from "./componentes/vendas/dominio";
 import Rodape from "./componentes/vendas/rodape";
 import Rastreio from "./componentes/vendas/rastreio";
 import RClientes from "./componentes/vendas/clientes";
+import PDF from "./componentes/vendas/pdf";
 
 import "./delivery.css";
 
@@ -18,16 +20,106 @@ export default function DeliveryEVendasOnline() {
     /* ============================================================
        ESTADOS
     ============================================================ */
+
     const [
         abaAtiva,
         setAbaAtiva
     ] = useState("vendas");
 
+    const [
+        comercioId,
+        setComercioId
+    ] = useState(null);
+
+    const [
+        carregandoComercio,
+        setCarregandoComercio
+    ] = useState(true);
+
+
+    /* ============================================================
+       BUSCAR DADOS DO CLIENTE
+    ============================================================ */
+
+    useEffect(() => {
+
+        async function carregarComercio() {
+
+            try {
+
+                const token =
+                    localStorage.getItem("token");
+
+                if (!token) {
+                    setCarregandoComercio(false);
+                    return;
+                }
+
+                const resposta = await fetch(
+                    `${API_URL}/clientes/me`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        "Não foi possível carregar os dados do cliente."
+                    );
+                }
+
+                const dados = await resposta.json();
+
+                setComercioId(
+                    dados.comercio_id
+                );
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao carregar comércio:",
+                    erro
+                );
+
+                setComercioId(null);
+
+            } finally {
+
+                setCarregandoComercio(false);
+
+            }
+
+        }
+
+        carregarComercio();
+
+    }, []);
+
+
+    /* ============================================================
+       VERIFICAR ACESSO AO PDF
+    ============================================================ */
+
+    const podeAcessarPDF =
+        comercioId === 25;
+
 
     /* ============================================================
        TROCAR ABA
     ============================================================ */
+
     function abrirAba(aba) {
+
+        if (
+            aba === "pdf" &&
+            !podeAcessarPDF
+        ) {
+            return;
+        }
+
         setAbaAtiva(
             aba
         );
@@ -37,12 +129,15 @@ export default function DeliveryEVendasOnline() {
     /* ============================================================
        RENDERIZAR CONTEÚDO
     ============================================================ */
+
     function renderizarConteudo() {
+
         switch (abaAtiva) {
 
             /* =====================================================
                VENDAS
             ===================================================== */
+
             case "vendas":
                 return (
                     <Vendas />
@@ -52,6 +147,7 @@ export default function DeliveryEVendasOnline() {
             /* =====================================================
                CLIENTES
             ===================================================== */
+
             case "clientes":
                 return (
                     <RClientes />
@@ -61,6 +157,7 @@ export default function DeliveryEVendasOnline() {
             /* =====================================================
                RASTREIO
             ===================================================== */
+
             case "rastreio":
                 return (
                     <Rastreio />
@@ -70,6 +167,7 @@ export default function DeliveryEVendasOnline() {
             /* =====================================================
                APRESENTAÇÃO
             ===================================================== */
+
             case "apresentacao":
                 return (
                     <Apresentacao />
@@ -79,6 +177,7 @@ export default function DeliveryEVendasOnline() {
             /* =====================================================
                MODELOS
             ===================================================== */
+
             case "modelos":
                 return (
                     <Modelos />
@@ -88,6 +187,7 @@ export default function DeliveryEVendasOnline() {
             /* =====================================================
                DOMÍNIO
             ===================================================== */
+
             case "dominio":
                 return (
                     <Dominio />
@@ -97,6 +197,7 @@ export default function DeliveryEVendasOnline() {
             /* =====================================================
                RODAPÉ
             ===================================================== */
+
             case "rodape":
                 return (
                     <Rodape />
@@ -104,8 +205,26 @@ export default function DeliveryEVendasOnline() {
 
 
             /* =====================================================
+               PDF
+            ===================================================== */
+
+            case "pdf":
+
+                if (!podeAcessarPDF) {
+                    return (
+                        <Vendas />
+                    );
+                }
+
+                return (
+                    <PDF />
+                );
+
+
+            /* =====================================================
                PADRÃO
             ===================================================== */
+
             default:
                 return (
                     <Vendas />
@@ -117,12 +236,14 @@ export default function DeliveryEVendasOnline() {
     /* ============================================================
        RENDER
     ============================================================ */
+
     return (
         <div className="ironstore-container">
 
             {/* ====================================================
                 TÍTULO
             ==================================================== */}
+
             <h3>
                 IronStore
             </h3>
@@ -131,12 +252,14 @@ export default function DeliveryEVendasOnline() {
             {/* ====================================================
                 BOTÕES
             ==================================================== */}
+
             <div className="ironstore-botoes">
 
 
                 {/* =================================================
                     VENDAS
                 ================================================= */}
+
                 <button
                     type="button"
                     className={
@@ -157,6 +280,7 @@ export default function DeliveryEVendasOnline() {
                 {/* =================================================
                     CLIENTES
                 ================================================= */}
+
                 <button
                     type="button"
                     className={
@@ -177,6 +301,7 @@ export default function DeliveryEVendasOnline() {
                 {/* =================================================
                     RASTREIO
                 ================================================= */}
+
                 <button
                     type="button"
                     className={
@@ -197,6 +322,7 @@ export default function DeliveryEVendasOnline() {
                 {/* =================================================
                     APRESENTAÇÃO
                 ================================================= */}
+
                 <button
                     type="button"
                     className={
@@ -217,6 +343,7 @@ export default function DeliveryEVendasOnline() {
                 {/* =================================================
                     MODELOS
                 ================================================= */}
+
                 <button
                     type="button"
                     className={
@@ -237,6 +364,7 @@ export default function DeliveryEVendasOnline() {
                 {/* =================================================
                     DOMÍNIO
                 ================================================= */}
+
                 <button
                     type="button"
                     className={
@@ -257,6 +385,7 @@ export default function DeliveryEVendasOnline() {
                 {/* =================================================
                     REDES SOCIAIS
                 ================================================= */}
+
                 <button
                     type="button"
                     className={
@@ -273,16 +402,45 @@ export default function DeliveryEVendasOnline() {
                     Redes sociais
                 </button>
 
+
+                {/* =================================================
+                    PDF
+                ================================================= */}
+
+                {
+                    !carregandoComercio &&
+                    podeAcessarPDF && (
+                        <button
+                            type="button"
+                            className={
+                                abaAtiva === "pdf"
+                                    ? "ironstore-botao-aba ironstore-botao-aba-pdf-unico ironstore-botao-aba-ativo"
+                                    : "ironstore-botao-aba ironstore-botao-aba-pdf-unico"
+                            }
+                            onClick={
+                                () => abrirAba(
+                                    "pdf"
+                                )
+                            }
+                        >
+                            PDF
+                        </button>
+                    )
+                }
+
             </div>
 
 
             {/* ====================================================
                 CONTEÚDO DA ABA
             ==================================================== */}
+
             <div className="ironstore-conteudo">
+
                 {
                     renderizarConteudo()
                 }
+
             </div>
 
         </div>

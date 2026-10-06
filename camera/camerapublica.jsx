@@ -2,7 +2,7 @@ import React, {
     useEffect,
     useState
 } from "react";
-
+import QRCode from "qrcode";
 import {
     useParams
 } from "react-router-dom";
@@ -72,7 +72,90 @@ export default function Camerapublica() {
     /* =====================================================
        CARREGAR TOKEN
     ===================================================== */
+    const [
+        modalQrCode,
+        setModalQrCode
+    ] = useState(false);
 
+    const [
+        qrCodeDataUrl,
+        setQrCodeDataUrl
+    ] = useState("");
+
+    const [
+        copiandoLinkMissionarios,
+        setCopiandoLinkMissionarios
+    ] = useState(false);
+    async function copiarLinkMissionarios() {
+        const link = dados?.link_missionarios;
+
+        if (!link) {
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(link);
+
+            setCopiandoLinkMissionarios(true);
+
+            setTimeout(() => {
+                setCopiandoLinkMissionarios(false);
+            }, 1800);
+
+        } catch (erro) {
+
+            console.error(
+                "[CÂMERA PÚBLICA] Erro ao copiar link:",
+                erro
+            );
+
+            setErro(
+                "Não foi possível copiar o link."
+            );
+        }
+    }
+
+
+    async function abrirQrCodeMissionarios() {
+        const link = dados?.link_missionarios;
+
+        if (!link) {
+            return;
+        }
+
+        try {
+
+            const qrCode =
+                await QRCode.toDataURL(
+                    link,
+                    {
+                        width: 420,
+                        margin: 2,
+                        errorCorrectionLevel: "M"
+                    }
+                );
+
+            setQrCodeDataUrl(qrCode);
+            setModalQrCode(true);
+
+        } catch (erro) {
+
+            console.error(
+                "[CÂMERA PÚBLICA] Erro ao gerar QR Code:",
+                erro
+            );
+
+            setErro(
+                "Não foi possível gerar o QR Code."
+            );
+        }
+    }
+
+
+    function fecharQrCodeMissionarios() {
+        setModalQrCode(false);
+        setQrCodeDataUrl("");
+    }
     useEffect(() => {
 
         consultarToken();
@@ -630,7 +713,47 @@ export default function Camerapublica() {
                                 Nenhuma outra conta poderá
                                 acessar esta câmera.
                             </small>
+                            {dados?.comercio_id &&
+                                dados?.link_missionarios && (
+                                    <div className="camera-publica-missionarios">
 
+                                        <div className="camera-publica-missionarios-separador"></div>
+
+                                        <div className="camera-publica-missionarios-conteudo">
+
+                                            <strong>
+                                                Envie para seus missionarios
+                                            </strong>
+
+
+
+                                            <div className="camera-publica-missionarios-acoes">
+
+                                                <button
+                                                    type="button"
+                                                    className="camera-publica-missionarios-copiar"
+                                                    onClick={copiarLinkMissionarios}
+                                                >
+                                                    {copiandoLinkMissionarios
+                                                        ? "Link copiado"
+                                                        : "Copiar link para missionários"
+                                                    }
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    className="camera-publica-missionarios-qrcode"
+                                                    onClick={abrirQrCodeMissionarios}
+                                                >
+                                                    QR Code
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                )}
                         </div>
 
                     ) : (
@@ -735,7 +858,52 @@ export default function Camerapublica() {
                 </div>
 
             </div>
+            {modalQrCode && qrCodeDataUrl && (
+                <div
+                    className="camera-publica-qrcode-overlay"
+                    onClick={fecharQrCodeMissionarios}
+                >
+                    <div
+                        className="camera-publica-qrcode-modal"
+                        onClick={(evento) => {
+                            evento.stopPropagation();
+                        }}
+                    >
+                        <button
+                            type="button"
+                            className="camera-publica-qrcode-fechar"
+                            onClick={fecharQrCodeMissionarios}
+                            aria-label="Fechar QR Code"
+                        >
+                            ×
+                        </button>
 
+                        <div className="camera-publica-qrcode-cabecalho">
+                            <strong>
+                                QR Code para missionários
+                            </strong>
+
+                            <span>
+                                Aponte a câmera do celular
+                                para acessar o formulário.
+                            </span>
+                        </div>
+
+                        <div className="camera-publica-qrcode-imagem">
+                            <img
+                                src={qrCodeDataUrl}
+                                alt="QR Code para missionários"
+                            />
+                        </div>
+
+                        <div className="camera-publica-qrcode-rodape">
+                            <span>
+                                Formulário para os missionários
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            )}
         </GoogleOAuthProvider>
 
     );
