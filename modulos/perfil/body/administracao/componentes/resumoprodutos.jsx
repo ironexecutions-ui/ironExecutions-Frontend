@@ -15,6 +15,7 @@ export default function ResumoProdutos() {
 
     const [limite, setLimite] = useState(10);
     const [filtroNome, setFiltroNome] = useState("");
+    const [filtroCodigoBarras, setFiltroCodigoBarras] = useState("");
     const [filtroCategoria, setFiltroCategoria] = useState("");
     const [precoMin, setPrecoMin] = useState("");
     const [precoMax, setPrecoMax] = useState("");
@@ -599,7 +600,14 @@ export default function ResumoProdutos() {
                     return false;
                 }
             }
-
+            if (filtroCodigoBarras) {
+                if (
+                    !String(item.codigo_barras || "")
+                        .includes(filtroCodigoBarras)
+                ) {
+                    return false;
+                }
+            }
 
             /* =====================================================
                FILTRO POR CATEGORIA
@@ -832,7 +840,15 @@ export default function ResumoProdutos() {
                                 setLimite(30);
                             }}
                         />
-
+                        <input
+                            type="text"
+                            placeholder="Filtrar por código de barras"
+                            value={filtroCodigoBarras}
+                            onChange={e => {
+                                setFiltroCodigoBarras(e.target.value);
+                                setLimite(30);
+                            }}
+                        />
                         <input
                             type="text"
                             placeholder="Filtrar por categoria"
