@@ -1170,19 +1170,7 @@ ATALHOS SQL DA TABELA
                 >
                     Panfletos
                 </button>
-                <button
-                    type="button"
-                    className={
-                        painelGSecaoAtiva === "json"
-                            ? "painel-g-menu-botao painel-g-menu-botao-ativo"
-                            : "painel-g-menu-botao"
-                    }
-                    onClick={() =>
-                        setPainelGSecaoAtiva("json")
-                    }
-                >
-                    JSON
-                </button>
+
             </div>
 
 
