@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { URL } from "../../url";
@@ -115,6 +115,72 @@ export default function ModalEditarCliente({
 
     const [sucesso, setSucesso] =
         useState("");
+
+    const [statusProtecao, setStatusProtecao] = useState(
+        cliente?.id ? "verificando" : "liberada"
+    );
+
+    useEffect(() => {
+        let cancelado = false;
+
+        async function verificarProtecao() {
+            if (!cliente?.id) {
+                setStatusProtecao("liberada");
+                return;
+            }
+
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                setStatusProtecao("erro");
+                return;
+            }
+
+            setStatusProtecao("verificando");
+
+            try {
+                const resposta = await fetch(
+                    `${URL}/controle/clientes/${cliente.id}/protecao`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                        cache: "no-store"
+                    }
+                );
+
+                const dados = await resposta.json().catch(() => ({}));
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        dados?.detail || "Não foi possível verificar a proteção."
+                    );
+                }
+
+                if (!cancelado) {
+                    setStatusProtecao(
+                        dados.protegida ? "protegida" : "liberada"
+                    );
+                }
+            } catch (erro) {
+                console.error(
+                    "[CONTROLE] Erro ao verificar proteção:",
+                    erro
+                );
+
+                if (!cancelado) {
+                    setStatusProtecao("erro");
+                }
+            }
+        }
+
+        verificarProtecao();
+
+        return () => {
+            cancelado = true;
+        };
+    }, [cliente?.id]);
 
 
     /* =====================================================
@@ -695,6 +761,83 @@ export default function ModalEditarCliente({
     /* =====================================================
        JSX
     ===================================================== */
+
+
+    if (
+        editando &&
+        statusProtecao !== "liberada"
+    ) {
+        const tituloProtecao =
+            statusProtecao === "protegida"
+                ? "Conta protegida"
+                : statusProtecao === "verificando"
+                    ? "Verificando autorização"
+                    : "Não foi possível verificar a autorização";
+
+        const mensagemProtecao =
+            statusProtecao === "protegida"
+                ? "Esta é a conta de um Especialista Técnico da Plataforma Iron Executions. Você não tem autorização para visualizar ou modificar seus dados."
+                : statusProtecao === "verificando"
+                    ? "Aguarde enquanto verificamos a autorização de acesso."
+                    : "O servidor não confirmou sua autorização. Por segurança, os dados desta conta permanecerão ocultos.";
+
+        return createPortal(
+            <div className="modal-cliente-overlay-administrativo">
+                <div
+                    className="modal-cliente-painel-administrativo"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="modal-protecao-titulo"
+                >
+                    <div className="modal-cliente-cabecalho-administrativo">
+                        <div className="modal-cliente-cabecalho-texto">
+                            <span className="modal-cliente-identificador">
+                                IRON EXECUTIONS
+                            </span>
+
+                            <h3 id="modal-protecao-titulo">
+                                {tituloProtecao}
+                            </h3>
+                        </div>
+
+                        <button
+                            type="button"
+                            className="modal-cliente-fechar-superior"
+                            onClick={fechar}
+                            aria-label="Fechar"
+                        >
+                            ×
+                        </button>
+                    </div>
+
+                    <div
+                        role="alert"
+                        style={{
+                            padding: "24px",
+                            lineHeight: 1.6
+                        }}
+                    >
+                        {mensagemProtecao}
+                    </div>
+
+                    <div className="modal-cliente-rodape-administrativo">
+                        <div className="modal-cliente-rodape-esquerda" />
+
+                        <div className="modal-cliente-rodape-direita">
+                            <button
+                                type="button"
+                                className="modal-cliente-botao-cancelar"
+                                onClick={fechar}
+                            >
+                                Fechar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>,
+            document.body
+        );
+    }
 
     return createPortal(
 

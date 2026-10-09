@@ -1079,3 +1079,150 @@
 
     outline-offset: 2px;
 }
+
+
+/* =========================================================
+   PROTEÇÃO DA CONTA DO ESPECIALISTA TÉCNICO
+========================================================= */
+
+.modal-cliente-protecao-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    padding: 28px 24px;
+
+    background: #ffffff;
+}
+
+.modal-cliente-protecao-icone {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #f3d6a0;
+    border-radius: 14px;
+
+    background: #fff8e8;
+    color: #9a6700;
+
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.modal-cliente-protecao-titulo {
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.modal-cliente-protecao-mensagem {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 16px;
+
+    border: 1px solid #f1d7a7;
+    border-left: 4px solid #c58b22;
+    border-radius: 10px;
+
+    background: #fffbf2;
+    color: #694b12;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.7;
+
+    overflow-wrap: anywhere;
+}
+
+.modal-cliente-protecao-ajuda {
+    margin: 0;
+
+    color: #667085;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.modal-cliente-protecao-conteudo .modal-cliente-botao-cancelar {
+    min-width: 100px;
+}
+
+/* Estado de verificação */
+
+.modal-cliente-protecao-carregando {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #475467;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.modal-cliente-protecao-indicador {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+
+    border: 2px solid #d0d5dd;
+    border-top-color: #123d72;
+    border-radius: 50%;
+
+    animation: modal-cliente-protecao-girar 0.8s linear infinite;
+}
+
+@keyframes modal-cliente-protecao-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsividade */
+
+@media (max-width: 600px) {
+    .modal-cliente-protecao-conteudo {
+        padding: 22px 16px;
+        gap: 13px;
+    }
+
+    .modal-cliente-protecao-icone {
+        width: 44px;
+        height: 44px;
+
+        border-radius: 12px;
+        font-size: 21px;
+    }
+
+    .modal-cliente-protecao-titulo {
+        font-size: 16px;
+    }
+
+    .modal-cliente-protecao-mensagem {
+        padding: 13px;
+
+        font-size: 12px;
+    }
+
+    .modal-cliente-protecao-ajuda {
+        font-size: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal-cliente-protecao-indicador {
+        animation: none;
+    }
+}
