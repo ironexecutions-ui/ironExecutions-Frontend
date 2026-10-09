@@ -3726,3 +3726,91 @@
     }
 
 }
+
+
+.ironstore-pedidos-operacao-rastreio-acoes {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.ironstore-pedidos-operacao-rastreio-campo {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.ironstore-pedidos-operacao-rastreio-campo label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.ironstore-pedidos-operacao-rastreio-input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 11px 13px;
+    border: 1px solid #d0d5dd;
+    border-radius: 9px;
+    background: #fff;
+    color: #101828;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.ironstore-pedidos-operacao-rastreio-input:focus {
+    border-color: #475467;
+    box-shadow: 0 0 0 3px rgba(71, 84, 103, 0.12);
+}
+
+.ironstore-pedidos-operacao-rastreio-acoes .ironstore-pedidos-operacao-enviar {
+    flex-shrink: 0;
+    min-height: 44px;
+}
+
+@media (max-width: 560px) {
+    .ironstore-pedidos-operacao-rastreio-acoes {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ironstore-pedidos-operacao-rastreio-acoes .ironstore-pedidos-operacao-enviar {
+        width: 100%;
+    }
+}
+
+.ironstore-pedidos-operacao-atalho-mensagem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+    background: #f9fafb;
+    color: #475467;
+    font-size: 12px;
+}
+
+.ironstore-pedidos-operacao-atalho-mensagem strong {
+    color: #344054;
+    font-size: 12px;
+}
+
+.ironstore-pedidos-operacao-atalho-mensagem kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    border: 1px solid #d0d5dd;
+    border-radius: 4px;
+    background: #fff;
+    color: #344054;
+    font-family: inherit;
+    font-weight: 700;
+}

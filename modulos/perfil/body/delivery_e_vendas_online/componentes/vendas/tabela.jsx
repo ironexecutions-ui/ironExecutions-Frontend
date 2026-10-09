@@ -55,9 +55,46 @@ export default function Tabela() {
         mensagemEnvio,
         setMensagemEnvio
     ] = useState("");
+    const [
+        codigoRastreioEnvio,
+        setCodigoRastreioEnvio
+    ] = useState("");
     // ========================================================
     // TOKEN
     // ========================================================
+
+
+    const mensagensEnvioPadrao = [
+        "Olá! Agradecemos pela preferência e pela confiança em nossa loja. Seu pedido já foi enviado!",
+
+        "Muito obrigado por escolher nossa loja! Ficamos felizes com sua compra e desejamos que você aproveite muito seu pedido.",
+
+        "Olá! Agradecemos de coração pela sua preferência. Seu pedido já está a caminho. Volte sempre!",
+
+        "Obrigado por comprar conosco! Sua preferência é muito importante para nós. Esperamos atender você novamente em breve.",
+
+        "Agradecemos pela confiança em nossa loja! Foi um prazer preparar seu pedido. Conte conosco sempre!",
+
+        "Olá! Muito obrigado pela preferência. Ficamos felizes em fazer parte da sua compra e esperamos receber você novamente!",
+
+        "Obrigado por escolher nossa loja entre tantas opções! Valorizamos muito sua confiança e preferência.",
+
+        "Agradecemos imensamente pela sua compra e pela preferência. Esperamos que sua experiência com nossa loja seja excelente!",
+
+        "Olá! Obrigado pela confiança e por comprar conosco. Sua preferência nos motiva a oferecer sempre o melhor atendimento!",
+
+        "Muito obrigado pela preferência! Foi um prazer atender você. Esperamos que goste da sua compra e volte sempre!"
+    ];
+
+    const [indiceMensagemEnvio, setIndiceMensagemEnvio] = useState(0);
+
+    const proximaMensagemEnvio = () => {
+        const proximoIndice =
+            (indiceMensagemEnvio + 1) % mensagensEnvioPadrao.length;
+
+        setIndiceMensagemEnvio(proximoIndice);
+        setMensagemEnvio(mensagensEnvioPadrao[proximoIndice]);
+    };
 
     const buscarToken = () => {
 
@@ -265,10 +302,23 @@ export default function Tabela() {
             pedido
         );
 
-        setMensagemEnvio(
-            pedido?.protocolo?.mensagem || ""
+        const indiceAleatorio = Math.floor(
+            Math.random() * mensagensEnvioPadrao.length
         );
 
+        setIndiceMensagemEnvio(indiceAleatorio);
+
+        setMensagemEnvio(
+            pedido?.protocolo?.mensagem ||
+            mensagensEnvioPadrao[indiceAleatorio]
+        );
+        setCodigoRastreioEnvio(
+            String(
+                pedido?.protocolo?.codigo_rastreio ||
+                pedido?.frete?.codigo_rastreio ||
+                ""
+            ).toUpperCase()
+        );
     };
 
 
@@ -478,7 +528,8 @@ export default function Tabela() {
                     },
 
                     body: JSON.stringify({
-                        mensagem: mensagemEnvio.trim()
+                        mensagem: mensagemEnvio.trim(),
+                        codigo_rastreio: codigoRastreioEnvio.trim().toUpperCase()
                     })
                 }
             );
@@ -1823,7 +1874,16 @@ export default function Tabela() {
 
                                         <textarea
                                             value={mensagemEnvio}
-
+                                            onKeyDown={evento => {
+                                                if (
+                                                    evento.ctrlKey &&
+                                                    evento.shiftKey &&
+                                                    evento.key.toLowerCase() === "m"
+                                                ) {
+                                                    evento.preventDefault();
+                                                    proximaMensagemEnvio();
+                                                }
+                                            }}
                                             onChange={evento =>
                                                 setMensagemEnvio(
                                                     evento.target.value
@@ -1840,7 +1900,13 @@ export default function Tabela() {
 
                                             className="ironstore-pedidos-operacao-mensagem-envio-textarea"
                                         />
-
+                                        <div className="ironstore-pedidos-operacao-atalho-mensagem">
+                                            <strong>Atalho para variar a mensagem</strong>
+                                            <span>
+                                                Pressione <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>
+                                                para substituir o texto pela próxima sugestão.
+                                            </span>
+                                        </div>
                                         <div className="ironstore-pedidos-operacao-mensagem-envio-rodape">
 
                                             <span>
@@ -1855,27 +1921,46 @@ export default function Tabela() {
 
                                     </div>
 
-                                    <button
-                                        type="button"
 
-                                        disabled={
-                                            enviando === pedidoAberto.id
-                                        }
+                                    <div className="ironstore-pedidos-operacao-rastreio-acoes">
+                                        <div className="ironstore-pedidos-operacao-rastreio-campo">
+                                            <label htmlFor="ironstore-pedido-codigo-rastreio">
+                                                Código de rastreio
+                                            </label>
 
-                                        onClick={() =>
-                                            marcarComoEnviado(
-                                                pedidoAberto
-                                            )
-                                        }
+                                            <input
+                                                id="ironstore-pedido-codigo-rastreio"
+                                                type="text"
+                                                value={codigoRastreioEnvio}
+                                                onChange={evento =>
+                                                    setCodigoRastreioEnvio(
+                                                        evento.target.value.toUpperCase()
+                                                    )
+                                                }
+                                                maxLength={150}
+                                                disabled={enviando === pedidoAberto.id}
+                                                placeholder="Digite o código de rastreio"
+                                                autoComplete="off"
+                                                spellCheck={false}
+                                                className="ironstore-pedidos-operacao-rastreio-input"
+                                            />
+                                        </div>
 
-                                        className="ironstore-pedidos-operacao-enviar"
-                                    >
-                                        {
-                                            enviando === pedidoAberto.id
+                                        <button
+                                            type="button"
+                                            disabled={
+                                                enviando === pedidoAberto.id ||
+                                                !codigoRastreioEnvio.trim()
+                                            }
+                                            onClick={() => marcarComoEnviado(pedidoAberto)}
+                                            className="ironstore-pedidos-operacao-enviar"
+                                        >
+                                            {enviando === pedidoAberto.id
                                                 ? "Marcando como enviado..."
-                                                : "Marcar como enviado"
-                                        }
-                                    </button>
+                                                : "Marcar como enviado"}
+                                        </button>
+                                    </div>
+
                                 </>
 
                             ) : (
