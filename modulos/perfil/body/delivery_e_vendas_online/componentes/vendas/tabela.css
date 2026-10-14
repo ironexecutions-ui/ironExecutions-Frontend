@@ -176,7 +176,7 @@
     border-radius: 16px !important;
 
     background: #ffffff !important;
-
+    padding: 10px;
     box-shadow:
         0 1px 2px rgba(15, 23, 42, 0.025),
         0 12px 38px rgba(15, 23, 42, 0.045) !important;
@@ -3813,4 +3813,328 @@
     color: #344054;
     font-family: inherit;
     font-weight: 700;
+}
+
+/* =========================================================
+   LINK DO PRODUTO NO PEDIDO
+   IRONSTORE | PAINEL OPERACIONAL
+========================================================= */
+
+.ironstore-pedidos-operacao-produtos .ironstore-pedidos-operacao-produto-link {
+    display: inline-block !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    border-radius: 4px !important;
+
+    background: transparent !important;
+
+    color: #2563eb !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    line-height: 1.45 !important;
+
+    text-align: left !important;
+    text-decoration: none !important;
+
+    overflow-wrap: anywhere !important;
+    cursor: pointer !important;
+
+    transition:
+        color 160ms ease,
+        text-decoration-color 160ms ease !important;
+}
+
+/* Efeito ao passar o mouse */
+
+.ironstore-pedidos-operacao-produtos .ironstore-pedidos-operacao-produto-link:hover {
+    color: #1d4ed8 !important;
+
+    text-decoration: underline !important;
+    text-decoration-color: #93c5fd !important;
+    text-underline-offset: 4px !important;
+}
+
+/* Acessibilidade pelo teclado */
+
+.ironstore-pedidos-operacao-produtos .ironstore-pedidos-operacao-produto-link:focus-visible {
+    outline: 2px solid #2563eb !important;
+    outline-offset: 4px !important;
+    border-radius: 3px !important;
+}
+
+/* Evita que o link fique ilegível em telas pequenas */
+
+@media (max-width: 480px) {
+    .ironstore-pedidos-operacao-produtos .ironstore-pedidos-operacao-produto-link {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+}
+
+/* Respeita a preferência de movimento reduzido */
+
+@media (prefers-reduced-motion: reduce) {
+    .ironstore-pedidos-operacao-produtos .ironstore-pedidos-operacao-produto-link {
+        transition: none !important;
+    }
+}
+
+/* =====================================================
+   FILTROS DE PREPARAÇÃO DOS PEDIDOS
+===================================================== */
+
+.ironstore-pedidos-operacao-filtros {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.ironstore-pedidos-operacao-filtro {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+
+    min-height: 42px;
+    padding: 10px 18px;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 9px;
+    background: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.ironstore-pedidos-operacao-filtro:hover {
+    border-color: #2563eb;
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.ironstore-pedidos-operacao-filtro.ativo {
+    border-color: #2563eb;
+    background: #2563eb;
+    color: #ffffff !important;
+    box-shadow: 0 3px 8px rgb(37 99 235 / 18%);
+}
+
+.ironstore-pedidos-operacao-filtro:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+}
+
+.ironstore-pedidos-operacao-filtro-vazio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 32px 16px;
+    text-align: center;
+}
+
+.ironstore-pedidos-operacao-filtro-vazio strong {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.ironstore-pedidos-operacao-filtro-vazio span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .ironstore-pedidos-operacao-filtros {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .ironstore-pedidos-operacao-filtro {
+        width: 100%;
+        padding: 10px 6px;
+        font-size: 12px;
+    }
+
+    .ironstore-pedidos-operacao-filtro:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ironstore-pedidos-operacao-filtro {
+        transition: none;
+    }
+}
+
+/* =========================================================
+   IRONSTORE | FILTROS DE PREPARAÇÃO DOS PEDIDOS
+========================================================= */
+
+.ironstore-pedidos-operacao-filtros {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.ironstore-pedidos-operacao-filtro {
+    appearance: none;
+    -webkit-appearance: none;
+
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 0 17px;
+    margin: 0;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #64748b;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+
+    transition:
+        background 160ms ease,
+        color 160ms ease,
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
+}
+
+.ironstore-pedidos-operacao-filtro:hover {
+    border-color: #bfdbfe;
+    background: #f8fbff;
+    color: #2563eb;
+    transform: translateY(-1px);
+}
+
+.ironstore-pedidos-operacao-filtro.ativo {
+    border-color: #2563eb;
+    background: #2563eb;
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.18);
+}
+
+.ironstore-pedidos-operacao-filtro.ativo:hover {
+    border-color: #1d4ed8;
+    background: #1d4ed8;
+    color: #ffffff !important;
+}
+
+.ironstore-pedidos-operacao-filtro:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.2);
+    outline-offset: 3px;
+}
+
+.ironstore-pedidos-operacao-filtro:active {
+    transform: scale(0.98);
+}
+
+/* Estado vazio dentro da tabela */
+
+.ironstore-pedidos-operacao-filtro-vazio {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 24px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.ironstore-pedidos-operacao-filtro-vazio strong {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.ironstore-pedidos-operacao-filtro-vazio span {
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Tablet e celular */
+
+@media (max-width: 720px) {
+    .ironstore-pedidos-operacao-filtros {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .ironstore-pedidos-operacao-filtro {
+        width: 100%;
+        min-width: 0;
+        min-height: 42px;
+        padding: 0 8px;
+        font-size: 11px;
+    }
+
+    .ironstore-pedidos-operacao-filtro:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ironstore-pedidos-operacao-filtro {
+        transition: none;
+    }
+}
+
+.ironstore-pedidos-operacao-filtro.ativo,
+.ironstore-pedidos-operacao-filtro.ativo:hover,
+.ironstore-pedidos-operacao-filtro.ativo:focus,
+.ironstore-pedidos-operacao-filtro.ativo:active {
+    color: #ffffff !important;
+}
+
+.ironstore-pedidos-operacao-filtro.ativo>span {
+    color: #ffffff !important;
+}
+
+.ironstore-pedidos-operacao-filtro.ativo .ironstore-pedidos-operacao-filtro-contador,
+.ironstore-pedidos-operacao-filtro.ativo .ironstore-pedidos-operacao-filtro-contador.ativo {
+    background: #000000 !important;
+    color: #eff0f1 !important;
+    padding: 4px 7px;
+    border-radius: 20px;
 }

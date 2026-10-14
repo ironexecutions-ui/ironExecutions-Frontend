@@ -791,12 +791,7 @@ export default function TotalVenda() {
                 onMouseLeave={() => {
                     setMostrarUSD(false);
                 }}
-                title={
-                    totalComDesconto > 0 &&
-                        converte === 1
-                        ? "Clique para alternar moeda"
-                        : ""
-                }
+
             >
 
                 <TotalValorAnimado

@@ -59,6 +59,7 @@ export default function Tabela() {
         codigoRastreioEnvio,
         setCodigoRastreioEnvio
     ] = useState("");
+    const [filtroPreparacao, setFiltroPreparacao] = useState("por_embalar");
     // ========================================================
     // TOKEN
     // ========================================================
@@ -191,6 +192,89 @@ export default function Tabela() {
         return [];
 
     };
+
+    const pedidoEstaCancelado = (pedido) => {
+        const status = String(pedido?.status || "")
+            .trim()
+            .toLowerCase();
+
+        return (
+            pedido?.cancelado === true ||
+            pedido?.cancelado === 1 ||
+            pedido?.cancelado === "1" ||
+            ["cancelado", "cancelada", "cancelled", "canceled"]
+                .includes(status)
+        );
+    };
+
+    const pedidosFiltrados = pedidos.filter((pedido) => {
+        if (filtroPreparacao === "cancelados") {
+            return pedidoEstaCancelado(pedido);
+        }
+
+        // Os pedidos cancelados não entram nos outros filtros.
+        if (pedidoEstaCancelado(pedido)) {
+            return false;
+        }
+
+        if (filtroPreparacao === "entregues") {
+            return Boolean(pedido.entregue);
+        }
+
+        if (filtroPreparacao === "enviados") {
+            return Boolean(pedido.enviado) && !pedido.entregue;
+        }
+
+        if (filtroPreparacao === "embalados") {
+            return (
+                Boolean(pedido.embalado) &&
+                !pedido.enviado &&
+                !pedido.entregue
+            );
+        }
+
+        // Filtro padrão: por embalar.
+        return (
+            !pedido.embalado &&
+            !pedido.enviado &&
+            !pedido.entregue
+        );
+    });
+
+    const contarPedidosPorEtapa = (etapa) => {
+        return pedidos.filter((pedido) => {
+            if (etapa === "cancelados") {
+                return pedidoEstaCancelado(pedido);
+            }
+
+            if (pedidoEstaCancelado(pedido)) {
+                return false;
+            }
+
+            if (etapa === "entregues") {
+                return Boolean(pedido.entregue);
+            }
+
+            if (etapa === "enviados") {
+                return Boolean(pedido.enviado) && !pedido.entregue;
+            }
+
+            if (etapa === "embalados") {
+                return (
+                    Boolean(pedido.embalado) &&
+                    !pedido.enviado &&
+                    !pedido.entregue
+                );
+            }
+
+            return (
+                !pedido.embalado &&
+                !pedido.enviado &&
+                !pedido.entregue
+            );
+        }).length;
+    };
+
     // ========================================================
     // BUSCAR PEDIDOS
     // ========================================================
@@ -834,7 +918,33 @@ export default function Tabela() {
 
     }
 
+    const obterLinkProduto = (pedido, produto) => {
+        const dominio = String(
+            pedido?.dominio_loja || ""
+        ).trim();
 
+        const produtoId = produto?.produto_id || produto?.id;
+
+        if (!dominio || !produtoId) {
+            return null;
+        }
+
+        const dominioNormalizado = /^https?:\/\//i.test(dominio)
+            ? dominio
+            : `https://${dominio}`;
+
+        try {
+            const url = new URL(dominioNormalizado);
+
+            if (url.protocol !== "https:" && url.protocol !== "http:") {
+                return null;
+            }
+
+            return `${url.origin}/produtos/${encodeURIComponent(produtoId)}`;
+        } catch {
+            return null;
+        }
+    };
     // ========================================================
     // RETURN
     // ========================================================
@@ -915,9 +1025,85 @@ export default function Tabela() {
 
             ) : (
 
+
                 <div className="ironstore-pedidos-operacao-tabela-container">
 
+                    <div
+                        className="ironstore-pedidos-operacao-filtros"
+                        role="group"
+                        aria-label="Filtrar pedidos por preparação"
+                    >
+                        <button
+                            type="button"
+                            className={`ironstore-pedidos-operacao-filtro ${filtroPreparacao === "por_embalar" ? "ativo" : ""
+                                }`}
+                            aria-pressed={filtroPreparacao === "por_embalar"}
+                            onClick={() => setFiltroPreparacao("por_embalar")}
+                        >
+
+                            <span>Por embalar</span>
+                            <span className="ironstore-pedidos-operacao-filtro-contador">
+                                {contarPedidosPorEtapa("por_embalar")}
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            className={`ironstore-pedidos-operacao-filtro ${filtroPreparacao === "embalados" ? "ativo" : ""
+                                }`}
+                            aria-pressed={filtroPreparacao === "embalados"}
+                            onClick={() => setFiltroPreparacao("embalados")}
+                        >
+
+                            <span>Embalados</span>
+                            <span className="ironstore-pedidos-operacao-filtro-contador">
+                                {contarPedidosPorEtapa("embalados")}
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            className={`ironstore-pedidos-operacao-filtro ${filtroPreparacao === "enviados" ? "ativo" : ""
+                                }`}
+                            aria-pressed={filtroPreparacao === "enviados"}
+                            onClick={() => setFiltroPreparacao("enviados")}
+                        >
+
+                            <span>Enviados</span>
+                            <span className="ironstore-pedidos-operacao-filtro-contador">
+                                {contarPedidosPorEtapa("enviados")}
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            className={`ironstore-pedidos-operacao-filtro ${filtroPreparacao === "entregues" ? "ativo" : ""
+                                }`}
+                            aria-pressed={filtroPreparacao === "entregues"}
+                            onClick={() => setFiltroPreparacao("entregues")}
+                        >
+
+
+                            <span>Entregues</span>
+                            <span className="ironstore-pedidos-operacao-filtro-contador">
+                                {contarPedidosPorEtapa("entregues")}
+                            </span>
+
+                        </button>
+
+                        <button
+                            type="button"
+                            className={`ironstore-pedidos-operacao-filtro ${filtroPreparacao === "cancelados" ? "ativo" : ""
+                                }`}
+                            aria-pressed={filtroPreparacao === "cancelados"}
+                            onClick={() => setFiltroPreparacao("cancelados")}
+                        >
+                            Cancelados
+                        </button>
+                    </div>
+
                     <table className="ironstore-pedidos-operacao-tabela">
+
 
                         <thead>
 
@@ -959,176 +1145,190 @@ export default function Tabela() {
 
                         <tbody>
 
-                            {pedidos.map(
-                                pedido => (
 
-                                    <tr
-                                        key={pedido.id}
-
-                                        onClick={() =>
-                                            abrirPedido(
-                                                pedido
-                                            )
-                                        }
-
-                                        className={
-                                            pedido.inconsistencia_frete
-                                                ? "ironstore-pedidos-operacao-linha ironstore-pedidos-operacao-linha-alerta"
-                                                : "ironstore-pedidos-operacao-linha"
-                                        }
-                                    >
-
-                                        <td>
-
-                                            <div className="ironstore-pedidos-operacao-pedido">
-
-                                                <strong>
-                                                    #{pedido.id}
-                                                </strong>
-
-                                                <span>
-                                                    {
-                                                        pedido.codigo ||
-                                                        "Sem código"
-                                                    }
-                                                </span>
-
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-
-                                            <div className="ironstore-pedidos-operacao-cliente">
-
-                                                <strong>
-                                                    {
-                                                        pedido.nome_cliente ||
-                                                        "Cliente não identificado"
-                                                    }
-                                                </strong>
-
-                                                <span>
-                                                    {
-                                                        pedido.cliente?.email ||
-                                                        "E-mail não informado"
-                                                    }
-                                                </span>
-
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-                                            {formatarData(
-                                                pedido.data
-                                            )}
-                                        </td>
-
-                                        <td>
-
-                                            <span className="ironstore-pedidos-operacao-pago">
-                                                Pago
+                            {pedidosFiltrados.length === 0 ? (
+                                <tr>
+                                    <td colSpan={8}>
+                                        <div className="ironstore-pedidos-operacao-filtro-vazio">
+                                            <strong>Nenhum pedido nesta categoria</strong>
+                                            <span>
+                                                Não existem pedidos para mostrar neste filtro.
                                             </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : (
+                                pedidosFiltrados.map(
+                                    pedido => (
 
-                                        </td>
 
-                                        <td>
+                                        <tr
+                                            key={pedido.id}
 
-                                            <strong>
-                                                {formatarDinheiro(
-                                                    pedido.valor_pago
-                                                )}
-                                            </strong>
+                                            onClick={() =>
+                                                abrirPedido(
+                                                    pedido
+                                                )
+                                            }
 
-                                        </td>
+                                            className={
+                                                pedido.inconsistencia_frete
+                                                    ? "ironstore-pedidos-operacao-linha ironstore-pedidos-operacao-linha-alerta"
+                                                    : "ironstore-pedidos-operacao-linha"
+                                            }
+                                        >
 
-                                        <td>
+                                            <td>
 
-                                            {pedido.inconsistencia_frete ? (
-
-                                                <span className="ironstore-pedidos-operacao-inconsistencia">
-                                                    Inconsistência
-                                                </span>
-
-                                            ) : (
-
-                                                <div className="ironstore-pedidos-operacao-frete-ok">
+                                                <div className="ironstore-pedidos-operacao-pedido">
 
                                                     <strong>
-                                                        {formatarDinheiro(
-                                                            pedido.frete?.valor_frete
-                                                        )}
+                                                        #{pedido.id}
                                                     </strong>
 
                                                     <span>
                                                         {
-                                                            pedido.frete?.transportadora ||
-                                                            "Frete pago"
+                                                            pedido.codigo ||
+                                                            "Sem código"
                                                         }
                                                     </span>
 
                                                 </div>
 
-                                            )}
+                                            </td>
 
-                                        </td>
+                                            <td>
 
-                                        <td>
+                                                <div className="ironstore-pedidos-operacao-cliente">
 
-                                            {pedido.entregue ? (
+                                                    <strong>
+                                                        {
+                                                            pedido.nome_cliente ||
+                                                            "Cliente não identificado"
+                                                        }
+                                                    </strong>
 
-                                                <span className="ironstore-pedidos-operacao-entregue">
-                                                    Entregue
+                                                    <span>
+                                                        {
+                                                            pedido.cliente?.email ||
+                                                            "E-mail não informado"
+                                                        }
+                                                    </span>
+
+                                                </div>
+
+                                            </td>
+
+                                            <td>
+                                                {formatarData(
+                                                    pedido.data
+                                                )}
+                                            </td>
+
+                                            <td>
+
+                                                <span className="ironstore-pedidos-operacao-pago">
+                                                    Pago
                                                 </span>
 
-                                            ) : pedido.enviado ? (
+                                            </td>
 
-                                                <span className="ironstore-pedidos-operacao-enviado">
-                                                    Enviado
-                                                </span>
+                                            <td>
 
-                                            ) : pedido.embalado ? (
+                                                <strong>
+                                                    {formatarDinheiro(
+                                                        pedido.valor_pago
+                                                    )}
+                                                </strong>
 
-                                                <span className="ironstore-pedidos-operacao-embalado">
-                                                    Embalado
-                                                </span>
+                                            </td>
 
-                                            ) : (
+                                            <td>
 
-                                                <span className="ironstore-pedidos-operacao-pendente">
-                                                    A embalar
-                                                </span>
+                                                {pedido.inconsistencia_frete ? (
 
-                                            )}
+                                                    <span className="ironstore-pedidos-operacao-inconsistencia">
+                                                        Inconsistência
+                                                    </span>
 
-                                        </td>
+                                                ) : (
 
-                                        <td>
+                                                    <div className="ironstore-pedidos-operacao-frete-ok">
 
-                                            <button
-                                                type="button"
+                                                        <strong>
+                                                            {formatarDinheiro(
+                                                                pedido.frete?.valor_frete
+                                                            )}
+                                                        </strong>
 
-                                                className="ironstore-pedidos-operacao-detalhes"
+                                                        <span>
+                                                            {
+                                                                pedido.frete?.transportadora ||
+                                                                "Frete pago"
+                                                            }
+                                                        </span>
 
-                                                onClick={evento => {
+                                                    </div>
 
-                                                    evento.stopPropagation();
+                                                )}
 
-                                                    abrirPedido(
-                                                        pedido
-                                                    );
+                                            </td>
 
-                                                }}
-                                            >
-                                                Ver pedido
-                                            </button>
+                                            <td>
 
-                                        </td>
+                                                {pedido.entregue ? (
 
-                                    </tr>
+                                                    <span className="ironstore-pedidos-operacao-entregue">
+                                                        Entregue
+                                                    </span>
 
-                                )
+                                                ) : pedido.enviado ? (
+
+                                                    <span className="ironstore-pedidos-operacao-enviado">
+                                                        Enviado
+                                                    </span>
+
+                                                ) : pedido.embalado ? (
+
+                                                    <span className="ironstore-pedidos-operacao-embalado">
+                                                        Embalado
+                                                    </span>
+
+                                                ) : (
+
+                                                    <span className="ironstore-pedidos-operacao-pendente">
+                                                        A embalar
+                                                    </span>
+
+                                                )}
+
+                                            </td>
+
+                                            <td>
+
+                                                <button
+                                                    type="button"
+
+                                                    className="ironstore-pedidos-operacao-detalhes"
+
+                                                    onClick={evento => {
+
+                                                        evento.stopPropagation();
+
+                                                        abrirPedido(
+                                                            pedido
+                                                        );
+
+                                                    }}
+                                                >
+                                                    Ver pedido
+                                                </button>
+
+                                            </td>
+
+                                        </tr>
+
+                                    ))
                             )}
 
                         </tbody>
@@ -1618,11 +1818,29 @@ export default function Tabela() {
 
                                                     <div>
 
-                                                        <strong>
-                                                            {produto?.nome ||
-                                                                "Produto"}
-                                                        </strong>
+                                                        {(() => {
+                                                            const linkProduto = obterLinkProduto(
+                                                                pedidoAberto,
+                                                                produto
+                                                            );
 
+                                                            return linkProduto ? (
+                                                                <a
+                                                                    href={linkProduto}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="ironstore-pedidos-operacao-produto-link"
+                                                                    onClick={(evento) => evento.stopPropagation()}
+                                                                    title="Abrir cadastro do produto"
+                                                                >
+                                                                    {produto?.nome || "Produto"}
+                                                                </a>
+                                                            ) : (
+                                                                <strong>
+                                                                    {produto?.nome || "Produto"}
+                                                                </strong>
+                                                            );
+                                                        })()}
                                                         <span>
                                                             Quantidade:{" "}
                                                             {quantidade}
