@@ -10,7 +10,7 @@ import FechamentoCaixa from "./componentes/fechamentocaixa";
 import Reposicao from "./componentes/reposicao";
 import Pendencias from "./componentes/pendencias";
 import Promocoes from "./componentes/promocoes";
-
+import Administrativa from "./componentes/administrativa";
 import { API_URL } from "../../../../config";
 
 export default function Administracao() {
@@ -288,6 +288,12 @@ export default function Administracao() {
 
                 )}
                 <button
+                    className={abaAtiva === "administrativa" ? "ativo" : ""}
+                    onClick={() => setAbaAtiva("administrativa")}
+                >
+                    Administração
+                </button>
+                <button
                     className={
                         abaAtiva === "fechamento"
                             ? "ativo"
@@ -329,7 +335,9 @@ export default function Administracao() {
                 {abaAtiva === "pendencias" && (
                     <Pendencias />
                 )}
-
+                {abaAtiva === "administrativa" && (
+                    <Administrativa />
+                )}
                 {abaAtiva === "fechamento" && (
                     <FechamentoCaixa />
                 )}

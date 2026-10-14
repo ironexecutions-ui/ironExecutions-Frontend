@@ -7,6 +7,8 @@ import {
   Navigate
 } from "react-router-dom";
 
+import AlertaPedidos from "./audio/aletra";
+
 import "./app.css";
 import "./app-responsivo.css";
 import Termos from "../modulos/termos/termos"
@@ -1479,6 +1481,7 @@ export default function App() {
   return (
 
     <Router>
+      <AlertaPedidos />
 
       <ControleTermos
         verificarTermosPendentes={verificarTermosPendentes}
