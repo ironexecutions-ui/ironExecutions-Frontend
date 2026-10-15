@@ -224,7 +224,7 @@ export default function AlertaPedidos() {
 
         audio.play().catch(erro => {
             console.warn(
-                "[ALERTA PEDIDOS] Não foi possível tocar o áudio:",
+                "[ALERTA PEDIDOS] O navegador bloqueou a reprodução automática:",
                 erro
             );
         });
