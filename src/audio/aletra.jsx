@@ -204,60 +204,7 @@ export default function AlertaPedidos() {
             }
         }
     }, []);
-    useEffect(() => {
-        const liberarAudio = () => {
-            const audio = audioRef.current;
 
-            if (!audio || audioLiberadoRef.current) return;
-
-            // Se o alerta já estiver aberto, aproveita a interação
-            // do usuário para tentar reproduzir o som.
-            if (aberto) {
-                audio.currentTime = 0;
-
-                audio.play()
-                    .then(() => {
-                        audioLiberadoRef.current = true;
-                    })
-                    .catch(erro => {
-                        console.info(
-                            "[ALERTA PEDIDOS] Áudio ainda bloqueado:",
-                            erro
-                        );
-                    });
-
-                return;
-            }
-
-            // Se o alerta ainda não estiver aberto,
-            // prepara o áudio durante a interação do usuário.
-            audio.muted = true;
-
-            audio.play()
-                .then(() => {
-                    audio.pause();
-                    audio.currentTime = 0;
-                    audio.muted = false;
-                    audioLiberadoRef.current = true;
-                })
-                .catch(erro => {
-                    audio.muted = false;
-
-                    console.info(
-                        "[ALERTA PEDIDOS] Não foi possível liberar o áudio:",
-                        erro
-                    );
-                });
-        };
-
-        document.addEventListener("pointerdown", liberarAudio, true);
-        document.addEventListener("keydown", liberarAudio, true);
-
-        return () => {
-            document.removeEventListener("pointerdown", liberarAudio, true);
-            document.removeEventListener("keydown", liberarAudio, true);
-        };
-    }, [aberto]);
     useEffect(() => {
         componenteAtivo.current = true;
 
@@ -269,21 +216,21 @@ export default function AlertaPedidos() {
     }, [verificarPedidos]);
 
     useEffect(() => {
-        if (!aberto || !audioRef.current) {
-            return;
-        }
+        if (!aberto || carregando || !audioRef.current) return;
 
         const audio = audioRef.current;
 
         audio.currentTime = 0;
 
         audio.play().catch(erro => {
-            console.info(
-                "[ALERTA PEDIDOS] Reprodução automática bloqueada pelo navegador.",
+            console.warn(
+                "[ALERTA PEDIDOS] Não foi possível tocar o áudio:",
                 erro
             );
         });
-    }, [aberto]);
+    }, [aberto, carregando]);
+
+
 
     function lembrarMaisTarde() {
         salvarHorarioAdiado();
