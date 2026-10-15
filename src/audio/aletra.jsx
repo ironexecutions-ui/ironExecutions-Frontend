@@ -122,6 +122,7 @@ export default function AlertaPedidos() {
     const [carregando, setCarregando] = useState(false);
 
     const audioRef = useRef(null);
+    const audioLiberadoRef = useRef(false);
     const verificacaoEmAndamento = useRef(false);
     const componenteAtivo = useRef(true);
 
@@ -203,7 +204,60 @@ export default function AlertaPedidos() {
             }
         }
     }, []);
+    useEffect(() => {
+        const liberarAudio = () => {
+            const audio = audioRef.current;
 
+            if (!audio || audioLiberadoRef.current) return;
+
+            // Se o alerta já estiver aberto, aproveita a interação
+            // do usuário para tentar reproduzir o som.
+            if (aberto) {
+                audio.currentTime = 0;
+
+                audio.play()
+                    .then(() => {
+                        audioLiberadoRef.current = true;
+                    })
+                    .catch(erro => {
+                        console.info(
+                            "[ALERTA PEDIDOS] Áudio ainda bloqueado:",
+                            erro
+                        );
+                    });
+
+                return;
+            }
+
+            // Se o alerta ainda não estiver aberto,
+            // prepara o áudio durante a interação do usuário.
+            audio.muted = true;
+
+            audio.play()
+                .then(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    audio.muted = false;
+                    audioLiberadoRef.current = true;
+                })
+                .catch(erro => {
+                    audio.muted = false;
+
+                    console.info(
+                        "[ALERTA PEDIDOS] Não foi possível liberar o áudio:",
+                        erro
+                    );
+                });
+        };
+
+        document.addEventListener("pointerdown", liberarAudio, true);
+        document.addEventListener("keydown", liberarAudio, true);
+
+        return () => {
+            document.removeEventListener("pointerdown", liberarAudio, true);
+            document.removeEventListener("keydown", liberarAudio, true);
+        };
+    }, [aberto]);
     useEffect(() => {
         componenteAtivo.current = true;
 
@@ -242,131 +296,134 @@ export default function AlertaPedidos() {
         setAberto(false);
     }
 
-    if (!aberto || carregando) {
-        return null;
-    }
 
-    return createPortal(
-        <div
-            className="ironstore-alerta-pedidos-overlay"
-            role="presentation"
-        >
-            <section
-                className="ironstore-alerta-pedidos-modal"
-                role="alertdialog"
-                aria-modal="true"
-                aria-labelledby="ironstore-alerta-pedidos-titulo"
-                aria-describedby="ironstore-alerta-pedidos-descricao"
-            >
-                <div className="ironstore-alerta-pedidos-icone">
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
+    return (
+        <>
+            <audio
+                ref={audioRef}
+                src={new URL("./audio.m4a", import.meta.url).href}
+                preload="auto"
+            />
+
+            {aberto && !carregando && createPortal(
+                <div
+                    className="ironstore-alerta-pedidos-overlay"
+                    role="presentation"
+                >
+                    <section
+                        className="ironstore-alerta-pedidos-modal"
+                        role="alertdialog"
+                        aria-modal="true"
+                        aria-labelledby="ironstore-alerta-pedidos-titulo"
+                        aria-describedby="ironstore-alerta-pedidos-descricao"
                     >
-                        <path
-                            d="M12 8v4m0 4h.01M10.3 3.9 2.8 17a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3l-7.5-13.1a2 2 0 0 0-3.4 0Z"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                </div>
-
-                <span className="ironstore-alerta-pedidos-etiqueta">
-                    LEMBRETE DA LOJA
-                </span>
-
-                <h2
-                    id="ironstore-alerta-pedidos-titulo"
-                    className="ironstore-alerta-pedidos-titulo"
-                >
-                    Vamos cuidar dos seus pedidos?
-                </h2>
-
-                <p
-                    id="ironstore-alerta-pedidos-descricao"
-                    className="ironstore-alerta-pedidos-descricao"
-                >
-                    Você tem pedidos aguardando preparação ou envio.
-                    Reserve um momento para dar continuidade às entregas
-                    e manter seus clientes informados.
-                </p>
-
-                <div className="ironstore-alerta-pedidos-resumo">
-                    {pendencias.porEmbalar > 0 && (
-                        <div className="ironstore-alerta-pedidos-item">
-                            <span className="ironstore-alerta-pedidos-ponto ironstore-alerta-pedidos-ponto-embalar" />
-
-                            <span>Por embalar</span>
-
-                            <strong>
-                                {pendencias.porEmbalar}
-                            </strong>
+                        <div className="ironstore-alerta-pedidos-icone">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M12 8v4m0 4h.01M10.3 3.9 2.8 17a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3l-7.5-13.1a2 2 0 0 0-3.4 0Z"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
                         </div>
-                    )}
 
-                    {pendencias.porEnviar > 0 && (
-                        <div className="ironstore-alerta-pedidos-item">
-                            <span className="ironstore-alerta-pedidos-ponto ironstore-alerta-pedidos-ponto-enviar" />
+                        <span className="ironstore-alerta-pedidos-etiqueta">
+                            LEMBRETE DA LOJA
+                        </span>
 
-                            <span>Por enviar</span>
+                        <h2
+                            id="ironstore-alerta-pedidos-titulo"
+                            className="ironstore-alerta-pedidos-titulo"
+                        >
+                            Vamos cuidar dos seus pedidos?
+                        </h2>
 
-                            <strong>
-                                {pendencias.porEnviar}
-                            </strong>
+                        <p
+                            id="ironstore-alerta-pedidos-descricao"
+                            className="ironstore-alerta-pedidos-descricao"
+                        >
+                            Você tem pedidos aguardando preparação ou envio.
+                            Reserve um momento para dar continuidade às entregas
+                            e manter seus clientes informados.
+                        </p>
+
+                        <div className="ironstore-alerta-pedidos-resumo">
+                            {pendencias.porEmbalar > 0 && (
+                                <div className="ironstore-alerta-pedidos-item">
+                                    <span className="ironstore-alerta-pedidos-ponto ironstore-alerta-pedidos-ponto-embalar" />
+
+                                    <span>Por embalar</span>
+
+                                    <strong>
+                                        {pendencias.porEmbalar}
+                                    </strong>
+                                </div>
+                            )}
+
+                            {pendencias.porEnviar > 0 && (
+                                <div className="ironstore-alerta-pedidos-item">
+                                    <span className="ironstore-alerta-pedidos-ponto ironstore-alerta-pedidos-ponto-enviar" />
+
+                                    <span>Por enviar</span>
+
+                                    <strong>
+                                        {pendencias.porEnviar}
+                                    </strong>
+                                </div>
+                            )}
+
+                            <div className="ironstore-alerta-pedidos-total">
+                                <span>Total de pedidos pendentes</span>
+
+                                <strong>{pendencias.total}</strong>
+                            </div>
                         </div>
-                    )}
 
-                    <div className="ironstore-alerta-pedidos-total">
-                        <span>Total de pedidos pendentes</span>
+                        <p className="ironstore-alerta-pedidos-rodape">
+                            Não se preocupe, você pode continuar depois.
+                            Estamos aqui para ajudar na sua organização.
+                        </p>
 
-                        <strong>{pendencias.total}</strong>
-                    </div>
-                </div>
+                        <button
+                            type="button"
+                            className="ironstore-alerta-pedidos-botao"
+                            onClick={lembrarMaisTarde}
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="9"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                />
+                                <path
+                                    d="M12 7v5l3 2"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
 
-                <p className="ironstore-alerta-pedidos-rodape">
-                    Não se preocupe, você pode continuar depois.
-                    Estamos aqui para ajudar na sua organização.
-                </p>
+                            Lembrar mais tarde
+                        </button>
 
-                <button
-                    type="button"
-                    className="ironstore-alerta-pedidos-botao"
-                    onClick={lembrarMaisTarde}
-                >
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
-                    >
-                        <circle
-                            cx="12"
-                            cy="12"
-                            r="9"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                        />
-                        <path
-                            d="M12 7v5l3 2"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
 
-                    Lembrar mais tarde
-                </button>
-
-                <audio
-                    ref={audioRef}
-                    src={new URL("./audio.m4a", import.meta.url).href}
-                    preload="auto"
-                />
-            </section>
-        </div>,
-        document.body
+                    </section>
+                </div>,
+                document.body
+            )}
+        </>
     );
 }
