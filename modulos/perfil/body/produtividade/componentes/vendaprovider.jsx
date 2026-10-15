@@ -15,8 +15,34 @@ export function VendaProvider({ children }) {
     =============================== */
 
     const [produtoAtual, setProdutoAtual] = useState(null);
-    const [itens, setItens] = useState([]);
-    const [total, setTotal] = useState(0);
+
+    const [itens, setItens] = useState(() => {
+        try {
+            const salvos = localStorage.getItem("itensVenda");
+            const dados = salvos ? JSON.parse(salvos) : [];
+
+            return Array.isArray(dados) ? dados : [];
+        } catch (erro) {
+            console.error("Erro ao recuperar a venda:", erro);
+            return [];
+        }
+    });
+
+    const [total, setTotal] = useState(() => {
+        try {
+            const salvos = localStorage.getItem("itensVenda");
+            const dados = salvos ? JSON.parse(salvos) : [];
+
+            return Array.isArray(dados)
+                ? dados.reduce(
+                    (soma, item) => soma + Number(item.subtotal || 0),
+                    0
+                )
+                : 0;
+        } catch {
+            return 0;
+        }
+    });
 
     const [limparBusca, setLimparBusca] = useState(false);
     const [modalAberto, setModalAberto] = useState(false);
@@ -40,8 +66,15 @@ export function VendaProvider({ children }) {
     /* ===============================
        ABRIR PIX RÁPIDO
     =============================== */
-    const [promocaoAplicada, setPromocaoAplicada] =
-        useState(null);
+    const [promocaoAplicada, setPromocaoAplicada] = useState(() => {
+        try {
+            const salva = localStorage.getItem("promocaoVenda");
+            return salva ? JSON.parse(salva) : null;
+        } catch (erro) {
+            console.error("Erro ao recuperar a promoção:", erro);
+            return null;
+        }
+    });
     const abrirPixRapido = useCallback(
         (dadosPix) => {
 
@@ -220,18 +253,13 @@ export function VendaProvider({ children }) {
     =============================== */
 
     function limparVenda() {
-
         setProdutoAtual(null);
-
         setItens([]);
-
         setTotal(0);
-
         setPromocaoAplicada(null);
 
-        localStorage.removeItem(
-            "itensVenda"
-        );
+        localStorage.removeItem("itensVenda");
+        localStorage.removeItem("promocaoVenda");
     }
 
     /* ===============================
@@ -764,14 +792,37 @@ export function VendaProvider({ children }) {
        SALVAR CARRINHO ATUAL
     =============================== */
 
+    // SALVAR CARRINHO AUTOMATICAMENTE
     useEffect(() => {
-
-        localStorage.setItem(
-            "itensVenda",
-            JSON.stringify(itens)
-        );
-
+        try {
+            if (itens.length > 0) {
+                localStorage.setItem(
+                    "itensVenda",
+                    JSON.stringify(itens)
+                );
+            } else {
+                localStorage.removeItem("itensVenda");
+            }
+        } catch (erro) {
+            console.error("Erro ao salvar o carrinho:", erro);
+        }
     }, [itens]);
+
+    // SALVAR PROMOÇÃO AUTOMATICAMENTE
+    useEffect(() => {
+        try {
+            if (promocaoAplicada) {
+                localStorage.setItem(
+                    "promocaoVenda",
+                    JSON.stringify(promocaoAplicada)
+                );
+            } else {
+                localStorage.removeItem("promocaoVenda");
+            }
+        } catch (erro) {
+            console.error("Erro ao salvar a promoção:", erro);
+        }
+    }, [promocaoAplicada]);
 
     /* ===============================
        PROVIDER

@@ -642,41 +642,35 @@ export default function TotalVenda() {
     }, []);
 
 
+
     /* ===============================
-       ESC = CANCELAR
-    =============================== */
+       CTRL + BACKSPACE = CANCELAR VENDA
+       =============================== */
 
     useEffect(() => {
-
-        function escCancelar(e) {
-
+        function atalhoCancelarVenda(e) {
             if (
-                e.key === "Escape" &&
+                e.ctrlKey &&
+                e.key === "Backspace" &&
                 !vendaVazia
             ) {
-
+                e.preventDefault();
                 limparVenda();
             }
         }
 
-
         window.addEventListener(
             "keydown",
-            escCancelar
+            atalhoCancelarVenda
         );
 
-
-        return () =>
+        return () => {
             window.removeEventListener(
                 "keydown",
-                escCancelar
+                atalhoCancelarVenda
             );
-
-    }, [
-        vendaVazia,
-        limparVenda
-    ]);
-
+        };
+    }, [vendaVazia, limparVenda]);
 
     /* ===============================
        VALOR FORMATADO

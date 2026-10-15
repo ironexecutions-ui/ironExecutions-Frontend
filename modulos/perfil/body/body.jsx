@@ -682,6 +682,28 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
     }
 
     /* ===============================
+       ESC = VOLTAR DOS MÓDULOS
+       =============================== */
+
+    useEffect(() => {
+        function voltarComEsc(e) {
+            if (
+                e.key === "Escape" &&
+                modoModuloAberto
+            ) {
+                e.preventDefault();
+                fecharModuloComAtualizacao();
+            }
+        }
+
+        window.addEventListener("keydown", voltarComEsc);
+
+        return () => {
+            window.removeEventListener("keydown", voltarComEsc);
+        };
+    }, [modoModuloAberto, moduloAtivo]);
+
+    /* ===============================
        CARREGANDO
     =============================== */
     if (carregando) {
