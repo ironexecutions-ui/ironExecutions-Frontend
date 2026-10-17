@@ -6,7 +6,7 @@ import LojasAvaliacao from "./inicio_modulos/lojasavaliacao";
 import Rodape from "./inicio_modulos/rodape";
 import ExplicacaoModulos from "./inicio_modulos/explicacaomodulos";
 import HeaderInicio from "./inicio_modulos/headerinicio";
-
+import Parceiros from "./inicio_modulos/parceiros";
 import "./inicio-modulos.css";
 
 export default function InicioModulos() {
@@ -237,12 +237,13 @@ export default function InicioModulos() {
             {/* =================================================
                 LOJAS
             ================================================= */}
-
             <LojasAvaliacao />
 
+            <Parceiros />
+
             {/* =================================================
-                MÓDULOS
-            ================================================= */}
+               MÓDULOS
+================================================= */}
 
             <ExplicacaoModulos />
 
