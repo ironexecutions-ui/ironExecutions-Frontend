@@ -1,32 +1,49 @@
-
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { API_URL } from "../config";
 import PainelG from "./componentes/painelg";
-import "./painel.css"
+import "./painel.css";
+
 export default function PainelGeral() {
-    const [painelGeralCarregando, setPainelGeralCarregando] =
-        useState(true);
-
-    const [painelGeralAutorizado, setPainelGeralAutorizado] =
-        useState(false);
-
-    const [painelGeralWsStatus, setPainelGeralWsStatus] =
-        useState("desconectado");
-
-    const [painelGeralNotificacaoAtiva, setPainelGeralNotificacaoAtiva] =
-        useState(
-            typeof Notification !== "undefined" &&
-            Notification.permission === "granted"
-        );
-
-    const [painelGeralUltimoFrete, setPainelGeralUltimoFrete] =
-        useState(null);
+    const [painelGeralCarregando, setPainelGeralCarregando] = useState(true);
+    const [painelGeralAutorizado, setPainelGeralAutorizado] = useState(false);
+    const [painelGeralWsStatus, setPainelGeralWsStatus] = useState("desconectado");
+    const [painelGeralNotificacaoAtiva, setPainelGeralNotificacaoAtiva] = useState(
+        typeof Notification !== "undefined" && Notification.permission === "granted"
+    );
+    const [painelGeralUltimoFrete, setPainelGeralUltimoFrete] = useState(null);
 
     const painelGeralWsRef = useRef(null);
     const painelGeralReconectarRef = useRef(null);
     const painelGeralMontadoRef = useRef(false);
     const painelGeralTentativaRef = useRef(0);
 
+    const mostrarNotificacaoPainelGeral = useCallback(async (titulo, mensagem, tag) => {
+        if (!("Notification" in window)) {
+            throw new Error("Este navegador não oferece suporte a notificações.");
+        }
+
+        if (Notification.permission !== "granted") {
+            throw new Error("A permissão para notificações não está concedida.");
+        }
+
+        if (!("serviceWorker" in navigator)) {
+            throw new Error("Este navegador não oferece suporte a Service Worker.");
+        }
+
+        const registro = await navigator.serviceWorker.ready;
+
+        if (!registro || typeof registro.showNotification !== "function") {
+            throw new Error("O Service Worker não oferece suporte a notificações.");
+        }
+
+        await registro.showNotification(titulo, {
+            body: mensagem,
+            icon: "/favicon.ico",
+            tag,
+            requireInteraction: true,
+            data: { url: window.location.href }
+        });
+    }, []);
 
     const ativarNotificacoesPainelGeral = useCallback(async () => {
         if (!("Notification" in window)) {
@@ -56,36 +73,21 @@ export default function PainelGeral() {
                 return;
             }
 
-            const notificacao = new Notification(
+            await mostrarNotificacaoPainelGeral(
                 "Iron Executions",
-                {
-                    body: "Teste de notificação do sistema.",
-                    tag: "iron-executions-teste",
-                    icon: "/favicon.ico",
-                    requireInteraction: true
-                }
+                "Teste de notificação do sistema. As notificações estão configuradas.",
+                "iron-executions-teste"
             );
 
-            notificacao.onclick = () => {
-                window.focus();
-                notificacao.close();
-            };
-
-            console.info(
-                "[PAINEL GERAL] Notificação de teste criada."
-            );
+            console.info("[PAINEL GERAL] Notificação de teste solicitada ao Service Worker.");
         } catch (error) {
-            console.error(
-                "[PAINEL GERAL] Erro ao exibir notificação:",
-                error
-            );
-
+            console.error("[PAINEL GERAL] Erro ao exibir notificação de teste:", error);
             alert(
                 "Não foi possível exibir a notificação. " +
                 "Confira as permissões do Chrome e do Windows."
             );
         }
-    }, []);
+    }, [mostrarNotificacaoPainelGeral]);
 
     useEffect(() => {
         painelGeralMontadoRef.current = true;
@@ -100,15 +102,10 @@ export default function PainelGeral() {
             }
 
             try {
-                const resposta = await fetch(
-                    `${API_URL}/panel/me`,
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
+                const resposta = await fetch(`${API_URL}/panel/me`, {
+                    method: "GET",
+                    headers: { Authorization: `Bearer ${token}` }
+                });
 
                 if (!resposta.ok) {
                     setPainelGeralAutorizado(false);
@@ -117,18 +114,11 @@ export default function PainelGeral() {
 
                 const dados = await resposta.json();
 
-                if (!painelGeralMontadoRef.current) {
-                    return;
-                }
+                if (!painelGeralMontadoRef.current) return;
 
-                setPainelGeralAutorizado(
-                    dados.autorizado === true
-                );
+                setPainelGeralAutorizado(dados.autorizado === true);
             } catch (error) {
-                console.error(
-                    "[PAINEL GERAL] Erro ao verificar acesso:",
-                    error
-                );
+                console.error("[PAINEL GERAL] Erro ao verificar acesso:", error);
 
                 if (painelGeralMontadoRef.current) {
                     setPainelGeralAutorizado(false);
@@ -144,7 +134,6 @@ export default function PainelGeral() {
 
         return () => {
             painelGeralMontadoRef.current = false;
-
             clearTimeout(painelGeralReconectarRef.current);
 
             if (painelGeralWsRef.current) {
@@ -156,19 +145,14 @@ export default function PainelGeral() {
     }, []);
 
     useEffect(() => {
-        if (!painelGeralAutorizado) {
-            return;
-        }
+        if (!painelGeralAutorizado) return;
 
         let cancelado = false;
 
         function conectarWebSocket() {
-            if (cancelado) {
-                return;
-            }
+            if (cancelado) return;
 
             const token = localStorage.getItem("token");
-
             if (!token) {
                 setPainelGeralWsStatus("desconectado");
                 return;
@@ -186,7 +170,6 @@ export default function PainelGeral() {
                 `?token=${encodeURIComponent(token)}`;
 
             const socket = new WebSocket(urlWebSocket);
-
             painelGeralWsRef.current = socket;
 
             socket.onopen = () => {
@@ -196,39 +179,23 @@ export default function PainelGeral() {
                 }
 
                 painelGeralTentativaRef.current = 0;
-
                 setPainelGeralWsStatus("conectado");
-
-                console.info(
-                    "[PAINEL GERAL] WebSocket conectado."
-                );
+                console.info("[PAINEL GERAL] WebSocket conectado.");
             };
 
-            socket.onmessage = (evento) => {
-                if (cancelado) {
-                    return;
-                }
+            socket.onmessage = async (evento) => {
+                if (cancelado) return;
 
                 try {
                     const dados = JSON.parse(evento.data);
 
-                    if (
-                        dados.tipo !== "novo_frete" &&
-                        dados.evento !== "novo_frete"
-                    ) {
+                    if (dados.tipo !== "novo_frete" && dados.evento !== "novo_frete") {
                         return;
                     }
 
                     const freteId = dados.id ?? dados.frete_id;
-
-                    if (
-                        freteId === undefined ||
-                        freteId === null
-                    ) {
-                        console.warn(
-                            "[PAINEL GERAL] Evento sem ID de frete:",
-                            dados
-                        );
+                    if (freteId === undefined || freteId === null) {
+                        console.warn("[PAINEL GERAL] Evento sem ID de frete:", dados);
                         return;
                     }
 
@@ -238,45 +205,39 @@ export default function PainelGeral() {
                     });
 
                     const titulo = "Novo frete recebido";
+                    const mensagem = `Um novo registro foi adicionado à ironstore_fretes. ID: ${freteId}`;
 
-                    const mensagem =
-                        `Um novo registro foi adicionado ` +
-                        `a ironstore_fretes. ID: ${freteId}`;
-
-                    if (
-                        "Notification" in window &&
-                        Notification.permission === "granted"
-                    ) {
+                    if ("Notification" in window && Notification.permission === "granted") {
                         try {
-                            new Notification(titulo, {
-                                body: mensagem,
-                                tag: `iron-frete-${freteId}`
-                            });
+                            await mostrarNotificacaoPainelGeral(
+                                titulo,
+                                mensagem,
+                                `iron-frete-${freteId}`
+                            );
+                            console.info(
+                                "[PAINEL GERAL] Notificação do sistema solicitada para o frete:",
+                                freteId
+                            );
                         } catch (error) {
-                            console.warn(
-                                "[PAINEL GERAL] Não foi possível mostrar a notificação:",
+                            console.error(
+                                "[PAINEL GERAL] Não foi possível mostrar a notificação do frete:",
                                 error
                             );
                         }
+                    } else {
+                        console.warn(
+                            "[PAINEL GERAL] Notificação não enviada: permissão não concedida."
+                        );
                     }
 
-                    console.info(
-                        "[PAINEL GERAL] Novo frete recebido:",
-                        dados
-                    );
+                    console.info("[PAINEL GERAL] Novo frete recebido:", dados);
                 } catch (error) {
-                    console.error(
-                        "[PAINEL GERAL] Mensagem WebSocket inválida:",
-                        error
-                    );
+                    console.error("[PAINEL GERAL] Mensagem WebSocket inválida:", error);
                 }
             };
 
             socket.onerror = (error) => {
-                console.error(
-                    "[PAINEL GERAL] Erro no WebSocket:",
-                    error
-                );
+                console.error("[PAINEL GERAL] Erro no WebSocket:", error);
             };
 
             socket.onclose = () => {
@@ -284,27 +245,15 @@ export default function PainelGeral() {
                     painelGeralWsRef.current = null;
                 }
 
-                if (cancelado) {
-                    return;
-                }
+                if (cancelado) return;
 
                 setPainelGeralWsStatus("desconectado");
 
-                const tentativa =
-                    painelGeralTentativaRef.current;
+                const tentativa = painelGeralTentativaRef.current;
+                const intervalo = Math.min(1000 * Math.pow(2, tentativa), 30000);
+                painelGeralTentativaRef.current = tentativa + 1;
 
-                const intervalo = Math.min(
-                    1000 * Math.pow(2, tentativa),
-                    30000
-                );
-
-                painelGeralTentativaRef.current =
-                    tentativa + 1;
-
-                painelGeralReconectarRef.current = setTimeout(
-                    conectarWebSocket,
-                    intervalo
-                );
+                painelGeralReconectarRef.current = setTimeout(conectarWebSocket, intervalo);
             };
         }
 
@@ -312,7 +261,6 @@ export default function PainelGeral() {
 
         return () => {
             cancelado = true;
-
             clearTimeout(painelGeralReconectarRef.current);
 
             if (painelGeralWsRef.current) {
@@ -321,7 +269,7 @@ export default function PainelGeral() {
                 painelGeralWsRef.current = null;
             }
         };
-    }, [painelGeralAutorizado]);
+    }, [painelGeralAutorizado, mostrarNotificacaoPainelGeral]);
 
     if (painelGeralCarregando) {
         return (
@@ -341,9 +289,8 @@ export default function PainelGeral() {
 
     return (
         <div className="painel-geral-conteudo-principal">
-
-
             <PainelG />
+
             <div className="painel-geral-notificacoes">
                 <div
                     className={
@@ -353,7 +300,6 @@ export default function PainelGeral() {
                     }
                 >
                     <span className="painel-geral-ws-indicador" />
-
                     {painelGeralWsStatus === "conectado"
                         ? "Monitoramento de fretes conectado"
                         : painelGeralWsStatus === "conectando"
@@ -373,12 +319,8 @@ export default function PainelGeral() {
                 </button>
 
                 {painelGeralUltimoFrete && (
-                    <div
-                        className="painel-geral-ultimo-frete"
-                        role="status"
-                    >
-                        Novo frete recebido. ID:{" "}
-                        {painelGeralUltimoFrete.id}
+                    <div className="painel-geral-ultimo-frete" role="status">
+                        Novo frete recebido. ID: {painelGeralUltimoFrete.id}
                     </div>
                 )}
             </div>
