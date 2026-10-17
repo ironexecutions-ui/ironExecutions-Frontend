@@ -724,7 +724,12 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
             </div>
         );
     }
+    const totalModulosNaTela =
+        modulosVisiveis.length +
+        (podeAcessarControle() ? 1 : 0) +
+        1; // Configurações
 
+    const usarDuasLinhas = totalModulosNaTela > 8;
     return (
         <div
             className={`body-container body-fade ${fade ? "show" : ""
@@ -740,8 +745,10 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
             {!modoModuloAberto && (
                 <div className="modulos-wrapper fade-in-up-delay">
 
-                    <div className="modulos-lista">
-
+                    <div
+                        className={`modulos-lista ${usarDuasLinhas ? "modulos-lista--duas-linhas" : ""
+                            }`}
+                    >
                         {modulosVisiveis.map((m, i) => (
                             <button
                                 key={m.modulo}

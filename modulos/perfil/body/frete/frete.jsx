@@ -1534,7 +1534,7 @@ export default function Frete({ token: tokenProp }) {
                                     type="number"
                                     min="0.01"
                                     step="0.001"
-                                    placeholder="Ex.: 1"
+                                    placeholder="Ex.: 1 ou 0.500"
                                     onChange={(e) =>
                                         setForm((f) => ({
                                             ...f,
@@ -1985,8 +1985,8 @@ export default function Frete({ token: tokenProp }) {
                     >
                         <div
                             className={`isfa-custom-alert__card ${alertaPersonalizado.tipo === "saldo"
-                                    ? "isfa-custom-alert__card--warning"
-                                    : "isfa-custom-alert__card--error"
+                                ? "isfa-custom-alert__card--warning"
+                                : "isfa-custom-alert__card--error"
                                 }`}
                         >
                             <div className="isfa-custom-alert__top">

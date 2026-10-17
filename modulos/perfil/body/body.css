@@ -1265,3 +1265,22 @@
         transform: none;
     }
 }
+
+.modulos-lista.modulos-lista--duas-linhas {
+    display: grid !important;
+    grid-auto-flow: column !important;
+    grid-template-rows: repeat(2, auto) !important;
+    grid-template-columns: none !important;
+    grid-auto-columns: 155px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    align-items: stretch !important;
+}
+
+.modulos-lista--duas-linhas .modulo-card {
+    width: 155px !important;
+    min-width: 155px !important;
+    max-width: 155px !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
