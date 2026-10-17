@@ -4,6 +4,7 @@ import React, {
     useRef,
     useState
 } from "react";
+import { createPortal } from "react-dom";
 import "./frete.css";
 import { API_URL } from "../../../../config";
 
@@ -162,6 +163,7 @@ export default function Frete({ token: tokenProp }) {
     const [fretesPagos, setFretesPagos] = useState([]);
     const [carregandoLista, setCarregandoLista] = useState(true);
     const [erroLista, setErroLista] = useState("");
+    const [alertaPersonalizado, setAlertaPersonalizado] = useState(null);
     const [gerandoEtiquetaId, setGerandoEtiquetaId] = useState(null);
     // =========================================================
     // DADOS DO REMETENTE — COMÉRCIO AUTENTICADO
@@ -506,9 +508,32 @@ export default function Frete({ token: tokenProp }) {
                 e
             );
 
-            setErroLista(
-                e.message || "Não foi possível gerar o documento."
+            const mensagemOriginal =
+                e?.message || "Não foi possível gerar a etiqueta.";
+
+            const saldoInsuficiente =
+                /saldo/i.test(mensagemOriginal) &&
+                /insuficiente/i.test(mensagemOriginal);
+
+            const erro502 = /HTTP 502|502 Bad Gateway/i.test(
+                mensagemOriginal
             );
+
+            setErroLista("");
+
+            setAlertaPersonalizado({
+                tipo: saldoInsuficiente ? "saldo" : "erro",
+
+                codigo: erro502 ? "#502" : "ATENÇÃO",
+
+                titulo: saldoInsuficiente
+                    ? "Saldo insuficiente no Melhor Envio"
+                    : "Não foi possível concluir",
+
+                mensagem: saldoInsuficiente
+                    ? "A carteira do Melhor Envio não possui saldo suficiente para pagar esta etiqueta. Entre em contato com o suporte para receber ajuda."
+                    : mensagemOriginal,
+            });
 
             await carregarFretesPagos();
         } finally {
@@ -1950,6 +1975,91 @@ export default function Frete({ token: tokenProp }) {
                     </div>
                 </section>
             )}
+            {alertaPersonalizado &&
+                typeof document !== "undefined" &&
+                createPortal(
+                    <aside
+                        className="isfa-custom-alert"
+                        role="alert"
+                        aria-live="assertive"
+                    >
+                        <div
+                            className={`isfa-custom-alert__card ${alertaPersonalizado.tipo === "saldo"
+                                    ? "isfa-custom-alert__card--warning"
+                                    : "isfa-custom-alert__card--error"
+                                }`}
+                        >
+                            <div className="isfa-custom-alert__top">
+                                <div className="isfa-custom-alert__icon">
+                                    {alertaPersonalizado.tipo === "saldo"
+                                        ? "!"
+                                        : "×"}
+                                </div>
+
+                                <div className="isfa-custom-alert__heading">
+                                    <span className="isfa-custom-alert__code">
+                                        {alertaPersonalizado.codigo}
+                                    </span>
+
+                                    <h3>{alertaPersonalizado.titulo}</h3>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    className="isfa-custom-alert__close"
+                                    onClick={() =>
+                                        setAlertaPersonalizado(null)
+                                    }
+                                    aria-label="Fechar alerta"
+                                    title="Fechar"
+                                >
+                                    ×
+                                </button>
+                            </div>
+
+                            <p className="isfa-custom-alert__message">
+                                {alertaPersonalizado.mensagem}
+                            </p>
+
+                            <div className="isfa-custom-alert__actions">
+                                <a
+                                    className="isfa-custom-alert__support"
+                                    href={`https://wa.me/5511918547818?text=${encodeURIComponent(
+                                        "Tô com uma situação de #502"
+                                    )}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M20.52 3.48A11.78 11.78 0 0 0 12.14 0C5.6 0 .28 5.31.28 11.85c0 2.09.55 4.13 1.6 5.93L.18 24l6.38-1.67a11.9 11.9 0 0 0 5.58 1.42h.01c6.54 0 11.86-5.32 11.86-11.86 0-3.17-1.24-6.15-3.49-8.41ZM12.15 21.7a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.79.99 1.01-3.7-.24-.38a9.82 9.82 0 0 1-1.51-5.17c0-5.46 4.45-9.91 9.92-9.91a9.84 9.84 0 0 1 7.01 2.91 9.85 9.85 0 0 1 2.9 7.02c0 5.46-4.45 9.91-9.91 9.91Zm5.44-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.51-1.78-1.69-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.48.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"
+                                        />
+                                    </svg>
+
+                                    Entrar em contato com o suporte
+                                </a>
+
+                                <button
+                                    type="button"
+                                    className="isfa-custom-alert__ok"
+                                    onClick={() =>
+                                        setAlertaPersonalizado(null)
+                                    }
+                                >
+                                    OK
+                                </button>
+                            </div>
+
+                            <span className="isfa-custom-alert__footer">
+                                Iron Executions · Suporte técnico
+                            </span>
+                        </div>
+                    </aside>,
+                    document.body
+                )}
         </main>
     );
 }
