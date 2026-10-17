@@ -2666,13 +2666,9 @@ export default function Frete({ token: tokenProp }) {
                         pagamento.qr_code_url && (
                             <div className="isfa-qr isfa-qr--link">
                                 <img
-                                    alt="QR Code para abrir o pagamento PIX"
-                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data=${encodeURIComponent(
-                                        pagamento.qr_code_url
-                                    )}`}
-                                    width="280"
-                                    height="280"
-                                    loading="eager"
+                                    src={pagamento.qr_code_url}
+                                    alt="QR Code PIX do Melhor Envio"
+                                    className="frete-avulso-qr-code"
                                 />
 
                                 <p>
