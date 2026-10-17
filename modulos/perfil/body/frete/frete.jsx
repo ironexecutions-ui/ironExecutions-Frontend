@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import "./Frete.css";
+import "./frete.css";
 
 const API_PREFIX = "/ironstore/frete-avulso";
 
