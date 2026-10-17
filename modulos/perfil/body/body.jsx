@@ -42,7 +42,7 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
         "IronStore": DeliveryEVendasOnline,
         "parceria": Parceria,
         "Mesas, salão e cozinha": MesasSalaoECozinha,
-        "frete": Frete,
+        "Frete": Frete,
         "Rifa": Rifa,
 
         "Agendamentos": Agendamentos,
