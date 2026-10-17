@@ -813,7 +813,7 @@ export default function Frete({ token: tokenProp }) {
         setCriandoPagamento(true);
 
         try {
-            const data = await requisicao("/pix", {
+            const data = await requisicao("/pix-inteligente", {
                 method: "POST",
                 body: JSON.stringify({
                     ...montarPayload(),
@@ -823,13 +823,79 @@ export default function Frete({ token: tokenProp }) {
 
             setPagamento(data);
             setResultado(null);
-            setOpcoes([]);
 
-            setAviso(
-                "PIX criado. Após a confirmação do pagamento, o frete aparecerá na lista de fretes pagos. A etiqueta não será gerada automaticamente."
-            );
+            if (data.tipo_fluxo === "recarga_melhor_envio") {
+                // A recarga é destinada à carteira Melhor Envio da Iron Executions.
+                // Ela não cria registro de frete e não é acompanhada pelo webhook do Mercado Pago.
+                setAviso(
+                    "Atenção: este PIX é uma recarga da carteira da Iron Executions no Melhor Envio. Ele não é o pagamento do seu frete. Após a recarga ser confirmada, clique em verificar saldo para gerar o PIX do frete."
+                );
+            } else {
+                setOpcoes([]);
+                setAviso(
+                    "PIX do frete criado. Após a confirmação do pagamento pelo Mercado Pago, o frete aparecerá na lista de fretes pagos. A etiqueta não será gerada automaticamente."
+                );
+            }
         } catch (e) {
             setErro(e.message || "Não foi possível criar o PIX.");
+        } finally {
+            setCriandoPagamento(false);
+        }
+    };
+
+    const verificarSaldoEContinuar = async () => {
+        if (!pagamento || pagamento.tipo_fluxo !== "recarga_melhor_envio") {
+            return;
+        }
+
+        setErro("");
+        setAviso("");
+        setCriandoPagamento(true);
+
+        try {
+            const dadosSaldo = await requisicao("/carteira/saldo", {
+                method: "GET",
+            });
+            const saldo = Number(dadosSaldo.saldo);
+            const valorFrete = Number(pagamento.valor_frete);
+
+            if (!Number.isFinite(saldo) || !Number.isFinite(valorFrete)) {
+                throw new Error("Não foi possível validar o saldo da carteira.");
+            }
+
+            if (saldo < valorFrete) {
+                setPagamento((atual) => ({
+                    ...atual,
+                    saldo_melhor_envio: saldo,
+                }));
+                setAviso(
+                    `A carteira ainda não tem saldo suficiente. Saldo consultado: ${formatarMoeda(saldo)}. Necessário para este frete: ${formatarMoeda(valorFrete)}. Confirme a recarga no Melhor Envio e tente novamente.`
+                );
+                return;
+            }
+
+            // Só neste ponto criamos o PIX do cliente e o registro de frete.
+            // A recarga em si nunca é gravada como pagamento em ironstore_fretes.
+            const data = await requisicao("/pix-cliente-se-saldo", {
+                method: "POST",
+                body: JSON.stringify({
+                    ...montarPayload(),
+                    servico_id: String(servicoSelecionado.id),
+                }),
+            });
+
+            setPagamento({
+                ...data,
+                tipo_fluxo: "pix_cliente",
+                saldo_melhor_envio: saldo,
+            });
+            setResultado(null);
+            setOpcoes([]);
+            setAviso(
+                "Saldo confirmado. Este é o PIX do frete para o cliente. O frete só será registrado como pago após a confirmação do pagamento no Mercado Pago."
+            );
+        } catch (e) {
+            setErro(e.message || "Não foi possível consultar o saldo da carteira.");
         } finally {
             setCriandoPagamento(false);
         }
@@ -844,6 +910,7 @@ export default function Frete({ token: tokenProp }) {
 
         if (
             !freteId ||
+            pagamento?.tipo_fluxo === "recarga_melhor_envio" ||
             resultado?.status_pagamento === "approved"
         ) {
             return;
@@ -881,6 +948,7 @@ export default function Frete({ token: tokenProp }) {
         }
     }, [
         pagamento?.frete_id,
+        pagamento?.tipo_fluxo,
         resultado?.status_pagamento,
         requisicao,
         carregarFretesPagos,
@@ -889,6 +957,7 @@ export default function Frete({ token: tokenProp }) {
     useEffect(() => {
         if (
             !pagamento?.frete_id ||
+            pagamento?.tipo_fluxo === "recarga_melhor_envio" ||
             resultado?.status_pagamento === "approved"
         ) {
             return undefined;
@@ -903,6 +972,7 @@ export default function Frete({ token: tokenProp }) {
         return () => window.clearInterval(timer);
     }, [
         pagamento?.frete_id,
+        pagamento?.tipo_fluxo,
         resultado?.status_pagamento,
         consultarPagamento,
     ]);
@@ -918,7 +988,11 @@ export default function Frete({ token: tokenProp }) {
 
         try {
             await navigator.clipboard.writeText(codigo);
-            setAviso("Código PIX copiado.");
+            setAviso(
+                pagamento?.tipo_fluxo === "recarga_melhor_envio"
+                    ? "Código PIX de recarga copiado. Ele é destinado à carteira da Iron Executions no Melhor Envio, não ao pagamento do frete."
+                    : "Código PIX do frete copiado."
+            );
             setErro("");
         } catch {
             setErro(
@@ -1881,22 +1955,46 @@ export default function Frete({ token: tokenProp }) {
                         <span className="isfa-card__step">06</span>
 
                         <div>
-                            <h2>Pagamento do frete</h2>
+                            <h2>
+                                {pagamento.tipo_fluxo === "recarga_melhor_envio"
+                                    ? "Recarga da carteira Melhor Envio"
+                                    : "Pagamento do frete"}
+                            </h2>
                             <p>
-                                Use o QR Code ou copie o código PIX abaixo.
+                                {pagamento.tipo_fluxo === "recarga_melhor_envio"
+                                    ? "Este PIX é destinado à carteira da Iron Executions no Melhor Envio."
+                                    : "Use o QR Code ou copie o código PIX abaixo para pagar o frete."}
                             </p>
                         </div>
                     </div>
 
                     <div className="isfa-payment__amount">
-                        {formatarMoeda(pagamento.valor_frete)}
-                        <span>Somente o frete avulso</span>
+                        {formatarMoeda(
+                            pagamento.tipo_fluxo === "recarga_melhor_envio"
+                                ? pagamento.valor_recarga
+                                : pagamento.valor_frete
+                        )}
+                        <span>
+                            {pagamento.tipo_fluxo === "recarga_melhor_envio"
+                                ? "Recarga da carteira da Iron Executions. Não é pagamento do cliente."
+                                : "Pagamento do frete avulso pelo cliente"}
+                        </span>
                     </div>
+
+                    {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
+                        <div className="isfa-alert isfa-alert--info" role="note">
+                            <span>
+                                ATENÇÃO: o valor deste PIX será creditado na carteira da Iron Executions no Melhor Envio. Ele não quita o frete do cliente, não confirma o pagamento do frete e não cria um registro pago em ironstore_fretes. Depois que a recarga for confirmada no Melhor Envio, verifique o saldo abaixo para gerar o PIX correto do frete.
+                            </span>
+                        </div>
+                    )}
 
                     {pagamento.qr_code_base64 && (
                         <div className="isfa-qr">
                             <img
-                                alt="QR Code PIX para pagamento do frete"
+                                alt={pagamento.tipo_fluxo === "recarga_melhor_envio"
+                                    ? "QR Code PIX para recarga da carteira Melhor Envio da Iron Executions"
+                                    : "QR Code PIX para pagamento do frete"}
                                 src={`data:image/png;base64,${pagamento.qr_code_base64}`}
                             />
                         </div>
@@ -1907,7 +2005,9 @@ export default function Frete({ token: tokenProp }) {
                             <textarea
                                 readOnly
                                 value={pagamento.qr_code}
-                                aria-label="Código PIX copia e cola"
+                                aria-label={pagamento.tipo_fluxo === "recarga_melhor_envio"
+                                    ? "Código PIX copia e cola para recarga da carteira Melhor Envio"
+                                    : "Código PIX copia e cola para pagamento do frete"}
                             />
 
                             <button
@@ -1920,30 +2020,59 @@ export default function Frete({ token: tokenProp }) {
                         </div>
                     )}
 
-                    <div className="isfa-payment__status">
-                        <span
-                            className={`isfa-status-dot ${resultado?.status_pagamento === "approved"
-                                ? "isfa-status-dot--ok"
-                                : ""
-                                }`}
-                        />
+                    {pagamento.tipo_fluxo === "recarga_melhor_envio" && pagamento.qr_code_url && (
+                        <div className="isfa-alert isfa-alert--info">
+                            <span>
+                                O Melhor Envio retornou um link para concluir a recarga.
+                                {" "}
+                                <a href={pagamento.qr_code_url} target="_blank" rel="noreferrer">
+                                    Abrir PIX de recarga do Melhor Envio
+                                </a>
+                            </span>
+                        </div>
+                    )}
 
-                        <strong>
-                            {resultado?.status_pagamento === "approved"
-                                ? "Pagamento confirmado"
-                                : consultando
-                                    ? "Consultando pagamento..."
-                                    : "Aguardando pagamento"}
-                        </strong>
+                    {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
+                        <div className="isfa-actions">
+                            <button
+                                type="button"
+                                className="isfa-button isfa-button--primary"
+                                onClick={verificarSaldoEContinuar}
+                                disabled={criandoPagamento}
+                            >
+                                {criandoPagamento
+                                    ? "Verificando saldo..."
+                                    : "Já recarreguei: verificar saldo e gerar PIX do frete"}
+                            </button>
+                        </div>
+                    )}
 
-                        <p>
-                            {resultado?.status_pagamento === "approved"
-                                ? "Pagamento aprovado. Seu frete está registrado. A geração da etiqueta ou do documento deverá ser iniciada separadamente na lista de fretes pagos."
-                                : "Esta tela consulta automaticamente o status do pagamento."}
-                        </p>
-                    </div>
+                    {pagamento.tipo_fluxo !== "recarga_melhor_envio" && (
+                        <div className="isfa-payment__status">
+                            <span
+                                className={`isfa-status-dot ${resultado?.status_pagamento === "approved"
+                                    ? "isfa-status-dot--ok"
+                                    : ""
+                                    }`}
+                            />
 
-                    {resultado?.status_pagamento === "approved" && (
+                            <strong>
+                                {resultado?.status_pagamento === "approved"
+                                    ? "Pagamento confirmado"
+                                    : consultando
+                                        ? "Consultando pagamento..."
+                                        : "Aguardando pagamento"}
+                            </strong>
+
+                            <p>
+                                {resultado?.status_pagamento === "approved"
+                                    ? "Pagamento aprovado. Seu frete está registrado. A geração da etiqueta ou do documento deverá ser iniciada separadamente na lista de fretes pagos."
+                                    : "Esta tela consulta automaticamente o status do pagamento."}
+                            </p>
+                        </div>
+                    )}
+
+                    {pagamento.tipo_fluxo !== "recarga_melhor_envio" && resultado?.status_pagamento === "approved" && (
                         <div className="isfa-alert isfa-alert--info">
                             <span>
                                 Pagamento confirmado. O frete foi atualizado
