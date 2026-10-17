@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import "./frete.css";
+import React, { useCallback, useEffect, useState } from "react";
+import "./Frete.css";
 
+import { API_URL } from "../../../../config";
 const API_PREFIX = "/ironstore/frete-avulso";
-
 const FORM_INICIAL = {
     origem: {
         nome: "",
@@ -78,7 +78,7 @@ function limparCep(valor) {
     return String(valor || "").replace(/\D/g, "").slice(0, 8);
 }
 
-export default function Frete({ apiBaseUrl, token: tokenProp }) {
+export default function Frete({ token: tokenProp }) {
     const [form, setForm] = useState(FORM_INICIAL);
     const [opcoes, setOpcoes] = useState([]);
     const [servicoSelecionado, setServicoSelecionado] = useState(null);
@@ -90,35 +90,63 @@ export default function Frete({ apiBaseUrl, token: tokenProp }) {
     const [erro, setErro] = useState("");
     const [aviso, setAviso] = useState("");
 
-    const baseUrl = useMemo(
-        () => String(apiBaseUrl ?? import.meta.env.VITE_API_URL ?? "").replace(/\/$/, ""),
-        [apiBaseUrl]
-    );
-
     const requisicao = useCallback(
         async (caminho, opcoes = {}) => {
             const token = obterToken(tokenProp);
+            const url = `${API_URL.replace(/\/$/, "")}${API_PREFIX}${caminho}`;
             const headers = {
+                Accept: "application/json",
                 "Content-Type": "application/json",
                 ...(token ? { Authorization: `Bearer ${token}` } : {}),
                 ...(opcoes.headers || {}),
             };
-            const resposta = await fetch(`${baseUrl}${API_PREFIX}${caminho}`, {
-                ...opcoes,
-                headers,
+
+            // Diagnóstico temporário/útil: deixa visível a URL e o resultado da API.
+            console.info("[Frete Avulso] Requisição iniciada", {
+                method: opcoes.method || "GET",
+                url,
+                tokenPresente: Boolean(token),
             });
+
+            let resposta;
+            try {
+                resposta = await fetch(url, {
+                    ...opcoes,
+                    headers,
+                    cache: "no-store",
+                });
+            } catch (erroRede) {
+                console.error("[Frete Avulso] Falha de rede/CORS ao chamar API", { url, erro: erroRede });
+                throw new Error(`Falha de rede ao acessar ${url}. Verifique o encaminhamento do Nginx para o FastAPI e se o backend está acessível. Detalhe: ${erroRede?.message || erroRede}`);
+            }
+
+            const textoResposta = await resposta.text();
             let data = {};
             try {
-                data = await resposta.json();
+                data = textoResposta ? JSON.parse(textoResposta) : {};
             } catch {
-                data = {};
+                data = { resposta_texto: textoResposta.slice(0, 1200) };
             }
+
+            console.info("[Frete Avulso] Resposta recebida", {
+                url,
+                status: resposta.status,
+                ok: resposta.ok,
+                resposta: data,
+            });
+
             if (!resposta.ok) {
-                throw new Error(mensagemErro(data, "Não foi possível concluir a solicitação."));
+                const detalhe = mensagemErro(data, "");
+                const detalheTexto = typeof detalhe === "string" ? detalhe : JSON.stringify(detalhe);
+                const mensagem = detalheTexto || data?.resposta_texto || `O servidor respondeu HTTP ${resposta.status} sem uma mensagem de erro.`;
+                throw new Error(`HTTP ${resposta.status} em ${url}: ${mensagem}`);
+            }
+            if (data?.resposta_texto && !Object.keys(data).some((chave) => chave !== "resposta_texto")) {
+                throw new Error(`A rota ${url} respondeu com conteúdo que não é JSON: ${data.resposta_texto.slice(0, 300)}`);
             }
             return data;
         },
-        [baseUrl, tokenProp]
+        [tokenProp]
     );
 
     const atualizarCampo = (grupo, campo, valor) => {
