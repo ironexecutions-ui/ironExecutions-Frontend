@@ -2715,3 +2715,75 @@
         display: none !important;
     }
 }
+
+/* DESTAQUE DA PRÓXIMA ETAPA */
+
+.isfa-shell .isfa-next-step {
+    position: relative !important;
+    padding: 22px 24px !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    background: linear-gradient(135deg,
+            #eff6ff 0%,
+            #dbeafe 100%) !important;
+    border: 1px solid #93c5fd !important;
+    border-left: 6px solid #2563eb !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.09) !important;
+}
+
+.isfa-shell .isfa-next-step .isfa-eyebrow {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    margin-bottom: 10px !important;
+    padding: 7px 11px !important;
+    background: #dbeafe !important;
+    border: 1px solid #bfdbfe !important;
+    border-radius: 7px !important;
+    color: #1d4ed8 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+}
+
+.isfa-shell .isfa-next-step h3 {
+    margin: 0 0 12px !important;
+    color: #1e3a8a !important;
+    font-size: clamp(19px, 2.5vw, 24px) !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.5px !important;
+}
+
+.isfa-shell .isfa-next-step p {
+    margin: 0 0 10px !important;
+    color: #334155 !important;
+    font-size: 14px !important;
+    line-height: 1.8 !important;
+}
+
+.isfa-shell .isfa-next-step p:last-child {
+    margin-bottom: 0 !important;
+}
+
+.isfa-shell .isfa-next-step strong {
+    color: #1d4ed8 !important;
+    font-weight: 800 !important;
+}
+
+@media (max-width: 640px) {
+    .isfa-shell .isfa-next-step {
+        padding: 18px !important;
+        border-radius: 13px !important;
+    }
+
+    .isfa-shell .isfa-next-step h3 {
+        font-size: 19px !important;
+    }
+
+    .isfa-shell .isfa-next-step p {
+        font-size: 13px !important;
+        line-height: 1.75 !important;
+    }
+}

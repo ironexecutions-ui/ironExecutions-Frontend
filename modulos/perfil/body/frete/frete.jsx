@@ -11,6 +11,21 @@ import { API_URL } from "../../../../config";
 const API_PREFIX = "/ironstore/frete-avulso";
 const CACHE_DESTINATARIOS_KEY = "ironstore_frete_avulso_destinatarios";
 
+function gerarChaveSolicitacao() {
+    if (globalThis.crypto?.randomUUID) {
+        return globalThis.crypto.randomUUID();
+    }
+
+    if (globalThis.crypto?.getRandomValues) {
+        const bytes = new Uint8Array(16);
+        globalThis.crypto.getRandomValues(bytes);
+        return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+    }
+
+    // Fallback para ambientes sem crypto disponível.
+    return `${Date.now()}-${Math.random().toString(16).slice(2)}-${Math.random().toString(16).slice(2)}`;
+}
+
 function normalizarTexto(valor) {
     return String(valor || "").trim().toLocaleLowerCase("pt-BR");
 }
@@ -170,6 +185,9 @@ export default function Frete({ token: tokenProp }) {
     // =========================================================
 
     const origemEditada = useRef(false);
+    // A mesma chave é reutilizada durante toda a tentativa de pagamento,
+    // inclusive nas consultas automáticas após a recarga.
+    const chaveSolicitacaoRef = useRef(null);
 
     const [carregandoRemetente, setCarregandoRemetente] = useState(true);
     const [rastreamentoEditandoId, setRastreamentoEditandoId] =
@@ -762,6 +780,7 @@ export default function Frete({ token: tokenProp }) {
         setResultado(null);
         setServicoSelecionado(null);
         setOpcoes([]);
+        chaveSolicitacaoRef.current = null;
 
         const validacao = validarFormulario();
 
@@ -812,12 +831,18 @@ export default function Frete({ token: tokenProp }) {
         setAviso("");
         setCriandoPagamento(true);
 
+        // Uma chave por tentativa; não gerar outra ao repetir a mesma chamada.
+        if (!chaveSolicitacaoRef.current) {
+            chaveSolicitacaoRef.current = gerarChaveSolicitacao();
+        }
+
         try {
             const data = await requisicao("/pix-inteligente", {
                 method: "POST",
                 body: JSON.stringify({
                     ...montarPayload(),
                     servico_id: String(servicoSelecionado.id),
+                    chave_solicitacao: chaveSolicitacaoRef.current,
                 }),
             });
 
@@ -825,15 +850,13 @@ export default function Frete({ token: tokenProp }) {
             setResultado(null);
 
             if (data.tipo_fluxo === "recarga_melhor_envio") {
-                // A recarga é destinada à carteira Melhor Envio da Iron Executions.
-                // Ela não cria registro de frete e não é acompanhada pelo webhook do Mercado Pago.
                 setAviso(
-                    "Atenção: este PIX é uma recarga da carteira da Iron Executions no Melhor Envio. Ele não é o pagamento do seu frete. Após a recarga ser confirmada, clique em verificar saldo para gerar o PIX do frete."
+                    "Aguardando a confirmação da recarga. Assim que o pagamento for identificado, o PIX do frete será liberado automaticamente."
                 );
             } else {
                 setOpcoes([]);
                 setAviso(
-                    "PIX do frete criado. Após a confirmação do pagamento pelo Mercado Pago, o frete aparecerá na lista de fretes pagos. A etiqueta não será gerada automaticamente."
+                    "PIX do frete criado. Após a confirmação do pagamento, o frete aparecerá na lista de fretes pagos."
                 );
             }
         } catch (e) {
@@ -881,6 +904,8 @@ export default function Frete({ token: tokenProp }) {
                 body: JSON.stringify({
                     ...montarPayload(),
                     servico_id: String(servicoSelecionado.id),
+                    chave_solicitacao: chaveSolicitacaoRef.current ||
+                        (chaveSolicitacaoRef.current = gerarChaveSolicitacao()),
                 }),
             });
 
@@ -900,7 +925,147 @@ export default function Frete({ token: tokenProp }) {
             setCriandoPagamento(false);
         }
     };
+    // =========================================================
+    // VERIFICAÇÃO AUTOMÁTICA DA RECARGA
+    // Consulta o saldo a cada 5 segundos e libera o PIX do frete.
+    // =========================================================
 
+    const verificacaoAutomaticaEmAndamento = useRef(false);
+
+    useEffect(() => {
+        if (
+            pagamento?.tipo_fluxo !== "recarga_melhor_envio" ||
+            !servicoSelecionado
+        ) {
+            return;
+        }
+
+        let ativo = true;
+        let intervalo = null;
+
+        const verificarAutomaticamente = async () => {
+            if (
+                !ativo ||
+                verificacaoAutomaticaEmAndamento.current
+            ) {
+                return;
+            }
+
+            verificacaoAutomaticaEmAndamento.current = true;
+
+            try {
+                const dadosSaldo = await requisicao(
+                    "/carteira/saldo",
+                    {
+                        method: "GET",
+                    }
+                );
+
+                if (!ativo) return;
+
+                const saldo = Number(dadosSaldo.saldo);
+                const valorFrete = Number(pagamento.valor_frete);
+
+                if (
+                    !Number.isFinite(saldo) ||
+                    !Number.isFinite(valorFrete)
+                ) {
+                    return;
+                }
+
+                setPagamento((atual) => {
+                    if (atual?.tipo_fluxo !== "recarga_melhor_envio") {
+                        return atual;
+                    }
+
+                    return {
+                        ...atual,
+                        saldo_melhor_envio: saldo,
+                    };
+                });
+
+                if (saldo < valorFrete) {
+                    return;
+                }
+
+                // Interrompe novas verificações antes de criar o PIX.
+                if (intervalo) {
+                    clearInterval(intervalo);
+                }
+
+                setCriandoPagamento(true);
+                setErro("");
+                setAviso(
+                    "Recarga identificada. Gerando o PIX do frete..."
+                );
+
+                const data = await requisicao(
+                    "/pix-cliente-se-saldo",
+                    {
+                        method: "POST",
+                        body: JSON.stringify({
+                            ...montarPayload(),
+                            servico_id: String(
+                                servicoSelecionado.id
+                            ),
+                            chave_solicitacao: chaveSolicitacaoRef.current ||
+                                (chaveSolicitacaoRef.current = gerarChaveSolicitacao()),
+                        }),
+                    }
+                );
+
+                if (!ativo) return;
+
+                setPagamento({
+                    ...data,
+                    tipo_fluxo: "pix_cliente",
+                    saldo_melhor_envio: saldo,
+                });
+
+                setResultado(null);
+                setOpcoes([]);
+
+                setAviso(
+                    "Tudo certo! Agora pague o PIX do frete para concluir."
+                );
+            } catch (e) {
+                if (ativo) {
+                    console.error(
+                        "[Frete Avulso] Verificação automática:",
+                        e
+                    );
+                }
+            } finally {
+                verificacaoAutomaticaEmAndamento.current = false;
+
+                if (ativo) {
+                    setCriandoPagamento(false);
+                }
+            }
+        };
+
+        // Faz a primeira consulta imediatamente.
+        verificarAutomaticamente();
+
+        // Continua verificando a cada 5 segundos.
+        intervalo = setInterval(
+            verificarAutomaticamente,
+            5000
+        );
+
+        return () => {
+            ativo = false;
+
+            if (intervalo) {
+                clearInterval(intervalo);
+            }
+        };
+    }, [
+        pagamento?.tipo_fluxo,
+        pagamento?.valor_frete,
+        servicoSelecionado,
+        requisicao,
+    ]);
     // =========================================================
     // CONSULTAR STATUS DO PAGAMENTO
     // =========================================================
@@ -1012,6 +1177,7 @@ export default function Frete({ token: tokenProp }) {
         setResultado(null);
         setErro("");
         setAviso("");
+        chaveSolicitacaoRef.current = null;
     };
 
     const avancarInputDestino = (e) => {
@@ -2519,19 +2685,30 @@ export default function Frete({ token: tokenProp }) {
                     {/* CONTINUAÇÃO DA RECARGA */}
                     {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
                         <div className="isfa-payment__next-step">
-                            <div>
+
+                            <div className="isfa-next-step">
                                 <span className="isfa-eyebrow">
-                                    PRÓXIMA ETAPA
+                                    ATENÇÃO · PRÓXIMA ETAPA
                                 </span>
 
-                                <h3>Já confirmou a recarga?</h3>
+                                <h3>
+                                    Já confirmou a recarga? Consulte seu saldo!
+                                </h3>
 
                                 <p>
-                                    Consulte o saldo disponível. Se houver
-                                    crédito suficiente, o sistema solicitará
-                                    a criação do PIX específico para o frete.
+                                    <strong>Importante:</strong> depois de realizar a recarga
+                                    da carteira no Melhor Envio, aguarde a confirmação do crédito
+                                    e consulte o saldo disponível abaixo.
+                                </p>
+
+                                <p>
+                                    <strong>Somente com saldo suficiente</strong>, você poderá
+                                    solicitar a geração do PIX específico para pagar este frete.
+                                    A recarga da carteira, por si só, não realiza o pagamento
+                                    do frete.
                                 </p>
                             </div>
+
 
                             <button
                                 type="button"
