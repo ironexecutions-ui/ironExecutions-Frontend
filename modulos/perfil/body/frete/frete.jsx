@@ -851,12 +851,12 @@ export default function Frete({ token: tokenProp }) {
 
             if (data.tipo_fluxo === "recarga_melhor_envio") {
                 setAviso(
-                    "Aguardando a confirmação da recarga. Assim que o pagamento for identificado, o PIX do frete será liberado automaticamente."
+                    "Aguardando a confirmação da recarga no Melhor Envio. Quando o saldo ficar disponível, o frete será registrado como pago e seguirá para a geração da etiqueta, sem cobrar outro PIX."
                 );
             } else {
                 setOpcoes([]);
                 setAviso(
-                    "PIX do frete criado. Após a confirmação do pagamento, o frete aparecerá na lista de fretes pagos."
+                    "Como já havia saldo suficiente no Melhor Envio, o pagamento será feito à Iron Executions. Após a confirmação do PIX, o frete seguirá para a geração da etiqueta."
                 );
             }
         } catch (e) {
@@ -899,26 +899,36 @@ export default function Frete({ token: tokenProp }) {
 
             // Só neste ponto criamos o PIX do cliente e o registro de frete.
             // A recarga em si nunca é gravada como pagamento em ironstore_fretes.
-            const data = await requisicao("/pix-cliente-se-saldo", {
+            const data = await requisicao("/pix-inteligente", {
                 method: "POST",
                 body: JSON.stringify({
                     ...montarPayload(),
                     servico_id: String(servicoSelecionado.id),
                     chave_solicitacao: chaveSolicitacaoRef.current ||
                         (chaveSolicitacaoRef.current = gerarChaveSolicitacao()),
+                    confirmar_recarga: true,
                 }),
             });
 
-            setPagamento({
-                ...data,
-                tipo_fluxo: "pix_cliente",
-                saldo_melhor_envio: saldo,
-            });
-            setResultado(null);
-            setOpcoes([]);
-            setAviso(
-                "Saldo confirmado. Este é o PIX do frete para o cliente. O frete só será registrado como pago após a confirmação do pagamento no Mercado Pago."
-            );
+            if (data.status === "pago" || data.status_pagamento === "approved") {
+                setPagamento({
+                    ...data,
+                    tipo_fluxo: "saldo_melhor_envio",
+                    saldo_melhor_envio: saldo,
+                });
+                setResultado({ status_pagamento: "approved" });
+                setOpcoes([]);
+                setAviso("Recarga confirmada e saldo suficiente. Nenhum novo PIX será cobrado do cliente. O frete foi liberado para a próxima etapa.");
+                await carregarFretesPagos();
+                if (data.frete_id) {
+                    await gerarDocumentoFrete(data.frete_id);
+                }
+            } else {
+                setPagamento({ ...data, tipo_fluxo: "pix_cliente", saldo_melhor_envio: saldo });
+                setResultado(null);
+                setOpcoes([]);
+                setAviso("O saldo foi confirmado. O pagamento do frete será feito à Iron Executions por PIX.");
+            }
         } catch (e) {
             setErro(e.message || "Não foi possível consultar o saldo da carteira.");
         } finally {
@@ -1000,16 +1010,15 @@ export default function Frete({ token: tokenProp }) {
                 );
 
                 const data = await requisicao(
-                    "/pix-cliente-se-saldo",
+                    "/pix-inteligente",
                     {
                         method: "POST",
                         body: JSON.stringify({
                             ...montarPayload(),
-                            servico_id: String(
-                                servicoSelecionado.id
-                            ),
+                            servico_id: String(servicoSelecionado.id),
                             chave_solicitacao: chaveSolicitacaoRef.current ||
                                 (chaveSolicitacaoRef.current = gerarChaveSolicitacao()),
+                            confirmar_recarga: true,
                         }),
                     }
                 );
@@ -1018,16 +1027,16 @@ export default function Frete({ token: tokenProp }) {
 
                 setPagamento({
                     ...data,
-                    tipo_fluxo: "pix_cliente",
+                    tipo_fluxo: "saldo_melhor_envio",
                     saldo_melhor_envio: saldo,
                 });
-
-                setResultado(null);
+                setResultado({ status_pagamento: "approved" });
                 setOpcoes([]);
-
-                setAviso(
-                    "Tudo certo! Agora pague o PIX do frete para concluir."
-                );
+                setAviso("Recarga confirmada! O saldo do Melhor Envio já cobre o frete. Você não precisa pagar outro PIX; liberando a geração da etiqueta.");
+                await carregarFretesPagos();
+                if (data.frete_id) {
+                    await gerarDocumentoFrete(data.frete_id);
+                }
             } catch (e) {
                 if (ativo) {
                     console.error(
@@ -1095,10 +1104,13 @@ export default function Frete({ token: tokenProp }) {
 
             if (data.status_pagamento === "approved") {
                 setAviso(
-                    "Pagamento confirmado. O frete está disponível na lista de fretes pagos. A geração da etiqueta deve ser iniciada separadamente."
+                    "Pagamento confirmado à Iron Executions. O frete foi liberado e a geração da etiqueta será iniciada automaticamente."
                 );
 
                 await carregarFretesPagos();
+                if (pagamento?.frete_id) {
+                    await gerarDocumentoFrete(pagamento.frete_id);
+                }
             } else {
                 setAviso(
                     "Aguardando confirmação do pagamento pelo Mercado Pago."
