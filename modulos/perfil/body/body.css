@@ -1284,3 +1284,172 @@
     box-sizing: border-box !important;
     flex-shrink: 0 !important;
 }
+
+/* Apenas posiciona os módulos à esquerda e funcionários à direita */
+.body-container .body-posicao-horizontal {
+    display: grid !important;
+    grid-template-columns: 20% 80% !important;
+    align-items: start !important;
+    gap: 0 !important;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.body-container .body-posicao-horizontal>.body-funcionarios-direita {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding-left: 16px !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 700px) {
+    .body-container .body-posicao-horizontal {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    .body-container .body-posicao-horizontal>.body-funcionarios-direita {
+        padding-left: 0 !important;
+    }
+}
+
+/* Botões dos módulos em coluna vertical */
+.body-container .body-posicao-horizontal>.modulos-lista {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+/* Cada botão ocupa a largura da coluna esquerda */
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+}
+
+/* Desativa o formato de duas linhas horizontais */
+.body-container .body-posicao-horizontal>.modulos-lista.modulos-lista--duas-linhas {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-auto-flow: initial !important;
+    grid-template-rows: none !important;
+    grid-auto-columns: initial !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista.modulos-lista--duas-linhas>.modulo-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+/* BOTÕES DOS MÓDULOS: CINZA + AZUL-ESCURO */
+.body-container .modulo-card {
+    background: linear-gradient(135deg,
+            #f1f5f9 0%,
+            #e2e8f0 100%) !important;
+
+    color: #173b70 !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+
+    font-weight: 700 !important;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+/* TEXTO */
+.body-container .modulo-card span {
+    color: #173b70 !important;
+}
+
+/* EFEITO AO PASSAR O MOUSE */
+.body-container .modulo-card:hover {
+    background: linear-gradient(135deg,
+            #dbeafe 0%,
+            #bfdbfe 100%) !important;
+
+    color: #12336b !important;
+
+    border-color: #60a5fa !important;
+
+    box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.15) !important;
+}
+
+.body-container .modulo-card:hover span {
+    color: #12336b !important;
+}
+
+/* MÓDULO ATIVO */
+.body-container .modulo-card.ativo {
+    background: #dbeafe !important;
+    color: #12336b !important;
+    border-color: #3b82f6 !important;
+
+    box-shadow:
+        0 0 0 2px rgba(59, 130, 246, 0.12) !important;
+}
+
+.body-container .modulo-card.ativo span {
+    color: #12336b !important;
+}
+
+/* CLIQUE */
+.body-container .modulo-card:active {
+    background: #cbd5e1 !important;
+}
+
+/* REMOVE O BRILHO AZUL ANTIGO */
+.body-container .modulo-card::after {
+    background: rgba(59, 130, 246, 0.08) !important;
+}
+
+/* ALTURA MÁXIMA E ROLAGEM DOS MÓDULOS */
+.body-container .body-posicao-horizontal>.modulos-lista {
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #64748b #e2e8f0 !important;
+}
+
+/* BARRA DE ROLAGEM PARA CHROME E EDGE */
+.body-container .body-posicao-horizontal>.modulos-lista::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista::-webkit-scrollbar-track {
+    background: #e2e8f0 !important;
+    border-radius: 10px !important;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista::-webkit-scrollbar-thumb {
+    background: #64748b !important;
+    border-radius: 10px !important;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista::-webkit-scrollbar-thumb:hover {
+    background: #334155 !important;
+}

@@ -742,8 +742,9 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
                 </h1>
             )}
 
+
             {!modoModuloAberto && (
-                <div className="modulos-wrapper fade-in-up-delay">
+                <div className="modulos-wrapper fade-in-up-delay body-posicao-horizontal">
 
                     <div
                         className={`modulos-lista ${usarDuasLinhas ? "modulos-lista--duas-linhas" : ""
@@ -753,9 +754,7 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
                             <button
                                 key={m.modulo}
                                 className={`modulo-card anim-${i}`}
-                                onClick={() =>
-                                    abrirModulo(m.modulo)
-                                }
+                                onClick={() => abrirModulo(m.modulo)}
                             >
                                 <span>
                                     {m.modulo === "Delivery e vendas online"
@@ -768,9 +767,7 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
                         {podeAcessarControle() && (
                             <button
                                 className="modulo-card"
-                                onClick={() =>
-                                    abrirModulo("Controle")
-                                }
+                                onClick={() => abrirModulo("Controle")}
                             >
                                 <span>
                                     Controle
@@ -780,9 +777,7 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
 
                         <button
                             className="modulo-card"
-                            onClick={() =>
-                                abrirModulo("Configurações")
-                            }
+                            onClick={() => abrirModulo("Configurações")}
                         >
                             <span>
                                 Configurações
@@ -791,14 +786,13 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
 
                     </div>
 
-                    <br />
-
-                    <div>
-                        <Funcionarios />
+                    <div className="body-funcionarios-direita">
+                        <Funcionarios cliente={cliente} />
                     </div>
 
                 </div>
             )}
+
 
             {modoModuloAberto && createPortal(
                 <div

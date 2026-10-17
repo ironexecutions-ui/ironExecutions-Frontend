@@ -1077,3 +1077,129 @@
         transition: none;
     }
 }
+
+/* =====================================================
+   ÁREA DA EQUIPE, GRÁFICO E TABELA
+   Altura máxima de 70vh com rolagem vertical
+===================================================== */
+
+.body-container .body-funcionarios-direita {
+    max-height: 70vh !important;
+    min-height: 0 !important;
+
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #64748b #e2e8f0 !important;
+
+    box-sizing: border-box !important;
+    overscroll-behavior: contain !important;
+}
+
+/* Barra de rolagem no Chrome e Edge */
+.body-container .body-funcionarios-direita::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+}
+
+.body-container .body-funcionarios-direita::-webkit-scrollbar-track {
+    background: #e2e8f0 !important;
+    border-radius: 10px !important;
+}
+
+.body-container .body-funcionarios-direita::-webkit-scrollbar-thumb {
+    background: #64748b !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+}
+
+.body-container .body-funcionarios-direita::-webkit-scrollbar-thumb:hover {
+    background: #334155 !important;
+}
+
+/* Espaçamento entre equipe, gráfico e tabela */
+.equipe-painel-grafico,
+.equipe-painel-tabela {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.equipe-painel-grafico {
+    margin-top: 16px !important;
+}
+
+.equipe-painel-tabela {
+    margin-top: 16px !important;
+}
+
+/* =====================================================
+   DESTAQUE FORTE PARA BOTÕES ADICIONAR
+===================================================== */
+
+button[class*="adicionar" i],
+button[class*="add" i],
+[class*="adicionar" i]>button,
+button[aria-label*="Adicionar" i] {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+
+    min-height: 46px !important;
+    padding: 12px 24px !important;
+
+    background: linear-gradient(135deg,
+            #003b8e 0%,
+            #001b46 100%) !important;
+
+    color: #ffffff !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px !important;
+
+    border: 2px solid #3478e5 !important;
+    border-radius: 12px !important;
+
+    box-shadow:
+        0 6px 18px rgba(0, 45, 110, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+
+    cursor: pointer !important;
+    transition: all 0.22s ease !important;
+}
+
+button[class*="adicionar" i]:hover,
+button[class*="add" i]:hover,
+[class*="adicionar" i]>button:hover,
+button[aria-label*="Adicionar" i]:hover {
+    background: linear-gradient(135deg,
+            #0059cc 0%,
+            #003b8e 100%) !important;
+
+    border-color: #80b5ff !important;
+    box-shadow: 0 9px 25px rgba(0, 45, 110, 0.45) !important;
+    transform: translateY(-2px) !important;
+}
+
+button[class*="adicionar" i]:active,
+button[class*="add" i]:active,
+[class*="adicionar" i]>button:active,
+button[aria-label*="Adicionar" i]:active {
+    transform: scale(0.97) !important;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 600px) {
+
+    button[class*="adicionar" i],
+    button[class*="add" i],
+    [class*="adicionar" i]>button,
+    button[aria-label*="Adicionar" i] {
+        width: 100% !important;
+        min-height: 44px !important;
+        padding: 11px 16px !important;
+    }
+}

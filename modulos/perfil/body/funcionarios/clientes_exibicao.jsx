@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../config";
 import "./clientes_exibicao.css";
-
-export default function Funcionarios() {
-
+import GraficoLinhasVendas from "../administracao/componentes/graficos/graficolinhasvendas";
+import Tabela from "../delivery_e_vendas_online/componentes/vendas/tabela";
+export default function Funcionarios({ cliente: clienteLogado }) {
     const usuario = JSON.parse(
         localStorage.getItem("usuario") || "{}"
     );
@@ -33,7 +33,22 @@ export default function Funcionarios() {
         return `iron_equipe_cache_${usuario.comercio_id}`;
     }
 
+    const usuarioAtual = clienteLogado || usuario;
 
+    const ehAdministrador =
+        usuarioAtual?.funcao === "Administrador(a)";
+
+    const modulosComercio = Array.isArray(
+        usuarioAtual?.modulos_comercio
+    )
+        ? usuarioAtual.modulos_comercio
+        : [];
+
+    const temIronStore = modulosComercio.some(
+        modulo =>
+            modulo === "IronStore" ||
+            modulo === "Delivery e vendas online"
+    );
     /* =========================================================
        LER CACHE
     ========================================================= */
@@ -472,7 +487,6 @@ export default function Funcionarios() {
                 className="equipe-premium-pessoa"
                 key={p.id || `${p.nome}-${i}`}
             >
-
                 <div className="equipe-premium-avatar">
 
                     {p.nome
@@ -738,6 +752,18 @@ export default function Funcionarios() {
                 </div>
 
             </div>
+
+            {ehAdministrador && (
+                <div className="equipe-painel-grafico">
+                    <GraficoLinhasVendas />
+                </div>
+            )}
+
+            {temIronStore && (
+                <div className="equipe-painel-tabela">
+                    <Tabela />
+                </div>
+            )}
 
         </section>
 
