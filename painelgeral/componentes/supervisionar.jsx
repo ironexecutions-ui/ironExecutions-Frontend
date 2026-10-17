@@ -18,7 +18,8 @@ export default function Supervisionar() {
     const [supervisaoBusca, setSupervisaoBusca] = useState("");
 
     const [supervisaoFiltroStatus, setSupervisaoFiltroStatus] = useState("todos");
-
+    const [supervisaoSalvandoDataId, setSupervisaoSalvandoDataId] =
+        useState(null);
     const [supervisaoAlterandoTesteId, setSupervisaoAlterandoTesteId] =
         useState(null);
 
@@ -271,7 +272,78 @@ export default function Supervisionar() {
             setSupervisaoAlterandoArquivadoId(null);
         }
     }
+    async function alterarDataVinculoParceiroSupervisao(
+        comercio,
+        novaData
+    ) {
+        if (
+            supervisaoSalvandoDataId !== null ||
+            supervisaoAlterandoTesteId !== null ||
+            supervisaoAlterandoArquivadoId !== null
+        ) {
+            return;
+        }
 
+        const dataAnterior = comercio.data_vinculo_parceiro
+            ? String(comercio.data_vinculo_parceiro).slice(0, 10)
+            : "";
+
+        if (dataAnterior === novaData) {
+            return;
+        }
+
+        setSupervisaoSalvandoDataId(comercio.id);
+        setSupervisaoErro("");
+
+        try {
+            const resposta = await fetch(
+                `${API_URL}/panel/database/supervisionar/data-vinculo-parceiro`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        comercio_id: comercio.id,
+                        data_vinculo_parceiro: novaData || null
+                    })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.detail ||
+                    "Erro ao salvar a data de vínculo"
+                );
+            }
+
+            setSupervisaoComercios(comercios =>
+                comercios.map(item =>
+                    item.id === comercio.id
+                        ? {
+                            ...item,
+                            data_vinculo_parceiro:
+                                dados.data_vinculo_parceiro
+                        }
+                        : item
+                )
+            );
+
+        } catch (error) {
+            console.error(
+                "[SUPERVISIONAR] Erro ao salvar data de vínculo:",
+                error
+            );
+
+            setSupervisaoErro(error.message);
+
+        } finally {
+            setSupervisaoSalvandoDataId(null);
+        }
+    }
 
     // =========================================================
     // ENTRAR NO COMÉRCIO
@@ -582,6 +654,50 @@ export default function Supervisionar() {
 
 
                     <div className="supervisao-empresa-card-acoes">
+
+                        <div className="supervisao-empresa-data-vinculo">
+
+                            <label
+                                className="supervisao-empresa-data-vinculo-label"
+                                htmlFor={`supervisao-data-vinculo-${comercio.id}`}
+                            >
+                                Data de vínculo do parceiro
+                            </label>
+
+                            <input
+                                id={`supervisao-data-vinculo-${comercio.id}`}
+                                type="date"
+                                className="supervisao-empresa-data-vinculo-input"
+                                value={
+                                    comercio.data_vinculo_parceiro
+                                        ? String(comercio.data_vinculo_parceiro).slice(0, 10)
+                                        : ""
+                                }
+                                onChange={(event) =>
+                                    alterarDataVinculoParceiroSupervisao(
+                                        comercio,
+                                        event.target.value
+                                    )
+                                }
+                                disabled={
+                                    supervisaoSalvandoDataId !== null ||
+                                    supervisaoAlterandoTesteId !== null ||
+                                    supervisaoAlterandoArquivadoId !== null ||
+                                    supervisaoEntrandoId !== null
+                                }
+                                aria-label={`Data de vínculo do parceiro da empresa ${comercio.loja}`}
+                            />
+
+                            {supervisaoSalvandoDataId === comercio.id && (
+                                <span
+                                    className="supervisao-empresa-data-vinculo-status"
+                                    role="status"
+                                >
+                                    Salvando data...
+                                </span>
+                            )}
+
+                        </div>
 
                         <button
                             type="button"

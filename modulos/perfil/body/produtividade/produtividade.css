@@ -196,3 +196,118 @@
         padding: 12px;
     }
 }
+
+
+/* =========================================================
+   PRODUTIVIDADE
+   ENTRADA DOS CARTÕES POR ÂNGULOS DIFERENTES
+========================================================= */
+
+.prod-container>.linha-superior>.prod-card.buscar {
+    opacity: 0;
+    transform-origin: top left;
+    animation: prodEntradaBusca 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s forwards;
+}
+
+.prod-container>.linha-superior>.prod-card.itens {
+    opacity: 0;
+    transform-origin: top right;
+    animation: prodEntradaItens 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards;
+}
+
+.prod-container>.linha-inferior>.prod-card.atual {
+    opacity: 0;
+    transform-origin: bottom left;
+    animation: prodEntradaAtual 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+}
+
+.prod-container>.linha-inferior>.prod-card.total {
+    opacity: 0;
+    transform-origin: bottom right;
+    animation: prodEntradaTotal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.52s forwards;
+}
+
+/* 1. Busca: desce em diagonal */
+@keyframes prodEntradaBusca {
+    0% {
+        opacity: 0;
+        transform: translate(-35px, -45px) rotate(-4deg) scale(0.96);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translate(3px, 3px) rotate(0.8deg) scale(1.005);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0) scale(1);
+    }
+}
+
+/* 2. Lista: entra pela direita, inclinada */
+@keyframes prodEntradaItens {
+    0% {
+        opacity: 0;
+        transform: translate(55px, -20px) rotate(3.5deg) scale(0.95);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translate(-3px, 2px) rotate(-0.6deg) scale(1.005);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0) scale(1);
+    }
+}
+
+/* 3. Produto atual: entra pela esquerda e sobe */
+@keyframes prodEntradaAtual {
+    0% {
+        opacity: 0;
+        transform: translate(-50px, 35px) rotate(-3deg) scale(0.95);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translate(3px, -2px) rotate(0.6deg) scale(1.005);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0) scale(1);
+    }
+}
+
+/* 4. Total: sobe pela direita */
+@keyframes prodEntradaTotal {
+    0% {
+        opacity: 0;
+        transform: translate(40px, 45px) rotate(4deg) scale(0.93);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translate(-3px, -3px) rotate(-0.7deg) scale(1.01);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0) scale(1);
+    }
+}
+
+/* Acessibilidade: respeita movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+
+    .prod-container>.linha-superior>.prod-card.buscar,
+    .prod-container>.linha-superior>.prod-card.itens,
+    .prod-container>.linha-inferior>.prod-card.atual,
+    .prod-container>.linha-inferior>.prod-card.total {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

@@ -1005,3 +1005,209 @@
         transition-duration: 0.01ms !important;
     }
 }
+
+
+/* =========================================================
+   IRON EXECUTIONS — ANIMAÇÕES DE ENTRADA DA CENTRAL
+   Adicionar no FINAL de indicacao.css
+========================================================= */
+
+/* Entrada geral da página */
+.ie-indicacao-page {
+    animation: ieIndEntradaGeral 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Hero: entra pela esquerda */
+.ie-indicacao-hero {
+    animation: ieIndEntradaEsquerda 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+/* Texto do hero aparece suavemente */
+.ie-indicacao-hero-content {
+    animation: ieIndEntradaTexto 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+
+/* Decoração do hero entra pela direita */
+.ie-indicacao-hero-decoration {
+    animation: ieIndEntradaDireita 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+/* Aviso de erro entra por cima */
+.ie-indicacao-inline-error {
+    animation: ieIndEntradaTopo 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Faixa da empresa vinculada: desce do topo */
+.ie-indicacao-company-strip {
+    animation: ieIndEntradaTopo 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+/* Cartão do link: entra pela esquerda */
+.ie-indicacao-link-card {
+    animation: ieIndEntradaEsquerda 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+/* Cartão do QR Code: entra pela direita */
+.ie-indicacao-qr-card {
+    animation: ieIndEntradaDireita 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+/* Conteúdo interno do cartão do link */
+.ie-indicacao-link-card .ie-indicacao-input-group {
+    animation: ieIndEntradaInferior 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
+}
+
+.ie-indicacao-link-card .ie-indicacao-primary-button {
+    animation: ieIndEntradaInferior 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.56s both;
+}
+
+/* QR Code sobe com leve aumento */
+.ie-indicacao-qr-panel {
+    animation: ieIndEntradaZoom 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.52s both;
+}
+
+/* Botão de baixar aparece por baixo */
+.ie-indicacao-download-button {
+    animation: ieIndEntradaInferior 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.62s both;
+}
+
+/* Rodapé: entra de baixo */
+.ie-indicacao-footer {
+    animation: ieIndEntradaInferior 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+/* Carregamento e tela de erro */
+.ie-indicacao-loading,
+.ie-indicacao-error-card {
+    animation: ieIndEntradaZoom 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* =========================================================
+   KEYFRAMES
+========================================================= */
+
+@keyframes ieIndEntradaGeral {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ieIndEntradaEsquerda {
+    from {
+        opacity: 0;
+        transform: translateX(-32px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes ieIndEntradaDireita {
+    from {
+        opacity: 0;
+        transform: translateX(32px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(-2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes ieIndEntradaTopo {
+    from {
+        opacity: 0;
+        transform: translateY(-22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ieIndEntradaInferior {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ieIndEntradaTexto {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ieIndEntradaZoom {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-indicacao-page,
+    .ie-indicacao-hero,
+    .ie-indicacao-hero-content,
+    .ie-indicacao-hero-decoration,
+    .ie-indicacao-inline-error,
+    .ie-indicacao-company-strip,
+    .ie-indicacao-link-card,
+    .ie-indicacao-qr-card,
+    .ie-indicacao-input-group,
+    .ie-indicacao-primary-button,
+    .ie-indicacao-qr-panel,
+    .ie-indicacao-download-button,
+    .ie-indicacao-footer,
+    .ie-indicacao-loading,
+    .ie-indicacao-error-card {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

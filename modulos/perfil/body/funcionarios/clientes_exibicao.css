@@ -1203,3 +1203,108 @@ button[aria-label*="Adicionar" i]:active {
         padding: 11px 16px !important;
     }
 }
+
+
+/* ================================================
+   ENTRADA DAS PARTES DO PAINEL
+   Da direita para a esquerda
+   Sequência organizada de cima para baixo
+================================================ */
+
+/* Cabeçalho e total */
+
+.equipe-premium-container .equipe-premium-titulo-area,
+.equipe-premium-container .equipe-premium-total {
+    opacity: 0;
+    translate: 65px 0;
+
+    animation: equipeEntradaDireitaEsquerda 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.equipe-premium-container .equipe-premium-titulo-area {
+    animation-delay: 0.08s;
+}
+
+.equipe-premium-container .equipe-premium-total {
+    animation-delay: 0.20s;
+}
+
+/* Colunas entram individualmente, da direita para a esquerda */
+
+.equipe-premium-container .equipe-premium-administradores {
+    opacity: 0;
+    translate: 75px 0;
+
+    animation: equipeEntradaDireitaEsquerda 0.78s cubic-bezier(0.16, 1, 0.3, 1) 0.36s forwards;
+}
+
+.equipe-premium-container .equipe-premium-supervisores {
+    opacity: 0;
+    translate: 75px 0;
+
+    animation: equipeEntradaDireitaEsquerda 0.78s cubic-bezier(0.16, 1, 0.3, 1) 0.49s forwards;
+}
+
+.equipe-premium-container .equipe-premium-funcionarios {
+    opacity: 0;
+    translate: 75px 0;
+
+    animation: equipeEntradaDireitaEsquerda 0.78s cubic-bezier(0.16, 1, 0.3, 1) 0.62s forwards;
+}
+
+/* Gráfico depois das colunas */
+
+.equipe-premium-container .equipe-painel-grafico {
+    opacity: 0;
+    translate: 85px 0;
+
+    animation: equipeEntradaDireitaEsquerda 0.82s cubic-bezier(0.16, 1, 0.3, 1) 0.82s forwards;
+}
+
+/* Tabela por último */
+
+.equipe-premium-container .equipe-painel-tabela {
+    opacity: 0;
+    translate: 85px 0;
+
+    animation: equipeEntradaDireitaEsquerda 0.82s cubic-bezier(0.16, 1, 0.3, 1) 1.02s forwards;
+}
+
+/* Movimento principal */
+
+@keyframes equipeEntradaDireitaEsquerda {
+    0% {
+        opacity: 0;
+        translate: 75px 0;
+    }
+
+    68% {
+        opacity: 1;
+    }
+
+    84% {
+        translate: -4px 0;
+    }
+
+    100% {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+/* Acessibilidade */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .equipe-premium-container .equipe-premium-titulo-area,
+    .equipe-premium-container .equipe-premium-total,
+    .equipe-premium-container .equipe-premium-administradores,
+    .equipe-premium-container .equipe-premium-supervisores,
+    .equipe-premium-container .equipe-premium-funcionarios,
+    .equipe-premium-container .equipe-painel-grafico,
+    .equipe-premium-container .equipe-painel-tabela {
+        animation: none !important;
+        opacity: 1 !important;
+        translate: none !important;
+    }
+}

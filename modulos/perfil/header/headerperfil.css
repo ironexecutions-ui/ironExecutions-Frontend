@@ -3911,3 +3911,61 @@
         font-size: 13px !important;
     }
 }
+
+/* =========================================================
+   ANIMAÇÃO DAS PARTES DO HEADER
+   Entrada de cima para baixo
+========================================================= */
+
+.per-header.header-full-anim .per-loja,
+.per-header.header-full-anim .per-info,
+.per-header.header-full-anim .per-acoes {
+    opacity: 0;
+    translate: 0 -22px;
+    animation: headerPerfilEntradaVertical 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 1. Logo e nome da loja */
+.per-header.header-full-anim .per-loja {
+    animation-delay: 0.10s;
+}
+
+/* 2. Informações do usuário */
+.per-header.header-full-anim .per-info {
+    animation-delay: 0.25s;
+}
+
+/* 3. Botões de ação */
+.per-header.header-full-anim .per-acoes {
+    animation-delay: 0.40s;
+}
+
+/* Movimento vertical com final suave */
+@keyframes headerPerfilEntradaVertical {
+    0% {
+        opacity: 0;
+        translate: 0 -22px;
+    }
+
+    70% {
+        opacity: 1;
+        translate: 0 3px;
+    }
+
+    100% {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+/* Respeita a preferência por movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+
+    .per-header.header-full-anim .per-loja,
+    .per-header.header-full-anim .per-info,
+    .per-header.header-full-anim .per-acoes {
+        animation: none !important;
+        opacity: 1 !important;
+        translate: none !important;
+    }
+}

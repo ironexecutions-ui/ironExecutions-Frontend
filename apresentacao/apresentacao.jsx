@@ -848,6 +848,30 @@ export default function Apresentacao() {
         }
     }
 
+    useEffect(() => {
+        function tratarAtalhoTelaCheia(evento) {
+            if (
+                evento.ctrlKey &&
+                evento.key.toLowerCase() === "q"
+            ) {
+                evento.preventDefault();
+                entrarTelaCheia();
+            }
+        }
+
+        window.addEventListener(
+            "keydown",
+            tratarAtalhoTelaCheia
+        );
+
+        return () => {
+            window.removeEventListener(
+                "keydown",
+                tratarAtalhoTelaCheia
+            );
+        };
+    }, []);
+
 
     // =====================================================
     // CARREGANDO

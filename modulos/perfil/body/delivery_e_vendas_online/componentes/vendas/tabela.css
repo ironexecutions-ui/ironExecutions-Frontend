@@ -4138,3 +4138,217 @@
     padding: 4px 7px;
     border-radius: 20px;
 }
+
+/* =========================================================
+   PEDIDOS ONLINE — ANIMAÇÃO DE ENTRADA POR ÂNGULOS
+   Somente visual; não altera a lógica dos pedidos
+========================================================= */
+
+/* Área principal: entrada suave */
+.ironstore-pedidos-operacao-area {
+    animation: ipoEntradaPrincipal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Cabeçalho: vem da esquerda */
+.ironstore-pedidos-operacao-cabecalho {
+    animation: ipoEntradaEsquerda 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+/* Contador: entra por cima */
+.ironstore-pedidos-operacao-resumo {
+    animation: ipoEntradaSuperior 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+/* Barra de filtros: vem da direita */
+.ironstore-pedidos-operacao-filtros {
+    animation: ipoEntradaDireita 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+/* Tabela: sobe de baixo */
+.ironstore-pedidos-operacao-tabela-container {
+    animation: ipoEntradaInferior 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+/* Cabeçalho da tabela: aparece suavemente */
+.ironstore-pedidos-operacao-tabela thead {
+    animation: ipoEntradaSuperior 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+}
+
+/* Linhas: entradas alternadas pelas laterais */
+.ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha:nth-child(odd) {
+    animation: ipoLinhaEsquerda 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha:nth-child(even) {
+    animation: ipoLinhaDireita 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Atraso progressivo nas primeiras linhas */
+.ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha:nth-child(2) {
+    animation-delay: 0.46s;
+}
+
+.ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha:nth-child(3) {
+    animation-delay: 0.52s;
+}
+
+.ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha:nth-child(4) {
+    animation-delay: 0.58s;
+}
+
+.ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha:nth-child(5) {
+    animation-delay: 0.64s;
+}
+
+.ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha:nth-child(n+6) {
+    animation-delay: 0.68s;
+}
+
+/* Estado vazio e mensagens */
+.ironstore-pedidos-operacao-vazio,
+.ironstore-pedidos-operacao-filtro-vazio,
+.ironstore-pedidos-operacao-erro {
+    animation: ipoEntradaInferior 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+/* Modal: entrada de baixo com leve escala */
+.ironstore-pedidos-operacao-modal {
+    animation:
+        ipoModalEntrada 0.32s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+/* Animações */
+@keyframes ipoEntradaPrincipal {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ipoEntradaEsquerda {
+    from {
+        opacity: 0;
+        transform: translateX(-28px) rotate(-0.5deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(2px) rotate(0.1deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes ipoEntradaSuperior {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ipoEntradaDireita {
+    from {
+        opacity: 0;
+        transform: translateX(28px) rotate(0.4deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(-2px) rotate(-0.1deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes ipoEntradaInferior {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ipoLinhaEsquerda {
+    from {
+        opacity: 0;
+        transform: translateX(-18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes ipoLinhaDireita {
+    from {
+        opacity: 0;
+        transform: translateX(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes ipoModalEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstore-pedidos-operacao-area,
+    .ironstore-pedidos-operacao-cabecalho,
+    .ironstore-pedidos-operacao-resumo,
+    .ironstore-pedidos-operacao-filtros,
+    .ironstore-pedidos-operacao-tabela-container,
+    .ironstore-pedidos-operacao-tabela thead,
+    .ironstore-pedidos-operacao-tabela tbody .ironstore-pedidos-operacao-linha,
+    .ironstore-pedidos-operacao-vazio,
+    .ironstore-pedidos-operacao-filtro-vazio,
+    .ironstore-pedidos-operacao-erro,
+    .ironstore-pedidos-operacao-modal {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

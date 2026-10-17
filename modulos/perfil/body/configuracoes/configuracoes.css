@@ -144,3 +144,53 @@
         padding: 24px;
     }
 }
+
+
+/* =========================================================
+   CONFIGURAÇÕES — ENTRADA DAS ABAS
+   De cima para baixo, em sequência
+========================================================= */
+
+.configuracoes-tabs .configuracoes-tab {
+    opacity: 0;
+    transform: translateY(-28px) rotateX(12deg);
+    transform-origin: top center;
+
+    animation: configuracoesAbaEntrada 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Primeira aba */
+.configuracoes-tabs .configuracoes-tab:nth-child(1) {
+    animation-delay: 0.10s;
+}
+
+/* Segunda aba */
+.configuracoes-tabs .configuracoes-tab:nth-child(2) {
+    animation-delay: 0.28s;
+}
+
+@keyframes configuracoesAbaEntrada {
+    0% {
+        opacity: 0;
+        transform: translateY(-28px) rotateX(12deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(3px) rotateX(-2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .configuracoes-tabs .configuracoes-tab {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

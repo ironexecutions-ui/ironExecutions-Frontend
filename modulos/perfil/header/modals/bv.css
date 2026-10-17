@@ -1,0 +1,425 @@
+/* ==========================================================
+   IRON EXECUTIONS
+   CENTRAL DE BOAS-VINDAS — PREMIUM
+========================================================== */
+
+.ie-bv-toast {
+    position: fixed !important;
+    right: 26px !important;
+    bottom: 26px !important;
+    z-index: 99999 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+
+    width: min(440px, calc(100vw - 36px)) !important;
+    padding: 25px 25px 20px !important;
+    overflow: hidden !important;
+
+    border: 1px solid rgba(184, 207, 245, 0.8) !important;
+    border-radius: 21px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(66, 117, 202, 0.09),
+            transparent 42%),
+        #ffffff !important;
+
+    color: #14284b !important;
+
+    box-shadow:
+        0 24px 65px rgba(15, 35, 72, 0.19),
+        0 6px 18px rgba(15, 35, 72, 0.07),
+        0 1px 3px rgba(15, 35, 72, 0.04) !important;
+
+    font-family: Inter, "Segoe UI", Arial, sans-serif !important;
+
+    animation: ieBvEntrada 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ie-bv-toast *,
+.ie-bv-toast *::before,
+.ie-bv-toast *::after {
+    box-sizing: border-box !important;
+}
+
+/* Faixa superior de destaque */
+
+.ie-bv-top-line {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 5px !important;
+
+    background: linear-gradient(90deg,
+            #142b53 0%,
+            #2454a5 48%,
+            #7daeff 100%) !important;
+}
+
+/* Identidade da marca */
+
+.ie-bv-heading {
+    display: flex !important;
+    align-items: center !important;
+    gap: 13px !important;
+
+    padding: 0 24px 19px 0 !important;
+    border-bottom: 1px solid #e8eef7 !important;
+}
+
+.ie-bv-icon-area {
+    display: flex !important;
+    flex: 0 0 49px !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 49px !important;
+    height: 49px !important;
+
+    border: 1px solid #d8e5fc !important;
+    border-radius: 15px !important;
+
+    background: linear-gradient(145deg,
+            #edf4ff 0%,
+            #dce9ff 100%) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 4px 12px rgba(36, 84, 165, 0.08) !important;
+}
+
+.ie-bv-icon-area svg {
+    width: 25px !important;
+    height: 25px !important;
+
+    fill: none !important;
+    stroke: #2454a5 !important;
+    stroke-width: 1.65 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+}
+
+.ie-bv-brand {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+
+    min-width: 0 !important;
+}
+
+.ie-bv-brand>span {
+    color: #17366f !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.7px !important;
+    line-height: 1.4 !important;
+}
+
+.ie-bv-brand small {
+    color: #7889a5 !important;
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.1px !important;
+    line-height: 1.5 !important;
+}
+
+/* Mensagem principal */
+
+.ie-bv-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+
+    padding: 23px 0 21px !important;
+}
+
+.ie-bv-greeting {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+
+    color: #2454a5 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px !important;
+    line-height: 1.5 !important;
+}
+
+.ie-bv-content h2 {
+    margin: 0 !important;
+
+    color: #14284b !important;
+    font-size: clamp(22px, 2.5vw, 27px) !important;
+    font-weight: 850 !important;
+    letter-spacing: -0.9px !important;
+    line-height: 1.25 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+.ie-bv-name {
+    color: #2454a5 !important;
+}
+
+.ie-bv-content p {
+    max-width: 365px !important;
+
+    margin: 1px 0 0 !important;
+
+    color: #61728c !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.85 !important;
+}
+
+/* Assinatura inferior */
+
+.ie-bv-footer {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+
+    padding: 13px 14px !important;
+
+    border: 1px solid #dfe9f9 !important;
+    border-radius: 12px !important;
+
+    background: linear-gradient(110deg,
+            #f2f6ff,
+            #f8faff) !important;
+}
+
+.ie-bv-footer-icon {
+    display: flex !important;
+    flex: 0 0 25px !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 25px !important;
+    height: 25px !important;
+
+    border-radius: 8px !important;
+    background: #dce9ff !important;
+}
+
+.ie-bv-footer-icon svg {
+    width: 15px !important;
+    height: 15px !important;
+
+    fill: none !important;
+    stroke: #2454a5 !important;
+    stroke-width: 2.2 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+}
+
+.ie-bv-footer>span {
+    color: #294b80 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1.6 !important;
+}
+
+/* Botão de fechar */
+
+.ie-bv-close {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0 !important;
+
+    border: 1px solid transparent !important;
+    border-radius: 9px !important;
+
+    background: rgba(239, 244, 251, 0.85) !important;
+    color: #70809a !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+.ie-bv-close:hover {
+    border-color: #dce6f5 !important;
+    background: #e7effc !important;
+    color: #17366f !important;
+    transform: rotate(5deg) !important;
+}
+
+.ie-bv-close:focus-visible {
+    outline: 3px solid rgba(36, 84, 165, 0.3) !important;
+    outline-offset: 2px !important;
+}
+
+.ie-bv-close svg {
+    width: 15px !important;
+    height: 15px !important;
+
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 1.8 !important;
+    stroke-linecap: round !important;
+}
+
+/* Barra de tempo */
+
+.ie-bv-progress {
+    position: absolute !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+
+    height: 4px !important;
+    overflow: hidden !important;
+
+    background: #eaf0fa !important;
+}
+
+.ie-bv-progress span {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+
+    border-radius: inherit !important;
+
+    background: linear-gradient(90deg,
+            #17366f,
+            #2454a5,
+            #7daeff) !important;
+
+    transform-origin: left center !important;
+
+    animation: ieBvProgresso 8s linear both;
+}
+
+/* Animação de entrada */
+
+@keyframes ieBvEntrada {
+    from {
+        opacity: 0;
+        transform: translate3d(38px, 16px, 0) scale(0.96);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translate3d(-2px, 0, 0) scale(1);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@keyframes ieBvProgresso {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/* Tablet e celular */
+
+@media (max-width: 480px) {
+    .ie-bv-toast {
+        right: 12px !important;
+        bottom: 12px !important;
+
+        width: calc(100vw - 24px) !important;
+        padding: 21px 17px 17px !important;
+
+        border-radius: 17px !important;
+    }
+
+    .ie-bv-heading {
+        gap: 11px !important;
+        padding-right: 25px !important;
+        padding-bottom: 15px !important;
+    }
+
+    .ie-bv-icon-area {
+        flex-basis: 42px !important;
+        width: 42px !important;
+        height: 42px !important;
+        border-radius: 12px !important;
+    }
+
+    .ie-bv-icon-area svg {
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    .ie-bv-brand>span {
+        font-size: 10px !important;
+        letter-spacing: 1.3px !important;
+    }
+
+    .ie-bv-brand small {
+        font-size: 8px !important;
+        letter-spacing: 0.65px !important;
+    }
+
+    .ie-bv-content {
+        gap: 9px !important;
+        padding: 19px 0 17px !important;
+    }
+
+    .ie-bv-content h2 {
+        font-size: 23px !important;
+        letter-spacing: -0.6px !important;
+    }
+
+    .ie-bv-content p {
+        font-size: 12px !important;
+        line-height: 1.75 !important;
+    }
+
+    .ie-bv-footer {
+        padding: 11px !important;
+    }
+
+    .ie-bv-footer>span {
+        font-size: 10px !important;
+    }
+
+    .ie-bv-close {
+        top: 12px !important;
+        right: 11px !important;
+        width: 27px !important;
+        height: 27px !important;
+    }
+}
+
+/* Acessibilidade */
+
+@media (prefers-reduced-motion: reduce) {
+    .ie-bv-toast {
+        animation: none !important;
+    }
+
+    .ie-bv-progress span {
+        animation: none !important;
+    }
+
+    .ie-bv-close {
+        transition: none !important;
+    }
+}

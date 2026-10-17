@@ -2884,3 +2884,226 @@
         animation: none !important;
     }
 }
+
+/* =========================================================
+   FRETE AVULSO — ENTRADA DOS ELEMENTOS POR ÂNGULOS DIFERENTES
+   Somente animação visual; não altera o funcionamento
+========================================================= */
+
+/* Cabeçalho: entra pela esquerda */
+.isfa-shell>.isfa-hero {
+    opacity: 0;
+    transform: translateX(-45px) rotate(-1.5deg);
+    transform-origin: top left;
+    animation: isfaEntradaEsquerda 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+}
+
+/* Resumo: cartões chegam de cima, em sequência */
+.isfa-shell>.isfa-overview {
+    opacity: 0;
+    transform: translateY(-35px);
+    animation: isfaEntradaCima 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+}
+
+.isfa-shell .isfa-overview__item {
+    opacity: 0;
+    transform: translateY(-25px) scale(0.97);
+    animation: isfaEntradaCartao 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.isfa-shell .isfa-overview__item:nth-child(1) {
+    animation-delay: 0.25s;
+}
+
+.isfa-shell .isfa-overview__item:nth-child(2) {
+    animation-delay: 0.37s;
+}
+
+.isfa-shell .isfa-overview__item:nth-child(3) {
+    animation-delay: 0.49s;
+}
+
+/* Lista de fretes: entra pela direita */
+.isfa-shell>.isfa-lista-pagos {
+    opacity: 0;
+    transform: translateX(45px) rotate(1deg);
+    transform-origin: top right;
+    animation: isfaEntradaDireita 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+}
+
+/* Formulário: entra pela parte inferior */
+.isfa-shell .isfa-form {
+    opacity: 0;
+    transform: translateY(40px) scale(0.985);
+    animation: isfaEntradaInferior 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s forwards;
+}
+
+/* Cartões de endereço: ângulos opostos */
+.isfa-shell .isfa-address-grid>.isfa-card:first-child {
+    opacity: 0;
+    transform: translate(-30px, 20px) rotate(-1deg);
+    transform-origin: bottom left;
+    animation: isfaEntradaEnderecoEsquerdo 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+}
+
+.isfa-shell .isfa-address-grid>.isfa-card:last-child {
+    opacity: 0;
+    transform: translate(30px, 20px) rotate(1deg);
+    transform-origin: bottom right;
+    animation: isfaEntradaEnderecoDireito 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.50s forwards;
+}
+
+/* Botão principal: chega de baixo */
+.isfa-shell .isfa-form-footer {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: isfaEntradaAcao 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.58s forwards;
+}
+
+/* Animações */
+@keyframes isfaEntradaEsquerda {
+    0% {
+        opacity: 0;
+        transform: translateX(-45px) rotate(-1.5deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(3px) rotate(0.3deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes isfaEntradaCima {
+    from {
+        opacity: 0;
+        transform: translateY(-35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes isfaEntradaCartao {
+    0% {
+        opacity: 0;
+        transform: translateY(-25px) scale(0.97);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(3px) scale(1.005);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes isfaEntradaDireita {
+    0% {
+        opacity: 0;
+        transform: translateX(45px) rotate(1deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(-3px) rotate(-0.2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes isfaEntradaInferior {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.985);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.003);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes isfaEntradaEnderecoEsquerdo {
+    0% {
+        opacity: 0;
+        transform: translate(-30px, 20px) rotate(-1deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translate(3px, -2px) rotate(0.2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0);
+    }
+}
+
+@keyframes isfaEntradaEnderecoDireito {
+    0% {
+        opacity: 0;
+        transform: translate(30px, 20px) rotate(1deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translate(-3px, -2px) rotate(-0.2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0);
+    }
+}
+
+@keyframes isfaEntradaAcao {
+    0% {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Acessibilidade: desativa os movimentos quando solicitado */
+@media (prefers-reduced-motion: reduce) {
+
+    .isfa-shell>.isfa-hero,
+    .isfa-shell>.isfa-overview,
+    .isfa-shell .isfa-overview__item,
+    .isfa-shell>.isfa-lista-pagos,
+    .isfa-shell .isfa-form,
+    .isfa-shell .isfa-address-grid>.isfa-card,
+    .isfa-shell .isfa-form-footer {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

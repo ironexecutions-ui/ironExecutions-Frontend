@@ -6,7 +6,7 @@ import {
     useTemaComercio
 } from "./temacomercio";
 import { API_URL } from "../../config";
-
+import BV from "./header/modals/bv";
 
 /* =========================================================
    CACHE DA IDENTIDADE VISUAL DA ABA
@@ -661,39 +661,25 @@ function Painel() {
 
 
     return (
-
         <>
-
             <HeaderPerfil
-                minimizado={
-                    headerMinimizado
-                }
-                setMinimizado={
-                    setHeaderMinimizado
-                }
-                refreshKey={
-                    headerRefreshKey
-                }
+                minimizado={headerMinimizado}
+                setMinimizado={setHeaderMinimizado}
+                refreshKey={headerRefreshKey}
             />
 
+            <BV />
 
             <div
                 style={{
                     marginTop: "30px"
                 }}
             >
-
                 <Body
-                    setHeaderMinimizado={
-                        setHeaderMinimizado
-                    }
-                    atualizarHeader={
-                        atualizarHeader
-                    }
+                    setHeaderMinimizado={setHeaderMinimizado}
+                    atualizarHeader={atualizarHeader}
                 />
-
             </div>
-
         </>
 
     );

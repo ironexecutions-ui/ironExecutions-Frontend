@@ -377,3 +377,142 @@
         border-radius: 14px;
     }
 }
+
+/* =========================================================
+   PARCERIA — ANIMAÇÃO DE ENTRADA POR ÂNGULOS DIFERENTES
+   Adicionar ao final de parceria.css
+========================================================= */
+
+/* Container principal: entra pela esquerda */
+.parceria-container {
+    animation: parceriaEntradaPrincipal 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Título: entra de cima */
+.parceria-container>h3 {
+    opacity: 0;
+    animation: parceriaEntradaTitulo 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards;
+}
+
+/* Barra de abas: entra pela direita */
+.parceria-botoes {
+    opacity: 0;
+    animation: parceriaEntradaAbas 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards;
+}
+
+/* Cada botão entra de baixo, em sequência */
+.parceria-botoes button {
+    animation: parceriaEntradaBotao 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.parceria-botoes button:nth-child(1) {
+    animation-delay: 0.30s;
+}
+
+.parceria-botoes button:nth-child(2) {
+    animation-delay: 0.39s;
+}
+
+.parceria-botoes button:nth-child(3) {
+    animation-delay: 0.48s;
+}
+
+.parceria-botoes button:nth-child(4) {
+    animation-delay: 0.57s;
+}
+
+/* Área de conteúdo: entra de baixo para cima */
+.parceria-conteudo {
+    animation:
+        parceriaEntradaConteudo 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+}
+
+/* Keyframes */
+@keyframes parceriaEntradaPrincipal {
+    from {
+        opacity: 0;
+        transform: translateX(-22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes parceriaEntradaTitulo {
+    0% {
+        opacity: 0;
+        transform: translateY(-22px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(2px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes parceriaEntradaAbas {
+    0% {
+        opacity: 0;
+        transform: translateX(28px) rotate(0.5deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(-2px) rotate(-0.1deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes parceriaEntradaBotao {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes parceriaEntradaConteudo {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.99);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.002);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Respeita usuários que preferem movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+
+    .parceria-container,
+    .parceria-container>h3,
+    .parceria-botoes,
+    .parceria-botoes button,
+    .parceria-conteudo {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

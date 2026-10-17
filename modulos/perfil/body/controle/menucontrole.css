@@ -447,3 +447,59 @@
         transition: none !important;
     }
 }
+
+/* =========================================================
+   MENU CONTROLE — ENTRADA DOS BOTÕES
+   De cima para baixo, um após o outro
+========================================================= */
+
+.menu-controle-botoes .menu-controle-btn {
+    opacity: 0;
+    transform: translateY(-30px) rotateX(12deg);
+    transform-origin: top center;
+
+    animation: menuControleBotaoEntrada 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Sequência de entrada */
+.menu-controle-botoes .menu-controle-btn:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.menu-controle-botoes .menu-controle-btn:nth-child(2) {
+    animation-delay: 0.20s;
+}
+
+.menu-controle-botoes .menu-controle-btn:nth-child(3) {
+    animation-delay: 0.32s;
+}
+
+.menu-controle-botoes .menu-controle-btn:nth-child(4) {
+    animation-delay: 0.44s;
+}
+
+@keyframes menuControleBotaoEntrada {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) rotateX(12deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(3px) rotateX(-2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .menu-controle-botoes .menu-controle-btn {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

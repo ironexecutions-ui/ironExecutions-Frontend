@@ -1453,3 +1453,113 @@
 .body-container .body-posicao-horizontal>.modulos-lista::-webkit-scrollbar-thumb:hover {
     background: #334155 !important;
 }
+
+/* ================================================
+   ENTRADA CINEMATOGRÁFICA DOS BOTÕES DOS MÓDULOS
+   Movimento da esquerda para a direita
+   Sequência de cima para baixo
+================================================ */
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card {
+    opacity: 0;
+    transform: translateX(-90px);
+
+    animation: ironEntradaModulosEsquerda 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    will-change: transform, opacity;
+}
+
+/* Ordem de entrada dos botões */
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(2) {
+    animation-delay: 0.19s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(3) {
+    animation-delay: 0.30s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(4) {
+    animation-delay: 0.41s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(5) {
+    animation-delay: 0.52s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(6) {
+    animation-delay: 0.63s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(7) {
+    animation-delay: 0.74s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(8) {
+    animation-delay: 0.85s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(9) {
+    animation-delay: 0.96s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(10) {
+    animation-delay: 1.07s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(11) {
+    animation-delay: 1.18s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(12) {
+    animation-delay: 1.29s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(13) {
+    animation-delay: 1.40s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(14) {
+    animation-delay: 1.51s;
+}
+
+.body-container .body-posicao-horizontal>.modulos-lista>.modulo-card:nth-child(15) {
+    animation-delay: 1.62s;
+}
+
+/* Animação principal */
+
+@keyframes ironEntradaModulosEsquerda {
+    0% {
+        opacity: 0;
+        transform: translateX(-90px);
+    }
+
+    65% {
+        opacity: 1;
+    }
+
+    82% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Respeita a preferência por movimento reduzido */
+
+@media (prefers-reduced-motion: reduce) {
+    .body-container .body-posicao-horizontal>.modulos-lista>.modulo-card {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        will-change: auto;
+    }
+}

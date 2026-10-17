@@ -21,6 +21,84 @@
     font-family: inherit;
 }
 
+/* ==========================================
+   DATA DE VÍNCULO DO PARCEIRO
+========================================== */
+
+.supervisao-empresa-data-vinculo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 5px;
+    padding: 12px;
+    box-sizing: border-box;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.supervisao-empresa-data-vinculo-label {
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.supervisao-empresa-data-vinculo-input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 9px 11px;
+    box-sizing: border-box;
+    color: #0f172a;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.supervisao-empresa-data-vinculo-input:hover:not(:disabled) {
+    border-color: #94a3b8;
+}
+
+.supervisao-empresa-data-vinculo-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.supervisao-empresa-data-vinculo-input:disabled {
+    cursor: wait;
+    opacity: 0.65;
+    background: #f1f5f9;
+}
+
+.supervisao-empresa-data-vinculo-status {
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .supervisao-empresa-data-vinculo {
+        padding: 10px;
+        gap: 6px;
+    }
+
+    .supervisao-empresa-data-vinculo-input {
+        min-height: 40px;
+        font-size: 13px;
+    }
+}
+
 
 /* ============================================================
    CONTAINER PRINCIPAL

@@ -235,3 +235,79 @@
         padding: 14px 12px;
     }
 }
+
+
+/* =========================================================
+   ANIMAÇÃO DOS BOTÕES DE ADMINISTRAÇÃO
+   Entrada de cima para baixo, um após o outro
+========================================================= */
+
+.administracao-botoes button {
+    opacity: 0;
+    transform: translateY(-28px) rotateX(12deg);
+    transform-origin: top center;
+    animation: botaoAdministracaoEntrar 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Atraso progressivo para cada botão */
+.administracao-botoes button:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.administracao-botoes button:nth-child(2) {
+    animation-delay: 0.16s;
+}
+
+.administracao-botoes button:nth-child(3) {
+    animation-delay: 0.24s;
+}
+
+.administracao-botoes button:nth-child(4) {
+    animation-delay: 0.32s;
+}
+
+.administracao-botoes button:nth-child(5) {
+    animation-delay: 0.40s;
+}
+
+.administracao-botoes button:nth-child(6) {
+    animation-delay: 0.48s;
+}
+
+.administracao-botoes button:nth-child(7) {
+    animation-delay: 0.56s;
+}
+
+.administracao-botoes button:nth-child(8) {
+    animation-delay: 0.64s;
+}
+
+.administracao-botoes button:nth-child(9) {
+    animation-delay: 0.72s;
+}
+
+@keyframes botaoAdministracaoEntrar {
+    0% {
+        opacity: 0;
+        transform: translateY(-28px) rotateX(12deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(3px) rotateX(-2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+/* Respeita a preferência por movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+    .administracao-botoes button {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

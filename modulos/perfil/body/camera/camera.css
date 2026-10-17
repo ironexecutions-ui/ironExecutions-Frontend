@@ -550,3 +550,60 @@
             none !important;
     }
 }
+
+
+/* =========================================================
+   CÂMERA — ENTRADA DOS BOTÕES DE NAVEGAÇÃO
+   De cima para baixo, em sequência
+========================================================= */
+
+.camera-modulo-navegacao-abas .camera-modulo-botao-aba {
+    opacity: 0;
+    transform: translateY(-30px) rotateX(14deg);
+    transform-origin: top center;
+
+    animation: cameraBotaoEntrada 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Cada botão começa em um momento diferente */
+.camera-modulo-navegacao-abas .camera-modulo-botao-aba:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.camera-modulo-navegacao-abas .camera-modulo-botao-aba:nth-child(2) {
+    animation-delay: 0.20s;
+}
+
+.camera-modulo-navegacao-abas .camera-modulo-botao-aba:nth-child(3) {
+    animation-delay: 0.32s;
+}
+
+.camera-modulo-navegacao-abas .camera-modulo-botao-aba:nth-child(4) {
+    animation-delay: 0.44s;
+}
+
+@keyframes cameraBotaoEntrada {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) rotateX(14deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(3px) rotateX(-2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+/* Acessibilidade: respeita a preferência por movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+    .camera-modulo-navegacao-abas .camera-modulo-botao-aba {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
