@@ -1238,52 +1238,131 @@ export default function Frete({ token: tokenProp }) {
     // INTERFACE
     // =========================================================
 
+    // =========================================================
+    // INTERFACE COMPLETA
+    // =========================================================
+
     return (
         <main className="isfa-shell">
+            {/* CABEÇALHO PRINCIPAL */}
             <header className="isfa-hero">
-                <div
-                    className="isfa-hero__icon"
-                    aria-hidden="true"
-                >
-                    ↗
+                <div className="isfa-hero__icon" aria-hidden="true">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z" />
+                        <path d="M3 7.5 12 12l9-4.5" />
+                        <path d="M12 12v9" />
+                        <path d="m8 5 9 4.5" />
+                    </svg>
                 </div>
 
-                <div>
+                <div className="isfa-hero__content">
                     <span className="isfa-eyebrow">
-                        IRONSTORE · LOGÍSTICA
+                        IRONSTORE / LOGÍSTICA
                     </span>
 
                     <h1>Frete avulso</h1>
 
                     <p>
-                        Calcule uma entrega, escolha o serviço e pague
-                        somente o frete.
+                        Gerencie envios, consulte transportadoras,
+                        acompanhe pagamentos e gere suas etiquetas
+                        em um único lugar.
                     </p>
                 </div>
 
                 <div className="isfa-hero__tag">
+                    <span className="isfa-hero__tag-dot" />
                     Envio independente
                 </div>
             </header>
 
+            {/* RESUMO OPERACIONAL */}
+            <section
+                className="isfa-overview"
+                aria-label="Resumo dos fretes"
+            >
+                <article className="isfa-overview__item">
+                    <span className="isfa-overview__icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <rect x="3" y="4" width="18" height="16" rx="3" />
+                            <path d="M7 9h10M7 13h6" />
+                        </svg>
+                    </span>
+
+                    <div className="isfa-overview__content">
+                        <span>Fretes registrados</span>
+                        <strong>{fretesPagos.length}</strong>
+                        <small>Envios disponíveis nesta lista</small>
+                    </div>
+                </article>
+
+
+                <article className="isfa-overview__item">
+                    <span className="isfa-overview__icon isfa-overview__icon--brand">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M4 7h16v13H4z" />
+                            <path d="M8 7V4h8v3M8 12h8M8 16h5" />
+                        </svg>
+                    </span>
+
+                    <div className="isfa-overview__content">
+                        <span>Documentação</span>
+                        <strong>
+                            {fretesPagos.filter(
+                                (frete) => Boolean(frete.etiqueta_url)
+                            ).length}
+                        </strong>
+                        <small>Etiquetas disponíveis para abertura</small>
+                    </div>
+                </article>
+            </section>
+
             {/* =================================================
-                LISTA DE FRETES PAGOS
+                FRETES PAGOS
             ================================================== */}
 
             <section className="isfa-card isfa-lista-pagos">
                 <div className="isfa-card__heading isfa-lista-pagos__heading">
-                    <span
-                        className="isfa-card__step"
-                        aria-hidden="true"
-                    >
-                        FP
+                    <span className="isfa-card__step">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M4 5h16v14H4z" />
+                            <path d="M8 9h8M8 13h5" />
+                            <path d="m15 16 2 2 4-4" />
+                        </svg>
                     </span>
 
-                    <div>
-                        <h2>Fretes pagos</h2>
+                    <div className="isfa-card__heading-content">
+                        <h2>Seus fretes</h2>
                         <p>
-                            Consulte seus envios pagos e gere a etiqueta
-                            ou o documento quando precisar.
+                            Consulte pagamentos, acompanhe códigos
+                            de rastreamento e gerencie documentos.
                         </p>
                     </div>
 
@@ -1293,9 +1372,29 @@ export default function Frete({ token: tokenProp }) {
                         onClick={carregarFretesPagos}
                         disabled={carregandoLista}
                     >
-                        {carregandoLista
-                            ? "Atualizando..."
-                            : "Atualizar lista"}
+                        {carregandoLista ? (
+                            <>
+                                <span className="isfa-spinner" />
+                                Atualizando...
+                            </>
+                        ) : (
+                            <>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M20 7v5h-5" />
+                                    <path d="M4 17v-5h5" />
+                                    <path d="M5.5 9A7 7 0 0 1 17 5l3 7" />
+                                    <path d="M18.5 15A7 7 0 0 1 7 19l-3-7" />
+                                </svg>
+                                Atualizar lista
+                            </>
+                        )}
                     </button>
                 </div>
 
@@ -1305,7 +1404,7 @@ export default function Frete({ token: tokenProp }) {
                         role="alert"
                     >
                         <strong>
-                            Não foi possível carregar ou processar a lista
+                            Não foi possível processar a solicitação
                         </strong>
                         <span>{erroLista}</span>
                     </div>
@@ -1317,232 +1416,406 @@ export default function Frete({ token: tokenProp }) {
                             className="isfa-spinner"
                             aria-hidden="true"
                         />
-                        <p>Carregando fretes pagos...</p>
+                        <h3>Carregando seus fretes</h3>
+                        <p>
+                            Estamos consultando os registros disponíveis.
+                        </p>
                     </div>
                 ) : fretesPagos.length === 0 ? (
                     <div className="isfa-lista-vazia">
-                        <h3>Nenhum frete pago encontrado</h3>
+                        <span className="isfa-empty-state__icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.6"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <path d="M3 10h18M8 15h3" />
+                            </svg>
+                        </span>
+
+                        <h3>Nenhum frete encontrado</h3>
+
                         <p>
-                            Depois que um pagamento PIX for confirmado,
-                            o frete deverá aparecer aqui.
+                            Quando um pagamento for confirmado e o
+                            respectivo frete estiver registrado, ele
+                            aparecerá nesta seção.
                         </p>
+
+                        <button
+                            type="button"
+                            className="isfa-button isfa-button--secondary"
+                            onClick={() => {
+                                document.querySelector(".isfa-form")?.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start",
+                                });
+                            }}
+                        >
+                            Calcular primeiro frete
+                        </button>
                     </div>
                 ) : (
                     <div className="isfa-lista-itens">
-                        {fretesPagos.slice(0, limiteFretesVisiveis).map((frete) => {
-                            const etiquetaUrl = frete.etiqueta_url;
-                            const etiquetaPronta = Boolean(etiquetaUrl);
+                        {fretesPagos
+                            .slice(0, limiteFretesVisiveis)
+                            .map((frete) => {
+                                const etiquetaUrl = frete.etiqueta_url;
+                                const etiquetaPronta = Boolean(etiquetaUrl);
 
-                            const gerando =
-                                gerandoEtiquetaId === frete.id;
+                                const gerando =
+                                    gerandoEtiquetaId === frete.id;
 
-                            const statusEtiqueta = normalizarStatus(
-                                frete.etiqueta_status
-                            );
+                                const statusEtiqueta = normalizarStatus(
+                                    frete.etiqueta_status
+                                );
 
-                            return (
-                                <article
-                                    className="isfa-frete-pago"
-                                    key={frete.id}
-                                >
-                                    <div className="isfa-frete-pago__info">
-                                        <div className="isfa-frete-pago__titulo">
-                                            <strong>
-                                                Frete #{frete.id}
-                                            </strong>
+                                const editando =
+                                    rastreamentoEditandoId === frete.id;
 
-                                            <span className="isfa-pago-badge">
-                                                Pagamento confirmado
+                                const salvando =
+                                    salvandoRastreamentoId === frete.id;
+
+                                return (
+                                    <article
+                                        className="isfa-frete-pago"
+                                        key={frete.id}
+                                    >
+                                        <div className="isfa-frete-pago__info">
+                                            <div className="isfa-frete-pago__titulo">
+                                                <strong>
+                                                    Frete #{frete.id}
+                                                </strong>
+
+                                                <span className="isfa-pago-badge">
+                                                    <span className="isfa-status-dot isfa-status-dot--ok" />
+                                                    Pago
+                                                </span>
+                                            </div>
+
+                                            <div className="isfa-frete-pago__transportadora">
+                                                <span className="isfa-frete-pago__transportadora-icon">
+                                                    <svg
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <path d="M3 7h11v11H3z" />
+                                                        <path d="M14 11h4l3 3v4h-7z" />
+                                                        <circle cx="7.5" cy="19" r="1.5" />
+                                                        <circle cx="17.5" cy="19" r="1.5" />
+                                                    </svg>
+                                                </span>
+
+                                                <div>
+                                                    <strong>
+                                                        {frete.transportadora ||
+                                                            "Transportadora"}
+                                                    </strong>
+                                                    <span>
+                                                        {frete.servico ||
+                                                            "Serviço de envio"}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div className="isfa-frete-pago__rota">
+                                                <div className="isfa-frete-pago__rota-item">
+                                                    <span className="isfa-frete-pago__rota-point isfa-frete-pago__rota-point--origin" />
+
+                                                    <div>
+                                                        <small>Origem</small>
+                                                        <strong>
+                                                            {frete.cep_origem ||
+                                                                "CEP não informado"}
+                                                        </strong>
+                                                    </div>
+                                                </div>
+
+                                                <span className="isfa-frete-pago__rota-line" />
+
+                                                <div className="isfa-frete-pago__rota-item">
+                                                    <span className="isfa-frete-pago__rota-point isfa-frete-pago__rota-point--destination" />
+
+                                                    <div>
+                                                        <small>Destino</small>
+                                                        <strong>
+                                                            {frete.cep_destino ||
+                                                                "CEP não informado"}
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="isfa-rastreamento">
+                                                <span className="isfa-rastreamento__label">
+                                                    <svg
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <circle cx="11" cy="11" r="7" />
+                                                        <path d="m16 16 4 4M11 7v4l3 2" />
+                                                    </svg>
+                                                    Rastreamento
+                                                </span>
+
+                                                {editando ? (
+                                                    <div className="isfa-rastreamento__editor">
+                                                        <input
+                                                            type="text"
+                                                            value={codigoRastreioEditando}
+                                                            onChange={(e) =>
+                                                                setCodigoRastreioEditando(
+                                                                    e.target.value
+                                                                )
+                                                            }
+                                                            placeholder="Código de rastreamento"
+                                                            maxLength={150}
+                                                            autoFocus
+                                                            onKeyDown={(e) => {
+                                                                if (e.key === "Enter") {
+                                                                    e.preventDefault();
+                                                                    salvarRastreamento(
+                                                                        frete.id
+                                                                    );
+                                                                }
+
+                                                                if (e.key === "Escape") {
+                                                                    cancelarEdicaoRastreamento();
+                                                                }
+                                                            }}
+                                                        />
+
+                                                        <div className="isfa-rastreamento__botoes">
+                                                            <button
+                                                                type="button"
+                                                                className="isfa-rastreamento__salvar"
+                                                                onClick={() =>
+                                                                    salvarRastreamento(
+                                                                        frete.id
+                                                                    )
+                                                                }
+                                                                disabled={salvando}
+                                                            >
+                                                                {salvando
+                                                                    ? "Salvando..."
+                                                                    : "Salvar código"}
+                                                            </button>
+
+                                                            <button
+                                                                type="button"
+                                                                className="isfa-rastreamento__cancelar"
+                                                                onClick={
+                                                                    cancelarEdicaoRastreamento
+                                                                }
+                                                                disabled={salvando}
+                                                            >
+                                                                Cancelar
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <button
+                                                        type="button"
+                                                        className="isfa-rastreamento__clicavel"
+                                                        onClick={() =>
+                                                            iniciarEdicaoRastreamento(
+                                                                frete
+                                                            )
+                                                        }
+                                                        title="Adicionar ou editar o código de rastreamento"
+                                                    >
+                                                        <span>
+                                                            {frete.codigo_rastreio ||
+                                                                "Adicionar código de rastreamento"}
+                                                        </span>
+
+                                                        <span className="isfa-rastreamento__editar">
+                                                            {frete.codigo_rastreio
+                                                                ? "Editar"
+                                                                : "Adicionar"}
+                                                        </span>
+                                                    </button>
+                                                )}
+                                            </div>
+
+                                            <span className="isfa-frete-pago__data">
+                                                <svg
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.8"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                >
+                                                    <circle cx="12" cy="12" r="9" />
+                                                    <path d="M12 7v5l3 2" />
+                                                </svg>
+
+                                                Solicitado em{" "}
+                                                {formatarData(
+                                                    frete.data_criacao
+                                                )}
                                             </span>
                                         </div>
 
-                                        <span>
-                                            {frete.transportadora ||
-                                                "Transportadora"}
-                                            {" · "}
-                                            {frete.servico ||
-                                                "Serviço de envio"}
-                                        </span>
+                                        <div className="isfa-frete-pago__acao">
+                                            <div className="isfa-frete-pago__valor">
+                                                <span>Valor do frete</span>
+                                                <strong>
+                                                    {formatarMoeda(
+                                                        frete.valor_frete
+                                                    )}
+                                                </strong>
+                                            </div>
 
-                                        <span>
-                                            Origem:{" "}
-                                            {frete.cep_origem ||
-                                                "Não informado"}
-                                        </span>
+                                            <div
+                                                className={
+                                                    etiquetaPronta
+                                                        ? "isfa-etiqueta-status isfa-etiqueta-status--pronta"
+                                                        : "isfa-etiqueta-status"
+                                                }
+                                            >
+                                                <span className="isfa-etiqueta-status__dot" />
 
-                                        <span>
-                                            Destino:{" "}
-                                            {frete.cep_destino ||
-                                                "Não informado"}
-                                        </span>
+                                                {etiquetaPronta
+                                                    ? "Documento disponível"
+                                                    : `Documento: ${statusEtiqueta}`}
+                                            </div>
 
-                                        <div className="isfa-rastreamento">
-                                            <span className="isfa-rastreamento__label">
-                                                Rastreamento
-                                            </span>
-
-                                            {rastreamentoEditandoId === frete.id ? (
-                                                <div className="isfa-rastreamento__editor">
-                                                    <input
-                                                        type="text"
-                                                        value={codigoRastreioEditando}
-                                                        onChange={(e) =>
-                                                            setCodigoRastreioEditando(e.target.value)
-                                                        }
-                                                        placeholder="Digite o código de rastreamento"
-                                                        maxLength={150}
-                                                        autoFocus
-                                                        onKeyDown={(e) => {
-                                                            if (e.key === "Enter") {
-                                                                e.preventDefault();
-                                                                salvarRastreamento(frete.id);
-                                                            }
-
-                                                            if (e.key === "Escape") {
-                                                                cancelarEdicaoRastreamento();
-                                                            }
-                                                        }}
-                                                    />
-
-                                                    <div className="isfa-rastreamento__botoes">
-                                                        <button
-                                                            type="button"
-                                                            className="isfa-rastreamento__salvar"
-                                                            onClick={() => salvarRastreamento(frete.id)}
-                                                            disabled={salvandoRastreamentoId === frete.id}
-                                                        >
-                                                            {salvandoRastreamentoId === frete.id
-                                                                ? "Salvando..."
-                                                                : "Salvar"}
-                                                        </button>
-
-                                                        <button
-                                                            type="button"
-                                                            className="isfa-rastreamento__cancelar"
-                                                            onClick={cancelarEdicaoRastreamento}
-                                                            disabled={salvandoRastreamentoId === frete.id}
-                                                        >
-                                                            Cancelar
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            {etiquetaPronta ? (
+                                                <a
+                                                    className="isfa-button isfa-button--primary"
+                                                    href={etiquetaUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <svg
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <path d="M14 3h7v7" />
+                                                        <path d="m21 3-9 9" />
+                                                        <path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6" />
+                                                    </svg>
+                                                    Abrir documento
+                                                </a>
                                             ) : (
                                                 <button
                                                     type="button"
-                                                    className="isfa-rastreamento__clicavel"
-                                                    onClick={() => iniciarEdicaoRastreamento(frete)}
-                                                    title="Clique para adicionar ou editar o código"
+                                                    className="isfa-button isfa-button--primary"
+                                                    onClick={() =>
+                                                        gerarDocumentoFrete(
+                                                            frete.id
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        gerandoEtiquetaId !==
+                                                        null ||
+                                                        carregandoLista
+                                                    }
                                                 >
-                                                    <span>
-                                                        {frete.codigo_rastreio || "Adicionar código de rastreamento"}
-                                                    </span>
-
-                                                    <span className="isfa-rastreamento__editar">
-                                                        Editar
-                                                    </span>
+                                                    {gerando ? (
+                                                        <>
+                                                            <span className="isfa-spinner" />
+                                                            Processando...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <svg
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                strokeWidth="1.8"
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                            >
+                                                                <path d="M7 3h8l5 5v13H7z" />
+                                                                <path d="M15 3v6h5M10 14h7M10 18h7" />
+                                                            </svg>
+                                                            Gerar documento
+                                                        </>
+                                                    )}
                                                 </button>
                                             )}
                                         </div>
-
-                                        <span>
-                                            Solicitado em:{" "}
-                                            {formatarData(frete.data_criacao)}
-                                        </span>
-                                    </div>
-
-                                    <div className="isfa-frete-pago__acao">
-                                        <strong>
-                                            {formatarMoeda(
-                                                frete.valor_frete
-                                            )}
-                                        </strong>
-
-                                        <span
-                                            className={
-                                                etiquetaPronta
-                                                    ? "isfa-etiqueta-status isfa-etiqueta-status--pronta"
-                                                    : "isfa-etiqueta-status"
-                                            }
-                                        >
-                                            {etiquetaPronta
-                                                ? "Documento pronto"
-                                                : `Documento: ${statusEtiqueta}`}
-                                        </span>
-
-                                        {etiquetaPronta ? (
-                                            <a
-                                                className="isfa-button isfa-button--primary"
-                                                href={etiquetaUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                Abrir etiqueta / documento
-                                            </a>
-                                        ) : (
-                                            <button
-                                                type="button"
-                                                className="isfa-button isfa-button--primary"
-                                                onClick={() =>
-                                                    gerarDocumentoFrete(
-                                                        frete.id
-                                                    )
-                                                }
-                                                disabled={
-                                                    gerandoEtiquetaId !==
-                                                    null ||
-                                                    carregandoLista
-                                                }
-                                            >
-                                                {gerando ? (
-                                                    <>
-                                                        <span className="isfa-spinner" />
-                                                        Gerando documento...
-                                                    </>
-                                                ) : (
-                                                    "Gerar documento"
-                                                )}
-                                            </button>
-                                        )}
-                                    </div>
-                                </article>
-                            );
-                        })}
+                                    </article>
+                                );
+                            })}
                     </div>
                 )}
 
                 {fretesPagos.length > 2 && (
                     <div className="isfa-lista-paginacao">
-                        {limiteFretesVisiveis < fretesPagos.length && (
-                            <button
-                                type="button"
-                                className="isfa-button isfa-button--secondary"
-                                onClick={() => {
-                                    setLimiteFretesVisiveis((atual) =>
-                                        Math.min(atual + 5, fretesPagos.length)
-                                    );
-                                }}
-                            >
-                                Ver mais
-                                {" "}
-                                ({fretesPagos.length - limiteFretesVisiveis} restantes)
-                            </button>
-                        )}
+                        <span>
+                            Exibindo{" "}
+                            {Math.min(
+                                limiteFretesVisiveis,
+                                fretesPagos.length
+                            )}{" "}
+                            de {fretesPagos.length} fretes
+                        </span>
 
-                        {limiteFretesVisiveis > 2 && (
-                            <button
-                                type="button"
-                                className="isfa-button isfa-button--secondary"
-                                onClick={() => setLimiteFretesVisiveis(2)}
-                            >
-                                Ver menos
-                            </button>
-                        )}
+                        <div className="isfa-lista-paginacao__acoes">
+                            {limiteFretesVisiveis < fretesPagos.length && (
+                                <button
+                                    type="button"
+                                    className="isfa-button isfa-button--secondary"
+                                    onClick={() => {
+                                        setLimiteFretesVisiveis((atual) =>
+                                            Math.min(
+                                                atual + 5,
+                                                fretesPagos.length
+                                            )
+                                        );
+                                    }}
+                                >
+                                    Ver mais
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="m7 10 5 5 5-5" />
+                                    </svg>
+                                </button>
+                            )}
+
+                            {limiteFretesVisiveis > 2 && (
+                                <button
+                                    type="button"
+                                    className="isfa-button isfa-button--secondary"
+                                    onClick={() =>
+                                        setLimiteFretesVisiveis(2)
+                                    }
+                                >
+                                    Ver menos
+                                </button>
+                            )}
+                        </div>
                     </div>
                 )}
             </section>
 
             {/* =================================================
-                MENSAGENS
+                FEEDBACK GLOBAL
             ================================================== */}
 
             {erro && (
@@ -1550,8 +1823,11 @@ export default function Frete({ token: tokenProp }) {
                     className="isfa-alert isfa-alert--error"
                     role="alert"
                 >
-                    <strong>Não foi possível continuar</strong>
-                    <span>{erro}</span>
+                    <span className="isfa-alert__symbol">!</span>
+                    <div>
+                        <strong>Não foi possível continuar</strong>
+                        <span>{erro}</span>
+                    </div>
                 </div>
             )}
 
@@ -1560,12 +1836,15 @@ export default function Frete({ token: tokenProp }) {
                     className="isfa-alert isfa-alert--info"
                     role="status"
                 >
-                    <span>{aviso}</span>
+                    <span className="isfa-alert__symbol">i</span>
+                    <div>
+                        <span>{aviso}</span>
+                    </div>
                 </div>
             )}
 
             {/* =================================================
-                FORMULÁRIO DO FRETE
+                FORMULÁRIO
             ================================================== */}
 
             {!pagamento && (
@@ -1574,150 +1853,203 @@ export default function Frete({ token: tokenProp }) {
                     className="isfa-form"
                 >
                     <div className="isfa-section-title">
-                        <span>INFORMAÇÕES DO ENVIO</span>
-                        <p>
-                            Preencha os dados de origem e destino
-                            exatamente como devem constar na etiqueta.
-                        </p>
+                        <div className="isfa-section-title__main">
+                            <span className="isfa-eyebrow">
+                                NOVO ENVIO
+                            </span>
+
+                            <h2>Prepare sua entrega</h2>
+
+                            <p>
+                                Informe os endereços, as dimensões do pacote
+                                e o documento necessário para calcular
+                                as opções disponíveis.
+                            </p>
+                        </div>
+
+                        <div className="isfa-section-title__progress">
+                            <span>4 etapas</span>
+                            <div className="isfa-section-title__progress-track">
+                                <span />
+                            </div>
+                        </div>
                     </div>
 
+                    {/* ENDEREÇOS */}
                     <div className="isfa-address-grid">
                         {renderEndereco("origem", "Origem")}
                         {renderEndereco("destino", "Destino")}
                     </div>
 
                     {/* DIMENSÕES */}
-
-                    <section className="isfa-card">
+                    <section className="isfa-card isfa-form-section">
                         <div className="isfa-card__heading">
                             <span className="isfa-card__step">03</span>
 
-                            <div>
+                            <div className="isfa-card__heading-content">
                                 <h2>Dimensões do pacote</h2>
                                 <p>
-                                    Medidas em centímetros e peso em
-                                    quilogramas.
+                                    Preencha as medidas reais da embalagem
+                                    para obter uma cotação adequada.
                                 </p>
                             </div>
                         </div>
 
                         <div className="isfa-grid isfa-grid--volume">
                             <label className="isfa-field">
-                                <span>Peso (kg) *</span>
-                                <input
-                                    type="number"
-                                    min="0.01"
-                                    step="0.001"
-                                    placeholder="Ex.: 1 ou 0.500"
-                                    onChange={(e) =>
-                                        setForm((f) => ({
-                                            ...f,
-                                            volume: {
-                                                ...f.volume,
-                                                peso: e.target.value,
-                                            },
-                                        }))
-                                    }
-                                    required
-                                />
+                                <span>Peso do pacote *</span>
+                                <div className="isfa-field__unit">
+                                    <input
+                                        type="number"
+                                        min="0.01"
+                                        step="0.001"
+                                        value={form.volume.peso}
+                                        onChange={(e) =>
+                                            setForm((f) => ({
+                                                ...f,
+                                                volume: {
+                                                    ...f.volume,
+                                                    peso: e.target.value,
+                                                },
+                                            }))
+                                        }
+                                        placeholder="1.000"
+                                        required
+                                    />
+                                    <span>kg</span>
+                                </div>
                             </label>
 
                             <label className="isfa-field">
-                                <span>Altura (cm) *</span>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    step="0.1"
-                                    placeholder="Ex.: 10"
-                                    onChange={(e) =>
-                                        setForm((f) => ({
-                                            ...f,
-                                            volume: {
-                                                ...f.volume,
-                                                altura: e.target.value,
-                                            },
-                                        }))
-                                    }
-                                    required
-                                />
+                                <span>Altura *</span>
+                                <div className="isfa-field__unit">
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        step="0.1"
+                                        value={form.volume.altura}
+                                        onChange={(e) =>
+                                            setForm((f) => ({
+                                                ...f,
+                                                volume: {
+                                                    ...f.volume,
+                                                    altura: e.target.value,
+                                                },
+                                            }))
+                                        }
+                                        placeholder="10"
+                                        required
+                                    />
+                                    <span>cm</span>
+                                </div>
                             </label>
 
                             <label className="isfa-field">
-                                <span>Largura (cm) *</span>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    step="0.1"
-                                    placeholder="Ex.: 15"
-                                    onChange={(e) =>
-                                        setForm((f) => ({
-                                            ...f,
-                                            volume: {
-                                                ...f.volume,
-                                                largura: e.target.value,
-                                            },
-                                        }))
-                                    }
-                                    required
-                                />
+                                <span>Largura *</span>
+                                <div className="isfa-field__unit">
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        step="0.1"
+                                        value={form.volume.largura}
+                                        onChange={(e) =>
+                                            setForm((f) => ({
+                                                ...f,
+                                                volume: {
+                                                    ...f.volume,
+                                                    largura: e.target.value,
+                                                },
+                                            }))
+                                        }
+                                        placeholder="15"
+                                        required
+                                    />
+                                    <span>cm</span>
+                                </div>
                             </label>
 
                             <label className="isfa-field">
-                                <span>Comprimento (cm) *</span>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    step="0.1"
-                                    placeholder="Ex.: 20"
-                                    onChange={(e) =>
-                                        setForm((f) => ({
-                                            ...f,
-                                            volume: {
-                                                ...f.volume,
-                                                comprimento: e.target.value,
-                                            },
-                                        }))
-                                    }
-                                    required
-                                />
+                                <span>Comprimento *</span>
+                                <div className="isfa-field__unit">
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        step="0.1"
+                                        value={form.volume.comprimento}
+                                        onChange={(e) =>
+                                            setForm((f) => ({
+                                                ...f,
+                                                volume: {
+                                                    ...f.volume,
+                                                    comprimento: e.target.value,
+                                                },
+                                            }))
+                                        }
+                                        placeholder="20"
+                                        required
+                                    />
+                                    <span>cm</span>
+                                </div>
                             </label>
 
                             <label className="isfa-field">
-                                <span>Valor declarado (R$) *</span>
-                                <input
-                                    type="number"
-                                    min="0.01"
-                                    step="0.01"
-                                    placeholder="Ex.: 1,00"
-                                    onChange={(e) =>
-                                        setForm((f) => ({
-                                            ...f,
-                                            volume: {
-                                                ...f.volume,
-                                                valor_declarado: e.target.value,
-                                            },
-                                        }))
-                                    }
-                                    required
-                                />
+                                <span>Valor declarado *</span>
+                                <div className="isfa-field__unit isfa-field__unit--currency">
+                                    <span>R$</span>
+                                    <input
+                                        type="number"
+                                        min="0.01"
+                                        step="0.01"
+                                        value={form.volume.valor_declarado}
+                                        onChange={(e) =>
+                                            setForm((f) => ({
+                                                ...f,
+                                                volume: {
+                                                    ...f.volume,
+                                                    valor_declarado: e.target.value,
+                                                },
+                                            }))
+                                        }
+                                        placeholder="1.00"
+                                        required
+                                    />
+                                </div>
                                 <small>
-                                    Usado como valor do conteúdo para o envio.
+                                    Valor do conteúdo informado para o envio.
                                 </small>
                             </label>
                         </div>
+
+                        <div className="isfa-form-tip">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M12 11v5M12 8h.01" />
+                            </svg>
+                            <span>
+                                Confira as medidas e o peso antes de calcular.
+                                Informações incorretas podem alterar o valor
+                                final do transporte.
+                            </span>
+                        </div>
                     </section>
 
-                    {/* DOCUMENTO */}
-
-                    <section className="isfa-card">
+                    {/* DOCUMENTAÇÃO */}
+                    <section className="isfa-card isfa-form-section">
                         <div className="isfa-card__heading">
                             <span className="isfa-card__step">04</span>
 
-                            <div>
+                            <div className="isfa-card__heading-content">
                                 <h2>Documento de envio</h2>
                                 <p>
-                                    Defina o documento que será associado
-                                    à etiqueta.
+                                    Selecione o documento que será associado
+                                    ao envio.
                                 </p>
                             </div>
                         </div>
@@ -1733,8 +2065,7 @@ export default function Frete({ token: tokenProp }) {
                                             ...f,
                                             documento: {
                                                 ...f.documento,
-                                                tipo_documento:
-                                                    e.target.value,
+                                                tipo_documento: e.target.value,
                                             },
                                         }))
                                     }
@@ -1753,10 +2084,11 @@ export default function Frete({ token: tokenProp }) {
                                 "nota_fiscal" && (
                                     <label className="isfa-field isfa-field--wide">
                                         <span>
-                                            Chave da Nota Fiscal (44 dígitos) *
+                                            Chave de acesso da Nota Fiscal *
                                         </span>
 
                                         <input
+                                            inputMode="numeric"
                                             maxLength={44}
                                             value={
                                                 form.documento.chave_documento
@@ -1767,22 +2099,25 @@ export default function Frete({ token: tokenProp }) {
                                                     documento: {
                                                         ...f.documento,
                                                         chave_documento:
-                                                            e.target.value.replace(
-                                                                /\D/g,
-                                                                ""
-                                                            ),
+                                                            e.target.value
+                                                                .replace(/\D/g, "")
+                                                                .slice(0, 44),
                                                     },
                                                 }))
                                             }
+                                            placeholder="Informe os 44 dígitos"
                                             required
                                         />
+
+                                        <small>
+                                            {form.documento.chave_documento.length}
+                                            /44 dígitos
+                                        </small>
                                     </label>
                                 )}
 
                             <label className="isfa-field">
-                                <span>
-                                    Inscrição Estadual (se aplicável)
-                                </span>
+                                <span>Inscrição Estadual</span>
 
                                 <input
                                     value={
@@ -1798,11 +2133,12 @@ export default function Frete({ token: tokenProp }) {
                                             },
                                         }))
                                     }
+                                    placeholder="Se aplicável"
                                 />
                             </label>
 
                             <label className="isfa-field">
-                                <span>CNAE (se aplicável)</span>
+                                <span>CNAE</span>
 
                                 <input
                                     value={form.documento.cnae}
@@ -1815,24 +2151,46 @@ export default function Frete({ token: tokenProp }) {
                                             },
                                         }))
                                     }
+                                    placeholder="Se aplicável"
                                 />
                             </label>
                         </div>
                     </section>
 
-                    <div className="isfa-actions">
+                    {/* AÇÃO PRINCIPAL */}
+                    <div className="isfa-form-footer">
+                        <div className="isfa-form-footer__text">
+                            <strong>Pronto para calcular?</strong>
+                            <span>
+                                Consulte as modalidades e escolha a melhor
+                                opção para o seu envio.
+                            </span>
+                        </div>
+
                         <button
-                            className="isfa-button isfa-button--primary"
+                            className="isfa-button isfa-button--primary isfa-button--large"
                             type="submit"
                             disabled={carregandoCotacao}
                         >
                             {carregandoCotacao ? (
                                 <>
                                     <span className="isfa-spinner" />
-                                    Calculando opções...
+                                    Consultando transportadoras...
                                 </>
                             ) : (
-                                "Calcular opções de frete"
+                                <>
+                                    Calcular opções de frete
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M5 12h14M13 6l6 6-6 6" />
+                                    </svg>
+                                </>
                             )}
                         </button>
                     </div>
@@ -1848,13 +2206,34 @@ export default function Frete({ token: tokenProp }) {
                     <div className="isfa-card__heading">
                         <span className="isfa-card__step">05</span>
 
-                        <div>
-                            <h2>Escolha a entrega</h2>
+                        <div className="isfa-card__heading-content">
+                            <h2>Escolha a modalidade de entrega</h2>
                             <p>
-                                Os valores foram retornados pelo Melhor Envio.
+                                Compare os preços e os prazos retornados
+                                pelo Melhor Envio.
                             </p>
                         </div>
                     </div>
+
+                    {servicoSelecionado && (
+                        <div className="isfa-selection-summary">
+                            <span>Serviço selecionado</span>
+                            <strong>
+                                {servicoSelecionado.transportadora ||
+                                    servicoSelecionado.company ||
+                                    "Transportadora"}
+                                {" · "}
+                                {servicoSelecionado.servico ||
+                                    servicoSelecionado.nome ||
+                                    "Serviço de entrega"}
+                            </strong>
+                            <strong>
+                                {formatarMoeda(
+                                    servicoSelecionado.valor_frete
+                                )}
+                            </strong>
+                        </div>
+                    )}
 
                     <div className="isfa-option-list">
                         {opcoes.map((opcao) => {
@@ -1874,6 +2253,7 @@ export default function Frete({ token: tokenProp }) {
                                     onClick={() =>
                                         setServicoSelecionado(opcao)
                                     }
+                                    aria-pressed={selecionada}
                                 >
                                     <span className="isfa-option__radio">
                                         {selecionada ? "✓" : ""}
@@ -1899,9 +2279,14 @@ export default function Frete({ token: tokenProp }) {
                                         </small>
                                     </span>
 
-                                    <strong className="isfa-option__price">
-                                        {formatarMoeda(opcao.valor_frete)}
-                                    </strong>
+                                    <span className="isfa-option__price">
+                                        <small>Valor do frete</small>
+                                        <strong>
+                                            {formatarMoeda(
+                                                opcao.valor_frete
+                                            )}
+                                        </strong>
+                                    </span>
                                 </button>
                             );
                         })}
@@ -1921,7 +2306,7 @@ export default function Frete({ token: tokenProp }) {
 
                         <button
                             type="button"
-                            className="isfa-button isfa-button--primary"
+                            className="isfa-button isfa-button--primary isfa-button--large"
                             onClick={criarPagamento}
                             disabled={
                                 !servicoSelecionado || criandoPagamento
@@ -1930,15 +2315,19 @@ export default function Frete({ token: tokenProp }) {
                             {criandoPagamento ? (
                                 <>
                                     <span className="isfa-spinner" />
-                                    Criando PIX...
+                                    Preparando pagamento...
                                 </>
                             ) : (
-                                `Pagar ${servicoSelecionado
-                                    ? formatarMoeda(
-                                        servicoSelecionado.valor_frete
-                                    )
-                                    : "frete"
-                                } com PIX`
+                                <>
+                                    Continuar para pagamento
+                                    <span>
+                                        {servicoSelecionado
+                                            ? formatarMoeda(
+                                                servicoSelecionado.valor_frete
+                                            )
+                                            : "PIX"}
+                                    </span>
+                                </>
                             )}
                         </button>
                     </div>
@@ -1954,67 +2343,153 @@ export default function Frete({ token: tokenProp }) {
                     <div className="isfa-card__heading">
                         <span className="isfa-card__step">06</span>
 
-                        <div>
+                        <div className="isfa-card__heading-content">
                             <h2>
-                                {pagamento.tipo_fluxo === "recarga_melhor_envio"
-                                    ? "Recarga da carteira Melhor Envio"
+                                {pagamento.tipo_fluxo ===
+                                    "recarga_melhor_envio"
+                                    ? "Recarga da carteira"
                                     : "Pagamento do frete"}
                             </h2>
+
                             <p>
-                                {pagamento.tipo_fluxo === "recarga_melhor_envio"
-                                    ? "Este PIX é destinado à carteira da Iron Executions no Melhor Envio."
-                                    : "Use o QR Code ou copie o código PIX abaixo para pagar o frete."}
+                                {pagamento.tipo_fluxo ===
+                                    "recarga_melhor_envio"
+                                    ? "Adicione saldo à carteira da Iron Executions no Melhor Envio para prosseguir."
+                                    : "Finalize o pagamento por PIX e acompanhe a confirmação nesta tela."}
                             </p>
                         </div>
                     </div>
 
-                    <div className="isfa-payment__amount">
-                        {formatarMoeda(
-                            pagamento.tipo_fluxo === "recarga_melhor_envio"
-                                ? pagamento.valor_recarga
-                                : pagamento.valor_frete
-                        )}
-                        <span>
-                            {pagamento.tipo_fluxo === "recarga_melhor_envio"
-                                ? "Recarga da carteira da Iron Executions. Não é pagamento do cliente."
-                                : "Pagamento do frete avulso pelo cliente"}
+                    <div className="isfa-payment__summary">
+                        <span className="isfa-payment__summary-icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M7 3h10v18l-5-3-5 3z" />
+                                <path d="M10 8h4M10 12h4" />
+                            </svg>
                         </span>
+
+                        <div>
+                            <span>
+                                {pagamento.tipo_fluxo ===
+                                    "recarga_melhor_envio"
+                                    ? "Valor da recarga"
+                                    : "Total do frete"}
+                            </span>
+
+                            <strong>
+                                {formatarMoeda(
+                                    pagamento.tipo_fluxo ===
+                                        "recarga_melhor_envio"
+                                        ? pagamento.valor_recarga
+                                        : pagamento.valor_frete
+                                )}
+                            </strong>
+
+                            <small>
+                                {pagamento.tipo_fluxo ===
+                                    "recarga_melhor_envio"
+                                    ? "Crédito para a carteira da Iron Executions"
+                                    : "Pagamento do envio selecionado"}
+                            </small>
+                        </div>
                     </div>
 
                     {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
-                        <div className="isfa-alert isfa-alert--info" role="note">
-                            <span>
-                                ATENÇÃO: o valor deste PIX será creditado na carteira da Iron Executions no Melhor Envio. Ele não quita o frete do cliente, não confirma o pagamento do frete e não cria um registro pago em ironstore_fretes. Depois que a recarga for confirmada no Melhor Envio, verifique o saldo abaixo para gerar o PIX correto do frete.
-                            </span>
+                        <div
+                            className="isfa-alert isfa-alert--info"
+                            role="note"
+                        >
+                            <span className="isfa-alert__symbol">i</span>
+
+                            <div>
+                                <strong>
+                                    Esta cobrança é uma recarga de carteira
+                                </strong>
+
+                                <span>
+                                    O valor será destinado à carteira da Iron
+                                    Executions no Melhor Envio. Ele não quita
+                                    o frete do cliente, não confirma o
+                                    pagamento do frete e não registra um
+                                    frete como pago. Depois que a recarga
+                                    for confirmada, verifique o saldo para
+                                    gerar o PIX correto do frete.
+                                </span>
+                            </div>
                         </div>
                     )}
 
                     {pagamento.qr_code_base64 && (
-                        <div className="isfa-qr">
-                            <img
-                                alt={pagamento.tipo_fluxo === "recarga_melhor_envio"
-                                    ? "QR Code PIX para recarga da carteira Melhor Envio da Iron Executions"
-                                    : "QR Code PIX para pagamento do frete"}
-                                src={`data:image/png;base64,${pagamento.qr_code_base64}`}
-                            />
+                        <div className="isfa-payment__content">
+                            <div className="isfa-payment__instructions">
+                                <span className="isfa-eyebrow">
+                                    PAGAMENTO VIA PIX
+                                </span>
+
+                                <h3>
+                                    Escaneie o QR Code
+                                </h3>
+
+                                <p>
+                                    Abra o aplicativo do seu banco, escolha
+                                    a opção de pagar com PIX e aponte a
+                                    câmera para o código.
+                                </p>
+                            </div>
+
+                            <div className="isfa-qr">
+                                <img
+                                    alt={
+                                        pagamento.tipo_fluxo ===
+                                            "recarga_melhor_envio"
+                                            ? "QR Code PIX para recarga da carteira da Iron Executions"
+                                            : "QR Code PIX para pagamento do frete"
+                                    }
+                                    src={`data:image/png;base64,${pagamento.qr_code_base64}`}
+                                />
+                            </div>
                         </div>
                     )}
 
                     {pagamento.qr_code && (
                         <div className="isfa-pix-code">
-                            <textarea
-                                readOnly
-                                value={pagamento.qr_code}
-                                aria-label={pagamento.tipo_fluxo === "recarga_melhor_envio"
-                                    ? "Código PIX copia e cola para recarga da carteira Melhor Envio"
-                                    : "Código PIX copia e cola para pagamento do frete"}
-                            />
+                            <label
+                                className="isfa-field"
+                                htmlFor="isfa-pix-copia-cola"
+                            >
+                                <span>PIX copia e cola</span>
+
+                                <textarea
+                                    id="isfa-pix-copia-cola"
+                                    readOnly
+                                    value={pagamento.qr_code}
+                                    aria-label="Código PIX copia e cola"
+                                />
+                            </label>
 
                             <button
                                 type="button"
                                 className="isfa-button isfa-button--secondary"
                                 onClick={copiarPix}
                             >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <rect x="8" y="8" width="13" height="13" rx="2" />
+                                    <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+                                </svg>
                                 Copiar código PIX
                             </button>
                         </div>
@@ -2023,33 +2498,72 @@ export default function Frete({ token: tokenProp }) {
                     {pagamento.tipo_fluxo === "recarga_melhor_envio" &&
                         !pagamento.qr_code_base64 &&
                         pagamento.qr_code_url && (
-                            <div className="isfa-qr isfa-qr--link" aria-label="QR Code para abrir o pagamento PIX">
+                            <div className="isfa-qr isfa-qr--link">
                                 <img
-                                    alt="QR Code PIX para concluir a recarga"
-                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data=${encodeURIComponent(pagamento.qr_code_url)}`}
+                                    alt="QR Code para abrir o pagamento PIX"
+                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data=${encodeURIComponent(
+                                        pagamento.qr_code_url
+                                    )}`}
                                     width="280"
                                     height="280"
                                     loading="eager"
                                 />
-                                <p>Escaneie este QR Code com a câmera do celular para abrir o PIX.</p>
+
+                                <p>
+                                    Escaneie o código para abrir o pagamento
+                                    PIX no celular.
+                                </p>
                             </div>
                         )}
 
+                    {/* CONTINUAÇÃO DA RECARGA */}
                     {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
-                        <div className="isfa-actions">
+                        <div className="isfa-payment__next-step">
+                            <div>
+                                <span className="isfa-eyebrow">
+                                    PRÓXIMA ETAPA
+                                </span>
+
+                                <h3>Já confirmou a recarga?</h3>
+
+                                <p>
+                                    Consulte o saldo disponível. Se houver
+                                    crédito suficiente, o sistema solicitará
+                                    a criação do PIX específico para o frete.
+                                </p>
+                            </div>
+
                             <button
                                 type="button"
-                                className="isfa-button isfa-button--primary"
+                                className="isfa-button isfa-button--primary isfa-button--large"
                                 onClick={verificarSaldoEContinuar}
                                 disabled={criandoPagamento}
                             >
-                                {criandoPagamento
-                                    ? "Verificando saldo..."
-                                    : "Já recarreguei: verificar saldo e gerar PIX do frete"}
+                                {criandoPagamento ? (
+                                    <>
+                                        <span className="isfa-spinner" />
+                                        Consultando carteira...
+                                    </>
+                                ) : (
+                                    <>
+                                        Verificar saldo e continuar
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.8"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M5 12h14M13 6l6 6-6 6" />
+                                        </svg>
+                                    </>
+                                )}
                             </button>
                         </div>
                     )}
 
+                    {/* STATUS DO PAGAMENTO DO FRETE */}
                     {pagamento.tipo_fluxo !== "recarga_melhor_envio" && (
                         <div className="isfa-payment__status">
                             <span
@@ -2059,39 +2573,67 @@ export default function Frete({ token: tokenProp }) {
                                     }`}
                             />
 
-                            <strong>
-                                {resultado?.status_pagamento === "approved"
-                                    ? "Pagamento confirmado"
-                                    : consultando
-                                        ? "Consultando pagamento..."
-                                        : "Aguardando pagamento"}
-                            </strong>
+                            <div>
+                                <strong>
+                                    {resultado?.status_pagamento ===
+                                        "approved"
+                                        ? "Pagamento confirmado"
+                                        : consultando
+                                            ? "Verificando pagamento..."
+                                            : "Aguardando pagamento"}
+                                </strong>
 
-                            <p>
-                                {resultado?.status_pagamento === "approved"
-                                    ? "Pagamento aprovado. Seu frete está registrado. A geração da etiqueta ou do documento deverá ser iniciada separadamente na lista de fretes pagos."
-                                    : "Esta tela consulta automaticamente o status do pagamento."}
-                            </p>
+                                <p>
+                                    {resultado?.status_pagamento ===
+                                        "approved"
+                                        ? "O pagamento foi aprovado. O frete está registrado e disponível na lista, conforme os dados retornados pelo sistema."
+                                        : "O sistema consulta automaticamente o status do pagamento. Após a aprovação, o frete será atualizado na lista."}
+                                </p>
+                            </div>
                         </div>
                     )}
 
-                    {pagamento.tipo_fluxo !== "recarga_melhor_envio" && resultado?.status_pagamento === "approved" && (
-                        <div className="isfa-alert isfa-alert--info">
-                            <span>
-                                Pagamento confirmado. O frete foi atualizado
-                                na lista. A etiqueta não será gerada
-                                automaticamente.
-                            </span>
-                        </div>
-                    )}
+                    {pagamento.tipo_fluxo !== "recarga_melhor_envio" &&
+                        resultado?.status_pagamento === "approved" && (
+                            <div
+                                className="isfa-alert isfa-alert--info"
+                                role="status"
+                            >
+                                <span className="isfa-alert__symbol">i</span>
 
-                    <div className="isfa-actions">
+                                <div>
+                                    <strong>
+                                        Pagamento aprovado
+                                    </strong>
+
+                                    <span>
+                                        A etiqueta não é gerada
+                                        automaticamente. Acesse a lista de
+                                        fretes pagos e solicite a geração do
+                                        documento quando necessário.
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+
+                    {/* AÇÕES FINAIS */}
+                    <div className="isfa-actions isfa-actions--payment">
                         <button
                             type="button"
                             className="isfa-button isfa-button--secondary"
                             onClick={reiniciar}
                         >
-                            Iniciar outro frete avulso
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M12 5v14M5 12h14" />
+                            </svg>
+                            Iniciar outro frete
                         </button>
 
                         <button
@@ -2100,20 +2642,47 @@ export default function Frete({ token: tokenProp }) {
                             onClick={carregarFretesPagos}
                             disabled={carregandoLista}
                         >
-                            {carregandoLista
-                                ? "Atualizando lista..."
-                                : "Atualizar fretes pagos"}
+                            {carregandoLista ? (
+                                <>
+                                    <span className="isfa-spinner" />
+                                    Atualizando...
+                                </>
+                            ) : (
+                                <>
+                                    Consultar fretes pagos
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M20 7v5h-5" />
+                                        <path d="M4 17v-5h5" />
+                                        <path d="M5.5 9A7 7 0 0 1 17 5l3 7" />
+                                        <path d="M18.5 15A7 7 0 0 1 7 19l-3-7" />
+                                    </svg>
+                                </>
+                            )}
                         </button>
                     </div>
                 </section>
             )}
+
+            {/* =================================================
+                ALERTA PERSONALIZADO VIA PORTAL
+            ================================================== */}
+
             {alertaPersonalizado &&
                 typeof document !== "undefined" &&
                 createPortal(
                     <aside
                         className="isfa-custom-alert"
-                        role="alert"
-                        aria-live="assertive"
+                        role="alertdialog"
+                        aria-modal="true"
+                        aria-labelledby="isfa-custom-alert-title"
+                        aria-describedby="isfa-custom-alert-description"
                     >
                         <div
                             className={`isfa-custom-alert__card ${alertaPersonalizado.tipo === "saldo"
@@ -2133,7 +2702,9 @@ export default function Frete({ token: tokenProp }) {
                                         {alertaPersonalizado.codigo}
                                     </span>
 
-                                    <h3>{alertaPersonalizado.titulo}</h3>
+                                    <h3 id="isfa-custom-alert-title">
+                                        {alertaPersonalizado.titulo}
+                                    </h3>
                                 </div>
 
                                 <button
@@ -2149,7 +2720,10 @@ export default function Frete({ token: tokenProp }) {
                                 </button>
                             </div>
 
-                            <p className="isfa-custom-alert__message">
+                            <p
+                                id="isfa-custom-alert-description"
+                                className="isfa-custom-alert__message"
+                            >
                                 {alertaPersonalizado.mensagem}
                             </p>
 
@@ -2157,21 +2731,25 @@ export default function Frete({ token: tokenProp }) {
                                 <a
                                     className="isfa-custom-alert__support"
                                     href={`https://wa.me/5511918547818?text=${encodeURIComponent(
-                                        "Tô com uma situação de #502"
+                                        `Olá, preciso de ajuda com uma situação de ${alertaPersonalizado.codigo ===
+                                            "#502"
+                                            ? "#502"
+                                            : "frete avulso"
+                                        }. ${alertaPersonalizado.mensagem
+                                        }`
                                     )}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                     <svg
                                         viewBox="0 0 24 24"
+                                        fill="currentColor"
                                         aria-hidden="true"
                                     >
-                                        <path
-                                            d="M20.52 3.48A11.78 11.78 0 0 0 12.14 0C5.6 0 .28 5.31.28 11.85c0 2.09.55 4.13 1.6 5.93L.18 24l6.38-1.67a11.9 11.9 0 0 0 5.58 1.42h.01c6.54 0 11.86-5.32 11.86-11.86 0-3.17-1.24-6.15-3.49-8.41ZM12.15 21.7a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.79.99 1.01-3.7-.24-.38a9.82 9.82 0 0 1-1.51-5.17c0-5.46 4.45-9.91 9.92-9.91a9.84 9.84 0 0 1 7.01 2.91 9.85 9.85 0 0 1 2.9 7.02c0 5.46-4.45 9.91-9.91 9.91Zm5.44-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.51-1.78-1.69-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.48.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"
-                                        />
+                                        <path d="M20.52 3.48A11.78 11.78 0 0 0 12.14 0C5.6 0 .28 5.31.28 11.85c0 2.09.55 4.13 1.6 5.93L.18 24l6.38-1.67a11.9 11.9 0 0 0 5.58 1.42h.01c6.54 0 11.86-5.32 11.86-11.86 0-3.17-1.24-6.15-3.49-8.41ZM12.15 21.7a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.79.99 1.01-3.7-.24-.38a9.82 9.82 0 0 1-1.51-5.17c0-5.46 4.45-9.91 9.92-9.91a9.84 9.84 0 0 1 7.01 2.91 9.85 9.85 0 0 1 2.9 7.02c0 5.46-4.45 9.91-9.91 9.91Zm5.44-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.51-1.78-1.69-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.48.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />
                                     </svg>
 
-                                    Entrar em contato com o suporte
+                                    Falar com o suporte
                                 </a>
 
                                 <button
@@ -2181,7 +2759,7 @@ export default function Frete({ token: tokenProp }) {
                                         setAlertaPersonalizado(null)
                                     }
                                 >
-                                    OK
+                                    Entendi
                                 </button>
                             </div>
 
