@@ -2787,3 +2787,100 @@
         line-height: 1.75 !important;
     }
 }
+
+/* =========================================================
+   IRONSTORE | FRETE AVULSO
+   CARTÃO DE PAGAMENTO APROVADO
+   ========================================================= */
+
+.isfa-shell .isfa-payment[role="status"] {
+    display: block !important;
+    width: 100% !important;
+    margin: 24px 0 !important;
+    padding: 28px !important;
+    color: #166534 !important;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%) !important;
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 12px 32px rgba(22, 101, 52, 0.08) !important;
+    animation: isfa-payment-approved-in 0.35s ease-out !important;
+}
+
+.isfa-shell .isfa-payment[role="status"] .isfa-card__heading {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    margin: 0 !important;
+}
+
+.isfa-shell .isfa-payment[role="status"] .isfa-card__step {
+    display: grid !important;
+    width: 54px !important;
+    height: 54px !important;
+    min-width: 54px !important;
+    flex: 0 0 54px !important;
+    place-items: center !important;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #22c55e 0%, #15803d 100%) !important;
+    border: 0 !important;
+    border-radius: 17px !important;
+    box-shadow: 0 6px 16px rgba(22, 163, 74, 0.2) !important;
+    font-size: 25px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+}
+
+.isfa-shell .isfa-payment[role="status"] .isfa-card__heading-content {
+    display: flex !important;
+    min-width: 0 !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+
+.isfa-shell .isfa-payment[role="status"] .isfa-card__heading h2 {
+    margin: 0 !important;
+    color: #166534 !important;
+    font-size: clamp(20px, 2.5vw, 26px) !important;
+    font-weight: 850 !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.04em !important;
+}
+
+@keyframes isfa-payment-approved-in {
+    from {
+        opacity: 0 !important;
+        transform: translateY(8px) !important;
+    }
+
+    to {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .isfa-shell .isfa-payment[role="status"] {
+        margin: 18px 0 !important;
+        padding: 20px !important;
+        border-radius: 16px !important;
+    }
+
+    .isfa-shell .isfa-payment[role="status"] .isfa-card__heading {
+        gap: 12px !important;
+    }
+
+    .isfa-shell .isfa-payment[role="status"] .isfa-card__step {
+        width: 46px !important;
+        height: 46px !important;
+        min-width: 46px !important;
+        flex-basis: 46px !important;
+        border-radius: 14px !important;
+        font-size: 22px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .isfa-shell .isfa-payment[role="status"] {
+        animation: none !important;
+    }
+}

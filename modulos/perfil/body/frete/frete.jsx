@@ -2516,146 +2516,296 @@ export default function Frete({ token: tokenProp }) {
                 PAGAMENTO PIX
             ================================================== */}
 
-            {pagamento && (
-                <section className="isfa-card isfa-payment">
-                    <div className="isfa-card__heading">
-                        <span className="isfa-card__step">06</span>
+            {pagamento &&
+                !(
+                    pagamento.tipo_fluxo !== "recarga_melhor_envio" &&
+                    resultado?.status_pagamento === "approved"
+                ) && (
+                    <section className="isfa-card isfa-payment">
+                        <div className="isfa-card__heading">
+                            <span className="isfa-card__step">06</span>
 
-                        <div className="isfa-card__heading-content">
-                            <h2>
-                                {pagamento.tipo_fluxo ===
-                                    "recarga_melhor_envio"
-                                    ? "Recarga da carteira"
-                                    : "Pagamento do frete"}
-                            </h2>
-
-                            <p>
-                                {pagamento.tipo_fluxo ===
-                                    "recarga_melhor_envio"
-                                    ? "Adicione saldo à carteira da Iron Executions no Melhor Envio para prosseguir."
-                                    : "Finalize o pagamento por PIX e acompanhe a confirmação nesta tela."}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="isfa-payment__summary">
-                        <span className="isfa-payment__summary-icon">
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.8"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path d="M7 3h10v18l-5-3-5 3z" />
-                                <path d="M10 8h4M10 12h4" />
-                            </svg>
-                        </span>
-
-                        <div>
-                            <span>
-                                {pagamento.tipo_fluxo ===
-                                    "recarga_melhor_envio"
-                                    ? "Valor da recarga"
-                                    : "Total do frete"}
-                            </span>
-
-                            <strong>
-                                {formatarMoeda(
-                                    pagamento.tipo_fluxo ===
+                            <div className="isfa-card__heading-content">
+                                <h2>
+                                    {pagamento.tipo_fluxo ===
                                         "recarga_melhor_envio"
-                                        ? pagamento.valor_recarga
-                                        : pagamento.valor_frete
-                                )}
-                            </strong>
-
-                            <small>
-                                {pagamento.tipo_fluxo ===
-                                    "recarga_melhor_envio"
-                                    ? "Crédito para a carteira da Iron Executions"
-                                    : "Pagamento do envio selecionado"}
-                            </small>
-                        </div>
-                    </div>
-
-                    {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
-                        <div
-                            className="isfa-alert isfa-alert--info"
-                            role="note"
-                        >
-                            <span className="isfa-alert__symbol">i</span>
-
-                            <div>
-                                <strong>
-                                    Esta cobrança é uma recarga de carteira
-                                </strong>
-
-                                <span>
-                                    O valor será destinado à carteira da Iron
-                                    Executions no Melhor Envio. Ele não quita
-                                    o frete do cliente, não confirma o
-                                    pagamento do frete e não registra um
-                                    frete como pago. Depois que a recarga
-                                    for confirmada, verifique o saldo para
-                                    gerar o PIX correto do frete.
-                                </span>
-                            </div>
-                        </div>
-                    )}
-
-                    {pagamento.qr_code_base64 && (
-                        <div className="isfa-payment__content">
-                            <div className="isfa-payment__instructions">
-                                <span className="isfa-eyebrow">
-                                    PAGAMENTO VIA PIX
-                                </span>
-
-                                <h3>
-                                    Escaneie o QR Code
-                                </h3>
+                                        ? "Recarga da carteira"
+                                        : "Pagamento do frete"}
+                                </h2>
 
                                 <p>
-                                    Abra o aplicativo do seu banco, escolha
-                                    a opção de pagar com PIX e aponte a
-                                    câmera para o código.
+                                    {pagamento.tipo_fluxo ===
+                                        "recarga_melhor_envio"
+                                        ? "Adicione saldo à carteira da Iron Executions no Melhor Envio para prosseguir."
+                                        : "Finalize o pagamento por PIX e acompanhe a confirmação nesta tela."}
                                 </p>
                             </div>
+                        </div>
 
-                            <div className="isfa-qr">
-                                <img
-                                    alt={
+                        <div className="isfa-payment__summary">
+                            <span className="isfa-payment__summary-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M7 3h10v18l-5-3-5 3z" />
+                                    <path d="M10 8h4M10 12h4" />
+                                </svg>
+                            </span>
+
+                            <div>
+                                <span>
+                                    {pagamento.tipo_fluxo ===
+                                        "recarga_melhor_envio"
+                                        ? "Valor da recarga"
+                                        : "Total do frete"}
+                                </span>
+
+                                <strong>
+                                    {formatarMoeda(
                                         pagamento.tipo_fluxo ===
                                             "recarga_melhor_envio"
-                                            ? "QR Code PIX para recarga da carteira da Iron Executions"
-                                            : "QR Code PIX para pagamento do frete"
-                                    }
-                                    src={`data:image/png;base64,${pagamento.qr_code_base64}`}
-                                />
+                                            ? pagamento.valor_recarga
+                                            : pagamento.valor_frete
+                                    )}
+                                </strong>
+
+                                <small>
+                                    {pagamento.tipo_fluxo ===
+                                        "recarga_melhor_envio"
+                                        ? "Crédito para a carteira da Iron Executions"
+                                        : "Pagamento do envio selecionado"}
+                                </small>
                             </div>
                         </div>
-                    )}
 
-                    {pagamento.qr_code && (
-                        <div className="isfa-pix-code">
-                            <label
-                                className="isfa-field"
-                                htmlFor="isfa-pix-copia-cola"
+                        {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
+                            <div
+                                className="isfa-alert isfa-alert--info"
+                                role="note"
                             >
-                                <span>PIX copia e cola</span>
+                                <span className="isfa-alert__symbol">i</span>
 
-                                <textarea
-                                    id="isfa-pix-copia-cola"
-                                    readOnly
-                                    value={pagamento.qr_code}
-                                    aria-label="Código PIX copia e cola"
+                                <div>
+                                    <strong>
+                                        Esta cobrança é uma recarga de carteira
+                                    </strong>
+
+                                    <span>
+                                        O valor será destinado à carteira da Iron
+                                        Executions no Melhor Envio. Ele não quita
+                                        o frete do cliente, não confirma o
+                                        pagamento do frete e não registra um
+                                        frete como pago. Depois que a recarga
+                                        for confirmada, verifique o saldo para
+                                        gerar o PIX correto do frete.
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+
+                        {pagamento.qr_code_base64 && (
+                            <div className="isfa-payment__content">
+                                <div className="isfa-payment__instructions">
+                                    <span className="isfa-eyebrow">
+                                        PAGAMENTO VIA PIX
+                                    </span>
+
+                                    <h3>
+                                        Escaneie o QR Code
+                                    </h3>
+
+                                    <p>
+                                        Abra o aplicativo do seu banco, escolha
+                                        a opção de pagar com PIX e aponte a
+                                        câmera para o código.
+                                    </p>
+                                </div>
+
+                                <div className="isfa-qr">
+                                    <img
+                                        alt={
+                                            pagamento.tipo_fluxo ===
+                                                "recarga_melhor_envio"
+                                                ? "QR Code PIX para recarga da carteira da Iron Executions"
+                                                : "QR Code PIX para pagamento do frete"
+                                        }
+                                        src={`data:image/png;base64,${pagamento.qr_code_base64}`}
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {pagamento.qr_code && (
+                            <div className="isfa-pix-code">
+                                <label
+                                    className="isfa-field"
+                                    htmlFor="isfa-pix-copia-cola"
+                                >
+                                    <span>PIX copia e cola</span>
+
+                                    <textarea
+                                        id="isfa-pix-copia-cola"
+                                        readOnly
+                                        value={pagamento.qr_code}
+                                        aria-label="Código PIX copia e cola"
+                                    />
+                                </label>
+
+                                <button
+                                    type="button"
+                                    className="isfa-button isfa-button--secondary"
+                                    onClick={copiarPix}
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <rect x="8" y="8" width="13" height="13" rx="2" />
+                                        <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+                                    </svg>
+                                    Copiar código PIX
+                                </button>
+                            </div>
+                        )}
+
+                        {pagamento.tipo_fluxo === "recarga_melhor_envio" &&
+                            !pagamento.qr_code_base64 &&
+                            pagamento.qr_code_url && (
+                                <div className="isfa-qr isfa-qr--link">
+                                    <img
+                                        src={pagamento.qr_code_url}
+                                        alt="QR Code PIX do Melhor Envio"
+                                        className="frete-avulso-qr-code"
+                                    />
+
+                                    <p>
+                                        Escaneie o código para abrir o pagamento
+                                        PIX no celular.
+                                    </p>
+                                </div>
+                            )}
+
+                        {/* CONTINUAÇÃO DA RECARGA */}
+                        {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
+                            <div className="isfa-payment__next-step">
+
+                                <div className="isfa-next-step">
+                                    <span className="isfa-eyebrow">
+                                        ATENÇÃO · PRÓXIMA ETAPA
+                                    </span>
+
+                                    <h3>
+                                        Já confirmou a recarga? Verifique!
+                                    </h3>
+
+                                    <p>
+                                        <strong>Importante:</strong> depois de realizar a recarga
+                                        da carteira no Melhor Envio, aguarde a confirmação do crédito
+                                        e verifique.
+                                    </p>
+
+
+                                </div>
+
+
+                                <button
+                                    type="button"
+                                    className="isfa-button isfa-button--primary isfa-button--large"
+                                    onClick={verificarSaldoEContinuar}
+                                    disabled={criandoPagamento}
+                                >
+                                    {criandoPagamento ? (
+                                        <>
+                                            <span className="isfa-spinner" />
+                                            Consultando carteira...
+                                        </>
+                                    ) : (
+                                        <>
+                                            Verificar e continuar
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="1.8"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            >
+                                                <path d="M5 12h14M13 6l6 6-6 6" />
+                                            </svg>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        )}
+
+                        {/* STATUS DO PAGAMENTO DO FRETE */}
+                        {pagamento.tipo_fluxo !== "recarga_melhor_envio" && (
+                            <div className="isfa-payment__status">
+                                <span
+                                    className={`isfa-status-dot ${resultado?.status_pagamento === "approved"
+                                        ? "isfa-status-dot--ok"
+                                        : ""
+                                        }`}
                                 />
-                            </label>
 
+                                <div>
+                                    <strong>
+                                        {resultado?.status_pagamento ===
+                                            "approved"
+                                            ? "Pagamento confirmado"
+                                            : consultando
+                                                ? "Verificando pagamento..."
+                                                : "Aguardando pagamento"}
+                                    </strong>
+
+                                    <p>
+                                        {resultado?.status_pagamento ===
+                                            "approved"
+                                            ? "O pagamento foi aprovado. O frete está registrado e disponível na lista, conforme os dados retornados pelo sistema."
+                                            : "O sistema consulta automaticamente o status do pagamento. Após a aprovação, o frete será atualizado na lista."}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        {pagamento.tipo_fluxo !== "recarga_melhor_envio" &&
+                            resultado?.status_pagamento === "approved" && (
+                                <div
+                                    className="isfa-alert isfa-alert--info"
+                                    role="status"
+                                >
+                                    <span className="isfa-alert__symbol">i</span>
+
+                                    <div>
+                                        <strong>
+                                            Pagamento aprovado
+                                        </strong>
+
+                                        <span>
+                                            A etiqueta não é gerada
+                                            automaticamente. Acesse a lista de
+                                            fretes pagos e solicite a geração do
+                                            documento quando necessário.
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
+
+                        {/* AÇÕES FINAIS */}
+                        <div className="isfa-actions isfa-actions--payment">
                             <button
                                 type="button"
                                 className="isfa-button isfa-button--secondary"
-                                onClick={copiarPix}
+                                onClick={reiniciar}
                             >
                                 <svg
                                     viewBox="0 0 24 24"
@@ -2665,68 +2815,25 @@ export default function Frete({ token: tokenProp }) {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 >
-                                    <rect x="8" y="8" width="13" height="13" rx="2" />
-                                    <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+                                    <path d="M12 5v14M5 12h14" />
                                 </svg>
-                                Copiar código PIX
+                                Iniciar outro frete
                             </button>
-                        </div>
-                    )}
-
-                    {pagamento.tipo_fluxo === "recarga_melhor_envio" &&
-                        !pagamento.qr_code_base64 &&
-                        pagamento.qr_code_url && (
-                            <div className="isfa-qr isfa-qr--link">
-                                <img
-                                    src={pagamento.qr_code_url}
-                                    alt="QR Code PIX do Melhor Envio"
-                                    className="frete-avulso-qr-code"
-                                />
-
-                                <p>
-                                    Escaneie o código para abrir o pagamento
-                                    PIX no celular.
-                                </p>
-                            </div>
-                        )}
-
-                    {/* CONTINUAÇÃO DA RECARGA */}
-                    {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
-                        <div className="isfa-payment__next-step">
-
-                            <div className="isfa-next-step">
-                                <span className="isfa-eyebrow">
-                                    ATENÇÃO · PRÓXIMA ETAPA
-                                </span>
-
-                                <h3>
-                                    Já confirmou a recarga? Verifique!
-                                </h3>
-
-                                <p>
-                                    <strong>Importante:</strong> depois de realizar a recarga
-                                    da carteira no Melhor Envio, aguarde a confirmação do crédito
-                                    e verifique.
-                                </p>
-
-
-                            </div>
-
 
                             <button
                                 type="button"
-                                className="isfa-button isfa-button--primary isfa-button--large"
-                                onClick={verificarSaldoEContinuar}
-                                disabled={criandoPagamento}
+                                className="isfa-button isfa-button--secondary"
+                                onClick={carregarFretesPagos}
+                                disabled={carregandoLista}
                             >
-                                {criandoPagamento ? (
+                                {carregandoLista ? (
                                     <>
                                         <span className="isfa-spinner" />
-                                        Consultando carteira...
+                                        Atualizando...
                                     </>
                                 ) : (
                                     <>
-                                        Verificar e continuar
+                                        Consultar fretes pagos
                                         <svg
                                             viewBox="0 0 24 24"
                                             fill="none"
@@ -2735,121 +2842,35 @@ export default function Frete({ token: tokenProp }) {
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
                                         >
-                                            <path d="M5 12h14M13 6l6 6-6 6" />
+                                            <path d="M20 7v5h-5" />
+                                            <path d="M4 17v-5h5" />
+                                            <path d="M5.5 9A7 7 0 0 1 17 5l3 7" />
+                                            <path d="M18.5 15A7 7 0 0 1 7 19l-3-7" />
                                         </svg>
                                     </>
                                 )}
                             </button>
                         </div>
-                    )}
+                    </section>
+                )}
+            {pagamento?.tipo_fluxo !== "recarga_melhor_envio" &&
+                resultado?.status_pagamento === "approved" && (
+                    <section
+                        className="isfa-card isfa-payment"
+                        role="status"
+                        aria-live="polite"
+                    >
+                        <div className="isfa-card__heading">
+                            <span className="isfa-card__step">
+                                ✓
+                            </span>
 
-                    {/* STATUS DO PAGAMENTO DO FRETE */}
-                    {pagamento.tipo_fluxo !== "recarga_melhor_envio" && (
-                        <div className="isfa-payment__status">
-                            <span
-                                className={`isfa-status-dot ${resultado?.status_pagamento === "approved"
-                                    ? "isfa-status-dot--ok"
-                                    : ""
-                                    }`}
-                            />
-
-                            <div>
-                                <strong>
-                                    {resultado?.status_pagamento ===
-                                        "approved"
-                                        ? "Pagamento confirmado"
-                                        : consultando
-                                            ? "Verificando pagamento..."
-                                            : "Aguardando pagamento"}
-                                </strong>
-
-                                <p>
-                                    {resultado?.status_pagamento ===
-                                        "approved"
-                                        ? "O pagamento foi aprovado. O frete está registrado e disponível na lista, conforme os dados retornados pelo sistema."
-                                        : "O sistema consulta automaticamente o status do pagamento. Após a aprovação, o frete será atualizado na lista."}
-                                </p>
+                            <div className="isfa-card__heading-content">
+                                <h2>Pagamento aprovado</h2>
                             </div>
                         </div>
-                    )}
-
-                    {pagamento.tipo_fluxo !== "recarga_melhor_envio" &&
-                        resultado?.status_pagamento === "approved" && (
-                            <div
-                                className="isfa-alert isfa-alert--info"
-                                role="status"
-                            >
-                                <span className="isfa-alert__symbol">i</span>
-
-                                <div>
-                                    <strong>
-                                        Pagamento aprovado
-                                    </strong>
-
-                                    <span>
-                                        A etiqueta não é gerada
-                                        automaticamente. Acesse a lista de
-                                        fretes pagos e solicite a geração do
-                                        documento quando necessário.
-                                    </span>
-                                </div>
-                            </div>
-                        )}
-
-                    {/* AÇÕES FINAIS */}
-                    <div className="isfa-actions isfa-actions--payment">
-                        <button
-                            type="button"
-                            className="isfa-button isfa-button--secondary"
-                            onClick={reiniciar}
-                        >
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.8"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path d="M12 5v14M5 12h14" />
-                            </svg>
-                            Iniciar outro frete
-                        </button>
-
-                        <button
-                            type="button"
-                            className="isfa-button isfa-button--secondary"
-                            onClick={carregarFretesPagos}
-                            disabled={carregandoLista}
-                        >
-                            {carregandoLista ? (
-                                <>
-                                    <span className="isfa-spinner" />
-                                    Atualizando...
-                                </>
-                            ) : (
-                                <>
-                                    Consultar fretes pagos
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="1.8"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path d="M20 7v5h-5" />
-                                        <path d="M4 17v-5h5" />
-                                        <path d="M5.5 9A7 7 0 0 1 17 5l3 7" />
-                                        <path d="M18.5 15A7 7 0 0 1 7 19l-3-7" />
-                                    </svg>
-                                </>
-                            )}
-                        </button>
-                    </div>
-                </section>
-            )}
-
+                    </section>
+                )}
             {/* =================================================
                 ALERTA PERSONALIZADO VIA PORTAL
             ================================================== */}
