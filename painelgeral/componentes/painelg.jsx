@@ -6,6 +6,7 @@ import Modulos from "./modulos";
 import Distribuicao from "./distribucao";
 import Json from "./json";
 import Panfletos from "./panfletos";
+import Candidatos from "./candidatos";
 import Termos from "./termos"
 const CACHE_HISTORICO_SQL =
     "painel_g_historico_sql_v1";
@@ -758,6 +759,7 @@ export default function PainelG() {
             distribuicao: "Distribuição",
             panfletos: "Panfletos",
             Termos: "termos",
+            Candidatos: "candidatos",
             json: "JSON"
         };
         document.title =
@@ -1170,7 +1172,19 @@ ATALHOS SQL DA TABELA
                 >
                     Panfletos
                 </button>
-
+                <button
+                    type="button"
+                    className={
+                        painelGSecaoAtiva === "candidatos"
+                            ? "painel-g-menu-botao painel-g-menu-botao-ativo"
+                            : "painel-g-menu-botao"
+                    }
+                    onClick={() =>
+                        setPainelGSecaoAtiva("candidatos")
+                    }
+                >
+                    Candidatos
+                </button>
             </div>
 
 
@@ -1199,8 +1213,13 @@ ATALHOS SQL DA TABELA
             {painelGSecaoAtiva === "termos" && (
                 <Termos />
             )}
+
             {painelGSecaoAtiva === "panfletos" && (
                 <Panfletos />
+            )}
+
+            {painelGSecaoAtiva === "candidatos" && (
+                <Candidatos />
             )}
             {/* =====================================================
                 TABELAS

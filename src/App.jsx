@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import AlertaPedidos from "./audio/aletra";
-
+import ParceirosGeral from "../public/parceiros/parceirosgeral";
 import "./app.css";
 import "./app-responsivo.css";
 import Termos from "../modulos/termos/termos"
@@ -312,6 +312,10 @@ function RoteamentoComLoading() {
       <Route
         path="/link/geral/:idComercioCriptografado"
         element={<Geral />}
+      />
+      <Route
+        path="/indicacao/:comercio_id"
+        element={<ParceirosGeral />}
       />
       <Route
         path="/camera/:token"

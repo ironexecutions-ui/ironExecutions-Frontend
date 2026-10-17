@@ -18,6 +18,9 @@ import Controle from "./controle/controle";
 import Funcionarios from "./funcionarios/clientes_exibicao";
 import Camera from "./camera/camera";
 import Configuracoes from "./configuracoes/configuracoes";
+import Parceria from "./parceria/parceria";
+import Frete from "./frete/frete";
+
 
 export default function Body({ setHeaderMinimizado, atualizarHeader }) {
 
@@ -37,9 +40,9 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
 
         "Delivery e vendas online": DeliveryEVendasOnline,
         "IronStore": DeliveryEVendasOnline,
-
+        "parceria": Parceria,
         "Mesas, salão e cozinha": MesasSalaoECozinha,
-
+        "frete": Frete,
         "Rifa": Rifa,
 
         "Agendamentos": Agendamentos,

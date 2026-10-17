@@ -1,0 +1,1247 @@
+/* =========================================================
+   IRONSTORE | FRETE AVULSO
+   Estilo completo, responsivo e isolado pelas classes isfa-.
+   ========================================================= */
+
+.isfa-shell,
+.isfa-shell * {
+    box-sizing: border-box;
+}
+
+.isfa-shell {
+    --isfa-ink: #172033;
+    --isfa-muted: #667085;
+    --isfa-soft: #f5f7fb;
+    --isfa-border: #e3e8f0;
+    --isfa-primary: #5b4bdb;
+    --isfa-primary-dark: #4536c5;
+    --isfa-primary-soft: #f0eeff;
+    --isfa-success: #16845b;
+    --isfa-danger: #b42318;
+    --isfa-radius: 18px;
+    width: min(100%, 1240px);
+    margin: 0 auto;
+    padding: clamp(16px, 3vw, 34px);
+    color: var(--isfa-ink);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.isfa-shell button,
+.isfa-shell input,
+.isfa-shell select,
+.isfa-shell textarea {
+    font: inherit;
+}
+
+.isfa-shell button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Cabeçalho */
+.isfa-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    padding: clamp(24px, 4vw, 38px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 24px;
+    color: #fff;
+    background:
+        radial-gradient(circle at 88% 10%, rgba(163, 151, 255, 0.35), transparent 30%),
+        linear-gradient(125deg, #191d3b 0%, #30256f 48%, #5b4bdb 100%);
+    box-shadow: 0 18px 48px rgba(43, 34, 113, 0.18);
+}
+
+.isfa-hero::after {
+    position: absolute;
+    right: -45px;
+    bottom: -115px;
+    width: 270px;
+    height: 270px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+}
+
+.isfa-hero__icon {
+    display: grid;
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.13);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.isfa-hero>div:nth-child(2) {
+    min-width: 0;
+    flex: 1;
+}
+
+.isfa-eyebrow {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #d7d2ff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+}
+
+.isfa-hero h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(27px, 3vw, 38px);
+    font-weight: 780;
+    letter-spacing: -0.045em;
+    line-height: 1.12;
+}
+
+.isfa-hero p {
+    max-width: 620px;
+    margin: 10px 0 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 14px;
+}
+
+.isfa-hero__tag {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    padding: 9px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    color: #f4f2ff;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Avisos */
+.isfa-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0 0 18px;
+    padding: 15px 17px;
+    border: 1px solid var(--isfa-border);
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(16, 24, 40, 0.035);
+}
+
+.isfa-alert>span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.isfa-alert--error {
+    border-color: #f3c7c4;
+    color: #8f1d16;
+    background: #fff8f7;
+}
+
+.isfa-alert--error strong {
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.isfa-alert--info {
+    border-color: #d8d5ff;
+    color: #383080;
+    background: #f7f6ff;
+}
+
+/* Títulos e cartões */
+.isfa-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.isfa-section-title {
+    padding: 0 2px 2px;
+}
+
+.isfa-section-title>span {
+    color: var(--isfa-primary);
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 0.13em;
+}
+
+.isfa-section-title p {
+    margin: 7px 0 0;
+    color: var(--isfa-muted);
+    font-size: 13px;
+}
+
+.isfa-address-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 20px;
+}
+
+.isfa-card {
+    min-width: 0;
+    padding: clamp(19px, 2.5vw, 27px);
+    border: 1px solid var(--isfa-border);
+    border-radius: var(--isfa-radius);
+    background: #fff;
+    box-shadow: 0 7px 24px rgba(16, 24, 40, 0.045);
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.isfa-card__heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 23px;
+}
+
+.isfa-card__step {
+    display: grid;
+    flex: 0 0 39px;
+    width: 39px;
+    height: 39px;
+    place-items: center;
+    border: 1px solid #e2deff;
+    border-radius: 12px;
+    color: var(--isfa-primary);
+    background: var(--isfa-primary-soft);
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0.02em;
+}
+
+.isfa-card__heading>div {
+    min-width: 0;
+    padding-top: 1px;
+}
+
+.isfa-card__heading h2 {
+    margin: 0;
+    color: var(--isfa-ink);
+    font-size: 17px;
+    font-weight: 760;
+    letter-spacing: -0.025em;
+    line-height: 1.35;
+}
+
+.isfa-card__heading p {
+    margin: 5px 0 0;
+    color: var(--isfa-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Campos */
+.isfa-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px 14px;
+}
+
+.isfa-grid--volume {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.isfa-field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 7px;
+    color: #344054;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.isfa-field--wide {
+    grid-column: span 2;
+}
+
+.isfa-field--small {
+    grid-column: span 1;
+}
+
+.isfa-field>span {
+    display: block;
+    line-height: 1.35;
+}
+
+.isfa-field input,
+.isfa-field select,
+.isfa-field textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 45px;
+    padding: 11px 12px;
+    border: 1px solid #d8deea;
+    border-radius: 10px;
+    outline: none;
+    color: #202a3b;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.025);
+    font-size: 13px;
+    font-weight: 450;
+    transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.isfa-field input::placeholder,
+.isfa-field textarea::placeholder {
+    color: #98a2b3;
+}
+
+.isfa-field input:hover,
+.isfa-field select:hover,
+.isfa-field textarea:hover {
+    border-color: #b7bfd0;
+}
+
+.isfa-field input:focus,
+.isfa-field select:focus,
+.isfa-field textarea:focus {
+    border-color: var(--isfa-primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.12);
+}
+
+.isfa-field input:disabled,
+.isfa-field select:disabled,
+.isfa-field textarea:disabled {
+    cursor: not-allowed;
+    color: #98a2b3;
+    background: #f2f4f7;
+}
+
+.isfa-field select {
+    padding-right: 34px;
+    cursor: pointer;
+}
+
+.isfa-field small {
+    color: #7a8495;
+    font-size: 11px;
+    font-weight: 450;
+    line-height: 1.45;
+}
+
+/* Ações e botões */
+.isfa-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 2px;
+}
+
+.isfa-actions--split {
+    justify-content: space-between;
+    margin-top: 22px;
+}
+
+.isfa-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 19px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 760;
+    line-height: 1.2;
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.isfa-button:focus-visible,
+.isfa-option:focus-visible,
+.isfa-text-button:focus-visible {
+    outline: 3px solid rgba(91, 75, 219, 0.3);
+    outline-offset: 3px;
+}
+
+.isfa-button--primary {
+    border-color: var(--isfa-primary);
+    color: #fff;
+    background: linear-gradient(135deg, #6758e8 0%, #4f40cf 100%);
+    box-shadow: 0 7px 16px rgba(91, 75, 219, 0.2);
+}
+
+.isfa-button--primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: var(--isfa-primary-dark);
+    background: linear-gradient(135deg, #5c4cda 0%, #4434bf 100%);
+    box-shadow: 0 10px 21px rgba(91, 75, 219, 0.25);
+}
+
+.isfa-button--secondary {
+    border-color: #d9deea;
+    color: #344054;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.03);
+}
+
+.isfa-button--secondary:hover:not(:disabled) {
+    border-color: #b7bfd0;
+    background: #f8f9fc;
+}
+
+.isfa-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.58;
+    box-shadow: none;
+}
+
+.isfa-spinner {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: isfa-spin 650ms linear infinite;
+}
+
+@keyframes isfa-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Opções de frete */
+.isfa-options {
+    margin-top: 24px;
+}
+
+.isfa-option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.isfa-option {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    gap: 13px;
+    padding: 16px;
+    border: 1px solid #e0e5ee;
+    border-radius: 13px;
+    color: var(--isfa-ink);
+    background: #fff;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.isfa-option:hover {
+    transform: translateY(-1px);
+    border-color: #b9b2ff;
+    background: #fcfbff;
+}
+
+.isfa-option--selected {
+    border-color: var(--isfa-primary);
+    background: #f8f7ff;
+    box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.09);
+}
+
+.isfa-option__radio {
+    display: grid;
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    place-items: center;
+    border: 1.5px solid #c5ccda;
+    border-radius: 50%;
+    color: #fff;
+    background: #fff;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.isfa-option--selected .isfa-option__radio {
+    border-color: var(--isfa-primary);
+    background: var(--isfa-primary);
+}
+
+.isfa-option__main {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.isfa-option__main strong {
+    color: #202a3b;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.isfa-option__main>span {
+    color: #475467;
+    font-size: 12px;
+}
+
+.isfa-option__main small {
+    margin-top: 2px;
+    color: #7a8495;
+    font-size: 11px;
+}
+
+.isfa-option__price {
+    flex-shrink: 0;
+    color: var(--isfa-primary);
+    font-size: 16px;
+    font-weight: 850;
+    letter-spacing: -0.025em;
+    white-space: nowrap;
+}
+
+/* Pagamento PIX */
+.isfa-payment {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.isfa-payment__amount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin: 4px 0 20px;
+    padding: 20px;
+    border: 1px solid #e5e1ff;
+    border-radius: 15px;
+    color: var(--isfa-primary);
+    background: linear-gradient(135deg, #faf9ff, #f0eeff);
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 850;
+    letter-spacing: -0.045em;
+    line-height: 1.1;
+}
+
+.isfa-payment__amount span {
+    color: #77728f;
+    font-size: 12px;
+    font-weight: 550;
+    letter-spacing: 0;
+}
+
+.isfa-qr {
+    display: grid;
+    width: fit-content;
+    max-width: 100%;
+    place-items: center;
+    margin: 0 auto 20px;
+    padding: 14px;
+    border: 1px solid #e4e7ec;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgba(16, 24, 40, 0.06);
+}
+
+.isfa-qr img {
+    display: block;
+    width: min(100%, 260px);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+}
+
+.isfa-pix-code {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 0 20px;
+}
+
+.isfa-pix-code textarea {
+    display: block;
+    width: 100%;
+    min-height: 92px;
+    resize: vertical;
+    padding: 13px;
+    border: 1px solid #d8deea;
+    border-radius: 10px;
+    outline: none;
+    color: #475467;
+    background: #f8f9fc;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.isfa-pix-code textarea:focus {
+    border-color: var(--isfa-primary);
+    box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.1);
+}
+
+.isfa-pix-code .isfa-button {
+    align-self: flex-start;
+}
+
+.isfa-payment__status {
+    position: relative;
+    margin: 20px 0;
+    padding: 17px 18px 17px 46px;
+    border: 1px solid #e3e8f0;
+    border-radius: 13px;
+    background: #f8f9fc;
+}
+
+.isfa-payment__status strong {
+    display: block;
+    color: #263247;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.isfa-payment__status p {
+    margin: 5px 0 0;
+    color: #667085;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.isfa-status-dot {
+    position: absolute;
+    top: 21px;
+    left: 18px;
+    width: 12px;
+    height: 12px;
+    border: 3px solid #d0d5dd;
+    border-radius: 50%;
+    background: #98a2b3;
+    box-shadow: 0 0 0 4px rgba(152, 162, 179, 0.12);
+}
+
+.isfa-status-dot:not(.isfa-status-dot--ok) {
+    animation: isfa-pulse 1.8s ease-in-out infinite;
+}
+
+.isfa-status-dot--ok {
+    border-color: #a6e7c8;
+    background: var(--isfa-success);
+    box-shadow: 0 0 0 4px rgba(22, 132, 91, 0.1);
+}
+
+@keyframes isfa-pulse {
+    50% {
+        box-shadow: 0 0 0 7px rgba(152, 162, 179, 0.04);
+    }
+}
+
+.isfa-download {
+    width: 100%;
+    margin: 0 0 8px;
+}
+
+.isfa-text-button {
+    display: block;
+    margin: 18px auto 0;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 8px;
+    color: var(--isfa-primary);
+    background: transparent;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 750;
+    text-align: center;
+}
+
+.isfa-text-button:hover {
+    color: var(--isfa-primary-dark);
+    background: var(--isfa-primary-soft);
+}
+
+/* Rodapé */
+.isfa-footer {
+    margin-top: 25px;
+    padding: 18px 8px 4px;
+    border-top: 1px solid var(--isfa-border);
+    color: #8992a2;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 980px) {
+    .isfa-grid--volume {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .isfa-hero__tag {
+        display: none;
+    }
+}
+
+@media (max-width: 760px) {
+    .isfa-shell {
+        padding: 16px;
+    }
+
+    .isfa-hero {
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 21px;
+        padding: 23px 20px;
+        border-radius: 19px;
+    }
+
+    .isfa-hero__icon {
+        flex-basis: 48px;
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        font-size: 27px;
+    }
+
+    .isfa-hero h1 {
+        font-size: 28px;
+    }
+
+    .isfa-hero p {
+        font-size: 12px;
+    }
+
+    .isfa-address-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .isfa-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .isfa-card__heading {
+        margin-bottom: 19px;
+    }
+
+    .isfa-grid--volume {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .isfa-actions--split {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .isfa-actions--split .isfa-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .isfa-shell {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    .isfa-hero {
+        gap: 12px;
+        padding: 20px 15px;
+    }
+
+    .isfa-hero__icon {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+        border-radius: 13px;
+        font-size: 23px;
+    }
+
+    .isfa-eyebrow {
+        margin-bottom: 6px;
+        font-size: 9px;
+    }
+
+    .isfa-hero h1 {
+        font-size: 24px;
+    }
+
+    .isfa-hero p {
+        margin-top: 7px;
+        font-size: 11px;
+    }
+
+    .isfa-card {
+        padding: 16px 13px;
+    }
+
+    .isfa-card__heading {
+        gap: 10px;
+    }
+
+    .isfa-card__step {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        font-size: 11px;
+    }
+
+    .isfa-card__heading h2 {
+        font-size: 15px;
+    }
+
+    .isfa-card__heading p {
+        font-size: 11px;
+    }
+
+    .isfa-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .isfa-grid--volume {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .isfa-field--wide {
+        grid-column: span 1;
+    }
+
+    .isfa-field input,
+    .isfa-field select,
+    .isfa-field textarea {
+        min-height: 44px;
+        font-size: 16px;
+        /* Evita zoom automático em navegadores móveis. */
+    }
+
+    .isfa-actions:not(.isfa-actions--split) .isfa-button {
+        width: 100%;
+    }
+
+    .isfa-option {
+        align-items: flex-start;
+        gap: 10px;
+        padding: 13px 11px;
+    }
+
+    .isfa-option__radio {
+        margin-top: 1px;
+    }
+
+    .isfa-option__price {
+        font-size: 14px;
+    }
+
+    .isfa-option__main strong {
+        font-size: 12px;
+    }
+
+    .isfa-option__main>span,
+    .isfa-option__main small {
+        font-size: 10px;
+    }
+
+    .isfa-payment__amount {
+        padding: 17px 10px;
+    }
+
+    .isfa-pix-code .isfa-button {
+        width: 100%;
+    }
+
+    .isfa-alert {
+        flex-direction: column;
+        gap: 5px;
+        padding: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .isfa-shell *,
+    .isfa-shell *::before,
+    .isfa-shell *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =========================================================
+   IRONSTORE | FRETE AVULSO
+   REFORÇO DE CORES COM !important
+   Adicionar ao FINAL do Frete.css
+   ========================================================= */
+
+/* ===== PALETA PRINCIPAL ===== */
+.isfa-shell {
+    color: #172033 !important;
+    background-color: transparent !important;
+
+    --isfa-ink: #172033 !important;
+    --isfa-muted: #667085 !important;
+    --isfa-soft: #f5f7fb !important;
+    --isfa-border: #e3e8f0 !important;
+    --isfa-primary: #5b4bdb !important;
+    --isfa-primary-dark: #4536c5 !important;
+    --isfa-primary-soft: #f0eeff !important;
+    --isfa-success: #16845b !important;
+    --isfa-danger: #b42318 !important;
+}
+
+/* ===== CABEÇALHO ===== */
+.isfa-shell .isfa-hero {
+    color: #ffffff !important;
+    background:
+        radial-gradient(circle at 88% 10%, rgba(163, 151, 255, 0.35), transparent 30%),
+        linear-gradient(125deg, #191d3b 0%, #30256f 48%, #5b4bdb 100%) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.isfa-shell .isfa-hero__icon {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.13) !important;
+    border-color: rgba(255, 255, 255, 0.24) !important;
+}
+
+.isfa-shell .isfa-eyebrow {
+    color: #d7d2ff !important;
+}
+
+.isfa-shell .isfa-hero h1 {
+    color: #ffffff !important;
+}
+
+.isfa-shell .isfa-hero p {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.isfa-shell .isfa-hero__tag {
+    color: #f4f2ff !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.24) !important;
+}
+
+/* ===== TÍTULOS E TEXTOS ===== */
+.isfa-shell .isfa-section-title>span {
+    color: #5b4bdb !important;
+}
+
+.isfa-shell .isfa-section-title p {
+    color: #667085 !important;
+}
+
+.isfa-shell .isfa-card__heading h2 {
+    color: #172033 !important;
+}
+
+.isfa-shell .isfa-card__heading p {
+    color: #667085 !important;
+}
+
+.isfa-shell .isfa-card__step {
+    color: #5b4bdb !important;
+    background-color: #f0eeff !important;
+    border-color: #e2deff !important;
+}
+
+.isfa-shell .isfa-footer {
+    color: #8992a2 !important;
+    border-color: #e3e8f0 !important;
+}
+
+/* ===== CARTÕES ===== */
+.isfa-shell .isfa-card {
+    color: #172033 !important;
+    background-color: #ffffff !important;
+    border-color: #e3e8f0 !important;
+}
+
+/* ===== LABELS DOS CAMPOS ===== */
+.isfa-shell .isfa-field {
+    color: #344054 !important;
+}
+
+.isfa-shell .isfa-field>span {
+    color: #344054 !important;
+}
+
+.isfa-shell .isfa-field small {
+    color: #7a8495 !important;
+}
+
+/* ===== INPUTS, SELECTS E TEXTAREAS ===== */
+.isfa-shell .isfa-field input,
+.isfa-shell .isfa-field select,
+.isfa-shell .isfa-field textarea {
+    color: #202a3b !important;
+    background-color: #ffffff !important;
+    border-color: #d8deea !important;
+    -webkit-text-fill-color: #202a3b !important;
+}
+
+.isfa-shell .isfa-field input::placeholder,
+.isfa-shell .isfa-field textarea::placeholder {
+    color: #98a2b3 !important;
+    -webkit-text-fill-color: #98a2b3 !important;
+    opacity: 1 !important;
+}
+
+.isfa-shell .isfa-field input:hover,
+.isfa-shell .isfa-field select:hover,
+.isfa-shell .isfa-field textarea:hover {
+    border-color: #b7bfd0 !important;
+}
+
+.isfa-shell .isfa-field input:focus,
+.isfa-shell .isfa-field select:focus,
+.isfa-shell .isfa-field textarea:focus {
+    color: #202a3b !important;
+    background-color: #ffffff !important;
+    border-color: #5b4bdb !important;
+    box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.12) !important;
+    -webkit-text-fill-color: #202a3b !important;
+}
+
+.isfa-shell .isfa-field input:disabled,
+.isfa-shell .isfa-field select:disabled,
+.isfa-shell .isfa-field textarea:disabled {
+    color: #98a2b3 !important;
+    background-color: #f2f4f7 !important;
+    border-color: #e3e8f0 !important;
+    -webkit-text-fill-color: #98a2b3 !important;
+}
+
+.isfa-shell .isfa-field select option {
+    color: #202a3b !important;
+    background-color: #ffffff !important;
+}
+
+/* ===== ALERTAS ===== */
+.isfa-shell .isfa-alert {
+    color: #344054 !important;
+    background-color: #ffffff !important;
+    border-color: #e3e8f0 !important;
+}
+
+.isfa-shell .isfa-alert--error {
+    color: #8f1d16 !important;
+    background-color: #fff8f7 !important;
+    border-color: #f3c7c4 !important;
+}
+
+.isfa-shell .isfa-alert--error strong,
+.isfa-shell .isfa-alert--error span {
+    color: #8f1d16 !important;
+}
+
+.isfa-shell .isfa-alert--info {
+    color: #383080 !important;
+    background-color: #f7f6ff !important;
+    border-color: #d8d5ff !important;
+}
+
+.isfa-shell .isfa-alert--info span {
+    color: #383080 !important;
+}
+
+/* ===== BOTÃO PRINCIPAL ===== */
+.isfa-shell .isfa-button--primary {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #6758e8 0%, #4f40cf 100%) !important;
+    border-color: #5b4bdb !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.isfa-shell .isfa-button--primary:hover:not(:disabled) {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #5c4cda 0%, #4434bf 100%) !important;
+    border-color: #4536c5 !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.isfa-shell .isfa-button--primary:focus-visible {
+    outline-color: rgba(91, 75, 219, 0.5) !important;
+}
+
+/* ===== BOTÃO SECUNDÁRIO ===== */
+.isfa-shell .isfa-button--secondary {
+    color: #344054 !important;
+    background-color: #ffffff !important;
+    border-color: #d9deea !important;
+    -webkit-text-fill-color: #344054 !important;
+}
+
+.isfa-shell .isfa-button--secondary:hover:not(:disabled) {
+    color: #202a3b !important;
+    background-color: #f8f9fc !important;
+    border-color: #b7bfd0 !important;
+    -webkit-text-fill-color: #202a3b !important;
+}
+
+/* ===== BOTÕES DESABILITADOS ===== */
+.isfa-shell .isfa-button:disabled {
+    opacity: 0.58 !important;
+    cursor: not-allowed !important;
+}
+
+/* ===== OPÇÕES DE FRETE ===== */
+.isfa-shell .isfa-option {
+    color: #172033 !important;
+    background-color: #ffffff !important;
+    border-color: #e0e5ee !important;
+}
+
+.isfa-shell .isfa-option:hover {
+    color: #172033 !important;
+    background-color: #fcfbff !important;
+    border-color: #b9b2ff !important;
+}
+
+.isfa-shell .isfa-option--selected {
+    color: #172033 !important;
+    background-color: #f8f7ff !important;
+    border-color: #5b4bdb !important;
+    box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.09) !important;
+}
+
+.isfa-shell .isfa-option__radio {
+    color: #ffffff !important;
+    background-color: #ffffff !important;
+    border-color: #c5ccda !important;
+}
+
+.isfa-shell .isfa-option--selected .isfa-option__radio {
+    color: #ffffff !important;
+    background-color: #5b4bdb !important;
+    border-color: #5b4bdb !important;
+}
+
+.isfa-shell .isfa-option__main strong {
+    color: #202a3b !important;
+}
+
+.isfa-shell .isfa-option__main>span {
+    color: #475467 !important;
+}
+
+.isfa-shell .isfa-option__main small {
+    color: #7a8495 !important;
+}
+
+.isfa-shell .isfa-option__price {
+    color: #5b4bdb !important;
+}
+
+/* ===== VALOR DO FRETE / PIX ===== */
+.isfa-shell .isfa-payment__amount {
+    color: #5b4bdb !important;
+    background: linear-gradient(135deg, #faf9ff, #f0eeff) !important;
+    border-color: #e5e1ff !important;
+}
+
+.isfa-shell .isfa-payment__amount span {
+    color: #77728f !important;
+}
+
+/* ===== QR CODE ===== */
+.isfa-shell .isfa-qr {
+    background-color: #ffffff !important;
+    border-color: #e4e7ec !important;
+}
+
+.isfa-shell .isfa-qr img {
+    background-color: #ffffff !important;
+}
+
+/* ===== CÓDIGO PIX ===== */
+.isfa-shell .isfa-pix-code textarea {
+    color: #475467 !important;
+    background-color: #f8f9fc !important;
+    border-color: #d8deea !important;
+    -webkit-text-fill-color: #475467 !important;
+}
+
+.isfa-shell .isfa-pix-code textarea:focus {
+    border-color: #5b4bdb !important;
+    box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.1) !important;
+}
+
+/* ===== STATUS DO PAGAMENTO ===== */
+.isfa-shell .isfa-payment__status {
+    color: #263247 !important;
+    background-color: #f8f9fc !important;
+    border-color: #e3e8f0 !important;
+}
+
+.isfa-shell .isfa-payment__status strong {
+    color: #263247 !important;
+}
+
+.isfa-shell .isfa-payment__status p {
+    color: #667085 !important;
+}
+
+.isfa-shell .isfa-status-dot {
+    background-color: #98a2b3 !important;
+    border-color: #d0d5dd !important;
+}
+
+.isfa-shell .isfa-status-dot--ok {
+    background-color: #16845b !important;
+    border-color: #a6e7c8 !important;
+}
+
+/* ===== LINK/BOTÃO DE TEXTO ===== */
+.isfa-shell .isfa-text-button {
+    color: #5b4bdb !important;
+    background-color: transparent !important;
+    -webkit-text-fill-color: #5b4bdb !important;
+}
+
+.isfa-shell .isfa-text-button:hover {
+    color: #4536c5 !important;
+    background-color: #f0eeff !important;
+    -webkit-text-fill-color: #4536c5 !important;
+}
+
+/* ===== LINK PARA ABRIR ETIQUETA ===== */
+.isfa-shell .isfa-download,
+.isfa-shell a.isfa-button--primary {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #6758e8 0%, #4f40cf 100%) !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* ===== FOCO ACESSÍVEL ===== */
+.isfa-shell .isfa-button:focus-visible,
+.isfa-shell .isfa-option:focus-visible,
+.isfa-shell .isfa-text-button:focus-visible {
+    outline: 3px solid rgba(91, 75, 219, 0.5) !important;
+    outline-offset: 3px !important;
+}
+
+/* ===== COR DO TEXTO SELECIONADO ===== */
+.isfa-shell ::selection {
+    color: #ffffff !important;
+    background-color: #5b4bdb !important;
+}

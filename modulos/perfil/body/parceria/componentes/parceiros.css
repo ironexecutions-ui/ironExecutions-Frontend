@@ -1,0 +1,596 @@
+/* =========================================================
+   PARCEIROS
+   CONTAINER DA LISTA DE COMÉRCIOS
+========================================================= */
+
+.parceiros-lista-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #101828;
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+/* =========================================================
+   CABEÇALHO DA LISTA
+========================================================= */
+
+.parceiros-lista-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.parceiros-lista-cabecalho h2 {
+    margin: 0 0 7px;
+    color: #0b1f3a;
+    font-size: 22px;
+    font-weight: 850;
+    letter-spacing: -0.5px;
+    line-height: 1.25;
+}
+
+.parceiros-lista-cabecalho p {
+    margin: 0;
+    color: #667085;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   CONTADOR DE COMÉRCIOS
+========================================================= */
+
+.parceiros-lista-contador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+
+    min-height: 40px;
+    padding: 0 14px;
+    box-sizing: border-box;
+
+    background: linear-gradient(145deg,
+            #f0f5fb,
+            #e7eef8);
+
+    border: 1px solid #d5e1ef;
+    border-radius: 11px;
+
+    color: #123d72;
+}
+
+.parceiros-lista-contador span {
+    font-size: 17px;
+    font-weight: 850;
+}
+
+.parceiros-lista-contador small {
+    font-size: 11px;
+    font-weight: 750;
+}
+
+/* =========================================================
+   LISTA DE COMÉRCIOS
+========================================================= */
+
+.parceiros-lista-itens {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* =========================================================
+   CARTÃO INDIVIDUAL
+========================================================= */
+
+.parceiros-lista-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    width: 100%;
+    min-width: 0;
+    padding: 17px;
+    box-sizing: border-box;
+
+    background: linear-gradient(145deg,
+            #ffffff 0%,
+            #f9fbfd 100%);
+
+    border: 1px solid #e0e7ef;
+    border-radius: 15px;
+
+    box-shadow:
+        0 2px 5px rgba(16, 24, 40, 0.02),
+        0 5px 16px rgba(16, 24, 40, 0.025);
+
+    transition:
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease;
+}
+
+.parceiros-lista-item:hover {
+    border-color: #b9cde2;
+
+    box-shadow:
+        0 4px 9px rgba(16, 24, 40, 0.035),
+        0 10px 24px rgba(18, 61, 114, 0.055);
+
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   IMAGEM DO COMÉRCIO
+========================================================= */
+
+.parceiros-lista-imagem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+
+    background: linear-gradient(145deg,
+            #f2f6fa,
+            #e8eef5);
+
+    border: 1px solid #e0e7ef;
+    border-radius: 12px;
+
+    color: #123d72;
+    font-size: 24px;
+    font-weight: 850;
+}
+
+.parceiros-lista-imagem img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =========================================================
+   INFORMAÇÕES DO COMÉRCIO
+========================================================= */
+
+.parceiros-lista-informacoes {
+    flex: 1;
+    min-width: 0;
+}
+
+.parceiros-lista-informacoes h3 {
+    margin: 0 0 5px;
+
+    color: #0b1f3a;
+    font-size: 15px;
+    font-weight: 850;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+/* IDENTIFICADOR */
+
+.parceiros-lista-id {
+    display: inline-block;
+    margin-bottom: 10px;
+
+    color: #8491a3;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.2px;
+}
+
+/* =========================================================
+   DETALHES DO COMÉRCIO
+========================================================= */
+
+.parceiros-lista-detalhes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px 16px;
+}
+
+.parceiros-lista-detalhes span {
+    display: inline-block;
+    max-width: 100%;
+
+    color: #667085;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   NOTA DO COMÉRCIO
+========================================================= */
+
+.parceiros-lista-nota {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    min-width: 55px;
+    padding: 10px 9px;
+    box-sizing: border-box;
+
+    background: linear-gradient(145deg,
+            #f7f9fc,
+            #edf2f8);
+
+    border: 1px solid #e0e7ef;
+    border-radius: 11px;
+}
+
+.parceiros-lista-nota span {
+    color: #123d72;
+    font-size: 19px;
+    font-weight: 850;
+    line-height: 1.2;
+}
+
+.parceiros-lista-nota small {
+    margin-top: 4px;
+    color: #667085;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+/* =========================================================
+   ESTADO VAZIO
+========================================================= */
+
+.parceiros-lista-vazio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 240px;
+    padding: 30px 20px;
+    box-sizing: border-box;
+
+    background: linear-gradient(145deg,
+            #ffffff,
+            #f8fafc);
+
+    border: 1px dashed #cbd5e1;
+    border-radius: 15px;
+
+    text-align: center;
+}
+
+.parceiros-lista-vazio-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 64px;
+    height: 64px;
+    margin-bottom: 17px;
+
+    background: #edf3fa;
+    border: 1px solid #dce7f3;
+    border-radius: 18px;
+
+    color: #123d72;
+}
+
+.parceiros-lista-vazio h3 {
+    margin: 0 0 8px;
+    color: #0b1f3a;
+    font-size: 17px;
+    font-weight: 850;
+}
+
+.parceiros-lista-vazio p {
+    max-width: 360px;
+    margin: 0;
+
+    color: #667085;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
+
+.parceiros-lista-carregando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    min-height: 260px;
+    padding: 30px;
+    box-sizing: border-box;
+
+    color: #667085;
+    text-align: center;
+}
+
+.parceiros-lista-carregando p {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+/* INDICADOR DE CARREGAMENTO */
+
+.parceiros-lista-spinner {
+    width: 39px;
+    height: 39px;
+    box-sizing: border-box;
+
+    border: 4px solid #e4eaf0;
+    border-top-color: #123d72;
+    border-right-color: #4778aa;
+    border-radius: 50%;
+
+    animation: parceirosListaGirar 0.75s linear infinite;
+}
+
+@keyframes parceirosListaGirar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================================
+   ERROS
+========================================================= */
+
+.parceiros-lista-erro {
+    padding: 25px;
+    box-sizing: border-box;
+
+    background: linear-gradient(145deg,
+            #ffffff,
+            #fff8f8);
+
+    border: 1px solid #f0caca;
+    border-radius: 14px;
+
+    text-align: center;
+}
+
+.parceiros-lista-erro h3 {
+    margin: 0 0 9px;
+    color: #912d2d;
+    font-size: 16px;
+    font-weight: 850;
+}
+
+.parceiros-lista-erro p {
+    margin: 0 0 17px;
+    color: #a52828;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.parceiros-lista-erro button {
+    min-height: 40px;
+    padding: 0 18px;
+
+    background: linear-gradient(135deg,
+            #1c568f,
+            #123d72);
+
+    border: 1px solid #0e3868;
+    border-radius: 9px;
+
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.parceiros-lista-erro button:hover {
+    background: linear-gradient(135deg,
+            #205f9e,
+            #092a50);
+
+    box-shadow: 0 4px 10px rgba(18, 61, 114, 0.16);
+    transform: translateY(-1px);
+}
+
+.parceiros-lista-erro button:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   FOCO ACESSÍVEL
+========================================================= */
+
+.parceiros-lista-erro button:focus-visible {
+    outline: 2px solid #2868aa;
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+    .parceiros-lista-container {
+        padding: 16px;
+    }
+
+    .parceiros-lista-item {
+        gap: 13px;
+        padding: 15px;
+    }
+
+    .parceiros-lista-imagem {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+    .parceiros-lista-container {
+        padding: 10px;
+    }
+
+    .parceiros-lista-cabecalho {
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 17px;
+    }
+
+    .parceiros-lista-cabecalho h2 {
+        font-size: 18px;
+        letter-spacing: -0.3px;
+    }
+
+    .parceiros-lista-cabecalho p {
+        font-size: 12px;
+    }
+
+    .parceiros-lista-contador {
+        gap: 5px;
+        min-height: 34px;
+        padding: 0 9px;
+        border-radius: 9px;
+    }
+
+    .parceiros-lista-contador span {
+        font-size: 14px;
+    }
+
+    .parceiros-lista-contador small {
+        font-size: 10px;
+    }
+
+    .parceiros-lista-itens {
+        gap: 9px;
+    }
+
+    .parceiros-lista-item {
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .parceiros-lista-imagem {
+        width: 46px;
+        height: 46px;
+        border-radius: 9px;
+        font-size: 18px;
+    }
+
+    .parceiros-lista-informacoes h3 {
+        font-size: 13px;
+    }
+
+    .parceiros-lista-id {
+        margin-bottom: 7px;
+        font-size: 10px;
+    }
+
+    .parceiros-lista-detalhes {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .parceiros-lista-detalhes span {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .parceiros-lista-nota {
+        min-width: 41px;
+        padding: 7px 5px;
+        border-radius: 8px;
+    }
+
+    .parceiros-lista-nota span {
+        font-size: 15px;
+    }
+
+    .parceiros-lista-nota small {
+        font-size: 9px;
+    }
+
+    .parceiros-lista-vazio {
+        min-height: 210px;
+        padding: 24px 15px;
+    }
+
+    .parceiros-lista-vazio-icone {
+        width: 54px;
+        height: 54px;
+        margin-bottom: 14px;
+        border-radius: 15px;
+    }
+
+    .parceiros-lista-vazio h3 {
+        font-size: 15px;
+    }
+
+    .parceiros-lista-vazio p {
+        font-size: 12px;
+    }
+
+    .parceiros-lista-carregando {
+        min-height: 220px;
+    }
+}
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .parceiros-lista-spinner {
+        animation-duration: 2s;
+    }
+
+    .parceiros-lista-item,
+    .parceiros-lista-erro button {
+        transition: none;
+    }
+
+    .parceiros-lista-item:hover,
+    .parceiros-lista-erro button:hover {
+        transform: none;
+    }
+}
