@@ -27,38 +27,62 @@ export default function PainelGeral() {
     const painelGeralMontadoRef = useRef(false);
     const painelGeralTentativaRef = useRef(0);
 
+
     const ativarNotificacoesPainelGeral = useCallback(async () => {
         if (!("Notification" in window)) {
-            alert(
-                "Este navegador não oferece suporte a notificações."
-            );
+            alert("Este navegador não oferece suporte a notificações.");
             return;
         }
 
         if (!window.isSecureContext) {
-            alert(
-                "As notificações precisam de uma conexão HTTPS."
-            );
+            alert("As notificações precisam de HTTPS ou localhost.");
             return;
         }
 
         try {
-            const permissao = await Notification.requestPermission();
+            let permissao = Notification.permission;
 
-            const ativa = permissao === "granted";
-
-            setPainelGeralNotificacaoAtiva(ativa);
-
-            if (ativa) {
-                new Notification("Iron Executions", {
-                    body: "Notificações de novos fretes ativadas.",
-                    tag: "iron-executions-notificacoes-ativadas"
-                });
+            if (permissao !== "granted") {
+                permissao = await Notification.requestPermission();
             }
+
+            setPainelGeralNotificacaoAtiva(permissao === "granted");
+
+            if (permissao !== "granted") {
+                alert(
+                    "As notificações não foram autorizadas. " +
+                    "Permita notificações para o site nas configurações do Chrome."
+                );
+                return;
+            }
+
+            const notificacao = new Notification(
+                "Iron Executions",
+                {
+                    body: "Teste de notificação do sistema.",
+                    tag: "iron-executions-teste",
+                    icon: "/favicon.ico",
+                    requireInteraction: true
+                }
+            );
+
+            notificacao.onclick = () => {
+                window.focus();
+                notificacao.close();
+            };
+
+            console.info(
+                "[PAINEL GERAL] Notificação de teste criada."
+            );
         } catch (error) {
             console.error(
-                "[PAINEL GERAL] Erro ao ativar notificações:",
+                "[PAINEL GERAL] Erro ao exibir notificação:",
                 error
+            );
+
+            alert(
+                "Não foi possível exibir a notificação. " +
+                "Confira as permissões do Chrome e do Windows."
             );
         }
     }, []);
@@ -158,7 +182,7 @@ export default function PainelGeral() {
                 .replace(/\/+$/, "");
 
             const urlWebSocket =
-                `${baseWebSocket}/ws/ironstore/fretes` +
+                `${baseWebSocket}/panel/ws/ironstore/fretes` +
                 `?token=${encodeURIComponent(token)}`;
 
             const socket = new WebSocket(urlWebSocket);
@@ -317,6 +341,9 @@ export default function PainelGeral() {
 
     return (
         <div className="painel-geral-conteudo-principal">
+
+
+            <PainelG />
             <div className="painel-geral-notificacoes">
                 <div
                     className={
@@ -355,8 +382,6 @@ export default function PainelGeral() {
                     </div>
                 )}
             </div>
-
-            <PainelG />
         </div>
     );
 }
