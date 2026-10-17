@@ -2020,17 +2020,20 @@ export default function Frete({ token: tokenProp }) {
                         </div>
                     )}
 
-                    {pagamento.tipo_fluxo === "recarga_melhor_envio" && pagamento.qr_code_url && (
-                        <div className="isfa-alert isfa-alert--info">
-                            <span>
-                                O Melhor Envio retornou um link para concluir a recarga.
-                                {" "}
-                                <a href={pagamento.qr_code_url} target="_blank" rel="noreferrer">
-                                    Abrir PIX de recarga do Melhor Envio
-                                </a>
-                            </span>
-                        </div>
-                    )}
+                    {pagamento.tipo_fluxo === "recarga_melhor_envio" &&
+                        !pagamento.qr_code_base64 &&
+                        pagamento.qr_code_url && (
+                            <div className="isfa-qr isfa-qr--link" aria-label="QR Code para abrir o pagamento PIX">
+                                <img
+                                    alt="QR Code PIX para concluir a recarga"
+                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data=${encodeURIComponent(pagamento.qr_code_url)}`}
+                                    width="280"
+                                    height="280"
+                                    loading="eager"
+                                />
+                                <p>Escaneie este QR Code com a câmera do celular para abrir o PIX.</p>
+                            </div>
+                        )}
 
                     {pagamento.tipo_fluxo === "recarga_melhor_envio" && (
                         <div className="isfa-actions">
