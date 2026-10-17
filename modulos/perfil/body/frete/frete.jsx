@@ -2700,21 +2700,16 @@ export default function Frete({ token: tokenProp }) {
                                 </span>
 
                                 <h3>
-                                    Já confirmou a recarga? Consulte seu saldo!
+                                    Já confirmou a recarga? Verifique!
                                 </h3>
 
                                 <p>
                                     <strong>Importante:</strong> depois de realizar a recarga
                                     da carteira no Melhor Envio, aguarde a confirmação do crédito
-                                    e consulte o saldo disponível abaixo.
+                                    e verifique.
                                 </p>
 
-                                <p>
-                                    <strong>Somente com saldo suficiente</strong>, você poderá
-                                    solicitar a geração do PIX específico para pagar este frete.
-                                    A recarga da carteira, por si só, não realiza o pagamento
-                                    do frete.
-                                </p>
+
                             </div>
 
 
@@ -2731,7 +2726,7 @@ export default function Frete({ token: tokenProp }) {
                                     </>
                                 ) : (
                                     <>
-                                        Verificar saldo e continuar
+                                        Verificar e continuar
                                         <svg
                                             viewBox="0 0 24 24"
                                             fill="none"
