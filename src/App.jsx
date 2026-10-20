@@ -31,7 +31,7 @@ import teste from "./imagens/teste.png";
 import dass from "./imagens/dass.png";
 import neide from "./imagens/neidefashion.png";
 import alexsiaUtilidades from "./imagens/alexsiautilidades.png";
-
+import rpt from "./imagens/RTP.png"
 import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto";
 import Camerapublica from "../camera/camerapublica";
 import Geral from "../camera/geral";
@@ -51,7 +51,8 @@ const FUNDOS_POR_COMERCIO = {
   27: teste,
   28: dass,
   29: alexsiaUtilidades,
-  38: neide
+  38: neide,
+  45: rpt,
 };
 
 const CACHE_AVISO_TERMOS =
