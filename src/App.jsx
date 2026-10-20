@@ -24,7 +24,7 @@ import { useLoading } from "./loadingcontext";
 import { API_URL } from "../config";
 import RegistroEmails from "./registroemails";
 import PainelGeral from "../painelgeral/painel";
-
+import CaixaOperacionalModal from "./modal/modal";
 import ironExecutions from "./imagens/ironexecutions.png";
 import missionaryStoreBrasil from "./imagens/missionarystorebrasil.png";
 import teste from "./imagens/teste.png";
@@ -1486,6 +1486,7 @@ export default function App() {
 
     <Router>
       <AlertaPedidos />
+      <CaixaOperacionalModal />
 
       <ControleTermos
         verificarTermosPendentes={verificarTermosPendentes}

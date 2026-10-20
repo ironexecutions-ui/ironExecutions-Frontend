@@ -1104,7 +1104,7 @@ INICIALIZAR PIX RÁPIDO
 
 
 
-    return (
+    return createPortal(
         <div className={`pag-overlay ${fechando ? "overlay-fechar" : ""}`}>
             <div className={`pag-box ${sucesso ? "pag-box-sucesso" : ""}`}>
 
@@ -1498,6 +1498,7 @@ INICIALIZAR PIX RÁPIDO
                 )
             }
 
-        </div>
+        </div>,
+        document.body
     );
 }
