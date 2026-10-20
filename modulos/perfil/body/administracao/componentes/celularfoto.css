@@ -3187,3 +3187,88 @@
     object-fit: contain !important;
     object-position: center !important;
 }
+
+/* ============================================================
+   IRON EXECUTIONS
+   CORREÇÃO DEFINITIVA DOS 3 BOTÕES DE FOTOGRAFIA
+   ============================================================ */
+
+/* Base exclusiva das três opções */
+.celular-foto-pagina button.celular-foto-opcao {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+}
+
+/* Textos principais */
+.celular-foto-pagina button.celular-foto-opcao .celular-foto-opcao-conteudo strong {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+}
+
+/* Textos auxiliares */
+.celular-foto-pagina button.celular-foto-opcao .celular-foto-opcao-conteudo small {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+}
+
+/* Setas de navegação */
+.celular-foto-pagina button.celular-foto-opcao .celular-foto-opcao-seta {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+}
+
+/* Botão de fundo branco */
+.celular-foto-pagina button.celular-foto-opcao-camera {
+    color: #0f172a !important;
+    background: linear-gradient(145deg,
+            #f8fbff 0%,
+            #eff6ff 100%) !important;
+}
+
+/* Botão de foto normal */
+.celular-foto-pagina button.celular-foto-opcao-normal {
+    color: #0f172a !important;
+    background: linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 100%) !important;
+}
+
+/* Botão da galeria */
+.celular-foto-pagina button.celular-foto-opcao-galeria {
+    color: #0f172a !important;
+    background: linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 100%) !important;
+}
+
+/* Ícones dos botões */
+.celular-foto-pagina button.celular-foto-opcao-camera .celular-foto-opcao-icone {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.celular-foto-pagina button.celular-foto-opcao-normal .celular-foto-opcao-icone {
+    color: #334155 !important;
+    -webkit-text-fill-color: #334155 !important;
+}
+
+.celular-foto-pagina button.celular-foto-opcao-galeria .celular-foto-opcao-icone {
+    color: #334155 !important;
+    -webkit-text-fill-color: #334155 !important;
+}
+
+/* Estado desabilitado */
+.celular-foto-pagina button.celular-foto-opcao:disabled {
+    opacity: 0.55 !important;
+}
+
+/* Mantém os textos legíveis ao tocar */
+.celular-foto-pagina button.celular-foto-opcao:active .celular-foto-opcao-conteudo strong {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+}
+
+.celular-foto-pagina button.celular-foto-opcao:active .celular-foto-opcao-conteudo small {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+}
