@@ -22,7 +22,10 @@ export default function Supervisionar() {
         useState(null);
     const [supervisaoAlterandoTesteId, setSupervisaoAlterandoTesteId] =
         useState(null);
-
+    const [supervisaoLimiteIronstockRascunhos, setSupervisaoLimiteIronstockRascunhos] =
+        useState({});
+    const [supervisaoSalvandoLimiteIronstockId, setSupervisaoSalvandoLimiteIronstockId] =
+        useState(null);
     const [supervisaoAlterandoArquivadoId, setSupervisaoAlterandoArquivadoId] =
         useState(null);
 
@@ -344,7 +347,136 @@ export default function Supervisionar() {
             setSupervisaoSalvandoDataId(null);
         }
     }
+    // =========================================================
+    // LIMITE DE IRONSTOCK
+    // =========================================================
 
+    function obterLimiteIronstockSupervisao(comercio) {
+        if (
+            Object.prototype.hasOwnProperty.call(
+                supervisaoLimiteIronstockRascunhos,
+                comercio.id
+            )
+        ) {
+            return supervisaoLimiteIronstockRascunhos[comercio.id];
+        }
+
+        return comercio.ironstock_limite ?? "";
+    }
+
+    function editarLimiteIronstockSupervisao(comercioId, valor) {
+        setSupervisaoLimiteIronstockRascunhos(rascunhos => ({
+            ...rascunhos,
+            [comercioId]: valor
+        }));
+    }
+
+    async function salvarLimiteIronstockSupervisao(comercio) {
+        if (
+            supervisaoSalvandoLimiteIronstockId !== null ||
+            supervisaoSalvandoDataId !== null ||
+            supervisaoAlterandoTesteId !== null ||
+            supervisaoAlterandoArquivadoId !== null ||
+            supervisaoEntrandoId !== null
+        ) {
+            return;
+        }
+
+        const valorDigitado =
+            obterLimiteIronstockSupervisao(comercio);
+
+        if (
+            valorDigitado === "" ||
+            !/^\d+$/.test(String(valorDigitado).trim())
+        ) {
+            setSupervisaoErro(
+                "Informe um limite inteiro não negativo para o IronStock."
+            );
+            return;
+        }
+
+        const limite = Number(valorDigitado);
+
+        if (
+            !Number.isSafeInteger(limite) ||
+            limite > 2147483647
+        ) {
+            setSupervisaoErro(
+                "Informe um limite entre 0 e 2147483647."
+            );
+            return;
+        }
+
+        if (
+            String(comercio.ironstock_limite ?? "") ===
+            String(limite)
+        ) {
+            setSupervisaoLimiteIronstockRascunhos(rascunhos => {
+                const novosRascunhos = { ...rascunhos };
+                delete novosRascunhos[comercio.id];
+                return novosRascunhos;
+            });
+
+            setSupervisaoErro("");
+            return;
+        }
+
+        setSupervisaoSalvandoLimiteIronstockId(comercio.id);
+        setSupervisaoErro("");
+
+        try {
+            const resposta = await fetch(
+                `${API_URL}/panel/database/supervisionar/ironstock-limite`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        comercio_id: comercio.id,
+                        ironstock_limite: limite
+                    })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.detail ||
+                    "Erro ao salvar o limite de IronStock."
+                );
+            }
+
+            setSupervisaoComercios(comercios =>
+                comercios.map(item =>
+                    item.id === comercio.id
+                        ? {
+                            ...item,
+                            ironstock_limite: dados.ironstock_limite
+                        }
+                        : item
+                )
+            );
+
+            setSupervisaoLimiteIronstockRascunhos(rascunhos => {
+                const novosRascunhos = { ...rascunhos };
+                delete novosRascunhos[comercio.id];
+                return novosRascunhos;
+            });
+
+        } catch (error) {
+            console.error(
+                "[SUPERVISIONAR] Erro ao salvar limite IronStock:",
+                error
+            );
+
+            setSupervisaoErro(error.message);
+        } finally {
+            setSupervisaoSalvandoLimiteIronstockId(null);
+        }
+    }
     // =========================================================
     // ENTRAR NO COMÉRCIO
     // =========================================================
@@ -696,6 +828,59 @@ export default function Supervisionar() {
                                     Salvando data...
                                 </span>
                             )}
+
+                            {/* LIMITE DE IRONSTOCK */}
+
+                            <label
+                                className="supervisao-empresa-limite-ironstock-label"
+                                htmlFor={`supervisao-limite-ironstock-${comercio.id}`}
+                            >
+                                Limite de IronStock
+                            </label>
+                            <div className="supervisao-empresa-limite-ironstock">
+
+
+                                <input
+                                    id={`supervisao-limite-ironstock-${comercio.id}`}
+                                    type="number"
+                                    min="0"
+                                    max="2147483647"
+                                    step="1"
+                                    inputMode="numeric"
+                                    className="supervisao-empresa-limite-ironstock-input"
+                                    value={obterLimiteIronstockSupervisao(comercio)}
+                                    onChange={event =>
+                                        editarLimiteIronstockSupervisao(
+                                            comercio.id,
+                                            event.target.value
+                                        )
+                                    }
+                                    onBlur={() =>
+                                        salvarLimiteIronstockSupervisao(comercio)
+                                    }
+                                    disabled={
+                                        supervisaoSalvandoLimiteIronstockId === comercio.id ||
+                                        supervisaoSalvandoDataId !== null ||
+                                        supervisaoAlterandoTesteId !== null ||
+                                        supervisaoAlterandoArquivadoId !== null ||
+                                        supervisaoEntrandoId !== null
+                                    }
+                                    placeholder="Digite o limite"
+                                    aria-label={`Limite de IronStock da empresa ${comercio.loja}`}
+                                />
+
+                                {supervisaoSalvandoLimiteIronstockId === comercio.id && (
+                                    <span
+                                        className="supervisao-empresa-limite-ironstock-ajuda"
+                                        role="status"
+                                    >
+                                        Salvando limite...
+                                    </span>
+                                )}
+
+
+
+                            </div>
 
                         </div>
 

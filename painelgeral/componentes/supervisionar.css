@@ -1797,3 +1797,160 @@
         box-sizing: border-box !important;
     }
 }
+
+/* ============================================================
+   LIMITE DE IRONSTOCK
+   ============================================================ */
+
+.supervisao-empresa-limite-ironstock {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    width: 100%;
+    min-width: 0;
+    margin: 0 0 5px;
+    padding: 12px;
+
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #dfe7f1;
+    border-radius: 12px;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.supervisao-empresa-limite-ironstock:hover {
+    border-color: #cbd8e8;
+}
+
+.supervisao-empresa-limite-ironstock-label {
+    display: block;
+    margin: 0;
+
+    color: #334155;
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.supervisao-empresa-limite-ironstock-input {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    padding: 0 12px;
+
+    color: #0f172a;
+    background: #ffffff;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    outline: none;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.025);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.supervisao-empresa-limite-ironstock-input:hover:not(:disabled) {
+    border-color: #94a3b8;
+}
+
+.supervisao-empresa-limite-ironstock-input:focus {
+    border-color: #2563eb;
+    background-color: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.supervisao-empresa-limite-ironstock-input:disabled {
+    color: #64748b;
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    opacity: 0.75;
+    cursor: wait;
+}
+
+.supervisao-empresa-limite-ironstock-input::placeholder {
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 450;
+}
+
+.supervisao-empresa-limite-ironstock-ajuda {
+    display: block;
+    min-height: 15px;
+    margin: 0;
+
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 550;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.supervisao-empresa-limite-ironstock [role="status"] {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+/* Foco acessível */
+.supervisao-empresas-container .supervisao-empresa-limite-ironstock-input:focus-visible {
+    outline: 2px solid rgba(37, 99, 235, 0.2);
+    outline-offset: 2px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .supervisao-empresa-limite-ironstock {
+        padding: 11px;
+        gap: 6px;
+    }
+}
+
+/* Celular */
+@media (max-width: 520px) {
+    .supervisao-empresa-limite-ironstock {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .supervisao-empresa-limite-ironstock-label {
+        font-size: 11px;
+    }
+
+    .supervisao-empresa-limite-ironstock-input {
+        height: 41px;
+        font-size: 16px;
+    }
+
+    .supervisao-empresa-limite-ironstock-ajuda {
+        font-size: 10px;
+    }
+}
+
+/* Celulares pequenos */
+@media (max-width: 360px) {
+    .supervisao-empresa-limite-ironstock {
+        padding: 9px;
+    }
+
+    .supervisao-empresa-limite-ironstock-input {
+        padding: 0 9px;
+    }
+}
