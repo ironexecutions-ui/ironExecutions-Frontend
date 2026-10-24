@@ -988,23 +988,7 @@ export default function DadosComerciais() {
                 />
 
 
-                <CampoEditavel
-                    label="Tipo de letra"
-                    valor={dados.letra_tipo}
-                    tipo="letra"
-                    podeEditar={podeEditar}
-                    opcoes={
-                        Array.isArray(tiposLetra)
-                            ? tiposLetra
-                            : []
-                    }
-                    onSalvar={v =>
-                        salvarCampo(
-                            "letra_tipo",
-                            v
-                        )
-                    }
-                />
+
 
             </section>
 

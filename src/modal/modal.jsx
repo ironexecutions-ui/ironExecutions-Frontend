@@ -765,7 +765,7 @@ export default function CaixaOperacionalModal() {
                                         </p>
                                     </div>
                                 ) : (
-                                    movimentacoes.map((movimento, indice) => {
+                                    [...movimentacoes].reverse().map((movimento, indice) => {
                                         const valor = Number(
                                             movimento.quanto || 0
                                         );

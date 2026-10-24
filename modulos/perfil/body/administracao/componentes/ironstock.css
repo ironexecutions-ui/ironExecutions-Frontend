@@ -1,0 +1,2061 @@
+/* =========================================================
+   IRONSTOCK — DESIGN SYSTEM
+   Branco, azul-marinho e tons neutros
+   Compatível com as classes do componente Ironstock.jsx
+========================================================= */
+
+.ie-ironstock {
+    --is-navy: #102a56;
+    --is-navy-deep: #0a1b38;
+    --is-blue: #1d4ed8;
+    --is-blue-soft: #eff6ff;
+    --is-ink: #111827;
+    --is-text: #334155;
+    --is-muted: #64748b;
+    --is-line: #e2e8f0;
+    --is-line-strong: #cbd5e1;
+    --is-surface: #ffffff;
+    --is-surface-soft: #f8fafc;
+    --is-success: #047857;
+    --is-success-bg: #ecfdf5;
+    --is-danger: #b91c1c;
+    --is-danger-bg: #fef2f2;
+    --is-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+    --is-shadow-md: 0 12px 32px rgba(15, 23, 42, 0.07);
+    --is-radius: 18px;
+
+    width: 100%;
+    min-width: 0;
+    padding: clamp(14px, 2.2vw, 30px);
+    box-sizing: border-box;
+    color: var(--is-ink);
+    background: #f4f7fb;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+.ie-ironstock *,
+.ie-ironstock *::before,
+.ie-ironstock *::after {
+    box-sizing: border-box;
+}
+
+.ie-ironstock button,
+.ie-ironstock input,
+.ie-ironstock select,
+.ie-ironstock textarea {
+    font: inherit;
+}
+
+.ie-ironstock button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ie-ironstock button:focus-visible,
+.ie-ironstock a:focus-visible,
+.ie-ironstock input:focus-visible,
+.ie-ironstock select:focus-visible,
+.ie-ironstock textarea:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.22);
+    outline-offset: 2px;
+}
+
+.ie-ironstock__painel {
+    width: 100%;
+    min-width: 0;
+    margin: 0 auto 22px;
+    padding: clamp(18px, 2.4vw, 30px);
+    background: var(--is-surface);
+    border: 1px solid rgba(203, 213, 225, 0.8);
+    border-radius: var(--is-radius);
+    box-shadow: var(--is-shadow-sm);
+}
+
+.ie-ironstock__cabecalho {
+    overflow: hidden;
+    position: relative;
+}
+
+.ie-ironstock__cabecalho-superior {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 22px;
+    min-width: 0;
+}
+
+.ie-ironstock__identidade {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ie-ironstock__sobretitulo {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: var(--is-blue);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.ie-ironstock__titulo {
+    margin: 0;
+    color: var(--is-navy-deep);
+    font-size: clamp(28px, 3vw, 39px);
+    font-weight: 850;
+    line-height: 1.12;
+    letter-spacing: -0.045em;
+}
+
+.ie-ironstock__subtitulo {
+    max-width: 720px;
+    margin: 10px 0 0;
+    color: var(--is-muted);
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.ie-ironstock__cabecalho-superior>.ie-ironstock__botao {
+    flex: 0 0 auto;
+}
+
+/* Indicadores */
+
+.ie-ironstock__indicadores {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.ie-ironstock__indicador {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 21px 22px;
+    background: #ffffff;
+    border: 1px solid var(--is-line);
+    border-radius: 15px;
+}
+
+.ie-ironstock__indicador--destaque {
+    background: linear-gradient(135deg, #f8fbff 0%, #edf4ff 100%);
+    border-color: #cbdcf8;
+}
+
+.ie-ironstock__indicador-rotulo {
+    color: var(--is-muted);
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.5;
+}
+
+.ie-ironstock__indicador-valor {
+    display: block;
+    margin-top: 8px;
+    color: var(--is-navy);
+    font-size: clamp(29px, 3vw, 38px);
+    font-weight: 850;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
+}
+
+.ie-ironstock__indicador-descricao {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Aviso informativo */
+
+.ie-ironstock__aviso {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-top: 20px;
+    padding: 17px 18px;
+    background: #f8fafc;
+    border: 1px solid var(--is-line);
+    border-radius: 14px;
+}
+
+.ie-ironstock__aviso-icone {
+    display: flex;
+    flex: 0 0 28px;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: #ffffff;
+    background: var(--is-navy);
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.ie-ironstock__aviso-conteudo {
+    min-width: 0;
+}
+
+.ie-ironstock__aviso-titulo {
+    margin: 1px 0 6px;
+    color: var(--is-navy);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.ie-ironstock__aviso-conteudo p {
+    margin: 5px 0 0;
+    color: var(--is-text);
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+/* Contabilização de variedades */
+
+.ie-ironstock__variedades {
+    margin-top: 20px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid var(--is-line);
+    border-radius: 15px;
+}
+
+.ie-ironstock__variedades-titulo {
+    margin: 0 0 15px;
+    color: var(--is-navy);
+    font-size: 15px;
+    font-weight: 850;
+    letter-spacing: -0.015em;
+}
+
+.ie-ironstock__variedades-lista {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 11px;
+}
+
+.ie-ironstock__variedade {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+    padding: 15px;
+    background: var(--is-surface-soft);
+    border: 1px solid var(--is-line);
+    border-radius: 12px;
+}
+
+.ie-ironstock__variedade strong {
+    color: var(--is-navy);
+    font-size: 16px;
+    font-weight: 850;
+}
+
+.ie-ironstock__variedade span {
+    color: var(--is-muted);
+    font-size: 12px;
+}
+
+.ie-ironstock__variedade b {
+    margin-top: 5px;
+    color: var(--is-ink);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.ie-ironstock__variedades-nota {
+    margin: 13px 0 0;
+    color: var(--is-muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Contato */
+
+.ie-ironstock__contato {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 20px;
+    padding: 18px 20px;
+    background: #ffffff;
+    border: 1px solid var(--is-line);
+    border-radius: 14px;
+}
+
+.ie-ironstock__contato-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.ie-ironstock__contato-texto strong {
+    color: var(--is-navy);
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.ie-ironstock__contato-texto span {
+    color: var(--is-muted);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+/* Cabeçalhos de seção */
+
+.ie-ironstock__secao-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.ie-ironstock__titulo-secao {
+    margin: 0;
+    color: var(--is-navy-deep);
+    font-size: clamp(20px, 2.2vw, 25px);
+    font-weight: 850;
+    line-height: 1.25;
+    letter-spacing: -0.035em;
+}
+
+.ie-ironstock__total-listagem {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 6px 11px;
+    color: var(--is-navy);
+    background: #f1f5f9;
+    border: 1px solid var(--is-line);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+/* Formulário */
+
+.ie-ironstock__formulario {
+    width: 100%;
+    min-width: 0;
+}
+
+.ie-ironstock__campos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.ie-ironstock__campo {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    min-width: 0;
+    color: var(--is-ink);
+}
+
+.ie-ironstock__rotulo {
+    display: block;
+    color: #1e293b;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.ie-ironstock__input,
+.ie-ironstock__textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    color: var(--is-ink);
+    background: #ffffff;
+    border: 1px solid var(--is-line-strong);
+    border-radius: 11px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.025);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.ie-ironstock__input {
+    min-height: 47px;
+    padding: 11px 13px;
+}
+
+.ie-ironstock__input::placeholder,
+.ie-ironstock__textarea::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+.ie-ironstock__input:hover,
+.ie-ironstock__textarea:hover {
+    border-color: #94a3b8;
+}
+
+.ie-ironstock__input:focus,
+.ie-ironstock__textarea:focus {
+    border-color: var(--is-blue);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.09);
+}
+
+.ie-ironstock__input:disabled,
+.ie-ironstock__textarea:disabled {
+    color: #64748b;
+    background: #f1f5f9;
+    cursor: not-allowed;
+}
+
+.ie-ironstock__ajuda {
+    display: block;
+    color: var(--is-muted);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.65;
+}
+
+.ie-ironstock__campo--descricao {
+    margin-top: 20px;
+}
+
+.ie-ironstock__textarea {
+    min-height: 115px;
+    padding: 12px 14px;
+    resize: vertical;
+    line-height: 1.65;
+}
+
+/* Exemplos de fotos */
+
+.ie-ironstock__campo--fotos {
+    margin-top: 23px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid var(--is-line);
+    border-radius: 15px;
+}
+
+.ie-ironstock__exemplos {
+    margin-bottom: 22px;
+    padding: 17px;
+    background: #f8fafc;
+    border: 1px solid var(--is-line);
+    border-radius: 13px;
+}
+
+.ie-ironstock__exemplos-cabecalho {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.ie-ironstock__exemplos-cabecalho strong {
+    color: var(--is-navy);
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.ie-ironstock__exemplos-cabecalho span {
+    max-width: 850px;
+    color: var(--is-muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.ie-ironstock__exemplos-lista {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.ie-ironstock__exemplo {
+    min-width: 0;
+    overflow: hidden;
+    margin: 0;
+    background: #ffffff;
+    border: 1px solid var(--is-line);
+    border-radius: 12px;
+}
+
+.ie-ironstock__exemplo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #ffffff;
+}
+
+.ie-ironstock__exemplo span {
+    display: block;
+    padding: 10px 12px;
+    color: var(--is-text);
+    border-top: 1px solid var(--is-line);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* Upload de arquivos */
+
+.ie-ironstock__input-arquivos {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+.ie-ironstock__seletor-fotos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
+    min-height: 150px;
+    margin-top: 11px;
+    padding: 20px;
+    color: var(--is-text);
+    background: #fbfdff;
+    border: 1.5px dashed #b8c7dc;
+    border-radius: 13px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.ie-ironstock__seletor-fotos:hover:not(:disabled) {
+    background: #f1f6ff;
+    border-color: var(--is-blue);
+}
+
+.ie-ironstock__seletor-fotos:active:not(:disabled) {
+    transform: scale(0.995);
+}
+
+.ie-ironstock__seletor-fotos:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ie-ironstock__seletor-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 2px;
+    color: #ffffff;
+    background: var(--is-navy);
+    border-radius: 11px;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.ie-ironstock__seletor-fotos strong {
+    color: var(--is-navy);
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.ie-ironstock__seletor-fotos>span:last-child {
+    color: var(--is-muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.ie-ironstock__contador-fotos {
+    display: inline-flex;
+    align-items: center;
+    min-height: 29px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.ie-ironstock__contador-fotos--valido {
+    color: var(--is-success);
+    background: var(--is-success-bg);
+    border-color: #a7f3d0;
+}
+
+.ie-ironstock__contador-fotos--pendente {
+    color: #475569;
+    background: #f1f5f9;
+    border-color: var(--is-line);
+}
+
+/* Pré-visualizações */
+
+.ie-ironstock__previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 13px;
+    margin-top: 16px;
+}
+
+.ie-ironstock__preview {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    margin: 0;
+    background: #ffffff;
+    border: 1px solid var(--is-line);
+    border-radius: 12px;
+    box-shadow: var(--is-shadow-sm);
+}
+
+.ie-ironstock__preview-imagem {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #f8fafc;
+}
+
+.ie-ironstock__preview-remover {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    color: #ffffff;
+    background: rgba(15, 23, 42, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 50%;
+    font-size: 21px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.ie-ironstock__preview-remover:hover:not(:disabled) {
+    background: #b91c1c;
+    transform: scale(1.05);
+}
+
+.ie-ironstock__preview-remover:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ie-ironstock__preview-nome {
+    display: block;
+    overflow: hidden;
+    padding: 9px 10px;
+    color: var(--is-text);
+    font-size: 10px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Botões */
+
+.ie-ironstock__botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 43px;
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease,
+        box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.ie-ironstock__botao:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.ie-ironstock__botao:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.ie-ironstock__botao--principal {
+    color: #ffffff;
+    background: var(--is-navy);
+    border-color: var(--is-navy);
+    box-shadow: 0 4px 10px rgba(16, 42, 86, 0.12);
+}
+
+.ie-ironstock__botao--principal:hover:not(:disabled) {
+    background: #173b73;
+    border-color: #173b73;
+    box-shadow: 0 7px 16px rgba(16, 42, 86, 0.17);
+    transform: translateY(-1px);
+}
+
+.ie-ironstock__botao--secundario {
+    color: var(--is-navy);
+    background: #ffffff;
+    border-color: var(--is-line-strong);
+}
+
+.ie-ironstock__botao--secundario:hover:not(:disabled) {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.ie-ironstock__botao--whatsapp {
+    flex: 0 0 auto;
+    color: #ffffff;
+    background: #166534;
+    border-color: #166534;
+}
+
+.ie-ironstock__botao--whatsapp:hover {
+    color: #ffffff;
+    background: #14532d;
+    border-color: #14532d;
+    transform: translateY(-1px);
+}
+
+.ie-ironstock__acoes-formulario {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 23px;
+    padding-top: 20px;
+    border-top: 1px solid var(--is-line);
+}
+
+.ie-ironstock__acoes-formulario .ie-ironstock__botao {
+    min-width: 145px;
+}
+
+.ie-ironstock__campo--fotos>.ie-ironstock__botao {
+    width: 100%;
+    margin-top: 18px;
+}
+
+/* Mensagens */
+
+.ie-ironstock__mensagem {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 13px 15px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+}
+
+.ie-ironstock__mensagem--erro {
+    color: #991b1b;
+    background: var(--is-danger-bg);
+    border-color: #fecaca;
+}
+
+.ie-ironstock__mensagem--sucesso {
+    color: #065f46;
+    background: var(--is-success-bg);
+    border-color: #a7f3d0;
+}
+
+/* Estados vazios e carregamento */
+
+.ie-ironstock__estado-vazio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    padding: 28px 18px;
+    background: #fbfdff;
+    border: 1px dashed var(--is-line-strong);
+    border-radius: 14px;
+    text-align: center;
+}
+
+.ie-ironstock__estado-vazio h3 {
+    margin: 13px 0 4px;
+    color: var(--is-navy);
+    font-size: 15px;
+    font-weight: 850;
+}
+
+.ie-ironstock__estado-vazio p {
+    max-width: 420px;
+    margin: 4px 0 0;
+    color: var(--is-muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.ie-ironstock__estado-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    color: var(--is-navy);
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 15px;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.ie-ironstock__carregador {
+    display: block;
+    width: 28px;
+    height: 28px;
+    border: 3px solid #dbeafe;
+    border-top-color: var(--is-blue);
+    border-radius: 50%;
+    animation: ie-ironstock-girar 0.75s linear infinite;
+}
+
+@keyframes ie-ironstock-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Lista de produtos */
+
+.ie-ironstock__produtos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.ie-ironstock__produto {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--is-line);
+    border-radius: 15px;
+    box-shadow: 0 2px 7px rgba(15, 23, 42, 0.025);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.ie-ironstock__produto:hover {
+    border-color: #c2d2e8;
+    box-shadow: var(--is-shadow-md);
+    transform: translateY(-2px);
+}
+
+.ie-ironstock__produto-imagem,
+.ie-ironstock__produto-sem-imagem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    color: var(--is-muted);
+    background: #f8fafc;
+    object-fit: contain;
+}
+
+.ie-ironstock__produto-sem-imagem {
+    border-bottom: 1px solid var(--is-line);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ie-ironstock__produto-conteudo {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 16px;
+}
+
+.ie-ironstock__produto-nome {
+    display: -webkit-box;
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    color: var(--is-navy-deep);
+    font-size: 15px;
+    font-weight: 850;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.ie-ironstock__produto-preco {
+    display: block;
+    margin-top: 9px;
+    color: var(--is-ink);
+    font-size: 17px;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+}
+
+.ie-ironstock__produto-fotos {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 9px;
+    padding: 5px 8px;
+    color: var(--is-muted);
+    background: #f1f5f9;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.ie-ironstock__produto-descricao {
+    display: -webkit-box;
+    overflow: hidden;
+    width: 100%;
+    margin: 12px 0 0;
+    color: var(--is-text);
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
+
+.ie-ironstock__produto-acoes {
+    display: flex;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+.ie-ironstock__produto-acoes .ie-ironstock__botao {
+    width: 100%;
+}
+
+/* Modal QR Code */
+
+.ie-ironstock__qr-overlay {
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 22px;
+    background: rgba(10, 27, 56, 0.62);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: ie-ironstock-aparecer 0.18s ease-out;
+}
+
+.ie-ironstock__qr-modal {
+    position: relative;
+    width: min(100%, 470px);
+    max-height: calc(100dvh - 44px);
+    overflow-y: auto;
+    padding: 31px 28px 26px;
+    color: var(--is-ink);
+    background: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 21px;
+    box-shadow: 0 28px 80px rgba(2, 8, 23, 0.28);
+    text-align: center;
+    animation: ie-ironstock-subir 0.22s ease-out;
+}
+
+.ie-ironstock__qr-fechar {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    color: #475569;
+    background: #f1f5f9;
+    border: 1px solid var(--is-line);
+    border-radius: 10px;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.ie-ironstock__qr-fechar:hover {
+    color: #ffffff;
+    background: var(--is-navy);
+}
+
+.ie-ironstock__qr-etiqueta {
+    display: inline-flex;
+    margin: 3px 0 12px;
+    padding: 6px 9px;
+    color: var(--is-blue);
+    background: var(--is-blue-soft);
+    border: 1px solid #dbeafe;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+}
+
+.ie-ironstock__qr-modal h2 {
+    margin: 0;
+    color: var(--is-navy-deep);
+    font-size: 23px;
+    font-weight: 850;
+    line-height: 1.25;
+    letter-spacing: -0.035em;
+}
+
+.ie-ironstock__qr-modal>p {
+    margin: 11px auto 0;
+    color: var(--is-muted);
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+.ie-ironstock__qr-imagem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    max-width: 100%;
+    margin: 22px auto 17px;
+    padding: 13px;
+    background: #ffffff;
+    border: 1px solid var(--is-line);
+    border-radius: 15px;
+    box-shadow: var(--is-shadow-sm);
+}
+
+.ie-ironstock__qr-imagem svg {
+    display: block;
+    width: min(240px, 100%);
+    height: auto;
+    max-width: 100%;
+}
+
+.ie-ironstock__qr-nome {
+    display: block;
+    color: var(--is-navy);
+    font-size: 14px;
+    font-weight: 850;
+    overflow-wrap: anywhere;
+}
+
+.ie-ironstock__qr-modal .ie-ironstock__qr-tempo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 13px 0 0;
+    padding: 7px 12px;
+    color: var(--is-navy);
+    background: #f1f5f9;
+    border: 1px solid var(--is-line);
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 850;
+    font-variant-numeric: tabular-nums;
+}
+
+.ie-ironstock__qr-modal .ie-ironstock__qr-status {
+    margin: 12px 0 0;
+    color: var(--is-muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.ie-ironstock__qr-modal>.ie-ironstock__botao {
+    width: 100%;
+    margin-top: 20px;
+}
+
+@keyframes ie-ironstock-aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes ie-ironstock-subir {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Ajustes de tablets */
+
+@media (max-width: 1050px) {
+    .ie-ironstock__produtos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ie-ironstock__campos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ie-ironstock__cabecalho-superior {
+        flex-wrap: wrap;
+    }
+}
+
+/* Ajustes de celular */
+
+@media (max-width: 680px) {
+    .ie-ironstock {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .ie-ironstock__painel {
+        margin-bottom: 14px;
+        padding: 17px;
+        border-radius: 15px;
+    }
+
+    .ie-ironstock__cabecalho-superior {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 17px;
+    }
+
+    .ie-ironstock__cabecalho-superior>.ie-ironstock__botao {
+        width: 100%;
+    }
+
+    .ie-ironstock__titulo {
+        font-size: 30px;
+    }
+
+    .ie-ironstock__subtitulo {
+        font-size: 12px;
+    }
+
+    .ie-ironstock__indicadores {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .ie-ironstock__indicador {
+        padding: 17px;
+    }
+
+    .ie-ironstock__indicador-valor {
+        font-size: 30px;
+    }
+
+    .ie-ironstock__aviso {
+        padding: 14px;
+    }
+
+    .ie-ironstock__variedades {
+        padding: 15px;
+    }
+
+    .ie-ironstock__variedades-lista {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .ie-ironstock__variedade {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 4px 10px;
+        padding: 12px;
+    }
+
+    .ie-ironstock__variedade strong {
+        grid-column: 1;
+    }
+
+    .ie-ironstock__variedade span {
+        grid-column: 1;
+    }
+
+    .ie-ironstock__variedade b {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        margin: 0;
+        text-align: right;
+    }
+
+    .ie-ironstock__contato {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+    }
+
+    .ie-ironstock__contato .ie-ironstock__botao {
+        width: 100%;
+    }
+
+    .ie-ironstock__secao-cabecalho {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .ie-ironstock__total-listagem {
+        align-self: flex-start;
+    }
+
+    .ie-ironstock__campos {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .ie-ironstock__campo--descricao {
+        margin-top: 17px;
+    }
+
+    .ie-ironstock__campo--fotos {
+        padding: 13px;
+    }
+
+    .ie-ironstock__exemplos {
+        padding: 12px;
+    }
+
+    .ie-ironstock__exemplos-lista {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .ie-ironstock__exemplo {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+    }
+
+    .ie-ironstock__exemplo img {
+        width: 100%;
+        max-height: 170px;
+        border-right: 1px solid var(--is-line);
+    }
+
+    .ie-ironstock__exemplo span {
+        min-width: 82px;
+        padding: 10px;
+        border-top: 0;
+        text-align: center;
+    }
+
+    .ie-ironstock__seletor-fotos {
+        min-height: 130px;
+        padding: 15px;
+    }
+
+    .ie-ironstock__previews {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .ie-ironstock__acoes-formulario {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .ie-ironstock__acoes-formulario .ie-ironstock__botao {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .ie-ironstock__produtos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .ie-ironstock__produto {
+        display: grid;
+        grid-template-columns: minmax(100px, 34%) minmax(0, 1fr);
+        align-items: stretch;
+    }
+
+    .ie-ironstock__produto-imagem,
+    .ie-ironstock__produto-sem-imagem {
+        height: 100%;
+        min-height: 160px;
+        aspect-ratio: auto;
+        border-right: 1px solid var(--is-line);
+        border-bottom: 0;
+    }
+
+    .ie-ironstock__produto-conteudo {
+        padding: 13px;
+    }
+
+    .ie-ironstock__produto-nome {
+        font-size: 13px;
+    }
+
+    .ie-ironstock__produto-preco {
+        font-size: 15px;
+    }
+
+    .ie-ironstock__produto-acoes {
+        padding-top: 12px;
+    }
+
+    .ie-ironstock__qr-overlay {
+        align-items: center;
+        padding: 12px;
+    }
+
+    .ie-ironstock__qr-modal {
+        max-height: calc(100dvh - 24px);
+        padding: 27px 17px 19px;
+        border-radius: 17px;
+    }
+
+    .ie-ironstock__qr-modal h2 {
+        padding: 0 12px;
+        font-size: 21px;
+    }
+
+    .ie-ironstock__qr-imagem {
+        margin-top: 17px;
+        padding: 9px;
+    }
+
+    .ie-ironstock__qr-imagem svg {
+        width: min(220px, 65vw);
+    }
+}
+
+@media (max-width: 380px) {
+    .ie-ironstock {
+        padding: 8px;
+    }
+
+    .ie-ironstock__painel {
+        padding: 13px;
+    }
+
+    .ie-ironstock__titulo {
+        font-size: 27px;
+    }
+
+    .ie-ironstock__produto {
+        grid-template-columns: 95px minmax(0, 1fr);
+    }
+
+    .ie-ironstock__produto-imagem,
+    .ie-ironstock__produto-sem-imagem {
+        min-height: 145px;
+    }
+
+    .ie-ironstock__produto-conteudo {
+        padding: 10px;
+    }
+
+    .ie-ironstock__botao {
+        padding: 10px 12px;
+    }
+}
+
+/* Acessibilidade: respeita preferência por movimento reduzido */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-ironstock *,
+    .ie-ironstock *::before,
+    .ie-ironstock *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
+/* =========================================================
+   CORREÇÃO FORÇADA DE CORES DOS TEXTOS — IRONSTOCK
+   Adicionar no FINAL do arquivo ironstock.css
+   ========================================================= */
+
+/* Cor padrão de todos os textos dentro do IronStock */
+.ie-ironstock,
+.ie-ironstock p,
+.ie-ironstock span,
+.ie-ironstock div,
+.ie-ironstock label,
+.ie-ironstock strong,
+.ie-ironstock small,
+.ie-ironstock h1,
+.ie-ironstock h2,
+.ie-ironstock h3,
+.ie-ironstock h4,
+.ie-ironstock h5,
+.ie-ironstock h6,
+.ie-ironstock li {
+    color: #172033 !important;
+}
+
+/* Títulos principais e secundários */
+.ie-ironstock__titulo,
+.ie-ironstock__titulo-secao,
+.ie-ironstock__secao-cabecalho,
+.ie-ironstock__cabecalho,
+.ie-ironstock__cabecalho-superior,
+.ie-ironstock__identidade,
+.ie-ironstock__subtitulo,
+.ie-ironstock__sobretitulo,
+.ie-ironstock__aviso-titulo,
+.ie-ironstock__variedades-titulo,
+.ie-ironstock__exemplos-cabecalho {
+    color: #111827 !important;
+}
+
+/* Descrições, informações e textos auxiliares */
+.ie-ironstock__ajuda,
+.ie-ironstock__contato-texto,
+.ie-ironstock__indicador-descricao,
+.ie-ironstock__indicador-rotulo,
+.ie-ironstock__produto-descricao,
+.ie-ironstock__preview-nome,
+.ie-ironstock__variedades-nota,
+.ie-ironstock__aviso-conteudo,
+.ie-ironstock__total-listagem,
+.ie-ironstock__estado-vazio,
+.ie-ironstock__exemplo,
+.ie-ironstock__rotulo {
+    color: #475569 !important;
+}
+
+/* Valores e informações de destaque */
+.ie-ironstock__indicador-valor,
+.ie-ironstock__produto-nome,
+.ie-ironstock__produto-preco,
+.ie-ironstock__qr-nome,
+.ie-ironstock__qr-tempo,
+.ie-ironstock__contador-fotos {
+    color: #172033 !important;
+}
+
+/* Labels e campos do formulário */
+.ie-ironstock__campo,
+.ie-ironstock__campo label,
+.ie-ironstock__campo span,
+.ie-ironstock__formulario label,
+.ie-ironstock__rotulo {
+    color: #1e293b !important;
+}
+
+/* Inputs e áreas de texto */
+.ie-ironstock__input,
+.ie-ironstock__textarea,
+.ie-ironstock input,
+.ie-ironstock textarea,
+.ie-ironstock select {
+    -webkit-text-fill-color: #172033 !important;
+    background-color: #ffffff !important;
+    border-color: #cbd5e1;
+}
+
+/* Texto de placeholder */
+.ie-ironstock__input::placeholder,
+.ie-ironstock__textarea::placeholder,
+.ie-ironstock input::placeholder,
+.ie-ironstock textarea::placeholder {
+    color: #94a3b8 !important;
+    -webkit-text-fill-color: #94a3b8 !important;
+    opacity: 1 !important;
+}
+
+/* Mensagens de erro */
+.ie-ironstock__mensagem--erro,
+.ie-ironstock__mensagem--erro *,
+.ie-ironstock .erro {
+    color: #b91c1c !important;
+}
+
+/* Mensagens de sucesso */
+.ie-ironstock__mensagem--sucesso,
+.ie-ironstock__mensagem--sucesso * {
+    color: #15803d !important;
+}
+
+/* Contador de fotos */
+.ie-ironstock__contador-fotos--pendente {
+    color: #b45309 !important;
+}
+
+.ie-ironstock__contador-fotos--valido {
+    color: #15803d !important;
+}
+
+/* Botões: forçar a cor do texto e dos ícones */
+.ie-ironstock__botao,
+.ie-ironstock__botao *,
+.ie-ironstock button,
+.ie-ironstock button span,
+.ie-ironstock button svg {
+    -webkit-text-fill-color: currentColor !important;
+}
+
+/* Botão principal */
+.ie-ironstock__botao--principal,
+.ie-ironstock__botao--principal *,
+.ie-ironstock__botao--principal svg {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Botão de WhatsApp */
+.ie-ironstock__botao--whatsapp,
+.ie-ironstock__botao--whatsapp *,
+.ie-ironstock__botao--whatsapp svg {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Botões secundários */
+.ie-ironstock__botao--secundario,
+.ie-ironstock__botao--secundario *,
+.ie-ironstock__botao--secundario svg {
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+}
+
+/* Botão de remover imagem */
+.ie-ironstock__preview-remover,
+.ie-ironstock__preview-remover * {
+    color: #b91c1c !important;
+    -webkit-text-fill-color: #b91c1c !important;
+}
+
+/* QR Code e modal */
+.ie-ironstock__qr-modal,
+.ie-ironstock__qr-modal p,
+.ie-ironstock__qr-modal span,
+.ie-ironstock__qr-modal strong,
+.ie-ironstock__qr-status,
+.ie-ironstock__qr-etiqueta {
+    color: #172033 !important;
+}
+
+/* Ícones informativos */
+.ie-ironstock__aviso-icone,
+.ie-ironstock__estado-icone,
+.ie-ironstock__seletor-icone {
+    color: #1d4ed8 !important;
+}
+
+/* Textos de links */
+.ie-ironstock a,
+.ie-ironstock a span {
+    color: #1d4ed8 !important;
+}
+
+/* Texto selecionado */
+.ie-ironstock ::selection {
+    color: #ffffff !important;
+    background-color: #1d4ed8 !important;
+}
+
+/* Garantir que elementos desabilitados continuem legíveis */
+.ie-ironstock button:disabled,
+.ie-ironstock button:disabled *,
+.ie-ironstock input:disabled,
+.ie-ironstock textarea:disabled {
+    opacity: 0.65;
+}
+
+/* ==========================================================
+   IRONSTOCK — DESTAQUES VISUAIS E SEPARAÇÃO DE SEÇÕES
+   ========================================================== */
+
+.ie-ironstock {
+    --is-bg-page: #f1f5f9;
+    --is-bg-card: #ffffff;
+    --is-bg-soft: #f8fafc;
+    --is-bg-blue: #eff6ff;
+    --is-bg-blue-strong: #dbeafe;
+    --is-border-blue: #bfdbfe;
+    --is-accent: #1d4ed8;
+    background: var(--is-bg-page) !important;
+}
+
+/* PAINÉIS PRINCIPAIS */
+.ie-ironstock__painel {
+    background: #ffffff !important;
+    border: 1px solid #dbe3ee !important;
+    border-radius: 20px !important;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.045) !important;
+}
+
+/* CABEÇALHO COM DESTAQUE AZUL SUAVE */
+.ie-ironstock__cabecalho {
+    background: linear-gradient(135deg,
+            #ffffff 0%,
+            #f8fbff 65%,
+            #eff6ff 100%) !important;
+    border-color: #d6e4f5 !important;
+}
+
+.ie-ironstock__sobretitulo {
+    display: inline-flex !important;
+    padding: 6px 10px !important;
+    background: #dbeafe !important;
+    border: 1px solid #bfdbfe !important;
+    border-radius: 7px !important;
+    color: #1d4ed8 !important;
+}
+
+/* INDICADORES: DIFERENCIAR OS NÚMEROS IMPORTANTES */
+.ie-ironstock__indicador {
+    position: relative !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    border: 1px solid #dce5f0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.035) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.ie-ironstock__indicador::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 4px !important;
+    background: #cbd5e1 !important;
+}
+
+.ie-ironstock__indicador--destaque {
+    background: linear-gradient(145deg, #eff6ff, #ffffff) !important;
+    border-color: #bfdbfe !important;
+}
+
+.ie-ironstock__indicador--destaque::before {
+    background: #2563eb !important;
+}
+
+.ie-ironstock__indicador-valor {
+    color: #102a56 !important;
+    font-weight: 900 !important;
+}
+
+.ie-ironstock__indicador:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* AVISO INFORMATIVO */
+.ie-ironstock__aviso {
+    background: #eff6ff !important;
+    border: 1px solid #bfdbfe !important;
+    border-left: 5px solid #2563eb !important;
+    border-radius: 12px !important;
+}
+
+.ie-ironstock__aviso-icone {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 3px 8px rgba(29, 78, 216, 0.2) !important;
+}
+
+/* CONTROLE DE VARIEDADES */
+.ie-ironstock__variedades {
+    background: #f8fafc !important;
+    border: 1px solid #dbe3ee !important;
+    border-radius: 16px !important;
+}
+
+.ie-ironstock__variedades-titulo {
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    color: #102a56 !important;
+}
+
+.ie-ironstock__variedade {
+    background: #ffffff !important;
+    border: 1px solid #dbe3ee !important;
+    border-radius: 12px !important;
+    transition: border-color 0.2s ease, transform 0.2s ease !important;
+}
+
+.ie-ironstock__variedade:hover {
+    background: #eff6ff !important;
+    border-color: #93c5fd !important;
+    transform: translateY(-2px) !important;
+}
+
+.ie-ironstock__variedade strong {
+    color: #102a56 !important;
+}
+
+/* ÁREA DE CONTATO */
+.ie-ironstock__contato {
+    background: linear-gradient(120deg, #f8fafc, #eff6ff) !important;
+    border: 1px solid #cbdcf5 !important;
+    border-radius: 15px !important;
+}
+
+/* TÍTULOS DAS SEÇÕES */
+.ie-ironstock__secao-cabecalho {
+    padding: 0 0 14px !important;
+    border-bottom: 1px solid #dbe3ee !important;
+}
+
+.ie-ironstock__titulo-secao {
+    color: #102a56 !important;
+    font-weight: 900 !important;
+}
+
+.ie-ironstock__total-listagem {
+    background: #dbeafe !important;
+    border-color: #bfdbfe !important;
+    color: #1e40af !important;
+}
+
+/* CAMPOS DO FORMULÁRIO */
+.ie-ironstock__campo--descricao {
+    padding: 18px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+}
+
+.ie-ironstock__campo--fotos {
+    background: #f8fafc !important;
+    border: 1px solid #dbe3ee !important;
+    border-radius: 16px !important;
+}
+
+.ie-ironstock__rotulo {
+    color: #1e293b !important;
+    font-weight: 800 !important;
+}
+
+.ie-ironstock__input,
+.ie-ironstock__textarea {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+.ie-ironstock__input:hover,
+.ie-ironstock__textarea:hover {
+    background: #fcfdff !important;
+    border-color: #93a9c7 !important;
+}
+
+.ie-ironstock__input:focus,
+.ie-ironstock__textarea:focus {
+    background: #ffffff !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12) !important;
+}
+
+/* EXEMPLOS DE FOTOS */
+.ie-ironstock__exemplos {
+    background: #eef2f7 !important;
+    border: 1px solid #d5deea !important;
+    border-radius: 14px !important;
+}
+
+.ie-ironstock__exemplos-cabecalho {
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid #d5deea !important;
+}
+
+.ie-ironstock__exemplo {
+    background: #ffffff !important;
+    border: 1px solid #d5deea !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+}
+
+.ie-ironstock__exemplo img {
+    background: #ffffff !important;
+}
+
+.ie-ironstock__exemplo span {
+    background: #f8fafc !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+/* ÁREA PARA SELECIONAR FOTOS */
+.ie-ironstock__seletor-fotos {
+    background: linear-gradient(135deg, #ffffff, #eff6ff) !important;
+    border: 2px dashed #93b4e8 !important;
+    border-radius: 14px !important;
+}
+
+.ie-ironstock__seletor-fotos:hover:not(:disabled) {
+    background: #dbeafe !important;
+    border-color: #2563eb !important;
+}
+
+.ie-ironstock__seletor-icone {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+    border-radius: 12px !important;
+}
+
+/* CONTADOR DE FOTOS */
+.ie-ironstock__contador-fotos--valido {
+    background: #dcfce7 !important;
+    border-color: #86efac !important;
+    color: #166534 !important;
+}
+
+.ie-ironstock__contador-fotos--pendente {
+    background: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+    color: #475569 !important;
+}
+
+/* PRÉ-VISUALIZAÇÕES DAS IMAGENS */
+.ie-ironstock__preview {
+    background: #ffffff !important;
+    border: 1px solid #d5deea !important;
+    border-radius: 13px !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.ie-ironstock__preview:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1) !important;
+}
+
+.ie-ironstock__preview-nome {
+    background: #f8fafc !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+.ie-ironstock__preview-remover {
+    background: #b91c1c !important;
+    color: #ffffff !important;
+}
+
+/* BOTÃO PRINCIPAL */
+.ie-ironstock__botao--principal {
+    background: linear-gradient(135deg, #1d4ed8, #153e9f) !important;
+    border: 1px solid #1d4ed8 !important;
+    border-radius: 10px !important;
+    color: #ffffff !important;
+    box-shadow: 0 5px 12px rgba(29, 78, 216, 0.2) !important;
+}
+
+.ie-ironstock__botao--principal:hover:not(:disabled) {
+    background: linear-gradient(135deg, #1e40af, #102a56) !important;
+    box-shadow: 0 8px 18px rgba(29, 78, 216, 0.27) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* BOTÃO SECUNDÁRIO */
+.ie-ironstock__botao--secundario {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #1e293b !important;
+}
+
+.ie-ironstock__botao--secundario:hover:not(:disabled) {
+    background: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+}
+
+/* BOTÃO DE CONTATO */
+.ie-ironstock__botao--whatsapp {
+    background: #15803d !important;
+    border-color: #15803d !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.16) !important;
+}
+
+.ie-ironstock__botao--whatsapp:hover:not(:disabled) {
+    background: #166534 !important;
+    border-color: #166534 !important;
+}
+
+/* ÁREA DAS AÇÕES DO FORMULÁRIO */
+.ie-ironstock__acoes-formulario {
+    padding: 20px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 13px !important;
+}
+
+/* CARTÕES DOS PRODUTOS */
+.ie-ironstock__produto {
+    background: #ffffff !important;
+    border: 1px solid #dbe3ee !important;
+    border-radius: 16px !important;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.045) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.ie-ironstock__produto:hover {
+    border-color: #93b4e8 !important;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09) !important;
+    transform: translateY(-3px) !important;
+}
+
+.ie-ironstock__produto-imagem,
+.ie-ironstock__produto-sem-imagem {
+    background: #eef2f7 !important;
+}
+
+.ie-ironstock__produto-conteudo {
+    background: #ffffff !important;
+}
+
+.ie-ironstock__produto-nome {
+    color: #102a56 !important;
+}
+
+.ie-ironstock__produto-preco {
+    display: inline-flex !important;
+    align-items: center !important;
+    align-self: flex-start !important;
+    padding: 6px 10px !important;
+    background: #dcfce7 !important;
+    border-radius: 8px !important;
+    color: #166534 !important;
+}
+
+.ie-ironstock__produto-fotos {
+    background: #eff6ff !important;
+    border: 1px solid #dbeafe !important;
+    color: #1e40af !important;
+}
+
+/* ESTADO VAZIO */
+.ie-ironstock__estado-vazio {
+    background: linear-gradient(145deg, #ffffff, #f1f5f9) !important;
+    border: 1px dashed #b8c7dc !important;
+    border-radius: 16px !important;
+}
+
+.ie-ironstock__estado-icone {
+    background: #dbeafe !important;
+    border-color: #bfdbfe !important;
+    color: #1d4ed8 !important;
+}
+
+/* MENSAGENS DE STATUS */
+.ie-ironstock__mensagem--erro {
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    border-left: 5px solid #dc2626 !important;
+    color: #991b1b !important;
+}
+
+.ie-ironstock__mensagem--sucesso {
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    border-left: 5px solid #059669 !important;
+    color: #065f46 !important;
+}
+
+/* MODAL DE QR CODE */
+.ie-ironstock__qr-modal {
+    background: #ffffff !important;
+    border: 1px solid #dbe3ee !important;
+    border-radius: 22px !important;
+    box-shadow: 0 28px 80px rgba(2, 8, 23, 0.3) !important;
+}
+
+.ie-ironstock__qr-etiqueta {
+    background: #dbeafe !important;
+    border-color: #bfdbfe !important;
+    color: #1e40af !important;
+}
+
+.ie-ironstock__qr-imagem {
+    background: #f8fafc !important;
+    border: 1px solid #dbe3ee !important;
+    border-radius: 16px !important;
+}
+
+.ie-ironstock__qr-tempo {
+    background: #eff6ff !important;
+    border-color: #bfdbfe !important;
+    color: #1e40af !important;
+}
+
+.ie-ironstock__qr-fechar {
+    background: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+}
+
+/* AJUSTE PARA CELULARES */
+@media (max-width: 680px) {
+
+    .ie-ironstock__campo--descricao,
+    .ie-ironstock__acoes-formulario {
+        padding: 13px !important;
+    }
+
+    .ie-ironstock__indicador,
+    .ie-ironstock__variedade,
+    .ie-ironstock__produto {
+        border-radius: 12px !important;
+    }
+}
+
+/* RESPEITAR PREFERÊNCIA POR MENOS ANIMAÇÃO */
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-ironstock__indicador,
+    .ie-ironstock__variedade,
+    .ie-ironstock__preview,
+    .ie-ironstock__produto,
+    .ie-ironstock__botao {
+        transition: none !important;
+        transform: none !important;
+    }
+}

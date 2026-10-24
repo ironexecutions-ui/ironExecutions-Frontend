@@ -11,6 +11,9 @@ import Reposicao from "./componentes/reposicao";
 import Pendencias from "./componentes/pendencias";
 import Promocoes from "./componentes/promocoes";
 import Administrativa from "./componentes/administrativa";
+import Ironstock from "./componentes/ironstock";
+
+
 import { API_URL } from "../../../../config";
 
 export default function Administracao() {
@@ -163,15 +166,7 @@ export default function Administracao() {
     =========================================================
     */
 
-    function irParaParceria() {
 
-        window.open(
-            "https://ironexecutions.com.br/parceria",
-            "_blank",
-            "noopener,noreferrer"
-        );
-
-    }
 
     /*
     =========================================================
@@ -227,7 +222,18 @@ export default function Administracao() {
                 >
                     Lista Produtos
                 </button>
-
+                <button
+                    className={
+                        abaAtiva === "ironstock"
+                            ? "ativo"
+                            : ""
+                    }
+                    onClick={() =>
+                        setAbaAtiva("ironstock")
+                    }
+                >
+                    IronStock
+                </button>
                 <button
                     className={
                         abaAtiva === "historico"
@@ -323,7 +329,9 @@ export default function Administracao() {
                 {abaAtiva === "resumo" && (
                     <ResumoProdutos />
                 )}
-
+                {abaAtiva === "ironstock" && (
+                    <Ironstock />
+                )}
                 {abaAtiva === "historico" && (
                     <HistoricoVendas />
                 )}

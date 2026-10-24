@@ -18,6 +18,7 @@ export default function FormularioProduto({ item, voltar }) {
     const [quantidadeDigitosCodigoVariedade, setQuantidadeDigitosCodigoVariedade] = useState("8");
     const [gerandoCodigosVariedades, setGerandoCodigosVariedades] = useState(false);
     const [temModuloIronStore, setTemModuloIronStore] = useState(false);
+    const [ativandoIronStock, setAtivandoIronStock] = useState(false);
     const [imagemVariedadeAmpliada, setImagemVariedadeAmpliada] =
         useState("");
     const [modalAlerta, setModalAlerta] = useState({
@@ -1441,6 +1442,70 @@ export default function FormularioProduto({ item, voltar }) {
     const existemMaisVariedades =
         !buscaVariedadeNormalizada &&
         variedadesFiltradas.length > 3;
+
+
+
+
+
+    async function ativarIronStock() {
+        const produtoId = produtoIdPersistido || item?.id;
+
+        if (!produtoId || ativandoIronStock) return;
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            abrirAlerta({
+                titulo: "Sessão expirada",
+                mensagem: "Faça login novamente para ativar o IronStock.",
+                tipo: "erro",
+            });
+            return;
+        }
+
+        setAtivandoIronStock(true);
+
+        try {
+            const resposta = await fetch(
+                `${API_URL}/admin/produtos-servicos/${produtoId}/ironstock`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const dados = await resposta.json().catch(() => ({}));
+
+            if (!resposta.ok) {
+                throw new Error(
+                    typeof dados.detail === "string"
+                        ? dados.detail
+                        : "Não foi possível ativar o IronStock."
+                );
+            }
+
+            setForm((prev) => ({
+                ...prev,
+                ironstock: 1,
+            }));
+
+            abrirAlerta({
+                titulo: "IronStock ativado",
+                mensagem: dados.mensagem || "Produto ativado no IronStock com sucesso.",
+                tipo: "sucesso",
+            });
+        } catch (erro) {
+            abrirAlerta({
+                titulo: "Erro ao ativar",
+                mensagem: erro.message || "Não foi possível conectar ao servidor.",
+                tipo: "erro",
+            });
+        } finally {
+            setAtivandoIronStock(false);
+        }
+    }
     return (
         <div className="form-produto form-produto-cadastro-principal">
 
@@ -1529,6 +1594,7 @@ export default function FormularioProduto({ item, voltar }) {
                         Cadastro IronStore
                     </button>
                 )}
+
                 <button
                     className="salvar formulario-produto-salvar-principal"
                     onClick={salvar}
@@ -1599,19 +1665,37 @@ export default function FormularioProduto({ item, voltar }) {
                         Nome
                     </label>
 
-                    <input
-                        className="formulario-produto-campo-nome"
-                        placeholder="Nome"
-                        value={form.nome || ""}
-                        onChange={e =>
-                            alterar(
-                                "nome",
-                                primeiraMaiuscula(e.target.value)
-                            )
-                        }
-                    />
-                </div>
+                    <div className="formulario-produto-nome-linha">
+                        <input
+                            className="formulario-produto-campo-nome"
+                            placeholder="Nome"
+                            value={form.nome || ""}
+                            onChange={e =>
+                                alterar(
+                                    "nome",
+                                    primeiraMaiuscula(e.target.value)
+                                )
+                            }
+                        />
 
+
+                    </div>
+                </div>
+                {(produtoIdPersistido || item?.id) &&
+                    Number(form.ironstock || 0) !== 1 &&
+                    Number(form.disponivel || 0) !== 1 && (
+                        <button
+                            type="button"
+                            className="formulario-produto-botao-ironstock"
+                            onClick={ativarIronStock}
+                            disabled={ativandoIronStock}
+                            title="Envie este produto ao IronStock para preencher automaticamente os dados do produto e completar seu cadastro."
+                        >
+                            {ativandoIronStock
+                                ? "Enviando..."
+                                : "Enviar ao IronStock"}
+                        </button>
+                    )}
                 {/* ===================================================== */}
                 {/* CATEGORIAS */}
                 {/* ===================================================== */}

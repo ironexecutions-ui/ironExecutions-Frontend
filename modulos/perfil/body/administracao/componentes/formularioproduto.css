@@ -8108,3 +8108,122 @@
         animation: none !important;
     }
 }
+
+/* =========================================================
+   NOME + BOTÃO IRONSTOCK
+========================================================= */
+
+.formulario-produto-grupo-nome {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.formulario-produto-nome-linha {
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.formulario-produto-campo-nome {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 49px !important;
+    box-sizing: border-box !important;
+}
+
+.formulario-produto-botao-ironstock {
+    flex: 0 0 auto !important;
+    min-width: 155px !important;
+    height: 49px !important;
+    padding: 0 17px !important;
+    box-sizing: border-box !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px solid #047857 !important;
+    border-radius: 14px !important;
+
+    background: linear-gradient(135deg,
+            #059669,
+            #047857) !important;
+
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 7px 18px rgba(5, 150, 105, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.formulario-produto-botao-ironstock:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+
+    background: linear-gradient(135deg,
+            #047857,
+            #065f46) !important;
+
+    box-shadow:
+        0 11px 24px rgba(5, 150, 105, 0.24) !important;
+}
+
+.formulario-produto-botao-ironstock:active:not(:disabled) {
+    transform: scale(0.98) !important;
+}
+
+.formulario-produto-botao-ironstock:disabled {
+    opacity: 0.65 !important;
+    cursor: not-allowed !important;
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 768px) {
+    .formulario-produto-nome-linha {
+        gap: 8px !important;
+    }
+
+    .formulario-produto-campo-nome {
+        height: 48px !important;
+    }
+
+    .formulario-produto-botao-ironstock {
+        min-width: 0 !important;
+        height: 48px !important;
+        padding: 0 12px !important;
+        font-size: 11px !important;
+        border-radius: 12px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .formulario-produto-nome-linha {
+        flex-wrap: wrap !important;
+    }
+
+    .formulario-produto-campo-nome {
+        flex: 1 1 100% !important;
+    }
+
+    .formulario-produto-botao-ironstock {
+        width: 100% !important;
+        min-height: 44px !important;
+        height: 44px !important;
+    }
+}
