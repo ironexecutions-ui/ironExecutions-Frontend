@@ -8,7 +8,7 @@ import Json from "./json";
 import Panfletos from "./panfletos";
 import Candidatos from "./candidatos";
 import Termos from "./termos";
-import Ironstock from "./ironstock";
+import Ironstock from "./ironstockpainel";
 const CACHE_HISTORICO_SQL =
     "painel_g_historico_sql_v1";
 

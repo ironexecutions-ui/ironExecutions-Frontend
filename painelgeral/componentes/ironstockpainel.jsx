@@ -18,6 +18,8 @@ const ROTAS = {
     processar: (produtoId) => `/ironstock/produtos/${produtoId}/processar`,
     pdfVariedade: (produtoId) =>
         `/ironstock/produtos/${produtoId}/variedade-pdf`,
+    pdfImagemProduto: (produtoId) =>
+        `/ironstock/produtos/${produtoId}/imagem-produto-pdf`,
 };
 
 const CAMPOS = [
@@ -1026,6 +1028,55 @@ export default function Ironstock() {
             setErro(e.message || "Não foi possível gerar o PDF da variedade.");
         }
     }
+    async function baixarPDFImagemProduto() {
+        setErro("");
+        setSucesso("");
+
+        if (!produtoSelecionado || !comercioSelecionado || !produtoEditavel) {
+            setErro("Selecione um produto e carregue os dados para editar.");
+            return;
+        }
+
+        const imagens = normalizarImagens(produtoEditavel.imagem_url);
+
+        if (!imagens.length) {
+            setErro("Adicione pelo menos uma imagem normal do produto.");
+            return;
+        }
+
+        try {
+            const blob = await requisicao(
+                ROTAS.pdfImagemProduto(produtoSelecionado.id),
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        comercio_id: comercioSelecionado.id,
+                        imagens_produto: imagens,
+                    }),
+                    esperarBlob: true,
+                }
+            );
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download =
+                `ironstock-produto-${produtoSelecionado.id}-imagem-comercial.pdf`;
+
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+            setSucesso("PDF para gerar a imagem comercial baixado com sucesso.");
+        } catch (e) {
+            setErro(
+                e.message || "Não foi possível gerar o PDF da imagem comercial."
+            );
+        }
+    }
     return (
         <main className="ironstock-page">
             <header className="ironstock-header">
@@ -1599,7 +1650,20 @@ export default function Ironstock() {
                                         onClick={adicionarImagemProduto}
                                     >
                                         + Adicionar imagem
-                                    </button><button
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="ironstock-button secondary"
+                                        onClick={baixarPDFImagemProduto}
+                                        disabled={
+                                            !produtoEditavel.imagem_url.some(
+                                                (imagem) => String(imagem || "").trim()
+                                            )
+                                        }
+                                    >
+                                        PDF para gerar imagem comercial
+                                    </button>
+                                    <button
                                         type="button"
                                         className="ironstock-button primary"
                                         onClick={() => selecionarImagemLocal("produto")}
