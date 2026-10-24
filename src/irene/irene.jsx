@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { API_URL } from "../../config";
-import "./Irene.css";
+import "./irene.css";
 
 const MENSAGEM_INICIAL = {
     role: "assistant",
