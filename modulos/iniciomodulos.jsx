@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import favicon from "/favicon.png";
+import { API_URL } from "../config";
 import AreaLogin from "./inicio_modulos/arealogin";
 import LojasAvaliacao from "./inicio_modulos/lojasavaliacao";
 import Rodape from "./inicio_modulos/rodape";
@@ -9,469 +10,313 @@ import HeaderInicio from "./inicio_modulos/headerinicio";
 import Parceiros from "./inicio_modulos/parceiros";
 import "./inicio-modulos.css";
 
-export default function InicioModulos() {
 
+const MENSAGEM_INICIAL = {
+    role: "assistant",
+    content:
+        "Olá! Eu sou a Irene, a assistente virtual do Iron Executions. Posso ajudar você a conhecer a plataforma e tirar dúvidas. Como posso ajudar?",
+};
+
+const MAX_HISTORICO = 8;
+
+export default function InicioModulos() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    /* =====================================================
-       MODAL
-    ===================================================== */
+    const [chatAberto, setChatAberto] = useState(false);
+    const [mensagens, setMensagens] = useState([MENSAGEM_INICIAL]);
+    const [mensagem, setMensagem] = useState("");
+    const [carregando, setCarregando] = useState(false);
+    const [erro, setErro] = useState("");
 
-    const [modalContatoAberto, setModalContatoAberto] = useState(false);
-
-    /* =====================================================
-       MENSAGENS DO ASSISTENTE
-    ===================================================== */
-
-    const mensagensAssistenteIron = [
-        "Olá! Posso te ajudar a conhecer melhor a Iron Executions?",
-
-        "Quer descobrir quais módulos fazem mais sentido para o seu comércio?",
-
-        "Seu sistema pode ser montado de acordo com as necessidades do seu negócio.",
-
-        "Tem alguma dúvida sobre valores, módulos ou funcionamento do sistema?",
-
-        "Clique aqui para começar seu cadastro ou falar diretamente com Andy de Oliveira.",
-
-        "Quer modernizar a gestão do seu comércio? Posso te mostrar por onde começar.",
-
-        "Conheça uma solução criada para simplificar vendas, administração e gestão do seu negócio.",
-
-        "Não sabe qual módulo contratar? Fale com Andy e descubra a melhor opção para seu comércio.",
-
-        "Precisa de algo específico para sua empresa? A Iron Executions também desenvolve soluções personalizadas.",
-
-        "Seu comércio pode ter um sistema mais rápido, organizado e adaptado à sua rotina.",
-
-        "Quer entender quanto custaria o sistema ideal para o seu negócio? Clique aqui para continuar.",
-
-        "Produtividade, Administração e Fiscal podem trabalhar juntos para facilitar sua operação.",
-
-        "Quer começar a usar o Iron Business? Você pode realizar seu cadastro agora.",
-
-        "Ainda está conhecendo o sistema? Tire suas dúvidas diretamente com quem desenvolveu a plataforma.",
-
-        "Cada comércio funciona de uma maneira. Vamos encontrar a configuração ideal para o seu?"
-    ];
-
-    /* =====================================================
-       ASSISTENTE
-    ===================================================== */
-
-    const [mensagemAssistenteAtual, setMensagemAssistenteAtual] =
-        useState(() =>
-            Math.floor(
-                Math.random() * mensagensAssistenteIron.length
-            )
-        );
-
-    const [assistenteVisivel, setAssistenteVisivel] =
-        useState(true);
-
-    /* =====================================================
-       TROCAR MENSAGEM ALEATORIAMENTE
-    ===================================================== */
-
-    useEffect(() => {
-
-        let timeoutTroca;
-
-        const intervalo = setInterval(() => {
-
-            setAssistenteVisivel(false);
-
-            timeoutTroca = setTimeout(() => {
-
-                setMensagemAssistenteAtual(atual => {
-
-                    let novaMensagem;
-
-                    do {
-
-                        novaMensagem = Math.floor(
-                            Math.random() *
-                            mensagensAssistenteIron.length
-                        );
-
-                    } while (
-                        novaMensagem === atual &&
-                        mensagensAssistenteIron.length > 1
-                    );
-
-                    return novaMensagem;
-                });
-
-                setAssistenteVisivel(true);
-
-            }, 2000);
-
-        }, 8000);
-
-        return () => {
-
-            clearInterval(intervalo);
-
-            if (timeoutTroca) {
-                clearTimeout(timeoutTroca);
-            }
-
-        };
-
-    }, []);
-
-    /* =====================================================
-       BLOQUEAR SCROLL QUANDO MODAL ABRIR
-    ===================================================== */
-
-    useEffect(() => {
-
-        if (modalContatoAberto) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
-
-        return () => {
-            document.body.style.overflow = "";
-        };
-
-    }, [modalContatoAberto]);
-
-    /* =====================================================
-       FECHAR MODAL COM ESC
-    ===================================================== */
-
-    useEffect(() => {
-
-        function fecharComEsc(event) {
-
-            if (event.key === "Escape") {
-                setModalContatoAberto(false);
-            }
-
-        }
-
-        window.addEventListener("keydown", fecharComEsc);
-
-        return () => {
-            window.removeEventListener("keydown", fecharComEsc);
-        };
-
-    }, []);
-
-    /* =====================================================
-       EMPRESA PELO SLUG
-    ===================================================== */
+    const listaMensagensRef = useRef(null);
+    const campoMensagemRef = useRef(null);
 
     const empresaSlug = location.pathname
         .replace("/", "")
         .replace(/^\/+/, "");
 
-    /* =====================================================
-       ABRIR MODAL
-    ===================================================== */
+    useEffect(() => {
+        if (listaMensagensRef.current) {
+            listaMensagensRef.current.scrollTo({
+                top: listaMensagensRef.current.scrollHeight,
+                behavior: "smooth",
+            });
+        }
+    }, [mensagens, carregando]);
 
-    function abrirModalContato() {
-        setModalContatoAberto(true);
+    useEffect(() => {
+        if (!chatAberto) return undefined;
+
+        const overflowAnterior = document.body.style.overflow;
+        const bloquearScroll = () => {
+            if (window.matchMedia("(max-width: 640px)").matches) {
+                document.body.style.overflow = "hidden";
+            }
+        };
+
+        bloquearScroll();
+        window.addEventListener("resize", bloquearScroll);
+
+        const timer = window.setTimeout(() => campoMensagemRef.current?.focus(), 120);
+
+        return () => {
+            window.clearTimeout(timer);
+            window.removeEventListener("resize", bloquearScroll);
+            document.body.style.overflow = overflowAnterior;
+        };
+    }, [chatAberto]);
+
+    useEffect(() => {
+        function fecharComEsc(event) {
+            if (event.key === "Escape") setChatAberto(false);
+        }
+
+        window.addEventListener("keydown", fecharComEsc);
+        return () => window.removeEventListener("keydown", fecharComEsc);
+    }, []);
+
+    async function enviarMensagem(event) {
+        event?.preventDefault();
+
+        const texto = mensagem.trim();
+        if (!texto || carregando) return;
+
+        const historicoAnterior = mensagens
+            .filter((item) => item.role === "user" || item.role === "assistant")
+            .slice(-MAX_HISTORICO);
+
+        const mensagemUsuario = { role: "user", content: texto };
+        const historicoAtualizado = [...mensagens, mensagemUsuario];
+
+        setMensagens(historicoAtualizado);
+        setMensagem("");
+        setErro("");
+        setCarregando(true);
+
+        try {
+            // Rota pública: não envia token e não consulta dados privados do comércio.
+            const resposta = await fetch(`${API_URL}/ia/conversar-livre`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    mensagem: texto,
+                    historico: historicoAnterior.slice(-MAX_HISTORICO),
+                }),
+            });
+
+            const dados = await resposta.json().catch(() => ({}));
+
+            if (!resposta.ok) {
+                throw new Error(
+                    typeof dados.detail === "string"
+                        ? dados.detail
+                        : "Não consegui responder agora. Tente novamente."
+                );
+            }
+
+            const conteudo = String(dados.resposta || "").trim();
+            if (!conteudo) {
+                throw new Error("A Irene retornou uma resposta vazia. Tente novamente.");
+            }
+
+            setMensagens((atuais) => [
+                ...atuais,
+                { role: "assistant", content: conteudo },
+            ]);
+        } catch (e) {
+            setErro(
+                e?.message ||
+                "Não foi possível conectar à Irene. Verifique sua conexão e tente novamente."
+            );
+        } finally {
+            setCarregando(false);
+            window.setTimeout(() => campoMensagemRef.current?.focus(), 50);
+        }
     }
 
-    function fecharModalContato() {
-        setModalContatoAberto(false);
+    function abrirChat() {
+        setChatAberto(true);
+        setErro("");
     }
 
-    /* =====================================================
-       CADASTRAR COMÉRCIO
-    ===================================================== */
-
-    function cadastrarComercio() {
-
-        setModalContatoAberto(false);
-
-        navigate("/cadastrocomercio");
-
+    function fecharChat() {
+        setChatAberto(false);
     }
 
-    /* =====================================================
-       WHATSAPP
-    ===================================================== */
-
-    function solicitarWhatsapp() {
-
-        const numero = "5511918547818";
-
-        const mensagem = encodeURIComponent(
-            "Olá Andy! Conheci a Iron Executions e gostaria de saber mais sobre o sistema comercial."
-        );
-
-        window.open(
-            `https://wa.me/${numero}?text=${mensagem}`,
-            "_blank",
-            "noopener,noreferrer"
-        );
-
-        setModalContatoAberto(false);
+    function limparConversa() {
+        setMensagens([MENSAGEM_INICIAL]);
+        setMensagem("");
+        setErro("");
     }
 
     return (
-
         <div className="inicio-modulos-fundo">
-
-            {/* =================================================
-                HEADER
-            ================================================= */}
-
-            <HeaderInicio
-                empresaInicial={empresaSlug}
-            />
-
-            {/* =================================================
-                LOGIN
-            ================================================= */}
+            <HeaderInicio empresaInicial={empresaSlug} />
 
             <AreaLogin />
-
             <br />
-
-            {/* =================================================
-                LOJAS
-            ================================================= */}
             <LojasAvaliacao />
-
             <Parceiros />
-
-            {/* =================================================
-               MÓDULOS
-================================================= */}
-
             <ExplicacaoModulos />
 
-            {/* =================================================
-                ASSISTENTE FLUTUANTE
-            ================================================= */}
-
-            <div className="inicio-modulos-whatsapp-float">
-
+            {/* Botão flutuante da Irene */}
+            {!chatAberto && (
                 <button
                     type="button"
-                    className={`
-                        inicio-modulos-whatsapp-assistente
-                        ${assistenteVisivel
-                            ? "inicio-modulos-whatsapp-assistente--visivel"
-                            : "inicio-modulos-whatsapp-assistente--oculto"
-                        }
-                    `}
-                    onClick={abrirModalContato}
-                    aria-label="Abrir opções da Iron Executions"
+                    className="ie-irene-launcher"
+                    onClick={abrirChat}
+                    aria-label="Abrir conversa com Irene"
+                    title="Conversar com Irene"
                 >
-
-                    <div className="inicio-modulos-whatsapp-assistente-topo">
-
-                        <span
-                            className="inicio-modulos-whatsapp-assistente-status"
-                        />
-
-
-
-                    </div>
-
-                    <span className="inicio-modulos-whatsapp-assistente-texto">
-
-                        {
-                            mensagensAssistenteIron[
-                            mensagemAssistenteAtual
-                            ]
-                        }
-
-                    </span>
-
-                    <span className="inicio-modulos-whatsapp-assistente-acao">
-                        Ver opções →
-                    </span>
-
+                    <span className="ie-irene-launcher-pulse" aria-hidden="true" />
+                    <img src={favicon} alt="" className="ie-irene-launcher-logo" />
+                    <span className="ie-irene-launcher-status" aria-hidden="true" />
                 </button>
-
-                {/* =================================================
-                    BOTÃO FLUTUANTE
-                ================================================= */}
-
-                <button
-                    type="button"
-                    onClick={abrirModalContato}
-                    className="inicio-modulos-whatsapp-button"
-                    aria-label="Abrir opções de atendimento"
-                >
-
-                    <img
-                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg"
-                        alt=""
-                        className="inicio-modulos-whatsapp-icon"
-                    />
-
-                    <span className="inicio-modulos-whatsapp-online" />
-
-                </button>
-
-            </div>
-
-            {/* =================================================
-                MODAL
-            ================================================= */}
-
-            {modalContatoAberto && (
-
-                <div
-                    className="inicio-modulos-modal-overlay"
-                    onMouseDown={fecharModalContato}
-                >
-
-                    <div
-                        className="inicio-modulos-modal-caixa"
-                        onMouseDown={e => e.stopPropagation()}
-                    >
-
-                        {/* TOPO */}
-
-                        <div className="inicio-modulos-modal-topo">
-
-                            <div className="inicio-modulos-modal-marca">
-
-                                <div className="inicio-modulos-modal-icone">
-                                    <img
-                                        src={favicon}
-                                        alt="Iron Executions"
-                                        className="inicio-modulos-modal-logo"
-                                    />
-                                </div>
-
-                                <div>
-
-                                    <span className="inicio-modulos-modal-etiqueta">
-                                        IRON EXECUTIONS
-                                    </span>
-
-                                    <h3>
-                                        Como podemos ajudar?
-                                    </h3>
-
-                                </div>
-
-                            </div>
-
-                            <button
-                                type="button"
-                                onClick={fecharModalContato}
-                                className="inicio-modulos-modal-fechar"
-                                aria-label="Fechar"
-                            >
-                                ×
-                            </button>
-
-                        </div>
-
-                        {/* TEXTO */}
-
-                        <p className="inicio-modulos-modal-descricao">
-
-                            Escolha como deseja continuar. Você pode
-                            iniciar agora o cadastro do seu comércio ou
-                            conversar diretamente com o criador da
-                            Iron Executions.
-
-                        </p>
-
-                        {/* OPÇÕES */}
-
-                        <div className="inicio-modulos-modal-opcoes">
-
-                            {/* CADASTRO */}
-
-                            <button
-                                type="button"
-                                onClick={cadastrarComercio}
-                                className="inicio-modulos-modal-opcao inicio-modulos-modal-opcao-cadastro"
-                            >
-
-                                <div className="inicio-modulos-modal-opcao-icone">
-                                    +
-                                </div>
-
-                                <div className="inicio-modulos-modal-opcao-conteudo">
-
-                                    <strong>
-                                        Cadastrar meu comércio
-                                    </strong>
-
-                                    <span>
-                                        Monte seu sistema, escolha os módulos
-                                        e envie seu cadastro.
-                                    </span>
-
-                                </div>
-
-                                <span className="inicio-modulos-modal-seta">
-                                    →
-                                </span>
-
-                            </button>
-
-                            {/* ANDY */}
-
-                            <button
-                                type="button"
-                                onClick={solicitarWhatsapp}
-                                className="inicio-modulos-modal-opcao inicio-modulos-modal-opcao-whatsapp"
-                            >
-
-                                <div className="inicio-modulos-modal-opcao-icone">
-                                    W
-                                </div>
-
-                                <div className="inicio-modulos-modal-opcao-conteudo">
-
-                                    <strong>
-                                        Falar com Andy
-                                    </strong>
-
-                                    <span>
-                                        Converse diretamente com Andy de Oliveira,
-                                        criador da Iron Executions.
-                                    </span>
-
-                                </div>
-
-                                <span className="inicio-modulos-modal-seta">
-                                    →
-                                </span>
-
-                            </button>
-
-                        </div>
-
-                        {/* RODAPÉ MODAL */}
-
-                        <div className="inicio-modulos-modal-rodape">
-
-                            <span className="inicio-modulos-modal-status" />
-
-                            Atendimento direto pela Iron Executions
-
-                        </div>
-
-                    </div>
-
-                </div>
-
             )}
 
-            {/* =================================================
-                RODAPÉ
-            ================================================= */}
+            {/* Chat flutuante no desktop e tela cheia no celular */}
+            {chatAberto && (
+                <section
+                    className="ie-irene-chat"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Chat com Irene"
+                >
+                    <header className="ie-irene-chat-header">
+                        <div className="ie-irene-chat-brand">
+                            <div className="ie-irene-chat-avatar">
+                                <img src={favicon} alt="" />
+                            </div>
+                            <div className="ie-irene-chat-brand-text">
+                                <strong>Irene</strong>
+                                <span>
+                                    <i aria-hidden="true" />
+                                    Assistente do Iron Executions
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="ie-irene-chat-actions">
+                            <button
+                                type="button"
+                                onClick={limparConversa}
+                                className="ie-irene-icon-button"
+                                aria-label="Nova conversa"
+                                title="Nova conversa"
+                            >
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M4 7v5h5M5.5 16a7.5 7.5 0 1 0-.3-7.2L4 12" />
+                                </svg>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={fecharChat}
+                                className="ie-irene-icon-button"
+                                aria-label="Fechar Irene"
+                                title="Fechar"
+                            >
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="m6 6 12 12M18 6 6 18" />
+                                </svg>
+                            </button>
+                        </div>
+                    </header>
+
+                    <div className="ie-irene-chat-subheader">
+                        Tire dúvidas sobre a plataforma ou converse livremente.
+                    </div>
+
+                    <div
+                        className="ie-irene-chat-messages"
+                        ref={listaMensagensRef}
+                        aria-live="polite"
+                        aria-relevant="additions text"
+                    >
+                        {mensagens.map((item, index) => (
+                            <div
+                                key={`${index}-${item.role}`}
+                                className={`ie-irene-message ${item.role === "user"
+                                    ? "ie-irene-message-user"
+                                    : "ie-irene-message-assistant"
+                                    }`}
+                            >
+                                {item.role === "assistant" && (
+                                    <img
+                                        src={favicon}
+                                        alt=""
+                                        className="ie-irene-message-avatar"
+                                    />
+                                )}
+                                <div className="ie-irene-message-bubble">
+                                    {item.content}
+                                </div>
+                            </div>
+                        ))}
+
+                        {carregando && (
+                            <div className="ie-irene-message ie-irene-message-assistant">
+                                <img
+                                    src={favicon}
+                                    alt=""
+                                    className="ie-irene-message-avatar"
+                                />
+                                <div className="ie-irene-message-bubble ie-irene-typing">
+                                    <span />
+                                    <span />
+                                    <span />
+                                    <em>Irene está pensando…</em>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {erro && (
+                        <div className="ie-irene-chat-error" role="alert">
+                            <span>{erro}</span>
+                            <button type="button" onClick={() => setErro("")} aria-label="Dispensar erro">
+                                ×
+                            </button>
+                        </div>
+                    )}
+
+                    <form className="ie-irene-chat-composer" onSubmit={enviarMensagem}>
+                        <textarea
+                            ref={campoMensagemRef}
+                            value={mensagem}
+                            onChange={(event) => setMensagem(event.target.value)}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter" && !event.shiftKey) {
+                                    event.preventDefault();
+                                    enviarMensagem(event);
+                                }
+                            }}
+                            placeholder="Escreva sua mensagem..."
+                            aria-label="Mensagem para Irene"
+                            rows={1}
+                            maxLength={4000}
+                            disabled={carregando}
+                        />
+                        <button
+                            type="submit"
+                            className="ie-irene-send"
+                            disabled={!mensagem.trim() || carregando}
+                            aria-label="Enviar mensagem"
+                            title="Enviar"
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M4 12 20 4l-5 16-3-7-8-1Z" />
+                                <path d="m12 13 8-9" />
+                            </svg>
+                        </button>
+                    </form>
+                    <div className="ie-irene-chat-footnote">
+                        A Irene pode cometer erros. Não envie senhas ou dados confidenciais.
+                    </div>
+                </section>
+            )}
 
             <Rodape />
-
         </div>
-
     );
 }

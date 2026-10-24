@@ -16,28 +16,20 @@
     isolation: isolate;
 
     background:
-        radial-gradient(
-            900px 650px at -5% -5%,
+        radial-gradient(900px 650px at -5% -5%,
             rgba(37, 99, 235, 0.16),
-            transparent 65%
-        ),
-        radial-gradient(
-            800px 600px at 105% 15%,
+            transparent 65%),
+        radial-gradient(800px 600px at 105% 15%,
             rgba(14, 165, 233, 0.14),
-            transparent 67%
-        ),
-        radial-gradient(
-            700px 550px at 50% 70%,
+            transparent 67%),
+        radial-gradient(700px 550px at 50% 70%,
             rgba(96, 165, 250, 0.10),
-            transparent 70%
-        ),
-        linear-gradient(
-            145deg,
+            transparent 70%),
+        linear-gradient(145deg,
             #dceefa 0%,
             #e6f3fc 28%,
             #d8ecfa 58%,
-            #cce5f7 100%
-        );
+            #cce5f7 100%);
 }
 
 
@@ -63,30 +55,22 @@
     border-radius: 45% 55% 60% 40%;
 
     background:
-        radial-gradient(
-            circle at 30% 35%,
+        radial-gradient(circle at 30% 35%,
             rgba(37, 99, 235, 0.23),
-            transparent 37%
-        ),
-        radial-gradient(
-            circle at 68% 42%,
+            transparent 37%),
+        radial-gradient(circle at 68% 42%,
             rgba(14, 165, 233, 0.20),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 55% 75%,
+            transparent 35%),
+        radial-gradient(circle at 55% 75%,
             rgba(96, 165, 250, 0.17),
-            transparent 39%
-        );
+            transparent 39%);
 
     filter: blur(45px);
 
     opacity: 0.8;
 
     animation:
-        ironBusinessAuroraAzul 24s
-        cubic-bezier(0.45, 0, 0.55, 1)
-        infinite alternate;
+        ironBusinessAuroraAzul 24s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
 
     will-change: transform;
 }
@@ -113,29 +97,21 @@
 
     background-image:
 
-        radial-gradient(
-            circle,
+        radial-gradient(circle,
             rgba(15, 49, 93, 0.17) 0 1px,
-            transparent 1.5px
-        ),
+            transparent 1.5px),
 
-        radial-gradient(
-            circle,
+        radial-gradient(circle,
             rgba(37, 99, 235, 0.14) 0 1px,
-            transparent 1.5px
-        ),
+            transparent 1.5px),
 
-        radial-gradient(
-            550px 420px at 78% 22%,
+        radial-gradient(550px 420px at 78% 22%,
             rgba(255, 255, 255, 0.38),
-            transparent 70%
-        ),
+            transparent 70%),
 
-        radial-gradient(
-            500px 400px at 20% 80%,
+        radial-gradient(500px 400px at 20% 80%,
             rgba(56, 189, 248, 0.12),
-            transparent 72%
-        );
+            transparent 72%);
 
     background-size:
         90px 90px,
@@ -152,8 +128,7 @@
     opacity: 0.8;
 
     animation:
-        ironBusinessPontosAzuis 40s
-        linear infinite;
+        ironBusinessPontosAzuis 40s linear infinite;
 
     will-change: transform;
 }
@@ -167,37 +142,27 @@
 
     0% {
         transform:
-            translate3d(-4%, -2%, 0)
-            rotate(-5deg)
-            scale(1);
+            translate3d(-4%, -2%, 0) rotate(-5deg) scale(1);
     }
 
     25% {
         transform:
-            translate3d(8%, 7%, 0)
-            rotate(1deg)
-            scale(1.07);
+            translate3d(8%, 7%, 0) rotate(1deg) scale(1.07);
     }
 
     50% {
         transform:
-            translate3d(19%, 14%, 0)
-            rotate(6deg)
-            scale(1.12);
+            translate3d(19%, 14%, 0) rotate(6deg) scale(1.12);
     }
 
     75% {
         transform:
-            translate3d(9%, 23%, 0)
-            rotate(2deg)
-            scale(1.08);
+            translate3d(9%, 23%, 0) rotate(2deg) scale(1.08);
     }
 
     100% {
         transform:
-            translate3d(-3%, 14%, 0)
-            rotate(-4deg)
-            scale(1.03);
+            translate3d(-3%, 14%, 0) rotate(-4deg) scale(1.03);
     }
 
 }
@@ -247,22 +212,16 @@
         padding: 28px;
 
         background:
-            radial-gradient(
-                700px 500px at 0% 0%,
+            radial-gradient(700px 500px at 0% 0%,
                 rgba(37, 99, 235, 0.14),
-                transparent 65%
-            ),
-            radial-gradient(
-                650px 500px at 100% 20%,
+                transparent 65%),
+            radial-gradient(650px 500px at 100% 20%,
                 rgba(14, 165, 233, 0.12),
-                transparent 68%
-            ),
-            linear-gradient(
-                145deg,
+                transparent 68%),
+            linear-gradient(145deg,
                 #dceefa 0%,
                 #e5f2fb 45%,
-                #d1e8f8 100%
-            );
+                #d1e8f8 100%);
     }
 
 
@@ -288,22 +247,16 @@
             20px 14px;
 
         background:
-            radial-gradient(
-                500px 400px at -10% 0%,
+            radial-gradient(500px 400px at -10% 0%,
                 rgba(37, 99, 235, 0.15),
-                transparent 65%
-            ),
-            radial-gradient(
-                450px 380px at 110% 30%,
+                transparent 65%),
+            radial-gradient(450px 380px at 110% 30%,
                 rgba(14, 165, 233, 0.12),
-                transparent 68%
-            ),
-            linear-gradient(
-                155deg,
+                transparent 68%),
+            linear-gradient(155deg,
                 #deeffb 0%,
                 #e7f4fc 48%,
-                #cfe7f8 100%
-            );
+                #cfe7f8 100%);
     }
 
 
@@ -369,6 +322,7 @@
     }
 
 }
+
 /* =========================================================
    ASSISTENTE IRON + WHATSAPP
    PREMIUM FLOATING CONTACT
@@ -417,8 +371,7 @@
     text-align: left;
 
     border:
-        1px solid
-        rgba(15, 49, 93, 0.11);
+        1px solid rgba(15, 49, 93, 0.11);
 
     border-radius:
         20px 20px 6px 20px;
@@ -426,16 +379,12 @@
     outline: none;
 
     background:
-        radial-gradient(
-            160px 100px at 100% 0%,
+        radial-gradient(160px 100px at 100% 0%,
             rgba(59, 130, 246, 0.09),
-            transparent 75%
-        ),
-        linear-gradient(
-            145deg,
+            transparent 75%),
+        linear-gradient(145deg,
             rgba(255, 255, 255, 0.97),
-            rgba(244, 249, 255, 0.95)
-        );
+            rgba(244, 249, 255, 0.95));
 
     backdrop-filter: blur(22px);
     -webkit-backdrop-filter: blur(22px);
@@ -476,13 +425,11 @@
     height: 1px;
 
     background:
-        linear-gradient(
-            90deg,
+        linear-gradient(90deg,
             transparent,
             rgba(37, 99, 235, 0.40),
             rgba(14, 165, 233, 0.28),
-            transparent
-        );
+            transparent);
 
     pointer-events: none;
 }
@@ -523,8 +470,7 @@
 
 .inicio-modulos-whatsapp-assistente:hover {
     transform:
-        translateY(-4px)
-        scale(1.01);
+        translateY(-4px) scale(1.01);
 
     border-color:
         rgba(37, 99, 235, 0.20);
@@ -550,6 +496,7 @@
 
     margin-bottom: 9px;
 }
+
 /* =========================================================
    MODAL IRON EXECUTIONS
 ========================================================= */
@@ -588,11 +535,9 @@
     border-radius: 24px;
 
     background:
-        radial-gradient(
-            circle at top right,
+        radial-gradient(circle at top right,
             rgba(37, 99, 235, 0.08),
-            transparent 35%
-        ),
+            transparent 35%),
         #ffffff;
 
     border: 1px solid rgba(15, 55, 95, 0.12);
@@ -601,8 +546,7 @@
         0 30px 80px rgba(0, 25, 55, 0.22),
         0 8px 24px rgba(0, 25, 55, 0.10);
 
-    animation: inicioModulosModalCaixaEntrada 0.32s
-        cubic-bezier(0.16, 1, 0.3, 1);
+    animation: inicioModulosModalCaixaEntrada 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 
@@ -641,11 +585,9 @@
 
     border-radius: 15px;
 
-    background: linear-gradient(
-        145deg,
-        #063a73,
-        #0756a5
-    );
+    background: linear-gradient(145deg,
+            #063a73,
+            #0756a5);
 
     color: #ffffff;
 
@@ -779,23 +721,18 @@
 ========================================================= */
 
 .inicio-modulos-modal-opcao-cadastro {
-    background: linear-gradient(
-        135deg,
-        #f5f9ff,
-        #edf5ff
-    );
+    background: linear-gradient(135deg,
+            #f5f9ff,
+            #edf5ff);
 
     border: 1px solid #cfe0f4;
 }
 
 
-.inicio-modulos-modal-opcao-cadastro
-.inicio-modulos-modal-opcao-icone {
-    background: linear-gradient(
-        145deg,
-        #07447f,
-        #0864ba
-    );
+.inicio-modulos-modal-opcao-cadastro .inicio-modulos-modal-opcao-icone {
+    background: linear-gradient(145deg,
+            #07447f,
+            #0864ba);
 
     color: #ffffff;
 }
@@ -806,23 +743,18 @@
 ========================================================= */
 
 .inicio-modulos-modal-opcao-whatsapp {
-    background: linear-gradient(
-        135deg,
-        #f3fff8,
-        #eafaf1
-    );
+    background: linear-gradient(135deg,
+            #f3fff8,
+            #eafaf1);
 
     border: 1px solid #c8ead6;
 }
 
 
-.inicio-modulos-modal-opcao-whatsapp
-.inicio-modulos-modal-opcao-icone {
-    background: linear-gradient(
-        145deg,
-        #169b50,
-        #22c55e
-    );
+.inicio-modulos-modal-opcao-whatsapp .inicio-modulos-modal-opcao-icone {
+    background: linear-gradient(145deg,
+            #169b50,
+            #22c55e);
 
     color: #ffffff;
 }
@@ -908,8 +840,7 @@
 }
 
 
-.inicio-modulos-modal-opcao:hover
-.inicio-modulos-modal-seta {
+.inicio-modulos-modal-opcao:hover .inicio-modulos-modal-seta {
     transform: translateX(4px);
 }
 
@@ -1042,6 +973,7 @@
         font-size: 12px;
     }
 }
+
 .inicio-modulos-modal-icone {
     width: 54px;
     height: 54px;
@@ -1056,11 +988,9 @@
 
     border-radius: 16px;
 
-    background: linear-gradient(
-        145deg,
-        #ffffff,
-        #edf5ff
-    );
+    background: linear-gradient(145deg,
+            #ffffff,
+            #edf5ff);
 
     border: 1px solid rgba(14, 73, 133, 0.12);
 
@@ -1078,6 +1008,7 @@
 
     border-radius: 10px;
 }
+
 /* =========================================================
    NOME ASSISTENTE IRON
 ========================================================= */
@@ -1118,8 +1049,7 @@
         0 0 12px rgba(34, 197, 94, 0.35);
 
     animation:
-        inicioModulosStatusIron
-        2.2s ease-in-out infinite;
+        inicioModulosStatusIron 2.2s ease-in-out infinite;
 }
 
 
@@ -1195,8 +1125,7 @@
 }
 
 
-.inicio-modulos-whatsapp-assistente:hover
-.inicio-modulos-whatsapp-assistente-acao {
+.inicio-modulos-whatsapp-assistente:hover .inicio-modulos-whatsapp-assistente-acao {
     color: #0f315d;
 
     transform: translateX(3px);
@@ -1211,15 +1140,12 @@
     opacity: 1;
 
     transform:
-        translateX(0)
-        translateY(0)
-        scale(1);
+        translateX(0) translateY(0) scale(1);
 
     pointer-events: auto;
 
     animation:
-        inicioModulosMensagemEntrada
-        0.55s cubic-bezier(0.22, 1, 0.36, 1);
+        inicioModulosMensagemEntrada 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 
@@ -1231,9 +1157,7 @@
     opacity: 0;
 
     transform:
-        translateX(14px)
-        translateY(4px)
-        scale(0.965);
+        translateX(14px) translateY(4px) scale(0.965);
 
     pointer-events: none;
 }
@@ -1249,9 +1173,7 @@
         opacity: 0;
 
         transform:
-            translateX(18px)
-            translateY(5px)
-            scale(0.96);
+            translateX(18px) translateY(5px) scale(0.96);
 
         filter: blur(3px);
     }
@@ -1266,9 +1188,7 @@
         opacity: 1;
 
         transform:
-            translateX(0)
-            translateY(0)
-            scale(1);
+            translateX(0) translateY(0) scale(1);
 
         filter: blur(0);
     }
@@ -1294,25 +1214,20 @@
     padding: 0;
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.60);
+        1px solid rgba(255, 255, 255, 0.60);
 
     border-radius: 50%;
 
     outline: none;
 
     background:
-        radial-gradient(
-            circle at 32% 22%,
+        radial-gradient(circle at 32% 22%,
             rgba(255, 255, 255, 0.24),
-            transparent 28%
-        ),
-        linear-gradient(
-            145deg,
+            transparent 28%),
+        linear-gradient(145deg,
             #2ee876 0%,
             #20cc65 45%,
-            #16a94e 100%
-        );
+            #16a94e 100%);
 
     cursor: pointer;
 
@@ -1327,8 +1242,7 @@
         filter 0.3s ease;
 
     animation:
-        inicioModulosWhatsappFlutuar
-        4s ease-in-out infinite;
+        inicioModulosWhatsappFlutuar 4s ease-in-out infinite;
 
     -webkit-tap-highlight-color: transparent;
 }
@@ -1350,14 +1264,12 @@
     border-radius: 50%;
 
     border:
-        1px solid
-        rgba(34, 197, 94, 0.20);
+        1px solid rgba(34, 197, 94, 0.20);
 
     opacity: 0;
 
     animation:
-        inicioModulosWhatsappAura
-        3s ease-out infinite;
+        inicioModulosWhatsappAura 3s ease-out infinite;
 }
 
 
@@ -1367,8 +1279,7 @@
 
 .inicio-modulos-whatsapp-button:hover {
     transform:
-        translateY(-5px)
-        scale(1.07);
+        translateY(-5px) scale(1.07);
 
     filter: brightness(1.04);
 
@@ -1441,8 +1352,7 @@
     object-fit: contain;
 
     filter:
-        brightness(0)
-        invert(1);
+        brightness(0) invert(1);
 
     pointer-events: none;
 
@@ -1451,8 +1361,7 @@
 }
 
 
-.inicio-modulos-whatsapp-button:hover
-.inicio-modulos-whatsapp-icon {
+.inicio-modulos-whatsapp-button:hover .inicio-modulos-whatsapp-icon {
     transform: scale(1.08);
 }
 
@@ -1473,16 +1382,14 @@
     z-index: 3;
 
     border:
-        3px solid
-        #ffffff;
+        3px solid #ffffff;
 
     border-radius: 50%;
 
     background: #22c55e;
 
     box-shadow:
-        0 2px 6px
-        rgba(15, 23, 42, 0.20);
+        0 2px 6px rgba(15, 23, 42, 0.20);
 }
 
 
@@ -1492,8 +1399,7 @@
 
 .inicio-modulos-whatsapp-assistente:focus-visible {
     outline:
-        3px solid
-        rgba(37, 99, 235, 0.22);
+        3px solid rgba(37, 99, 235, 0.22);
 
     outline-offset: 3px;
 }
@@ -1501,8 +1407,7 @@
 
 .inicio-modulos-whatsapp-button:focus-visible {
     outline:
-        3px solid
-        rgba(34, 197, 94, 0.25);
+        3px solid rgba(34, 197, 94, 0.25);
 
     outline-offset: 4px;
 }
@@ -1561,10 +1466,8 @@
 
     .inicio-modulos-whatsapp-assistente {
         width:
-            min(
-                250px,
-                calc(100vw - 88px)
-            );
+            min(250px,
+                calc(100vw - 88px));
 
         min-height: 100px;
 
@@ -1717,5 +1620,715 @@
     .inicio-modulos-whatsapp-icon {
         animation: none;
         transition: none;
+    }
+}
+
+/* =========================================================
+   IRENE — CHAT EXCLUSIVO
+   Todos os seletores ficam limitados ao widget .ie-irene-*.
+   Não altera body, :root, elementos globais ou outros módulos.
+   ========================================================= */
+
+.ie-irene-launcher,
+.ie-irene-launcher *,
+.ie-irene-chat,
+.ie-irene-chat * {
+    box-sizing: border-box;
+}
+
+.ie-irene-launcher {
+    appearance: none;
+    -webkit-appearance: none;
+    position: fixed;
+    right: 26px;
+    bottom: 24px;
+    z-index: 100000;
+    width: 68px;
+    height: 68px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .94);
+    border-radius: 22px;
+    background: linear-gradient(145deg, #fff 0%, #edf5ff 58%, #dceaff 100%);
+    box-shadow: 0 15px 38px rgba(16, 43, 82, .24), 0 4px 12px rgba(30, 86, 165, .12);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .22s ease, box-shadow .22s ease;
+}
+
+.ie-irene-launcher:hover {
+    transform: translateY(-4px) scale(1.035);
+    box-shadow: 0 20px 46px rgba(16, 43, 82, .29), 0 7px 18px rgba(30, 86, 165, .15);
+}
+
+.ie-irene-launcher:active {
+    transform: translateY(-1px) scale(.98);
+}
+
+.ie-irene-launcher:focus-visible,
+.ie-irene-chat .ie-irene-icon-button:focus-visible,
+.ie-irene-chat .ie-irene-send:focus-visible {
+    outline: 3px solid #77a9f5;
+    outline-offset: 4px;
+}
+
+.ie-irene-launcher-logo {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 43px;
+    height: 43px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.ie-irene-launcher-status {
+    position: absolute;
+    z-index: 3;
+    right: 5px;
+    bottom: 5px;
+    width: 13px;
+    height: 13px;
+    border: 2.5px solid #fff;
+    border-radius: 50%;
+    background: #20bd78;
+}
+
+.ie-irene-launcher-pulse {
+    position: absolute;
+    z-index: -1;
+    inset: -6px;
+    border: 1px solid rgba(57, 120, 210, .45);
+    border-radius: 27px;
+    pointer-events: none;
+    animation: ie-irene-pulse 2.5s ease-out infinite;
+}
+
+@keyframes ie-irene-pulse {
+    0% {
+        transform: scale(.94);
+        opacity: .75;
+    }
+
+    75%,
+    100% {
+        transform: scale(1.18);
+        opacity: 0;
+    }
+}
+
+/* Janela de conversa — computador */
+.ie-irene-chat {
+    position: fixed;
+    z-index: 100001;
+    right: 24px;
+    bottom: 24px;
+    width: min(420px, calc(100vw - 36px));
+    height: min(680px, calc(100dvh - 48px));
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(210, 224, 243, .95);
+    border-radius: 24px;
+    background: #fff;
+    color: #172b46;
+    box-shadow: 0 26px 80px rgba(15, 43, 82, .25), 0 5px 16px rgba(15, 43, 82, .08);
+    font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    animation: ie-irene-window-in .24s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+@keyframes ie-irene-window-in {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 13px, 0) scale(.975);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+/* Cabeçalho */
+.ie-irene-chat .ie-irene-chat-header {
+    position: relative;
+    flex: 0 0 auto;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px 16px;
+    overflow: hidden;
+    color: #fff;
+    background: radial-gradient(ellipse at 100% 0%, rgba(112, 171, 255, .28), transparent 42%), linear-gradient(118deg, #102849 0%, #173d74 52%, #245ba5 100%);
+}
+
+.ie-irene-chat .ie-irene-chat-header::after {
+    content: "";
+    position: absolute;
+    top: -48px;
+    right: 64px;
+    width: 145px;
+    height: 145px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 50%;
+    box-shadow: 0 0 0 18px rgba(255, 255, 255, .025), 0 0 0 38px rgba(255, 255, 255, .02);
+    pointer-events: none;
+}
+
+.ie-irene-chat .ie-irene-chat-brand,
+.ie-irene-chat .ie-irene-chat-actions {
+    position: relative;
+    z-index: 1;
+}
+
+.ie-irene-chat .ie-irene-chat-brand {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.ie-irene-chat .ie-irene-chat-avatar {
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .75);
+    border-radius: 15px;
+    background: linear-gradient(145deg, #fff, #eaf2ff);
+    box-shadow: 0 5px 13px rgba(0, 0, 0, .14);
+}
+
+.ie-irene-chat .ie-irene-chat-avatar img {
+    display: block;
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.ie-irene-chat .ie-irene-chat-brand-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ie-irene-chat .ie-irene-chat-brand-text strong {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 760;
+    line-height: 1.15;
+    letter-spacing: -.2px;
+}
+
+.ie-irene-chat .ie-irene-chat-brand-text span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.ie-irene-chat .ie-irene-chat-brand-text span i {
+    flex: 0 0 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #53e1a0;
+    box-shadow: 0 0 0 3px rgba(83, 225, 160, .13);
+}
+
+.ie-irene-chat .ie-irene-chat-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 6px;
+}
+
+.ie-irene-chat .ie-irene-icon-button {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, .09);
+    color: #fff;
+    cursor: pointer;
+    transition: background .18s ease, transform .18s ease;
+}
+
+.ie-irene-chat .ie-irene-icon-button:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, .19);
+}
+
+.ie-irene-chat .ie-irene-icon-button svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Subcabeçalho */
+.ie-irene-chat .ie-irene-chat-subheader {
+    flex: 0 0 auto;
+    padding: 11px 17px;
+    border-bottom: 1px solid #e8eef7;
+    background: linear-gradient(90deg, #f8fbff, #fff);
+    color: #6c7e98;
+    font-size: 11.5px;
+    line-height: 1.5;
+}
+
+/* Lista de mensagens */
+.ie-irene-chat .ie-irene-chat-messages {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 20px 15px;
+    background: radial-gradient(ellipse at 0% 0%, rgba(212, 230, 255, .42), transparent 50%), linear-gradient(180deg, #f7faff 0%, #f5f8fd 100%);
+    scrollbar-width: thin;
+    scrollbar-color: #c5d4e9 transparent;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ie-irene-chat .ie-irene-chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ie-irene-chat .ie-irene-chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ie-irene-chat .ie-irene-chat-messages::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #c5d4e9;
+}
+
+.ie-irene-chat .ie-irene-message {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+}
+
+.ie-irene-chat .ie-irene-message-user {
+    justify-content: flex-end;
+}
+
+.ie-irene-chat .ie-irene-message-avatar {
+    display: block;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    padding: 3px;
+    border: 1px solid #e1e9f5;
+    border-radius: 9px;
+    background: #fff;
+    object-fit: contain;
+    box-shadow: 0 2px 5px rgba(24, 57, 100, .05);
+}
+
+.ie-irene-chat .ie-irene-message-bubble {
+    min-width: 0;
+    max-width: calc(100% - 36px);
+    padding: 11px 13px;
+    border: 1px solid #e2eaf5;
+    border-radius: 16px 16px 16px 5px;
+    background: rgba(255, 255, 255, .97);
+    color: #263951;
+    box-shadow: 0 3px 9px rgba(23, 55, 96, .045);
+    font-size: 13px;
+    font-weight: 430;
+    line-height: 1.62;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.ie-irene-chat .ie-irene-message-user .ie-irene-message-bubble {
+    max-width: 86%;
+    border-color: #2b5eaa;
+    border-radius: 16px 16px 5px 16px;
+    background: linear-gradient(135deg, #24539a 0%, #3472c8 100%);
+    color: #fff;
+    box-shadow: 0 5px 13px rgba(32, 86, 160, .16);
+}
+
+/* Indicador de resposta */
+.ie-irene-chat .ie-irene-typing {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 40px;
+}
+
+.ie-irene-chat .ie-irene-typing span {
+    flex: 0 0 5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #6286ba;
+    animation: ie-irene-typing-dot 1.05s ease-in-out infinite;
+}
+
+.ie-irene-chat .ie-irene-typing span:nth-child(2) {
+    animation-delay: .14s;
+}
+
+.ie-irene-chat .ie-irene-typing span:nth-child(3) {
+    animation-delay: .28s;
+}
+
+.ie-irene-chat .ie-irene-typing em {
+    margin-left: 6px;
+    color: #7a8ba3;
+    font-size: 11px;
+    font-style: normal;
+}
+
+@keyframes ie-irene-typing-dot {
+
+    0%,
+    60%,
+    100% {
+        opacity: .35;
+        transform: translateY(0);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+}
+
+/* Aviso de erro */
+.ie-irene-chat .ie-irene-chat-error {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 13px;
+    border-top: 1px solid #f1d4d4;
+    background: #fff6f6;
+    color: #a72f37;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.ie-irene-chat .ie-irene-chat-error button {
+    appearance: none;
+    flex: 0 0 auto;
+    padding: 0 2px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 21px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* Compositor */
+.ie-irene-chat .ie-irene-chat-composer {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 9px;
+    padding: 12px 13px 8px;
+    border-top: 1px solid #e5ecf5;
+    background: rgba(255, 255, 255, .98);
+}
+
+.ie-irene-chat .ie-irene-chat-composer textarea {
+    appearance: none;
+    flex: 1 1 auto;
+    width: 0;
+    min-width: 0;
+    min-height: 44px;
+    max-height: 132px;
+    resize: vertical;
+    padding: 12px 13px;
+    border: 1px solid #dce6f3;
+    border-radius: 14px;
+    outline: none;
+    background: #f8faff;
+    color: #1d304a;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.45;
+    box-shadow: inset 0 1px 2px rgba(21, 49, 86, .025);
+    transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.ie-irene-chat .ie-irene-chat-composer textarea:focus {
+    border-color: #7da4df;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(57, 120, 210, .12);
+}
+
+.ie-irene-chat .ie-irene-chat-composer textarea:disabled {
+    opacity: .7;
+    cursor: wait;
+}
+
+.ie-irene-chat .ie-irene-chat-composer textarea::placeholder {
+    color: #91a0b5;
+}
+
+.ie-irene-chat .ie-irene-send {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 14px;
+    background: linear-gradient(145deg, #3475cb, #1d4e94);
+    color: #fff;
+    box-shadow: 0 5px 13px rgba(31, 83, 153, .22);
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+
+.ie-irene-chat .ie-irene-send:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 17px rgba(31, 83, 153, .28);
+}
+
+.ie-irene-chat .ie-irene-send:disabled {
+    opacity: .42;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.ie-irene-chat .ie-irene-send svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ie-irene-chat .ie-irene-chat-footnote {
+    flex: 0 0 auto;
+    padding: 0 14px 11px;
+    background: #fff;
+    color: #97a4b7;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+/* Tablet */
+@media (min-width: 641px) and (max-width: 900px) {
+    .ie-irene-chat {
+        right: 18px;
+        bottom: 18px;
+        width: min(400px, calc(100vw - 36px));
+        height: min(640px, calc(100dvh - 36px));
+    }
+
+    .ie-irene-launcher {
+        right: 20px;
+        bottom: 20px;
+    }
+}
+
+/* Celular: tela cheia */
+@media (max-width: 640px) {
+    .ie-irene-launcher {
+        right: 16px;
+        bottom: 16px;
+        width: 61px;
+        height: 61px;
+        border-radius: 19px;
+    }
+
+    .ie-irene-launcher-logo {
+        width: 39px;
+        height: 39px;
+        border-radius: 11px;
+    }
+
+    .ie-irene-launcher-pulse {
+        border-radius: 24px;
+    }
+
+    .ie-irene-chat {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        height: 100dvh;
+        min-width: 0;
+        min-height: 0;
+        max-height: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-right: env(safe-area-inset-right, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        padding-left: env(safe-area-inset-left, 0px);
+        animation: ie-irene-mobile-in .18s ease-out both;
+    }
+
+    @keyframes ie-irene-mobile-in {
+        from {
+            opacity: 0;
+            transform: translateY(7px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .ie-irene-chat .ie-irene-chat-header {
+        min-height: 72px;
+        padding: 12px 13px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-avatar {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+        border-radius: 13px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-avatar img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-brand-text strong {
+        font-size: 16px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-brand-text span {
+        font-size: 10.5px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-actions {
+        gap: 5px;
+    }
+
+    .ie-irene-chat .ie-irene-icon-button {
+        width: 36px;
+        height: 36px;
+        border-radius: 11px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-subheader {
+        padding: 10px 14px;
+        font-size: 11px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-messages {
+        gap: 16px;
+        padding: 17px 12px;
+    }
+
+    .ie-irene-chat .ie-irene-message-bubble {
+        padding: 11px 13px;
+        font-size: 14px;
+        line-height: 1.58;
+    }
+
+    .ie-irene-chat .ie-irene-message-user .ie-irene-message-bubble {
+        max-width: 88%;
+    }
+
+    .ie-irene-chat .ie-irene-chat-composer {
+        gap: 8px;
+        padding: 10px 11px 8px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-composer textarea {
+        min-height: 45px;
+        max-height: 140px;
+        padding: 12px;
+        font-size: 16px;
+        resize: none;
+        border-radius: 14px;
+    }
+
+    .ie-irene-chat .ie-irene-send {
+        flex-basis: 45px;
+        width: 45px;
+        height: 45px;
+        border-radius: 14px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-footnote {
+        padding: 0 12px 9px;
+        font-size: 10px;
+    }
+}
+
+/* Celulares estreitos */
+@media (max-width: 360px) {
+    .ie-irene-chat .ie-irene-chat-brand {
+        gap: 8px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-avatar {
+        flex-basis: 38px;
+        width: 38px;
+        height: 38px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-actions {
+        gap: 3px;
+    }
+
+    .ie-irene-chat .ie-irene-icon-button {
+        width: 32px;
+        height: 32px;
+    }
+
+    .ie-irene-chat .ie-irene-chat-subheader {
+        font-size: 10.5px;
+    }
+}
+
+/* Acessibilidade limitada ao widget Irene */
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-irene-launcher,
+    .ie-irene-chat,
+    .ie-irene-chat .ie-irene-icon-button,
+    .ie-irene-chat .ie-irene-send,
+    .ie-irene-launcher-pulse,
+    .ie-irene-chat .ie-irene-typing span {
+        animation: none !important;
+        transition: none !important;
     }
 }
