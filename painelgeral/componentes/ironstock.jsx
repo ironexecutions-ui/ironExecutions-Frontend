@@ -16,6 +16,8 @@ const ROTAS = {
         `/ironstock/comercios/${comercioId}/produtos`,
     pdf: (produtoId) => `/ironstock/produtos/${produtoId}/pdf`,
     processar: (produtoId) => `/ironstock/produtos/${produtoId}/processar`,
+    pdfVariedade: (produtoId) =>
+        `/ironstock/produtos/${produtoId}/variedade-pdf`,
 };
 
 const CAMPOS = [
@@ -70,7 +72,25 @@ COMO ESTIMAR PESO E DIMENSÕES:
 11. NÃO retorne null para peso_g, altura_cm, cumprimento_cm ou largura_cm apenas porque não há medidas exatas. Faça uma estimativa numérica positiva sempre que houver informação visual ou contextual suficiente para estimar.
 12. Somente use null para algum desses campos quando não houver base suficiente para uma estimativa minimamente responsável.
 
+TIPO DE VARIEDADE — REGRA OBRIGATÓRIA:
 
+- Analise as imagens e as informações do produto para identificar
+  qual característica diferencia suas variedades.
+- Retorne essa característica no campo "tipo_variedade" do produto principal.
+- Retorne também "tipo_variedade" em cada objeto dentro de "variedades".
+- O tipo deve identificar a característica, não o valor específico.
+- Exemplos:
+  - Camisa preta e vermelha: "Cor"
+  - Camisa P, M e G: "Tamanho"
+  - Produto 110V e 220V: "Voltagem"
+  - Modelos diferentes: "Modelo"
+  - Produto com opções de cor e tamanho: "Cor e Tamanho"
+- No campo "nome" de cada variedade, coloque a opção específica,
+  como "Preto", "Vermelho", "P", "M" ou "G".
+- Não confunda "tipo_variedade" com "nome".
+- Se não houver variedades, retorne "tipo_variedade": ""
+  e "variedades": [].
+- Não invente variedades que não estejam sustentadas pelas informações.
 SIGNIFICADO DOS CAMPOS:
 - peso_g: peso estimado do produto acondicionado, em gramas.
 - altura_cm: altura externa da embalagem, em centímetros.
@@ -92,7 +112,12 @@ CADASTRO DO PRODUTO:
 VALIDAÇÃO OBRIGATÓRIA ANTES DE RESPONDER:
 Confira se peso_g, altura_cm, cumprimento_cm e largura_cm contêm números positivos sempre que for possível estimá-los. Não deixe esses campos como null por excesso de cautela quando uma estimativa logística razoável for possível.
 Confira também se o JSON está válido e se todos os campos exigidos estão presentes.
-
+- Identifique o tipo de variedade correspondente às opções do produto.
+- O campo "tipo_variedade" representa a característica que diferencia as variedades, não o nome de uma variedade específica.
+- Exemplos: "Cor" para Preto/Vermelho; "Tamanho" para P/M/G; "Modelo" para modelos diferentes; "Voltagem" para 110V/220V.
+- Se as variedades diferirem por mais de uma característica, informe todas, como "Cor e Tamanho".
+- Analise o produto e as variedades antes de decidir. Não confunda categoria do produto com tipo de variedade.
+- Retorne "tipo_variedade" no produto principal e em cada objeto de variedades.
 Retorne SOMENTE um objeto JSON válido, sem Markdown ou explicações fora do JSON, usando exatamente esta estrutura:
 {
   "nome": "",
@@ -109,9 +134,11 @@ Retorne SOMENTE um objeto JSON válido, sem Markdown ou explicações fora do JS
   "cumprimento_cm": null,
   "largura_cm": null,
   "imagem_url": [],
+  "tipo_variedade": "",
   "variedades": [
     {
       "nome": "",
+      "tipo_variedade": "",
       "codigo_barras": "",
       "imagem_url": []
     }
@@ -196,9 +223,13 @@ function normalizarProduto(produto) {
         cumprimento_cm: produto?.cumprimento_cm ?? "",
         largura_cm: produto?.largura_cm ?? "",
         imagem_url: normalizarImagens(produto?.imagem_url),
+
+        tipo_variedade: produto?.tipo_variedade || "",
+
         variedades: Array.isArray(produto?.variedades)
             ? produto.variedades.map((variedade) => ({
                 nome: variedade?.nome || "",
+                tipo_variedade: variedade?.tipo_variedade || "",
                 codigo_barras: variedade?.codigo_barras || "",
                 imagem_url: normalizarImagens(variedade?.imagem_url),
             }))
@@ -231,8 +262,14 @@ function prepararPayload(produto) {
         cumprimento_cm: valorNumerico(produto.cumprimento_cm),
         largura_cm: valorNumerico(produto.largura_cm),
         imagem_url: imagensPrincipais,
+
+        tipo_variedade: String(produto.tipo_variedade || "").trim(),
+
         variedades: produto.variedades.map((variedade) => ({
             nome: String(variedade.nome || "").trim(),
+            tipo_variedade: String(
+                variedade.tipo_variedade || produto.tipo_variedade || ""
+            ).trim(),
             codigo_barras: String(variedade.codigo_barras || "").trim(),
             imagem_url: normalizarImagens(variedade.imagem_url),
         })),
@@ -945,7 +982,50 @@ export default function Ironstock() {
             </main>
         );
     }
+    async function baixarPDFVariedade(variedade, indiceVariedade) {
+        setErro("");
+        setSucesso("");
 
+        if (!produtoSelecionado || !comercioSelecionado) {
+            setErro("Selecione o produto e a loja antes de gerar o PDF.");
+            return;
+        }
+
+        if (!variedade.nome.trim()) {
+            setErro("Informe o nome da variedade antes de gerar o PDF.");
+            return;
+        }
+
+        try {
+            const blob = await requisicao(ROTAS.pdfVariedade(produtoSelecionado.id), {
+                method: "POST",
+                body: JSON.stringify({
+                    comercio_id: comercioSelecionado.id,
+                    nome_variedade: variedade.nome.trim(),
+                    indice_variedade: indiceVariedade,
+                    imagens_variedade: normalizarImagens(variedade.imagem_url),
+                }),
+                esperarBlob: true,
+            });
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download =
+                `ironstock-produto-${produtoSelecionado.id}-variedade-${indiceVariedade + 1}.pdf`;
+
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+            setSucesso("PDF de referência da variedade preparado para download.");
+        } catch (e) {
+            setErro(e.message || "Não foi possível gerar o PDF da variedade.");
+        }
+    }
     return (
         <main className="ironstock-page">
             <header className="ironstock-header">
@@ -1353,6 +1433,21 @@ export default function Ironstock() {
                             className="ironstock-json-textarea"
                             value={jsonIA}
                             onChange={(e) => setJsonIA(e.target.value)}
+                            onClick={async (e) => {
+                                if (jsonIA.trim()) return;
+
+                                try {
+                                    const texto = await navigator.clipboard.readText();
+
+                                    if (texto.trim()) {
+                                        setJsonIA(texto);
+                                    } else {
+                                        e.currentTarget.focus();
+                                    }
+                                } catch {
+                                    e.currentTarget.focus();
+                                }
+                            }}
                             placeholder={'Cole aqui o JSON retornado pela IA...\n\n{\n  "nome": "...",\n  "categoria": "...",\n  "variedades": []\n}'}
                             rows={12}
                             spellCheck={false}
@@ -1587,6 +1682,21 @@ export default function Ironstock() {
                                             className="ironstock-variety-card"
                                             key={`variedade-${indiceVariedade}`}
                                         >
+                                            <label className="ironstock-field">
+                                                <span>Tipo de variedade *</span>
+                                                <input
+                                                    value={variedade.tipo_variedade || produtoEditavel.tipo_variedade || ""}
+                                                    onChange={(e) =>
+                                                        atualizarVariedade(
+                                                            indiceVariedade,
+                                                            "tipo_variedade",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    required
+                                                    placeholder="Ex.: Cor, Tamanho, Voltagem"
+                                                />
+                                            </label>
                                             <div className="ironstock-variety-heading">
                                                 <h4>Variedade {indiceVariedade + 1}</h4>
                                                 <button
@@ -1654,6 +1764,16 @@ export default function Ironstock() {
                                                             disabled={enviandoImagens}
                                                         >
                                                             {enviandoImagens ? "Enviando..." : "Selecionar imagem"}
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            className="ironstock-button secondary small"
+                                                            onClick={() =>
+                                                                baixarPDFVariedade(variedade, indiceVariedade)
+                                                            }
+                                                            disabled={enviandoImagens || processando}
+                                                        >
+                                                            Baixar PDF para gerar imagem
                                                         </button>
                                                     </div>
                                                 </div>
