@@ -8227,3 +8227,1051 @@
         height: 44px !important;
     }
 }
+
+/* =========================================================
+   MODAL IRONSTOCK — PREMIUM LIGHT / NAVY / ELECTRIC BLUE
+========================================================= */
+
+.ironstock-descricao-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2147483646 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100dvh !important;
+
+    padding: 22px !important;
+    box-sizing: border-box !important;
+
+    background:
+        radial-gradient(circle at 50% 35%,
+            rgba(37, 99, 235, 0.12),
+            transparent 36%),
+        rgba(15, 23, 42, 0.66) !important;
+
+    backdrop-filter: blur(7px) !important;
+    -webkit-backdrop-filter: blur(7px) !important;
+
+    animation: ironStockOverlayEntrada 0.22s ease-out both !important;
+}
+
+/* =========================================================
+   CAIXA PRINCIPAL
+========================================================= */
+
+.ironstock-descricao-modal {
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+
+    width: min(600px, 100%) !important;
+    max-width: 600px !important;
+    max-height: calc(100dvh - 44px) !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    box-sizing: border-box !important;
+
+    color: #0f172a !important;
+
+    border: 1px solid rgba(37, 99, 235, 0.20) !important;
+    border-radius: 22px !important;
+
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.09),
+            transparent 35%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8fafc 58%,
+            #eef2f7 100%) !important;
+
+    box-shadow:
+        0 35px 90px rgba(15, 23, 42, 0.32),
+        0 12px 32px rgba(15, 23, 42, 0.16),
+        inset 0 1px 0 #ffffff !important;
+
+    animation:
+        ironStockModalEntrada 0.30s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+/* Luz decorativa superior */
+
+.ironstock-descricao-modal::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: -100px !important;
+    right: -60px !important;
+
+    width: 280px !important;
+    height: 160px !important;
+
+    border-radius: 50% !important;
+
+    background: radial-gradient(circle,
+            rgba(37, 99, 235, 0.16),
+            transparent 70%) !important;
+
+    filter: blur(20px) !important;
+    pointer-events: none !important;
+}
+
+/* Mantém o conteúdo acima da luz decorativa */
+
+.ironstock-descricao-modal>* {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.ironstock-descricao-cabecalho {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 16px !important;
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 23px 24px !important;
+
+    box-sizing: border-box !important;
+
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 249, 0.88)) !important;
+}
+
+.ironstock-descricao-cabecalho>div {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.ironstock-descricao-etiqueta {
+    display: inline-block !important;
+
+    margin: 0 0 8px !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.6px !important;
+    line-height: 1.4 !important;
+    text-transform: uppercase !important;
+}
+
+.ironstock-descricao-cabecalho h2 {
+    position: relative !important;
+
+    margin: 0 0 9px !important;
+    padding-left: 13px !important;
+
+    color: #0b1635 !important;
+
+    font-size: 21px !important;
+    font-weight: 850 !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.45px !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+.ironstock-descricao-cabecalho h2::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 2px !important;
+    bottom: 2px !important;
+    left: 0 !important;
+
+    width: 4px !important;
+
+    border-radius: 999px !important;
+
+    background: linear-gradient(180deg,
+            #2563eb,
+            #0ea5e9) !important;
+
+    box-shadow: 0 0 14px rgba(37, 99, 235, 0.25) !important;
+}
+
+.ironstock-descricao-cabecalho p {
+    margin: 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 550 !important;
+    line-height: 1.65 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+/* =========================================================
+   BOTÃO FECHAR
+========================================================= */
+
+.ironstock-descricao-fechar {
+    flex: 0 0 36px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 1px solid #dbe4ef !important;
+    border-radius: 11px !important;
+
+    background: linear-gradient(180deg,
+            #ffffff,
+            #f1f5f9) !important;
+
+    color: #64748b !important;
+
+    font-size: 24px !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.ironstock-descricao-fechar:hover:not(:disabled) {
+    color: #1d4ed8 !important;
+    border-color: #93c5fd !important;
+    background: #eff6ff !important;
+    transform: rotate(4deg) !important;
+}
+
+.ironstock-descricao-fechar:active:not(:disabled) {
+    transform: scale(0.94) !important;
+}
+
+.ironstock-descricao-fechar:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.55 !important;
+}
+
+/* =========================================================
+   CONTEÚDO DO FORMULÁRIO
+========================================================= */
+
+.ironstock-descricao-label {
+    display: block !important;
+
+    margin: 22px 24px 9px !important;
+
+    color: #334155 !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0.1px !important;
+}
+
+.ironstock-descricao-textarea {
+    display: block !important;
+
+    width: calc(100% - 48px) !important;
+    min-width: 0 !important;
+    min-height: 175px !important;
+    max-height: 38dvh !important;
+
+    margin: 0 24px !important;
+    padding: 15px 16px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 13px !important;
+
+    outline: none !important;
+    resize: vertical !important;
+
+    background: linear-gradient(180deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    color: #0f172a !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.7 !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.035),
+        0 2px 5px rgba(15, 23, 42, 0.025) !important;
+
+    transition:
+        border-color 0.22s ease,
+        background 0.22s ease,
+        box-shadow 0.22s ease !important;
+}
+
+.ironstock-descricao-textarea::placeholder {
+    color: #94a3b8 !important;
+    font-weight: 450 !important;
+    opacity: 1 !important;
+}
+
+.ironstock-descricao-textarea:hover:not(:disabled) {
+    border-color: #94a3b8 !important;
+    background: #ffffff !important;
+}
+
+.ironstock-descricao-textarea:focus {
+    border-color: #2563eb !important;
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.11),
+        0 8px 20px rgba(37, 99, 235, 0.08) !important;
+}
+
+.ironstock-descricao-textarea:disabled {
+    cursor: wait !important;
+    opacity: 0.7 !important;
+}
+
+/* =========================================================
+   CONTADOR DE CARACTERES
+========================================================= */
+
+.ironstock-descricao-contador {
+    align-self: flex-end !important;
+
+    margin: 8px 24px 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    line-height: 1.5 !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+/* =========================================================
+   BOTÕES — ALINHAMENTO PADRÃO
+========================================================= */
+
+.ironstock-descricao-acoes {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+
+    width: 100% !important;
+
+    margin: 22px 0 0 !important;
+    padding: 16px 24px 22px !important;
+
+    box-sizing: border-box !important;
+
+    border-top: 1px solid rgba(15, 23, 42, 0.07) !important;
+
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.97),
+            rgba(248, 250, 252, 0.95)) !important;
+}
+
+.ironstock-descricao-acoes button {
+    position: relative !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 125px !important;
+    min-height: 44px !important;
+
+    margin: 0 !important;
+    padding: 0 20px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 13px !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 850 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.15px !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease,
+        border-color 0.22s ease !important;
+}
+
+.ironstock-descricao-acoes button:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+}
+
+.ironstock-descricao-acoes button:active:not(:disabled) {
+    transform: scale(0.97) !important;
+}
+
+.ironstock-descricao-acoes button:disabled {
+    cursor: wait !important;
+    opacity: 0.65 !important;
+}
+
+/* Cancelar */
+
+.ironstock-descricao-cancelar {
+    border: 1px solid #cbd5e1 !important;
+
+    background: linear-gradient(180deg,
+            #ffffff,
+            #f1f5f9) !important;
+
+    color: #334155 !important;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 #ffffff !important;
+}
+
+.ironstock-descricao-cancelar:hover:not(:disabled) {
+    border-color: #94a3b8 !important;
+    background: #ffffff !important;
+
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.09) !important;
+}
+
+/* Confirmar e enviar */
+
+.ironstock-descricao-confirmar {
+    overflow: hidden !important;
+
+    border: 1px solid #1d4ed8 !important;
+
+    background:
+        radial-gradient(circle at 20% 0%,
+            rgba(96, 165, 250, 0.40),
+            transparent 52%),
+        linear-gradient(135deg,
+            #0f172a,
+            #172554) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.22),
+        0 4px 10px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.ironstock-descricao-confirmar:hover:not(:disabled) {
+    box-shadow:
+        0 15px 32px rgba(37, 99, 235, 0.30),
+        0 5px 13px rgba(15, 23, 42, 0.12) !important;
+}
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes ironStockOverlayEntrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes ironStockModalEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.985);
+        filter: blur(2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* =========================================================
+   TABLET E CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+    .ironstock-descricao-overlay {
+        align-items: center !important;
+        padding: 14px !important;
+    }
+
+    .ironstock-descricao-modal {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: calc(100dvh - 28px) !important;
+        border-radius: 18px !important;
+    }
+
+    .ironstock-descricao-cabecalho {
+        gap: 12px !important;
+        padding: 19px 18px !important;
+    }
+
+    .ironstock-descricao-cabecalho h2 {
+        font-size: 19px !important;
+    }
+
+    .ironstock-descricao-cabecalho p {
+        font-size: 12px !important;
+    }
+
+    .ironstock-descricao-label {
+        margin: 19px 18px 8px !important;
+    }
+
+    .ironstock-descricao-textarea {
+        width: calc(100% - 36px) !important;
+        min-height: 145px !important;
+        max-height: 32dvh !important;
+
+        margin: 0 18px !important;
+        padding: 13px !important;
+
+        font-size: 12px !important;
+    }
+
+    .ironstock-descricao-contador {
+        margin-right: 18px !important;
+        margin-left: 18px !important;
+    }
+
+    .ironstock-descricao-acoes {
+        gap: 9px !important;
+        margin-top: 18px !important;
+        padding: 14px 18px 18px !important;
+    }
+
+    .ironstock-descricao-acoes button {
+        min-width: 0 !important;
+        min-height: 44px !important;
+        padding: 0 14px !important;
+    }
+}
+
+/* Celulares estreitos */
+
+@media (max-width: 420px) {
+    .ironstock-descricao-overlay {
+        padding: 10px !important;
+    }
+
+    .ironstock-descricao-modal {
+        max-height: calc(100dvh - 20px) !important;
+        border-radius: 16px !important;
+    }
+
+    .ironstock-descricao-cabecalho {
+        padding: 16px !important;
+    }
+
+    .ironstock-descricao-cabecalho h2 {
+        font-size: 17px !important;
+    }
+
+    .ironstock-descricao-fechar {
+        flex-basis: 32px !important;
+        width: 32px !important;
+        min-width: 32px !important;
+        height: 32px !important;
+    }
+
+    .ironstock-descricao-label {
+        margin: 16px 16px 8px !important;
+    }
+
+    .ironstock-descricao-textarea {
+        width: calc(100% - 32px) !important;
+        margin: 0 16px !important;
+        min-height: 130px !important;
+    }
+
+    .ironstock-descricao-contador {
+        margin-right: 16px !important;
+        margin-left: 16px !important;
+    }
+
+    .ironstock-descricao-acoes {
+        flex-direction: column-reverse !important;
+        align-items: stretch !important;
+        padding: 13px 16px 16px !important;
+    }
+
+    .ironstock-descricao-acoes button {
+        width: 100% !important;
+        min-height: 45px !important;
+    }
+}
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstock-descricao-overlay,
+    .ironstock-descricao-modal,
+    .ironstock-descricao-fechar,
+    .ironstock-descricao-acoes button {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   RESPONSIVIDADE COMPLEMENTAR — MODAL IRONSTOCK
+   TABLET / CELULAR / PAISAGEM / TELAS BAIXAS
+========================================================= */
+
+/* Evita que padding e bordas aumentem a largura real */
+
+.ironstock-descricao-overlay,
+.ironstock-descricao-overlay *,
+.ironstock-descricao-overlay *::before,
+.ironstock-descricao-overlay *::after {
+    box-sizing: border-box !important;
+}
+
+.ironstock-descricao-overlay {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+
+    padding:
+        max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)) !important;
+}
+
+.ironstock-descricao-modal {
+    flex: 0 1 600px !important;
+    min-height: 0 !important;
+
+    width: 100% !important;
+    max-width: 600px !important;
+
+    overflow-x: clip !important;
+    overflow-y: auto !important;
+
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #cbd5e1 transparent !important;
+}
+
+.ironstock-descricao-modal::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.ironstock-descricao-modal::-webkit-scrollbar-thumb {
+    border-radius: 99px !important;
+    background: #cbd5e1 !important;
+}
+
+.ironstock-descricao-modal>* {
+    min-width: 0 !important;
+}
+
+.ironstock-descricao-textarea {
+    max-width: calc(100% - 48px) !important;
+    min-width: 0 !important;
+
+    overflow-wrap: anywhere !important;
+    overflow-x: hidden !important;
+
+    -webkit-appearance: none !important;
+    appearance: none !important;
+
+    touch-action: pan-y !important;
+}
+
+.ironstock-descricao-acoes button {
+    flex: 0 1 auto !important;
+    max-width: 100% !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+
+    touch-action: manipulation !important;
+}
+
+/* =========================================================
+   NOTEBOOKS PEQUENOS E TABLETS DEITADOS
+========================================================= */
+
+@media (min-width: 601px) and (max-width: 900px) {
+    .ironstock-descricao-overlay {
+        padding: 18px !important;
+    }
+
+    .ironstock-descricao-modal {
+        width: min(560px, 100%) !important;
+        max-width: 560px !important;
+        max-height: calc(100dvh - 36px) !important;
+        border-radius: 20px !important;
+    }
+
+    .ironstock-descricao-cabecalho {
+        padding: 21px !important;
+    }
+
+    .ironstock-descricao-label {
+        margin-right: 21px !important;
+        margin-left: 21px !important;
+    }
+
+    .ironstock-descricao-textarea {
+        width: calc(100% - 42px) !important;
+        max-width: calc(100% - 42px) !important;
+        margin-right: 21px !important;
+        margin-left: 21px !important;
+    }
+
+    .ironstock-descricao-contador {
+        margin-right: 21px !important;
+        margin-left: 21px !important;
+    }
+
+    .ironstock-descricao-acoes {
+        padding-right: 21px !important;
+        padding-left: 21px !important;
+    }
+}
+
+/* =========================================================
+   CELULARES — ATÉ 600 PX
+========================================================= */
+
+@media (max-width: 600px) {
+    .ironstock-descricao-overlay {
+        align-items: center !important;
+        justify-content: center !important;
+
+        padding:
+            max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)) !important;
+    }
+
+    .ironstock-descricao-modal {
+        flex: 0 1 auto !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: calc(100dvh - 20px) !important;
+
+        border-radius: 18px !important;
+    }
+
+    .ironstock-descricao-cabecalho {
+        align-items: flex-start !important;
+        gap: 10px !important;
+
+        padding: 17px !important;
+    }
+
+    .ironstock-descricao-cabecalho>div {
+        flex: 1 1 auto !important;
+    }
+
+    .ironstock-descricao-cabecalho h2 {
+        font-size: clamp(16px, 4.5vw, 19px) !important;
+        line-height: 1.35 !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    .ironstock-descricao-cabecalho p {
+        font-size: 12px !important;
+        line-height: 1.55 !important;
+    }
+
+    .ironstock-descricao-label {
+        margin: 17px 17px 8px !important;
+        font-size: 12px !important;
+    }
+
+    .ironstock-descricao-textarea {
+        width: calc(100% - 34px) !important;
+        max-width: calc(100% - 34px) !important;
+
+        min-height: 125px !important;
+        max-height: 34dvh !important;
+
+        margin: 0 17px !important;
+        padding: 12px !important;
+
+        font-size: 16px !important;
+        line-height: 1.55 !important;
+
+        border-radius: 11px !important;
+    }
+
+    .ironstock-descricao-contador {
+        margin: 7px 17px 0 !important;
+        font-size: 11px !important;
+    }
+
+    .ironstock-descricao-acoes {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+
+        align-items: stretch !important;
+        justify-content: stretch !important;
+
+        gap: 9px !important;
+        margin-top: 17px !important;
+        padding: 13px 17px 17px !important;
+    }
+
+    .ironstock-descricao-acoes button {
+        flex: 1 1 0 !important;
+
+        width: auto !important;
+        min-width: 0 !important;
+        min-height: 45px !important;
+
+        padding: 8px 10px !important;
+
+        font-size: 12px !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+    }
+}
+
+/* =========================================================
+   CELULARES ESTREITOS — ATÉ 360 PX
+========================================================= */
+
+@media (max-width: 360px) {
+    .ironstock-descricao-overlay {
+        padding: 8px !important;
+    }
+
+    .ironstock-descricao-modal {
+        max-height: calc(100dvh - 16px) !important;
+        border-radius: 14px !important;
+    }
+
+    .ironstock-descricao-cabecalho {
+        padding: 13px !important;
+        gap: 8px !important;
+    }
+
+    .ironstock-descricao-etiqueta {
+        font-size: 9px !important;
+        letter-spacing: 1.1px !important;
+    }
+
+    .ironstock-descricao-cabecalho h2 {
+        padding-left: 10px !important;
+        font-size: 16px !important;
+    }
+
+    .ironstock-descricao-cabecalho p {
+        font-size: 11px !important;
+    }
+
+    .ironstock-descricao-fechar {
+        flex-basis: 30px !important;
+        width: 30px !important;
+        min-width: 30px !important;
+        height: 30px !important;
+
+        font-size: 21px !important;
+    }
+
+    .ironstock-descricao-label {
+        margin: 14px 13px 7px !important;
+        font-size: 11px !important;
+    }
+
+    .ironstock-descricao-textarea {
+        width: calc(100% - 26px) !important;
+        max-width: calc(100% - 26px) !important;
+
+        margin: 0 13px !important;
+        min-height: 110px !important;
+        padding: 10px !important;
+    }
+
+    .ironstock-descricao-contador {
+        margin-right: 13px !important;
+        margin-left: 13px !important;
+        font-size: 10px !important;
+    }
+
+    .ironstock-descricao-acoes {
+        gap: 7px !important;
+        padding: 11px 13px 13px !important;
+    }
+
+    .ironstock-descricao-acoes button {
+        min-height: 43px !important;
+        padding: 7px 6px !important;
+        font-size: 11px !important;
+    }
+}
+
+/* =========================================================
+   CELULAR NA HORIZONTAL OU TELA COM POUCA ALTURA
+========================================================= */
+
+@media (max-height: 520px) {
+    .ironstock-descricao-overlay {
+        align-items: flex-start !important;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+
+    .ironstock-descricao-modal {
+        flex: 0 0 auto !important;
+
+        max-height: calc(100dvh - 16px) !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+
+        border-radius: 14px !important;
+    }
+
+    .ironstock-descricao-cabecalho {
+        padding: 12px 17px !important;
+    }
+
+    .ironstock-descricao-etiqueta {
+        margin-bottom: 4px !important;
+    }
+
+    .ironstock-descricao-cabecalho h2 {
+        margin-bottom: 5px !important;
+        font-size: 17px !important;
+    }
+
+    .ironstock-descricao-cabecalho p {
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+    }
+
+    .ironstock-descricao-label {
+        margin-top: 12px !important;
+    }
+
+    .ironstock-descricao-textarea {
+        min-height: 85px !important;
+        max-height: 24dvh !important;
+    }
+
+    .ironstock-descricao-acoes {
+        margin-top: 12px !important;
+        padding-top: 10px !important;
+        padding-bottom: 12px !important;
+    }
+}
+
+/* Paisagem em celular: aproveita a largura disponível */
+
+@media (max-height: 520px) and (max-width: 900px) {
+    .ironstock-descricao-modal {
+        width: min(600px, 100%) !important;
+        max-width: 600px !important;
+    }
+
+    .ironstock-descricao-acoes {
+        flex-direction: row !important;
+    }
+
+    .ironstock-descricao-acoes button {
+        flex: 0 1 auto !important;
+        min-width: 115px !important;
+    }
+}
+
+/* =========================================================
+   TELAS COM MOUSE: MANTÉM EFEITOS DE HOVER
+========================================================= */
+
+@media (hover: none) {
+
+    .ironstock-descricao-fechar:hover,
+    .ironstock-descricao-acoes button:hover {
+        transform: none !important;
+    }
+
+    .ironstock-descricao-textarea:hover:not(:disabled) {
+        border-color: #cbd5e1 !important;
+    }
+}
+
+/* =========================================================
+   ACESSIBILIDADE: FOCO VISÍVEL
+========================================================= */
+
+.ironstock-descricao-fechar:focus-visible,
+.ironstock-descricao-acoes button:focus-visible,
+.ironstock-descricao-textarea:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.45) !important;
+    outline-offset: 3px !important;
+}
+
+/* =========================================================
+   MOVIMENTO REDUZIDO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstock-descricao-overlay,
+    .ironstock-descricao-modal,
+    .ironstock-descricao-fechar,
+    .ironstock-descricao-acoes button {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}

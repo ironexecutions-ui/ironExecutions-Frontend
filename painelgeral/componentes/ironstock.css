@@ -1748,3 +1748,925 @@
         transition-duration: 0.01ms !important;
     }
 }
+
+
+/* =========================================================
+   IRONSTOCK — REFINAMENTO VISUAL PROFISSIONAL
+   Adicionar ao FINAL de ironstock.css
+========================================================= */
+
+.ironstock-page {
+    --is-primary: #173b72;
+    --is-primary-dark: #102b54;
+    --is-accent: #2563eb;
+    --is-text: #172033;
+    --is-text-secondary: #64748b;
+    --is-border: #e2e8f0;
+    --is-surface: #ffffff;
+    --is-background: #f5f7fb;
+
+    color: var(--is-text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.ironstock-page,
+.ironstock-page *,
+.ironstock-page *::before,
+.ironstock-page *::after {
+    box-sizing: border-box;
+}
+
+.ironstock-page :where(section, article, form, header, footer, div) {
+    min-width: 0;
+}
+
+.ironstock-page :where(h1, h2, h3, h4) {
+    text-wrap: pretty;
+}
+
+.ironstock-page :where(p, small, label, span) {
+    overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   1. CABEÇALHO E IDENTIDADE VISUAL
+========================================================= */
+
+.ironstock-page .ironstock-header {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(22px, 3vw, 34px);
+    border: 1px solid #dce5f1;
+    border-radius: 22px;
+    background:
+        radial-gradient(ellipse at 100% 0%,
+            rgba(59, 130, 246, 0.09),
+            transparent 40%),
+        #ffffff;
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.025),
+        0 14px 38px rgba(15, 23, 42, 0.045);
+}
+
+.ironstock-page .ironstock-header h1 {
+    color: #173b72;
+    font-size: clamp(27px, 3vw, 39px);
+    line-height: 1.15;
+    letter-spacing: -0.045em;
+}
+
+.ironstock-page .ironstock-eyebrow {
+    letter-spacing: 0.13em;
+    line-height: 1.5;
+}
+
+.ironstock-page .ironstock-header p,
+.ironstock-page .ironstock-section-heading p {
+    max-width: 720px;
+    line-height: 1.75;
+}
+
+/* =========================================================
+   2. SEÇÕES E SUPERFÍCIES
+========================================================= */
+
+.ironstock-page .ironstock-section {
+    padding: clamp(18px, 2.5vw, 30px);
+    border: 1px solid #e1e7f0;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow:
+        0 2px 4px rgba(15, 23, 42, 0.018),
+        0 8px 24px rgba(15, 23, 42, 0.025);
+}
+
+.ironstock-page .ironstock-section-heading {
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #edf1f6;
+}
+
+.ironstock-page .ironstock-section-heading h2 {
+    margin-bottom: 7px;
+    font-size: clamp(19px, 2vw, 23px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+}
+
+.ironstock-page .ironstock-section-heading p {
+    margin-bottom: 0;
+}
+
+.ironstock-page .ironstock-count {
+    flex-shrink: 0;
+    border-radius: 8px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   3. CARTÕES DE RESUMO
+========================================================= */
+
+.ironstock-page .ironstock-summary {
+    gap: 16px;
+}
+
+.ironstock-page .ironstock-summary-card {
+    min-height: 140px;
+    padding: 23px;
+    border: 1px solid #e1e8f2;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #fff, #fbfdff);
+    box-shadow: 0 4px 14px rgba(15, 35, 65, 0.025);
+}
+
+.ironstock-page .ironstock-summary-card::after {
+    width: 3px;
+    background: linear-gradient(180deg, #2563eb, #173b72);
+}
+
+.ironstock-page .ironstock-summary-card strong {
+    font-size: clamp(26px, 2.5vw, 33px);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.045em;
+}
+
+.ironstock-page .ironstock-summary-label {
+    line-height: 1.5;
+}
+
+/* =========================================================
+   4. CARTÕES DAS LOJAS
+========================================================= */
+
+.ironstock-page .ironstock-store-grid {
+    gap: 16px;
+}
+
+.ironstock-page .ironstock-store-card {
+    padding: 20px;
+    border-color: #e1e7f0;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.025);
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+}
+
+.ironstock-page .ironstock-store-image {
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.ironstock-page .ironstock-store-content h3 {
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+}
+
+.ironstock-page .ironstock-store-footer {
+    align-items: center;
+    border-top-color: #edf1f6;
+}
+
+.ironstock-page .ironstock-progress-track {
+    height: 8px;
+    background: #edf2f8;
+}
+
+.ironstock-page .ironstock-progress-track span {
+    border-radius: 999px;
+}
+
+/* =========================================================
+   5. LISTA E CARTÕES DOS PRODUTOS
+========================================================= */
+
+.ironstock-page .ironstock-toolbar {
+    gap: 14px;
+    padding: 14px;
+    border-color: #e5eaf2;
+    background: #f8fafc;
+    border-radius: 14px;
+}
+
+.ironstock-page .ironstock-search {
+    min-height: 46px;
+    border-color: #dce4ef;
+    border-radius: 11px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.015);
+}
+
+.ironstock-page .ironstock-search:focus-within {
+    border-color: #7ba4e5;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.09);
+}
+
+.ironstock-page .ironstock-product-list {
+    gap: 12px;
+}
+
+.ironstock-page .ironstock-product-row {
+    padding: 17px;
+    border-color: #e3e9f1;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 2px 7px rgba(15, 23, 42, 0.018);
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease;
+}
+
+.ironstock-page .ironstock-product-thumb {
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.ironstock-page .ironstock-product-info h3 {
+    line-height: 1.45;
+    letter-spacing: -0.025em;
+}
+
+.ironstock-page .ironstock-product-id {
+    letter-spacing: 0.09em;
+    font-variant-numeric: tabular-nums;
+}
+
+.ironstock-page .ironstock-product-actions {
+    gap: 8px;
+}
+
+/* =========================================================
+   6. BOTÕES E INTERAÇÕES
+========================================================= */
+
+.ironstock-page .ironstock-button {
+    min-height: 42px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: -0.01em;
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
+}
+
+.ironstock-page .ironstock-button.primary {
+    background: linear-gradient(135deg, #1d4b89, #173b72);
+    border-color: #173b72;
+    box-shadow: 0 2px 5px rgba(23, 59, 114, 0.12);
+}
+
+.ironstock-page .ironstock-button.secondary {
+    color: #244777;
+    border-color: #d4deeb;
+    background: #fff;
+}
+
+.ironstock-page .ironstock-button.small {
+    min-height: 34px;
+    border-radius: 8px;
+}
+
+.ironstock-page .ironstock-link-button {
+    min-height: 34px;
+    font-weight: 750;
+    text-underline-offset: 3px;
+}
+
+.ironstock-page :where(button, a, input, select, textarea):focus-visible {
+    outline: 3px solid rgba(59, 130, 246, 0.45);
+    outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .ironstock-page .ironstock-button.primary:hover:not(:disabled) {
+        background: #102b54;
+        box-shadow: 0 5px 14px rgba(23, 59, 114, 0.17);
+        transform: translateY(-1px);
+    }
+
+    .ironstock-page .ironstock-button.secondary:hover:not(:disabled) {
+        border-color: #a9bfdc;
+        background: #f6f9fd;
+    }
+
+    .ironstock-page .ironstock-product-row:hover {
+        border-color: #c8d7eb;
+        box-shadow: 0 6px 18px rgba(23, 59, 114, 0.045);
+    }
+
+    .ironstock-page .ironstock-store-card:hover {
+        border-color: #c8d7eb;
+        box-shadow: 0 8px 22px rgba(23, 59, 114, 0.06);
+    }
+}
+
+/* =========================================================
+   7. FLUXO DE TRABALHO
+========================================================= */
+
+.ironstock-page .ironstock-workflow {
+    padding: 20px;
+    border-color: #e1e8f1;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f8fafc, #f3f7fc);
+}
+
+.ironstock-page .ironstock-workflow-step>span {
+    transition:
+        background-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.ironstock-page .ironstock-workflow-step.active>span {
+    background: linear-gradient(135deg, #2563eb, #173b72);
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+}
+
+.ironstock-page .ironstock-workflow-step strong {
+    line-height: 1.5;
+}
+
+.ironstock-page .ironstock-workflow-step small {
+    line-height: 1.6;
+}
+
+/* =========================================================
+   8. CARTÃO DO PRODUTO DE ORIGEM
+========================================================= */
+
+.ironstock-page .ironstock-source-card {
+    padding: clamp(16px, 2.5vw, 25px);
+    border-color: #e0e7f0;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.02);
+}
+
+.ironstock-page .ironstock-source-description {
+    padding: 16px;
+    border-color: #e4eaf2;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.ironstock-page .ironstock-source-images {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.ironstock-page .ironstock-source-images a {
+    min-height: 120px;
+    border-color: #e1e7f0;
+    border-radius: 12px;
+    background: #fafcff;
+}
+
+.ironstock-page .ironstock-source-images img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* =========================================================
+   9. PAINEL JSON
+========================================================= */
+
+.ironstock-page .ironstock-json-panel {
+    padding: clamp(16px, 2.5vw, 25px);
+    border-color: #dfe7f1;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #fbfdff, #f5f8fc);
+}
+
+.ironstock-page .ironstock-panel-heading {
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.ironstock-page .ironstock-panel-heading h3 {
+    line-height: 1.4;
+    letter-spacing: -0.025em;
+}
+
+.ironstock-page .ironstock-json-textarea {
+    min-height: 260px;
+    padding: 17px;
+    border: 1px solid #263954;
+    border-radius: 12px;
+    background: #101c30;
+    line-height: 1.75;
+    tab-size: 2;
+}
+
+.ironstock-page .ironstock-json-actions {
+    align-items: center;
+}
+
+.ironstock-page .ironstock-json-actions>span {
+    font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   10. FORMULÁRIO DE EDIÇÃO
+========================================================= */
+
+.ironstock-page .ironstock-editor {
+    overflow: hidden;
+    border: 1px solid #dfe6f0;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.025);
+}
+
+.ironstock-page .ironstock-editor-heading {
+    gap: 18px;
+    padding: clamp(19px, 2.5vw, 28px);
+    border-bottom: 1px solid #e8edf4;
+    background:
+        radial-gradient(ellipse at 100% 0%,
+            rgba(37, 99, 235, 0.055),
+            transparent 40%),
+        #fff;
+}
+
+.ironstock-page .ironstock-editor-heading h2 {
+    margin-bottom: 8px;
+    font-size: clamp(20px, 2.3vw, 26px);
+    line-height: 1.3;
+    letter-spacing: -0.035em;
+}
+
+.ironstock-page .ironstock-editor-heading p {
+    max-width: 650px;
+    margin-bottom: 0;
+    line-height: 1.7;
+}
+
+.ironstock-page .ironstock-form-grid {
+    gap: 21px;
+    padding: clamp(18px, 2.5vw, 28px);
+}
+
+.ironstock-page .ironstock-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    color: #344256;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ironstock-page .ironstock-field>span {
+    line-height: 1.5;
+}
+
+.ironstock-page .ironstock-field>span b {
+    color: #dc2626;
+}
+
+.ironstock-page .ironstock-field :where(input, select, textarea) {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 11px 12px;
+    color: #172033;
+    border: 1px solid #d7e0ec;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        background-color 160ms ease;
+}
+
+.ironstock-page .ironstock-field :where(input, select, textarea)::placeholder {
+    color: #94a3b8;
+}
+
+.ironstock-page .ironstock-field :where(input, select, textarea):focus {
+    border-color: #6f9de0;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+    outline: none;
+}
+
+.ironstock-page .ironstock-field :where(input, select, textarea):disabled {
+    color: #64748b;
+    background: #f1f5f9;
+    cursor: not-allowed;
+}
+
+.ironstock-page .ironstock-field input[type="number"] {
+    font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   11. SEÇÕES E CARTÕES DE VARIEDADES
+========================================================= */
+
+.ironstock-page .ironstock-form-section {
+    min-width: 0;
+    margin: 0 20px 20px;
+    padding: 20px;
+    border: 1px solid #e3e9f2;
+    border-radius: 14px;
+    background: #fbfcfe;
+}
+
+.ironstock-page .ironstock-variety-card {
+    min-width: 0;
+    padding: clamp(14px, 2vw, 21px);
+    border: 1px solid #dfe7f1;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.025);
+}
+
+.ironstock-page .ironstock-variety-card+.ironstock-variety-card {
+    margin-top: 14px;
+}
+
+.ironstock-page .ironstock-variety-card .ironstock-form-grid {
+    padding: 18px 0;
+}
+
+/* =========================================================
+   12. EDIÇÃO E PRÉ-VISUALIZAÇÃO DE IMAGENS
+========================================================= */
+
+.ironstock-page .ironstock-image-editor-row {
+    gap: 12px;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #e4eaf2;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.ironstock-page .ironstock-image-editor-row>input {
+    flex: 1 1 220px;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid #d8e1ec;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.ironstock-page .ironstock-image-preview {
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid #dfe7f0;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.ironstock-page .ironstock-image-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ironstock-page .ironstock-image-editor-row button {
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   13. RODAPÉ E AÇÃO DE SALVAMENTO
+========================================================= */
+
+.ironstock-page .ironstock-save-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px clamp(16px, 2.5vw, 28px);
+    border-top: 1px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 -5px 18px rgba(15, 23, 42, 0.035);
+    backdrop-filter: blur(12px);
+}
+
+.ironstock-page .ironstock-save-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ironstock-page .ironstock-save-actions .ironstock-button {
+    min-width: 125px;
+}
+
+/* =========================================================
+   14. ALERTAS, ERROS E CARREGAMENTO
+========================================================= */
+
+.ironstock-page .ironstock-alert {
+    padding: 13px 15px;
+    border: 1px solid #dbe4ef;
+    border-radius: 11px;
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.ironstock-page .ironstock-alert.error {
+    color: #991b1b;
+    border-color: #fecaca;
+    background: #fff5f5;
+}
+
+.ironstock-page .ironstock-inline-loading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 15px;
+    border: 1px solid #dbeafe;
+    border-radius: 11px;
+    color: #1e40af;
+    background: #eff6ff;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.ironstock-page .ironstock-pill {
+    letter-spacing: 0.01em;
+}
+
+/* =========================================================
+   15. TABLETS E NOTEBOOKS MENO LARGOS
+========================================================= */
+
+@media (max-width: 1000px) {
+    .ironstock-page {
+        padding: 22px;
+    }
+
+    .ironstock-page .ironstock-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ironstock-page .ironstock-store-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ironstock-page .ironstock-workflow {
+        align-items: stretch;
+        flex-wrap: wrap;
+    }
+
+    .ironstock-page .ironstock-workflow-step {
+        flex: 1 1 180px;
+    }
+
+    .ironstock-page .ironstock-workflow-line {
+        display: none;
+    }
+}
+
+/* =========================================================
+   16. CELULARES
+========================================================= */
+
+@media (max-width: 600px) {
+    .ironstock-page {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .ironstock-page .ironstock-header {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 18px;
+        margin-bottom: 18px;
+        padding: 20px 17px;
+        border-radius: 16px;
+    }
+
+    .ironstock-page .ironstock-header-actions {
+        justify-content: flex-start;
+    }
+
+    .ironstock-page .ironstock-header-actions .ironstock-button {
+        flex: 1 1 auto;
+    }
+
+    .ironstock-page .ironstock-summary {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 11px;
+        margin-bottom: 18px;
+    }
+
+    .ironstock-page .ironstock-summary-card {
+        min-height: auto;
+        padding: 18px;
+    }
+
+    .ironstock-page .ironstock-section {
+        margin-bottom: 16px;
+        padding: 17px 14px;
+        border-radius: 14px;
+    }
+
+    .ironstock-page .ironstock-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 15px;
+    }
+
+    .ironstock-page .ironstock-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .ironstock-page .ironstock-search {
+        width: 100%;
+    }
+
+    .ironstock-page .ironstock-product-row {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .ironstock-page .ironstock-product-thumb {
+        width: 68px;
+        height: 68px;
+        flex-basis: 68px;
+    }
+
+    .ironstock-page .ironstock-product-info {
+        flex: 1 1 calc(100% - 84px);
+    }
+
+    .ironstock-page .ironstock-product-actions {
+        width: 100%;
+        justify-content: flex-start;
+        padding-top: 11px;
+        border-top: 1px solid #edf1f6;
+    }
+
+    .ironstock-page .ironstock-product-actions .ironstock-button {
+        flex: 1 1 auto;
+    }
+
+    .ironstock-page .ironstock-source-heading,
+    .ironstock-page .ironstock-panel-heading {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .ironstock-page .ironstock-source-card,
+    .ironstock-page .ironstock-json-panel {
+        padding: 15px;
+    }
+
+    .ironstock-page .ironstock-source-images {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .ironstock-page .ironstock-source-images a {
+        min-height: 0;
+    }
+
+    .ironstock-page .ironstock-editor-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        padding: 19px 15px;
+    }
+
+    .ironstock-page .ironstock-form-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 17px;
+        padding: 18px 15px;
+    }
+
+    .ironstock-page .ironstock-form-section {
+        margin: 0 10px 14px;
+        padding: 15px 12px;
+    }
+
+    .ironstock-page .ironstock-variety-card {
+        padding: 14px 11px;
+    }
+
+    .ironstock-page .ironstock-image-editor-row {
+        flex-wrap: wrap;
+        gap: 9px;
+        padding: 10px;
+    }
+
+    .ironstock-page .ironstock-image-editor-row>input {
+        flex: 1 1 calc(100% - 65px);
+    }
+
+    .ironstock-page .ironstock-save-footer {
+        position: static;
+        align-items: stretch;
+        flex-direction: column;
+        padding: 16px 14px;
+    }
+
+    .ironstock-page .ironstock-save-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .ironstock-page .ironstock-save-actions .ironstock-button {
+        width: 100%;
+    }
+
+    .ironstock-page .ironstock-json-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ironstock-page .ironstock-json-actions .ironstock-button,
+    .ironstock-page .ironstock-panel-heading .ironstock-button {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   17. CELULARES ESTREITOS
+========================================================= */
+
+@media (max-width: 380px) {
+    .ironstock-page {
+        padding: 8px;
+    }
+
+    .ironstock-page .ironstock-header {
+        padding: 16px 13px;
+    }
+
+    .ironstock-page .ironstock-section {
+        padding: 13px 10px;
+    }
+
+    .ironstock-page .ironstock-summary-card {
+        padding: 15px;
+    }
+
+    .ironstock-page .ironstock-button {
+        padding: 10px 11px;
+    }
+
+    .ironstock-page .ironstock-product-actions {
+        gap: 7px;
+    }
+
+    .ironstock-page .ironstock-product-actions .ironstock-button {
+        font-size: 11px;
+    }
+}
+
+/* =========================================================
+   18. ACESSIBILIDADE E MOVIMENTO REDUZIDO
+========================================================= */
+
+@media (hover: none) {
+
+    .ironstock-page .ironstock-button:hover:not(:disabled),
+    .ironstock-page .ironstock-product-row:hover,
+    .ironstock-page .ironstock-store-card:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstock-page *,
+    .ironstock-page *::before,
+    .ironstock-page *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

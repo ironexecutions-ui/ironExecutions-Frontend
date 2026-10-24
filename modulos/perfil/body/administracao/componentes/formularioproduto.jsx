@@ -40,6 +40,10 @@ export default function FormularioProduto({ item, voltar }) {
 
     const [buscaVariedade, setBuscaVariedade] = useState("");
     const [mostrarTodasVariedades, setMostrarTodasVariedades] = useState(false);
+    const [modalIronStock, setModalIronStock] = useState(false);
+    const [descricaoIronStock, setDescricaoIronStock] = useState(
+        item?.descricao_ironstock || ""
+    );
     function abrirAlerta({
         titulo = "Atenção",
         mensagem = "",
@@ -1447,7 +1451,16 @@ export default function FormularioProduto({ item, voltar }) {
 
 
 
-    async function ativarIronStock() {
+    function ativarIronStock() {
+        const produtoId = produtoIdPersistido || item?.id;
+
+        if (!produtoId || ativandoIronStock) return;
+
+        setDescricaoIronStock(form.descricao_ironstock || item?.descricao_ironstock || "");
+        setModalIronStock(true);
+    }
+
+    async function confirmarEnvioIronStock() {
         const produtoId = produtoIdPersistido || item?.id;
 
         if (!produtoId || ativandoIronStock) return;
@@ -1472,7 +1485,11 @@ export default function FormularioProduto({ item, voltar }) {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
                     },
+                    body: JSON.stringify({
+                        descricao_ironstock: descricaoIronStock.trim(),
+                    }),
                 }
             );
 
@@ -1482,23 +1499,26 @@ export default function FormularioProduto({ item, voltar }) {
                 throw new Error(
                     typeof dados.detail === "string"
                         ? dados.detail
-                        : "Não foi possível ativar o IronStock."
+                        : "Não foi possível enviar o produto ao IronStock."
                 );
             }
 
             setForm((prev) => ({
                 ...prev,
                 ironstock: 1,
+                descricao_ironstock: descricaoIronStock.trim(),
             }));
 
+            setModalIronStock(false);
+
             abrirAlerta({
-                titulo: "IronStock ativado",
-                mensagem: dados.mensagem || "Produto ativado no IronStock com sucesso.",
+                titulo: "Produto enviado ao IronStock",
+                mensagem: dados.mensagem || "Produto e instruções enviados com sucesso.",
                 tipo: "sucesso",
             });
         } catch (erro) {
             abrirAlerta({
-                titulo: "Erro ao ativar",
+                titulo: "Erro ao enviar ao IronStock",
                 mensagem: erro.message || "Não foi possível conectar ao servidor.",
                 tipo: "erro",
             });
@@ -3091,7 +3111,93 @@ export default function FormularioProduto({ item, voltar }) {
                     document.body
                 )
             }
+            {modalIronStock &&
+                createPortal(
+                    <div
+                        className="ironstock-descricao-overlay"
+                        onMouseDown={() => {
+                            if (!ativandoIronStock) setModalIronStock(false);
+                        }}
+                    >
+                        <section
+                            className="ironstock-descricao-modal"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="ironstock-descricao-titulo"
+                            onMouseDown={(e) => e.stopPropagation()}
+                        >
+                            <div className="ironstock-descricao-cabecalho">
+                                <div>
+                                    <span className="ironstock-descricao-etiqueta">
+                                        IRON EXECUTIONS
+                                    </span>
+                                    <h2 id="ironstock-descricao-titulo">
+                                        Enviar produto ao IronStock
+                                    </h2>
+                                    <p>
+                                        Escreva as instruções que a equipe deverá seguir
+                                        ao preparar o cadastro deste produto.
+                                    </p>
+                                </div>
 
+                                <button
+                                    type="button"
+                                    className="ironstock-descricao-fechar"
+                                    onClick={() => setModalIronStock(false)}
+                                    disabled={ativandoIronStock}
+                                    aria-label="Fechar modal"
+                                >
+                                    ×
+                                </button>
+                            </div>
+
+                            <label
+                                className="ironstock-descricao-label"
+                                htmlFor="descricao-ironstock"
+                            >
+                                Descrição e instruções do IronStock
+                            </label>
+
+                            <textarea
+                                id="descricao-ironstock"
+                                className="ironstock-descricao-textarea"
+                                value={descricaoIronStock}
+                                onChange={(e) => setDescricaoIronStock(e.target.value)}
+                                placeholder="Ex.: cadastrar as cores e os tamanhos disponíveis; preservar os códigos de barras existentes; conferir as imagens..."
+                                rows={7}
+                                maxLength={10000}
+                                disabled={ativandoIronStock}
+                            />
+
+                            <div className="ironstock-descricao-contador">
+                                {descricaoIronStock.length}/10000 caracteres
+                            </div>
+
+                            <div className="ironstock-descricao-acoes">
+                                <button
+                                    type="button"
+                                    className="ironstock-descricao-cancelar"
+                                    onClick={() => setModalIronStock(false)}
+                                    disabled={ativandoIronStock}
+                                >
+                                    Cancelar
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="ironstock-descricao-confirmar"
+                                    onClick={confirmarEnvioIronStock}
+                                    disabled={ativandoIronStock}
+                                >
+                                    {ativandoIronStock
+                                        ? "Enviando..."
+                                        : "Confirmar e enviar"}
+                                </button>
+                            </div>
+                        </section>
+                    </div>,
+                    document.body
+                )}
         </div>
     );
 }
