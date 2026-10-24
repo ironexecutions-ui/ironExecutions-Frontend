@@ -72,8 +72,105 @@ export default function Ironstock() {
     const [dadosQrCelular, setDadosQrCelular] = useState(null);
     const [erroQrCelular, setErroQrCelular] = useState("");
     const [segundosQrCelular, setSegundosQrCelular] = useState(0);
+    const [arrastandoFotos, setArrastandoFotos] = useState(false);
     const [gerandoQrCelular, setGerandoQrCelular] = useState(false);
     const [produtoEditando, setProdutoEditando] = useState(null);
+    const reconhecimentoVozRef = useRef(null);
+    const [gravandoDescricao, setGravandoDescricao] = useState(false);
+    function alternarReconhecimentoVoz() {
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            setErro(
+                "Seu navegador não oferece reconhecimento de voz. " +
+                "Experimente usar o Google Chrome atualizado."
+            );
+            return;
+        }
+
+        // Se já estiver ouvindo, o botão interrompe a gravação.
+        if (reconhecimentoVozRef.current) {
+            reconhecimentoVozRef.current.stop();
+            reconhecimentoVozRef.current = null;
+            setGravandoDescricao(false);
+            return;
+        }
+
+        const reconhecimento = new SpeechRecognition();
+
+        reconhecimento.lang = "pt-BR";
+        reconhecimento.continuous = true;
+        reconhecimento.interimResults = true;
+
+        reconhecimento.onstart = () => {
+            setGravandoDescricao(true);
+            setErro("");
+            setMensagem("");
+        };
+
+        reconhecimento.onresult = (evento) => {
+            let textoFinal = "";
+
+            for (
+                let i = evento.resultIndex;
+                i < evento.results.length;
+                i++
+            ) {
+                if (evento.results[i].isFinal) {
+                    textoFinal += evento.results[i][0].transcript;
+                }
+            }
+
+            if (textoFinal.trim()) {
+                setDescricao((anterior) => {
+                    const base = anterior.trim();
+                    const novoTexto = textoFinal.trim();
+
+                    if (!base) return novoTexto;
+
+                    return `${base} ${novoTexto}`.slice(0, 5000);
+                });
+            }
+        };
+
+        reconhecimento.onerror = (evento) => {
+            if (evento.error !== "no-speech" && evento.error !== "aborted") {
+                setErro(
+                    evento.error === "not-allowed"
+                        ? "Permita o acesso ao microfone nas configurações do navegador."
+                        : "Não foi possível reconhecer a voz. Tente novamente."
+                );
+            }
+        };
+
+        reconhecimento.onend = () => {
+            if (reconhecimentoVozRef.current === reconhecimento) {
+                reconhecimentoVozRef.current = null;
+            }
+
+            setGravandoDescricao(false);
+        };
+
+        reconhecimentoVozRef.current = reconhecimento;
+
+        try {
+            reconhecimento.start();
+        } catch {
+            reconhecimentoVozRef.current = null;
+            setGravandoDescricao(false);
+            setErro("Não foi possível iniciar o microfone. Tente novamente.");
+        }
+    }
+    useEffect(() => {
+        return () => {
+            if (reconhecimentoVozRef.current) {
+                reconhecimentoVozRef.current.onend = null;
+                reconhecimentoVozRef.current.stop();
+                reconhecimentoVozRef.current = null;
+            }
+        };
+    }, []);
     const atualizarDados = useCallback(async () => {
         const token = obterToken();
 
@@ -134,15 +231,15 @@ export default function Ironstock() {
         };
     }, [arquivos]);
 
-    function selecionarFotos(evento) {
-        const selecionadas = Array.from(
-            evento.target.files || []
-        ).filter((arquivo) => arquivo.type.startsWith("image/"));
-
-        evento.target.value = "";
+    function adicionarFotos(arquivosNovos) {
+        const selecionadas = Array.from(arquivosNovos || []).filter(
+            (arquivo) =>
+                ["image/jpeg", "image/png", "image/webp", "image/gif"]
+                    .includes(arquivo.type)
+        );
 
         if (!selecionadas.length) {
-            setErro("Selecione arquivos de imagem válidos.");
+            setErro("Arraste ou selecione imagens JPG, PNG, WEBP ou GIF.");
             return;
         }
 
@@ -153,15 +250,25 @@ export default function Ironstock() {
             const combinados = [...atuais, ...selecionadas];
 
             if (combinados.length > 20) {
-                setErro(
-                    "Você pode selecionar no máximo 20 fotos por produto."
-                );
-
-                return combinados.slice(0, 20);
+                setErro("Você pode selecionar no máximo 20 fotos por produto.");
             }
 
-            return combinados;
+            return combinados.slice(0, 20);
         });
+    }
+
+    function selecionarFotos(evento) {
+        adicionarFotos(evento.target.files);
+        evento.target.value = "";
+    }
+
+    function soltarFotos(evento) {
+        evento.preventDefault();
+        setArrastandoFotos(false);
+
+        if (bloqueado) return;
+
+        adicionarFotos(evento.dataTransfer.files);
     }
 
     function removerFoto(indiceRemover) {
@@ -744,14 +851,38 @@ export default function Ironstock() {
                         <span className="ie-ironstock__rotulo">
                             Descrição adicional
                         </span>
+                        <div className="ie-ironstock__voz">
+                            <button
+                                type="button"
+                                className={`ie-ironstock__voz-botao ${gravandoDescricao
+                                    ? "ie-ironstock__voz-botao--gravando"
+                                    : ""
+                                    }`}
+                                onClick={alternarReconhecimentoVoz}
+                                disabled={bloqueado}
+                                aria-pressed={gravandoDescricao}
+                            >
+                                <span aria-hidden="true">
+                                    {gravandoDescricao ? "■" : "🎙"}
+                                </span>
 
+                                {gravandoDescricao
+                                    ? "Parar de falar"
+                                    : "Falar descrição"}
+                            </button>
+
+                            <span className="ie-ironstock__voz-ajuda">
+                                {gravandoDescricao
+                                    ? "Ouvindo... fale as características e variedades do produto."
+                                    : "Fale naturalmente para preencher a descrição por voz."}
+                            </span>
+                        </div>
                         <textarea
                             className="ie-ironstock__textarea"
                             value={descricao}
                             onChange={(evento) => setDescricao(evento.target.value)}
                             maxLength={5000}
-                            placeholder="Inclua detalhes que ajudem a identificar o produto..."
-                            disabled={bloqueado}
+                            placeholder="Descreva as variedades do produto (cor, tamanho, modelo, material e outras diferenças). Inclua também informações que ajudem no cadastro e na identificação, como marca, características, detalhes de fabricação e particularidades de cada versão." disabled={bloqueado}
                         />
 
                         <span className="ie-ironstock__ajuda">
@@ -760,8 +891,26 @@ export default function Ironstock() {
                     </label>
 
 
-                    <div className="ie-ironstock__campo ie-ironstock__campo--fotos">
-                        <div className="ie-ironstock__exemplos">
+                    <div
+                        className={`ie-ironstock__campo ie-ironstock__campo--fotos ${arrastandoFotos
+                                ? "ie-ironstock__campo--arrastando"
+                                : ""
+                            }`}
+                        onDragEnter={(evento) => {
+                            evento.preventDefault();
+                            if (!bloqueado) setArrastandoFotos(true);
+                        }}
+                        onDragOver={(evento) => {
+                            evento.preventDefault();
+                            evento.dataTransfer.dropEffect = bloqueado ? "none" : "copy";
+                        }}
+                        onDragLeave={(evento) => {
+                            if (!evento.currentTarget.contains(evento.relatedTarget)) {
+                                setArrastandoFotos(false);
+                            }
+                        }}
+                        onDrop={soltarFotos}
+                    >                        <div className="ie-ironstock__exemplos">
                             <div className="ie-ironstock__exemplos-cabecalho">
                                 <strong>Exemplos de imagens</strong>
                                 <span>

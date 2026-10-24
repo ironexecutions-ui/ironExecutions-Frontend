@@ -2059,3 +2059,660 @@
         transform: none !important;
     }
 }
+
+.ie-ironstock__voz {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 14px;
+}
+
+.ie-ironstock__voz-botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 42px;
+    padding: 10px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: #fff;
+    color: #1f2937;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.ie-ironstock__voz-botao:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.ie-ironstock__voz-botao:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ie-ironstock__voz-botao--gravando {
+    color: #b91c1c;
+    background: #fef2f2;
+    border-color: #fca5a5;
+}
+
+.ie-ironstock__voz-ajuda {
+    color: #6b7280;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.ie-ironstock__campo--fotos {
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ie-ironstock__campo--arrastando {
+    border: 2px dashed #2563eb;
+    border-radius: 14px;
+    background-color: rgba(37, 99, 235, 0.07);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+}
+
+/* ==========================================================
+   IRONSTOCK — ACABAMENTO PROFISSIONAL
+   Cole este bloco no final de ironstock.css
+   ========================================================== */
+
+/* 1. Identidade visual e suavidade geral */
+.ie-ironstock {
+    --is-accent: #2563eb;
+    --is-accent-dark: #1d4ed8;
+    --is-border-soft: #e5eaf2;
+    --is-text-primary: #172033;
+    --is-text-secondary: #64748b;
+    --is-card-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.025),
+        0 10px 28px rgba(15, 23, 42, 0.035);
+
+    background: #f3f6fb !important;
+    color: var(--is-text-primary);
+}
+
+.ie-ironstock ::selection {
+    background: #dbeafe !important;
+    color: #173b73 !important;
+}
+
+.ie-ironstock__painel {
+    border: 1px solid #e0e7f0 !important;
+    border-radius: 20px !important;
+    box-shadow: var(--is-card-shadow) !important;
+    transition:
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.ie-ironstock__painel:hover {
+    border-color: #d4deec !important;
+}
+
+/* 2. Cabeçalhos */
+.ie-ironstock__cabecalho {
+    position: relative;
+    isolation: isolate;
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(219, 234, 254, 0.72),
+            transparent 38%),
+        linear-gradient(135deg, #ffffff 0%, #f7faff 100%) !important;
+}
+
+.ie-ironstock__titulo {
+    letter-spacing: -0.055em;
+    line-height: 1.12;
+}
+
+.ie-ironstock__subtitulo {
+    max-width: 680px;
+    color: #64748b !important;
+    line-height: 1.8;
+}
+
+.ie-ironstock__sobretitulo {
+    padding: 6px 11px;
+    border: 1px solid #cfe0ff;
+    border-radius: 999px;
+    background: #edf4ff !important;
+    letter-spacing: 0.1em;
+}
+
+/* 3. Indicadores */
+.ie-ironstock__indicadores {
+    gap: 16px;
+}
+
+.ie-ironstock__indicador {
+    position: relative;
+    padding: 23px;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 17px !important;
+    background: #ffffff !important;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.025);
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+}
+
+.ie-ironstock__indicador:hover {
+    transform: translateY(-3px);
+    border-color: #bfd4f7 !important;
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.065);
+}
+
+.ie-ironstock__indicador-valor {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.05em;
+}
+
+.ie-ironstock__indicador-descricao {
+    line-height: 1.7;
+}
+
+/* 4. Separação das seções */
+.ie-ironstock__secao-cabecalho {
+    padding-bottom: 17px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 24px;
+}
+
+.ie-ironstock__titulo-secao {
+    letter-spacing: -0.04em;
+}
+
+.ie-ironstock__total-listagem {
+    padding: 7px 12px;
+    color: #1d4ed8 !important;
+    background: #edf4ff !important;
+    border-color: #d6e5ff !important;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 5. Formulários e campos */
+.ie-ironstock__campos {
+    column-gap: 20px;
+    row-gap: 22px;
+}
+
+.ie-ironstock__campo {
+    gap: 9px;
+}
+
+.ie-ironstock__rotulo {
+    color: #27364b !important;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.005em;
+}
+
+.ie-ironstock__input,
+.ie-ironstock__textarea,
+.ie-ironstock input:not([type="file"]),
+.ie-ironstock select,
+.ie-ironstock textarea {
+    border: 1px solid #d7e0eb !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.025);
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.ie-ironstock__input {
+    min-height: 49px;
+    padding: 12px 14px;
+}
+
+.ie-ironstock__textarea {
+    min-height: 130px;
+    padding: 14px;
+    line-height: 1.8;
+}
+
+.ie-ironstock__input:hover,
+.ie-ironstock__textarea:hover,
+.ie-ironstock input:not([type="file"]):hover,
+.ie-ironstock select:hover,
+.ie-ironstock textarea:hover {
+    border-color: #a8bad2 !important;
+}
+
+.ie-ironstock__input:focus,
+.ie-ironstock__textarea:focus,
+.ie-ironstock input:not([type="file"]):focus,
+.ie-ironstock select:focus,
+.ie-ironstock textarea:focus {
+    outline: none !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12) !important;
+}
+
+.ie-ironstock__input:disabled,
+.ie-ironstock__textarea:disabled,
+.ie-ironstock input:disabled,
+.ie-ironstock select:disabled,
+.ie-ironstock textarea:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: #f1f5f9 !important;
+}
+
+.ie-ironstock__ajuda {
+    color: #718096 !important;
+    font-size: 11px;
+    line-height: 1.75;
+}
+
+/* 6. Área de fotos e arrastar/soltar */
+.ie-ironstock__campo--fotos {
+    padding: 23px;
+    border: 1px solid #dfe7f1 !important;
+    border-radius: 18px !important;
+    background: linear-gradient(180deg, #ffffff, #fbfdff) !important;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ie-ironstock__campo--arrastando {
+    border: 2px dashed #2563eb !important;
+    background: #eff6ff !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.09);
+}
+
+.ie-ironstock__exemplos {
+    padding: 19px;
+    border: 1px solid #e4eaf2 !important;
+    border-radius: 15px !important;
+    background: #f7f9fc !important;
+}
+
+.ie-ironstock__exemplos-cabecalho strong {
+    font-size: 14px;
+    letter-spacing: -0.015em;
+}
+
+.ie-ironstock__exemplo {
+    border-color: #e1e7f0 !important;
+    border-radius: 13px !important;
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.025);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ie-ironstock__exemplo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.07);
+}
+
+.ie-ironstock__exemplo img {
+    padding: 5px;
+}
+
+.ie-ironstock__seletor-fotos {
+    min-height: 165px;
+    padding: 25px;
+    border: 2px dashed #c4d2e4 !important;
+    border-radius: 15px !important;
+    background:
+        linear-gradient(180deg, #ffffff, #f8fbff) !important;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ie-ironstock__seletor-fotos:hover:not(:disabled) {
+    border-color: #3b82f6 !important;
+    background: #f0f6ff !important;
+    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.08);
+}
+
+.ie-ironstock__seletor-icone {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #1e40af, #3b82f6) !important;
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.2);
+}
+
+.ie-ironstock__contador-fotos {
+    border-radius: 999px;
+    padding: 7px 12px;
+}
+
+/* 7. Miniaturas selecionadas */
+.ie-ironstock__previews {
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.ie-ironstock__preview {
+    border: 1px solid #e0e7f0 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 3px 9px rgba(15, 23, 42, 0.035);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ie-ironstock__preview:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.09);
+}
+
+.ie-ironstock__preview-imagem {
+    background: #f8fafc !important;
+}
+
+.ie-ironstock__preview-remover {
+    color: #ffffff !important;
+    background: rgba(15, 23, 42, 0.84) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px);
+}
+
+.ie-ironstock__preview-remover:hover:not(:disabled) {
+    color: #ffffff !important;
+    background: #dc2626 !important;
+}
+
+/* 8. Botões */
+.ie-ironstock__botao {
+    min-height: 45px;
+    padding: 12px 17px;
+    border-radius: 11px !important;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.005em;
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.ie-ironstock__botao--principal {
+    background: linear-gradient(135deg, #173b73, #1d4ed8) !important;
+    border-color: #1d4ed8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(29, 78, 216, 0.17);
+}
+
+.ie-ironstock__botao--principal:hover:not(:disabled) {
+    background: linear-gradient(135deg, #123263, #1e40af) !important;
+    box-shadow: 0 8px 18px rgba(29, 78, 216, 0.24);
+    transform: translateY(-2px);
+}
+
+.ie-ironstock__botao--secundario {
+    background: #ffffff !important;
+    border-color: #d4deeb !important;
+    color: #24364d !important;
+}
+
+.ie-ironstock__botao--secundario:hover:not(:disabled) {
+    background: #f3f7fc !important;
+    border-color: #aabbd1 !important;
+    transform: translateY(-1px);
+}
+
+.ie-ironstock__botao--whatsapp {
+    background: #15803d !important;
+    border-color: #15803d !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.12);
+}
+
+.ie-ironstock__botao--whatsapp:hover:not(:disabled) {
+    background: #166534 !important;
+    box-shadow: 0 7px 15px rgba(21, 128, 61, 0.2);
+    transform: translateY(-1px);
+}
+
+.ie-ironstock__botao:disabled {
+    transform: none !important;
+    box-shadow: none !important;
+    cursor: not-allowed;
+}
+
+/* 9. Cartões de produtos */
+.ie-ironstock__produtos {
+    gap: 19px;
+}
+
+.ie-ironstock__produto {
+    border: 1px solid #e0e7f0 !important;
+    border-radius: 17px !important;
+    background: #ffffff !important;
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.025);
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+}
+
+.ie-ironstock__produto:hover {
+    transform: translateY(-4px);
+    border-color: #c4d8f7 !important;
+    box-shadow: 0 15px 32px rgba(15, 23, 42, 0.09);
+}
+
+.ie-ironstock__produto-imagem,
+.ie-ironstock__produto-sem-imagem {
+    background: #f7f9fc !important;
+}
+
+.ie-ironstock__produto-imagem {
+    transition: transform 0.35s ease;
+}
+
+.ie-ironstock__produto:hover .ie-ironstock__produto-imagem {
+    transform: scale(1.015);
+}
+
+.ie-ironstock__produto-conteudo {
+    padding: 19px;
+}
+
+.ie-ironstock__produto-nome {
+    color: #172b4d !important;
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: -0.015em;
+}
+
+.ie-ironstock__produto-preco {
+    margin-top: 11px;
+    color: #174ea6 !important;
+    font-size: 20px;
+    font-weight: 850;
+    font-variant-numeric: tabular-nums;
+}
+
+.ie-ironstock__produto-fotos {
+    padding: 6px 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    background: #f8fafc !important;
+}
+
+.ie-ironstock__produto-descricao {
+    color: #64748b !important;
+    line-height: 1.8;
+}
+
+.ie-ironstock__produto-acoes {
+    padding-top: 19px;
+}
+
+/* 10. Avisos e mensagens */
+.ie-ironstock__aviso {
+    padding: 18px;
+    border-radius: 14px !important;
+    background: #f8fafc !important;
+    border-color: #e1e8f0 !important;
+}
+
+.ie-ironstock__mensagem {
+    padding: 15px 17px;
+    border-radius: 12px !important;
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.025);
+}
+
+.ie-ironstock__mensagem--erro {
+    color: #991b1b !important;
+    background: #fff5f5 !important;
+    border-color: #fecaca !important;
+}
+
+.ie-ironstock__mensagem--sucesso {
+    color: #065f46 !important;
+    background: #f0fdf7 !important;
+    border-color: #a7f3d0 !important;
+}
+
+/* 11. Estado vazio e carregamento */
+.ie-ironstock__estado-vazio {
+    min-height: 250px;
+    padding: 35px 22px;
+    border: 1px dashed #cbd5e1 !important;
+    border-radius: 17px !important;
+    background: linear-gradient(180deg, #ffffff, #f8fafc) !important;
+}
+
+.ie-ironstock__estado-icone {
+    border-radius: 16px;
+    background: #edf4ff !important;
+    border-color: #d7e6ff !important;
+}
+
+/* 12. Modal de QR Code */
+.ie-ironstock__qr-overlay {
+    background: rgba(9, 20, 43, 0.68) !important;
+    backdrop-filter: blur(8px);
+}
+
+.ie-ironstock__qr-modal {
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 23px !important;
+    box-shadow: 0 30px 90px rgba(2, 8, 23, 0.32) !important;
+}
+
+.ie-ironstock__qr-imagem {
+    padding: 15px;
+    border-radius: 17px !important;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+}
+
+.ie-ironstock__qr-tempo {
+    font-variant-numeric: tabular-nums;
+}
+
+/* 13. Foco acessível pelo teclado */
+.ie-ironstock button:focus-visible,
+.ie-ironstock a:focus-visible,
+.ie-ironstock input:focus-visible,
+.ie-ironstock select:focus-visible,
+.ie-ironstock textarea:focus-visible {
+    outline: 3px solid rgba(59, 130, 246, 0.3) !important;
+    outline-offset: 3px;
+}
+
+/* 14. Tablets */
+@media (min-width: 681px) and (max-width: 1050px) {
+    .ie-ironstock__campos {
+        gap: 17px;
+    }
+
+    .ie-ironstock__produtos {
+        gap: 14px;
+    }
+
+    .ie-ironstock__produto-conteudo {
+        padding: 15px;
+    }
+}
+
+/* 15. Celulares */
+@media (max-width: 680px) {
+    .ie-ironstock {
+        padding: 10px !important;
+    }
+
+    .ie-ironstock__painel {
+        border-radius: 16px !important;
+        padding: 16px !important;
+    }
+
+    .ie-ironstock__indicador {
+        border-radius: 14px !important;
+    }
+
+    .ie-ironstock__campo--fotos {
+        padding: 13px !important;
+        border-radius: 14px !important;
+    }
+
+    .ie-ironstock__exemplos {
+        border-radius: 12px !important;
+    }
+
+    .ie-ironstock__seletor-fotos {
+        min-height: 135px;
+        padding: 18px 12px;
+    }
+
+    .ie-ironstock__previews {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .ie-ironstock__produto {
+        border-radius: 14px !important;
+    }
+
+    .ie-ironstock__produto-preco {
+        font-size: 17px;
+    }
+
+    .ie-ironstock__botao {
+        min-height: 44px;
+    }
+
+    .ie-ironstock__qr-modal {
+        border-radius: 18px !important;
+    }
+}
+
+/* 16. Respeitar a preferência por movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-ironstock *,
+    .ie-ironstock *::before,
+    .ie-ironstock *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

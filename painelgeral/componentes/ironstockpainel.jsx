@@ -8,6 +8,8 @@ import React, {
 import { API_URL } from "../../config";
 import "./ironstock.css";
 const API_BASE = API_URL.replace(/\/+$/, "");
+const CHAVE_PERCENTUAL_IRONSTORE = "ironstock_percentual_ironstore";
+const PERCENTUAL_IRONSTORE_PADRAO = 10;
 const ROTAS = {
     me: "/panel/me",
     estado: "/ironstock/painel/estado",
@@ -189,6 +191,32 @@ function valorNumerico(valor) {
     return Number.isFinite(numero) ? numero : null;
 }
 
+function calcularPrecoIronStore(preco, percentual) {
+    const valor = valorNumerico(preco);
+    const taxa = valorNumerico(percentual);
+
+    if (valor === null || valor < 0 || taxa === null || taxa < 0) return "";
+
+    // O Preço IronStore é o preço base somado ao acréscimo percentual configurado.
+    return (valor + valor * (taxa / 100)).toFixed(2);
+}
+
+function lerPercentualIronStore() {
+    try {
+        const salvo = localStorage.getItem(CHAVE_PERCENTUAL_IRONSTORE);
+        if (salvo === null || salvo.trim() === "") {
+            return PERCENTUAL_IRONSTORE_PADRAO;
+        }
+
+        const valor = Number(salvo);
+        return Number.isFinite(valor) && valor >= 0
+            ? valor
+            : PERCENTUAL_IRONSTORE_PADRAO;
+    } catch {
+        return PERCENTUAL_IRONSTORE_PADRAO;
+    }
+}
+
 function formatarMoeda(valor) {
     const numero = Number(valor);
     if (!Number.isFinite(numero)) return "—";
@@ -357,6 +385,9 @@ export default function Ironstock() {
 
     const [jsonIA, setJsonIA] = useState("");
     const [produtoEditavel, setProdutoEditavel] = useState(null);
+    const [percentualIronStore, setPercentualIronStore] = useState(
+        () => lerPercentualIronStore()
+    );
 
     const [busca, setBusca] = useState("");
     const [erro, setErro] = useState("");
@@ -490,6 +521,17 @@ export default function Ironstock() {
         }
     }
     const token = useMemo(() => lerToken(), []);
+
+    useEffect(() => {
+        try {
+            localStorage.setItem(
+                CHAVE_PERCENTUAL_IRONSTORE,
+                String(percentualIronStore)
+            );
+        } catch {
+            // O cálculo continua funcionando mesmo se o navegador bloquear o cache.
+        }
+    }, [percentualIronStore]);
 
     const requisicao = useCallback(async (rota, opcoes = {}) => {
         const headers = {
@@ -717,6 +759,12 @@ export default function Ironstock() {
 
             const normalizado = normalizarProduto(dados);
 
+            // Ao importar o JSON, recalcula o preço IronStore usando o percentual salvo.
+            normalizado.preco_ironstore = calcularPrecoIronStore(
+                normalizado.preco,
+                percentualIronStore
+            );
+
             if (!normalizado.nome && produtoSelecionado?.nome) {
                 normalizado.nome = produtoSelecionado.nome;
             }
@@ -737,10 +785,47 @@ export default function Ironstock() {
     }
 
     function atualizarCampo(campo, valor) {
-        setProdutoEditavel((atual) => ({
-            ...atual,
-            [campo]: valor,
-        }));
+        setProdutoEditavel((atual) => {
+            if (!atual) return atual;
+
+            if (campo === "preco") {
+                return {
+                    ...atual,
+                    preco: valor,
+                    preco_ironstore: calcularPrecoIronStore(
+                        valor,
+                        percentualIronStore
+                    ),
+                };
+            }
+
+            return {
+                ...atual,
+                [campo]: valor,
+            };
+        });
+    }
+
+    function atualizarPercentualIronStore(valor) {
+        const numero = valor === "" ? "" : Number(valor);
+
+        if (valor !== "" && (!Number.isFinite(numero) || numero < 0)) {
+            return;
+        }
+
+        setPercentualIronStore(numero);
+
+        setProdutoEditavel((atual) => {
+            if (!atual) return atual;
+
+            return {
+                ...atual,
+                preco_ironstore: calcularPrecoIronStore(
+                    atual.preco,
+                    numero
+                ),
+            };
+        });
     }
 
     function atualizarVariedade(indice, campo, valor) {
@@ -1471,13 +1556,7 @@ export default function Ironstock() {
                                     campos editáveis.
                                 </p>
                             </div>
-                            <button
-                                type="button"
-                                className="ironstock-button secondary"
-                                onClick={() => setJsonIA(PROMPT_IA)}
-                            >
-                                Inserir prompt de referência
-                            </button>
+
                         </div>
 
                         <textarea
@@ -1603,6 +1682,47 @@ export default function Ironstock() {
                                                 step={campo.type === "number" ? "any" : undefined}
                                                 required={campo.required}
                                             />
+                                        )}
+
+                                        {campo.key === "preco_ironstore" && (
+                                            <div
+                                                className="ironstock-percentual-ironstore"
+                                                style={{
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    gap: "6px",
+                                                    marginTop: "8px",
+                                                }}
+                                            >
+                                                <span
+                                                    style={{
+                                                        fontSize: "0.85rem",
+                                                        fontWeight: 600,
+                                                    }}
+                                                >
+                                                    Percentual aplicado ao Preço (R$) (%)
+                                                </span>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    step="0.1"
+                                                    value={percentualIronStore}
+                                                    onChange={(e) =>
+                                                        atualizarPercentualIronStore(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    aria-label="Percentual de acréscimo do Preço IronStore"
+                                                />
+                                                <small
+                                                    style={{
+                                                        fontWeight: 400,
+                                                        lineHeight: 1.4,
+                                                    }}
+                                                >
+                                                    Padrão: 10%. O valor é salvo no navegador e aplicado automaticamente ao importar o JSON ou alterar o preço base.
+                                                </small>
+                                            </div>
                                         )}
                                     </label>
                                 ))}
