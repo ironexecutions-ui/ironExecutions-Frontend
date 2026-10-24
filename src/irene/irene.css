@@ -1,0 +1,531 @@
+.ie-irene {
+    --ie-irene-cor-principal: #6658e8;
+    --ie-irene-cor-principal-hover: #5143d0;
+    --ie-irene-cor-texto: #202033;
+    --ie-irene-cor-secundaria: #77778b;
+    --ie-irene-cor-borda: #e9e8f1;
+    --ie-irene-cor-fundo: #ffffff;
+    --ie-irene-cor-area: #f8f8fc;
+
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    min-height: 520px;
+    height: calc(100vh - 120px);
+    max-height: 1000px;
+    padding: 20px;
+    color: var(--ie-irene-cor-texto);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    box-sizing: border-box;
+}
+
+.ie-irene *,
+.ie-irene *::before,
+.ie-irene *::after {
+    box-sizing: border-box;
+}
+
+.ie-irene__painel {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--ie-irene-cor-fundo);
+    border: 1px solid var(--ie-irene-cor-borda);
+    border-radius: 22px;
+    box-shadow:
+        0 8px 30px rgb(31 30 65 / 4%),
+        0 1px 3px rgb(31 30 65 / 3%);
+}
+
+.ie-irene__cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 19px 24px;
+    background: var(--ie-irene-cor-fundo);
+    border-bottom: 1px solid var(--ie-irene-cor-borda);
+}
+
+.ie-irene__identidade {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.ie-irene__avatar {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    color: #ffffff;
+    background: linear-gradient(145deg, #8173ff, #5143c8);
+    border-radius: 15px;
+    box-shadow: 0 5px 13px rgb(102 88 232 / 22%);
+}
+
+.ie-irene__avatar>span:first-child {
+    font-size: 23px;
+    font-weight: 750;
+}
+
+.ie-irene__indicador {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 12px;
+    height: 12px;
+    background: #28bd83;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+}
+
+.ie-irene__identidade-textos {
+    min-width: 0;
+}
+
+.ie-irene__titulo {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.ie-irene__subtitulo {
+    margin: 4px 0 0;
+    color: var(--ie-irene-cor-secundaria);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.ie-irene__botao-limpar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: #77778b;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition:
+        color 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease;
+}
+
+.ie-irene__botao-limpar svg {
+    width: 19px;
+    height: 19px;
+}
+
+.ie-irene__botao-limpar:hover:not(:disabled) {
+    color: #dc4242;
+    background: #fff2f2;
+    border-color: #ffe1e1;
+}
+
+.ie-irene__botao-limpar:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.ie-irene__mensagens {
+    flex: 1;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background:
+        radial-gradient(ellipse at 50% 0%,
+            rgb(102 88 232 / 3%),
+            transparent 60%),
+        var(--ie-irene-cor-fundo);
+    scrollbar-color: #d8d6e6 transparent;
+    scrollbar-width: thin;
+}
+
+.ie-irene__mensagens::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ie-irene__mensagens::-webkit-scrollbar-thumb {
+    background: #d8d6e6;
+    border-radius: 10px;
+}
+
+.ie-irene__mensagens-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    width: 100%;
+    max-width: 920px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 30px 28px;
+}
+
+.ie-irene__mensagem {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    width: 100%;
+    animation: ie-irene-entrada 220ms ease-out both;
+}
+
+.ie-irene__mensagem--user {
+    justify-content: flex-end;
+}
+
+.ie-irene__avatar-mensagem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 31px;
+    height: 31px;
+    flex-shrink: 0;
+    color: #ffffff;
+    background: linear-gradient(145deg, #8173ff, #5143c8);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.ie-irene__mensagem-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    max-width: min(78%, 690px);
+    min-width: 0;
+}
+
+.ie-irene__mensagem--user .ie-irene__mensagem-conteudo {
+    align-items: flex-end;
+}
+
+.ie-irene__autor {
+    color: var(--ie-irene-cor-secundaria);
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: 0.2px;
+}
+
+.ie-irene__balao {
+    padding: 13px 16px;
+    color: #373649;
+    background: var(--ie-irene-cor-area);
+    border: 1px solid #efedf6;
+    border-radius: 4px 17px 17px 17px;
+    font-size: 14px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.ie-irene__mensagem--user .ie-irene__balao {
+    color: #ffffff;
+    background: linear-gradient(135deg, #7062ed, #5c4edb);
+    border-color: transparent;
+    border-radius: 17px 4px 17px 17px;
+    box-shadow: 0 4px 12px rgb(102 88 232 / 10%);
+}
+
+.ie-irene__balao--digitando {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 65px;
+    padding: 16px;
+}
+
+.ie-irene__balao--digitando span {
+    width: 6px;
+    height: 6px;
+    background: var(--ie-irene-cor-principal);
+    border-radius: 50%;
+    animation: ie-irene-pulsar 1s infinite ease-in-out;
+}
+
+.ie-irene__balao--digitando span:nth-child(2) {
+    animation-delay: 150ms;
+}
+
+.ie-irene__balao--digitando span:nth-child(3) {
+    animation-delay: 300ms;
+}
+
+.ie-irene__fim-mensagens {
+    width: 100%;
+    height: 1px;
+    flex-shrink: 0;
+}
+
+.ie-irene__erro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 24px 12px;
+    padding: 12px 14px;
+    color: #a92f3b;
+    background: #fff4f4;
+    border: 1px solid #ffdcdc;
+    border-radius: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.ie-irene__erro button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 25px;
+    height: 25px;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: 7px;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.ie-irene__erro button:hover {
+    background: rgb(169 47 59 / 8%);
+}
+
+.ie-irene__formulario {
+    flex-shrink: 0;
+    padding: 16px 24px 13px;
+    background: var(--ie-irene-cor-fundo);
+    border-top: 1px solid var(--ie-irene-cor-borda);
+}
+
+.ie-irene__campo-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 9px 10px 9px 16px;
+    background: #ffffff;
+    border: 1px solid #dedbea;
+    border-radius: 17px;
+    box-shadow: 0 3px 12px rgb(31 30 65 / 3%);
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.ie-irene__campo-container:focus-within {
+    border-color: #9388f2;
+    box-shadow: 0 0 0 3px rgb(102 88 232 / 9%);
+}
+
+.ie-irene__campo {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    max-height: 140px;
+    padding: 9px 0;
+    resize: vertical;
+    color: var(--ie-irene-cor-texto);
+    background: transparent;
+    border: 0;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.ie-irene__campo::placeholder {
+    color: #a1a0b2;
+}
+
+.ie-irene__campo:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.ie-irene__botao-enviar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: #ffffff;
+    background: var(--ie-irene-cor-principal);
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition:
+        transform 180ms ease,
+        background 180ms ease,
+        opacity 180ms ease;
+}
+
+.ie-irene__botao-enviar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.ie-irene__botao-enviar:hover:not(:disabled) {
+    background: var(--ie-irene-cor-principal-hover);
+    transform: translateY(-1px);
+}
+
+.ie-irene__botao-enviar:disabled {
+    cursor: not-allowed;
+    opacity: 0.42;
+}
+
+.ie-irene__spinner {
+    width: 19px;
+    height: 19px;
+    border: 2px solid rgb(255 255 255 / 40%);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: ie-irene-girar 700ms linear infinite;
+}
+
+.ie-irene__aviso {
+    margin: 10px auto 0;
+    color: #9695a7;
+    font-size: 10px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.ie-irene__botao-limpar:focus-visible,
+.ie-irene__botao-enviar:focus-visible,
+.ie-irene__erro button:focus-visible {
+    outline: 3px solid rgb(102 88 232 / 35%);
+    outline-offset: 3px;
+}
+
+@keyframes ie-irene-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ie-irene-pulsar {
+
+    0%,
+    60%,
+    100% {
+        opacity: 0.35;
+        transform: translateY(0);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes ie-irene-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 700px) {
+    .ie-irene {
+        min-height: 400px;
+        height: calc(100dvh - 80px);
+        padding: 8px;
+    }
+
+    .ie-irene__painel {
+        border-radius: 16px;
+    }
+
+    .ie-irene__cabecalho {
+        padding: 14px;
+    }
+
+    .ie-irene__avatar {
+        width: 41px;
+        height: 41px;
+        border-radius: 13px;
+    }
+
+    .ie-irene__titulo {
+        font-size: 17px;
+    }
+
+    .ie-irene__subtitulo {
+        font-size: 10px;
+    }
+
+    .ie-irene__mensagens-inner {
+        gap: 22px;
+        padding: 22px 13px;
+    }
+
+    .ie-irene__mensagem {
+        gap: 8px;
+    }
+
+    .ie-irene__mensagem-conteudo {
+        max-width: 88%;
+    }
+
+    .ie-irene__balao {
+        padding: 11px 13px;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .ie-irene__formulario {
+        padding: 12px 12px 10px;
+    }
+
+    .ie-irene__campo-container {
+        gap: 8px;
+        padding-left: 12px;
+        border-radius: 14px;
+    }
+
+    .ie-irene__campo {
+        font-size: 13px;
+    }
+
+    .ie-irene__erro {
+        margin-right: 12px;
+        margin-left: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-irene *,
+    .ie-irene *::before,
+    .ie-irene *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

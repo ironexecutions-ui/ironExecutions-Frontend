@@ -35,7 +35,7 @@ import rpt from "./imagens/RTP.png"
 import CelularFoto from "../modulos/perfil/body/administracao/componentes/celularfoto";
 import Camerapublica from "../camera/camerapublica";
 import Geral from "../camera/geral";
-
+import Irene from "./irene/irene";
 import Apresentacao from "../apresentacao/apresentacao";
 import FotosProdutos from "../fotos/fotos";
 
@@ -342,7 +342,10 @@ function RoteamentoComLoading() {
         path="/fotos"
         element={<FotosProdutos />}
       />
-
+      <Route
+        path="/irene"
+        element={<Irene />}
+      />
       <Route
         path="/adicionar-foto/:token"
         element={<CelularFoto />}
