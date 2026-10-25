@@ -124,6 +124,57 @@ export default function Irene() {
         }
     }, [mensagens]);
 
+    /* Sincroniza a conversa com o cache a cada segundo */
+    useEffect(() => {
+        const intervalo = setInterval(() => {
+            try {
+                const hoje = obterDataLocal();
+                const dataSalva = localStorage.getItem(CHAVE_DATA);
+
+                if (dataSalva !== hoje) {
+                    localStorage.removeItem(CHAVE_CACHE);
+                    localStorage.setItem(CHAVE_DATA, hoje);
+
+                    setMensagens([obterMensagemInicial()]);
+                    setMensagem("");
+                    setErro("");
+                    setCarregando(false);
+                    return;
+                }
+
+                const cache = localStorage.getItem(CHAVE_CACHE);
+
+                if (!cache) return;
+
+                const mensagensCache = JSON.parse(cache);
+
+                if (
+                    !Array.isArray(mensagensCache) ||
+                    !mensagensCache.every(
+                        (item) =>
+                            item &&
+                            ["user", "assistant"].includes(item.role) &&
+                            typeof item.content === "string"
+                    )
+                ) {
+                    return;
+                }
+
+                setMensagens((atuais) => {
+                    if (JSON.stringify(atuais) === JSON.stringify(mensagensCache)) {
+                        return atuais;
+                    }
+
+                    return mensagensCache;
+                });
+            } catch (error) {
+                console.error("Erro ao sincronizar cache da Irene:", error);
+            }
+        }, 1000);
+
+        return () => clearInterval(intervalo);
+    }, []);
+
     // Verifica a mudança de dia enquanto o componente estiver aberto.
     useEffect(() => {
         function verificarNovoDia() {

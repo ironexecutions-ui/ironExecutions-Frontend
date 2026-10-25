@@ -140,6 +140,59 @@ export default function Irene() {
         }, 18);
     }
 
+    useEffect(() => {
+        const sincronizarCache = () => {
+            try {
+                const hoje = obterDataLocal();
+                const dataSalva = localStorage.getItem(CHAVE_DATA);
+
+                if (dataSalva !== hoje) {
+                    localStorage.setItem(CHAVE_DATA, hoje);
+                    localStorage.removeItem(CHAVE_CACHE);
+                    setMensagens([obterMensagemInicial()]);
+                    setMensagem("");
+                    setErro("");
+                    setCarregando(false);
+                    return;
+                }
+
+                const cache = localStorage.getItem(CHAVE_CACHE);
+                if (!cache) return;
+
+                const mensagensCache = JSON.parse(cache);
+
+                if (
+                    !Array.isArray(mensagensCache) ||
+                    !mensagensCache.every(
+                        (item) =>
+                            item &&
+                            ["user", "assistant"].includes(item.role) &&
+                            typeof item.content === "string"
+                    )
+                ) {
+                    return;
+                }
+
+                setMensagens((atuais) => {
+                    if (
+                        JSON.stringify(atuais) ===
+                        JSON.stringify(mensagensCache)
+                    ) {
+                        return atuais;
+                    }
+
+                    return mensagensCache;
+                });
+            } catch (error) {
+                console.error("Erro ao sincronizar cache da Irene:", error);
+            }
+        };
+
+        const intervalo = setInterval(sincronizarCache, 1000);
+
+        return () => clearInterval(intervalo);
+    }, []);
+
     function obterToken() {
         return localStorage.getItem("token") ||
             localStorage.getItem("access_token") ||
