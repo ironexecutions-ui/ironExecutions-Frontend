@@ -1,426 +1,633 @@
-.ie-irene {
-    --ie-irene-cor-principal: #6658e8;
-    --ie-irene-cor-principal-hover: #5143d0;
-    --ie-irene-cor-texto: #202033;
-    --ie-irene-cor-secundaria: #77778b;
-    --ie-irene-cor-borda: #e9e8f1;
-    --ie-irene-cor-fundo: #ffffff;
-    --ie-irene-cor-area: #f8f8fc;
+/* =========================================================
+   IRENE PAGE — estilos isolados da tela completa
+   Prefixo exclusivo: ie-irene-page__
+   ========================================================= */
 
-    display: flex;
+.ie-irene-page,
+.ie-irene-page * {
+    box-sizing: border-box;
+}
+
+.ie-irene-page {
+    --irp-bg: #080b12;
+    --irp-panel: #0d121c;
+    --irp-panel-raised: #121a28;
+    --irp-border: rgba(255, 255, 255, .075);
+    --irp-text: #f4f6fc;
+    --irp-muted: #98a5bb;
+    --irp-purple: #8877ff;
+    --irp-purple-light: #b8adff;
     width: 100%;
-    min-width: 0;
-    min-height: 520px;
-    height: calc(100vh - 120px);
-    max-height: 1000px;
-    padding: 20px;
-    color: var(--ie-irene-cor-texto);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-    box-sizing: border-box;
+    height: 100dvh;
+    min-height: 500px;
+    padding: 22px;
+    overflow: hidden;
+    color: var(--irp-text);
+    background:
+        radial-gradient(ellipse at 48% -18%, rgba(120, 99, 255, .17), transparent 48%),
+        radial-gradient(ellipse at 100% 100%, rgba(44, 102, 179, .08), transparent 34%),
+        var(--irp-bg);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
-.ie-irene *,
-.ie-irene *::before,
-.ie-irene *::after {
-    box-sizing: border-box;
+.ie-irene-page button,
+.ie-irene-page textarea {
+    font: inherit;
 }
 
-.ie-irene__painel {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
+.ie-irene-page__workspace {
+    width: 100%;
+    max-width: 1500px;
+    height: 100%;
     min-width: 0;
     min-height: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-    background: var(--ie-irene-cor-fundo);
-    border: 1px solid var(--ie-irene-cor-borda);
-    border-radius: 22px;
-    box-shadow:
-        0 8px 30px rgb(31 30 65 / 4%),
-        0 1px 3px rgb(31 30 65 / 3%);
+    background: rgba(13, 18, 28, .96);
+    border: 1px solid var(--irp-border);
+    border-radius: 26px;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, .3);
 }
 
-.ie-irene__cabecalho {
+.ie-irene-page__header {
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    padding: 19px 24px;
-    background: var(--ie-irene-cor-fundo);
-    border-bottom: 1px solid var(--ie-irene-cor-borda);
-}
-
-.ie-irene__identidade {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    min-width: 0;
-}
-
-.ie-irene__avatar {
-    position: relative;
-    display: flex;
+    gap: 22px;
     flex-shrink: 0;
+    min-height: 94px;
+    padding: 20px 30px;
+    background: rgba(17, 23, 35, .95);
+    border-bottom: 1px solid var(--irp-border);
+}
+
+.ie-irene-page__brand {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 46px;
-    height: 46px;
-    color: #ffffff;
-    background: linear-gradient(145deg, #8173ff, #5143c8);
-    border-radius: 15px;
-    box-shadow: 0 5px 13px rgb(102 88 232 / 22%);
-}
-
-.ie-irene__avatar>span:first-child {
-    font-size: 23px;
-    font-weight: 750;
-}
-
-.ie-irene__indicador {
-    position: absolute;
-    right: -2px;
-    bottom: -2px;
-    width: 12px;
-    height: 12px;
-    background: #28bd83;
-    border: 2px solid #ffffff;
-    border-radius: 50%;
-}
-
-.ie-irene__identidade-textos {
+    gap: 15px;
     min-width: 0;
 }
 
-.ie-irene__titulo {
-    margin: 0;
-    font-size: 19px;
-    font-weight: 750;
-    letter-spacing: -0.5px;
+.ie-irene-page__brand-image-wrap {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    padding: 7px;
+    overflow: visible;
+    background: linear-gradient(145deg, #a99cff, #6854dc);
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 17px;
+    box-shadow: 0 8px 24px rgba(111, 91, 245, .25);
 }
 
-.ie-irene__subtitulo {
-    margin: 4px 0 0;
-    color: var(--ie-irene-cor-secundaria);
+.ie-irene-page__brand-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.ie-irene-page__online-dot,
+.ie-irene-page__status-dot {
+    display: block;
+    width: 9px;
+    height: 9px;
+    background: #4bddaa;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(75, 221, 170, .11), 0 0 14px rgba(75, 221, 170, .2);
+}
+
+.ie-irene-page__online-dot {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    border: 2px solid #111723;
+    width: 13px;
+    height: 13px;
+}
+
+.ie-irene-page__brand-copy {
+    min-width: 0;
+}
+
+.ie-irene-page__title-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ie-irene-page__title {
+    margin: 0;
+    color: var(--irp-text);
+    font-size: 23px;
+    font-weight: 780;
+    letter-spacing: -.8px;
+    line-height: 1.2;
+}
+
+.ie-irene-page__badge {
+    padding: 5px 7px;
+    color: #c4bbff;
+    background: rgba(136, 119, 255, .12);
+    border: 1px solid rgba(136, 119, 255, .22);
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .8px;
+}
+
+.ie-irene-page__subtitle {
+    margin: 6px 0 0;
+    color: var(--irp-muted);
     font-size: 12px;
     line-height: 1.5;
 }
 
-.ie-irene__botao-limpar {
+.ie-irene-page__header-actions {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+}
+
+.ie-irene-page__status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #a7b4c8;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ie-irene-page__status-dot {
+    width: 7px;
+    height: 7px;
+}
+
+.ie-irene-page__clear-button {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    color: #77778b;
-    background: transparent;
-    border: 1px solid transparent;
+    gap: 9px;
+    min-height: 41px;
+    padding: 0 13px;
+    color: #bdc7d8;
+    background: rgba(255, 255, 255, .035);
+    border: 1px solid var(--irp-border);
     border-radius: 12px;
     cursor: pointer;
-    transition:
-        color 180ms ease,
-        background 180ms ease,
-        border-color 180ms ease;
+    font-size: 12px !important;
+    font-weight: 650 !important;
+    transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease;
 }
 
-.ie-irene__botao-limpar svg {
-    width: 19px;
-    height: 19px;
+.ie-irene-page__clear-button svg {
+    width: 17px;
+    height: 17px;
 }
 
-.ie-irene__botao-limpar:hover:not(:disabled) {
-    color: #dc4242;
-    background: #fff2f2;
-    border-color: #ffe1e1;
+.ie-irene-page__clear-button:hover:not(:disabled) {
+    color: #fff;
+    background: rgba(136, 119, 255, .12);
+    border-color: rgba(136, 119, 255, .3);
+    transform: translateY(-1px);
 }
 
-.ie-irene__botao-limpar:disabled {
+.ie-irene-page__clear-button:disabled {
+    opacity: .45;
     cursor: not-allowed;
-    opacity: 0.45;
 }
 
-.ie-irene__mensagens {
+.ie-irene-page__conversation {
     flex: 1;
     min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: auto;
     overscroll-behavior: contain;
-    background:
-        radial-gradient(ellipse at 50% 0%,
-            rgb(102 88 232 / 3%),
-            transparent 60%),
-        var(--ie-irene-cor-fundo);
-    scrollbar-color: #d8d6e6 transparent;
     scrollbar-width: thin;
+    scrollbar-color: #30394b transparent;
 }
 
-.ie-irene__mensagens::-webkit-scrollbar {
-    width: 6px;
+.ie-irene-page__conversation::-webkit-scrollbar {
+    width: 7px;
 }
 
-.ie-irene__mensagens::-webkit-scrollbar-thumb {
-    background: #d8d6e6;
-    border-radius: 10px;
+.ie-irene-page__conversation::-webkit-scrollbar-thumb {
+    background: #30394b;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-clip: padding-box;
 }
 
-.ie-irene__mensagens-inner {
+.ie-irene-page__conversation-inner {
     display: flex;
     flex-direction: column;
-    gap: 26px;
+    gap: 30px;
     width: 100%;
-    max-width: 920px;
+    max-width: 1030px;
     min-height: 100%;
     margin: 0 auto;
-    padding: 30px 28px;
+    padding: 38px 42px 34px;
 }
 
-.ie-irene__mensagem {
+.ie-irene-page__welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 35px 18px 9px;
+    text-align: center;
+    animation: irp-fade-up .35s ease both;
+}
+
+.ie-irene-page__welcome-orb {
+    display: grid;
+    place-items: center;
+    width: 74px;
+    height: 74px;
+    margin-bottom: 22px;
+    padding: 13px;
+    background: linear-gradient(145deg, #a99cff, #6854dc);
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 25px;
+    box-shadow: 0 14px 42px rgba(111, 91, 245, .25), 0 0 0 9px rgba(136, 119, 255, .045);
+}
+
+.ie-irene-page__welcome-orb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ie-irene-page__eyebrow {
+    color: #a99cff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.ie-irene-page__welcome h2 {
+    margin: 14px 0 9px;
+    color: #f5f6ff;
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 750;
+    letter-spacing: -1.2px;
+    line-height: 1.2;
+}
+
+.ie-irene-page__welcome p {
+    max-width: 500px;
+    margin: 0;
+    color: #929fb5;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.ie-irene-page__message {
     display: flex;
     align-items: flex-start;
-    gap: 11px;
+    gap: 13px;
     width: 100%;
-    animation: ie-irene-entrada 220ms ease-out both;
+    min-width: 0;
+    animation: irp-fade-up .22s ease both;
 }
 
-.ie-irene__mensagem--user {
+.ie-irene-page__message--user {
     justify-content: flex-end;
 }
 
-.ie-irene__avatar-mensagem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 31px;
-    height: 31px;
-    flex-shrink: 0;
-    color: #ffffff;
-    background: linear-gradient(145deg, #8173ff, #5143c8);
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 750;
+.ie-irene-page__message--assistant {
+    justify-content: flex-start;
 }
 
-.ie-irene__mensagem-conteudo {
+.ie-irene-page__message-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 35px;
+    height: 35px;
+    margin-top: 2px;
+    padding: 6px;
+    background: linear-gradient(145deg, #a99cff, #6854dc);
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(105, 85, 231, .17);
+}
+
+.ie-irene-page__message-avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ie-irene-page__message-main {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 7px;
-    max-width: min(78%, 690px);
+    gap: 8px;
     min-width: 0;
+    max-width: min(82%, 760px);
 }
 
-.ie-irene__mensagem--user .ie-irene__mensagem-conteudo {
+.ie-irene-page__message--user .ie-irene-page__message-main {
     align-items: flex-end;
 }
 
-.ie-irene__autor {
-    color: var(--ie-irene-cor-secundaria);
-    font-size: 11px;
-    font-weight: 650;
-    letter-spacing: 0.2px;
+.ie-irene-page__message-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    padding: 0 3px;
 }
 
-.ie-irene__balao {
-    padding: 13px 16px;
-    color: #373649;
-    background: var(--ie-irene-cor-area);
-    border: 1px solid #efedf6;
-    border-radius: 4px 17px 17px 17px;
+.ie-irene-page__message-author {
+    color: #b7c2d5;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: .55px;
+    text-transform: uppercase;
+}
+
+.ie-irene-page__verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #8e9bb2;
+    font-size: 10px;
+}
+
+.ie-irene-page__verified svg {
+    width: 13px;
+    height: 13px;
+    color: #9f91ff;
+}
+
+.ie-irene-page__working-label {
+    color: #9c91e8;
+    font-size: 10px;
+}
+
+.ie-irene-page__bubble {
+    max-width: 100%;
+    padding: 15px 18px;
+    color: #e6ebf5;
+    background: linear-gradient(145deg, #171f2e, #121a28);
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 5px 17px 17px 17px;
     font-size: 14px;
-    line-height: 1.8;
+    font-weight: 430;
+    line-height: 1.85;
     overflow-wrap: anywhere;
     white-space: pre-wrap;
 }
 
-.ie-irene__mensagem--user .ie-irene__balao {
-    color: #ffffff;
-    background: linear-gradient(135deg, #7062ed, #5c4edb);
-    border-color: transparent;
-    border-radius: 17px 4px 17px 17px;
-    box-shadow: 0 4px 12px rgb(102 88 232 / 10%);
+.ie-irene-page__message--user .ie-irene-page__bubble {
+    color: #fff;
+    background: linear-gradient(135deg, #7969ec, #6150ce);
+    border-color: rgba(190, 181, 255, .2);
+    border-radius: 17px 5px 17px 17px;
+    box-shadow: 0 6px 20px rgba(90, 72, 203, .13);
 }
 
-.ie-irene__balao--digitando {
+.ie-irene-page__typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 3px;
+    vertical-align: -2px;
+    background: #b8adff;
+    animation: irp-blink .75s steps(2, start) infinite;
+}
+
+.ie-irene-page__typing {
     display: flex;
     align-items: center;
     gap: 5px;
-    min-width: 65px;
-    padding: 16px;
+    min-width: 64px;
+    min-height: 43px;
+    padding: 13px 16px;
+    background: #171f2e;
+    border: 1px solid var(--irp-border);
+    border-radius: 5px 16px 16px 16px;
 }
 
-.ie-irene__balao--digitando span {
+.ie-irene-page__typing span {
     width: 6px;
     height: 6px;
-    background: var(--ie-irene-cor-principal);
+    background: #aa9dff;
     border-radius: 50%;
-    animation: ie-irene-pulsar 1s infinite ease-in-out;
+    animation: irp-dots 1.1s infinite ease-in-out;
 }
 
-.ie-irene__balao--digitando span:nth-child(2) {
-    animation-delay: 150ms;
+.ie-irene-page__typing span:nth-child(2) {
+    animation-delay: .15s;
 }
 
-.ie-irene__balao--digitando span:nth-child(3) {
-    animation-delay: 300ms;
+.ie-irene-page__typing span:nth-child(3) {
+    animation-delay: .3s;
 }
 
-.ie-irene__fim-mensagens {
-    width: 100%;
-    height: 1px;
-    flex-shrink: 0;
-}
-
-.ie-irene__erro {
+.ie-irene-page__error {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin: 0 24px 12px;
-    padding: 12px 14px;
-    color: #a92f3b;
-    background: #fff4f4;
-    border: 1px solid #ffdcdc;
+    gap: 11px;
+    flex-shrink: 0;
+    width: calc(100% - 48px);
+    max-width: 950px;
+    margin: 0 auto 10px;
+    padding: 12px 15px;
+    color: #ffc0c9;
+    background: rgba(255, 94, 119, .075);
+    border: 1px solid rgba(255, 113, 133, .2);
     border-radius: 12px;
     font-size: 12px;
     line-height: 1.6;
 }
 
-.ie-irene__erro button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.ie-irene-page__error-icon {
+    display: grid;
+    place-items: center;
     flex-shrink: 0;
-    width: 25px;
-    height: 25px;
-    color: inherit;
+    width: 21px;
+    height: 21px;
+    color: #ffc0c9;
+    border: 1px solid rgba(255, 113, 133, .5);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.ie-irene-page__error-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.ie-irene-page__error button {
+    flex-shrink: 0;
+    padding: 0 5px;
+    color: #ffc0c9;
     background: transparent;
     border: 0;
-    border-radius: 7px;
-    font-size: 21px;
     cursor: pointer;
+    font-size: 22px;
 }
 
-.ie-irene__erro button:hover {
-    background: rgb(169 47 59 / 8%);
-}
-
-.ie-irene__formulario {
+.ie-irene-page__composer-area {
     flex-shrink: 0;
-    padding: 16px 24px 13px;
-    background: var(--ie-irene-cor-fundo);
-    border-top: 1px solid var(--ie-irene-cor-borda);
+    width: 100%;
+    padding: 15px 42px 20px;
+    background: rgba(13, 18, 28, .98);
+    border-top: 1px solid rgba(255, 255, 255, .045);
 }
 
-.ie-irene__campo-container {
+.ie-irene-page__composer {
     display: flex;
     align-items: flex-end;
     gap: 12px;
     width: 100%;
-    max-width: 920px;
+    max-width: 1030px;
     margin: 0 auto;
-    padding: 9px 10px 9px 16px;
-    background: #ffffff;
-    border: 1px solid #dedbea;
-    border-radius: 17px;
-    box-shadow: 0 3px 12px rgb(31 30 65 / 3%);
-    transition:
-        border-color 180ms ease,
-        box-shadow 180ms ease;
+    padding: 9px 9px 9px 18px;
+    background: #151d2b;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, .14);
+    transition: border-color .18s ease, box-shadow .18s ease;
 }
 
-.ie-irene__campo-container:focus-within {
-    border-color: #9388f2;
-    box-shadow: 0 0 0 3px rgb(102 88 232 / 9%);
+.ie-irene-page__composer:focus-within {
+    border-color: rgba(136, 119, 255, .58);
+    box-shadow: 0 0 0 4px rgba(136, 119, 255, .075);
 }
 
-.ie-irene__campo {
+.ie-irene-page__textareaa {
+    display: block;
     flex: 1;
-    width: 100%;
     min-width: 0;
-    min-height: 38px;
-    max-height: 140px;
-    padding: 9px 0;
+    min-height: 46px;
+    max-height: 180px;
+    padding: 12px 0;
     resize: vertical;
-    color: var(--ie-irene-cor-texto);
+    color: var(--irp-text);
     background: transparent;
     border: 0;
-    outline: none;
-    font-family: inherit;
-    font-size: 14px;
+    font-size: 14px !important;
+    line-height: 1.65;
+    overflow-y: auto;
+}
+
+.ie-irene-page__textareaa::placeholder {
+    color: #7d8aa0;
+}
+
+.ie-irene-page__textareaa:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.ie-irene-page__send-button {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    color: #fff;
+    background: linear-gradient(145deg, #988aff, #6e5ce5);
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 14px;
+    box-shadow: 0 5px 17px rgba(105, 85, 231, .24);
+    cursor: pointer;
+    transition: transform .18s ease, filter .18s ease, opacity .18s ease;
+}
+
+.ie-irene-page__send-button svg {
+    width: 21px;
+    height: 21px;
+}
+
+.ie-irene-page__send-button:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+.ie-irene-page__send-button:active:not(:disabled) {
+    transform: scale(.96);
+}
+
+.ie-irene-page__send-button:disabled {
+    opacity: .4;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.ie-irene-page__spinner {
+    width: 19px;
+    height: 19px;
+    border: 2px solid rgba(255, 255, 255, .32);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: irp-spin .65s linear infinite;
+}
+
+.ie-irene-page__composer-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    max-width: 1030px;
+    margin: 11px auto 0;
+}
+
+.ie-irene-page__hint,
+.ie-irene-page__disclaimer {
+    color: #718097;
+    font-size: 10px;
     line-height: 1.6;
 }
 
-.ie-irene__campo::placeholder {
-    color: #a1a0b2;
-}
-
-.ie-irene__campo:disabled {
-    cursor: wait;
-    opacity: 0.65;
-}
-
-.ie-irene__botao-enviar {
+.ie-irene-page__hint {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    color: #ffffff;
-    background: var(--ie-irene-cor-principal);
-    border: 0;
-    border-radius: 12px;
-    cursor: pointer;
-    transition:
-        transform 180ms ease,
-        background 180ms ease,
-        opacity 180ms ease;
+    gap: 5px;
+    flex-wrap: wrap;
 }
 
-.ie-irene__botao-enviar svg {
-    width: 20px;
-    height: 20px;
+.ie-irene-page__hint kbd {
+    padding: 2px 5px;
+    color: #aab5c8;
+    background: #171f2d;
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 9px;
 }
 
-.ie-irene__botao-enviar:hover:not(:disabled) {
-    background: var(--ie-irene-cor-principal-hover);
-    transform: translateY(-1px);
+.ie-irene-page__disclaimer {
+    text-align: right;
 }
 
-.ie-irene__botao-enviar:disabled {
-    cursor: not-allowed;
-    opacity: 0.42;
-}
-
-.ie-irene__spinner {
-    width: 19px;
-    height: 19px;
-    border: 2px solid rgb(255 255 255 / 40%);
-    border-top-color: #ffffff;
-    border-radius: 50%;
-    animation: ie-irene-girar 700ms linear infinite;
-}
-
-.ie-irene__aviso {
-    margin: 10px auto 0;
-    color: #9695a7;
-    font-size: 10px;
-    line-height: 1.5;
-    text-align: center;
-}
-
-.ie-irene__botao-limpar:focus-visible,
-.ie-irene__botao-enviar:focus-visible,
-.ie-irene__erro button:focus-visible {
-    outline: 3px solid rgb(102 88 232 / 35%);
+.ie-irene-page button:focus-visible,
+.ie-irene-page textarea:focus-visible {
+    outline: 2px solid var(--irp-purple-light);
     outline-offset: 3px;
 }
 
-@keyframes ie-irene-entrada {
+@keyframes irp-fade-up {
     from {
         opacity: 0;
-        transform: translateY(6px);
+        transform: translateY(7px);
     }
 
     to {
@@ -429,12 +636,25 @@
     }
 }
 
-@keyframes ie-irene-pulsar {
+@keyframes irp-blink {
+
+    0%,
+    48% {
+        opacity: 1;
+    }
+
+    49%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes irp-dots {
 
     0%,
     60%,
     100% {
-        opacity: 0.35;
+        opacity: .35;
         transform: translateY(0);
     }
 
@@ -444,88 +664,551 @@
     }
 }
 
-@keyframes ie-irene-girar {
+@keyframes irp-spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-@media (max-width: 700px) {
-    .ie-irene {
-        min-height: 400px;
-        height: calc(100dvh - 80px);
-        padding: 8px;
+@media (max-width: 900px) {
+    .ie-irene-page {
+        padding: 13px;
     }
 
-    .ie-irene__painel {
-        border-radius: 16px;
+    .ie-irene-page__workspace {
+        border-radius: 21px;
     }
 
-    .ie-irene__cabecalho {
-        padding: 14px;
+    .ie-irene-page__header {
+        padding: 17px 21px;
     }
 
-    .ie-irene__avatar {
-        width: 41px;
-        height: 41px;
-        border-radius: 13px;
+    .ie-irene-page__conversation-inner {
+        padding: 30px 25px;
     }
 
-    .ie-irene__titulo {
-        font-size: 17px;
+    .ie-irene-page__composer-area {
+        padding: 14px 25px 18px;
     }
 
-    .ie-irene__subtitulo {
-        font-size: 10px;
-    }
-
-    .ie-irene__mensagens-inner {
-        gap: 22px;
-        padding: 22px 13px;
-    }
-
-    .ie-irene__mensagem {
-        gap: 8px;
-    }
-
-    .ie-irene__mensagem-conteudo {
+    .ie-irene-page__message-main {
         max-width: 88%;
     }
 
-    .ie-irene__balao {
-        padding: 11px 13px;
-        font-size: 13px;
-        line-height: 1.7;
+    .ie-irene-page__status {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .ie-irene-page {
+        height: 100dvh;
+        min-height: 0;
+        padding: 0;
     }
 
-    .ie-irene__formulario {
-        padding: 12px 12px 10px;
+    .ie-irene-page__workspace {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
     }
 
-    .ie-irene__campo-container {
-        gap: 8px;
-        padding-left: 12px;
+    .ie-irene-page__header {
+        min-height: 72px;
+        gap: 10px;
+        padding: 12px 14px;
+        padding-top: max(12px, env(safe-area-inset-top));
+    }
+
+    .ie-irene-page__brand {
+        gap: 11px;
+    }
+
+    .ie-irene-page__brand-image-wrap {
+        width: 43px;
+        height: 43px;
+        padding: 6px;
         border-radius: 14px;
     }
 
-    .ie-irene__campo {
-        font-size: 13px;
+    .ie-irene-page__title {
+        font-size: 19px;
     }
 
-    .ie-irene__erro {
-        margin-right: 12px;
-        margin-left: 12px;
+    .ie-irene-page__badge {
+        padding: 4px 5px;
+        font-size: 8px;
+    }
+
+    .ie-irene-page__subtitle {
+        max-width: 220px;
+        font-size: 10px;
+    }
+
+    .ie-irene-page__header-actions {
+        gap: 0;
+    }
+
+    .ie-irene-page__clear-button {
+        width: 40px;
+        min-height: 40px;
+        padding: 0;
+        border-radius: 12px;
+    }
+
+    .ie-irene-page__clear-button span {
+        display: none;
+    }
+
+    .ie-irene-page__conversation-inner {
+        gap: 23px;
+        padding: 23px 13px;
+    }
+
+    .ie-irene-page__welcome {
+        padding: 30px 10px 6px;
+    }
+
+    .ie-irene-page__welcome-orb {
+        width: 63px;
+        height: 63px;
+        margin-bottom: 18px;
+        border-radius: 21px;
+    }
+
+    .ie-irene-page__welcome h2 {
+        font-size: 25px;
+    }
+
+    .ie-irene-page__welcome p {
+        font-size: 12px;
+    }
+
+    .ie-irene-page__message {
+        gap: 9px;
+    }
+
+    .ie-irene-page__message-avatar {
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        border-radius: 10px;
+    }
+
+    .ie-irene-page__message-main {
+        max-width: calc(100% - 39px);
+        gap: 7px;
+    }
+
+    .ie-irene-page__message-author {
+        font-size: 10px;
+    }
+
+    .ie-irene-page__bubble {
+        padding: 12px 14px;
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .ie-irene-page__composer-area {
+        padding: 11px 11px max(11px, env(safe-area-inset-bottom));
+    }
+
+    .ie-irene-page__composer {
+        gap: 8px;
+        padding: 7px 7px 7px 13px;
+        border-radius: 16px;
+    }
+
+    .ie-irene-page__textareaa {
+        min-height: 43px;
+        max-height: 125px;
+        padding: 10px 0;
+        font-size: 13px !important;
+    }
+
+    .ie-irene-page__send-button {
+        width: 43px;
+        height: 43px;
+        border-radius: 13px;
+    }
+
+    .ie-irene-page__composer-footer {
+        justify-content: center;
+        margin-top: 8px;
+    }
+
+    .ie-irene-page__hint {
+        display: none;
+    }
+
+    .ie-irene-page__disclaimer {
+        font-size: 9px;
+        text-align: center;
+    }
+
+    .ie-irene-page__error {
+        width: calc(100% - 22px);
+    }
+}
+
+@media (max-width: 360px) {
+    .ie-irene-page__header {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .ie-irene-page__subtitle {
+        max-width: 175px;
+    }
+
+    .ie-irene-page__conversation-inner {
+        padding-right: 9px;
+        padding-left: 9px;
+    }
+
+    .ie-irene-page__composer-area {
+        padding-right: 8px;
+        padding-left: 8px;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
 
-    .ie-irene *,
-    .ie-irene *::before,
-    .ie-irene *::after {
-        animation-duration: 0.01ms !important;
+    .ie-irene-page *,
+    .ie-irene-page *::before,
+    .ie-irene-page *::after {
+        animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+/* ==========================================
+   IRENE — ACABAMENTO PREMIUM
+   Adicione ao FINAL do irene.css
+   ========================================== */
+
+.ie-irene-page {
+    --irene-accent: #8b7cff;
+    --irene-accent-light: #b5aaff;
+    --irene-surface: #111722;
+    --irene-border: rgba(255, 255, 255, 0.09);
+}
+
+/* Painel principal */
+.ie-irene-page__workspace {
+    border: 1px solid var(--irene-border);
+    border-radius: 22px;
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+/* Cabeçalho elegante */
+.ie-irene-page__header {
+    background: rgba(17, 23, 35, 0.96);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--irene-border);
+}
+
+.ie-irene-page__brand-image-wrap {
+    box-shadow:
+        0 0 0 5px rgba(139, 124, 255, 0.07),
+        0 8px 25px rgba(104, 84, 220, 0.22);
+    transition: transform 0.25s ease;
+}
+
+.ie-irene-page__brand-image-wrap:hover {
+    transform: translateY(-2px);
+}
+
+.ie-irene-page__title {
+    letter-spacing: -0.7px;
+}
+
+.ie-irene-page__badge {
+    backdrop-filter: blur(8px);
+}
+
+/* Botão de nova conversa */
+.ie-irene-page__clear-button {
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ie-irene-page__clear-button:hover:not(:disabled) {
+    background: rgba(139, 124, 255, 0.13);
+    border-color: rgba(139, 124, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Área da conversa */
+.ie-irene-page__conversation {
+    background:
+        radial-gradient(ellipse at 50% 0%,
+            rgba(139, 124, 255, 0.045),
+            transparent 55%),
+        #0c1018;
+    scrollbar-width: thin;
+    scrollbar-color: #343b50 transparent;
+}
+
+.ie-irene-page__conversation-inner {
+    gap: 32px;
+}
+
+/* Mensagens com entrada suave */
+.ie-irene-page__message {
+    animation: irene-message-entrance 0.25s ease both;
+}
+
+.ie-irene-page__message-main {
+    min-width: 0;
+}
+
+.ie-irene-page__message-meta {
+    margin-bottom: 2px;
+}
+
+.ie-irene-page__message-author {
+    letter-spacing: 0.35px;
+}
+
+/* Balões da Irene */
+.ie-irene-page__message--assistant .ie-irene-page__bubble {
+    background: linear-gradient(145deg,
+            #171e2b,
+            #121925);
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    transition: border-color 0.2s ease;
+}
+
+.ie-irene-page__message--assistant .ie-irene-page__bubble:hover {
+    border-color: rgba(139, 124, 255, 0.2);
+}
+
+/* Balões do usuário */
+.ie-irene-page__message--user .ie-irene-page__bubble {
+    background: linear-gradient(135deg,
+            #7868ed,
+            #5d4bc9);
+    border: 1px solid rgba(196, 187, 255, 0.22);
+    box-shadow: 0 7px 22px rgba(83, 65, 194, 0.15);
+}
+
+/* Avatar da Irene */
+.ie-irene-page__message-avatar {
+    transition: transform 0.2s ease;
+}
+
+.ie-irene-page__message--assistant .ie-irene-page__message-avatar {
+    box-shadow: 0 5px 18px rgba(104, 84, 220, 0.18);
+}
+
+/* Boas-vindas */
+.ie-irene-page__welcome-orb {
+    box-shadow:
+        0 12px 35px rgba(104, 84, 220, 0.24),
+        0 0 0 10px rgba(139, 124, 255, 0.045);
+    animation: irene-orb-float 4s ease-in-out infinite;
+}
+
+.ie-irene-page__welcome h2 {
+    letter-spacing: -1px;
+    text-wrap: balance;
+}
+
+.ie-irene-page__welcome p {
+    max-width: 470px;
+}
+
+/* Campo de digitação */
+.ie-irene-page__composer-area {
+    background: rgba(13, 18, 28, 0.97);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.ie-irene-page__composer {
+    background: #151c29;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.ie-irene-page__composer:focus-within {
+    background: #171e2d;
+    box-shadow:
+        0 0 0 4px rgba(139, 124, 255, 0.09),
+        0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
+/* Remove a borda padrão do textarea */
+.ie-irene-page__textarea,
+.ie-irene-page__textarea:focus,
+.ie-irene-page__textarea:focus-visible,
+.ie-irene-page__textarea:active {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* Remove o contorno interno sem afetar a caixa externa */
+.ie-irene-page__composer textarea {
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Mantém apenas o foco elegante no contêiner */
+.ie-irene-page__composer:focus-within {
+    border-color: rgba(136, 119, 255, 0.45);
+    box-shadow: 0 0 0 2px rgba(136, 119, 255, 0.07);
+}
+
+.ie-irene-page__textareaa {
+    color: #f5f6fc;
+    caret-color: var(--irene-accent-light);
+}
+
+.ie-irene-page__textareaa::placeholder {
+    color: #8490a5;
+}
+
+/* Botão enviar */
+.ie-irene-page__send-button {
+    background: linear-gradient(145deg,
+            #998aff,
+            #6e5ae0);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 5px 16px rgba(105, 85, 231, 0.22);
+    transition:
+        transform 0.18s ease,
+        filter 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.ie-irene-page__send-button:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(105, 85, 231, 0.3);
+}
+
+.ie-irene-page__send-button:active:not(:disabled) {
+    transform: scale(0.96);
+}
+
+/* Avisos de erro */
+.ie-irene-page__error {
+    background: rgba(255, 83, 109, 0.08);
+    border: 1px solid rgba(255, 100, 125, 0.2);
+    border-radius: 12px;
+}
+
+/* Barra de rolagem */
+.ie-irene-page__conversation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ie-irene-page__conversation::-webkit-scrollbar-thumb {
+    background: #343b50;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background-clip: padding-box;
+}
+
+.ie-irene-page__conversation::-webkit-scrollbar-thumb:hover {
+    background-color: #555e78;
+}
+
+/* Animações */
+@keyframes irene-message-entrance {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes irene-orb-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .ie-irene-page__conversation-inner {
+        gap: 25px;
+    }
+
+    .ie-irene-page__message-main {
+        max-width: 88%;
+    }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+    .ie-irene-page__workspace {
+        border-radius: 0;
+    }
+
+    .ie-irene-page__header {
+        backdrop-filter: blur(12px);
+    }
+
+    .ie-irene-page__conversation-inner {
+        gap: 22px;
+    }
+
+    .ie-irene-page__message--assistant .ie-irene-page__bubble {
+        padding: 12px 13px;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .ie-irene-page__message--user .ie-irene-page__bubble {
+        padding: 11px 13px;
+        font-size: 13px;
+    }
+
+    .ie-irene-page__composer {
+        border-radius: 15px;
+    }
+
+    .ie-irene-page__welcome-orb {
+        animation: none;
+    }
+}
+
+/* Respeita a preferência por movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-irene-page *,
+    .ie-irene-page *::before,
+    .ie-irene-page *::after {
+        animation: none !important;
+        transition: none !important;
     }
 }

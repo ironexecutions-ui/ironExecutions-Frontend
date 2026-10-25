@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { API_URL } from "../../../config";
 
 import "./body.css";
-
+import Irene from "./irene/irene";
 // Importa todos os módulos
 import Produtividade from "./produtividade/produtividade";
 import Administracao from "./administracao/administracao";
@@ -823,7 +823,7 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
                     </div>
                 </div>
             )}
-
+            {!modoModuloAberto && <Irene />}
         </div>
     );
 }

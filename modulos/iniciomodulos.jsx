@@ -166,12 +166,37 @@ export default function InicioModulos() {
                     type="button"
                     className="ie-irene-launcher"
                     onClick={abrirChat}
-                    aria-label="Abrir conversa com Irene"
-                    title="Conversar com Irene"
+                    aria-label="Conversar com Irene, a inteligência artificial do Iron Executions"
+                    title="Conheça a Irene, sua IA"
                 >
-                    <span className="ie-irene-launcher-pulse" aria-hidden="true" />
-                    <img src={favicon} alt="" className="ie-irene-launcher-logo" />
-                    <span className="ie-irene-launcher-status" aria-hidden="true" />
+                    <span
+                        className="ie-irene-launcher-pulse"
+                        aria-hidden="true"
+                    />
+
+                    <span className="ie-irene-launcher-icon">
+                        <img
+                            src={favicon}
+                            alt=""
+                            className="ie-irene-launcher-logo"
+                        />
+
+                        <span className="ie-irene-launcher-ai">IA</span>
+                    </span>
+
+                    <span className="ie-irene-launcher-text">
+                        <strong>Irene</strong>
+                        <span>Sua assistente de IA</span>
+                    </span>
+
+                    <span
+                        className="ie-irene-launcher-status"
+                        aria-hidden="true"
+                    />
+
+                    <span className="ie-irene-launcher-arrow" aria-hidden="true">
+                        ↗
+                    </span>
                 </button>
             )}
 
