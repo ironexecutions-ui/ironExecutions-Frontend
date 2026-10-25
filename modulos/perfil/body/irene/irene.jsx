@@ -354,16 +354,25 @@ export default function Irene() {
         setErro("");
 
         try {
+
             const token = obterToken();
 
-            const resposta = await fetch(`${API_URL}/ia/conversar`, {
+            const endpoint = token
+                ? `${API_URL}/ia/conversar`
+                : `${API_URL}/ia/conversar-livre`;
+
+            const headers = {
+                "Content-Type": "application/json",
+            };
+
+            if (token) {
+                headers.Authorization = `Bearer ${token}`;
+            }
+
+            const resposta = await fetch(endpoint, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(token
-                        ? { Authorization: `Bearer ${token}` }
-                        : {}),
-                },
+                headers,
+                cache: "no-store",
                 body: JSON.stringify({
                     mensagem: texto,
                     historico: historicoAnterior,
@@ -379,6 +388,7 @@ export default function Irene() {
                         : "Não foi possível obter uma resposta da Irene."
                 );
             }
+
 
             // Não adiciona uma resposta atrasada a uma conversa de outro dia.
             if (obterDataLocal() !== hoje) {
