@@ -17,11 +17,14 @@ function obterDataLocal() {
     return `${ano}-${mes}-${dia}`;
 }
 
-function obterMensagemInicial() {
+function obterMensagemInicial(nomeUsuario = "") {
+    const nome = nomeUsuario.trim();
+
     return {
         role: "assistant",
-        content:
-            "Olá! Eu sou a Irene, a inteligência artificial do Iron Executions. Como posso ajudar você com a plataforma?",
+        content: nome
+            ? `Olá, ${nome}! Eu sou a Irene, a inteligência artificial do Iron Executions. Como posso ajudar você com a plataforma?`
+            : "Olá! Eu sou a Irene, a inteligência artificial do Iron Executions. Como posso ajudar você com a plataforma?",
     };
 }
 
@@ -78,6 +81,7 @@ export default function Irene() {
     const [digitandoResposta, setDigitandoResposta] = useState(false);
     const animacaoRef = useRef(null);
     const mensagensRef = useRef(null);
+    const [nomeUsuario, setNomeUsuario] = useState("");
     const inputRef = useRef(null);
     function animarResposta(texto) {
         if (animacaoRef.current) {
@@ -101,6 +105,63 @@ export default function Irene() {
             }
         }, 20);
     }
+    useEffect(() => {
+        let cancelado = false;
+
+        async function carregarNomeUsuario() {
+            const token =
+                localStorage.getItem("token") ||
+                localStorage.getItem("access_token") ||
+                "";
+
+            if (!token) return;
+
+            try {
+                const resposta = await fetch(`${API_URL}/ia/sessao`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                    cache: "no-store",
+                });
+
+                if (!resposta.ok) return;
+
+                const dados = await resposta.json();
+                if (cancelado) return;
+
+                const nome = dados.nome_usuario?.trim();
+                if (!nome) return;
+
+                setNomeUsuario(nome);
+
+                setMensagens((atuais) => {
+                    // Personaliza somente a saudação inicial,
+                    // sem apagar conversas que já começaram.
+                    if (
+                        atuais.length === 1 &&
+                        atuais[0].role === "assistant"
+                    ) {
+                        return [obterMensagemInicial(nome)];
+                    }
+
+                    return atuais;
+                });
+            } catch (error) {
+                console.error(
+                    "Não foi possível carregar o nome do usuário da Irene:",
+                    error
+                );
+            }
+        }
+
+        carregarNomeUsuario();
+
+        return () => {
+            cancelado = true;
+        };
+    }, []);
     // Atualiza a conversa salva sempre que as mensagens mudarem.
     useEffect(() => {
         try {
