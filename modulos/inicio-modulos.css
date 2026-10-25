@@ -2332,3 +2332,103 @@
         transition: none !important;
     }
 }
+
+/* Link clicável do WhatsApp nas mensagens da Irene */
+.ie-irene-whatsapp-link {
+    display: inline;
+    color: #25d366;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.ie-irene-whatsapp-link:hover {
+    color: #128c7e;
+}
+
+/* Botões de ação abaixo do nome da Irene */
+.ie-irene-header-buttons {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.ie-irene-header-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 7px 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ie-irene-header-button svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.ie-irene-header-button:hover {
+    transform: translateY(-1px);
+}
+
+/* Suporte pelo WhatsApp */
+.ie-irene-header-button-suporte {
+    color: #128c7e;
+    background: #e9f9f1;
+    border-color: #c5edda;
+}
+
+.ie-irene-header-button-suporte:hover {
+    color: #0b705f;
+    background: #d8f4e5;
+    border-color: #9bdcbd;
+}
+
+/* Cadastro de comércio */
+.ie-irene-header-button-cadastro {
+    color: #fff;
+    background: #2563eb;
+    border-color: #2563eb;
+}
+
+.ie-irene-header-button-cadastro:hover {
+    color: #fff;
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+.ie-irene-header-button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.3);
+    outline-offset: 3px;
+}
+
+@media (max-width: 400px) {
+    .ie-irene-header-buttons {
+        gap: 6px;
+    }
+
+    .ie-irene-header-button {
+        padding: 7px 9px;
+        font-size: 11px;
+    }
+}

@@ -190,10 +190,52 @@ export default function InicioModulos() {
                             </div>
                             <div className="ie-irene-chat-brand-text">
                                 <strong>Irene</strong>
+
                                 <span>
                                     <i aria-hidden="true" />
                                     Assistente do Iron Executions
                                 </span>
+
+                                <div className="ie-irene-header-buttons">
+                                    <a
+                                        href="https://wa.me/5511918547818"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="ie-irene-header-button ie-irene-header-button-suporte"
+                                    >
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            fill="currentColor"
+                                        >
+                                            <path d="M12 2a9.8 9.8 0 0 0-8.45 14.76L2 22l5.4-1.42A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.08-1.12l-.29-.17-3.2.84.86-3.12-.19-.31A8 8 0 1 1 12 20Zm4.4-5.98c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.1-.49.11-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.46-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.09 3.62.57.25 1.02.4 1.37.51.58.18 1.1.15 1.51.09.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" />
+                                        </svg>
+
+                                        Suporte
+                                    </a>
+
+                                    <button
+                                        type="button"
+                                        className="ie-irene-header-button ie-irene-header-button-cadastro"
+                                        onClick={() => navigate("/cadastrocomercio")}
+                                    >
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                            <circle cx="10" cy="7" r="4" />
+                                            <path d="M20 8v6M17 11h6" />
+                                        </svg>
+
+                                        Cadastrar-se
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -249,7 +291,23 @@ export default function InicioModulos() {
                                     />
                                 )}
                                 <div className="ie-irene-message-bubble">
-                                    {item.content}
+                                    {item.content
+                                        .split(/(https:\/\/wa\.me\/5511918547818)/g)
+                                        .map((parte, indice) =>
+                                            parte === "https://wa.me/5511918547818" ? (
+                                                <a
+                                                    key={`whatsapp-${indice}`}
+                                                    href="https://wa.me/5511918547818"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="ie-irene-whatsapp-link"
+                                                >
+                                                    Falar com Andy pelo WhatsApp
+                                                </a>
+                                            ) : (
+                                                parte
+                                            )
+                                        )}
                                 </div>
                             </div>
                         ))}
