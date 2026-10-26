@@ -4094,3 +4094,520 @@
         font-size: 12px !important;
     }
 }
+
+/* =========================================================
+   IRONSTORE | FRETE AVULSO
+   ANIMAÇÕES DE ENTRADA POR DIREÇÕES DIFERENTES
+   Classes isoladas: ISFA
+========================================================= */
+
+/* ---------- CABEÇALHO: ENTRA PELO ALTO ---------- */
+
+.isfa-shell>.isfa-hero {
+    opacity: 0;
+    transform: translateY(-45px) scale(0.97);
+    animation: isfaEntradaHero 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes isfaEntradaHero {
+    0% {
+        opacity: 0;
+        transform: translateY(-45px) scale(0.97);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(4px) scale(1.005);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- RESUMO: CADA CARTÃO VEM DE UM LADO ---------- */
+
+.isfa-shell>.isfa-overview>.isfa-overview__item:nth-child(1) {
+    opacity: 0;
+    transform: translateX(-55px) rotate(-2deg);
+    animation: isfaEntradaResumoEsquerda 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+}
+
+.isfa-shell>.isfa-overview>.isfa-overview__item:nth-child(2) {
+    opacity: 0;
+    transform: translateY(45px) scale(0.92);
+    animation: isfaEntradaResumoCentro 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.30s forwards;
+}
+
+.isfa-shell>.isfa-overview>.isfa-overview__item:nth-child(3) {
+    opacity: 0;
+    transform: translateX(55px) rotate(2deg);
+    animation: isfaEntradaResumoDireita 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.42s forwards;
+}
+
+@keyframes isfaEntradaResumoEsquerda {
+    0% {
+        opacity: 0;
+        transform: translateX(-55px) rotate(-2deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(4px) rotate(0.5deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes isfaEntradaResumoCentro {
+    0% {
+        opacity: 0;
+        transform: translateY(45px) scale(0.92);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.01);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes isfaEntradaResumoDireita {
+    0% {
+        opacity: 0;
+        transform: translateX(55px) rotate(2deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(-4px) rotate(-0.5deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+/* ---------- CONTEÚDO PRINCIPAL: ENTRADA DIAGONAL ---------- */
+
+.isfa-shell>.isfa-section-title {
+    opacity: 0;
+    transform: translate(-35px, 25px);
+    animation: isfaEntradaTitulo 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.30s forwards;
+}
+
+@keyframes isfaEntradaTitulo {
+    0% {
+        opacity: 0;
+        transform: translate(-35px, 25px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translate(3px, -2px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+/* ---------- CARTÕES: ALTERNÂNCIA DE DIREÇÕES ---------- */
+
+.isfa-shell .isfa-card {
+    animation: isfaEntradaCartao 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-shell .isfa-address-grid>.isfa-card:nth-child(1) {
+    animation-name: isfaEntradaCartaoEsquerda;
+    animation-delay: 0.12s;
+}
+
+.isfa-shell .isfa-address-grid>.isfa-card:nth-child(2) {
+    animation-name: isfaEntradaCartaoDireita;
+    animation-delay: 0.25s;
+}
+
+.isfa-shell .isfa-lista-pagos {
+    animation-name: isfaEntradaCartaoBaixo;
+    animation-delay: 0.18s;
+}
+
+.isfa-shell .isfa-payment {
+    animation-name: isfaEntradaCartaoDireita;
+    animation-delay: 0.15s;
+}
+
+@keyframes isfaEntradaCartao {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes isfaEntradaCartaoEsquerda {
+    0% {
+        opacity: 0;
+        transform: translateX(-45px) rotate(-1.5deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(3px) rotate(0.3deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes isfaEntradaCartaoDireita {
+    0% {
+        opacity: 0;
+        transform: translateX(45px) rotate(1.5deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateX(-3px) rotate(-0.3deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes isfaEntradaCartaoBaixo {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.005);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- FORMULÁRIO: CAMPOS ENTRAM EM SEQUÊNCIA ---------- */
+
+.isfa-shell .isfa-form .isfa-field {
+    animation: isfaEntradaCampo 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-shell .isfa-form .isfa-field:nth-child(4n + 1) {
+    animation-delay: 0.08s;
+}
+
+.isfa-shell .isfa-form .isfa-field:nth-child(4n + 2) {
+    animation-delay: 0.16s;
+}
+
+.isfa-shell .isfa-form .isfa-field:nth-child(4n + 3) {
+    animation-delay: 0.24s;
+}
+
+.isfa-shell .isfa-form .isfa-field:nth-child(4n + 4) {
+    animation-delay: 0.32s;
+}
+
+@keyframes isfaEntradaCampo {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- FRETES: ENTRADA ALTERNADA ---------- */
+
+.isfa-shell .isfa-lista-itens>.isfa-frete-pago:nth-child(odd) {
+    animation: isfaEntradaFreteEsquerda 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-shell .isfa-lista-itens>.isfa-frete-pago:nth-child(even) {
+    animation: isfaEntradaFreteDireita 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-shell .isfa-lista-itens>.isfa-frete-pago:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.isfa-shell .isfa-lista-itens>.isfa-frete-pago:nth-child(2) {
+    animation-delay: 0.18s;
+}
+
+.isfa-shell .isfa-lista-itens>.isfa-frete-pago:nth-child(3) {
+    animation-delay: 0.28s;
+}
+
+.isfa-shell .isfa-lista-itens>.isfa-frete-pago:nth-child(4) {
+    animation-delay: 0.38s;
+}
+
+.isfa-shell .isfa-lista-itens>.isfa-frete-pago:nth-child(n + 5) {
+    animation-delay: 0.45s;
+}
+
+@keyframes isfaEntradaFreteEsquerda {
+    0% {
+        opacity: 0;
+        transform: translate(-45px, 15px) rotate(-1deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translate(3px, -1px) rotate(0.2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0);
+    }
+}
+
+@keyframes isfaEntradaFreteDireita {
+    0% {
+        opacity: 0;
+        transform: translate(45px, 15px) rotate(1deg);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translate(-3px, -1px) rotate(-0.2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0);
+    }
+}
+
+/* ---------- OPÇÕES DE ENTREGA ---------- */
+
+.isfa-shell .isfa-option-list>.isfa-option:nth-child(odd) {
+    animation: isfaEntradaOpcaoEsquerda 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-shell .isfa-option-list>.isfa-option:nth-child(even) {
+    animation: isfaEntradaOpcaoDireita 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-shell .isfa-option-list>.isfa-option:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.isfa-shell .isfa-option-list>.isfa-option:nth-child(2) {
+    animation-delay: 0.18s;
+}
+
+.isfa-shell .isfa-option-list>.isfa-option:nth-child(3) {
+    animation-delay: 0.28s;
+}
+
+.isfa-shell .isfa-option-list>.isfa-option:nth-child(n + 4) {
+    animation-delay: 0.36s;
+}
+
+@keyframes isfaEntradaOpcaoEsquerda {
+    from {
+        opacity: 0;
+        transform: translateX(-35px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes isfaEntradaOpcaoDireita {
+    from {
+        opacity: 0;
+        transform: translateX(35px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* ---------- RESUMOS, RODAPÉS E PAGINAÇÃO ---------- */
+
+.isfa-shell .isfa-form-footer,
+.isfa-shell .isfa-lista-paginacao,
+.isfa-shell .isfa-payment__next-step {
+    animation: isfaEntradaRodape 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+@keyframes isfaEntradaRodape {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- MODAL: VEM DE BAIXO COM LEVE INCLINAÇÃO ---------- */
+
+.isfa-cotacao-modal-backdrop,
+.isfa-cotacao-overlay {
+    animation: isfaEntradaFundoModal 0.25s ease-out both;
+}
+
+.isfa-cotacao-modal-backdrop .isfa-cotacao-modal,
+.isfa-cotacao-overlay .isfa-cotacao-modal {
+    animation: isfaEntradaModalPrincipal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+@keyframes isfaEntradaFundoModal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes isfaEntradaModalPrincipal {
+    0% {
+        opacity: 0;
+        transform: translateY(55px) rotate(1.2deg) scale(0.94);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-4px) rotate(-0.2deg) scale(1.005);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0) scale(1);
+    }
+}
+
+/* ---------- RESULTADOS DA COTAÇÃO ---------- */
+
+.isfa-cotacao-results__heading {
+    animation: isfaEntradaResultadoTitulo 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-cotacao-results__list>.isfa-cotacao-result:nth-child(odd) {
+    animation: isfaEntradaResultadoEsquerda 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-cotacao-results__list>.isfa-cotacao-result:nth-child(even) {
+    animation: isfaEntradaResultadoDireita 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.isfa-cotacao-results__list>.isfa-cotacao-result:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.isfa-cotacao-results__list>.isfa-cotacao-result:nth-child(2) {
+    animation-delay: 0.17s;
+}
+
+.isfa-cotacao-results__list>.isfa-cotacao-result:nth-child(3) {
+    animation-delay: 0.26s;
+}
+
+.isfa-cotacao-results__list>.isfa-cotacao-result:nth-child(n + 4) {
+    animation-delay: 0.34s;
+}
+
+@keyframes isfaEntradaResultadoTitulo {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes isfaEntradaResultadoEsquerda {
+    from {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes isfaEntradaResultadoDireita {
+    from {
+        opacity: 0;
+        transform: translateX(30px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* ---------- ACESSIBILIDADE ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .isfa-shell>.isfa-hero,
+    .isfa-shell>.isfa-overview>.isfa-overview__item,
+    .isfa-shell>.isfa-section-title,
+    .isfa-shell .isfa-card,
+    .isfa-shell .isfa-form .isfa-field,
+    .isfa-shell .isfa-lista-itens>.isfa-frete-pago,
+    .isfa-shell .isfa-option-list>.isfa-option,
+    .isfa-shell .isfa-form-footer,
+    .isfa-shell .isfa-lista-paginacao,
+    .isfa-shell .isfa-payment__next-step,
+    .isfa-cotacao-modal-backdrop,
+    .isfa-cotacao-overlay,
+    .isfa-cotacao-modal-backdrop .isfa-cotacao-modal,
+    .isfa-cotacao-overlay .isfa-cotacao-modal,
+    .isfa-cotacao-results__heading,
+    .isfa-cotacao-results__list>.isfa-cotacao-result {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        will-change: auto !important;
+    }
+}
