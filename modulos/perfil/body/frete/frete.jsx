@@ -2327,7 +2327,83 @@ export default function Frete({ token: tokenProp }) {
                                     <small>Digite o CEP para consultar as modalidades</small>
                                 </label>
                             </div>
+                            <div className="isfa-cotacao-modal__package">
+                                <div className="isfa-cotacao-modal__section-heading">
+                                    <span className="isfa-cotacao-modal__section-icon" aria-hidden="true">
+                                        ▦
+                                    </span>
+                                    <div>
+                                        <strong>Dimensões do pacote</strong>
+                                        <small>Informe as medidas reais para calcular o frete.</small>
+                                    </div>
+                                </div>
 
+                                <div className="isfa-cotacao-modal__fields isfa-cotacao-modal__fields--package">
+                                    <label className="isfa-cotacao-modal__field">
+                                        <span>Peso (kg)</span>
+                                        <input
+                                            type="number"
+                                            name="peso"
+                                            min="0.01"
+                                            step="0.01"
+                                            placeholder="Ex.: 1.5 ou 0.500"
+                                            onChange={(evento) =>
+                                                atualizarCampo("volume", "peso", evento.target.value)
+                                            }
+                                            required
+                                        />
+                                        <small>Peso total do pacote.</small>
+                                    </label>
+
+                                    <label className="isfa-cotacao-modal__field">
+                                        <span>Altura (cm)</span>
+                                        <input
+                                            type="number"
+                                            name="altura"
+                                            min="1"
+                                            step="0.1"
+                                            placeholder="Ex.: 10"
+                                            onChange={(evento) =>
+                                                atualizarCampo("volume", "altura", evento.target.value)
+                                            }
+                                            required
+                                        />
+                                        <small>Da base até o topo.</small>
+                                    </label>
+
+                                    <label className="isfa-cotacao-modal__field">
+                                        <span>Largura (cm)</span>
+                                        <input
+                                            type="number"
+                                            name="largura"
+                                            min="1"
+                                            step="0.1"
+                                            placeholder="Ex.: 15"
+                                            onChange={(evento) =>
+                                                atualizarCampo("volume", "largura", evento.target.value)
+                                            }
+                                            required
+                                        />
+                                        <small>De um lado ao outro.</small>
+                                    </label>
+
+                                    <label className="isfa-cotacao-modal__field">
+                                        <span>Comprimento (cm)</span>
+                                        <input
+                                            type="number"
+                                            name="comprimento"
+                                            min="1"
+                                            step="0.1"
+                                            placeholder="Ex.: 20"
+                                            onChange={(evento) =>
+                                                atualizarCampo("volume", "comprimento", evento.target.value)
+                                            }
+                                            required
+                                        />
+                                        <small>Medida do lado mais longo.</small>
+                                    </label>
+                                </div>
+                            </div>
                             {erroCotacaoRapida && <div className="isfa-cotacao-modal__message isfa-cotacao-modal__message--error" role="alert">{erroCotacaoRapida}</div>}
                             {avisoCotacaoRapida && <div className="isfa-cotacao-modal__message isfa-cotacao-modal__message--info" role="status">{avisoCotacaoRapida}</div>}
 
