@@ -1212,3 +1212,574 @@
         transition: none !important;
     }
 }
+
+/* ==========================================
+   IRENE | MICROFONE ALINHADO AO COMPOSER
+   ========================================== */
+
+.ie-irene-page .ie-irene-page__composer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ie-irene-page .ie-irene-page__textareaa {
+    flex: 1 1 auto;
+    width: 0;
+    min-width: 0;
+    min-height: 46px;
+    max-height: 180px;
+    margin: 0;
+    padding: 12px 0;
+    resize: none;
+    align-self: center;
+    box-sizing: border-box;
+}
+
+.ie-irene-page .ie-irene-page__voice-button,
+.ie-irene-page .ie-irene-page__send-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    align-self: center;
+}
+
+.ie-irene-page .ie-irene-page__voice-button {
+    color: #b8adff;
+    background: #1b2232;
+    border: 1px solid rgba(139, 124, 255, 0.22);
+    border-radius: 14px;
+    cursor: pointer;
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ie-irene-page .ie-irene-page__voice-button svg {
+    display: block;
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+}
+
+.ie-irene-page .ie-irene-page__voice-button:hover:not(:disabled) {
+    color: #ffffff;
+    background: rgba(139, 124, 255, 0.17);
+    border-color: rgba(139, 124, 255, 0.65);
+    transform: translateY(-1px);
+}
+
+.ie-irene-page .ie-irene-page__voice-button--recording {
+    color: #ff9eae;
+    background: rgba(255, 75, 105, 0.13);
+    border-color: rgba(255, 90, 120, 0.6);
+}
+
+.ie-irene-page .ie-irene-page__voice-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.ie-irene-page .ie-irene-page__send-button {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.ie-irene-page .ie-irene-page__send-button svg {
+    display: block;
+    flex-shrink: 0;
+}
+
+.ie-irene-page .ie-irene-page__voice-status {
+    width: 100%;
+    max-width: 1030px;
+    margin: 10px auto 0;
+    box-sizing: border-box;
+}
+
+.ie-irene-page .ie-irene-page__voice-stop,
+.ie-irene-page .ie-irene-page__voice-dismiss {
+    flex-shrink: 0;
+}
+
+/* Ajustes para telas menores */
+
+@media (max-width: 600px) {
+    .ie-irene-page .ie-irene-page__composer {
+        align-items: center;
+        gap: 7px;
+        padding: 7px;
+    }
+
+    .ie-irene-page .ie-irene-page__textareaa {
+        min-height: 43px;
+        max-height: 125px;
+        padding: 10px 0;
+        font-size: 13px !important;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-button,
+    .ie-irene-page .ie-irene-page__send-button {
+        flex: 0 0 41px;
+        width: 41px;
+        min-width: 41px;
+        height: 41px;
+        border-radius: 12px;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-button svg {
+        width: 19px;
+        height: 19px;
+    }
+}
+
+@media (max-width: 360px) {
+    .ie-irene-page .ie-irene-page__composer {
+        gap: 5px;
+        padding: 6px;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-button,
+    .ie-irene-page .ie-irene-page__send-button {
+        flex-basis: 37px;
+        width: 37px;
+        min-width: 37px;
+        height: 37px;
+    }
+}
+
+/* =====================================================
+   IRENE | SISTEMA COMPLETO DE VOZ E TRANSCRIÇÃO
+   Prefixo exclusivo: ie-irene-voice
+   ===================================================== */
+
+.ie-irene-page {
+    --ie-irene-voice-accent: #8b7cff;
+    --ie-irene-voice-accent-light: #b8adff;
+    --ie-irene-voice-surface: #1a2232;
+    --ie-irene-voice-border: rgba(255, 255, 255, 0.11);
+    --ie-irene-voice-text: #e8ebf5;
+    --ie-irene-voice-muted: #8e9bb2;
+    --ie-irene-voice-danger: #ff7288;
+    --ie-irene-voice-success: #4bddaa;
+}
+
+/* Campo de mensagem e alinhamento dos botões */
+
+.ie-irene-page .ie-irene-page__composer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+}
+
+.ie-irene-page .ie-irene-page__textareaa {
+    flex: 1 1 0%;
+    width: 0;
+    min-width: 0;
+    min-height: 46px;
+    max-height: 180px;
+    margin: 0;
+    padding: 12px 0;
+    align-self: center;
+    resize: none;
+    overflow-y: auto;
+    box-sizing: border-box;
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: var(--irp-text);
+    line-height: 1.65;
+}
+
+.ie-irene-page .ie-irene-page__textareaa:focus,
+.ie-irene-page .ie-irene-page__textareaa:focus-visible {
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Botão de microfone */
+
+.ie-irene-page .ie-irene-page__voice-button {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 46px;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    color: var(--ie-irene-voice-accent-light);
+    background: linear-gradient(145deg, #20283a, #171e2c);
+    border: 1px solid rgba(139, 124, 255, 0.24);
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    box-sizing: border-box;
+    align-self: center;
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ie-irene-page .ie-irene-page__voice-button svg {
+    display: block;
+    flex: 0 0 auto;
+    width: 21px;
+    height: 21px;
+}
+
+.ie-irene-page .ie-irene-page__voice-button:hover:not(:disabled) {
+    color: #ffffff;
+    background: linear-gradient(145deg, #332d58, #25213f);
+    border-color: rgba(139, 124, 255, 0.72);
+    box-shadow: 0 5px 17px rgba(105, 85, 231, 0.18);
+    transform: translateY(-1px);
+}
+
+.ie-irene-page .ie-irene-page__voice-button:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.ie-irene-page .ie-irene-page__voice-button:focus-visible {
+    outline: 2px solid var(--ie-irene-voice-accent-light);
+    outline-offset: 3px;
+}
+
+.ie-irene-page .ie-irene-page__voice-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Estado de gravação */
+
+.ie-irene-page .ie-irene-page__voice-button--recording {
+    color: #ffffff;
+    background: linear-gradient(145deg, #c83f59, #8f253d);
+    border-color: rgba(255, 114, 136, 0.85);
+    box-shadow:
+        0 0 0 4px rgba(255, 80, 110, 0.09),
+        0 5px 18px rgba(255, 70, 100, 0.18);
+    animation: ie-irene-voice-recording-pulse 1.5s ease-in-out infinite;
+}
+
+.ie-irene-page .ie-irene-page__voice-button--recording:hover:not(:disabled) {
+    color: #ffffff;
+    background: linear-gradient(145deg, #df4c67, #a52b46);
+    border-color: #ff9cab;
+}
+
+.ie-irene-page .ie-irene-page__voice-button--recording svg {
+    width: 21px;
+    height: 21px;
+}
+
+/* Aviso de gravação e mensagens de erro */
+
+.ie-irene-page .ie-irene-page__voice-status {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: 100%;
+    max-width: 1030px;
+    min-width: 0;
+    margin: 10px auto 0;
+    padding: 12px 15px;
+    border: 1px solid var(--ie-irene-voice-border);
+    border-radius: 13px;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: 550;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    animation: ie-irene-voice-enter 0.2s ease both;
+}
+
+.ie-irene-page .ie-irene-page__voice-status--active {
+    color: #a5f3cf;
+    background: linear-gradient(120deg,
+            rgba(32, 185, 128, 0.11),
+            rgba(21, 35, 42, 0.8));
+    border-color: rgba(75, 221, 170, 0.23);
+}
+
+.ie-irene-page .ie-irene-page__voice-status--error {
+    color: #ffc0ca;
+    background: rgba(255, 83, 109, 0.08);
+    border-color: rgba(255, 100, 125, 0.23);
+}
+
+/* Indicador animado de voz */
+
+.ie-irene-page .ie-irene-page__voice-indicator {
+    position: relative;
+    display: inline-block;
+    flex: 0 0 9px;
+    width: 9px;
+    height: 9px;
+    background: var(--ie-irene-voice-success);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(75, 221, 170, 0.1);
+    animation: ie-irene-voice-indicator-pulse 1.1s ease-in-out infinite;
+}
+
+.ie-irene-page .ie-irene-page__voice-status--active>span:nth-child(2) {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Botão concluir */
+
+.ie-irene-page .ie-irene-page__voice-stop {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    margin-left: auto;
+    padding: 6px 13px;
+    color: #d7ffec;
+    background: rgba(75, 221, 170, 0.09);
+    border: 1px solid rgba(75, 221, 170, 0.28);
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 750;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ie-irene-page .ie-irene-page__voice-stop:hover {
+    background: rgba(75, 221, 170, 0.17);
+    border-color: rgba(75, 221, 170, 0.55);
+    transform: translateY(-1px);
+}
+
+.ie-irene-page .ie-irene-page__voice-stop:active {
+    transform: scale(0.97);
+}
+
+/* Botão para fechar avisos */
+
+.ie-irene-page .ie-irene-page__voice-dismiss {
+    display: inline-flex;
+    flex: 0 0 28px;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-left: auto;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.ie-irene-page .ie-irene-page__voice-dismiss:hover {
+    background: rgba(255, 100, 125, 0.12);
+    border-color: rgba(255, 100, 125, 0.2);
+}
+
+/* Botão de enviar alinhado ao microfone */
+
+.ie-irene-page .ie-irene-page__send-button {
+    display: inline-flex;
+    flex: 0 0 46px;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+    box-sizing: border-box;
+}
+
+.ie-irene-page .ie-irene-page__send-button svg {
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Foco acessível */
+
+.ie-irene-page .ie-irene-page__voice-stop:focus-visible,
+.ie-irene-page .ie-irene-page__voice-dismiss:focus-visible {
+    outline: 2px solid var(--ie-irene-voice-accent-light);
+    outline-offset: 3px;
+}
+
+/* Animações exclusivas */
+
+@keyframes ie-irene-voice-recording-pulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 3px rgba(255, 80, 110, 0.07),
+            0 5px 18px rgba(255, 70, 100, 0.12);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 7px rgba(255, 80, 110, 0.04),
+            0 5px 22px rgba(255, 70, 100, 0.23);
+    }
+}
+
+@keyframes ie-irene-voice-indicator-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.55;
+        transform: scale(0.82);
+    }
+}
+
+@keyframes ie-irene-voice-enter {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade para tablets */
+
+@media (max-width: 900px) {
+    .ie-irene-page .ie-irene-page__voice-status {
+        max-width: 100%;
+    }
+}
+
+/* Responsividade para celulares */
+
+@media (max-width: 600px) {
+    .ie-irene-page .ie-irene-page__composer {
+        align-items: center;
+        gap: 7px;
+    }
+
+    .ie-irene-page .ie-irene-page__textareaa {
+        min-height: 43px;
+        max-height: 125px;
+        padding: 10px 0;
+        font-size: 13px !important;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-button,
+    .ie-irene-page .ie-irene-page__send-button {
+        flex: 0 0 41px;
+        width: 41px;
+        min-width: 41px;
+        height: 41px;
+        border-radius: 12px;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-button svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-status {
+        gap: 9px;
+        padding: 11px;
+        font-size: 11px;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-stop {
+        min-height: 30px;
+        padding: 5px 9px;
+        font-size: 10px;
+    }
+}
+
+/* Celulares estreitos */
+
+@media (max-width: 360px) {
+    .ie-irene-page .ie-irene-page__composer {
+        gap: 5px;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-button,
+    .ie-irene-page .ie-irene-page__send-button {
+        flex-basis: 37px;
+        width: 37px;
+        min-width: 37px;
+        height: 37px;
+        border-radius: 11px;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-button svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-status {
+        flex-wrap: wrap;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-stop {
+        margin-left: auto;
+    }
+}
+
+/* Acessibilidade: movimento reduzido */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-irene-page .ie-irene-page__voice-button--recording,
+    .ie-irene-page .ie-irene-page__voice-indicator,
+    .ie-irene-page .ie-irene-page__voice-status {
+        animation: none !important;
+    }
+
+    .ie-irene-page .ie-irene-page__voice-button,
+    .ie-irene-page .ie-irene-page__voice-stop,
+    .ie-irene-page .ie-irene-page__voice-dismiss {
+        transition: none !important;
+    }
+}

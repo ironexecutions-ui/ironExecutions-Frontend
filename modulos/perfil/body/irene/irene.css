@@ -1166,12 +1166,12 @@
 
     resize: none;
 
-    color: #172033;
+    color: #172033 !important;
     background: #f8fafc;
     border: 1px solid #e1e8f0;
     border-radius: 16px;
     outline: none;
-
+    font-weight: bolder !important;
     font-family: inherit;
     font-size: 13px;
     font-weight: 430;
@@ -1600,4 +1600,335 @@ body:has(.ie-assistant-launcher) .header-perfil-aviso-pendencia {
 a.ie-assistant-brand {
     color: inherit;
     text-decoration: none;
+}
+
+/* ==========================================================
+   IRENE AI — MICROFONE E TRANSCRIÇÃO DE VOZ
+   Todas as propriedades aplicáveis com !important
+========================================================== */
+
+.ie-assistant-composer {
+    display: flex !important;
+    align-items: flex-end !important;
+    gap: 9px !important;
+}
+
+
+
+/* Botão do microfone */
+.ie-assistant-microphone {
+    display: grid !important;
+    place-items: center !important;
+    flex: 0 0 47px !important;
+    width: 47px !important;
+    height: 47px !important;
+    padding: 0 !important;
+    color: #475569 !important;
+    background: #f1f5f9 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition:
+        color 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease !important;
+}
+
+.ie-assistant-microphone svg {
+    display: block !important;
+    width: 21px !important;
+    height: 21px !important;
+    flex: 0 0 auto !important;
+}
+
+.ie-assistant-microphone:hover:not(:disabled) {
+    color: #1d4ed8 !important;
+    background: #eff6ff !important;
+    border-color: #93c5fd !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.10) !important;
+}
+
+.ie-assistant-microphone:active:not(:disabled) {
+    transform: scale(0.96) !important;
+}
+
+.ie-assistant-microphone:focus-visible,
+.ie-assistant-voice-stop:focus-visible,
+.ie-assistant-voice-dismiss:focus-visible {
+    outline: 3px solid rgba(59, 130, 246, 0.65) !important;
+    outline-offset: 3px !important;
+}
+
+.ie-assistant-microphone:disabled {
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+}
+
+/* Microfone ativo */
+.ie-assistant-microphone--recording {
+    color: #fff !important;
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12) !important;
+    animation: ie-assistant-microphone-pulse 1.5s ease-in-out infinite !important;
+}
+
+.ie-assistant-microphone--recording:hover:not(:disabled) {
+    color: #fff !important;
+    background: #b91c1c !important;
+    border-color: #b91c1c !important;
+    box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.14) !important;
+}
+
+@keyframes ie-assistant-microphone-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+    }
+
+    50% {
+        box-shadow: 0 0 0 7px rgba(220, 38, 38, 0.06);
+    }
+}
+
+/* Estado da gravação e mensagens de erro */
+.ie-assistant-voice-status {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    margin: 0 15px !important;
+    padding: 10px 12px !important;
+    color: #334155 !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    font-family: inherit !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+    animation: ie-assistant-voice-appear 180ms ease-out both !important;
+}
+
+.ie-assistant-voice-status--active {
+    color: #991b1b !important;
+    background: #fff7f7 !important;
+    border-color: #fecaca !important;
+}
+
+.ie-assistant-voice-status--error {
+    color: #991b1b !important;
+    background: #fef2f2 !important;
+    border-color: #fecaca !important;
+}
+
+.ie-assistant-voice-indicator {
+    position: relative !important;
+    display: block !important;
+    flex: 0 0 8px !important;
+    width: 8px !important;
+    height: 8px !important;
+    background: #94a3b8 !important;
+    border-radius: 50% !important;
+}
+
+.ie-assistant-voice-status--active .ie-assistant-voice-indicator {
+    background: #dc2626 !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12) !important;
+    animation: ie-assistant-voice-indicator-pulse 1.2s ease-in-out infinite !important;
+}
+
+.ie-assistant-voice-status--error .ie-assistant-voice-indicator {
+    background: #dc2626 !important;
+}
+
+@keyframes ie-assistant-voice-indicator-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.55;
+        transform: scale(0.8);
+    }
+}
+
+.ie-assistant-voice-text {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+}
+
+/* Botão para encerrar a gravação */
+.ie-assistant-voice-stop {
+    flex: 0 0 auto !important;
+    min-height: 30px !important;
+    padding: 6px 10px !important;
+    color: #fff !important;
+    background: #dc2626 !important;
+    border: 1px solid #dc2626 !important;
+    border-radius: 8px !important;
+    font: inherit !important;
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease !important;
+}
+
+.ie-assistant-voice-stop:hover {
+    background: #b91c1c !important;
+    border-color: #b91c1c !important;
+}
+
+.ie-assistant-voice-stop:active {
+    transform: scale(0.97) !important;
+}
+
+/* Fechar aviso de erro do microfone */
+.ie-assistant-voice-dismiss {
+    display: grid !important;
+    place-items: center !important;
+    flex: 0 0 25px !important;
+    width: 25px !important;
+    height: 25px !important;
+    padding: 0 !important;
+    color: inherit !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 7px !important;
+    font: inherit !important;
+    font-size: 19px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+}
+
+.ie-assistant-voice-dismiss:hover {
+    background: rgba(153, 27, 27, 0.08) !important;
+}
+
+@keyframes ie-assistant-voice-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 900px) {
+    .ie-assistant-composer {
+        gap: 8px !important;
+    }
+
+    .ie-assistant-voice-status {
+        margin-right: 12px !important;
+        margin-left: 12px !important;
+    }
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+    .ie-assistant-composer {
+        align-items: flex-end !important;
+        gap: 7px !important;
+        padding: 12px 10px 9px !important;
+    }
+
+    .ie-assistant-input {
+        min-width: 0 !important;
+        min-height: 46px !important;
+        max-height: 120px !important;
+        padding: 12px !important;
+        font-size: 14px !important;
+    }
+
+    .ie-assistant-microphone {
+        flex-basis: 44px !important;
+        width: 44px !important;
+        height: 46px !important;
+        border-radius: 14px !important;
+    }
+
+    .ie-assistant-microphone svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .ie-assistant-send {
+        flex-basis: 44px !important;
+        width: 44px !important;
+        height: 46px !important;
+        border-radius: 14px !important;
+    }
+
+    .ie-assistant-voice-status {
+        gap: 8px !important;
+        margin-right: 10px !important;
+        margin-left: 10px !important;
+        padding: 9px 10px !important;
+        font-size: 12px !important;
+    }
+
+    .ie-assistant-voice-stop {
+        padding: 6px 8px !important;
+        font-size: 10px !important;
+    }
+}
+
+/* Celulares estreitos */
+@media (max-width: 360px) {
+    .ie-assistant-composer {
+        gap: 5px !important;
+        padding-right: 7px !important;
+        padding-left: 7px !important;
+    }
+
+    .ie-assistant-microphone,
+    .ie-assistant-send {
+        flex-basis: 40px !important;
+        width: 40px !important;
+    }
+
+    .ie-assistant-input {
+        padding-right: 9px !important;
+        padding-left: 9px !important;
+    }
+
+    .ie-assistant-voice-status {
+        gap: 6px !important;
+        margin-right: 7px !important;
+        margin-left: 7px !important;
+        padding: 8px !important;
+    }
+}
+
+/* Acessibilidade: movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-assistant-microphone,
+    .ie-assistant-voice-stop,
+    .ie-assistant-voice-dismiss {
+        transition: none !important;
+    }
+
+    .ie-assistant-microphone--recording,
+    .ie-assistant-voice-status,
+    .ie-assistant-voice-indicator {
+        animation: none !important;
+    }
 }

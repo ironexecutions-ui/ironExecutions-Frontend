@@ -9,6 +9,7 @@ import Panfletos from "./panfletos";
 import Candidatos from "./candidatos";
 import Termos from "./termos";
 import Ironstock from "./ironstockpainel";
+import Ireneg from "./irene";
 const CACHE_HISTORICO_SQL =
     "painel_g_historico_sql_v1";
 
@@ -400,9 +401,7 @@ export default function PainelG() {
         );
     }
 
-    /* =====================================================
-       COPIAR ESTRUTURA DA TABELA
-    ===================================================== */
+
     /* =====================================================
        COPIAR RESULTADO SQL
     ===================================================== */
@@ -762,7 +761,8 @@ export default function PainelG() {
             Termos: "termos",
             Candidatos: "candidatos",
             json: "JSON",
-            Ironstock: "ironstock"
+            Ironstock: "ironstock",
+            Ireneg: "ireneg",
         };
         document.title =
             titulosPainelG[painelGSecaoAtiva] || "Painel";
@@ -1187,6 +1187,20 @@ ATALHOS SQL DA TABELA
                 >
                     Panfletos
                 </button>
+                {/* <button
+                    type="button"
+                    className={
+                        painelGSecaoAtiva === "irene"
+                            ? "painel-g-menu-botao painel-g-menu-botao-ativo"
+                            : "painel-g-menu-botao"
+                    }
+                    onClick={() =>
+                        setPainelGSecaoAtiva("irene")
+                    }
+                >
+                    Irene
+                </button> */}
+
                 <button
                     type="button"
                     className={
@@ -1234,7 +1248,9 @@ ATALHOS SQL DA TABELA
             {painelGSecaoAtiva === "panfletos" && (
                 <Panfletos />
             )}
-
+            {painelGSecaoAtiva === "irene" && (
+                <Ireneg />
+            )}
             {painelGSecaoAtiva === "candidatos" && (
                 <Candidatos />
             )}

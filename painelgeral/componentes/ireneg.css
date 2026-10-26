@@ -1,0 +1,1331 @@
+.ie-irene-supervisao {
+    --ie-irene-azul: #2563eb;
+    --ie-irene-azul-hover: #1d4ed8;
+    --ie-irene-azul-escuro: #1e40af;
+    --ie-irene-azul-claro: #eff6ff;
+    --ie-irene-azul-borda: #bfdbfe;
+
+    --ie-irene-preto: #111827;
+    --ie-irene-texto: #374151;
+    --ie-irene-cinza: #6b7280;
+    --ie-irene-cinza-claro: #9ca3af;
+
+    --ie-irene-borda: #e5e7eb;
+    --ie-irene-fundo: #ffffff;
+    --ie-irene-fundo-suave: #f9fafb;
+
+    --ie-irene-verde: #15803d;
+    --ie-irene-verde-fundo: #f0fdf4;
+    --ie-irene-verde-borda: #bbf7d0;
+
+    --ie-irene-vermelho: #b91c1c;
+    --ie-irene-vermelho-fundo: #fef2f2;
+    --ie-irene-vermelho-borda: #fecaca;
+
+    width: 100%;
+    min-height: 100vh;
+    padding: 32px;
+    background: var(--ie-irene-fundo);
+    color: var(--ie-irene-preto);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    box-sizing: border-box;
+}
+
+.ie-irene-supervisao *,
+.ie-irene-supervisao *::before,
+.ie-irene-supervisao *::after {
+    box-sizing: border-box;
+}
+
+.ie-irene-supervisao button,
+.ie-irene-supervisao input {
+    font: inherit;
+}
+
+.ie-irene-supervisao button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ie-irene-supervisao button:focus-visible,
+.ie-irene-supervisao input:focus-visible {
+    outline: 3px solid rgb(37 99 235 / 22%);
+    outline-offset: 3px;
+}
+
+/* ============================================================
+   CONTEÚDO PRINCIPAL
+============================================================ */
+
+.ie-irene-supervisao__conteudo {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* ============================================================
+   CABEÇALHO
+============================================================ */
+
+.ie-irene-supervisao__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-bottom: 30px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--ie-irene-borda);
+}
+
+.ie-irene-supervisao__identidade {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    min-width: 0;
+}
+
+.ie-irene-supervisao__icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border: 1px solid var(--ie-irene-azul-borda);
+    border-radius: 17px;
+    background: var(--ie-irene-azul-claro);
+    color: var(--ie-irene-azul);
+    box-shadow: 0 3px 8px rgb(37 99 235 / 5%);
+}
+
+.ie-irene-supervisao__icone span {
+    font-size: 19px;
+    font-weight: 850;
+    letter-spacing: -1px;
+}
+
+.ie-irene-supervisao__titulo {
+    min-width: 0;
+}
+
+.ie-irene-supervisao__sobretitulo {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: var(--ie-irene-azul);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    line-height: 1.5;
+}
+
+.ie-irene-supervisao__titulo h1 {
+    margin: 0;
+    color: var(--ie-irene-preto);
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+.ie-irene-supervisao__titulo p {
+    max-width: 650px;
+    margin: 8px 0 0;
+    color: var(--ie-irene-cinza);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* ============================================================
+   RESUMO — CARDS DE INDICADORES
+============================================================ */
+
+.ie-irene-supervisao__resumo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.ie-irene-supervisao__indicador {
+    position: relative;
+    min-width: 0;
+    padding: 23px;
+    overflow: hidden;
+    border: 1px solid var(--ie-irene-borda);
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 2px 7px rgb(15 23 42 / 3%);
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+}
+
+.ie-irene-supervisao__indicador:hover {
+    border-color: var(--ie-irene-azul-borda);
+    box-shadow: 0 7px 20px rgb(37 99 235 / 7%);
+    transform: translateY(-2px);
+}
+
+.ie-irene-supervisao__indicador-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.ie-irene-supervisao__indicador-topo>span:first-child {
+    color: var(--ie-irene-texto);
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.ie-irene-supervisao__indicador-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 39px;
+    height: 39px;
+    border: 1px solid var(--ie-irene-azul-borda);
+    border-radius: 11px;
+    background: var(--ie-irene-azul-claro);
+    color: var(--ie-irene-azul);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.ie-irene-supervisao__indicador>strong {
+    display: block;
+    margin: 0;
+    color: var(--ie-irene-preto);
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    font-variant-numeric: tabular-nums;
+}
+
+.ie-irene-supervisao__indicador-descricao {
+    display: block;
+    margin-top: 11px;
+    color: var(--ie-irene-cinza);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   PAINEL DO HISTÓRICO
+============================================================ */
+
+.ie-irene-supervisao__painel {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--ie-irene-borda);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 3px 10px rgb(15 23 42 / 3%);
+}
+
+.ie-irene-supervisao__painel-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding: 25px;
+    border-bottom: 1px solid var(--ie-irene-borda);
+    background: #ffffff;
+}
+
+.ie-irene-supervisao__painel-titulo {
+    min-width: 0;
+    flex: 1 1 300px;
+}
+
+.ie-irene-supervisao__painel-titulo .ie-irene-supervisao__sobretitulo {
+    margin-bottom: 7px;
+}
+
+.ie-irene-supervisao__painel-titulo h2 {
+    margin: 0;
+    color: var(--ie-irene-preto);
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.35;
+}
+
+.ie-irene-supervisao__painel-titulo p {
+    max-width: 650px;
+    margin: 8px 0 0;
+    color: var(--ie-irene-cinza);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* ============================================================
+   CAMPO DE BUSCA
+============================================================ */
+
+.ie-irene-supervisao__busca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 1 285px;
+    min-width: 220px;
+    height: 44px;
+    padding: 0 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--ie-irene-cinza);
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.ie-irene-supervisao__busca:focus-within {
+    border-color: var(--ie-irene-azul);
+    box-shadow: 0 0 0 3px rgb(37 99 235 / 10%);
+}
+
+.ie-irene-supervisao__busca>span {
+    flex-shrink: 0;
+    color: var(--ie-irene-azul);
+    font-size: 23px;
+    line-height: 1;
+}
+
+.ie-irene-supervisao__busca input {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--ie-irene-preto);
+    font-size: 13px;
+    box-shadow: none;
+}
+
+.ie-irene-supervisao__busca input:focus-visible {
+    outline: none;
+}
+
+.ie-irene-supervisao__busca input::placeholder {
+    color: var(--ie-irene-cinza-claro);
+}
+
+/* ============================================================
+   LISTA DE DATAS
+============================================================ */
+
+.ie-irene-supervisao__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    padding: 0 25px;
+}
+
+.ie-irene-supervisao__linha {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(240px, 1.15fr) auto;
+    align-items: center;
+    gap: 22px;
+    min-width: 0;
+    padding: 21px 0;
+    border-bottom: 1px solid var(--ie-irene-borda);
+    transition: background 180ms ease;
+    animation: ie-irene-supervisao-entrada 250ms ease both;
+}
+
+.ie-irene-supervisao__linha:last-child {
+    border-bottom: 0;
+}
+
+.ie-irene-supervisao__linha:hover {
+    background: #fcfdff;
+}
+
+.ie-irene-supervisao__data {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.ie-irene-supervisao__data-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--ie-irene-azul-borda);
+    border-radius: 12px;
+    background: var(--ie-irene-azul-claro);
+    color: var(--ie-irene-azul);
+    font-size: 20px;
+}
+
+.ie-irene-supervisao__data-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.ie-irene-supervisao__data-info strong {
+    color: var(--ie-irene-preto);
+    font-size: 14px;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.ie-irene-supervisao__data-info>span {
+    color: var(--ie-irene-cinza);
+    font-size: 12px;
+}
+
+/* ============================================================
+   MÉTRICAS POR DATA
+============================================================ */
+
+.ie-irene-supervisao__metricas {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 13px;
+    min-width: 0;
+}
+
+.ie-irene-supervisao__metrica {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--ie-irene-cinza);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.ie-irene-supervisao__metrica>span:last-child {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.ie-irene-supervisao__metrica strong {
+    color: var(--ie-irene-preto);
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.ie-irene-supervisao__ponto {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.ie-irene-supervisao__ponto--irene {
+    background: var(--ie-irene-azul);
+    box-shadow: 0 0 0 3px var(--ie-irene-azul-claro);
+}
+
+.ie-irene-supervisao__ponto--visitante {
+    background: #9ca3af;
+    box-shadow: 0 0 0 3px #f3f4f6;
+}
+
+.ie-irene-supervisao__ponto--usuario {
+    background: #15803d;
+    box-shadow: 0 0 0 3px #f0fdf4;
+}
+
+/* ============================================================
+   AÇÕES E BOTÕES
+============================================================ */
+
+.ie-irene-supervisao__acoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.ie-irene-supervisao__botao-principal,
+.ie-irene-supervisao__botao-secundario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 41px;
+    padding: 10px 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.35;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+}
+
+.ie-irene-supervisao__botao-principal:hover,
+.ie-irene-supervisao__botao-secundario:hover {
+    transform: translateY(-1px);
+}
+
+.ie-irene-supervisao__botao-principal:active,
+.ie-irene-supervisao__botao-secundario:active {
+    transform: translateY(0);
+}
+
+.ie-irene-supervisao__botao-principal:disabled,
+.ie-irene-supervisao__botao-secundario:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Botão azul principal */
+
+.ie-irene-supervisao__botao-principal {
+    border-color: var(--ie-irene-azul);
+    background: var(--ie-irene-azul);
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgb(37 99 235 / 12%);
+}
+
+.ie-irene-supervisao__botao-principal:hover:not(:disabled) {
+    border-color: var(--ie-irene-azul-hover);
+    background: var(--ie-irene-azul-hover);
+    box-shadow: 0 4px 10px rgb(37 99 235 / 18%);
+}
+
+.ie-irene-supervisao__botao-principal>span:not(.ie-irene-supervisao__spinner) {
+    font-size: 15px;
+}
+
+/* Botão secundário branco */
+
+.ie-irene-supervisao__botao-secundario {
+    border-color: #d1d5db;
+    background: #ffffff;
+    color: var(--ie-irene-preto);
+}
+
+.ie-irene-supervisao__botao-secundario:hover:not(:disabled) {
+    border-color: var(--ie-irene-azul-borda);
+    background: var(--ie-irene-azul-claro);
+    color: var(--ie-irene-azul-escuro);
+}
+
+.ie-irene-supervisao__header>.ie-irene-supervisao__botao-secundario {
+    min-height: 43px;
+    padding: 11px 17px;
+}
+
+.ie-irene-supervisao__header>.ie-irene-supervisao__botao-secundario>span {
+    color: var(--ie-irene-azul);
+    font-size: 19px;
+    line-height: 1;
+}
+
+/* ============================================================
+   RODAPÉ DO PAINEL
+============================================================ */
+
+.ie-irene-supervisao__painel-footer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 49px;
+    padding: 12px 25px;
+    border-top: 1px solid var(--ie-irene-borda);
+    background: var(--ie-irene-fundo-suave);
+    color: var(--ie-irene-cinza);
+    font-size: 12px;
+}
+
+.ie-irene-supervisao__painel-footer strong {
+    color: var(--ie-irene-preto);
+    font-weight: 750;
+}
+
+/* ============================================================
+   ESTADOS VAZIOS E CARREGAMENTO
+============================================================ */
+
+.ie-irene-supervisao__estado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 210px;
+    padding: 30px 20px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.ie-irene-supervisao__estado>strong {
+    color: var(--ie-irene-preto);
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.ie-irene-supervisao__estado>p {
+    max-width: 420px;
+    margin: 0;
+    color: var(--ie-irene-cinza);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.ie-irene-supervisao__estado-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 3px;
+    border: 1px solid var(--ie-irene-azul-borda);
+    border-radius: 14px;
+    background: var(--ie-irene-azul-claro);
+    color: var(--ie-irene-azul);
+    font-size: 23px;
+}
+
+/* Indicador animado */
+
+.ie-irene-supervisao__spinner {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border: 3px solid #dbeafe;
+    border-top-color: var(--ie-irene-azul);
+    border-radius: 50%;
+    animation: ie-irene-supervisao-girar 700ms linear infinite;
+}
+
+.ie-irene-supervisao__spinner--botao {
+    width: 14px;
+    height: 14px;
+    border-width: 2px;
+    border-color: rgb(255 255 255 / 35%);
+    border-top-color: #ffffff;
+}
+
+/* ============================================================
+   AVISOS DE ERRO
+============================================================ */
+
+.ie-irene-supervisao__erro {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 18px 25px 0;
+    padding: 14px 16px;
+    border: 1px solid var(--ie-irene-vermelho-borda);
+    border-left: 4px solid #dc2626;
+    border-radius: 9px;
+    background: var(--ie-irene-vermelho-fundo);
+    color: var(--ie-irene-vermelho);
+    overflow-wrap: anywhere;
+}
+
+.ie-irene-supervisao__erro strong {
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.ie-irene-supervisao__erro span {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   DETALHES DAS CONVERSAS
+============================================================ */
+
+.ie-irene-supervisao__detalhes {
+    width: 100%;
+    margin-top: 28px;
+    overflow: hidden;
+    border: 1px solid var(--ie-irene-borda);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 3px 10px rgb(15 23 42 / 3%);
+    animation: ie-irene-supervisao-entrada 250ms ease both;
+}
+
+.ie-irene-supervisao__detalhes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 24px 25px;
+    border-bottom: 1px solid var(--ie-irene-borda);
+    background: #ffffff;
+}
+
+.ie-irene-supervisao__detalhes-titulo {
+    min-width: 0;
+}
+
+.ie-irene-supervisao__detalhes-titulo h2 {
+    margin: 0;
+    color: var(--ie-irene-preto);
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    overflow-wrap: anywhere;
+}
+
+.ie-irene-supervisao__detalhes-titulo p {
+    margin: 7px 0 0;
+    color: var(--ie-irene-cinza);
+    font-size: 12px;
+}
+
+/* ============================================================
+   LISTA DE MENSAGENS
+============================================================ */
+
+.ie-irene-supervisao__mensagens {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    max-height: 760px;
+    padding: 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: #ffffff;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #ffffff;
+}
+
+.ie-irene-supervisao__mensagens::-webkit-scrollbar {
+    width: 7px;
+}
+
+.ie-irene-supervisao__mensagens::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+.ie-irene-supervisao__mensagens::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #cbd5e1;
+}
+
+.ie-irene-supervisao__mensagens::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* ============================================================
+   CARTÃO DE MENSAGEM
+============================================================ */
+
+.ie-irene-supervisao__mensagem {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: fit-content;
+    max-width: 88%;
+    min-width: 190px;
+    padding: 16px 18px;
+    border: 1px solid var(--ie-irene-borda);
+    border-radius: 13px;
+    background: #ffffff;
+    color: var(--ie-irene-preto);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    box-shadow: 0 2px 5px rgb(15 23 42 / 2%);
+    animation: ie-irene-supervisao-entrada 200ms ease both;
+}
+
+.ie-irene-supervisao__mensagem-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(229 231 235 / 80%);
+}
+
+.ie-irene-supervisao__mensagem-autor {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+
+.ie-irene-supervisao__mensagem-autor strong {
+    color: var(--ie-irene-preto);
+    font-size: 12px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.ie-irene-supervisao__mensagem-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 29px;
+    height: 29px;
+    border: 1px solid var(--ie-irene-azul-borda);
+    border-radius: 9px;
+    background: var(--ie-irene-azul-claro);
+    color: var(--ie-irene-azul);
+    font-size: 10px;
+    font-weight: 850;
+}
+
+.ie-irene-supervisao__mensagem-topo time {
+    color: var(--ie-irene-cinza);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+}
+
+.ie-irene-supervisao__mensagem>p {
+    margin: 0;
+    color: var(--ie-irene-texto);
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.ie-irene-supervisao__mensagem-id {
+    align-self: flex-end;
+    color: var(--ie-irene-cinza-claro);
+    font-size: 10px;
+}
+
+/* Resposta da Irene */
+
+.ie-irene-supervisao__mensagem--irene {
+    align-self: flex-end;
+    border-color: var(--ie-irene-azul-borda);
+    border-top-right-radius: 4px;
+    background: var(--ie-irene-azul-claro);
+}
+
+.ie-irene-supervisao__mensagem--irene .ie-irene-supervisao__mensagem-avatar {
+    border-color: var(--ie-irene-azul);
+    background: var(--ie-irene-azul);
+    color: #ffffff;
+}
+
+.ie-irene-supervisao__mensagem--irene .ie-irene-supervisao__mensagem-topo {
+    border-bottom-color: var(--ie-irene-azul-borda);
+}
+
+/* Mensagem do usuário */
+
+.ie-irene-supervisao__mensagem--usuario {
+    align-self: flex-start;
+    border-top-left-radius: 4px;
+    background: #ffffff;
+}
+
+.ie-irene-supervisao__mensagem--usuario .ie-irene-supervisao__mensagem-avatar {
+    border-color: #d1d5db;
+    background: #f3f4f6;
+    color: #374151;
+}
+
+/* Mensagem do visitante */
+
+.ie-irene-supervisao__mensagem--visitante {
+    align-self: flex-start;
+    border-color: #e5e7eb;
+    border-left: 3px solid #9ca3af;
+    border-top-left-radius: 4px;
+    background: #f9fafb;
+}
+
+.ie-irene-supervisao__mensagem--visitante .ie-irene-supervisao__mensagem-avatar {
+    border-color: #d1d5db;
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+/* ============================================================
+   ANIMAÇÕES
+============================================================ */
+
+@keyframes ie-irene-supervisao-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes ie-irene-supervisao-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   TABLETS
+============================================================ */
+
+@media (max-width: 1150px) {
+    .ie-irene-supervisao {
+        padding: 25px;
+    }
+
+    .ie-irene-supervisao__linha {
+        grid-template-columns: minmax(160px, 1fr) minmax(190px, 1fr);
+        gap: 17px;
+    }
+
+    .ie-irene-supervisao__metricas {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .ie-irene-supervisao__acoes {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}
+
+/* ============================================================
+   CELULARES
+============================================================ */
+
+@media (max-width: 700px) {
+    .ie-irene-supervisao {
+        padding: 17px 12px 28px;
+        font-size: 13px;
+    }
+
+    .ie-irene-supervisao__header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 19px;
+        margin-bottom: 22px;
+        padding-bottom: 21px;
+    }
+
+    .ie-irene-supervisao__identidade {
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .ie-irene-supervisao__icone {
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+    }
+
+    .ie-irene-supervisao__icone span {
+        font-size: 16px;
+    }
+
+    .ie-irene-supervisao__titulo {
+        flex: 1;
+    }
+
+    .ie-irene-supervisao__titulo h1 {
+        font-size: 24px;
+        letter-spacing: -0.7px;
+    }
+
+    .ie-irene-supervisao__titulo p {
+        margin-top: 7px;
+        font-size: 12px;
+    }
+
+    .ie-irene-supervisao__header>.ie-irene-supervisao__botao-secundario {
+        width: 100%;
+    }
+
+    /* Indicadores em coluna */
+
+    .ie-irene-supervisao__resumo {
+        grid-template-columns: 1fr;
+        gap: 11px;
+        margin-bottom: 20px;
+    }
+
+    .ie-irene-supervisao__indicador {
+        padding: 17px;
+        border-radius: 12px;
+    }
+
+    .ie-irene-supervisao__indicador-topo {
+        margin-bottom: 12px;
+    }
+
+    .ie-irene-supervisao__indicador-topo>span:first-child {
+        font-size: 12px;
+    }
+
+    .ie-irene-supervisao__indicador-icone {
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+    }
+
+    .ie-irene-supervisao__indicador>strong {
+        font-size: 29px;
+    }
+
+    .ie-irene-supervisao__indicador-descricao {
+        margin-top: 7px;
+        font-size: 11px;
+    }
+
+    /* Painel */
+
+    .ie-irene-supervisao__painel {
+        border-radius: 12px;
+    }
+
+    .ie-irene-supervisao__painel-header {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 17px;
+        padding: 18px 15px;
+    }
+
+    .ie-irene-supervisao__painel-titulo {
+        flex: auto;
+    }
+
+    .ie-irene-supervisao__painel-titulo h2 {
+        font-size: 19px;
+    }
+
+    .ie-irene-supervisao__painel-titulo p {
+        font-size: 12px;
+    }
+
+    .ie-irene-supervisao__busca {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        height: 43px;
+    }
+
+    /* Linhas das datas */
+
+    .ie-irene-supervisao__lista {
+        padding: 0 15px;
+    }
+
+    .ie-irene-supervisao__linha {
+        display: flex;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 15px;
+        padding: 17px 0;
+    }
+
+    .ie-irene-supervisao__data {
+        gap: 11px;
+    }
+
+    .ie-irene-supervisao__data-icone {
+        width: 41px;
+        height: 41px;
+        border-radius: 10px;
+        font-size: 18px;
+    }
+
+    .ie-irene-supervisao__data-info strong {
+        font-size: 13px;
+    }
+
+    .ie-irene-supervisao__data-info>span {
+        font-size: 11px;
+    }
+
+    /* Métricas em grade */
+
+    .ie-irene-supervisao__metricas {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        width: 100%;
+    }
+
+    .ie-irene-supervisao__metrica {
+        align-items: flex-start;
+        gap: 6px;
+        min-width: 0;
+        font-size: 10px;
+    }
+
+    .ie-irene-supervisao__metrica strong {
+        font-size: 11px;
+    }
+
+    .ie-irene-supervisao__ponto {
+        width: 7px;
+        height: 7px;
+        margin-top: 4px;
+    }
+
+    /* Botões empilhados */
+
+    .ie-irene-supervisao__acoes {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .ie-irene-supervisao__botao-principal,
+    .ie-irene-supervisao__botao-secundario {
+        width: 100%;
+        min-height: 43px;
+        padding: 11px 12px;
+        font-size: 12px;
+        white-space: normal;
+    }
+
+    .ie-irene-supervisao__painel-footer {
+        padding: 12px 15px;
+        font-size: 11px;
+    }
+
+    /* Detalhes */
+
+    .ie-irene-supervisao__detalhes {
+        margin-top: 20px;
+        border-radius: 12px;
+    }
+
+    .ie-irene-supervisao__detalhes-header {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 18px 15px;
+    }
+
+    .ie-irene-supervisao__detalhes-titulo h2 {
+        font-size: 18px;
+    }
+
+    .ie-irene-supervisao__detalhes-header>.ie-irene-supervisao__botao-secundario {
+        width: 100%;
+    }
+
+    .ie-irene-supervisao__mensagens {
+        gap: 13px;
+        max-height: 650px;
+        padding: 14px 10px;
+    }
+
+    .ie-irene-supervisao__mensagem {
+        width: 95%;
+        max-width: 95%;
+        min-width: 0;
+        padding: 13px;
+        border-radius: 11px;
+    }
+
+    .ie-irene-supervisao__mensagem--irene {
+        align-self: flex-end;
+        border-top-right-radius: 4px;
+    }
+
+    .ie-irene-supervisao__mensagem--usuario,
+    .ie-irene-supervisao__mensagem--visitante {
+        align-self: flex-start;
+        border-top-left-radius: 4px;
+    }
+
+    .ie-irene-supervisao__mensagem-topo {
+        gap: 8px;
+    }
+
+    .ie-irene-supervisao__mensagem-autor {
+        gap: 7px;
+    }
+
+    .ie-irene-supervisao__mensagem-autor strong {
+        font-size: 11px;
+    }
+
+    .ie-irene-supervisao__mensagem-avatar {
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+    }
+
+    .ie-irene-supervisao__mensagem-topo time {
+        font-size: 10px;
+    }
+
+    .ie-irene-supervisao__mensagem>p {
+        font-size: 12px;
+        line-height: 1.75;
+    }
+
+    .ie-irene-supervisao__mensagem-id {
+        font-size: 9px;
+    }
+
+    .ie-irene-supervisao__erro {
+        margin: 15px 15px 0;
+        padding: 12px;
+    }
+
+    .ie-irene-supervisao__estado {
+        min-height: 175px;
+        padding: 22px 14px;
+    }
+}
+
+/* ============================================================
+   CELULARES PEQUENOS
+============================================================ */
+
+@media (max-width: 360px) {
+    .ie-irene-supervisao {
+        padding-right: 9px;
+        padding-left: 9px;
+    }
+
+    .ie-irene-supervisao__titulo h1 {
+        font-size: 21px;
+    }
+
+    .ie-irene-supervisao__metricas {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .ie-irene-supervisao__metrica {
+        align-items: center;
+    }
+
+    .ie-irene-supervisao__metrica>span:last-child {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .ie-irene-supervisao__mensagem {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* ============================================================
+   ACESSIBILIDADE
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ie-irene-supervisao *,
+    .ie-irene-supervisao *::before,
+    .ie-irene-supervisao *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================================
+   BOTÃO PRONTO — SUPERVISÃO IRENE
+============================================================ */
+
+.ie-irene-supervisao__botao-pronto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 41px;
+    padding: 10px 14px;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.35;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease,
+        transform 180ms ease;
+}
+
+.ie-irene-supervisao__botao-pronto:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: #2563eb;
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.ie-irene-supervisao__botao-pronto:focus-visible {
+    outline: 3px solid rgb(37 99 235 / 22%);
+    outline-offset: 3px;
+}
+
+.ie-irene-supervisao__botao-pronto:disabled {
+    cursor: default;
+}
+
+/* Data concluída */
+
+.ie-irene-supervisao__botao-pronto--concluido {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+    color: #15803d;
+    opacity: 1;
+}
+
+/* Responsividade */
+
+@media (max-width: 1150px) {
+    .ie-irene-supervisao__acoes {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 700px) {
+    .ie-irene-supervisao__botao-pronto {
+        width: 100%;
+        min-height: 43px;
+        white-space: normal;
+    }
+}

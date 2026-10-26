@@ -64,6 +64,11 @@ export default function Irene() {
     const [mensagens, setMensagens] = useState(carregarMensagensDoDia);
     const [mensagem, setMensagem] = useState("");
     const [carregando, setCarregando] = useState(false);
+    const [gravandoVoz, setGravandoVoz] = useState(false);
+    const [erroMicrofone, setErroMicrofone] = useState("");
+
+    const reconhecimentoRef = useRef(null);
+    const textoBaseVozRef = useRef("");
     const [erro, setErro] = useState("");
     const [textoDigitado, setTextoDigitado] = useState("");
     const [indiceDigitando, setIndiceDigitando] = useState(null);
@@ -258,7 +263,84 @@ export default function Irene() {
             localStorage.getItem("access_token") ||
             "";
     }
+    function alternarMicrofone() {
+        if (gravandoVoz) {
+            reconhecimentoRef.current?.stop();
+            return;
+        }
 
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            setErroMicrofone(
+                "Seu navegador não oferece suporte à transcrição por voz. Tente usar o Google Chrome."
+            );
+            return;
+        }
+
+        setErroMicrofone("");
+
+        const reconhecimento = new SpeechRecognition();
+
+        reconhecimento.lang = "pt-BR";
+        reconhecimento.continuous = true;
+        reconhecimento.interimResults = true;
+
+        textoBaseVozRef.current = mensagem.trim();
+
+        reconhecimento.onstart = () => {
+            setGravandoVoz(true);
+        };
+
+        reconhecimento.onresult = (event) => {
+            let textoTranscrito = "";
+
+            for (let i = 0; i < event.results.length; i++) {
+                textoTranscrito += event.results[i][0].transcript;
+            }
+
+            const textoBase = textoBaseVozRef.current;
+
+            setMensagem(
+                [textoBase, textoTranscrito.trim()]
+                    .filter(Boolean)
+                    .join(" ")
+            );
+        };
+
+        reconhecimento.onerror = (event) => {
+            if (event.error === "not-allowed" ||
+                event.error === "service-not-allowed") {
+                setErroMicrofone(
+                    "Acesso ao microfone negado. Permita o uso do microfone nas configurações do navegador."
+                );
+            } else if (event.error === "no-speech") {
+                setErroMicrofone(
+                    "Nenhuma fala foi detectada. Tente falar novamente."
+                );
+            } else if (event.error !== "aborted") {
+                setErroMicrofone(
+                    "Não foi possível transcrever sua fala. Tente novamente."
+                );
+            }
+        };
+
+        reconhecimento.onend = () => {
+            setGravandoVoz(false);
+            reconhecimentoRef.current = null;
+        };
+
+        reconhecimentoRef.current = reconhecimento;
+
+        try {
+            reconhecimento.start();
+        } catch (error) {
+            reconhecimentoRef.current = null;
+            setGravandoVoz(false);
+            setErroMicrofone("Não foi possível iniciar o microfone.");
+        }
+    }
     async function enviarMensagem(event) {
         event?.preventDefault();
         const texto = mensagem.trim();
@@ -549,6 +631,47 @@ export default function Irene() {
                             disabled={carregando}
                         />
                         <button
+                            type="button"
+                            className={`ie-irene-page__voice-button ${gravandoVoz ? "ie-irene-page__voice-button--recording" : ""
+                                }`}
+                            onClick={alternarMicrofone}
+                            disabled={carregando}
+                            aria-label={gravandoVoz ? "Parar gravação" : "Falar com Irene"}
+                            title={gravandoVoz ? "Parar gravação" : "Falar para transcrever"}
+                        >
+                            {gravandoVoz ? (
+                                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <rect
+                                        x="7"
+                                        y="7"
+                                        width="10"
+                                        height="10"
+                                        rx="2"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            ) : (
+                                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <rect
+                                        x="9"
+                                        y="3"
+                                        width="6"
+                                        height="12"
+                                        rx="3"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                    />
+                                    <path
+                                        d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21m-4 0h8"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                    />
+                                </svg>
+                            )}
+                        </button>
+
+                        <button
                             type="submit"
                             className="ie-irene-page__send-button"
                             disabled={!mensagem.trim() || carregando}
@@ -570,6 +693,42 @@ export default function Irene() {
                             )}
                         </button>
                     </form>
+                    {(gravandoVoz || erroMicrofone) && (
+                        <div
+                            className={`ie-irene-page__voice-status ${gravandoVoz
+                                    ? "ie-irene-page__voice-status--active"
+                                    : "ie-irene-page__voice-status--error"
+                                }`}
+                            role="status"
+                            aria-live="polite"
+                        >
+                            {gravandoVoz ? (
+                                <>
+                                    <span className="ie-irene-page__voice-indicator" />
+                                    <span>Ouvindo você... Fale agora.</span>
+                                    <button
+                                        type="button"
+                                        className="ie-irene-page__voice-stop"
+                                        onClick={() => reconhecimentoRef.current?.stop()}
+                                    >
+                                        Concluir
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <span>{erroMicrofone}</span>
+                                    <button
+                                        type="button"
+                                        className="ie-irene-page__voice-dismiss"
+                                        onClick={() => setErroMicrofone("")}
+                                        aria-label="Fechar aviso do microfone"
+                                    >
+                                        ×
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    )}
                     <div className="ie-irene-page__composer-footer">
                         <span className="ie-irene-page__hint">
                             <kbd>Enter</kbd> para enviar <span>·</span> <kbd>Shift + Enter</kbd> para nova linha
