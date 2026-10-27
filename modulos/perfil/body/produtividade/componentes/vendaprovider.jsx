@@ -304,6 +304,12 @@ export function VendaProvider({ children }) {
             const novoItem = {
                 id: produto.id,
                 nome: produto.nome,
+                codigo_barras: String(
+                    produto.codigo_barras ??
+                    produto.codigo_barra ??
+                    produto.codigo ??
+                    ""
+                ).trim(),
                 preco: Number(produto.preco),
                 quantidade: 1,
                 subtotal: Number(produto.preco),

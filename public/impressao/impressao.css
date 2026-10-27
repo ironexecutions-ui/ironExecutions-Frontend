@@ -1,0 +1,207 @@
+.impressao-pagina {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    background:
+        radial-gradient(ellipse at top, #e8efff 0%, transparent 60%),
+        #f5f7fb;
+    color: #172033;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    box-sizing: border-box;
+}
+
+.impressao-pagina *,
+.impressao-pagina *::before,
+.impressao-pagina *::after {
+    box-sizing: border-box;
+}
+
+.impressao-cartao {
+    width: 100%;
+    max-width: 490px;
+    padding: 36px;
+    background: #fff;
+    border: 1px solid #e4e9f2;
+    border-radius: 24px;
+    box-shadow: 0 24px 70px rgba(27, 48, 91, 0.09);
+}
+
+.impressao-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    margin-bottom: 24px;
+    border-radius: 20px;
+    color: #2457d6;
+    background: #edf3ff;
+}
+
+.impressao-etiqueta {
+    display: block;
+    margin-bottom: 10px;
+    color: #2457d6;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.impressao-cartao h1 {
+    margin: 0;
+    color: #172033;
+    font-size: clamp(27px, 5vw, 34px);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.impressao-descricao {
+    margin: 12px 0 28px;
+    color: #68748a;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.impressao-seletor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 27px 18px;
+    border: 1.5px dashed #b8c7e4;
+    border-radius: 16px;
+    background: #f9fbff;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.impressao-seletor:hover {
+    border-color: #2457d6;
+    background: #f0f5ff;
+}
+
+.impressao-upload-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: #e6edff;
+    color: #2457d6;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.impressao-seletor strong {
+    color: #25334d;
+    font-size: 15px;
+}
+
+.impressao-seletor span:not(.impressao-upload-icone) {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    color: #68748a;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.impressao-seletor small {
+    color: #8994a7;
+    font-size: 11px;
+}
+
+.impressao-arquivo-selecionado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #f2f5fa;
+    font-size: 12px;
+}
+
+.impressao-arquivo-selecionado span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.impressao-arquivo-selecionado button {
+    flex-shrink: 0;
+    border: 0;
+    background: transparent;
+    color: #c03939;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.impressao-mensagem {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.impressao-mensagem.erro {
+    color: #a62626;
+    background: #fff0f0;
+    border: 1px solid #f4d0d0;
+}
+
+.impressao-mensagem.sucesso {
+    color: #17663c;
+    background: #ecf9f0;
+    border: 1px solid #c8edd5;
+}
+
+.impressao-botao-enviar {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 20px;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 12px;
+    background: #2457d6;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.impressao-botao-enviar:hover:not(:disabled) {
+    background: #1945b5;
+    transform: translateY(-1px);
+}
+
+.impressao-botao-enviar:disabled {
+    background: #aab8d5;
+    cursor: not-allowed;
+}
+
+.impressao-privacidade {
+    margin: 20px 0 0;
+    color: #7b879a;
+    font-size: 11px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .impressao-cartao {
+        padding: 26px 20px;
+        border-radius: 19px;
+    }
+
+    .impressao-pagina {
+        padding: 18px 12px;
+    }
+}

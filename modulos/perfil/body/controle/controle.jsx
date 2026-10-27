@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Controlee from "./componentes/controle";
 import ProdutosComercio from "./componentes/produtoscomercio";
 import Tarefas from "./componentes/tarefas";
-
+import Impressaocontrole from "./componentes/impressaocontrole";
 import "./menucontrole.css";
 
 export default function Controle() {
@@ -60,7 +60,16 @@ export default function Controle() {
                 >
                     Tarefas
                 </button>
-
+                <button
+                    className={
+                        abaAtiva === "impressaocontrole"
+                            ? "menu-controle-btn ativo"
+                            : "menu-controle-btn"
+                    }
+                    onClick={() => setAbaAtiva("impressaocontrole")}
+                >
+                    Impressão
+                </button>
                 <button
                     className="menu-controle-btn"
                     onClick={irParaTermos}
@@ -91,7 +100,9 @@ export default function Controle() {
                 {abaAtiva === "tarefas" && (
                     <Tarefas />
                 )}
-
+                {abaAtiva === "impressaocontrole" && (
+                    <Impressaocontrole />
+                )}
             </div>
 
         </div>

@@ -5,10 +5,10 @@ import React, {
     useRef,
     useState
 } from "react";
-
+import { QRCodeSVG } from "qrcode.react";
 import { API_URL } from "../config";
-
-import "./apresentacao.css";
+import { createPortal } from "react-dom";
+import "./apresentacao.css"
 
 
 const TEMPO_SLIDE = 15000;
@@ -133,7 +133,128 @@ export default function Apresentacao() {
 
     const montadoRef =
         useRef(true);
+    const [chamadaExpiraEm, setChamadaExpiraEm] = useState(null);
+    const [relogioChamada, setRelogioChamada] = useState(Date.now());
 
+    // O backend precisa devolver o identificador criptografado
+    // na resposta GET /apresentacao.
+    const idCriptografado =
+        dados?.id_criptografado ||
+        dados?.empresa?.id_criptografado ||
+        "";
+
+
+    useEffect(() => {
+        let cancelado = false;
+        let temporizador = null;
+
+        async function verificarChamada() {
+            try {
+                console.log(
+                    "[QR IMPRESSÃO] Nova consulta:",
+                    new Date().toLocaleTimeString(),
+                    "| ID:",
+                    idCriptografado || "(ausente)"
+                );
+
+                if (!idCriptografado) {
+                    setChamadaExpiraEm(null);
+                    return;
+                }
+
+                const token = localStorage.getItem("token");
+
+                const resposta = await fetch(
+                    `${API_URL}/impressao/chamada/${encodeURIComponent(
+                        idCriptografado
+                    )}/status`,
+                    {
+                        method: "GET",
+                        cache: "no-store",
+                        headers: {
+                            ...(token
+                                ? { Authorization: `Bearer ${token}` }
+                                : {}),
+                            "Cache-Control": "no-cache"
+                        }
+                    }
+                );
+
+                const resultado = await resposta.json();
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        resultado.detail ||
+                        `Erro HTTP ${resposta.status}`
+                    );
+                }
+
+                console.log(
+                    "[QR IMPRESSÃO] Resposta:",
+                    resultado
+                );
+
+                if (cancelado) return;
+
+                if (
+                    resultado.ativo === true &&
+                    Number(resultado.segundos_restantes) > 0
+                ) {
+                    setChamadaExpiraEm(
+                        Date.now() +
+                        Number(resultado.segundos_restantes) * 1000
+                    );
+                    setRelogioChamada(Date.now());
+                } else {
+                    setChamadaExpiraEm(null);
+                }
+            } catch (erro) {
+                console.error(
+                    "[QR IMPRESSÃO] Erro na consulta:",
+                    erro
+                );
+            } finally {
+                if (!cancelado) {
+                    temporizador = setTimeout(
+                        verificarChamada,
+                        5000
+                    );
+                }
+            }
+        }
+
+        verificarChamada();
+
+        return () => {
+            cancelado = true;
+            clearTimeout(temporizador);
+        };
+    }, [idCriptografado]);
+
+    // Atualiza a contagem regressiva visual enquanto o modal estiver ativo.
+    useEffect(() => {
+        if (!chamadaExpiraEm) return;
+
+        const intervalo = setInterval(() => {
+            setRelogioChamada(Date.now());
+        }, 250);
+
+        return () => clearInterval(intervalo);
+    }, [chamadaExpiraEm]);
+
+    const segundosRestantes = chamadaExpiraEm
+        ? Math.max(
+            0,
+            Math.ceil((chamadaExpiraEm - relogioChamada) / 1000)
+        )
+        : 0;
+
+    const mostrarModalChamada =
+        Boolean(chamadaExpiraEm) && segundosRestantes > 0;
+
+    const linkImpressao = idCriptografado
+        ? `https://ironexecutions.com.br/impressao/${idCriptografado}`
+        : "";
 
     // =====================================================
     // LIMPAR TIMER
@@ -1330,7 +1451,31 @@ export default function Apresentacao() {
                 </div>
 
             </footer>
-
+            {mostrarModalChamada &&
+                linkImpressao &&
+                createPortal(
+                    <div
+                        className="apresentacao-chamada-overlay"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="QR Code para impressão"
+                    >
+                        <section className="apresentacao-chamada-modal apresentacao-chamada-modal--qr-only">
+                            <div className="apresentacao-chamada-qr apresentacao-chamada-qr--only">
+                                <QRCodeSVG
+                                    value={linkImpressao}
+                                    size={280}
+                                    level="H"
+                                    marginSize={4}
+                                    bgColor="#FFFFFF"
+                                    fgColor="#000000"
+                                    title="QR Code para abrir a página de impressão"
+                                />
+                            </div>
+                        </section>
+                    </div>,
+                    document.body
+                )}
         </main>
     );
 }

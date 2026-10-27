@@ -1,0 +1,1072 @@
+/* =========================================================
+   IRON EXECUTIONS | CONTROLE DE IMPRESSÕES
+   Design profissional | Fundo branco | Texto preto | Azul escuro
+   Responsivo para desktop, tablet e celular
+   Classes exclusivas: icp-
+   ========================================================= */
+
+/* =========================
+   1. PAINEL PRINCIPAL
+   ========================= */
+
+.icp-painel {
+    --icp-azul: #123b70;
+    --icp-azul-escuro: #0b2850;
+    --icp-azul-hover: #174b89;
+    --icp-azul-claro: #edf4fc;
+    --icp-azul-borda: #cbd9eb;
+
+    --icp-preto: #171a21;
+    --icp-texto-secundario: #555f6e;
+    --icp-texto-suave: #727c8b;
+
+    --icp-branco: #ffffff;
+    --icp-fundo: #ffffff;
+    --icp-fundo-secundario: #f8fafc;
+
+    --icp-borda: #e0e5ec;
+    --icp-borda-forte: #cbd2dc;
+
+    --icp-verde: #167044;
+    --icp-verde-fundo: #edf8f1;
+    --icp-verde-borda: #b9e2c8;
+
+    --icp-vermelho: #b4232f;
+    --icp-vermelho-fundo: #fff1f2;
+    --icp-vermelho-borda: #f1c4c8;
+
+    --icp-laranja: #895500;
+    --icp-laranja-fundo: #fff8e9;
+    --icp-laranja-borda: #f0dfb2;
+
+    width: 100%;
+    max-width: 1200px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 28px;
+    color: var(--icp-preto);
+    background: var(--icp-branco);
+    border: 1px solid var(--icp-borda);
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(11, 40, 80, 0.045);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    box-sizing: border-box;
+}
+
+.icp-painel *,
+.icp-painel *::before,
+.icp-painel *::after {
+    box-sizing: border-box;
+}
+
+.icp-painel button,
+.icp-painel input {
+    font: inherit;
+}
+
+.icp-painel button:focus-visible,
+.icp-painel input:focus-visible {
+    outline: 3px solid rgba(18, 59, 112, 0.2);
+    outline-offset: 3px;
+}
+
+/* =========================
+   2. CABEÇALHO
+   ========================= */
+
+.icp-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 0 0 25px;
+    margin: 0 0 26px;
+    background: var(--icp-branco);
+    border-bottom: 1px solid var(--icp-borda);
+}
+
+.icp-cabecalho-identidade {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.icp-cabecalho-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 54px;
+    width: 54px;
+    height: 54px;
+    color: var(--icp-azul);
+    background: var(--icp-azul-claro);
+    border: 1px solid var(--icp-azul-borda);
+    border-radius: 12px;
+}
+
+.icp-cabecalho-icone svg {
+    display: block;
+    width: 27px;
+    height: 27px;
+}
+
+.icp-cabecalho-texto {
+    min-width: 0;
+}
+
+.icp-cabecalho-legenda {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--icp-azul);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+}
+
+.icp-cabecalho-texto h1 {
+    margin: 0;
+    color: var(--icp-azul-escuro);
+    font-size: clamp(22px, 2.5vw, 29px);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+}
+
+.icp-cabecalho-texto p {
+    margin: 7px 0 0;
+    color: var(--icp-texto-secundario);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* =========================
+   3. BOTÃO ATUALIZAR
+   ========================= */
+
+.icp-atualizar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    flex: 0 0 auto;
+    min-height: 42px;
+    padding: 0 16px;
+    color: var(--icp-azul);
+    background: var(--icp-branco);
+    border: 1px solid var(--icp-azul-borda);
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    transition:
+        color 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease;
+}
+
+.icp-atualizar svg {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 17px;
+}
+
+.icp-atualizar:hover:not(:disabled) {
+    color: var(--icp-branco);
+    background: var(--icp-azul);
+    border-color: var(--icp-azul);
+}
+
+.icp-atualizar:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* =========================
+   4. MENSAGENS
+   ========================= */
+
+.icp-mensagem {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 14px 16px;
+    margin: 0 0 24px;
+    border: 1px solid var(--icp-borda);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.icp-mensagem::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.icp-mensagem-sucesso {
+    color: var(--icp-verde);
+    background: var(--icp-verde-fundo);
+    border-color: var(--icp-verde-borda);
+}
+
+.icp-mensagem-sucesso::before {
+    content: "✓";
+}
+
+.icp-mensagem-erro {
+    color: var(--icp-vermelho);
+    background: var(--icp-vermelho-fundo);
+    border-color: var(--icp-vermelho-borda);
+}
+
+.icp-mensagem-erro::before {
+    content: "!";
+}
+
+.icp-mensagem-aviso {
+    color: var(--icp-laranja);
+    background: var(--icp-laranja-fundo);
+    border-color: var(--icp-laranja-borda);
+}
+
+.icp-mensagem-aviso::before {
+    content: "!";
+}
+
+/* =========================
+   5. RESUMO DA SEÇÃO
+   ========================= */
+
+.icp-resumo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 0 18px;
+}
+
+.icp-resumo-texto {
+    min-width: 0;
+}
+
+.icp-resumo-texto h2 {
+    margin: 0;
+    color: var(--icp-azul-escuro);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+}
+
+.icp-resumo-texto p {
+    margin: 4px 0 0;
+    color: var(--icp-texto-secundario);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.icp-resumo-contagem {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-height: 30px;
+    padding: 5px 11px;
+    color: var(--icp-azul);
+    background: var(--icp-azul-claro);
+    border: 1px solid var(--icp-azul-borda);
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+/* =========================
+   6. LISTA DE PRODUTOS
+   ========================= */
+
+.icp-lista {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+    width: 100%;
+    min-width: 0;
+}
+
+/* =========================
+   7. CARTÃO DO PRODUTO
+   ========================= */
+
+.icp-produto {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(235px, 285px);
+    align-items: center;
+    gap: 28px;
+    min-width: 0;
+    padding: 24px;
+    background: var(--icp-branco);
+    border: 1px solid var(--icp-borda);
+    border-radius: 12px;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.icp-produto:hover {
+    border-color: var(--icp-azul-borda);
+    box-shadow: 0 5px 16px rgba(11, 40, 80, 0.055);
+}
+
+.icp-produto-cadastrado {
+    border-left: 3px solid var(--icp-azul);
+}
+
+.icp-produto-pendente {
+    border-left: 3px solid #b9c4d2;
+}
+
+/* =========================
+   8. IDENTIFICAÇÃO DO PRODUTO
+   ========================= */
+
+.icp-produto-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    min-width: 0;
+}
+
+.icp-produto-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    color: var(--icp-azul);
+    background: var(--icp-azul-claro);
+    border: 1px solid var(--icp-azul-borda);
+    border-radius: 10px;
+}
+
+.icp-produto-icone svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.icp-produto-icone-10 {
+    color: var(--icp-azul);
+    background: #f0f4fa;
+}
+
+.icp-produto-icone-11 {
+    color: var(--icp-azul-escuro);
+    background: #e9f1fb;
+}
+
+.icp-produto-detalhes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 0;
+}
+
+.icp-produto-titulo {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    min-width: 0;
+}
+
+.icp-produto-titulo h3 {
+    margin: 0;
+    color: var(--icp-preto);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: -0.25px;
+    overflow-wrap: anywhere;
+}
+
+.icp-produto-codigo {
+    display: block;
+    color: var(--icp-texto-secundario);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.icp-produto-descricao {
+    margin: 0;
+    color: var(--icp-texto-secundario);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* =========================
+   9. STATUS
+   ========================= */
+
+.icp-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 24px;
+    padding: 4px 8px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.icp-status::before {
+    content: "";
+    display: block;
+    flex: 0 0 6px;
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+}
+
+.icp-status-ok {
+    color: var(--icp-verde);
+    background: var(--icp-verde-fundo);
+    border-color: var(--icp-verde-borda);
+}
+
+.icp-status-pendente {
+    color: var(--icp-laranja);
+    background: var(--icp-laranja-fundo);
+    border-color: var(--icp-laranja-borda);
+}
+
+.icp-status-erro {
+    color: var(--icp-vermelho);
+    background: var(--icp-vermelho-fundo);
+    border-color: var(--icp-vermelho-borda);
+}
+
+/* =========================
+   10. ÁREA DE EDIÇÃO
+   ========================= */
+
+.icp-produto-edicao {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+}
+
+.icp-produto-edicao>label {
+    display: block;
+    margin: 0;
+    color: var(--icp-preto);
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.5;
+}
+
+/* =========================
+   11. CAMPO DE PREÇO
+   ========================= */
+
+.icp-campo-preco {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    height: 48px;
+    overflow: hidden;
+    background: var(--icp-branco);
+    border: 1px solid var(--icp-borda-forte);
+    border-radius: 8px;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.icp-campo-preco:focus-within {
+    border-color: var(--icp-azul);
+    box-shadow: 0 0 0 3px rgba(18, 59, 112, 0.1);
+}
+
+.icp-preco-moeda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    min-width: 48px;
+    padding: 0 12px;
+    color: var(--icp-azul);
+    background: #f5f8fc;
+    border-right: 1px solid var(--icp-borda);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.icp-campo-preco input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0 13px;
+    color: var(--icp-preto);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.icp-campo-preco input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.icp-campo-preco input::-webkit-inner-spin-button,
+.icp-campo-preco input::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+.icp-campo-preco input::placeholder {
+    color: #9ba4b1;
+    font-weight: 500;
+    opacity: 1;
+}
+
+.icp-campo-preco input:disabled {
+    color: var(--icp-texto-suave);
+    background: #f7f8fa;
+    cursor: not-allowed;
+}
+
+/* =========================
+   12. PREÇO ATUAL
+   ========================= */
+
+.icp-preco-atual {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--icp-texto-secundario);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.icp-preco-atual span {
+    color: var(--icp-texto-secundario);
+}
+
+.icp-preco-atual strong {
+    color: var(--icp-azul-escuro);
+    font-size: 13px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+/* =========================
+   13. BOTÃO PRINCIPAL
+   ========================= */
+
+.icp-salvar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 15px;
+    color: var(--icp-branco);
+    background: var(--icp-azul);
+    border: 1px solid var(--icp-azul);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.icp-salvar svg {
+    display: block;
+    flex: 0 0 17px;
+    width: 17px;
+    height: 17px;
+}
+
+.icp-salvar:hover:not(:disabled) {
+    color: var(--icp-branco);
+    background: var(--icp-azul-hover);
+    border-color: var(--icp-azul-hover);
+    box-shadow: 0 4px 10px rgba(11, 40, 80, 0.15);
+}
+
+.icp-salvar:active:not(:disabled) {
+    background: var(--icp-azul-escuro);
+}
+
+.icp-salvar:disabled {
+    color: #8b95a4;
+    background: #eef1f5;
+    border-color: #e0e5eb;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* =========================
+   14. CARREGAMENTO
+   ========================= */
+
+.icp-carregamento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+    min-height: 260px;
+    padding: 36px 20px;
+    background: var(--icp-branco);
+    border: 1px solid var(--icp-borda);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.icp-carregamento p {
+    margin: 0;
+    color: var(--icp-texto-secundario);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.icp-spinner {
+    display: block;
+    width: 38px;
+    height: 38px;
+    border: 3px solid #dce6f3;
+    border-top-color: var(--icp-azul);
+    border-radius: 50%;
+    animation: icp-girar 750ms linear infinite;
+}
+
+/* =========================
+   15. INDICADOR DE SALVAMENTO
+   ========================= */
+
+.icp-botao-spinner {
+    display: inline-block;
+    flex: 0 0 15px;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: icp-girar 700ms linear infinite;
+}
+
+/* =========================
+   16. ANIMAÇÕES
+   ========================= */
+
+@keyframes icp-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================
+   17. TABLETS
+   ========================= */
+
+@media (max-width: 900px) {
+    .icp-painel {
+        padding: 22px;
+    }
+
+    .icp-produto {
+        grid-template-columns: minmax(0, 1fr) minmax(215px, 250px);
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .icp-cabecalho {
+        gap: 16px;
+    }
+}
+
+/* =========================
+   18. CELULARES
+   ========================= */
+
+@media (max-width: 640px) {
+    .icp-painel {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .icp-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        padding-bottom: 20px;
+        margin-bottom: 22px;
+    }
+
+    .icp-cabecalho-identidade {
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .icp-cabecalho-icone {
+        flex-basis: 44px;
+        width: 44px;
+        height: 44px;
+        border-radius: 9px;
+    }
+
+    .icp-cabecalho-icone svg {
+        width: 23px;
+        height: 23px;
+    }
+
+    .icp-cabecalho-texto h1 {
+        font-size: 21px;
+        letter-spacing: -0.5px;
+    }
+
+    .icp-cabecalho-texto p {
+        font-size: 12px;
+    }
+
+    .icp-atualizar {
+        width: 100%;
+        min-height: 42px;
+    }
+
+    .icp-resumo {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .icp-resumo-texto h2 {
+        font-size: 16px;
+    }
+
+    .icp-lista {
+        gap: 13px;
+    }
+
+    .icp-produto {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+        padding: 17px;
+        border-radius: 10px;
+    }
+
+    .icp-produto-info {
+        gap: 12px;
+    }
+
+    .icp-produto-icone {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .icp-produto-icone svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .icp-produto-titulo {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .icp-produto-titulo h3 {
+        font-size: 15px;
+    }
+
+    .icp-produto-descricao {
+        font-size: 11px;
+    }
+
+    .icp-produto-edicao {
+        padding-top: 17px;
+        border-top: 1px solid var(--icp-borda);
+    }
+
+    .icp-mensagem {
+        padding: 12px;
+        margin-bottom: 18px;
+        font-size: 12px;
+    }
+
+    .icp-carregamento {
+        min-height: 220px;
+    }
+}
+
+/* =========================
+   19. CELULARES PEQUENOS
+   ========================= */
+
+@media (max-width: 360px) {
+    .icp-painel {
+        padding: 11px;
+    }
+
+    .icp-cabecalho-texto h1 {
+        font-size: 18px;
+    }
+
+    .icp-cabecalho-legenda {
+        font-size: 9px;
+    }
+
+    .icp-produto {
+        padding: 13px;
+    }
+
+    .icp-produto-info {
+        gap: 10px;
+    }
+
+    .icp-produto-icone {
+        flex-basis: 36px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .icp-produto-titulo h3 {
+        font-size: 14px;
+    }
+
+    .icp-campo-preco {
+        height: 45px;
+    }
+
+    .icp-preco-moeda {
+        min-width: 42px;
+        padding: 0 9px;
+    }
+}
+
+/* =========================
+   20. ACESSIBILIDADE
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .icp-painel *,
+    .icp-painel *::before,
+    .icp-painel *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =========================================================
+   IRON EXECUTIONS | CORREÇÃO FORÇADA DE TIPOGRAFIA
+   Aplicar no FINAL do arquivo impressaocontrole.css
+   ========================================================= */
+
+/* Texto geral */
+.icp-painel,
+.icp-painel * {
+    color: #171a21 !important;
+}
+
+/* Títulos principais e secundários */
+.icp-painel .icp-cabecalho-texto h1,
+.icp-painel .icp-resumo-texto h2,
+.icp-painel .icp-produto-titulo h3 {
+    color: #0b2850 !important;
+}
+
+/* Legenda do cabeçalho */
+.icp-painel .icp-cabecalho-legenda {
+    color: #123b70 !important;
+}
+
+/* Descrições e informações auxiliares */
+.icp-painel .icp-cabecalho-texto p,
+.icp-painel .icp-resumo-texto p,
+.icp-painel .icp-produto-codigo,
+.icp-painel .icp-produto-descricao {
+    color: #555f6e !important;
+}
+
+/* Contagem de produtos */
+.icp-painel .icp-resumo-contagem {
+    color: #123b70 !important;
+}
+
+/* Ícones */
+.icp-painel .icp-cabecalho-icone,
+.icp-painel .icp-produto-icone,
+.icp-painel .icp-cabecalho-icone svg,
+.icp-painel .icp-produto-icone svg {
+    color: #123b70 !important;
+}
+
+/* Campo de preço */
+.icp-painel .icp-produto-edicao>label {
+    color: #171a21 !important;
+}
+
+.icp-painel .icp-campo-preco input,
+.icp-painel .icp-campo-preco input:focus {
+    color: #171a21 !important;
+    -webkit-text-fill-color: #171a21 !important;
+    background-color: #ffffff !important;
+}
+
+.icp-painel .icp-campo-preco input::placeholder {
+    color: #8993a1 !important;
+    -webkit-text-fill-color: #8993a1 !important;
+    opacity: 1 !important;
+}
+
+.icp-painel .icp-preco-moeda {
+    color: #123b70 !important;
+}
+
+/* Preço atual */
+.icp-painel .icp-preco-atual,
+.icp-painel .icp-preco-atual span {
+    color: #555f6e !important;
+}
+
+.icp-painel .icp-preco-atual strong {
+    color: #0b2850 !important;
+}
+
+/* Botões */
+.icp-painel .icp-atualizar {
+    color: #123b70 !important;
+    background-color: #ffffff !important;
+}
+
+.icp-painel .icp-atualizar:hover:not(:disabled) {
+    color: #ffffff !important;
+    background-color: #123b70 !important;
+}
+
+.icp-painel .icp-salvar {
+    color: #ffffff !important;
+    background-color: #123b70 !important;
+    border-color: #123b70 !important;
+}
+
+.icp-painel .icp-salvar svg {
+    color: #ffffff !important;
+}
+
+.icp-painel .icp-salvar:hover:not(:disabled) {
+    color: #ffffff !important;
+    background-color: #174b89 !important;
+    border-color: #174b89 !important;
+}
+
+.icp-painel .icp-salvar:disabled {
+    color: #727c8b !important;
+    -webkit-text-fill-color: #727c8b !important;
+    background-color: #eef1f5 !important;
+    border-color: #e0e5eb !important;
+}
+
+/* Status: cores específicas */
+.icp-painel .icp-status-ok {
+    color: #167044 !important;
+    background-color: #edf8f1 !important;
+    border-color: #b9e2c8 !important;
+}
+
+.icp-painel .icp-status-pendente {
+    color: #895500 !important;
+    background-color: #fff8e9 !important;
+    border-color: #f0dfb2 !important;
+}
+
+.icp-painel .icp-status-erro {
+    color: #b4232f !important;
+    background-color: #fff1f2 !important;
+    border-color: #f1c4c8 !important;
+}
+
+/* Mensagens */
+.icp-painel .icp-mensagem-sucesso,
+.icp-painel .icp-mensagem-sucesso::before {
+    color: #167044 !important;
+}
+
+.icp-painel .icp-mensagem-erro,
+.icp-painel .icp-mensagem-erro::before {
+    color: #b4232f !important;
+}
+
+.icp-painel .icp-mensagem-aviso,
+.icp-painel .icp-mensagem-aviso::before {
+    color: #895500 !important;
+}
+
+/* Carregamento */
+.icp-painel .icp-carregamento p {
+    color: #555f6e !important;
+}
+
+.icp-painel .icp-spinner {
+    border-color: #dce6f3 !important;
+    border-top-color: #123b70 !important;
+}
+
+/* Evitar transparência indesejada em textos */
+.icp-painel h1,
+.icp-painel h2,
+.icp-painel h3,
+.icp-painel p,
+.icp-painel label,
+.icp-painel span,
+.icp-painel strong,
+.icp-painel button {
+    text-shadow: none !important;
+    opacity: 1;
+}

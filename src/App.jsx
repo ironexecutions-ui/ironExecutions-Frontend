@@ -6,7 +6,7 @@ import {
   useLocation,
   Navigate
 } from "react-router-dom";
-
+import Impressao from "../public/impressao/impressao";
 import AlertaPedidos from "./audio/aletra";
 import ParceirosGeral from "../public/parceiros/parceirosgeral";
 import "./app.css";
@@ -310,6 +310,10 @@ function RoteamentoComLoading() {
   return (
 
     <Routes>
+      <Route
+        path="/impressao/:idCriptografado"
+        element={<Impressao />}
+      />
       <Route
         path="/link/geral/:idComercioCriptografado"
         element={<Geral />}
