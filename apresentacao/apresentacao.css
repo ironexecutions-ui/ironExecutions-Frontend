@@ -3246,8 +3246,7 @@
     justify-content: center !important;
 
     width: fit-content !important;
-    max-width: calc(100vw - 32px) !important;
-    max-height: calc(100dvh - 32px) !important;
+    max-width: 50% !important;
 
     margin: 0 !important;
     padding: 28px !important;
