@@ -3237,6 +3237,7 @@
     animation: qr-overlay-entrada 180ms ease-out both;
 }
 
+
 .apresentacao-chamada-modal--qr-only {
     position: relative !important;
 
@@ -3249,12 +3250,12 @@
     max-height: calc(100dvh - 32px) !important;
 
     margin: 0 !important;
-    padding: 16px !important;
+    padding: 28px !important;
     box-sizing: border-box !important;
 
     background: #ffffff !important;
     border: 1px solid rgba(255, 255, 255, 0.9) !important;
-    border-radius: 22px !important;
+    border-radius: 26px !important;
 
     box-shadow:
         0 28px 80px rgba(0, 0, 0, 0.38),
@@ -3262,6 +3263,23 @@
 
     animation: qr-modal-entrada 220ms cubic-bezier(.2, .8, .2, 1) both;
 }
+
+.apresentacao-chamada-qr--only svg {
+    display: block !important;
+    flex: 0 1 auto !important;
+
+    width: min(420px, calc(100vw - 100px)) !important;
+    height: auto !important;
+    max-height: calc(100dvh - 100px) !important;
+
+    aspect-ratio: 1 / 1;
+    background: #ffffff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    shape-rendering: crispEdges;
+}
+
 
 .apresentacao-chamada-qr--only {
     display: flex !important;
