@@ -59,19 +59,30 @@ function ehProdutoImpressao(item) {
 }
 
 function obterUrlArquivo(arquivo) {
-
     const caminho = String(arquivo ?? "").trim();
 
     if (!caminho) return "";
 
+    // Mantém URLs completas que já estejam cadastradas.
     if (/^https?:\/\//i.test(caminho)) {
-
         return caminho;
-
     }
 
-    return `${API_URL.replace(/\/+$/, "")}/${caminho.replace(/^\/+/, "")}`;
+    // Usa apenas o nome do arquivo, sem diretórios.
+    const nomeArquivo = caminho
+        .replace(/\\/g, "/")
+        .split("/")
+        .pop();
 
+    if (
+        !nomeArquivo ||
+        nomeArquivo === "." ||
+        nomeArquivo === ".."
+    ) {
+        return "";
+    }
+
+    return `${API_URL.replace(/\/+$/, "")}/arquivos-impressao/${encodeURIComponent(nomeArquivo)}`;
 }
 
 export default function ListaItens() {
@@ -263,29 +274,78 @@ export default function ListaItens() {
         if (!modalImpressaoAberto) return;
 
         let cancelado = false;
-        let temporizador;
+        let temporizador = null;
+        let controller = null;
 
         async function atualizarPeriodicamente() {
             if (cancelado) return;
 
-            await atualizarArquivosImpressao();
+            controller = new AbortController();
 
-            if (!cancelado) {
-                temporizador = setTimeout(
-                    atualizarPeriodicamente,
-                    5000
+            try {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    throw new Error("Sua sessão expirou. Entre novamente.");
+                }
+
+                const resposta = await fetch(
+                    `${API_URL}/impressao/arquivos-recentes`,
+                    {
+                        method: "GET",
+                        cache: "no-store",
+                        signal: controller.signal,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Cache-Control": "no-cache",
+                            Pragma: "no-cache",
+                        },
+                    }
                 );
+
+                const dados = await resposta.json().catch(() => ({}));
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        dados?.detail ||
+                        `Falha ao consultar arquivos (HTTP ${resposta.status}).`
+                    );
+                }
+
+                if (!cancelado) {
+                    setArquivosImpressao(
+                        Array.isArray(dados.arquivos)
+                            ? dados.arquivos
+                            : []
+                    );
+
+                    setErroImpressao("");
+                }
+            } catch (erro) {
+                if (erro.name !== "AbortError" && !cancelado) {
+                    console.error("[IMPRESSÃO] Falha na atualização:", erro);
+
+                    setErroImpressao(
+                        erro.message ||
+                        "Não foi possível atualizar os arquivos."
+                    );
+                }
+            } finally {
+                if (!cancelado) {
+                    temporizador = setTimeout(
+                        atualizarPeriodicamente,
+                        5000
+                    );
+                }
             }
         }
 
-        temporizador = setTimeout(
-            atualizarPeriodicamente,
-            5000
-        );
+        atualizarPeriodicamente();
 
         return () => {
             cancelado = true;
             clearTimeout(temporizador);
+            controller?.abort();
         };
     }, [modalImpressaoAberto]);
     async function abrirModalImpressao(item) {
