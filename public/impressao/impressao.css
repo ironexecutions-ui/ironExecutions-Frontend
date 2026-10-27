@@ -1,16 +1,35 @@
+/* =========================================================
+   IRON EXECUTIONS | IMPRESSÃO
+   Mobile-first • Redes sociais com imagens próprias
+   ========================================================= */
+
 .impressao-pagina {
-    min-height: 100vh;
+    --imp-primary: #3157e8;
+    --imp-primary-dark: #2443c4;
+    --imp-ink: #172033;
+    --imp-muted: #68738a;
+    --imp-border: #e4e9f2;
+    --imp-success: #15845b;
+    --imp-danger: #c63e4c;
+
+    position: relative;
+    isolation: isolate;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 32px 16px;
+    align-items: flex-start;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: hidden;
+    padding: 22px 15px 100px;
     background:
-        radial-gradient(ellipse at top, #e8efff 0%, transparent 60%),
-        #f5f7fb;
-    color: #172033;
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    box-sizing: border-box;
+        radial-gradient(ellipse at 0% 0%, rgba(83, 115, 255, .11), transparent 37%),
+        radial-gradient(ellipse at 100% 42%, rgba(129, 95, 255, .08), transparent 34%),
+        #f5f7fc;
+    color: var(--imp-ink);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 .impressao-pagina *,
@@ -19,189 +38,1106 @@
     box-sizing: border-box;
 }
 
-.impressao-cartao {
-    width: 100%;
-    max-width: 490px;
-    padding: 36px;
-    background: #fff;
-    border: 1px solid #e4e9f2;
-    border-radius: 24px;
-    box-shadow: 0 24px 70px rgba(27, 48, 91, 0.09);
+.impressao-pagina button,
+.impressao-pagina input {
+    font: inherit;
 }
 
-.impressao-icone {
+.impressao-fundo-luz {
+    position: absolute;
+    z-index: -1;
+    width: 280px;
+    height: 280px;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .35;
+}
+
+.impressao-fundo-luz-um {
+    top: 90px;
+    left: -200px;
+    background: #9fb2ff;
+}
+
+.impressao-fundo-luz-dois {
+    top: 420px;
+    right: -210px;
+    background: #c5aaff;
+}
+
+.impressao-layout {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    animation: impressao-entrada .5s ease both;
+}
+
+/* =========================================================
+   CABEÇALHO E IDENTIDADE DA LOJA
+   ========================================================= */
+
+.impressao-cabecalho {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 17px;
+    width: 100%;
+    margin: 0 auto 22px;
+}
+
+.impressao-marca {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 68px;
-    height: 68px;
-    margin-bottom: 24px;
+    justify-content: flex-start;
+    gap: 13px;
+    width: 100%;
+    min-width: 0;
+    padding: 3px 2px;
+}
+
+.impressao-logo,
+.impressao-logo-placeholder {
+    flex: 0 0 61px;
+    width: 61px;
+    height: 61px;
+    border-radius: 18px;
+}
+
+.impressao-logo {
+    display: block;
+    padding: 5px;
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid rgba(222, 228, 240, .95);
+    box-shadow: 0 7px 22px rgba(27, 43, 83, .08);
+}
+
+.impressao-logo-placeholder {
+    display: grid;
+    place-items: center;
+    color: var(--imp-primary);
+    background: linear-gradient(145deg, #fff, #edf2ff);
+    border: 1px solid #e0e7ff;
+}
+
+.impressao-logo-placeholder svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.impressao-identidade {
+    flex: 1;
+    min-width: 0;
+}
+
+.impressao-nome-loja {
+    margin: 0;
+    color: var(--imp-ink);
+    font-size: clamp(17px, 4vw, 21px);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -.045em;
+    overflow-wrap: anywhere;
+}
+
+.impressao-loja-legenda,
+.impressao-texto-carregando {
+    display: block;
+    margin-top: 5px;
+    color: var(--imp-muted);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.impressao-texto-carregando {
+    animation: impressao-pulsar 1.2s ease-in-out infinite;
+}
+
+/* =========================================================
+   REDES SOCIAIS AGRUPADAS
+   Os logos são carregados de /public/img/
+   ========================================================= */
+
+.impressao-redes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, .8);
+    border: 1px solid rgba(226, 231, 242, .95);
+    border-radius: 19px;
+    box-shadow: 0 5px 20px rgba(29, 45, 88, .035);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.impressao-rede-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    min-width: 0;
+    min-height: 43px;
+    padding: 7px 10px 7px 7px;
+    color: #35415b;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #e8ecf4;
+    border-radius: 13px;
+    box-shadow: 0 2px 6px rgba(26, 40, 75, .025);
+    transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.impressao-rede-imagem {
+    display: grid;
+    flex: 0 0 28px;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
+    background: #f7f8fc;
+    border-radius: 9px;
+}
+
+.impressao-rede-imagem img {
+    display: block;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.impressao-rede-nome {
+    font-size: 11px;
+    font-weight: 750;
+    line-height: 1;
+}
+
+.impressao-rede-externa {
+    color: #9aa4b7;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.impressao-rede-link:hover {
+    transform: translateY(-2px);
+    background: #fff;
+    border-color: #cbd5ff;
+    box-shadow: 0 7px 17px rgba(35, 63, 135, .09);
+}
+
+.impressao-rede-link:active {
+    transform: scale(.97);
+}
+
+.impressao-rede-link:focus-visible {
+    outline: 3px solid rgba(49, 87, 232, .25);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   CARTÃO PRINCIPAL
+   ========================================================= */
+
+.impressao-cartao {
+    width: 100%;
+    padding: 27px 20px 20px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(226, 231, 242, .95);
+    border-radius: 26px;
+    box-shadow:
+        0 18px 55px rgba(29, 45, 88, .075),
+        0 2px 8px rgba(29, 45, 88, .025);
+}
+
+.impressao-cartao-topo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.impressao-icone-principal {
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    margin-bottom: 19px;
+    color: #fff;
+    background: linear-gradient(145deg, #5077ff, #3157e8 60%, #6348dc);
+    border: 1px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
-    color: #2457d6;
-    background: #edf3ff;
+    box-shadow:
+        0 11px 23px rgba(49, 87, 232, .24),
+        inset 0 1px 0 rgba(255, 255, 255, .25);
+}
+
+.impressao-icone-principal svg {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.65;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .impressao-etiqueta {
-    display: block;
-    margin-bottom: 10px;
-    color: #2457d6;
-    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: var(--imp-primary);
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    letter-spacing: .14em;
+}
+
+.impressao-ponto-status {
+    width: 7px;
+    height: 7px;
+    background: #2fb47c;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(47, 180, 124, .11);
 }
 
 .impressao-cartao h1 {
+    max-width: 440px;
     margin: 0;
-    color: #172033;
-    font-size: clamp(27px, 5vw, 34px);
-    font-weight: 800;
-    letter-spacing: -1px;
+    color: var(--imp-ink);
+    font-size: clamp(27px, 7vw, 38px);
+    font-weight: 850;
+    line-height: 1.12;
+    letter-spacing: -.065em;
+    text-wrap: balance;
+}
+
+.impressao-cartao h1 span {
+    color: var(--imp-primary);
 }
 
 .impressao-descricao {
-    margin: 12px 0 28px;
-    color: #68748a;
+    max-width: 390px;
+    margin: 13px 0 0;
+    color: var(--imp-muted);
     font-size: 14px;
     line-height: 1.7;
+    text-wrap: pretty;
+}
+
+/* =========================================================
+   SELEÇÃO DO ARQUIVO
+   ========================================================= */
+
+.impressao-formulario {
+    margin-top: 25px;
 }
 
 .impressao-seletor {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 27px 18px;
-    border: 1.5px dashed #b8c7e4;
-    border-radius: 16px;
-    background: #f9fbff;
+    justify-content: center;
+    width: 100%;
+    min-height: 210px;
+    padding: 24px 15px 21px;
     text-align: center;
     cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    background: linear-gradient(180deg, #f6f8ff, #fafbff);
+    border: 1.5px dashed #bdcafa;
+    border-radius: 21px;
+    transition:
+        background .18s ease,
+        border-color .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .impressao-seletor:hover {
-    border-color: #2457d6;
-    background: #f0f5ff;
+    background: #f1f4ff;
+    border-color: var(--imp-primary);
+}
+
+.impressao-seletor:active {
+    transform: scale(.99);
+}
+
+.impressao-seletor:focus-within {
+    outline: 3px solid rgba(49, 87, 232, .18);
+    outline-offset: 3px;
+}
+
+.impressao-seletor.tem-arquivo {
+    background: linear-gradient(180deg, #f0fbf6, #f8fdfb);
+    border-color: #8ad8b4;
+}
+
+.impressao-seletor.desativado {
+    cursor: wait;
+    opacity: .65;
 }
 
 .impressao-upload-icone {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 13px;
-    background: #e6edff;
-    color: #2457d6;
-    font-size: 28px;
-    font-weight: 600;
+    display: grid;
+    place-items: center;
+    width: 51px;
+    height: 51px;
+    margin-bottom: 14px;
+    color: var(--imp-primary);
+    background: #fff;
+    border: 1px solid #e4eaff;
+    border-radius: 17px;
+    box-shadow: 0 5px 14px rgba(36, 64, 137, .07);
+}
+
+.impressao-upload-icone svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .impressao-seletor strong {
-    color: #25334d;
-    font-size: 15px;
+    max-width: 100%;
+    color: var(--imp-ink);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
 }
 
-.impressao-seletor span:not(.impressao-upload-icone) {
-    max-width: 100%;
-    overflow-wrap: anywhere;
-    color: #68748a;
+.impressao-seletor-descricao {
+    max-width: 290px;
+    margin-top: 7px;
+    color: var(--imp-muted);
     font-size: 12px;
+    line-height: 1.6;
+}
+
+.impressao-formatos {
+    margin-top: 13px;
+    color: #65718b;
+    font-size: 10px;
+    font-weight: 700;
     line-height: 1.5;
 }
 
-.impressao-seletor small {
-    color: #8994a7;
-    font-size: 11px;
+.impressao-limite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 13px;
+    padding: 6px 10px;
+    color: #576580;
+    background: #fff;
+    border: 1px solid #e8ecf5;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
 }
+
+.impressao-limite svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: #348a6b;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.impressao-input-arquivo {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* =========================================================
+   ARQUIVO SELECIONADO
+   ========================================================= */
 
 .impressao-arquivo-selecionado {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 12px;
-    padding: 12px;
-    border-radius: 10px;
-    background: #f2f5fa;
-    font-size: 12px;
-}
-
-.impressao-arquivo-selecionado span {
+    gap: 10px;
+    width: 100%;
     min-width: 0;
-    overflow-wrap: anywhere;
+    margin-top: 12px;
+    padding: 11px;
+    background: #f8faff;
+    border: 1px solid var(--imp-border);
+    border-radius: 15px;
+    animation: impressao-entrada .25s ease both;
 }
 
-.impressao-arquivo-selecionado button {
-    flex-shrink: 0;
-    border: 0;
-    background: transparent;
-    color: #c03939;
-    font-weight: 700;
-    cursor: pointer;
+.impressao-arquivo-icone {
+    display: grid;
+    flex: 0 0 40px;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    color: var(--imp-primary);
+    background: #eaf0ff;
+    border-radius: 12px;
 }
+
+.impressao-arquivo-icone svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.impressao-arquivo-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.impressao-arquivo-info strong {
+    overflow: hidden;
+    color: var(--imp-ink);
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.impressao-arquivo-info span {
+    color: var(--imp-muted);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.impressao-remover {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 38px;
+    padding: 8px;
+    color: #b53848;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #f0dce0;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 750;
+    transition: background .16s ease, border-color .16s ease;
+}
+
+.impressao-remover svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.impressao-remover:hover {
+    background: #fff1f2;
+    border-color: #e9b8c0;
+}
+
+.impressao-remover:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+}
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
 
 .impressao-mensagem {
-    margin-top: 16px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 13px;
+    border: 1px solid transparent;
+    border-radius: 13px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.6;
     overflow-wrap: anywhere;
-}
-
-.impressao-mensagem.erro {
-    color: #a62626;
-    background: #fff0f0;
-    border: 1px solid #f4d0d0;
+    animation: impressao-entrada .25s ease both;
 }
 
 .impressao-mensagem.sucesso {
-    color: #17663c;
-    background: #ecf9f0;
-    border: 1px solid #c8edd5;
+    color: #176a4b;
+    background: #effaf4;
+    border-color: #c8edda;
 }
 
-.impressao-botao-enviar {
-    width: 100%;
-    min-height: 50px;
-    margin-top: 20px;
-    padding: 14px 18px;
-    border: none;
-    border-radius: 12px;
-    background: #2457d6;
+.impressao-mensagem.erro {
+    color: #a62e3d;
+    background: #fff3f4;
+    border-color: #f4d2d7;
+}
+
+.impressao-mensagem-icone {
+    display: grid;
+    flex: 0 0 20px;
+    place-items: center;
+    width: 20px;
+    height: 20px;
     color: #fff;
-    font-size: 14px;
-    font-weight: 750;
+    background: var(--imp-success);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.impressao-mensagem.erro .impressao-mensagem-icone {
+    background: var(--imp-danger);
+}
+
+/* =========================================================
+   BOTÃO ENVIAR
+   ========================================================= */
+
+.impressao-botao-enviar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    width: 100%;
+    min-height: 56px;
+    margin-top: 16px;
+    padding: 15px 18px;
+    color: #fff;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
+    background: linear-gradient(110deg, #3157e8, #4167ed 65%, #554ee4);
+    border: 0;
+    border-radius: 16px;
+    box-shadow:
+        0 9px 20px rgba(49, 87, 232, .2),
+        inset 0 1px 0 rgba(255, 255, 255, .2);
+    font-size: 14px;
+    font-weight: 800;
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        filter .18s ease,
+        opacity .18s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.impressao-botao-enviar svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform .18s ease;
 }
 
 .impressao-botao-enviar:hover:not(:disabled) {
-    background: #1945b5;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+    box-shadow: 0 13px 27px rgba(49, 87, 232, .26);
+}
+
+.impressao-botao-enviar:hover:not(:disabled) svg {
+    transform: translateX(3px);
+}
+
+.impressao-botao-enviar:active:not(:disabled) {
+    transform: scale(.985);
+}
+
+.impressao-botao-enviar:focus-visible,
+.impressao-remover:focus-visible {
+    outline: 3px solid rgba(49, 87, 232, .28);
+    outline-offset: 3px;
 }
 
 .impressao-botao-enviar:disabled {
-    background: #aab8d5;
     cursor: not-allowed;
+    background: #aab6d8;
+    box-shadow: none;
+    opacity: .78;
 }
 
-.impressao-privacidade {
-    margin: 20px 0 0;
-    color: #7b879a;
+.impressao-spinner {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    border: 2px solid rgba(255, 255, 255, .45);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: impressao-girar .7s linear infinite;
+}
+
+/* =========================================================
+   SEGURANÇA E RODAPÉ
+   ========================================================= */
+
+.impressao-seguranca {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-top: 21px;
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid #edf0f6;
+    border-radius: 15px;
+}
+
+.impressao-seguranca-icone {
+    display: grid;
+    flex: 0 0 38px;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    color: #23825d;
+    background: #e8f8ef;
+    border-radius: 12px;
+}
+
+.impressao-seguranca-icone svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.impressao-seguranca p {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    margin: 0;
+}
+
+.impressao-seguranca strong {
+    color: #34405a;
     font-size: 11px;
-    line-height: 1.6;
+    font-weight: 800;
+}
+
+.impressao-seguranca p span {
+    color: var(--imp-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.impressao-rodape {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    margin-top: 22px;
+    padding-top: 17px;
+    border-top: 1px solid #edf0f6;
+}
+
+.impressao-rodape>span {
+    color: #8992a6;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.impressao-rodape>div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+
+.impressao-rodape>div span {
+    padding: 6px 9px;
+    color: #66718a;
+    background: #f6f8fc;
+    border: 1px solid #e9edf5;
+    border-radius: 7px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.impressao-assinatura {
+    margin: 19px 0 0;
+    color: #8b94a8;
+    font-size: 11px;
+    font-weight: 550;
     text-align: center;
 }
 
-@media (max-width: 480px) {
-    .impressao-cartao {
-        padding: 26px 20px;
-        border-radius: 19px;
+/* =========================================================
+   INSTAGRAM FLUTUANTE — FIXO NO CANTO INFERIOR DIREITO
+   Aparece somente quando existe URL cadastrada.
+   ========================================================= */
+
+.impressao-instagram-flutuante {
+    position: fixed;
+    z-index: 9999;
+    right: max(17px, env(safe-area-inset-right));
+    bottom: max(18px, env(safe-area-inset-bottom));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 59px;
+    padding: 9px 18px 9px 10px;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(125deg, #833ab4 0%, #c13584 38%, #e1306c 67%, #f77737 100%);
+    border: 1px solid rgba(255, 255, 255, .48);
+    border-radius: 999px;
+    box-shadow:
+        0 9px 28px rgba(193, 53, 132, .34),
+        0 3px 8px rgba(29, 20, 48, .12),
+        inset 0 1px 0 rgba(255, 255, 255, .25);
+    isolation: isolate;
+    -webkit-tap-highlight-color: transparent;
+    animation: impressao-instagram-entrada .55s .2s ease both;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+}
+
+.impressao-instagram-brilho {
+    position: absolute;
+    z-index: -1;
+    top: -50%;
+    left: -80%;
+    width: 55%;
+    height: 200%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, .18),
+            transparent);
+    transform: rotate(22deg);
+    animation: impressao-instagram-brilho 5s 1s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.impressao-instagram-flutuante img {
+    display: block;
+    flex: 0 0 39px;
+    width: 39px;
+    height: 39px;
+    padding: 8px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 7px rgba(49, 17, 53, .16);
+}
+
+.impressao-instagram-texto {
+    position: relative;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: -.015em;
+    white-space: nowrap;
+}
+
+.impressao-instagram-flutuante:hover {
+    transform: translateY(-4px) scale(1.025);
+    filter: saturate(1.08);
+    box-shadow:
+        0 14px 34px rgba(193, 53, 132, .4),
+        0 4px 10px rgba(29, 20, 48, .12);
+}
+
+.impressao-instagram-flutuante:active {
+    transform: scale(.96);
+}
+
+.impressao-instagram-flutuante:focus-visible {
+    outline: 3px solid rgba(193, 53, 132, .35);
+    outline-offset: 4px;
+}
+
+/* Mantém o botão utilizável mesmo se a imagem não carregar. */
+.impressao-instagram-sem-imagem img {
+    display: none;
+}
+
+.impressao-instagram-sem-imagem {
+    padding-left: 18px;
+}
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes impressao-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(9px);
     }
 
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes impressao-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes impressao-pulsar {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .55;
+    }
+}
+
+@keyframes impressao-instagram-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes impressao-instagram-brilho {
+
+    0%,
+    65%,
+    100% {
+        left: -80%;
+    }
+
+    35% {
+        left: 130%;
+    }
+}
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 380px) {
     .impressao-pagina {
-        padding: 18px 12px;
+        padding: 15px 11px 95px;
+    }
+
+    .impressao-cabecalho {
+        gap: 13px;
+        margin-bottom: 16px;
+    }
+
+    .impressao-logo,
+    .impressao-logo-placeholder {
+        flex-basis: 53px;
+        width: 53px;
+        height: 53px;
+        border-radius: 16px;
+    }
+
+    .impressao-redes {
+        gap: 7px;
+        padding: 9px;
+    }
+
+    .impressao-rede-link {
+        gap: 6px;
+        min-height: 40px;
+        padding: 6px 8px 6px 6px;
+    }
+
+    .impressao-rede-imagem {
+        flex-basis: 25px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .impressao-rede-imagem img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .impressao-rede-nome {
+        font-size: 10px;
+    }
+
+    .impressao-cartao {
+        padding: 23px 14px 17px;
+        border-radius: 23px;
+    }
+
+    .impressao-icone-principal {
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+    }
+
+    .impressao-cartao h1 {
+        font-size: 28px;
+    }
+
+    .impressao-descricao {
+        font-size: 13px;
+    }
+
+    .impressao-seletor {
+        min-height: 195px;
+        padding-right: 11px;
+        padding-left: 11px;
+    }
+
+    .impressao-arquivo-selecionado {
+        gap: 7px;
+        padding: 8px;
+    }
+
+    .impressao-arquivo-icone {
+        flex-basis: 33px;
+        width: 33px;
+        height: 33px;
+    }
+
+    .impressao-remover {
+        gap: 3px;
+        padding: 7px;
+        font-size: 10px;
+    }
+
+    .impressao-instagram-flutuante {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(13px, env(safe-area-inset-bottom));
+        min-height: 53px;
+        gap: 8px;
+        padding: 7px 14px 7px 8px;
+    }
+
+    .impressao-instagram-flutuante img {
+        flex-basis: 37px;
+        width: 37px;
+        height: 37px;
+    }
+
+    .impressao-instagram-texto {
+        font-size: 12px;
+    }
+}
+
+/* =========================================================
+   TABLETS E COMPUTADORES
+   ========================================================= */
+
+@media (min-width: 600px) {
+    .impressao-pagina {
+        align-items: center;
+        padding: 35px 24px 100px;
+    }
+
+    .impressao-layout {
+        max-width: 600px;
+    }
+
+    .impressao-cabecalho {
+        margin-bottom: 25px;
+    }
+
+    .impressao-marca {
+        justify-content: center;
+        width: auto;
+        max-width: 100%;
+    }
+
+    .impressao-logo,
+    .impressao-logo-placeholder {
+        flex-basis: 70px;
+        width: 70px;
+        height: 70px;
+        border-radius: 21px;
+    }
+
+    .impressao-redes {
+        justify-content: center;
+        padding: 13px;
+    }
+
+    .impressao-cartao {
+        padding: 38px 42px 27px;
+        border-radius: 30px;
+    }
+
+    .impressao-formulario {
+        margin-top: 29px;
+    }
+
+    .impressao-seletor {
+        min-height: 225px;
+    }
+
+    .impressao-seguranca {
+        margin-top: 23px;
+    }
+}
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .impressao-pagina *,
+    .impressao-pagina *::before,
+    .impressao-pagina *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
     }
 }
