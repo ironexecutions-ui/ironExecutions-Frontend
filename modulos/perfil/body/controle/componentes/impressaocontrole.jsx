@@ -10,9 +10,15 @@ const ICP_PRODUTOS = [
     {
         codigo: "11",
         nome: "Impressão colorida",
+       
+    },
+     {
+    codigo: null,
+    nome: "Impressão",
+       
     },
 ];
-
+ 
 export default function Impressaocontrole() {
     const [produtos, setProdutos] = useState([]);
     const [precos, setPrecos] = useState({
