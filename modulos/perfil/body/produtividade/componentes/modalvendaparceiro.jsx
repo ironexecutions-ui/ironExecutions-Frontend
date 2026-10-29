@@ -40,7 +40,8 @@ export default function ModalVendaParceiro({
     const [sucesso, setSucesso] = useState("");
     const [vendaConcluida, setVendaConcluida] = useState(null);
     const token = localStorage.getItem("token");
-
+const [nomeComercio, setNomeComercio] = useState("");
+const [nomeParceiroApi, setNomeParceiroApi] = useState("");
     useEffect(() => {
         let ativo = true;
 
@@ -92,6 +93,72 @@ export default function ModalVendaParceiro({
             ativo = false;
         };
     }, [parceriaId, token]);
+useEffect(() => {
+    let ativo = true;
+
+    async function carregarIdentificacao() {
+        try {
+            const headers = {
+                Authorization: `Bearer ${token}`,
+                "Cache-Control": "no-cache",
+            };
+
+            const [respostaCliente, respostaParceiros] = await Promise.all([
+                fetch(`${API_URL}/clientes/me`, {
+                    method: "GET",
+                    headers,
+                    cache: "no-store",
+                }),
+                fetch(`${API_URL}/clientes/parceiros`, {
+                    method: "GET",
+                    headers,
+                    cache: "no-store",
+                }),
+            ]);
+
+            if (!respostaCliente.ok) {
+                throw new Error("Não foi possível identificar o comércio.");
+            }
+
+            const cliente = await respostaCliente.json();
+
+            const parceiros = respostaParceiros.ok
+                ? await respostaParceiros.json()
+                : [];
+
+            const parceiroEncontrado = Array.isArray(parceiros)
+                ? parceiros.find(
+                      (item) => Number(item.id) === Number(parceriaId)
+                  )
+                : null;
+
+            if (ativo) {
+                setNomeComercio(
+                    String(cliente.loja || "").trim()
+                );
+
+                setNomeParceiroApi(
+                    String(parceiroEncontrado?.parceiro || "").trim()
+                );
+            }
+        } catch (erro) {
+            console.error(
+                "Erro ao carregar identificação da etiqueta:",
+                erro
+            );
+        }
+    }
+
+    if (token && parceriaId != null) {
+        carregarIdentificacao();
+    }
+
+    return () => {
+        ativo = false;
+    };
+}, [token, parceriaId]);
+
+
 
     useEffect(() => {
         function tratarTeclado(evento) {
@@ -185,7 +252,195 @@ export default function ModalVendaParceiro({
             lista.filter((item) => item.chave !== chave)
         );
     }
+   function imprimirEtiqueta() {
+    if (!vendaConcluida) return;
 
+    if (!nomeComercio.trim()) {
+        setErro("Não foi possível identificar o nome do comércio pela API /clientes/me.");
+        return;
+    }
+
+    if (!nomeParceiroApi.trim()) {
+        setErro("Não foi possível identificar o parceiro pela API /clientes/parceiros.");
+        return;
+    }
+
+    if (!vendaConcluida.protocolo) {
+        setErro("A API de registro não retornou o protocolo da venda.");
+        return;
+    }
+
+    const escaparHTML = (valor) =>
+        String(valor ?? "").replace(/[&<>"']/g, (caractere) => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+        })[caractere]);
+
+    const empresa = escaparHTML(nomeComercio);
+    const parceiro = escaparHTML(nomeParceiroApi);
+    const protocolo = escaparHTML(vendaConcluida.protocolo);
+    const data = escaparHTML(new Date().toLocaleString("pt-BR"));
+
+    const janela = window.open("", "_blank", "width=400,height=600");
+
+    if (!janela) {
+        setErro("O navegador bloqueou a janela de impressão. Permita pop-ups e tente novamente.");
+        return;
+    }
+
+    janela.onload = () => {
+        janela.focus();
+        janela.print();
+    };
+
+    janela.document.open();
+    janela.document.write(`<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Etiqueta de venda</title>
+
+    <style>
+        @page {
+            size: 58mm auto;
+            margin: 2mm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 54mm;
+            background: #fff;
+            color: #000;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .etiqueta {
+            width: 54mm;
+            padding: 2mm 1mm;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        .marca {
+            font-size: 19pt;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .submarca {
+            margin-top: 1mm;
+            font-size: 7pt;
+            font-weight: 700;
+        }
+
+        .linha {
+            border-top: 1.5px solid #000;
+            margin: 3mm 0;
+        }
+
+        .rotulo {
+            font-size: 8pt;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .nome {
+            margin: 2mm 0;
+            font-size: 13pt;
+            font-weight: 900;
+            line-height: 1.2;
+            overflow-wrap: anywhere;
+        }
+
+        .protocolo-titulo {
+            margin-top: 3mm;
+            font-size: 8pt;
+            font-weight: 800;
+        }
+
+        .protocolo {
+            margin: 2mm 0;
+            font-size: 25pt;
+            font-weight: 900;
+            line-height: 1.1;
+            overflow-wrap: anywhere;
+        }
+
+        .autenticidade {
+            font-size: 9pt;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+
+        .descricao {
+            margin-top: 2mm;
+            font-size: 8pt;
+            line-height: 1.4;
+        }
+
+        .data {
+            margin-top: 3mm;
+            font-size: 7pt;
+        }
+
+        .rodape {
+            margin-top: 2mm;
+            font-size: 7pt;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <main class="etiqueta">
+        <div class="marca">IRONEXECUTIONS</div>
+        <div class="submarca">REGISTRO DE VENDA</div>
+
+        <div class="linha"></div>
+
+        <div class="rotulo">Comércio responsável</div>
+        <div class="nome">${empresa}</div>
+
+        <div class="linha"></div>
+
+        <div class="rotulo">Parceiro</div>
+        <div class="nome">${parceiro}</div>
+
+        <div class="linha"></div>
+
+        <div class="protocolo-titulo">PROTOCOLO DA VENDA</div>
+        <div class="protocolo">${protocolo}</div>
+
+        <div class="linha"></div>
+
+        <div class="autenticidade">
+            IDENTIFICAÇÃO DE VENDA
+        </div>
+
+        <div class="descricao">
+            Etiqueta emitida para identificar a operação registrada
+            no sistema IronStore.
+            <br><br>
+            Consulte o protocolo no histórico oficial de vendas.
+        </div>
+
+        <div class="data">Emitida em: ${data}</div>
+
+        <div class="linha"></div>
+
+        <div class="rodape">IRONEXECUTIONS · REGISTRO DE OPERAÇÃO</div>
+    </main>
+</body>
+</html>`);
+    janela.document.close();
+}
     async function registrarVenda() {
         if (registrando) return;
 
@@ -330,14 +585,22 @@ export default function ModalVendaParceiro({
 
 
                         </div>
+<button
+    type="button"
+    className="mvp-botao-imprimir-etiqueta"
+    onClick={imprimirEtiqueta}
+>
+    Imprimir etiqueta 
+</button>
 
-                        <button
-                            type="button"
-                            className="mvp-registrar"
-                            onClick={fechar}
-                        >
-                            Aceitar e fechar
-                        </button>
+<button
+    type="button"
+    className="mvp-registrar"
+    onClick={fechar}
+>
+    Aceitar e fechar
+</button>
+                       
                     </div>
                 )}
                 <div className="mvp-status-bar">

@@ -1368,3 +1368,347 @@
         transform: translateY(0);
     }
 }
+
+/* =========================================================
+   IRONSTORE | ACABAMENTO PREMIUM DA VENDA DE PARCEIRO
+   Namespace exclusivo: mvp-
+   ========================================================= */
+
+/* ---------- BOTÃO IMPRIMIR ETIQUETA ---------- */
+
+.mvp-overlay .mvp-botao-imprimir-etiqueta {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+
+    width: min(420px, 100%);
+    min-height: 52px;
+    margin-top: 24px;
+    padding: 14px 22px;
+
+    overflow: hidden;
+    border: 1px solid #1944b3;
+    border-radius: 13px;
+
+    background: linear-gradient(135deg,
+            #2457d6 0%,
+            #1944b3 100%);
+
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 850;
+    letter-spacing: 0.15px;
+
+    box-shadow:
+        0 8px 22px rgba(36, 87, 214, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease,
+        border-color 0.22s ease;
+}
+
+.mvp-overlay .mvp-botao-imprimir-etiqueta::before {
+    content: "▤";
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 29px;
+    height: 29px;
+
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.13);
+
+    font-size: 20px;
+    line-height: 1;
+}
+
+.mvp-overlay .mvp-botao-imprimir-etiqueta::after {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 65%;
+    height: 100%;
+
+    background: linear-gradient(105deg,
+            transparent,
+            rgba(255, 255, 255, 0.19),
+            transparent);
+
+    transform: skewX(-20deg);
+    transition: left 0.55s ease;
+}
+
+.mvp-overlay .mvp-botao-imprimir-etiqueta:hover {
+    transform: translateY(-2px);
+
+    border-color: #123a9e;
+
+    background: linear-gradient(135deg,
+            #3269ee 0%,
+            #1944b3 100%);
+
+    box-shadow:
+        0 12px 28px rgba(36, 87, 214, 0.29),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.mvp-overlay .mvp-botao-imprimir-etiqueta:hover::after {
+    left: 150%;
+}
+
+.mvp-overlay .mvp-botao-imprimir-etiqueta:active {
+    transform: scale(0.985);
+    box-shadow: 0 4px 12px rgba(36, 87, 214, 0.18);
+}
+
+.mvp-overlay .mvp-botao-imprimir-etiqueta:focus-visible {
+    outline: 3px solid rgba(36, 87, 214, 0.35);
+    outline-offset: 4px;
+}
+
+/* ---------- CONFIRMAÇÃO DA VENDA ---------- */
+
+.mvp-overlay .mvp-confirmacao {
+    isolation: isolate;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e3 transparent;
+}
+
+.mvp-overlay .mvp-confirmacao-icone {
+    position: relative;
+
+    flex-shrink: 0;
+
+    box-shadow:
+        0 12px 30px rgba(22, 128, 74, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    animation: mvp-confirmacao-icone-entrada 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.mvp-overlay .mvp-confirmacao-icone::after {
+    content: "";
+
+    position: absolute;
+    inset: -7px;
+
+    border: 1px solid rgba(22, 128, 74, 0.15);
+    border-radius: 29px;
+
+    animation: mvp-confirmacao-halo 1.8s ease-out infinite;
+    pointer-events: none;
+}
+
+.mvp-overlay .mvp-confirmacao-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 13px;
+    border: 1px solid #dce7ff;
+    border-radius: 999px;
+
+    background: #f0f5ff;
+    color: #2457d6;
+
+    line-height: 1.3;
+}
+
+.mvp-overlay .mvp-confirmacao h2 {
+    text-wrap: balance;
+}
+
+.mvp-overlay .mvp-confirmacao>p {
+    overflow-wrap: anywhere;
+}
+
+/* ---------- PROTOCOLO DA VENDA ---------- */
+
+.mvp-overlay .mvp-protocolo {
+    position: relative;
+    isolation: isolate;
+
+    border-color: #dce5f4;
+
+    background: linear-gradient(145deg,
+            #ffffff 0%,
+            #f5f8ff 100%);
+
+    box-shadow:
+        0 10px 30px rgba(25, 57, 112, 0.055),
+        inset 0 1px 0 #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.mvp-overlay .mvp-protocolo:hover {
+    border-color: #bfd0f6;
+
+    box-shadow:
+        0 14px 35px rgba(25, 57, 112, 0.09),
+        inset 0 1px 0 #ffffff;
+}
+
+.mvp-overlay .mvp-protocolo>strong {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: center;
+    line-height: 1.15;
+}
+
+.mvp-overlay .mvp-protocolo>button {
+    min-height: 35px;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.mvp-overlay .mvp-protocolo>button:hover {
+    transform: translateY(-1px);
+    border-color: #b9cdfa;
+    background: #edf3ff;
+}
+
+/* ---------- BOTÃO FINALIZAR ---------- */
+
+.mvp-overlay .mvp-confirmacao>.mvp-registrar {
+    min-height: 52px;
+    border-radius: 13px;
+
+    background: linear-gradient(135deg,
+            #14804a 0%,
+            #096638 100%);
+
+    border-color: #096638;
+
+    box-shadow: 0 7px 20px rgba(20, 128, 74, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.mvp-overlay .mvp-confirmacao>.mvp-registrar:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    background: linear-gradient(135deg,
+            #19985a 0%,
+            #08703c 100%);
+
+    box-shadow: 0 11px 26px rgba(20, 128, 74, 0.25);
+}
+
+.mvp-overlay .mvp-confirmacao>.mvp-registrar:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+/* ---------- ANIMAÇÕES COMPLEMENTARES ---------- */
+
+@keyframes mvp-confirmacao-icone-entrada {
+    from {
+        opacity: 0;
+        transform: scale(0.75) rotate(-8deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes mvp-confirmacao-halo {
+    0% {
+        opacity: 0.65;
+        transform: scale(0.94);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.18);
+    }
+}
+
+/* ---------- RESPONSIVIDADE COMPLEMENTAR ---------- */
+
+@media (max-width: 620px) {
+    .mvp-overlay .mvp-confirmacao {
+        justify-content: flex-start;
+        padding: 30px 17px 24px;
+    }
+
+    .mvp-overlay .mvp-confirmacao-icone {
+        width: 62px;
+        height: 62px;
+        border-radius: 20px;
+        font-size: 31px;
+    }
+
+    .mvp-overlay .mvp-confirmacao-icone::after {
+        border-radius: 25px;
+    }
+
+    .mvp-overlay .mvp-confirmacao-etiqueta {
+        margin-top: 20px;
+        font-size: 9px;
+    }
+
+    .mvp-overlay .mvp-confirmacao h2 {
+        font-size: 25px;
+        line-height: 1.2;
+    }
+
+    .mvp-overlay .mvp-protocolo {
+        gap: 12px;
+        margin-top: 22px;
+        padding: 20px 14px;
+    }
+
+    .mvp-overlay .mvp-protocolo>strong {
+        font-size: clamp(27px, 8vw, 48px);
+    }
+
+    .mvp-overlay .mvp-botao-imprimir-etiqueta,
+    .mvp-overlay .mvp-confirmacao>.mvp-registrar {
+        width: 100%;
+        min-height: 49px;
+        margin-top: 14px;
+    }
+}
+
+/* ---------- ACESSIBILIDADE ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .mvp-overlay .mvp-botao-imprimir-etiqueta,
+    .mvp-overlay .mvp-botao-imprimir-etiqueta::after,
+    .mvp-overlay .mvp-confirmacao-icone,
+    .mvp-overlay .mvp-confirmacao-icone::after,
+    .mvp-overlay .mvp-protocolo,
+    .mvp-overlay .mvp-protocolo>button,
+    .mvp-overlay .mvp-confirmacao>.mvp-registrar {
+        animation: none !important;
+        transition: none !important;
+    }
+}

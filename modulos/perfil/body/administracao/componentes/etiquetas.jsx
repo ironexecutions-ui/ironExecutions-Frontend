@@ -11,27 +11,65 @@ const CACHE_CONFIGURACAO_ETIQUETAS =
 export default function Etiquetas() {
     const [produtos, setProdutos] = useState([]);
     const [selecionados, setSelecionados] = useState([]);
+const [produtoVariedadesAberto, setProdutoVariedadesAberto] =
+    useState(null);
 
-    function obterNomeExibicao(produto) {
-        const nomeCompleto = String(
-            produto?.nome || ""
-        ).trim();
+// Guarda quais produtos estão mostrando o nome completo.
+// Por padrão, a tela mostra o nome normal/reduzido.
+const [nomesCompletosVisiveis, setNomesCompletosVisiveis] =
+    useState({});
 
-        const quantidadeEspacos = (
-            String(produto?.qual_variedad || "")
-                .match(/\(\)/g) || []
-        ).length;
+function alternarNomeProduto(produtoId) {
+    setNomesCompletosVisiveis(nomesAtuais => ({
+        ...nomesAtuais,
+        [produtoId]: !nomesAtuais[produtoId],
+    }));
+}
 
-        if (quantidadeEspacos === 0) {
-            return nomeCompleto;
-        }
+function obterNomeExibicao(produto) {
+    const nomeCompleto = String(
+        produto?.nome || ""
+    ).trim();
 
-        return nomeCompleto
-            .split(/\s+/)
-            .filter(Boolean)
-            .slice(0, quantidadeEspacos)
-            .join(" ");
+    if (!nomeCompleto) {
+        return "";
     }
+
+    // Primeiro tenta obter a configuração do produto.
+    let configuracaoVariedade = String(
+        produto?.qual_variedad || ""
+    ).trim();
+
+    // Se estiver vazia, tenta usar a configuração
+    // da primeira variedade associada ao produto.
+    if (!configuracaoVariedade) {
+        configuracaoVariedade = String(
+            produto?.variedades?.find(
+                variedade =>
+                    String(variedade?.qual_variedad || "").trim()
+            )?.qual_variedad || ""
+        ).trim();
+    }
+
+    // Aceita parênteses vazios mesmo com espaços internos.
+    const quantidadeEspacos = (
+        configuracaoVariedade.match(/\(\s*\)/g) || []
+    ).length;
+
+    // Sem espaços reservados, mantém o nome original.
+    if (quantidadeEspacos === 0) {
+        return nomeCompleto;
+    }
+
+    // Mantém apenas a quantidade de palavras definida
+    // pelos espaços reservados da configuração.
+    return nomeCompleto
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, quantidadeEspacos)
+        .join(" ");
+}
+
 
     const [fonteNormal, setFonteNormal] = useState("helvetica");
     const [estiloFonteNormal, setEstiloFonteNormal] = useState("bold");
@@ -89,75 +127,7 @@ export default function Etiquetas() {
     // CARREGAR CONFIGURAÇÕES DAS ETIQUETAS DO CACHE
     // =========================================================
     // =========================================================
-    // CARREGAR CONFIGURAÇÕES VISUAIS DO CACHE
-    // =========================================================
-    useEffect(() => {
-        try {
-            const cacheSalvo = localStorage.getItem(
-                CACHE_CONFIGURACAO_ETIQUETAS
-            );
-
-            if (cacheSalvo) {
-                const configuracao = JSON.parse(cacheSalvo);
-
-                if (configuracao.corFundoNormal) {
-                    setCorFundoNormal(
-                        configuracao.corFundoNormal
-                    );
-                }
-
-                if (configuracao.corTextoNormal) {
-                    setCorTextoNormal(
-                        configuracao.corTextoNormal
-                    );
-                }
-
-                if (configuracao.fonteNormal) {
-                    setFonteNormal(
-                        configuracao.fonteNormal
-                    );
-                }
-
-                if (configuracao.estiloFonteNormal) {
-                    setEstiloFonteNormal(
-                        configuracao.estiloFonteNormal
-                    );
-                }
-
-                if (configuracao.corFundoPromocao) {
-                    setCorFundoPromocao(
-                        configuracao.corFundoPromocao
-                    );
-                }
-
-                if (configuracao.corTextoPromocao) {
-                    setCorTextoPromocao(
-                        configuracao.corTextoPromocao
-                    );
-                }
-
-                if (configuracao.fontePromocao) {
-                    setFontePromocao(
-                        configuracao.fontePromocao
-                    );
-                }
-
-                if (configuracao.estiloFontePromocao) {
-                    setEstiloFontePromocao(
-                        configuracao.estiloFontePromocao
-                    );
-                }
-            }
-
-        } catch (erro) {
-            console.error(
-                "Erro ao carregar configuração das etiquetas:",
-                erro
-            );
-        } finally {
-            setConfiguracaoEtiquetasCarregada(true);
-        }
-    }, []);
+    
 
     const estilosFonteDisponiveis = [
         {
@@ -594,17 +564,6 @@ export default function Etiquetas() {
         setSelecionados([]);
     }
 
-
-    // ===============================
-    // REMOVER DA IMPRESSÃO
-    // ===============================
-    function removerDaImpressao(id) {
-        setSelecionados(listaAtual =>
-            listaAtual.filter(
-                item => item.id !== id
-            )
-        );
-    }
 
     // ===============================
     // PROMOÇÃO
@@ -1291,9 +1250,15 @@ export default function Etiquetas() {
 
             pdf.setFontSize(15);
 
+            // A etiqueta imprime exatamente o modo de nome escolhido na tela:
+            // completo quando o usuário clicou no nome; normal caso contrário.
+            const nomeParaImprimir = nomesCompletosVisiveis[produto.id]
+                ? String(produto?.nome || "").trim()
+                : obterNomeExibicao(produto);
+
             const nomeQuebrado =
                 pdf.splitTextToSize(
-                    obterNomeExibicao(produto),
+                    nomeParaImprimir,
                     larguraTexto
                 );
 
@@ -2026,41 +1991,90 @@ export default function Etiquetas() {
         );
     }
 
+function alternarPainelVariedades(produtoId) {
+    setProdutoVariedadesAberto(atual =>
+        atual === produtoId ? null : produtoId
+    );
+}
+
+function alternarVariedadeEtiqueta(produtoPrincipal, variedade) {
+    const jaSelecionada = selecionados.some(
+        item => item.id === variedade.id
+    );
+
+    if (jaSelecionada) {
+        removerDaImpressao(variedade.id);
+        return;
+    }
+
+    adicionarParaImpressao({
+        ...variedade,
+        produtoPrincipalId: produtoPrincipal.id,
+        nomeProdutoPrincipal: produtoPrincipal.nome,
+        ehVariedadeEtiqueta: true,
+    });
+}
+
     // ===============================
     // CARD PRODUTO
     // ===============================
-    function renderizarProduto(produto, lado) {
+// Substitua a função renderizarProduto(produto, lado) inteira por esta versão.
+function renderizarProduto(produto, lado) {
         const editando = editandoPrecoId === produto.id;
 
         return (
             <div
-                className={`etiquetas-produto-card-individual ${editando
-                    ? "etiquetas-produto-card-editando-preco"
+                className={`etq-v2-produto-card-individual ${editando
+                    ? "etq-v2-produto-card-editando-preco"
                     : ""
                     }`}
                 key={produto.id}
             >
-                <div className="etiquetas-produto-informacoes-bloco">
+                <div className="etq-v2-produto-informacoes-bloco">
 
-                    <strong className="etiquetas-produto-nome-texto">
-                        {obterNomeExibicao(produto)}
+                    <strong
+                        className="etq-v2-produto-nome-texto"
+                        role="button"
+                        tabIndex={0}
+                        title={
+                            nomesCompletosVisiveis[produto.id]
+                                ? "Clique para mostrar o nome normal"
+                                : "Clique para mostrar o nome completo"
+                        }
+                        aria-label={
+                            nomesCompletosVisiveis[produto.id]
+                                ? `Mostrar nome normal de ${produto.nome || "produto"}`
+                                : `Mostrar nome completo de ${produto.nome || "produto"}`
+                        }
+                        style={{ cursor: "pointer" }}
+                        onClick={() => alternarNomeProduto(produto.id)}
+                        onKeyDown={evento => {
+                            if (evento.key === "Enter" || evento.key === " ") {
+                                evento.preventDefault();
+                                alternarNomeProduto(produto.id);
+                            }
+                        }}
+                    >
+                        {nomesCompletosVisiveis[produto.id]
+                            ? String(produto?.nome || "").trim()
+                            : obterNomeExibicao(produto)}
                     </strong>
 
                     {!editando && (
-                        <span className="etiquetas-produto-preco-texto">
+                        <span className="etq-v2-produto-preco-texto">
                             R$ {formatarPreco(produto.preco)}
                         </span>
                     )}
 
                     {editando && (
-                        <div className="etiquetas-edicao-preco-area">
+                        <div className="etq-v2-edicao-preco-area">
 
-                            <span className="etiquetas-edicao-preco-prefixo">
+                            <span className="etq-v2-edicao-preco-prefixo">
                                 R$
                             </span>
 
                             <input
-                                className="etiquetas-edicao-preco-input"
+                                className="etq-v2-edicao-preco-input"
                                 type="number"
                                 step="0.01"
                                 value={novoPreco}
@@ -2077,10 +2091,10 @@ export default function Etiquetas() {
 
                     {/* QUANTIDADE SOMENTE DO LADO DIREITO */}
                     {lado === "direita" && (
-                        <div className="etiquetas-quantidade-impressao-area">
+                        <div className="etq-v2-quantidade-impressao-area">
 
                             <label
-                                className="etiquetas-quantidade-impressao-label"
+                                className="etq-v2-quantidade-impressao-label"
                                 htmlFor={`quantidade-etiqueta-${produto.id}`}
                             >
                                 Quantidade
@@ -2093,9 +2107,9 @@ export default function Etiquetas() {
                             {lado === "direita" &&
                                 produto.usarImagemEtiqueta &&
                                 produto.imagem_etiqueta && (
-                                    <div className="etiquetas-card-preview-imagem-sem-fundo-area">
+                                    <div className="etq-v2-card-preview-imagem-sem-fundo-area">
                                         <img
-                                            className="etiquetas-card-preview-imagem-sem-fundo"
+                                            className="etq-v2-card-preview-imagem-sem-fundo"
                                             src={produto.imagem_etiqueta}
                                             alt=""
                                             draggable="false"
@@ -2104,7 +2118,7 @@ export default function Etiquetas() {
                                 )}
                             <input
                                 id={`quantidade-etiqueta-${produto.id}`}
-                                className="etiquetas-quantidade-impressao-input"
+                                className="etq-v2-quantidade-impressao-input"
                                 type="number"
                                 min="1"
                                 step="1"
@@ -2134,8 +2148,8 @@ export default function Etiquetas() {
                 </div>
 
                 <div
-                    className={`etiquetas-produto-acoes-area ${editando
-                        ? "etiquetas-produto-acoes-editando-preco"
+                    className={`etq-v2-produto-acoes-area ${editando
+                        ? "etq-v2-produto-acoes-editando-preco"
                         : ""
                         }`}
                 >
@@ -2147,7 +2161,7 @@ export default function Etiquetas() {
                     {!editando ? (
                         <button
                             type="button"
-                            className="etiquetas-acao-alterar-preco"
+                            className="etq-v2-acao-alterar-preco"
                             onClick={() =>
                                 iniciarEdicaoPreco(produto)
                             }
@@ -2158,7 +2172,7 @@ export default function Etiquetas() {
                         <>
                             <button
                                 type="button"
-                                className="etiquetas-acao-salvar-preco"
+                                className="etq-v2-acao-salvar-preco"
                                 onClick={() =>
                                     salvarNovoPreco(produto)
                                 }
@@ -2166,9 +2180,11 @@ export default function Etiquetas() {
                                 Salvar
                             </button>
 
+
+
                             <button
                                 type="button"
-                                className="etiquetas-acao-cancelar-preco"
+                                className="etq-v2-acao-cancelar-preco"
                                 onClick={cancelarEdicaoPreco}
                             >
                                 Cancelar
@@ -2184,7 +2200,7 @@ export default function Etiquetas() {
                     {lado === "esquerda" && (
                         <button
                             type="button"
-                            className="etiquetas-acao-mover-direita"
+                            className="etq-v2-acao-mover-direita"
                             onClick={() =>
                                 adicionarParaImpressao(produto)
                             }
@@ -2205,14 +2221,98 @@ export default function Etiquetas() {
                     {lado === "direita" && (
                         <>
 
+                            {!editando &&
+                                Array.isArray(produto.variedades) &&
+                                produto.variedades.length > 0 && (
+                                    <div className="etq-v2-variedades-area">
+                                        <button
+                                            type="button"
+                                            className="etq-v2-variedades-botao"
+                                            onClick={() =>
+                                                alternarPainelVariedades(produto.id)
+                                            }
+                                            aria-expanded={
+                                                produtoVariedadesAberto === produto.id
+                                            }
+                                        >
+                                            <span>Selecionar variedades</span>
+                            
+                                            <span className="etq-v2-variedades-contador">
+                                                {produto.variedades.filter(variedade =>
+                                                    selecionados.some(
+                                                        item => item.id === variedade.id
+                                                    )
+                                                ).length}
+                                                {" / "}
+                                                {produto.variedades.length}
+                                            </span>
+                            
+                                            <span className="etq-v2-variedades-seta">
+                                                {produtoVariedadesAberto === produto.id
+                                                    ? "−"
+                                                    : "+"}
+                                            </span>
+                                        </button>
+                            
+                                        {produtoVariedadesAberto === produto.id && (
+                                            <div className="etq-v2-variedades-lista">
+                                                {produto.variedades.map(variedade => {
+                                                    const marcada = selecionados.some(
+                                                        item => item.id === variedade.id
+                                                    );
+                            
+                                                    return (
+                                                        <label
+                                                            key={variedade.id}
+                                                            className="etq-v2-variedades-item"
+                                                        >
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={marcada}
+                                                                onChange={() =>
+                                                                    alternarVariedadeEtiqueta(
+                                                                        produto,
+                                                                        variedade
+                                                                    )
+                                                                }
+                                                            />
+                            
+                                                            <span className="etq-v2-variedades-dados">
+                                                               <strong>
+    {String(variedade?.nome || "").trim()}
+</strong>
+                            
+                                                                <small>
+                                                                    R$ {formatarPreco(variedade.preco)}
+                                                                </small>
+                                                            </span>
+                            
+                                                            <span
+                                                                className={
+                                                                    marcada
+                                                                        ? "etq-v2-variedades-status etq-v2-variedades-status-ativa"
+                                                                        : "etq-v2-variedades-status"
+                                                                }
+                                                            >
+                                                                {marcada ? "Selecionada" : "Adicionar"}
+                                                            </span>
+                                                        </label>
+                                                    );
+                                                })}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+
                             {!editando && (
                                 <>
                                     <button
                                         type="button"
-                                        className={`etiquetas-imagem-produto-controle ${produto.usarImagemEtiqueta &&
+                                        className={`etq-v2-imagem-produto-controle ${produto.usarImagemEtiqueta &&
                                             produto.imagem_etiqueta
-                                            ? "etiquetas-imagem-produto-com-imagem"
-                                            : "etiquetas-imagem-produto-sem-imagem"
+                                            ? "etq-v2-imagem-produto-com-imagem"
+                                            : "etq-v2-imagem-produto-sem-imagem"
                                             }`}
                                         onClick={() =>
                                             alternarUsoImagemEtiqueta(
@@ -2238,7 +2338,7 @@ export default function Etiquetas() {
 
                                     <button
                                         type="button"
-                                        className="etiquetas-imagem-produto-editar"
+                                        className="etq-v2-imagem-produto-editar"
                                         onClick={() =>
                                             abrirModalImagemEtiqueta(
                                                 produto
@@ -2250,7 +2350,7 @@ export default function Etiquetas() {
 
                                     <button
                                         type="button"
-                                        className="etiquetas-acao-promocao"
+                                        className="etq-v2-acao-promocao"
                                         data-ativo={
                                             produto.promocao
                                                 ? "true"
@@ -2277,24 +2377,24 @@ export default function Etiquetas() {
                         ============================================= */}
 
                             {!editando && produto.promocao && (
-                                <div className="etiquetas-promocao-preco-anterior-area">
+                                <div className="etq-v2-promocao-preco-anterior-area">
 
                                     <label
-                                        className="etiquetas-promocao-preco-anterior-label"
+                                        className="etq-v2-promocao-preco-anterior-label"
                                         htmlFor={`preco-anterior-promocao-${produto.id}`}
                                     >
                                         Preço anterior
                                     </label>
 
-                                    <div className="etiquetas-promocao-preco-anterior-campo">
+                                    <div className="etq-v2-promocao-preco-anterior-campo">
 
-                                        <span className="etiquetas-promocao-preco-anterior-prefixo">
+                                        <span className="etq-v2-promocao-preco-anterior-prefixo">
                                             R$
                                         </span>
 
                                         <input
                                             id={`preco-anterior-promocao-${produto.id}`}
-                                            className="etiquetas-promocao-preco-anterior-input"
+                                            className="etq-v2-promocao-preco-anterior-input"
                                             type="number"
                                             min="0"
                                             step="0.01"
@@ -2322,7 +2422,7 @@ export default function Etiquetas() {
 
                             <button
                                 type="button"
-                                className="etiquetas-acao-mover-esquerda"
+                                className="etq-v2-acao-mover-esquerda"
                                 onClick={() =>
                                     removerDaImpressao(
                                         produto.id
@@ -2341,9 +2441,6 @@ export default function Etiquetas() {
         );
     }
 
-    // ===============================
-    // RETURN PRINCIPAL
-    // ===============================
     return (
         <div className="etiquetas-painel-principal">
 
@@ -2865,76 +2962,7 @@ export default function Etiquetas() {
                 </section>
             </div>
 
-            {modalImagemEtiqueta && (
-                <div
-                    className="etiquetas-imagem-modal-overlay"
-                    onMouseDown={e => {
-                        if (
-                            e.target === e.currentTarget
-                        ) {
-                            fecharModalImagemEtiqueta();
-                        }
-                    }}
-                >
-                    <div className="etiquetas-imagem-modal-caixa">
-                        <div className="etiquetas-imagem-modal-cabecalho">
-                            <div>
-                                <h3>
-                                    Imagem da etiqueta
-                                </h3>
-
-                                <p>
-                                    {obterNomeExibicao(modalImagemEtiqueta)}
-                                </p>
-                            </div>
-
-                            <button
-                                type="button"
-                                className="etiquetas-imagem-modal-fechar"
-                                onClick={fecharModalImagemEtiqueta}
-                                disabled={salvandoImagemEtiqueta}
-                            >
-                                ×
-                            </button>
-                        </div>
-
-                        <div className="etiquetas-imagem-modal-conteudo">
-                            {obterImagensProduto(
-                                modalImagemEtiqueta
-                            ).length > 0 && (
-                                    <div className="etiquetas-imagem-modal-galeria-area">
-                                        <strong>
-                                            Escolha uma imagem do produto
-                                        </strong>
-
-                                        <div className="etiquetas-imagem-modal-galeria">
-                                            {obterImagensProduto(
-                                                modalImagemEtiqueta
-                                            ).map((url, indice) => (
-                                                <button
-                                                    type="button"
-                                                    key={`${url}-${indice}`}
-                                                    className={`etiquetas-imagem-modal-opcao ${imagemEscolhidaEtiqueta === url &&
-                                                        !arquivoImagemEtiqueta
-                                                        ? "etiquetas-imagem-modal-opcao-ativa"
-                                                        : ""
-                                                        }`}
-                                                    onClick={() => {
-                                                        setImagemEscolhidaEtiqueta(url);
-                                                        setArquivoImagemEtiqueta(null);
-                                                    }}
-                                                >
-                                                    <img
-                                                        src={url}
-                                                        alt={`Opção ${indice + 1}`}
-                                                    />
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                            {modalImagemEtiqueta &&
+            {modalImagemEtiqueta &&
                                 createPortal(
                                     <div
                                         className="etiquetas-imagem-modal-overlay"
@@ -3128,75 +3156,6 @@ export default function Etiquetas() {
                                     </div>,
                                     document.body
                                 )}
-
-                            <div className="etiquetas-imagem-modal-upload-area">
-                                <strong>
-                                    Ou carregue uma nova imagem
-                                </strong>
-
-                                <label className="etiquetas-imagem-modal-upload-botao">
-                                    Escolher arquivo
-
-                                    <input
-                                        type="file"
-                                        accept="image/png,image/jpeg,image/webp"
-                                        onChange={e => {
-                                            const arquivo =
-                                                e.target.files?.[0] || null;
-
-                                            setArquivoImagemEtiqueta(
-                                                arquivo
-                                            );
-
-                                            if (arquivo) {
-                                                setImagemEscolhidaEtiqueta("");
-                                            }
-                                        }}
-                                    />
-                                </label>
-
-                                {arquivoImagemEtiqueta && (
-                                    <span className="etiquetas-imagem-modal-arquivo-nome">
-                                        {arquivoImagemEtiqueta.name}
-                                    </span>
-                                )}
-                            </div>
-
-                            <div className="etiquetas-imagem-modal-aviso">
-                                Ao salvar, o fundo será removido automaticamente.
-                            </div>
-                        </div>
-
-                        <div className="etiquetas-imagem-modal-rodape">
-                            <button
-                                type="button"
-                                className="etiquetas-imagem-modal-cancelar"
-                                onClick={fecharModalImagemEtiqueta}
-                                disabled={salvandoImagemEtiqueta}
-                            >
-                                Cancelar
-                            </button>
-
-                            <button
-                                type="button"
-                                className="etiquetas-imagem-modal-salvar"
-                                onClick={salvarImagemEtiqueta}
-                                disabled={
-                                    salvandoImagemEtiqueta ||
-                                    (
-                                        !arquivoImagemEtiqueta &&
-                                        !imagemEscolhidaEtiqueta
-                                    )
-                                }
-                            >
-                                {salvandoImagemEtiqueta
-                                    ? "Removendo fundo..."
-                                    : "Salvar imagem"}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
             {alertaLimiteEtiquetas &&
                 createPortal(
                     <div className="etiquetas-limite-alerta-overlay">
