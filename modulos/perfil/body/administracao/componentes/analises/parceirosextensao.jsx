@@ -586,7 +586,7 @@ export default function ParceirosExtensao({ parceiro }) {
 
                         <td colspan="2">TOTAL GERAL</td>
 
-                       
+                        <td class="numero"></td>
 
                         <td class="numero">${formatarValor(valorTotal)}</td>
 
