@@ -346,7 +346,36 @@ export default function BlocoFlags({ dados, podeEditar, salvar }) {
                     </select>
 
                 </div>
+                {/* ================= PARCERIAS ================= */}
 
+                <div className="bf-item">
+
+                    <label
+                        className="bf-label"
+                        htmlFor="bf-parceria-aceita"
+                    >
+                        Possui parceiros?
+                    </label>
+
+                    <br />
+
+                    <select
+                        id="bf-parceria-aceita"
+                        className="bf-select bf-select-parceria"
+                        disabled={!podeEditar}
+                        value={Number(dados?.parceria_aceita ?? 0)}
+                        onChange={e =>
+                            salvar(
+                                "parceria_aceita",
+                                Number(e.target.value)
+                            )
+                        }
+                    >
+                        <option value={0}>Não</option>
+                        <option value={1}>Sim</option>
+                    </select>
+
+                </div>
                 {/* ================= COMANDA ================= */}
 
                 <div className="bf-item">

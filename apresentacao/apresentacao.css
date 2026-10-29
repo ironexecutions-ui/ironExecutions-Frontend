@@ -3272,7 +3272,6 @@
     max-height: calc(100dvh - 100px) !important;
 
     aspect-ratio: 1 / 1;
-    background: #ffffff !important;
     border: 0 !important;
     border-radius: 0 !important;
 
@@ -3285,7 +3284,7 @@
     align-items: center !important;
     justify-content: center !important;
 
-    width: 100% !important;
+    width: 80% !important;
     padding: 0 !important;
     margin: 0 !important;
 
@@ -3299,7 +3298,7 @@
     display: block !important;
     flex: 0 1 auto !important;
 
-    width: min(280px, calc(100vw - 80px)) !important;
+    width: min(800px, calc(100vw - 80px)) !important;
     height: auto !important;
     max-height: calc(100dvh - 80px) !important;
 

@@ -1141,3 +1141,1457 @@
         transition-duration: .01ms !important;
     }
 }
+
+
+/* =========================================================
+   IRON EXECUTIONS | PREMIUM UI ENHANCEMENT
+   Camada visual complementar para a página de impressão
+   ========================================================= */
+
+/* ---------- 1. REFINAMENTO GLOBAL ---------- */
+
+.impressao-pagina {
+    --imp-shadow-soft: 0 8px 30px rgba(23, 32, 51, 0.045);
+    --imp-shadow-medium: 0 20px 55px rgba(23, 32, 51, 0.085);
+    --imp-shadow-blue: 0 14px 35px rgba(49, 87, 232, 0.16);
+    --imp-radius-premium: 24px;
+}
+
+.impressao-pagina ::selection {
+    color: #ffffff;
+    background: #3157e8;
+}
+
+.impressao-pagina a,
+.impressao-pagina button,
+.impressao-pagina label {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- 2. FUNDO MAIS SOFISTICADO ---------- */
+
+.impressao-pagina {
+    background-color: #f7f9fd;
+    background-image:
+        radial-gradient(circle at 12% 8%,
+            rgba(49, 87, 232, 0.09),
+            transparent 28%),
+        radial-gradient(circle at 92% 38%,
+            rgba(102, 82, 220, 0.07),
+            transparent 27%),
+        linear-gradient(180deg,
+            #fbfcff 0%,
+            #f4f7fc 100%);
+}
+
+/* ---------- 3. IDENTIDADE DA LOJA ---------- */
+
+.impressao-marca {
+    padding: 8px 4px;
+}
+
+.impressao-logo,
+.impressao-logo-placeholder {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.impressao-logo:hover,
+.impressao-logo-placeholder:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(27, 43, 83, 0.13);
+}
+
+.impressao-nome-loja {
+    letter-spacing: -0.055em;
+}
+
+.impressao-loja-legenda {
+    letter-spacing: 0.015em;
+}
+
+/* ---------- 4. REDES SOCIAIS PREMIUM ---------- */
+
+.impressao-redes {
+    padding: 13px;
+    gap: 9px;
+    background: rgba(255, 255, 255, 0.88);
+    border-color: #e6eaf3;
+    box-shadow: var(--imp-shadow-soft);
+}
+
+.impressao-rede-link {
+    position: relative;
+    min-height: 45px;
+    padding-right: 12px;
+    overflow: hidden;
+    border-color: #e8ecf4;
+    transition:
+        transform 0.22s cubic-bezier(.2, .8, .2, 1),
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease;
+}
+
+.impressao-rede-link:hover {
+    transform: translateY(-3px);
+    border-color: #c8d4ff;
+    box-shadow: 0 9px 22px rgba(35, 63, 135, 0.10);
+}
+
+.impressao-rede-imagem {
+    transition:
+        transform 0.22s ease,
+        background 0.22s ease;
+}
+
+.impressao-rede-link:hover .impressao-rede-imagem {
+    transform: scale(1.07);
+    background: #eef2ff;
+}
+
+.impressao-rede-nome {
+    letter-spacing: -0.015em;
+}
+
+/* ---------- 5. CARTÃO PRINCIPAL ---------- */
+
+.impressao-cartao {
+    position: relative;
+    isolation: isolate;
+    padding: 32px 25px 25px;
+    border: 1px solid rgba(222, 229, 242, 0.95);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow:
+        0 25px 70px rgba(25, 42, 82, 0.075),
+        0 5px 15px rgba(25, 42, 82, 0.025),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    animation: imp-premium-card-in 0.65s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+/* Linha superior discreta */
+
+.impressao-cartao::before {
+    position: absolute;
+    top: 0;
+    left: 13%;
+    width: 74%;
+    height: 1px;
+    content: "";
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(49, 87, 232, 0.32),
+            transparent);
+    pointer-events: none;
+}
+
+/* ---------- 6. ÍCONE PRINCIPAL ---------- */
+
+.impressao-icone-principal {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    border-radius: 22px;
+    background: linear-gradient(145deg,
+            #6384ff 0%,
+            #3157e8 55%,
+            #4637bf 100%);
+    box-shadow:
+        0 14px 28px rgba(49, 87, 232, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.impressao-icone-principal:hover {
+    transform: translateY(-4px) rotate(-3deg);
+    box-shadow: 0 18px 35px rgba(49, 87, 232, 0.28);
+}
+
+.impressao-icone-principal svg {
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.08));
+}
+
+/* ---------- 7. TIPOGRAFIA DE ALTO IMPACTO ---------- */
+
+.impressao-cartao h1 {
+    font-size: clamp(29px, 5vw, 41px);
+    font-weight: 850;
+    line-height: 1.12;
+    letter-spacing: -0.065em;
+}
+
+.impressao-cartao h1 span {
+    color: #3157e8;
+    background: linear-gradient(100deg, #3157e8, #6550d9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.impressao-descricao {
+    max-width: 370px;
+    color: #65718a;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* ---------- 8. SELETOR DE ARQUIVOS ---------- */
+
+.impressao-seletor {
+    position: relative;
+    min-height: 225px;
+    overflow: hidden;
+    border: 1.5px dashed #b9c8f6;
+    border-radius: 23px;
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(49, 87, 232, 0.065),
+            transparent 55%),
+        linear-gradient(180deg, #f7f9ff, #ffffff);
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+/* Reflexo suave no hover */
+
+.impressao-seletor::after {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 55%;
+    height: 100%;
+    content: "";
+    background: linear-gradient(105deg,
+            transparent,
+            rgba(255, 255, 255, 0.65),
+            transparent);
+    transform: skewX(-18deg);
+    pointer-events: none;
+}
+
+.impressao-seletor:hover::after {
+    animation: imp-premium-shimmer 0.8s ease;
+}
+
+.impressao-seletor:hover {
+    transform: translateY(-2px);
+    border-color: #7895ff;
+    background-color: #f5f7ff;
+    box-shadow: 0 12px 30px rgba(49, 87, 232, 0.075);
+}
+
+.impressao-seletor.tem-arquivo {
+    border-color: #72cda1;
+    background: linear-gradient(145deg, #f0fbf5, #ffffff);
+    box-shadow: 0 10px 28px rgba(21, 132, 91, 0.06);
+}
+
+.impressao-seletor strong {
+    font-size: 16px;
+    letter-spacing: -0.025em;
+}
+
+.impressao-seletor-descricao {
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* ---------- 9. ÍCONE DE UPLOAD ---------- */
+
+.impressao-upload-icone {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 16px;
+    border-radius: 19px;
+    color: #3157e8;
+    border-color: #e0e7ff;
+    box-shadow:
+        0 8px 20px rgba(49, 87, 232, 0.08),
+        inset 0 1px 0 #ffffff;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.impressao-seletor:hover .impressao-upload-icone {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 12px 25px rgba(49, 87, 232, 0.13);
+}
+
+/* ---------- 10. INDICADOR DE TAMANHO ---------- */
+
+.impressao-limite {
+    padding: 7px 12px;
+    color: #4f5d76;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #e1e7f2;
+    box-shadow: 0 3px 9px rgba(23, 32, 51, 0.025);
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.impressao-seletor:hover .impressao-limite {
+    border-color: #d2dcfa;
+}
+
+/* ---------- 11. ARQUIVO SELECIONADO ---------- */
+
+.impressao-arquivo-selecionado {
+    padding: 13px;
+    border-color: #e0e7f3;
+    border-radius: 17px;
+    background: linear-gradient(135deg, #f8faff, #ffffff);
+    box-shadow: 0 5px 18px rgba(23, 32, 51, 0.035);
+}
+
+.impressao-arquivo-icone {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+    border: 1px solid #dce5ff;
+    border-radius: 14px;
+}
+
+.impressao-arquivo-info strong {
+    font-size: 12px;
+    letter-spacing: -0.01em;
+}
+
+.impressao-remover {
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.impressao-remover:hover {
+    transform: translateY(-1px);
+}
+
+/* ---------- 12. BOTÃO DE ENVIO PREMIUM ---------- */
+
+.impressao-botao-enviar {
+    position: relative;
+    isolation: isolate;
+    min-height: 59px;
+    overflow: hidden;
+    border-radius: 17px;
+    background: linear-gradient(110deg,
+            #2449d4 0%,
+            #3157e8 48%,
+            #5149d6 100%);
+    box-shadow:
+        0 11px 25px rgba(49, 87, 232, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.23);
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        filter 0.22s ease;
+}
+
+.impressao-botao-enviar::before {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: -120%;
+    width: 65%;
+    height: 100%;
+    content: "";
+    background: linear-gradient(100deg,
+            transparent,
+            rgba(255, 255, 255, 0.19),
+            transparent);
+    transform: skewX(-20deg);
+    pointer-events: none;
+}
+
+.impressao-botao-enviar:hover:not(:disabled)::before {
+    animation: imp-premium-shimmer 0.75s ease;
+}
+
+.impressao-botao-enviar:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow:
+        0 16px 34px rgba(49, 87, 232, 0.27),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.impressao-botao-enviar:active:not(:disabled) {
+    transform: translateY(0) scale(0.985);
+    box-shadow: 0 5px 14px rgba(49, 87, 232, 0.18);
+}
+
+.impressao-botao-enviar:disabled {
+    filter: saturate(0.65);
+    transform: none;
+}
+
+/* ---------- 13. MENSAGENS DE STATUS ---------- */
+
+.impressao-mensagem {
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(23, 32, 51, 0.025);
+}
+
+.impressao-mensagem.sucesso {
+    color: #176a4b;
+    background: linear-gradient(135deg, #effaf4, #f9fffb);
+    border-color: #c4ead5;
+}
+
+.impressao-mensagem.erro {
+    color: #a62e3d;
+    background: linear-gradient(135deg, #fff1f3, #fffafb);
+    border-color: #f0cbd2;
+}
+
+/* ---------- 14. BLOCO DE FORMATOS ---------- */
+
+.impressao-rodape {
+    gap: 13px;
+    padding-top: 20px;
+}
+
+.impressao-rodape>span {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.impressao-rodape>div span {
+    padding: 7px 10px;
+    color: #52617c;
+    background: #f8faff;
+    border-color: #e4eaf5;
+    border-radius: 8px;
+    font-size: 10px;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.impressao-rodape>div span:hover {
+    color: #3157e8;
+    background: #eef2ff;
+    border-color: #d4ddff;
+}
+
+/* ---------- 15. SEGURANÇA E CONFIANÇA ---------- */
+
+.impressao-seguranca {
+    border-color: #e5eaf2;
+    border-radius: 17px;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    box-shadow: 0 5px 18px rgba(23, 32, 51, 0.025);
+}
+
+.impressao-seguranca-icone {
+    border: 1px solid #d7f0e2;
+}
+
+/* ---------- 16. BOTÃO FLUTUANTE DO INSTAGRAM ---------- */
+
+.impressao-instagram-flutuante {
+    transition:
+        transform 0.25s cubic-bezier(.2, .8, .2, 1),
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+.impressao-instagram-flutuante:hover {
+    transform: translateY(-4px) scale(1.025);
+    box-shadow:
+        0 17px 38px rgba(193, 53, 132, 0.35),
+        0 5px 12px rgba(29, 20, 48, 0.12);
+}
+
+.impressao-instagram-flutuante:active {
+    transform: scale(0.96);
+}
+
+/* ---------- 17. ANIMAÇÕES EXCLUSIVAS ---------- */
+
+@keyframes imp-premium-card-in {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes imp-premium-shimmer {
+    from {
+        left: -120%;
+    }
+
+    to {
+        left: 150%;
+    }
+}
+
+/* ---------- 18. TABLETS ---------- */
+
+@media (min-width: 600px) {
+    .impressao-pagina {
+        padding: 34px 24px 110px;
+    }
+
+    .impressao-layout {
+        max-width: 650px;
+    }
+
+    .impressao-cabecalho {
+        gap: 19px;
+        margin-bottom: 27px;
+    }
+
+    .impressao-cartao {
+        padding: 38px 34px 30px;
+        border-radius: 30px;
+    }
+
+    .impressao-formulario {
+        margin-top: 30px;
+    }
+
+    .impressao-seletor {
+        min-height: 240px;
+    }
+}
+
+/* ---------- 19. CELULARES ---------- */
+
+@media (max-width: 480px) {
+    .impressao-pagina {
+        padding: 18px 12px 100px;
+    }
+
+    .impressao-cartao {
+        padding: 26px 16px 19px;
+        border-radius: 23px;
+    }
+
+    .impressao-cartao h1 {
+        font-size: clamp(27px, 7.4vw, 33px);
+    }
+
+    .impressao-descricao {
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .impressao-seletor {
+        min-height: 205px;
+        padding: 22px 12px;
+        border-radius: 19px;
+    }
+
+    .impressao-redes {
+        gap: 7px;
+        padding: 10px;
+        border-radius: 16px;
+    }
+
+    .impressao-rede-link {
+        min-height: 41px;
+        padding: 6px 9px 6px 6px;
+        gap: 6px;
+    }
+
+    .impressao-rede-imagem {
+        width: 26px;
+        height: 26px;
+        flex-basis: 26px;
+    }
+
+    .impressao-rede-imagem img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .impressao-botao-enviar {
+        min-height: 56px;
+    }
+
+    .impressao-instagram-flutuante {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+        min-height: 53px;
+        padding: 7px 14px 7px 8px;
+    }
+
+    .impressao-instagram-flutuante img {
+        width: 35px;
+        height: 35px;
+        flex-basis: 35px;
+    }
+}
+
+/* ---------- 20. ACESSIBILIDADE E MOVIMENTO ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .impressao-pagina *,
+    .impressao-pagina *::before,
+    .impressao-pagina *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =========================================================
+   IRON EXECUTIONS | MOTION SYSTEM
+   Entradas, seleção de arquivos e interação social
+   ========================================================= */
+
+/* ---------- 1. ENTRADA SEQUENCIAL DA PÁGINA ---------- */
+
+.impressao-cabecalho {
+    animation: imp-motion-header 0.65s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-marca {
+    animation: imp-motion-brand 0.65s 0.08s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-redes {
+    animation: imp-motion-networks 0.7s 0.18s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-cartao {
+    animation:
+        imp-motion-card 0.75s 0.12s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-cartao-topo>* {
+    animation: imp-motion-content 0.55s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-cartao-topo>*:nth-child(1) {
+    animation-delay: 0.20s;
+}
+
+.impressao-cartao-topo>*:nth-child(2) {
+    animation-delay: 0.27s;
+}
+
+.impressao-cartao-topo>*:nth-child(3) {
+    animation-delay: 0.34s;
+}
+
+.impressao-cartao-topo>*:nth-child(4) {
+    animation-delay: 0.41s;
+}
+
+.impressao-formulario {
+    animation: imp-motion-content 0.6s 0.35s both;
+}
+
+.impressao-rodape {
+    animation: imp-motion-content 0.6s 0.48s both;
+}
+
+.impressao-assinatura {
+    animation: imp-motion-content 0.6s 0.58s both;
+}
+
+/* ---------- 2. ENTRADA DOS BOTÕES SOCIAIS ---------- */
+
+.impressao-rede-link {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    animation: imp-motion-social 0.48s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-rede-link:nth-child(1) {
+    animation-delay: 0.24s;
+}
+
+.impressao-rede-link:nth-child(2) {
+    animation-delay: 0.30s;
+}
+
+.impressao-rede-link:nth-child(3) {
+    animation-delay: 0.36s;
+}
+
+.impressao-rede-link:nth-child(4) {
+    animation-delay: 0.42s;
+}
+
+.impressao-rede-link:nth-child(5) {
+    animation-delay: 0.48s;
+}
+
+/* ---------- 3. EFEITO DE BRILHO AO CLICAR NA REDE ---------- */
+
+.impressao-rede-link::after {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    content: "";
+    border-radius: 50%;
+    background: rgba(49, 87, 232, 0.13);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.impressao-rede-link:active {
+    transform: scale(0.94);
+    background: #edf2ff;
+    border-color: #aebfff;
+    box-shadow: 0 2px 6px rgba(49, 87, 232, 0.12);
+}
+
+.impressao-rede-link:active::after {
+    animation: imp-motion-ripple 0.48s ease-out;
+}
+
+.impressao-rede-link:active .impressao-rede-imagem {
+    transform: scale(0.88);
+}
+
+/* ---------- 4. ANIMAÇÃO DO LOGO DA REDE ---------- */
+
+.impressao-rede-imagem img {
+    transition:
+        transform 0.25s cubic-bezier(.2, .8, .2, 1),
+        filter 0.25s ease;
+}
+
+.impressao-rede-link:hover .impressao-rede-imagem img {
+    transform: scale(1.12);
+}
+
+.impressao-rede-link:active .impressao-rede-imagem img {
+    transform: scale(0.9);
+}
+
+/* ---------- 5. SELEÇÃO DO ARQUIVO ---------- */
+
+.impressao-seletor.tem-arquivo {
+    animation: imp-motion-file-selected 0.48s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-seletor.tem-arquivo .impressao-upload-icone {
+    animation: imp-motion-file-icon 0.55s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-seletor.tem-arquivo .impressao-limite {
+    border-color: #b7e6ce;
+    background: #f3fcf7;
+    color: #247650;
+}
+
+/* ---------- 6. CARTÃO DO ARQUIVO SELECIONADO ---------- */
+
+.impressao-arquivo-selecionado {
+    transform-origin: top center;
+    animation: imp-motion-file-card 0.48s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-arquivo-selecionado .impressao-arquivo-icone {
+    animation: imp-motion-file-icon 0.5s 0.08s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.impressao-arquivo-info strong {
+    animation: imp-motion-file-name 0.42s 0.12s ease both;
+}
+
+.impressao-arquivo-selecionado .impressao-remover {
+    animation: imp-motion-file-action 0.4s 0.16s ease both;
+}
+
+/* ---------- 7. FEEDBACK AO REMOVER ARQUIVO ---------- */
+
+.impressao-remover:active:not(:disabled) {
+    transform: scale(0.94);
+    background: #ffe8eb;
+    border-color: #e7aab4;
+}
+
+/* ---------- 8. FEEDBACK DO BOTÃO DE ENVIO ---------- */
+
+.impressao-botao-enviar:active:not(:disabled) {
+    transform: scale(0.975);
+    filter: brightness(0.96);
+}
+
+.impressao-botao-enviar:disabled {
+    cursor: not-allowed;
+}
+
+/* ---------- 9. ANIMAÇÃO DO INSTAGRAM FLUTUANTE ---------- */
+
+.impressao-instagram-flutuante:active {
+    transform: scale(0.93);
+    filter: saturate(1.2) brightness(0.96);
+}
+
+/* ---------- 10. KEYFRAMES ---------- */
+
+@keyframes imp-motion-header {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes imp-motion-brand {
+    from {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes imp-motion-networks {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes imp-motion-card {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes imp-motion-content {
+    from {
+        opacity: 0;
+        transform: translateY(9px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes imp-motion-social {
+    from {
+        opacity: 0;
+        transform: translateY(9px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes imp-motion-ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+    }
+
+    100% {
+        width: 220%;
+        height: 220%;
+        opacity: 0;
+    }
+}
+
+@keyframes imp-motion-file-selected {
+    0% {
+        transform: scale(0.985);
+        border-color: #bdcafa;
+    }
+
+    65% {
+        transform: scale(1.012);
+    }
+
+    100% {
+        transform: scale(1);
+        border-color: #72cda1;
+    }
+}
+
+@keyframes imp-motion-file-icon {
+    0% {
+        opacity: 0;
+        transform: translateY(7px) scale(0.78) rotate(-8deg);
+    }
+
+    65% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.08) rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0);
+    }
+}
+
+@keyframes imp-motion-file-card {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+        filter: blur(3px);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.005);
+        filter: blur(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes imp-motion-file-name {
+    from {
+        opacity: 0;
+        transform: translateX(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes imp-motion-file-action {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ---------- 11. ACESSIBILIDADE ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .impressao-cabecalho,
+    .impressao-marca,
+    .impressao-redes,
+    .impressao-cartao,
+    .impressao-cartao-topo>*,
+    .impressao-formulario,
+    .impressao-rodape,
+    .impressao-assinatura,
+    .impressao-rede-link,
+    .impressao-seletor.tem-arquivo,
+    .impressao-seletor.tem-arquivo .impressao-upload-icone,
+    .impressao-arquivo-selecionado,
+    .impressao-arquivo-selecionado *,
+    .impressao-rede-link::after {
+        animation: none !important;
+    }
+}
+
+/* =========================================================
+   IRON EXECUTIONS | BOTÃO FLUTUANTE DA LOJA
+   Design premium • Azul corporativo • Animação refinada
+   ========================================================= */
+
+.impressao-dominio-flutuante {
+    --dominio-azul: #2457d6;
+    --dominio-azul-escuro: #153b8e;
+    --dominio-branco: #ffffff;
+
+    position: fixed;
+    right: 24px;
+    bottom: 100px;
+    z-index: 9998;
+
+    display: flex;
+    align-items: center;
+    gap: 0;
+
+    min-height: 62px;
+    max-width: calc(100vw - 32px);
+    padding: 7px;
+
+    color: var(--dominio-branco);
+    text-decoration: none;
+
+    background: linear-gradient(125deg,
+            #14284d 0%,
+            #1b438f 58%,
+            #2457d6 100%);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 24px rgba(16, 42, 91, 0.22),
+        0 2px 6px rgba(16, 42, 91, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+    overflow: hidden;
+    isolation: isolate;
+    -webkit-tap-highlight-color: transparent;
+
+    animation: impressao-dominio-entrada 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+/* Reflexo sutil: acabamento visual premium */
+.impressao-dominio-flutuante::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -80%;
+    z-index: 0;
+
+    width: 45%;
+    pointer-events: none;
+
+    background: linear-gradient(100deg,
+            transparent,
+            rgba(255, 255, 255, 0.11),
+            transparent);
+
+    transform: skewX(-20deg);
+    animation: impressao-dominio-reflexo 7s ease-in-out 1.5s infinite;
+}
+
+/* Brilho inferior discreto */
+.impressao-dominio-flutuante::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    bottom: 0;
+    left: 12px;
+    z-index: 0;
+
+    height: 1px;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+
+    pointer-events: none;
+}
+
+/* Área do logo */
+.impressao-dominio-logo-area {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    place-items: center;
+    flex: 0 0 46px;
+
+    width: 46px;
+    height: 46px;
+
+    overflow: hidden;
+    border-radius: 13px;
+
+    background: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 2px 7px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 1px rgba(15, 35, 75, 0.04);
+}
+
+/* Logo aparece primeiro */
+.impressao-dominio-logo {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    border-radius: inherit;
+
+    animation: impressao-dominio-logo-entrada 0.65s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+/* Nome da loja: permanece oculto inicialmente */
+.impressao-dominio-nome {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+
+    max-width: 0;
+    margin-left: 0;
+    overflow: hidden;
+    white-space: pre;
+
+    color: #ffffff;
+
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+    line-height: 1.35;
+
+    opacity: 0;
+
+    animation: impressao-dominio-nome-revelar 0.55s cubic-bezier(0.2, 0.75, 0.25, 1) 3s forwards;
+}
+
+/* Entrada individual das letras */
+.impressao-dominio-letra {
+    display: inline-block;
+    flex: 0 0 auto;
+
+    opacity: 0;
+
+    transform: translate(var(--dominio-x, 12px),
+            var(--dominio-y, -10px)) scale(0.92);
+
+    animation: impressao-dominio-letra-entrada 0.45s cubic-bezier(0.2, 0.75, 0.25, 1) var(--dominio-atraso, 3s) forwards;
+}
+
+/* Seta de navegação */
+.impressao-dominio-seta {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+
+    width: 0;
+    margin-left: 0;
+    overflow: hidden;
+
+    color: rgba(255, 255, 255, 0.9);
+
+    font-size: 16px;
+    font-weight: 600;
+
+    opacity: 0;
+
+    animation: impressao-dominio-seta-revelar 0.3s ease 3.7s forwards;
+}
+
+/* Interação elegante */
+.impressao-dominio-flutuante:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(255, 255, 255, 0.34);
+
+    box-shadow:
+        0 12px 30px rgba(16, 42, 91, 0.29),
+        0 4px 10px rgba(16, 42, 91, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.impressao-dominio-flutuante:hover .impressao-dominio-seta {
+    color: #ffffff;
+}
+
+.impressao-dominio-flutuante:active {
+    transform: translateY(0) scale(0.985);
+}
+
+.impressao-dominio-flutuante:focus-visible {
+    outline: 3px solid #78a5ff;
+    outline-offset: 4px;
+}
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes impressao-dominio-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+        filter: blur(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes impressao-dominio-logo-entrada {
+    0% {
+        opacity: 0;
+        transform: scale(0.82);
+    }
+
+    75% {
+        opacity: 1;
+        transform: scale(1.04);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes impressao-dominio-nome-revelar {
+    from {
+        max-width: 0;
+        margin-left: 0;
+        opacity: 0;
+    }
+
+    to {
+        max-width: min(280px, calc(100vw - 150px));
+        margin-left: 11px;
+        opacity: 1;
+    }
+}
+
+@keyframes impressao-dominio-letra-entrada {
+    0% {
+        opacity: 0;
+        transform: translate(var(--dominio-x, 12px),
+                var(--dominio-y, -10px)) scale(0.92);
+        filter: blur(2px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-1px) scale(1.02);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes impressao-dominio-seta-revelar {
+    from {
+        width: 0;
+        margin-left: 0;
+        opacity: 0;
+        transform: translateX(-3px);
+    }
+
+    to {
+        width: 18px;
+        margin-left: 6px;
+        opacity: 0.95;
+        transform: translateX(0);
+    }
+}
+
+@keyframes impressao-dominio-reflexo {
+
+    0%,
+    72%,
+    100% {
+        left: -80%;
+    }
+
+    35% {
+        left: 140%;
+    }
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 480px) {
+    .impressao-dominio-flutuante {
+        right: 16px;
+        bottom: 92px;
+
+        min-height: 56px;
+        padding: 6px;
+
+        border-radius: 16px;
+    }
+
+    .impressao-dominio-logo-area {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+
+        border-radius: 12px;
+    }
+
+    .impressao-dominio-nome {
+        font-size: 12px;
+    }
+}
+
+/* Acessibilidade: respeita a preferência do dispositivo */
+@media (prefers-reduced-motion: reduce) {
+
+    .impressao-dominio-flutuante,
+    .impressao-dominio-flutuante::before,
+    .impressao-dominio-logo,
+    .impressao-dominio-nome,
+    .impressao-dominio-letra,
+    .impressao-dominio-seta {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .impressao-dominio-nome {
+        max-width: min(280px, calc(100vw - 150px));
+        margin-left: 11px;
+        opacity: 1;
+    }
+
+    .impressao-dominio-letra {
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
+
+    .impressao-dominio-seta {
+        width: 18px;
+        margin-left: 6px;
+        opacity: 1;
+    }
+}
+
+/* Nome: entra, permanece 10 segundos e sai */
+.impressao-dominio-nome {
+    max-width: 0;
+    margin-left: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    animation:
+        impressao-dominio-nome-abrir 0.6s ease 3s forwards,
+        impressao-dominio-nome-fechar 0.6s ease var(--dominio-saida, 14s) forwards;
+}
+
+/* Letras entrando e saindo individualmente */
+.impressao-dominio-letra {
+    display: inline-block;
+    flex: 0 0 auto;
+
+    opacity: 0;
+
+    transform: translate(var(--dominio-x, 20px),
+            var(--dominio-y, -20px)) scale(0.7);
+
+    animation:
+        impressao-dominio-letra-entrar 0.55s cubic-bezier(0.2, 0.75, 0.25, 1) var(--dominio-atraso, 3s) forwards,
+        impressao-dominio-letra-sair 0.45s cubic-bezier(0.4, 0, 0.8, 0.3) var(--dominio-saida-letra, 14s) forwards;
+}
+
+/* Abre espaço para o nome */
+@keyframes impressao-dominio-nome-abrir {
+    to {
+        max-width: min(280px, calc(100vw - 150px));
+        margin-left: 11px;
+        opacity: 1;
+    }
+}
+
+/* Fecha o espaço depois da saída das letras */
+@keyframes impressao-dominio-nome-fechar {
+    to {
+        max-width: 0;
+        margin-left: 0;
+        opacity: 0;
+    }
+}
+
+/* Entrada de cada letra */
+@keyframes impressao-dominio-letra-entrar {
+    0% {
+        opacity: 0;
+        transform: translate(var(--dominio-x, 20px),
+                var(--dominio-y, -20px)) scale(0.7);
+        filter: blur(3px);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1.06);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Saída na direção contrária à entrada */
+@keyframes impressao-dominio-letra-sair {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--dominio-x, 20px) * -1),
+                calc(var(--dominio-y, -20px) * -1)) scale(0.7);
+        filter: blur(3px);
+    }
+}

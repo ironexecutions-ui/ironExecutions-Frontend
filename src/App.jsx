@@ -452,7 +452,29 @@ export default function App() {
     useState(false);
 
 
-  async function verificarTermosPendentes() {
+  async function carregarFundo() {
+    // =========================================================
+    // ROTAS PÚBLICAS
+    // Não validar a sessão nem redirecionar para "/"
+    // quando o acesso vier pelo QR Code de impressão.
+    // =========================================================
+
+    const caminhoAtual = window.location.pathname;
+
+    const rotaPublicaImpressao =
+      /^\/impressao\/[^/]+\/?$/.test(caminhoAtual);
+
+    if (rotaPublicaImpressao) {
+      setFundoComercio(null);
+
+      console.log(
+        "[IMPRESSÃO] Acesso público pelo QR Code preservado:",
+        caminhoAtual
+      );
+
+      return;
+    }
+
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -639,7 +661,102 @@ export default function App() {
   }
 
 
+  async function verificarTermosPendentes() {
+    const caminhoAtual = window.location.pathname;
 
+    if (caminhoAtual !== "/ironbusiness/perfil") {
+      setTermosPendentes([]);
+      setAbrirModalTermos(false);
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setTermosPendentes([]);
+      setAbrirModalTermos(false);
+      return;
+    }
+
+    try {
+      setCarregandoTermos(true);
+
+      const resposta = await fetch(`${API_URL}/termos`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (resposta.status === 401 || resposta.status === 403) {
+        setTermosPendentes([]);
+        setAbrirModalTermos(false);
+        return;
+      }
+
+      if (!resposta.ok) {
+        throw new Error(`Erro ao verificar termos: ${resposta.status}`);
+      }
+
+      const dados = await resposta.json();
+
+      const pendentes = Array.isArray(dados?.termos_pendentes)
+        ? dados.termos_pendentes
+        : [];
+
+      if (Number(dados?.teste) === 1 || pendentes.length === 0) {
+        setTermosPendentes([]);
+        setAbrirModalTermos(false);
+        return;
+      }
+
+      const cache = lerCacheAvisoTermos();
+      const hoje = obterDataLocalHojeTermos();
+
+      let usuarioId = null;
+
+      try {
+        const partes = token.split(".");
+
+        if (partes.length === 3) {
+          const payloadBase64 = partes[1]
+            .replace(/-/g, "+")
+            .replace(/_/g, "/");
+
+          const payload = JSON.parse(atob(payloadBase64));
+
+          usuarioId = payload?.id ?? payload?.cliente_id ?? null;
+        }
+      } catch (erro) {
+        console.warn("[TERMOS] Não foi possível ler o token:", erro);
+      }
+
+      const mesmoUsuario =
+        cache?.usuario_id &&
+        usuarioId &&
+        String(cache.usuario_id) === String(usuarioId);
+
+      const mesmoComercio =
+        cache?.comercio_id &&
+        dados?.comercio_id &&
+        String(cache.comercio_id) === String(dados.comercio_id);
+
+      const foiDispensadoHoje =
+        cache?.data === hoje &&
+        mesmoUsuario &&
+        mesmoComercio;
+
+      setTermosPendentes(pendentes);
+      setAbrirModalTermos(!foiDispensadoHoje);
+    } catch (erro) {
+      console.error("[TERMOS] Erro ao verificar termos:", erro);
+      setTermosPendentes([]);
+      setAbrirModalTermos(false);
+    } finally {
+      setCarregandoTermos(false);
+    }
+  }
   useEffect(() => {
     const caminhoAtual = window.location.pathname;
 

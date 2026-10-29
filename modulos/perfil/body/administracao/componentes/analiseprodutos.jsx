@@ -4,7 +4,7 @@ import LucroGeral from "./analises/lucrogeral";
 import Code from "./analises/code";
 import LucroPorMes from "./analises/lucropormes";
 import Contabilidade from "./analises/contabilidade";
-
+import Parceiros from "./analises/parceiros";
 import { API_URL } from "../../../../../config";
 import "./analiseprodutos.css";
 
@@ -41,7 +41,14 @@ export default function AnaliseProdutos() {
         <div className="analise-produtos-container">
 
             <div className="analise-botoes">
-
+                {Number(usuario?.parceria_aceita) === 1 && (
+                    <button
+                        className={aba === "parceiros" ? "ativo" : ""}
+                        onClick={() => setAba("parceiros")}
+                    >
+                        Meus Parceiros
+                    </button>
+                )}
                 <button
                     className={aba === "lucro-geral" ? "ativo" : ""}
                     onClick={() => setAba("lucro-geral")}
@@ -90,7 +97,7 @@ export default function AnaliseProdutos() {
                 {aba === "ranking" && <Code />}
                 {aba === "lucro-mes" && <LucroPorMes />}
                 {aba === "sem-venda" && <Contabilidade />}
-
+                {aba === "parceiros" && <Parceiros />}
             </div>
 
         </div>

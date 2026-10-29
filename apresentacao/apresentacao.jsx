@@ -1464,7 +1464,7 @@ export default function Apresentacao() {
                             <div className="apresentacao-chamada-qr apresentacao-chamada-qr--only">
                                 <QRCodeSVG
                                     value={linkImpressao}
-                                    size={280}
+                                    size={880}
                                     level="H"
                                     marginSize={4}
                                     bgColor="#FFFFFF"

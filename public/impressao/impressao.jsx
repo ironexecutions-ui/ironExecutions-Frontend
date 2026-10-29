@@ -133,6 +133,7 @@ export default function Impressao() {
     const [dadosComercio, setDadosComercio] = useState(null);
     const [carregandoComercio, setCarregandoComercio] = useState(true);
 
+
     // =====================================================
     // CARREGAR DADOS DA LOJA
     // =====================================================
@@ -161,7 +162,8 @@ export default function Impressao() {
                     setDadosComercio({
                         comercio: {
                             nome: dados?.comercio?.nome || "",
-                            logo: dados?.comercio?.logo || ""
+                            logo: dados?.comercio?.logo || "",
+                            dominio: dados?.comercio?.dominio || ""
                         },
                         redes_sociais: dados?.redes_sociais || {}
                     });
@@ -317,6 +319,9 @@ export default function Impressao() {
     const comercio = dadosComercio?.comercio || {};
     const redesSociais = dadosComercio?.redes_sociais || {};
 
+    const dominioUrl = prepararLinkRede("site", comercio.dominio || "");
+
+    const letrasNomeLoja = Array.from(comercio.nome || "");
     const instagramUrl = prepararLinkRede(
         "instagram",
         redesSociais.instagram
@@ -446,14 +451,11 @@ export default function Impressao() {
                             <IconeImpressora />
                         </div>
 
-                        <span className="impressao-etiqueta">
-                            <span className="impressao-ponto-status" />
-                            SERVIÇO DE IMPRESSÃO
-                        </span>
+
 
                         <h1>
-                            Seu arquivo,
-                            <span> pronto para imprimir.</span>
+                            Seu documento,
+                            <span> pronto para imprimir na {comercio.nome}.</span>
                         </h1>
 
                         <p className="impressao-descricao">
@@ -603,20 +605,7 @@ export default function Impressao() {
                         </button>
                     </form>
 
-                    {/* AVISO */}
-                    <div className="impressao-seguranca">
-                        <span className="impressao-seguranca-icone">
-                            <IconeEscudo />
-                        </span>
 
-                        <p>
-                            <strong>Envio simplificado</strong>
-
-                            <span>
-                                Não é necessário criar uma conta ou fazer login.
-                            </span>
-                        </p>
-                    </div>
 
                     {/* FORMATOS */}
                     <footer className="impressao-rodape">
@@ -637,6 +626,8 @@ export default function Impressao() {
                     Uma experiência de envio simples e prática
                 </p>
             </div>
+
+
 
             {/* INSTAGRAM FIXO NO CANTO INFERIOR DIREITO */}
             {instagramUrl && (
@@ -660,6 +651,81 @@ export default function Impressao() {
 
                     <span className="impressao-instagram-texto">
                         Instagram
+                    </span>
+                </a>
+            )}
+            {/* BOTÃO FLUTUANTE DO SITE DA LOJA */}
+            {dominioUrl && comercio.logo && (
+                <a
+                    className="impressao-dominio-flutuante"
+                    href={dominioUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visitar o site de ${comercio.nome}`}
+                    title={`Visitar ${comercio.nome}`}
+                >
+                    <span className="impressao-dominio-logo-area">
+                        <img
+                            className="impressao-dominio-logo"
+                            src={comercio.logo}
+                            alt=""
+                            onError={(evento) => {
+                                evento.currentTarget.style.visibility = "hidden";
+                            }}
+                        />
+                    </span>
+
+                    <span
+                        className="impressao-dominio-nome"
+                        aria-hidden="true"
+                    >
+                        {letrasNomeLoja.map((letra, indice) => {
+                            const direcoes = [
+                                ["-24px", "-30px"],
+                                ["25px", "22px"],
+                                ["-20px", "28px"],
+                                ["28px", "-25px"],
+                                ["0px", "34px"],
+                                ["-32px", "-12px"],
+                                ["20px", "-32px"],
+                            ];
+
+                            const [x, y] = direcoes[indice % direcoes.length];
+
+                            return (
+                                <span
+                                    key={`${letra}-${indice}`}
+                                    className="impressao-dominio-letra"
+
+                                    style={{
+                                        "--dominio-x": x,
+                                        "--dominio-y": y,
+
+                                        // Entrada começa após 3 segundos.
+                                        "--dominio-atraso": `${3 + indice * 0.075}s`,
+
+                                        // Saída começa 10 segundos após a última letra
+                                        // terminar de entrar.
+                                        "--dominio-saida-letra": `${3 + (letrasNomeLoja.length - 1) * 0.075 + 0.55 + 10
+                                            }s`,
+
+                                        // Fecha o espaço depois que as letras saírem.
+                                        "--dominio-saida": `${3 + (letrasNomeLoja.length - 1) * 0.075 + 0.55 + 10.45
+                                            }s`,
+                                    }}
+
+                                >
+                                    {letra === " " ? "\u00A0" : letra}
+                                </span>
+                            );
+                        })}
+                    </span>
+
+                    <span
+                        className="impressao-dominio-seta"
+                        aria-hidden="true"
+                    >
+                        ↗
                     </span>
                 </a>
             )}

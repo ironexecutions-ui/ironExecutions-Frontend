@@ -4,7 +4,7 @@ import { useVenda } from "./vendaprovider";
 import "./buscarproduto.css";
 import { createPortal } from "react-dom";
 import ModalCadastroProduto from "./registro_rapido/modalregistrorapido";
-
+import ModalVendaParceiro from "./modalvendaparceiro";
 export const buscarInputRef = { current: null };
 
 
@@ -39,7 +39,7 @@ export default function BuscarProduto() {
     const inputRef = useRef(null);
     const itensRef = useRef([]);
     const timeoutRef = useRef(null);
-
+    const [parceriaVendaId, setParceriaVendaId] = useState(null);
     const [indiceAtivo, setIndiceAtivo] = useState(-1);
     const [tema, setTema] = useState("escuro");
     const [
@@ -1151,7 +1151,36 @@ export default function BuscarProduto() {
         /* ===============================
            NAVEGAÇÃO DAS SUGESTÕES
         =============================== */
+        // =====================================================
+        // VENDA DE PARCEIRO: *{ID} + ENTER
+        // Exemplo: *1
+        // =====================================================
+        if (e.key === "Enter") {
+            const comando = String(
+                e.currentTarget.value || ""
+            ).trim();
 
+            const correspondencia = comando.match(
+                /^\*(\d+)$/
+            );
+
+            if (correspondencia) {
+                e.preventDefault();
+
+                const idParceria = Number(
+                    correspondencia[1]
+                );
+
+                if (idParceria > 0) {
+                    setParceriaVendaId(idParceria);
+                    setTexto("");
+                    setSugestoes([]);
+                    setIndiceAtivo(-1);
+                }
+
+                return;
+            }
+        }
         if (sugestoes.length > 0) {
 
             if (e.key === "ArrowDown") {
@@ -1787,7 +1816,18 @@ export default function BuscarProduto() {
             {/* =====================================================
     ALERTA DE PROMOÇÃO
 ===================================================== */}
+            {parceriaVendaId !== null && (
+                <ModalVendaParceiro
+                    parceriaId={parceriaVendaId}
+                    fechar={() => {
+                        setParceriaVendaId(null);
 
+                        requestAnimationFrame(() => {
+                            inputRef.current?.focus();
+                        });
+                    }}
+                />
+            )}
             {alertaPromocao &&
                 createPortal(
 
