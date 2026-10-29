@@ -518,7 +518,7 @@ export default function ParceirosExtensao({ parceiro }) {
 
                 <div>
 
-                    Produtos cadastrados
+                    Produtos 
 
                     <strong>${produtosPorData.length}</strong>
 
@@ -586,7 +586,7 @@ export default function ParceirosExtensao({ parceiro }) {
 
                         <td colspan="2">TOTAL GERAL</td>
 
-                        <td class="numero">${quantidadeTotal}</td>
+                       
 
                         <td class="numero">${formatarValor(valorTotal)}</td>
 
