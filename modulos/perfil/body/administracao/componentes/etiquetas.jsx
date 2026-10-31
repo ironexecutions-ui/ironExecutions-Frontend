@@ -3711,18 +3711,18 @@ export default function Etiquetas() {
         IMPRIMIR
     =============================== */}
 
-                            <button
-                                className="etiquetas-botao-imprimir-principal"
-                                onClick={imprimirEtiquetas}
-                                disabled={selecionados.length === 0}
-                            >
-                                Imprimir etiquetas
-                                {selecionados.length > 0 &&
-                                    ` (${selecionados.length})`}
-                            </button>
+
                         </>
                     )}
-
+                    <button
+                        className="etiquetas-botao-imprimir-principal"
+                        onClick={imprimirEtiquetas}
+                        disabled={selecionados.length === 0}
+                    >
+                        Imprimir etiquetas
+                        {selecionados.length > 0 &&
+                            ` (${selecionados.length})`}
+                    </button>
                 </div>
             </div>
             <div className="etiquetas-navegacao-mobile-abas">
