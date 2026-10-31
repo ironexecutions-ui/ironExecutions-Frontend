@@ -4,71 +4,74 @@ import { API_URL } from "../../../../../config";
 import "./etiquetas.css";
 import { createPortal } from "react-dom";
 const CACHE_ETIQUETAS = "dgyahdasd2d62asdsaofaso";
-
+import fundoOrnamentalUrl from "./etiquetas/fundos/1.png";
 const CACHE_CONFIGURACAO_ETIQUETAS =
     "configuracao_visual_etiquetas_v1";
 
 export default function Etiquetas() {
     const [produtos, setProdutos] = useState([]);
     const [selecionados, setSelecionados] = useState([]);
-const [produtoVariedadesAberto, setProdutoVariedadesAberto] =
-    useState(null);
 
-// Guarda quais produtos estão mostrando o nome completo.
-// Por padrão, a tela mostra o nome normal/reduzido.
-const [nomesCompletosVisiveis, setNomesCompletosVisiveis] =
-    useState({});
+    // Câmbio utilizado na conversão dos preços para dólar.
+    const [cambio, setCambio] = useState(null);
+    const [produtoVariedadesAberto, setProdutoVariedadesAberto] =
+        useState(null);
 
-function alternarNomeProduto(produtoId) {
-    setNomesCompletosVisiveis(nomesAtuais => ({
-        ...nomesAtuais,
-        [produtoId]: !nomesAtuais[produtoId],
-    }));
-}
+    // Guarda quais produtos estão mostrando o nome completo.
+    // Por padrão, a tela mostra o nome normal/reduzido.
+    const [nomesCompletosVisiveis, setNomesCompletosVisiveis] =
+        useState({});
 
-function obterNomeExibicao(produto) {
-    const nomeCompleto = String(
-        produto?.nome || ""
-    ).trim();
-
-    if (!nomeCompleto) {
-        return "";
+    function alternarNomeProduto(produtoId) {
+        setNomesCompletosVisiveis(nomesAtuais => ({
+            ...nomesAtuais,
+            [produtoId]: !nomesAtuais[produtoId],
+        }));
     }
 
-    // Primeiro tenta obter a configuração do produto.
-    let configuracaoVariedade = String(
-        produto?.qual_variedad || ""
-    ).trim();
-
-    // Se estiver vazia, tenta usar a configuração
-    // da primeira variedade associada ao produto.
-    if (!configuracaoVariedade) {
-        configuracaoVariedade = String(
-            produto?.variedades?.find(
-                variedade =>
-                    String(variedade?.qual_variedad || "").trim()
-            )?.qual_variedad || ""
+    function obterNomeExibicao(produto) {
+        const nomeCompleto = String(
+            produto?.nome || ""
         ).trim();
+
+        if (!nomeCompleto) {
+            return "";
+        }
+
+        // Primeiro tenta obter a configuração do produto.
+        let configuracaoVariedade = String(
+            produto?.qual_variedad || ""
+        ).trim();
+
+        // Se estiver vazia, tenta usar a configuração
+        // da primeira variedade associada ao produto.
+        if (!configuracaoVariedade) {
+            configuracaoVariedade = String(
+                produto?.variedades?.find(
+                    variedade =>
+                        String(variedade?.qual_variedad || "").trim()
+                )?.qual_variedad || ""
+            ).trim();
+        }
+
+        // Aceita parênteses vazios mesmo com espaços internos.
+        const quantidadeEspacos = (
+            configuracaoVariedade.match(/\(\s*\)/g) || []
+        ).length;
+
+        // Sem espaços reservados, mantém o nome original.
+        if (quantidadeEspacos === 0) {
+            return nomeCompleto;
+        }
+
+        // Mantém apenas a quantidade de palavras definida
+        // pelos espaços reservados da configuração.
+        return nomeCompleto
+            .split(/\s+/)
+            .filter(Boolean)
+            .slice(0, quantidadeEspacos)
+            .join(" ");
     }
-
-    // Aceita parênteses vazios mesmo com espaços internos.
-    const quantidadeEspacos = (
-        configuracaoVariedade.match(/\(\s*\)/g) || []
-    ).length;
-
-    // Sem espaços reservados, mantém o nome original.
-    if (quantidadeEspacos === 0) {
-        return nomeCompleto;
-    }
-
-    // Mantém apenas a quantidade de palavras definida
-    // pelos espaços reservados da configuração.
-    return nomeCompleto
-        .split(/\s+/)
-        .filter(Boolean)
-        .slice(0, quantidadeEspacos)
-        .join(" ");
-}
 
 
     const [fonteNormal, setFonteNormal] = useState("helvetica");
@@ -96,7 +99,22 @@ function obterNomeExibicao(produto) {
     const [editandoPrecoId, setEditandoPrecoId] = useState(null);
     const [novoPreco, setNovoPreco] = useState("");
 
-    const [cambio, setCambio] = useState(null);
+    const [nomeLojaEtiqueta, setNomeLojaEtiqueta] = useState("SUA LOJA");
+    // Tipo e orientação da etiqueta escolhidos para a impressão.
+    const [tipoEtiquetaImpressao, setTipoEtiquetaImpressao] = useState("basica");
+    const [orientacaoEtiquetaImpressao, setOrientacaoEtiquetaImpressao] = useState("vertical");
+
+    // Fonte exclusiva da etiqueta ornamental
+    const [fonteOrnamental, setFonteOrnamental] = useState("elegante");
+
+    const fontesOrnamentais = [
+        { valor: "moderna", nome: "Moderna" },
+        { valor: "elegante", nome: "Elegante" },
+        { valor: "classica", nome: "Clássica" },
+        { valor: "minimalista", nome: "Minimalista" },
+        { valor: "destaque", nome: "Destaque" }
+    ];
+    const [logoEtiquetaUrl, setLogoEtiquetaUrl] = useState(null);
     const [abaMobileEtiquetas, setAbaMobileEtiquetas] = useState("lista");
 
     // =========================================================
@@ -127,7 +145,7 @@ function obterNomeExibicao(produto) {
     // CARREGAR CONFIGURAÇÕES DAS ETIQUETAS DO CACHE
     // =========================================================
     // =========================================================
-    
+
 
     const estilosFonteDisponiveis = [
         {
@@ -153,6 +171,9 @@ function obterNomeExibicao(produto) {
     // =========================================================
     // CARREGAR CONFIGURAÇÕES VISUAIS DAS ETIQUETAS
     // =========================================================
+    // =========================================================
+    // CARREGAR CONFIGURAÇÕES VISUAIS DAS ETIQUETAS
+    // =========================================================
     useEffect(() => {
         try {
             const cacheSalvo = localStorage.getItem(
@@ -162,6 +183,22 @@ function obterNomeExibicao(produto) {
             if (cacheSalvo) {
                 const configuracao = JSON.parse(cacheSalvo);
 
+                // Modelo da etiqueta
+                setTipoEtiquetaImpressao(
+                    configuracao.tipoEtiquetaImpressao ?? "basica"
+                );
+
+                // Orientação
+                setOrientacaoEtiquetaImpressao(
+                    configuracao.orientacaoEtiquetaImpressao ?? "vertical"
+                );
+
+                // Fonte ornamental
+                setFonteOrnamental(
+                    configuracao.fonteOrnamental ?? "elegante"
+                );
+
+                // Configurações da etiqueta normal
                 setCorFundoNormal(
                     configuracao.corFundoNormal ?? "#ffffff"
                 );
@@ -178,6 +215,7 @@ function obterNomeExibicao(produto) {
                     configuracao.estiloFonteNormal ?? "bold"
                 );
 
+                // Configurações da promoção
                 setCorFundoPromocao(
                     configuracao.corFundoPromocao ?? "#ffeb3b"
                 );
@@ -205,25 +243,32 @@ function obterNomeExibicao(produto) {
         }
     }, []);
 
-
     // =========================================================
     // ATUALIZAR CONFIGURAÇÕES VISUAIS NO CACHE
     // =========================================================
+
     useEffect(() => {
         if (!configuracaoEtiquetasCarregada) {
             return;
         }
 
         const configuracao = {
+            // Modelo e orientação
+            tipoEtiquetaImpressao,
+            orientacaoEtiquetaImpressao,
+            fonteOrnamental,
+
+            // Etiqueta normal
             corFundoNormal,
             corTextoNormal,
             fonteNormal,
             estiloFonteNormal,
 
+            // Etiqueta promoção
             corFundoPromocao,
             corTextoPromocao,
             fontePromocao,
-            estiloFontePromocao,
+            estiloFontePromocao
         };
 
         localStorage.setItem(
@@ -233,14 +278,20 @@ function obterNomeExibicao(produto) {
 
     }, [
         configuracaoEtiquetasCarregada,
+
+        tipoEtiquetaImpressao,
+        orientacaoEtiquetaImpressao,
+        fonteOrnamental,
+
         corFundoNormal,
         corTextoNormal,
         fonteNormal,
         estiloFonteNormal,
+
         corFundoPromocao,
         corTextoPromocao,
         fontePromocao,
-        estiloFontePromocao,
+        estiloFontePromocao
     ]);
     // ===============================
     // CARREGAR CACHE + SINCRONIZAR
@@ -249,77 +300,53 @@ function obterNomeExibicao(produto) {
         carregarProdutosEtiquetas();
     }, []);
 
+
     async function carregarProdutosEtiquetas() {
         setCarregandoEtiquetas(true);
 
         try {
-            // ===============================
-            // CARREGA CACHE PRIMEIRO
-            // ===============================
-            const cacheSalvo =
-                localStorage.getItem(CACHE_ETIQUETAS);
-
-            if (cacheSalvo) {
-                try {
-                    const produtosCache =
-                        JSON.parse(cacheSalvo);
-
-                    if (Array.isArray(produtosCache)) {
-                        setProdutos(produtosCache);
-                    }
-                } catch (erro) {
-                    console.error(
-                        "Erro ao ler cache de etiquetas:",
-                        erro
-                    );
-                }
-            }
-
-            // ===============================
-            // SINCRONIZA COM SERVIDOR
-            // ===============================
             const resposta = await fetch(
                 `${API_URL}/admin/etiquetas/produtos`,
                 {
+                    method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        "Cache-Control": "no-cache",
+                        Pragma: "no-cache",
                     },
+                    cache: "no-store",
                 }
             );
 
             if (!resposta.ok) {
-                throw new Error(
-                    "Erro ao carregar produtos."
-                );
+                throw new Error("Erro ao carregar produtos.");
             }
 
-            const dadosServidor =
-                await resposta.json();
+            const dadosServidor = await resposta.json();
 
-            // ===============================
-            // PRODUTOS
-            // ===============================
-            const listaNormalizada =
-                Array.isArray(dadosServidor.produtos)
-                    ? dadosServidor.produtos
-                    : [];
+            // Nome da loja
+            setNomeLojaEtiqueta(
+                String(dadosServidor.loja_nome || "SUA LOJA").trim() || "SUA LOJA"
+            );
+
+            // Logotipo cadastrado na tabela logos_etiquetas
+            setLogoEtiquetaUrl(
+                dadosServidor.logo_etiqueta
+                    ? String(dadosServidor.logo_etiqueta).trim()
+                    : null
+            );
+            // Produtos recebidos do servidor
+            const listaNormalizada = Array.isArray(dadosServidor.produtos)
+                ? dadosServidor.produtos
+                : [];
 
             setProdutos(listaNormalizada);
 
-            localStorage.setItem(
-                CACHE_ETIQUETAS,
-                JSON.stringify(listaNormalizada)
-            );
-
-            // ===============================
-            // CÂMBIO CONFIGURADO
-            // ===============================
-            const cambioRecebido =
-                Number(dadosServidor.cambio);
+            // Câmbio
+            const cambioRecebido = Number(dadosServidor.cambio);
 
             setCambio(
-                Number.isFinite(cambioRecebido) &&
-                    cambioRecebido > 0
+                Number.isFinite(cambioRecebido) && cambioRecebido > 0
                     ? cambioRecebido
                     : null
             );
@@ -329,10 +356,14 @@ function obterNomeExibicao(produto) {
                 "Erro ao sincronizar produtos:",
                 erro
             );
+
         } finally {
             setCarregandoEtiquetas(false);
         }
     }
+
+
+
 
     // ===============================
     // ATUALIZAR CACHE
@@ -542,7 +573,50 @@ function obterNomeExibicao(produto) {
         });
     }
 
+    function moverProdutoFiltradoParaImpressao(produto) {
+        const existe = selecionados.some(
+            item => item.id === produto.id
+        );
 
+        if (existe) {
+            return;
+        }
+
+        const novoProduto = {
+            ...produto,
+            promocao: false,
+            precoAnterior: "",
+            quantidadeEtiquetas: 1,
+            usarImagemEtiqueta: Boolean(
+                produto.imagem_etiqueta
+            ),
+        };
+
+        const novaLista = [
+            novoProduto,
+            ...selecionados,
+        ];
+
+        const validacao = validarLimiteSelecionados(novaLista);
+
+        if (!validacao.valido) {
+            mostrarAlertaLimite(validacao.mensagem);
+            return;
+        }
+
+        setSelecionados(novaLista);
+
+        // Se era o último resultado, limpa todos os filtros.
+        const eraUltimoResultado =
+            produtosDisponiveis.length === 1 &&
+            produtosDisponiveis[0].id === produto.id;
+
+        if (eraUltimoResultado) {
+            setFiltroNome("");
+            setFiltroPreco("");
+            setFiltroCodigoBarras("");
+        }
+    }
     // =========================================================
     // REMOVER DA IMPRESSÃO
     // =========================================================
@@ -1067,10 +1141,756 @@ function obterNomeExibicao(produto) {
         });
     }
 
+    // =========================================================
+    // GERAR PDF ORNAMENTAL
+    // A imagem deve ficar em: public/etiquetas/fundos/1.png
+    // =========================================================
+    async function imprimirEtiquetasOrnamentais() {
+        if (selecionados.length === 0) {
+            alert("Adicione pelo menos um produto para impressão.");
+            return;
+        }
+
+        // =====================================================
+        // CONFIGURAÇÕES VISUAIS AJUSTÁVEIS DA ETIQUETA ORNAMENTAL
+        // Todas as medidas abaixo são em milímetros, exceto fontes.
+        // A moldura mantém sempre sua proporção original.
+        // =====================================================
+        const orientacaoHorizontal = orientacaoEtiquetaImpressao === "horizontal";
+
+        const CONFIG_ORNAMENTAL = {
+            colunas: 4,
+            // Vertical: 46,5 x 69,75 mm. Horizontal: 69,75 x 46,5 mm.
+            largura: orientacaoHorizontal ? 69.75 : 46.5,
+            altura: orientacaoHorizontal ? 46.5 : 69.75,
+            margemX: orientacaoHorizontal ? 4.5 : 7.5,
+            margemY: 8,
+            espacamentoX: 3,
+            espacamentoY: 4,
+
+            // Posição e tamanho do logotipo tipográfico.
+            logoX: 23.25,
+            logoY: 8.2,
+            logoRaio: 3.1,
+            logoFonte: 8,
+
+            // Nome da loja
+            lojaY: 14,
+            lojaFonte: 10.2,
+            lojaFonteMinima: 8,
+
+            // Nome do produto
+            produtoY: 25,
+            produtoFonte: 11.5,
+            produtoFonteMinima: 9,
+
+            // Preço em reais
+            precoY: 46,
+            precoFonte: 30,
+            precoFonteMinima: 20,
+
+            // Preço convertido em dólar
+            dolarY: 52,
+            dolarFonte: 10,
+
+            // Imagem sem fundo do produto.
+            imagemMaxLargura: 22,
+            imagemMaxAltura: 14,
+            imagemVerticalY: 53.5,
+            imagemHorizontalY: 50.5,
+
+            corDourada: [181, 125, 18],
+            corTexto: [76, 58, 24],
+            corPreco: [105, 67, 10]
+        };
+
+        try {
+            // Carrega a moldura ornamental antes de desenhar as etiquetas.
+            const fundo = await carregarImagemParaPdf(fundoOrnamentalUrl);
+
+            async function rotacionarFundoHorizontal(imagemOriginal) {
+                return new Promise((resolve, reject) => {
+                    const imagem = new Image();
+
+                    imagem.onload = () => {
+                        try {
+                            const canvas = document.createElement("canvas");
+
+                            canvas.width = imagem.naturalHeight;
+                            canvas.height = imagem.naturalWidth;
+
+                            const contexto = canvas.getContext("2d");
+
+                            contexto.translate(canvas.width, 0);
+                            contexto.rotate(Math.PI / 2);
+
+                            contexto.drawImage(
+                                imagem,
+                                0,
+                                0
+                            );
+
+                            resolve({
+                                dataUrl: canvas.toDataURL("image/png"),
+                                largura: canvas.width,
+                                altura: canvas.height
+                            });
+                        } catch (erro) {
+                            reject(erro);
+                        }
+                    };
+
+                    imagem.onerror = () => {
+                        reject(new Error("Não foi possível girar a moldura ornamental."));
+                    };
+
+                    imagem.src = imagemOriginal.dataUrl;
+                });
+            }
+
+            const fundoHorizontal = orientacaoHorizontal
+                ? await rotacionarFundoHorizontal(fundo)
+                : null;
+
+            const idsProdutos = [
+                ...new Set(selecionados.map(produto => produto.id))
+            ];
+
+            const respostaRegistro = await fetch(
+                `${API_URL}/admin/etiquetas/produtos/registrar-impressao`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ produtos_ids: idsProdutos })
+                }
+            );
+
+            if (!respostaRegistro.ok) {
+                const erro = await respostaRegistro.json().catch(() => null);
+                throw new Error(
+                    erro?.detail || "Não foi possível registrar os preços das etiquetas."
+                );
+            }
+
+            // Carrega o logotipo real do comércio
+            let imagemLogoEtiqueta = null;
+
+            if (logoEtiquetaUrl) {
+                try {
+                    imagemLogoEtiqueta = await carregarImagemParaPdf(
+                        logoEtiquetaUrl
+                    );
+                } catch (erroLogo) {
+                    console.error(
+                        "Erro ao carregar logotipo das etiquetas:",
+                        logoEtiquetaUrl,
+                        erroLogo
+                    );
+                }
+            }
+            const produtosExpandido = [];
+            selecionados.forEach(produto => {
+                const quantidade = Math.max(
+                    1,
+                    parseInt(produto.quantidadeEtiquetas, 10) || 1
+                );
+
+                for (let i = 0; i < quantidade; i += 1) {
+                    produtosExpandido.push({ ...produto });
+                }
+            });
+
+            const imagensProdutos = new Map();
+
+            for (const produto of produtosExpandido) {
+                if (
+                    produto.usarImagemEtiqueta &&
+                    produto.imagem_etiqueta &&
+                    !imagensProdutos.has(produto.imagem_etiqueta)
+                ) {
+                    try {
+                        const imagem = await carregarImagemParaPdf(
+                            produto.imagem_etiqueta
+                        );
+                        imagensProdutos.set(produto.imagem_etiqueta, imagem);
+                    } catch (erroImagem) {
+                        console.warn(
+                            "Não foi possível carregar a imagem do produto:",
+                            produto.imagem_etiqueta,
+                            erroImagem
+                        );
+                    }
+                }
+            }
+
+            const pdfOrnamental = new jsPDF({
+                orientation: orientacaoHorizontal ? "landscape" : "portrait",
+                unit: "mm",
+                format: "a4"
+            });
+
+            const larguraFolha = orientacaoHorizontal ? 297 : 210;
+            const alturaFolha = orientacaoHorizontal ? 210 : 297;
+            const cfg = CONFIG_ORNAMENTAL;
+            const CONFIG_FONTES_ORNAMENTAIS = {
+                moderna: {
+                    fonte: "helvetica",
+                    estilo: "bold"
+                },
+                elegante: {
+                    fonte: "times",
+                    estilo: "bold"
+                },
+                classica: {
+                    fonte: "times",
+                    estilo: "bold"
+                },
+                minimalista: {
+                    fonte: "helvetica",
+                    estilo: "bold"
+                },
+                destaque: {
+                    fonte: "courier",
+                    estilo: "bold"
+                }
+            };
+
+            const fonteOrnamentalAplicada =
+                CONFIG_FONTES_ORNAMENTAIS[fonteOrnamental] ||
+                CONFIG_FONTES_ORNAMENTAIS.elegante;
+            // Ajusta a moldura pela proporção original, sem deformar.
+
+
+            function desenharFundo(x, y, largura, altura) {
+                if (orientacaoHorizontal) {
+                    // A imagem já foi rotacionada antes da geração do PDF.
+                    // Agora ocupa exatamente a área da etiqueta horizontal.
+
+                    pdfOrnamental.addImage(
+                        fundoHorizontal.dataUrl,
+                        "PNG",
+                        x,
+                        y,
+                        largura,
+                        altura
+                    );
+
+                    return;
+                }
+
+                // Mantém o comportamento original da etiqueta vertical.
+                const proporcaoImagem = fundo.largura / fundo.altura;
+                const proporcaoArea = largura / altura;
+
+                let larguraFinal = largura;
+                let alturaFinal = altura;
+
+                if (proporcaoImagem > proporcaoArea) {
+                    alturaFinal = largura / proporcaoImagem;
+                } else {
+                    larguraFinal = altura * proporcaoImagem;
+                }
+
+                const imagemX = x + (largura - larguraFinal) / 2;
+                const imagemY = y + (altura - alturaFinal) / 2;
+
+                pdfOrnamental.addImage(
+                    fundo.dataUrl,
+                    "PNG",
+                    imagemX,
+                    imagemY,
+                    larguraFinal,
+                    alturaFinal
+                );
+            }
+
+
+
+            function desenharImagemProporcional(imagem, x, y, larguraMax, alturaMax) {
+                if (!imagem) return;
+
+                const proporcao = imagem.largura / imagem.altura;
+                let largura = larguraMax;
+                let altura = largura / proporcao;
+
+                if (altura > alturaMax) {
+                    altura = alturaMax;
+                    largura = altura * proporcao;
+                }
+
+                pdfOrnamental.addImage(
+                    imagem.dataUrl,
+                    "PNG",
+                    x + (larguraMax - largura) / 2,
+                    y + (alturaMax - altura) / 2,
+                    largura,
+                    altura
+                );
+            }
+
+            function textoAjustado(texto, larguraMaxima, tamanhoInicial, tamanhoMinimo, fonte, estilo) {
+                let tamanho = tamanhoInicial;
+                pdfOrnamental.setFont(fonte, estilo);
+                pdfOrnamental.setFontSize(tamanho);
+
+                while (
+                    pdfOrnamental.getTextWidth(texto) > larguraMaxima &&
+                    tamanho > tamanhoMinimo
+                ) {
+                    tamanho -= 0.5;
+                    pdfOrnamental.setFontSize(tamanho);
+                }
+
+                return tamanho;
+            }
+
+            function desenharLogoEtiqueta(x, y, larguraMaxima, alturaMaxima) {
+                if (!imagemLogoEtiqueta) {
+                    return;
+                }
+
+                desenharImagemProporcional(
+                    imagemLogoEtiqueta,
+                    x,
+                    y,
+                    larguraMaxima,
+                    alturaMaxima
+                );
+            }
+
+            function desenharEtiquetaNaPosicao(produto, x, y) {
+                const horizontal = orientacaoEtiquetaImpressao === "horizontal";
+                desenharFundo(x, y, cfg.largura, cfg.altura);
+
+                const centroX = x + cfg.largura / 2;
+                const nomeProduto = nomesCompletosVisiveis[produto.id]
+                    ? String(produto?.nome || "").trim()
+                    : obterNomeExibicao(produto);
+
+                const imagemProduto = produto.usarImagemEtiqueta
+                    ? imagensProdutos.get(produto.imagem_etiqueta)
+                    : null;
+
+                const corTexto = produto.promocao
+                    ? converterHexParaRgb(corTextoPromocao)
+                    : cfg.corTexto;
+
+                pdfOrnamental.setTextColor(...corTexto);
+
+                if (!horizontal) {
+                    // LOGO DA LOJA NA ETIQUETA VERTICAL
+                    // LOGO DA LOJA NA ETIQUETA VERTICAL
+                    desenharLogoEtiqueta(
+                        centroX - 7,
+                        y + 3,
+                        14,
+                        9
+                    );
+
+                    // NOME DA LOJA NA ETIQUETA VERTICAL
+                    pdfOrnamental.setFont(
+                        fonteOrnamentalAplicada.fonte,
+                        fonteOrnamentalAplicada.estilo
+                    );
+
+                    const nomeLojaVertical = String(
+                        nomeLojaEtiqueta || "SUA LOJA"
+                    ).toUpperCase().trim();
+
+                    let fonteLojaVertical = 8;
+                    let linhasLojaVertical = [];
+
+                    do {
+                        pdfOrnamental.setFontSize(fonteLojaVertical);
+
+                        linhasLojaVertical = pdfOrnamental.splitTextToSize(
+                            nomeLojaVertical,
+                            cfg.largura - 12
+                        );
+
+                        if (
+                            linhasLojaVertical.length <= 2 ||
+                            fonteLojaVertical <= 5
+                        ) {
+                            break;
+                        }
+
+                        fonteLojaVertical -= 0.5;
+                    } while (fonteLojaVertical >= 5);
+
+                    pdfOrnamental.setFontSize(fonteLojaVertical);
+
+                    pdfOrnamental.setTextColor(...cfg.corTexto);
+
+                    pdfOrnamental.text(
+                        linhasLojaVertical.slice(0, 2),
+                        centroX,
+                        y + 16,
+                        {
+                            align: "center",
+                            lineHeightFactor: 1.05
+                        }
+                    );
+                    pdfOrnamental.setFont(
+                        fonteOrnamentalAplicada.fonte,
+                        fonteOrnamentalAplicada.estilo
+                    );
+
+                    // Aumenta a fonte em 1/3 para nomes com até 12 palavras.
+                    const quantidadePalavras = nomeProduto
+                        .split(/\s+/)
+                        .filter(Boolean)
+                        .length;
+
+                    let fonteNome = !produto.promocao
+                        ? cfg.produtoFonte * 1.5
+                        : quantidadePalavras <= 12
+                            ? cfg.produtoFonte * (4 / 3)
+                            : cfg.produtoFonte;
+
+                    let nomeLinhas = [];
+
+                    while (fonteNome >= cfg.produtoFonteMinima) {
+                        pdfOrnamental.setFontSize(fonteNome);
+
+                        nomeLinhas = pdfOrnamental.splitTextToSize(
+                            nomeProduto,
+                            cfg.largura - 17
+                        );
+
+                        if (nomeLinhas.length <= 2) {
+                            break;
+                        }
+
+                        fonteNome -= 0.5;
+                    }
+
+                    pdfOrnamental.setFontSize(fonteNome);
+
+                    pdfOrnamental.text(
+                        nomeLinhas.slice(0, 2),
+                        centroX,
+                        y + cfg.produtoY,
+                        {
+                            align: "center",
+                            lineHeightFactor: 1.05
+                        }
+                    );
+
+
+                    // INDICAÇÃO DE PROMOÇÃO NA ETIQUETA VERTICAL
+                    if (produto.promocao) {
+                        // Destaque da promoção
+                        pdfOrnamental.setFont("helvetica", "bold");
+                        pdfOrnamental.setFontSize(11.5);
+                        pdfOrnamental.setTextColor(160, 65, 45);
+
+                        pdfOrnamental.text(
+                            "PROMOÇÃO",
+                            centroX,
+                            y + 34,
+                            { align: "center" }
+                        );
+
+                        // Preço anterior, quando informado
+                        if (String(produto.precoAnterior ?? "").trim() !== "") {
+                            const precoAnterior = Number(
+                                String(produto.precoAnterior).replace(",", ".")
+                            );
+
+                            if (Number.isFinite(precoAnterior) && precoAnterior > 0) {
+                                const textoAnterior = `R$ ${formatarPreco(precoAnterior)}`;
+
+                                pdfOrnamental.setFont("helvetica", "normal");
+                                pdfOrnamental.setFontSize(7);
+                                pdfOrnamental.setTextColor(125, 110, 95);
+
+                                pdfOrnamental.text(
+                                    textoAnterior,
+                                    centroX,
+                                    y + 39,
+                                    { align: "center" }
+                                );
+
+                                // Risco central sobre o preço antigo
+                                const larguraAnterior = pdfOrnamental.getTextWidth(textoAnterior);
+
+                                pdfOrnamental.setDrawColor(125, 110, 95);
+                                pdfOrnamental.setLineWidth(0.25);
+
+                                pdfOrnamental.line(
+                                    centroX - larguraAnterior / 2,
+                                    y + 38.1,
+                                    centroX + larguraAnterior / 2,
+                                    y + 38.1
+                                );
+                            }
+                        }
+                    }
+
+                    const preco = `R$ ${formatarPreco(produto.preco)}`;
+                    const fontePreco = textoAjustado(
+                        preco,
+                        cfg.largura - 14,
+                        produto.promocao ? cfg.precoFonte : cfg.precoFonte + 3,
+                        cfg.precoFonteMinima,
+                        fonteOrnamentalAplicada.fonte,
+                        fonteOrnamentalAplicada.estilo
+                    );
+
+                    pdfOrnamental.setTextColor(...cfg.corPreco);
+                    pdfOrnamental.setFontSize(fontePreco);
+                    pdfOrnamental.text(preco, centroX, y + cfg.precoY, {
+                        align: "center"
+                    });
+
+                    const dolar = calcularPrecoDolar(produto.preco);
+                    if (dolar !== null) {
+                        pdfOrnamental.setTextColor(...corTexto);
+                        pdfOrnamental.setFont("helvetica", "bold");
+                        pdfOrnamental.setFontSize(cfg.dolarFonte);
+                        pdfOrnamental.text(
+                            `US$ ${Number(dolar).toFixed(2)}`,
+                            centroX,
+                            y + cfg.dolarY,
+                            { align: "center" }
+                        );
+                    }
+
+                    if (imagemProduto) {
+                        desenharImagemProporcional(
+                            imagemProduto,
+                            centroX - cfg.imagemMaxLargura / 2,
+                            y + cfg.imagemVerticalY,
+                            cfg.imagemMaxLargura,
+                            cfg.imagemMaxAltura
+                        );
+                    }
+
+
+                } else {
+                    // HORIZONTAL: logo à esquerda, loja à direita e produto mais abaixo.
+                    // LOGO À ESQUERDA
+                    desenharLogoEtiqueta(
+                        x + 4.5,
+                        y + 5.5,
+                        12,
+                        8.4
+                    );
+
+                    // PALAVRA PROMOÇÃO ABAIXO DO LOGO
+                    if (produto.promocao) {
+                        pdfOrnamental.setFont("helvetica", "bold");
+                        pdfOrnamental.setFontSize(7);
+                        pdfOrnamental.setTextColor(160, 65, 45);
+
+                        pdfOrnamental.text(
+                            "PROMOÇÃO",
+                            x + 10.5,
+                            y + 17,
+                            { align: "center" }
+                        );
+                    }
+
+                    // NOME DA LOJA À DIREITA
+                    pdfOrnamental.setFont(
+                        fonteOrnamentalAplicada.fonte,
+                        fonteOrnamentalAplicada.estilo
+                    );
+
+                    const nomeLojaHorizontal = String(
+                        nomeLojaEtiqueta || "SUA LOJA"
+                    ).toUpperCase().trim();
+
+                    let fonteLojaHorizontal = 9.8;
+                    let linhasLojaHorizontal = [];
+
+                    // Reduz a fonte até o nome ocupar no máximo duas linhas.
+                    do {
+                        pdfOrnamental.setFontSize(fonteLojaHorizontal);
+
+                        linhasLojaHorizontal = pdfOrnamental.splitTextToSize(
+                            nomeLojaHorizontal,
+                            44
+                        );
+
+                        if (
+                            linhasLojaHorizontal.length <= 2 ||
+                            fonteLojaHorizontal <= 4.5
+                        ) {
+                            break;
+                        }
+
+                        fonteLojaHorizontal -= 0.5;
+                    } while (fonteLojaHorizontal >= 4.5);
+
+                    pdfOrnamental.setFontSize(fonteLojaHorizontal);
+
+                    pdfOrnamental.text(
+                        linhasLojaHorizontal.slice(0, 2),
+                        x + cfg.largura - 10,
+                        y + 10.5,
+                        {
+                            align: "right",
+                            lineHeightFactor: 1.05
+                        }
+                    );
+
+                    // NOME DO PRODUTO, UM POUCO MAIS ABAIXO
+                    pdfOrnamental.setFont(
+                        fonteOrnamentalAplicada.fonte,
+                        fonteOrnamentalAplicada.estilo
+                    );
+
+                    pdfOrnamental.setFontSize(
+                        produto.promocao ? 16 : 20
+                    );
+                    const nomeHorizontal = pdfOrnamental.splitTextToSize(
+                        nomeProduto,
+                        cfg.largura - 22
+                    ).slice(0, 2);
+
+                    pdfOrnamental.text(
+                        nomeHorizontal,
+                        centroX - 3,
+                        y + 23,
+                        {
+                            align: "center",
+                            lineHeightFactor: 1.08
+                        }
+                    );
+
+                    // PREÇO ANTERIOR
+
+                    if (produto.promocao && produto.precoAnterior !== "") {
+                        const precoAnterior = Number(
+                            String(produto.precoAnterior).replace(",", ".")
+                        );
+
+                        if (Number.isFinite(precoAnterior) && precoAnterior >= 0) {
+                            const textoAnterior = `R$ ${formatarPreco(precoAnterior)}`;
+
+                            pdfOrnamental.setFont("helvetica", "normal");
+                            pdfOrnamental.setFontSize(9);
+                            pdfOrnamental.setTextColor(115, 91, 57);
+
+                            pdfOrnamental.text(textoAnterior, centroX - 3, y + 30, {
+                                align: "center"
+                            });
+
+                            const larguraAnterior = pdfOrnamental.getTextWidth(textoAnterior);
+
+                            pdfOrnamental.setDrawColor(115, 91, 57);
+                            pdfOrnamental.setLineWidth(0.2);
+
+                            pdfOrnamental.line(
+                                centroX - 3 - larguraAnterior / 2,
+                                y + 28.5,
+                                centroX - 3 + larguraAnterior / 2,
+                                y + 28.5
+                            );
+                        }
+                    }
+
+                    // PREÇO PRINCIPAL
+                    const preco = `R$ ${formatarPreco(produto.preco)}`;
+
+                    const fontePreco = textoAjustado(
+                        preco,
+                        cfg.largura - 16,
+                        24,
+                        17,
+                        fonteOrnamentalAplicada.fonte,
+                        fonteOrnamentalAplicada.estilo
+                    );
+
+                    pdfOrnamental.setTextColor(...cfg.corPreco);
+                    pdfOrnamental.setFontSize(fontePreco);
+
+                    pdfOrnamental.text(preco, centroX - 3, y + 36, {
+                        align: "center"
+                    });
+
+                    // PREÇO EM DÓLAR
+                    const dolar = calcularPrecoDolar(produto.preco);
+
+                    if (dolar !== null) {
+                        pdfOrnamental.setTextColor(...corTexto);
+                        pdfOrnamental.setFont("helvetica", "bold");
+                        pdfOrnamental.setFontSize(9.5);
+
+                        pdfOrnamental.text(
+                            `US$ ${Number(dolar).toFixed(2)}`,
+                            x + 19,
+                            y + 39,
+                            { align: "center" }
+                        );
+                    }
+
+                    // IMAGEM DO PRODUTO
+                    // IMAGEM DO PRODUTO
+                    if (imagemProduto) {
+                        desenharImagemProporcional(
+                            imagemProduto,
+                            x + cfg.largura - 21,
+                            y + 26,
+                            18,
+                            16
+                        );
+                    }
+                }
+
+            }
+
+            // Distribuição fixa em quatro colunas por linha.
+            // A altura da etiqueta é fixa, não cresce conforme o texto.
+            const linhasPorPagina = Math.floor(
+                (alturaFolha - cfg.margemY * 2 + cfg.espacamentoY) /
+                (cfg.altura + cfg.espacamentoY)
+            );
+            const etiquetasPorPagina = cfg.colunas * linhasPorPagina;
+
+            produtosExpandido.forEach((produto, indice) => {
+                if (indice > 0 && indice % etiquetasPorPagina === 0) {
+                    pdfOrnamental.addPage();
+                }
+
+                const indiceNaPagina = indice % etiquetasPorPagina;
+                const coluna = indiceNaPagina % cfg.colunas;
+                const linha = Math.floor(indiceNaPagina / cfg.colunas);
+
+                const x = cfg.margemX + coluna * (
+                    cfg.largura + cfg.espacamentoX
+                );
+                const y = cfg.margemY + linha * (
+                    cfg.altura + cfg.espacamentoY
+                );
+
+                desenharEtiquetaNaPosicao(produto, x, y);
+            });
+
+            pdfOrnamental.save("etiquetas-ornamentais.pdf");
+        } catch (erro) {
+            console.error("Erro ao gerar etiquetas ornamentais:", erro);
+            alert(
+                erro.message ||
+                "Não foi possível gerar as etiquetas ornamentais."
+            );
+        }
+    }
+
     // ===============================
     // GERAR PDF
     // ===============================
     async function imprimirEtiquetas() {
+        // O modo básico continua usando integralmente a impressão original.
+        if (tipoEtiquetaImpressao === "ornamental") {
+            await imprimirEtiquetasOrnamentais();
+            return;
+        }
 
         if (selecionados.length === 0) {
             alert(
@@ -1991,35 +2811,35 @@ function obterNomeExibicao(produto) {
         );
     }
 
-function alternarPainelVariedades(produtoId) {
-    setProdutoVariedadesAberto(atual =>
-        atual === produtoId ? null : produtoId
-    );
-}
-
-function alternarVariedadeEtiqueta(produtoPrincipal, variedade) {
-    const jaSelecionada = selecionados.some(
-        item => item.id === variedade.id
-    );
-
-    if (jaSelecionada) {
-        removerDaImpressao(variedade.id);
-        return;
+    function alternarPainelVariedades(produtoId) {
+        setProdutoVariedadesAberto(atual =>
+            atual === produtoId ? null : produtoId
+        );
     }
 
-    adicionarParaImpressao({
-        ...variedade,
-        produtoPrincipalId: produtoPrincipal.id,
-        nomeProdutoPrincipal: produtoPrincipal.nome,
-        ehVariedadeEtiqueta: true,
-    });
-}
+    function alternarVariedadeEtiqueta(produtoPrincipal, variedade) {
+        const jaSelecionada = selecionados.some(
+            item => item.id === variedade.id
+        );
+
+        if (jaSelecionada) {
+            removerDaImpressao(variedade.id);
+            return;
+        }
+
+        adicionarParaImpressao({
+            ...variedade,
+            produtoPrincipalId: produtoPrincipal.id,
+            nomeProdutoPrincipal: produtoPrincipal.nome,
+            ehVariedadeEtiqueta: true,
+        });
+    }
 
     // ===============================
     // CARD PRODUTO
     // ===============================
-// Substitua a função renderizarProduto(produto, lado) inteira por esta versão.
-function renderizarProduto(produto, lado) {
+    // Substitua a função renderizarProduto(produto, lado) inteira por esta versão.
+    function renderizarProduto(produto, lado) {
         const editando = editandoPrecoId === produto.id;
 
         return (
@@ -2202,7 +3022,7 @@ function renderizarProduto(produto, lado) {
                             type="button"
                             className="etq-v2-acao-mover-direita"
                             onClick={() =>
-                                adicionarParaImpressao(produto)
+                                moverProdutoFiltradoParaImpressao(produto)
                             }
                             title="Adicionar para impressão"
                         >
@@ -2236,7 +3056,7 @@ function renderizarProduto(produto, lado) {
                                             }
                                         >
                                             <span>Selecionar variedades</span>
-                            
+
                                             <span className="etq-v2-variedades-contador">
                                                 {produto.variedades.filter(variedade =>
                                                     selecionados.some(
@@ -2246,21 +3066,21 @@ function renderizarProduto(produto, lado) {
                                                 {" / "}
                                                 {produto.variedades.length}
                                             </span>
-                            
+
                                             <span className="etq-v2-variedades-seta">
                                                 {produtoVariedadesAberto === produto.id
                                                     ? "−"
                                                     : "+"}
                                             </span>
                                         </button>
-                            
+
                                         {produtoVariedadesAberto === produto.id && (
                                             <div className="etq-v2-variedades-lista">
                                                 {produto.variedades.map(variedade => {
                                                     const marcada = selecionados.some(
                                                         item => item.id === variedade.id
                                                     );
-                            
+
                                                     return (
                                                         <label
                                                             key={variedade.id}
@@ -2276,17 +3096,17 @@ function renderizarProduto(produto, lado) {
                                                                     )
                                                                 }
                                                             />
-                            
+
                                                             <span className="etq-v2-variedades-dados">
-                                                               <strong>
-    {String(variedade?.nome || "").trim()}
-</strong>
-                            
+                                                                <strong>
+                                                                    {String(variedade?.nome || "").trim()}
+                                                                </strong>
+
                                                                 <small>
                                                                     R$ {formatarPreco(variedade.preco)}
                                                                 </small>
                                                             </span>
-                            
+
                                                             <span
                                                                 className={
                                                                     marcada
@@ -2458,315 +3278,450 @@ function renderizarProduto(produto, lado) {
 
                 <div className="etiquetas-configuracoes-impressao-area">
 
+                    {/* =====================================================
+                        SELETOR DO MODELO E DA ORIENTAÇÃO DA ETIQUETA
+                    ====================================================== */}
+                    <div
+                        className="etiquetas-seletor-modelo-ornamental"
+                        style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            alignItems: "center",
+                            gap: "12px",
+                            width: "100%",
+                            padding: "12px 14px",
+                            marginBottom: "12px",
+                            border: "1px solid #e7dfcf",
+                            borderRadius: "12px",
+                            background: "#fffdf8"
+                        }}
+                    >
+                        <label
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "5px",
+                                minWidth: "155px",
+                                color: "#55452d",
+                                fontSize: "12px",
+                                fontWeight: 700
+                            }}
+                        >
+                            Modelo da etiqueta
+                            <select
+                                value={tipoEtiquetaImpressao}
+                                onChange={e => setTipoEtiquetaImpressao(e.target.value)}
+                                style={{
+                                    minHeight: "38px",
+                                    padding: "7px 10px",
+                                    border: "1px solid #d8c9a9",
+                                    borderRadius: "8px",
+                                    background: "#ffffff",
+                                    color: "#42351f",
+                                    fontSize: "13px"
+                                }}
+                            >
+                                <option value="basica">Básica</option>
+                                <option value="ornamental">Ornamental dourada</option>
+                            </select>
+                        </label>
+
+                        {tipoEtiquetaImpressao === "ornamental" && (
+                            <label
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "5px",
+                                    minWidth: "145px",
+                                    color: "#55452d",
+                                    fontSize: "12px",
+                                    fontWeight: 700
+                                }}
+                            >
+                                Orientação
+                                <select
+                                    value={orientacaoEtiquetaImpressao}
+                                    onChange={e => setOrientacaoEtiquetaImpressao(e.target.value)}
+                                    style={{
+                                        minHeight: "38px",
+                                        padding: "7px 10px",
+                                        border: "1px solid #d8c9a9",
+                                        borderRadius: "8px",
+                                        background: "#ffffff",
+                                        color: "#42351f",
+                                        fontSize: "13px"
+                                    }}
+                                >
+                                    <option value="vertical">Vertical</option>
+                                    <option value="horizontal">Horizontal</option>
+                                </select>
+                            </label>
+                        )}{tipoEtiquetaImpressao === "ornamental" && (
+                            <label
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "5px",
+                                    minWidth: "155px",
+                                    color: "#55452d",
+                                    fontSize: "12px",
+                                    fontWeight: 700
+                                }}
+                            >
+                                Fonte ornamental
+
+                                <select
+                                    value={fonteOrnamental}
+                                    onChange={e => setFonteOrnamental(e.target.value)}
+                                    style={{
+                                        minHeight: "38px",
+                                        padding: "7px 10px",
+                                        border: "1px solid #d8c9a9",
+                                        borderRadius: "8px",
+                                        background: "#ffffff",
+                                        color: "#42351f",
+                                        fontSize: "13px"
+                                    }}
+                                >
+                                    {fontesOrnamentais.map(fonte => (
+                                        <option key={fonte.valor} value={fonte.valor}>
+                                            {fonte.nome}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+                        )}
+                        {tipoEtiquetaImpressao === "ornamental" && (
+
+                            <span
+                                style={{
+                                    alignSelf: "center",
+                                    color: "#8b6a2d",
+                                    fontSize: "11px",
+                                    lineHeight: 1.4
+                                }}
+                            >
+                                Fundo ornamental dourado, quatro etiquetas por linha.
+                            </span>
+                        )}
+                    </div>
+
                     {/* ===============================
         ETIQUETA NORMAL
     =============================== */}
-                    <div className="etiquetas-grupo-cores-normal">
+                    {tipoEtiquetaImpressao === "basica" && (
+                        <>
+                            {/* ===============================
+            PERSONALIZAÇÃO DA ETIQUETA BÁSICA
+        =============================== */}
 
-                        <span className="etiquetas-grupo-cores-titulo">
-                            Etiqueta
-                        </span>
+                            <div className="etiquetas-grupo-cores-normal">
+                                <span className="etiquetas-grupo-cores-titulo">
+                                    Etiqueta
+                                </span>
 
-                        <label className="etiquetas-seletor-cor-item">
-                            <span>Fundo</span>
+                                <label className="etiquetas-seletor-cor-item">
+                                    <span>Fundo</span>
 
-                            <input
-                                type="color"
-                                value={corFundoNormal}
-                                onChange={e =>
-                                    setCorFundoNormal(e.target.value)
-                                }
-                            />
-                        </label>
+                                    <input
+                                        type="color"
+                                        value={corFundoNormal}
+                                        onChange={e =>
+                                            setCorFundoNormal(e.target.value)
+                                        }
+                                    />
+                                </label>
 
-                        <label className="etiquetas-seletor-cor-item">
-                            <span>Letras</span>
+                                <label className="etiquetas-seletor-cor-item">
+                                    <span>Letras</span>
 
-                            <input
-                                type="color"
-                                value={corTextoNormal}
-                                onChange={e =>
-                                    setCorTextoNormal(e.target.value)
-                                }
-                            />
-                        </label>
-
-
-                        {/* TIPO DA FONTE */}
-                        <label className="etiquetas-seletor-fonte-item">
-
-                            <span>Fonte</span>
-
-                            <input
-                                type="text"
-                                list="etiquetas-fontes-normal-lista"
-                                value={fonteNormal}
-
-                                onFocus={() => {
-                                    setFonteNormal("");
-                                }}
-
-                                onClick={() => {
-                                    setFonteNormal("");
-                                }}
-
-                                onChange={e => {
-                                    setFonteNormal(
-                                        e.target.value
-                                    );
-                                }}
-
-                                onBlur={() => {
-                                    if (!fonteNormal) {
-                                        setFonteNormal(
-                                            "helvetica"
-                                        );
-                                    }
-                                }}
-
-                                placeholder="Escolha a fonte"
-                                autoComplete="off"
-                            />
-
-                            <datalist id="etiquetas-fontes-normal-lista">
-
-                                {tiposFonteDisponiveis.map(
-                                    fonte => (
-                                        <option
-                                            key={fonte.valor}
-                                            value={fonte.valor}
-                                        >
-                                            {fonte.nome}
-                                        </option>
-                                    )
-                                )}
-
-                            </datalist>
-
-                        </label>
+                                    <input
+                                        type="color"
+                                        value={corTextoNormal}
+                                        onChange={e =>
+                                            setCorTextoNormal(e.target.value)
+                                        }
+                                    />
+                                </label>
 
 
-                        {/* ESTILO */}
-                        <label className="etiquetas-seletor-fonte-item">
+                                {/* TIPO DA FONTE */}
+                                <label className="etiquetas-seletor-fonte-item">
 
-                            <span>Estilo</span>
+                                    <span>Fonte</span>
 
-                            <input
-                                type="text"
-                                list="etiquetas-estilos-normal-lista"
-                                value={estiloFonteNormal}
+                                    <input
+                                        type="text"
+                                        list="etiquetas-fontes-normal-lista"
+                                        value={fonteNormal}
 
-                                onFocus={() => {
-                                    setEstiloFonteNormal("");
-                                }}
+                                        onFocus={() => {
+                                            setFonteNormal("");
+                                        }}
 
-                                onClick={() => {
-                                    setEstiloFonteNormal("");
-                                }}
+                                        onClick={() => {
+                                            setFonteNormal("");
+                                        }}
 
-                                onChange={e => {
-                                    setEstiloFonteNormal(
-                                        e.target.value
-                                    );
-                                }}
+                                        onChange={e => {
+                                            setFonteNormal(
+                                                e.target.value
+                                            );
+                                        }}
 
-                                onBlur={() => {
-                                    if (!estiloFonteNormal) {
-                                        setEstiloFonteNormal(
-                                            "bold"
-                                        );
-                                    }
-                                }}
+                                        onBlur={() => {
+                                            if (!fonteNormal) {
+                                                setFonteNormal(
+                                                    "helvetica"
+                                                );
+                                            }
+                                        }}
 
-                                placeholder="Escolha o estilo"
-                                autoComplete="off"
-                            />
+                                        placeholder="Escolha a fonte"
+                                        autoComplete="off"
+                                    />
 
-                            <datalist id="etiquetas-estilos-normal-lista">
+                                    <datalist id="etiquetas-fontes-normal-lista">
 
-                                {estilosFonteDisponiveis.map(
-                                    estilo => (
-                                        <option
-                                            key={estilo.valor}
-                                            value={estilo.valor}
-                                        >
-                                            {estilo.nome}
-                                        </option>
-                                    )
-                                )}
+                                        {tiposFonteDisponiveis.map(
+                                            fonte => (
+                                                <option
+                                                    key={fonte.valor}
+                                                    value={fonte.valor}
+                                                >
+                                                    {fonte.nome}
+                                                </option>
+                                            )
+                                        )}
 
-                            </datalist>
+                                    </datalist>
 
-                        </label>
+                                </label>
 
-                    </div>
-                    <button
-                        className="etiquetas-botao-imprimir-principall"
-                        onClick={imprimirEtiquetas}
-                        disabled={selecionados.length === 0}
-                    >
-                        Imprimir etiquetas
-                        {selecionados.length > 0 &&
-                            ` (${selecionados.length})`}
-                    </button>
 
-                    {/* ===============================
+                                {/* ESTILO */}
+                                <label className="etiquetas-seletor-fonte-item">
+
+                                    <span>Estilo</span>
+
+                                    <input
+                                        type="text"
+                                        list="etiquetas-estilos-normal-lista"
+                                        value={estiloFonteNormal}
+
+                                        onFocus={() => {
+                                            setEstiloFonteNormal("");
+                                        }}
+
+                                        onClick={() => {
+                                            setEstiloFonteNormal("");
+                                        }}
+
+                                        onChange={e => {
+                                            setEstiloFonteNormal(
+                                                e.target.value
+                                            );
+                                        }}
+
+                                        onBlur={() => {
+                                            if (!estiloFonteNormal) {
+                                                setEstiloFonteNormal(
+                                                    "bold"
+                                                );
+                                            }
+                                        }}
+
+                                        placeholder="Escolha o estilo"
+                                        autoComplete="off"
+                                    />
+
+                                    <datalist id="etiquetas-estilos-normal-lista">
+
+                                        {estilosFonteDisponiveis.map(
+                                            estilo => (
+                                                <option
+                                                    key={estilo.valor}
+                                                    value={estilo.valor}
+                                                >
+                                                    {estilo.nome}
+                                                </option>
+                                            )
+                                        )}
+
+                                    </datalist>
+
+                                </label>
+
+                            </div>
+                            <button
+                                className="etiquetas-botao-imprimir-principall"
+                                onClick={imprimirEtiquetas}
+                                disabled={selecionados.length === 0}
+                            >
+                                Imprimir etiquetas
+                                {selecionados.length > 0 &&
+                                    ` (${selecionados.length})`}
+                            </button>
+
+                            {/* ===============================
         ETIQUETA PROMOÇÃO
     =============================== */}
-                    <div className="etiquetas-grupo-cores-promocao">
+                            <div className="etiquetas-grupo-cores-promocao">
 
-                        <span className="etiquetas-grupo-cores-titulo">
-                            Promoção
-                        </span>
+                                <span className="etiquetas-grupo-cores-titulo">
+                                    Promoção
+                                </span>
 
-                        <label className="etiquetas-seletor-cor-item">
-                            <span>Fundo</span>
+                                <label className="etiquetas-seletor-cor-item">
+                                    <span>Fundo</span>
 
-                            <input
-                                type="color"
-                                value={corFundoPromocao}
-                                onChange={e =>
-                                    setCorFundoPromocao(e.target.value)
-                                }
-                            />
-                        </label>
+                                    <input
+                                        type="color"
+                                        value={corFundoPromocao}
+                                        onChange={e =>
+                                            setCorFundoPromocao(e.target.value)
+                                        }
+                                    />
+                                </label>
 
-                        <label className="etiquetas-seletor-cor-item">
-                            <span>Letras</span>
+                                <label className="etiquetas-seletor-cor-item">
+                                    <span>Letras</span>
 
-                            <input
-                                type="color"
-                                value={corTextoPromocao}
-                                onChange={e =>
-                                    setCorTextoPromocao(e.target.value)
-                                }
-                            />
-                        </label>
-
-
-                        {/* TIPO DA FONTE */}
-                        <label className="etiquetas-seletor-fonte-item">
-
-                            <span>Fonte</span>
-
-                            <input
-                                type="text"
-                                list="etiquetas-fontes-promocao-lista"
-                                value={fontePromocao}
-
-                                onFocus={() => {
-                                    setFontePromocao("");
-                                }}
-
-                                onClick={() => {
-                                    setFontePromocao("");
-                                }}
-
-                                onChange={e => {
-                                    setFontePromocao(
-                                        e.target.value
-                                    );
-                                }}
-
-                                onBlur={() => {
-                                    if (!fontePromocao) {
-                                        setFontePromocao(
-                                            "helvetica"
-                                        );
-                                    }
-                                }}
-
-                                placeholder="Escolha a fonte"
-                                autoComplete="off"
-                            />
-
-                            <datalist id="etiquetas-fontes-promocao-lista">
-
-                                {tiposFonteDisponiveis.map(
-                                    fonte => (
-                                        <option
-                                            key={fonte.valor}
-                                            value={fonte.valor}
-                                        >
-                                            {fonte.nome}
-                                        </option>
-                                    )
-                                )}
-
-                            </datalist>
-
-                        </label>
+                                    <input
+                                        type="color"
+                                        value={corTextoPromocao}
+                                        onChange={e =>
+                                            setCorTextoPromocao(e.target.value)
+                                        }
+                                    />
+                                </label>
 
 
-                        {/* ESTILO */}
-                        <label className="etiquetas-seletor-fonte-item">
+                                {/* TIPO DA FONTE */}
+                                <label className="etiquetas-seletor-fonte-item">
 
-                            <span>Estilo</span>
+                                    <span>Fonte</span>
 
-                            <input
-                                type="text"
-                                list="etiquetas-estilos-promocao-lista"
-                                value={estiloFontePromocao}
+                                    <input
+                                        type="text"
+                                        list="etiquetas-fontes-promocao-lista"
+                                        value={fontePromocao}
 
-                                onFocus={() => {
-                                    setEstiloFontePromocao("");
-                                }}
+                                        onFocus={() => {
+                                            setFontePromocao("");
+                                        }}
 
-                                onClick={() => {
-                                    setEstiloFontePromocao("");
-                                }}
+                                        onClick={() => {
+                                            setFontePromocao("");
+                                        }}
 
-                                onChange={e => {
-                                    setEstiloFontePromocao(
-                                        e.target.value
-                                    );
-                                }}
+                                        onChange={e => {
+                                            setFontePromocao(
+                                                e.target.value
+                                            );
+                                        }}
 
-                                onBlur={() => {
-                                    if (!estiloFontePromocao) {
-                                        setEstiloFontePromocao(
-                                            "bold"
-                                        );
-                                    }
-                                }}
+                                        onBlur={() => {
+                                            if (!fontePromocao) {
+                                                setFontePromocao(
+                                                    "helvetica"
+                                                );
+                                            }
+                                        }}
 
-                                placeholder="Escolha o estilo"
-                                autoComplete="off"
-                            />
+                                        placeholder="Escolha a fonte"
+                                        autoComplete="off"
+                                    />
 
-                            <datalist id="etiquetas-estilos-promocao-lista">
+                                    <datalist id="etiquetas-fontes-promocao-lista">
 
-                                {estilosFonteDisponiveis.map(
-                                    estilo => (
-                                        <option
-                                            key={estilo.valor}
-                                            value={estilo.valor}
-                                        >
-                                            {estilo.nome}
-                                        </option>
-                                    )
-                                )}
+                                        {tiposFonteDisponiveis.map(
+                                            fonte => (
+                                                <option
+                                                    key={fonte.valor}
+                                                    value={fonte.valor}
+                                                >
+                                                    {fonte.nome}
+                                                </option>
+                                            )
+                                        )}
 
-                            </datalist>
+                                    </datalist>
 
-                        </label>
-
-                    </div>
+                                </label>
 
 
-                    {/* ===============================
+                                {/* ESTILO */}
+                                <label className="etiquetas-seletor-fonte-item">
+
+                                    <span>Estilo</span>
+
+                                    <input
+                                        type="text"
+                                        list="etiquetas-estilos-promocao-lista"
+                                        value={estiloFontePromocao}
+
+                                        onFocus={() => {
+                                            setEstiloFontePromocao("");
+                                        }}
+
+                                        onClick={() => {
+                                            setEstiloFontePromocao("");
+                                        }}
+
+                                        onChange={e => {
+                                            setEstiloFontePromocao(
+                                                e.target.value
+                                            );
+                                        }}
+
+                                        onBlur={() => {
+                                            if (!estiloFontePromocao) {
+                                                setEstiloFontePromocao(
+                                                    "bold"
+                                                );
+                                            }
+                                        }}
+
+                                        placeholder="Escolha o estilo"
+                                        autoComplete="off"
+                                    />
+
+                                    <datalist id="etiquetas-estilos-promocao-lista">
+
+                                        {estilosFonteDisponiveis.map(
+                                            estilo => (
+                                                <option
+                                                    key={estilo.valor}
+                                                    value={estilo.valor}
+                                                >
+                                                    {estilo.nome}
+                                                </option>
+                                            )
+                                        )}
+
+                                    </datalist>
+
+                                </label>
+
+                            </div>
+
+
+                            {/* ===============================
         IMPRIMIR
     =============================== */}
 
-                    <button
-                        className="etiquetas-botao-imprimir-principal"
-                        onClick={imprimirEtiquetas}
-                        disabled={selecionados.length === 0}
-                    >
-                        Imprimir etiquetas
-                        {selecionados.length > 0 &&
-                            ` (${selecionados.length})`}
-                    </button>
+                            <button
+                                className="etiquetas-botao-imprimir-principal"
+                                onClick={imprimirEtiquetas}
+                                disabled={selecionados.length === 0}
+                            >
+                                Imprimir etiquetas
+                                {selecionados.length > 0 &&
+                                    ` (${selecionados.length})`}
+                            </button>
+                        </>
+                    )}
 
                 </div>
             </div>
@@ -2963,199 +3918,199 @@ function renderizarProduto(produto, lado) {
             </div>
 
             {modalImagemEtiqueta &&
-                                createPortal(
-                                    <div
-                                        className="etiquetas-imagem-modal-overlay"
-                                        onMouseDown={(e) => {
-                                            if (e.target === e.currentTarget) {
-                                                fecharModalImagemEtiqueta();
-                                            }
-                                        }}
-                                    >
-                                        <div
-                                            className="etiquetas-imagem-modal-container"
-                                            onMouseDown={(e) => e.stopPropagation()}
-                                        >
-                                            {/* =====================================================
+                createPortal(
+                    <div
+                        className="etiquetas-imagem-modal-overlay"
+                        onMouseDown={(e) => {
+                            if (e.target === e.currentTarget) {
+                                fecharModalImagemEtiqueta();
+                            }
+                        }}
+                    >
+                        <div
+                            className="etiquetas-imagem-modal-container"
+                            onMouseDown={(e) => e.stopPropagation()}
+                        >
+                            {/* =====================================================
                     CABEÇALHO
                 ===================================================== */}
 
-                                            <div className="etiquetas-imagem-modal-cabecalho">
-                                                <div className="etiquetas-imagem-modal-cabecalho-texto">
-                                                    <h3>
-                                                        Imagem da etiqueta
-                                                    </h3>
+                            <div className="etiquetas-imagem-modal-cabecalho">
+                                <div className="etiquetas-imagem-modal-cabecalho-texto">
+                                    <h3>
+                                        Imagem da etiqueta
+                                    </h3>
 
-                                                    <p>
-                                                        {obterNomeExibicao(modalImagemEtiqueta)}
-                                                    </p>
-                                                </div>
+                                    <p>
+                                        {obterNomeExibicao(modalImagemEtiqueta)}
+                                    </p>
+                                </div>
 
-                                                <button
-                                                    type="button"
-                                                    className="etiquetas-imagem-modal-fechar"
-                                                    onClick={fecharModalImagemEtiqueta}
-                                                    aria-label="Fechar"
-                                                >
-                                                    ×
-                                                </button>
-                                            </div>
+                                <button
+                                    type="button"
+                                    className="etiquetas-imagem-modal-fechar"
+                                    onClick={fecharModalImagemEtiqueta}
+                                    aria-label="Fechar"
+                                >
+                                    ×
+                                </button>
+                            </div>
 
 
-                                            {/* =====================================================
+                            {/* =====================================================
                     IMAGEM ATUAL SEM FUNDO
                 ===================================================== */}
 
-                                            {modalImagemEtiqueta.imagem_etiqueta && (
-                                                <div className="etiquetas-imagem-modal-atual-area">
-                                                    <strong>
-                                                        Imagem atual sem fundo
-                                                    </strong>
+                            {modalImagemEtiqueta.imagem_etiqueta && (
+                                <div className="etiquetas-imagem-modal-atual-area">
+                                    <strong>
+                                        Imagem atual sem fundo
+                                    </strong>
 
-                                                    <button
-                                                        type="button"
-                                                        className={`
+                                    <button
+                                        type="button"
+                                        className={`
                                 etiquetas-imagem-modal-opcao
                                 etiquetas-imagem-modal-atual
                                 ${imagemEscolhidaEtiqueta ===
-                                                                modalImagemEtiqueta.imagem_etiqueta &&
-                                                                !arquivoImagemEtiqueta
-                                                                ? "etiquetas-imagem-modal-opcao-ativa"
-                                                                : ""
-                                                            }
+                                                modalImagemEtiqueta.imagem_etiqueta &&
+                                                !arquivoImagemEtiqueta
+                                                ? "etiquetas-imagem-modal-opcao-ativa"
+                                                : ""
+                                            }
                             `}
-                                                        onClick={() => {
-                                                            setImagemEscolhidaEtiqueta(
-                                                                modalImagemEtiqueta.imagem_etiqueta
-                                                            );
+                                        onClick={() => {
+                                            setImagemEscolhidaEtiqueta(
+                                                modalImagemEtiqueta.imagem_etiqueta
+                                            );
 
-                                                            setArquivoImagemEtiqueta(null);
-                                                        }}
-                                                    >
-                                                        <img
-                                                            src={modalImagemEtiqueta.imagem_etiqueta}
-                                                            alt="Imagem atual da etiqueta"
-                                                        />
-                                                    </button>
-                                                </div>
-                                            )}
+                                            setArquivoImagemEtiqueta(null);
+                                        }}
+                                    >
+                                        <img
+                                            src={modalImagemEtiqueta.imagem_etiqueta}
+                                            alt="Imagem atual da etiqueta"
+                                        />
+                                    </button>
+                                </div>
+                            )}
 
 
-                                            {/* =====================================================
+                            {/* =====================================================
                     IMAGENS EXISTENTES DO PRODUTO
                 ===================================================== */}
 
-                                            {obterImagensProduto(modalImagemEtiqueta).length > 0 && (
-                                                <div className="etiquetas-imagem-modal-lista-area">
-                                                    <strong>
-                                                        Escolher uma imagem do produto
-                                                    </strong>
+                            {obterImagensProduto(modalImagemEtiqueta).length > 0 && (
+                                <div className="etiquetas-imagem-modal-lista-area">
+                                    <strong>
+                                        Escolher uma imagem do produto
+                                    </strong>
 
-                                                    <div className="etiquetas-imagem-modal-lista">
-                                                        {obterImagensProduto(
-                                                            modalImagemEtiqueta
-                                                        ).map((url, index) => (
-                                                            <button
-                                                                key={`${url}-${index}`}
-                                                                type="button"
-                                                                className={`
+                                    <div className="etiquetas-imagem-modal-lista">
+                                        {obterImagensProduto(
+                                            modalImagemEtiqueta
+                                        ).map((url, index) => (
+                                            <button
+                                                key={`${url}-${index}`}
+                                                type="button"
+                                                className={`
                                         etiquetas-imagem-modal-opcao
                                         ${imagemEscolhidaEtiqueta === url &&
-                                                                        !arquivoImagemEtiqueta
-                                                                        ? "etiquetas-imagem-modal-opcao-ativa"
-                                                                        : ""
-                                                                    }
+                                                        !arquivoImagemEtiqueta
+                                                        ? "etiquetas-imagem-modal-opcao-ativa"
+                                                        : ""
+                                                    }
                                     `}
-                                                                onClick={() => {
-                                                                    setImagemEscolhidaEtiqueta(url);
+                                                onClick={() => {
+                                                    setImagemEscolhidaEtiqueta(url);
 
-                                                                    setArquivoImagemEtiqueta(null);
-                                                                }}
-                                                            >
-                                                                <img
-                                                                    src={url}
-                                                                    alt={`Imagem ${index + 1} do produto`}
-                                                                />
-                                                            </button>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
+                                                    setArquivoImagemEtiqueta(null);
+                                                }}
+                                            >
+                                                <img
+                                                    src={url}
+                                                    alt={`Imagem ${index + 1} do produto`}
+                                                />
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
 
 
-                                            {/* =====================================================
+                            {/* =====================================================
                     ENVIAR NOVA IMAGEM
                 ===================================================== */}
 
-                                            <div className="etiquetas-imagem-modal-upload-area">
-                                                <strong>
-                                                    Ou enviar uma nova imagem
-                                                </strong>
+                            <div className="etiquetas-imagem-modal-upload-area">
+                                <strong>
+                                    Ou enviar uma nova imagem
+                                </strong>
 
-                                                <input
-                                                    type="file"
-                                                    accept="image/png,image/jpeg,image/webp"
-                                                    onChange={(e) => {
-                                                        const arquivo =
-                                                            e.target.files?.[0] || null;
+                                <input
+                                    type="file"
+                                    accept="image/png,image/jpeg,image/webp"
+                                    onChange={(e) => {
+                                        const arquivo =
+                                            e.target.files?.[0] || null;
 
-                                                        setArquivoImagemEtiqueta(arquivo);
+                                        setArquivoImagemEtiqueta(arquivo);
 
-                                                        if (arquivo) {
-                                                            setImagemEscolhidaEtiqueta("");
-                                                        }
-                                                    }}
-                                                />
+                                        if (arquivo) {
+                                            setImagemEscolhidaEtiqueta("");
+                                        }
+                                    }}
+                                />
 
-                                                {arquivoImagemEtiqueta && (
-                                                    <div className="etiquetas-imagem-modal-arquivo-selecionado">
-                                                        <span>
-                                                            Arquivo selecionado:
-                                                        </span>
+                                {arquivoImagemEtiqueta && (
+                                    <div className="etiquetas-imagem-modal-arquivo-selecionado">
+                                        <span>
+                                            Arquivo selecionado:
+                                        </span>
 
-                                                        <strong>
-                                                            {arquivoImagemEtiqueta.name}
-                                                        </strong>
-                                                    </div>
-                                                )}
-                                            </div>
+                                        <strong>
+                                            {arquivoImagemEtiqueta.name}
+                                        </strong>
+                                    </div>
+                                )}
+                            </div>
 
 
-                                            {/* =====================================================
+                            {/* =====================================================
                     AÇÕES
                 ===================================================== */}
 
-                                            <div className="etiquetas-imagem-modal-rodape">
-                                                <button
-                                                    type="button"
-                                                    className="etiquetas-imagem-modal-cancelar"
-                                                    onClick={fecharModalImagemEtiqueta}
-                                                    disabled={salvandoImagemEtiqueta}
-                                                >
-                                                    Cancelar
-                                                </button>
+                            <div className="etiquetas-imagem-modal-rodape">
+                                <button
+                                    type="button"
+                                    className="etiquetas-imagem-modal-cancelar"
+                                    onClick={fecharModalImagemEtiqueta}
+                                    disabled={salvandoImagemEtiqueta}
+                                >
+                                    Cancelar
+                                </button>
 
-                                                <button
-                                                    type="button"
-                                                    className="etiquetas-imagem-modal-salvar"
-                                                    onClick={salvarImagemEtiqueta}
-                                                    disabled={
-                                                        salvandoImagemEtiqueta ||
-                                                        (
-                                                            !imagemEscolhidaEtiqueta &&
-                                                            !arquivoImagemEtiqueta
-                                                        )
-                                                    }
-                                                >
-                                                    {salvandoImagemEtiqueta
-                                                        ? "Processando imagem..."
-                                                        : "Usar imagem"}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>,
-                                    document.body
-                                )}
+                                <button
+                                    type="button"
+                                    className="etiquetas-imagem-modal-salvar"
+                                    onClick={salvarImagemEtiqueta}
+                                    disabled={
+                                        salvandoImagemEtiqueta ||
+                                        (
+                                            !imagemEscolhidaEtiqueta &&
+                                            !arquivoImagemEtiqueta
+                                        )
+                                    }
+                                >
+                                    {salvandoImagemEtiqueta
+                                        ? "Processando imagem..."
+                                        : "Usar imagem"}
+                                </button>
+                            </div>
+                        </div>
+                    </div>,
+                    document.body
+                )}
             {alertaLimiteEtiquetas &&
                 createPortal(
                     <div className="etiquetas-limite-alerta-overlay">

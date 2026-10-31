@@ -6136,3 +6136,528 @@
     outline-offset: 3px;
     border-radius: 3px;
 }
+
+/* =========================================================
+   ETIQUETAS V2
+   COMPLEMENTO VISUAL E SELETOR ORNAMENTAL
+   Adicionar ao FINAL de etiquetas.css
+========================================================= */
+
+
+/* =========================================================
+   SELETOR DO MODELO DA ETIQUETA
+========================================================= */
+
+.etiquetas-seletor-modelo-ornamental {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 16px;
+    margin-bottom: 12px;
+
+    box-sizing: border-box;
+
+    background: linear-gradient(135deg,
+            #fffdf8,
+            #fff9ed);
+
+    border: 1px solid #ead9b8;
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 10px rgba(117, 83, 26, 0.05);
+}
+
+.etiquetas-seletor-modelo-ornamental label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    min-width: 145px;
+
+    color: #594426;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.etiquetas-seletor-modelo-ornamental select {
+    width: 100%;
+    min-height: 39px;
+
+    padding: 7px 32px 7px 11px;
+
+    box-sizing: border-box;
+
+    color: #49391f;
+    background-color: #ffffff;
+
+    border: 1px solid #d9c7a4;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+
+    outline: none;
+    cursor: pointer;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.etiquetas-seletor-modelo-ornamental select:hover {
+    border-color: #b89552;
+    background: #fffefa;
+}
+
+.etiquetas-seletor-modelo-ornamental select:focus {
+    border-color: #bd913e;
+
+    box-shadow:
+        0 0 0 3px rgba(189, 145, 62, .13);
+}
+
+.etiquetas-seletor-modelo-ornamental select option {
+    color: #49391f;
+    background: #ffffff;
+}
+
+.etiquetas-seletor-modelo-ornamental>span {
+    align-self: center;
+
+    max-width: 280px;
+
+    color: #92713b;
+    font-size: 11px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PREÇO V2
+========================================================= */
+
+.etq-v2-edicao-preco-prefixo {
+    flex: 0 0 auto;
+
+    color: #123d70;
+    font-size: 15px;
+    font-weight: 850;
+}
+
+
+/* =========================================================
+   BOTÃO DE ESCOLHER IMAGEM
+========================================================= */
+
+.etq-v2-imagem-produto-editar {
+    color: #725018 !important;
+
+    background: #fff8e9 !important;
+    border-color: #ead6ad !important;
+}
+
+.etq-v2-imagem-produto-editar:hover {
+    color: #543a0e !important;
+
+    background: #fff0d1 !important;
+    border-color: #d9b979 !important;
+}
+
+
+/* =========================================================
+   ARQUIVO SELECIONADO NO MODAL
+========================================================= */
+
+.etiquetas-imagem-modal-arquivo-selecionado {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    width: 100%;
+    min-width: 0;
+
+    margin-top: 12px;
+    padding: 12px 14px;
+
+    box-sizing: border-box;
+
+    background: #f0f7ff;
+
+    border: 1px solid #c9def3;
+    border-radius: 9px;
+}
+
+.etiquetas-imagem-modal-arquivo-selecionado span {
+    color: #52667d;
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.etiquetas-imagem-modal-arquivo-selecionado strong {
+    color: #123d70;
+    font-size: 12px;
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE DO SELETOR ORNAMENTAL
+========================================================= */
+
+@media (max-width: 1200px) {
+    .etiquetas-seletor-modelo-ornamental {
+        gap: 10px;
+    }
+
+    .etiquetas-seletor-modelo-ornamental label {
+        flex: 1 1 180px;
+    }
+}
+
+@media (max-width: 800px) {
+    .etiquetas-seletor-modelo-ornamental {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 13px;
+    }
+
+    .etiquetas-seletor-modelo-ornamental label {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .etiquetas-seletor-modelo-ornamental>span {
+        max-width: none;
+        width: 100%;
+    }
+}
+
+@media (max-width: 430px) {
+    .etiquetas-seletor-modelo-ornamental {
+        padding: 11px;
+        gap: 9px;
+        border-radius: 10px;
+    }
+
+    .etiquetas-seletor-modelo-ornamental select {
+        min-height: 42px;
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+.etiquetas-seletor-modelo-ornamental select:focus-visible,
+.etq-v2-imagem-produto-editar:focus-visible {
+    outline: 3px solid rgba(189, 145, 62, .20);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .etiquetas-seletor-modelo-ornamental select,
+    .etq-v2-imagem-produto-editar {
+        transition: none;
+    }
+}
+
+/* =========================================================
+   IRON EXECUTIONS
+   ANIMAÇÕES AVANÇADAS DO PAINEL DE ETIQUETAS
+========================================================= */
+
+/* 1. Entrada suave do painel */
+
+.etiquetas-painel-principal {
+    animation: etqPainelEntrada 0.65s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+@keyframes etqPainelEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 2. Entrada do cabeçalho */
+
+.etiquetas-painel-cabecalho {
+    animation: etqCabecalhoEntrada 0.7s ease both;
+}
+
+@keyframes etqCabecalhoEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 3. Entrada das colunas */
+
+.etiquetas-coluna-produtos-disponiveis {
+    animation: etqColunaEsquerda 0.65s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.etiquetas-coluna-impressao-selecionada {
+    animation: etqColunaDireita 0.75s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+@keyframes etqColunaEsquerda {
+    from {
+        opacity: 0;
+        transform: translateX(-18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes etqColunaDireita {
+    from {
+        opacity: 0;
+        transform: translateX(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 4. Produtos aparecendo gradualmente */
+
+.etiquetas-produto-card-individual {
+    animation: etqProdutoEntrada 0.42s cubic-bezier(.2, .7, .3, 1) both;
+}
+
+.etiquetas-produto-card-individual:nth-child(1) {
+    animation-delay: 0.03s;
+}
+
+.etiquetas-produto-card-individual:nth-child(2) {
+    animation-delay: 0.06s;
+}
+
+.etiquetas-produto-card-individual:nth-child(3) {
+    animation-delay: 0.09s;
+}
+
+.etiquetas-produto-card-individual:nth-child(4) {
+    animation-delay: 0.12s;
+}
+
+.etiquetas-produto-card-individual:nth-child(5) {
+    animation-delay: 0.15s;
+}
+
+.etiquetas-produto-card-individual:nth-child(n+6) {
+    animation-delay: 0.18s;
+}
+
+@keyframes etqProdutoEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(9px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 5. Movimento mais elegante dos cards */
+
+.etiquetas-produto-card-individual {
+    transition:
+        transform 0.28s cubic-bezier(.2, .8, .2, 1),
+        box-shadow 0.28s ease,
+        border-color 0.28s ease,
+        background 0.28s ease;
+}
+
+.etiquetas-produto-card-individual:hover {
+    transform: translateY(-3px) scale(1.006);
+    box-shadow:
+        0 9px 22px rgba(7, 31, 63, 0.10),
+        0 2px 5px rgba(7, 31, 63, 0.04);
+}
+
+/* 6. Botões com resposta mais rápida */
+
+.etiquetas-produto-acoes-area button,
+.etiquetas-botao-imprimir-principal,
+.etiquetas-mobile-aba-botao {
+    transition:
+        transform 0.2s cubic-bezier(.2, .8, .2, 1),
+        box-shadow 0.2s ease,
+        filter 0.2s ease,
+        background 0.2s ease;
+}
+
+.etiquetas-produto-acoes-area button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+}
+
+.etiquetas-produto-acoes-area button:active:not(:disabled) {
+    transform: scale(0.94);
+}
+
+/* 7. Efeito de brilho na seta */
+
+.etiquetas-acao-mover-direita,
+.etiquetas-acao-mover-esquerda {
+    position: relative;
+    overflow: hidden;
+}
+
+.etiquetas-acao-mover-direita::after,
+.etiquetas-acao-mover-esquerda::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -80%;
+    width: 45%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.22);
+    transform: rotate(25deg);
+    transition: left 0.45s ease;
+    pointer-events: none;
+}
+
+.etiquetas-acao-mover-direita:hover::after,
+.etiquetas-acao-mover-esquerda:hover::after {
+    left: 140%;
+}
+
+/* 8. Destaque no botão imprimir */
+
+.etiquetas-botao-imprimir-principal {
+    position: relative;
+    overflow: hidden;
+}
+
+.etiquetas-botao-imprimir-principal:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow:
+        0 10px 24px rgba(7, 47, 99, 0.25),
+        0 3px 7px rgba(7, 47, 99, 0.12);
+}
+
+/* 9. Campos com animação de foco */
+
+.etiquetas-filtro-nome-input,
+.etiquetas-filtro-preco-input,
+.etiquetas-filtro-codigo-barras-input,
+.etiquetas-seletor-fonte-item input {
+    transition:
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease,
+        background 0.22s ease;
+}
+
+.etiquetas-filtro-nome-input:focus,
+.etiquetas-filtro-preco-input:focus,
+.etiquetas-filtro-codigo-barras-input:focus,
+.etiquetas-seletor-fonte-item input:focus {
+    transform: translateY(-1px);
+}
+
+/* 10. Grupos de personalização */
+
+.etiquetas-grupo-cores-normal,
+.etiquetas-grupo-cores-promocao {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.etiquetas-grupo-cores-normal:hover,
+.etiquetas-grupo-cores-promocao:hover {
+    transform: translateY(-2px);
+}
+
+/* 11. Ícone da área vazia */
+
+.etiquetas-impressao-vazia-icone {
+    animation: etqIconeFlutuante 3s ease-in-out infinite;
+}
+
+@keyframes etqIconeFlutuante {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* 12. Abas mobile */
+
+.etiquetas-mobile-aba-botao.etiquetas-mobile-aba-ativa {
+    animation: etqAbaAtivada 0.25s ease both;
+}
+
+@keyframes etqAbaAtivada {
+    from {
+        transform: scale(0.96);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* 13. Acessibilidade, respeita quem prefere
+   movimento reduzido no sistema */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .etiquetas-painel-principal,
+    .etiquetas-painel-cabecalho,
+    .etiquetas-coluna-produtos-disponiveis,
+    .etiquetas-coluna-impressao-selecionada,
+    .etiquetas-produto-card-individual,
+    .etiquetas-impressao-vazia-icone {
+        animation: none !important;
+    }
+
+    .etiquetas-painel-principal *,
+    .etiquetas-painel-principal *::before,
+    .etiquetas-painel-principal *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

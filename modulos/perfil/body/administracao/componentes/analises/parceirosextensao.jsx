@@ -646,6 +646,502 @@ export default function ParceirosExtensao({ parceiro }) {
 
     }
 
+    function imprimirCardapio() {
+        if (!meusProdutos || meusProdutos.length === 0) {
+            setErro("Não existem produtos cadastrados nesta parceria.");
+            return;
+        }
+
+        const primeiroProduto = meusProdutos[0];
+
+        const nomeParceiro =
+            parceiro?.parceiro_nome ||
+            parceiro?.parceiro ||
+            primeiroProduto?.parceiro_nome ||
+            "Parceiro";
+
+        const nomeComercio =
+            parceiro?.comercio_nome ||
+            primeiroProduto?.comercio_nome ||
+            "Nossa loja";
+
+        const logoComercio =
+            parceiro?.comercio_logo ||
+            primeiroProduto?.comercio_logo ||
+            "";
+
+        function obterImagemCardapio(item) {
+            // A etiqueta tem prioridade sobre a imagem normal.
+            const etiqueta = String(item.imagem_etiqueta || "")
+                .split("|")
+                .map(url => url.trim())
+                .find(Boolean);
+
+            if (etiqueta) return etiqueta;
+
+            // Se não existir etiqueta, utiliza a primeira imagem normal.
+            return obterImagem(item.imagem_url);
+        }
+
+        const produtos = [...meusProdutos].sort((a, b) =>
+            String(a.nome_produto || "").localeCompare(
+                String(b.nome_produto || ""),
+                "pt-BR",
+                { sensitivity: "base" }
+            )
+        );
+
+        const produtosHTML = produtos.map((item, index) => {
+            const nome = escaparHTML(
+                item.nome_produto || `Produto #${item.produto_id}`
+            );
+
+            const imagem = obterImagemCardapio(item);
+
+            const valor = formatarValor(item.valor);
+
+            return `
+            <article class="card-produto">
+                <div class="card-imagem">
+                    ${imagem
+                    ? `
+                                <img
+                                    src="${escaparHTML(imagem)}"
+                                    alt="${nome}"
+                                    onerror="this.style.display='none'; this.parentElement.classList.add('sem-imagem')"
+                                />
+                            `
+                    : `
+                                <div class="imagem-placeholder">
+                                    <span>IRON</span>
+                                </div>
+                            `
+                }
+                </div>
+
+                <div class="card-informacoes">
+                    <span class="produto-numero">
+                        PRODUTO ${String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <h2>${nome}</h2>
+
+                    <div class="produto-preco">
+                        ${valor}
+                    </div>
+                </div>
+            </article>
+        `;
+        }).join("");
+
+        const janela = window.open(
+            "",
+            "_blank",
+            "width=1100,height=850"
+        );
+
+        if (!janela) {
+            setErro(
+                "O navegador bloqueou a impressão. Permita janelas pop-up para este site."
+            );
+            return;
+        }
+
+        janela.document.open();
+
+        janela.document.write(`
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+        <head>
+            <meta charset="UTF-8">
+
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <title>
+                Cardápio | ${escaparHTML(nomeComercio)}
+            </title>
+
+            <style>
+                * {
+                    box-sizing: border-box;
+                }
+
+                @page {
+                    size: A4 portrait;
+                    margin: 13mm;
+                }
+
+                body {
+                    margin: 0;
+                    background: #ffffff;
+                    color: #182230;
+                    font-family: Arial, Helvetica, sans-serif;
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
+                }
+
+                .cardapio {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: auto;
+                }
+
+                .cabecalho {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 22px;
+                    padding: 0 0 19px;
+                    border-bottom: 2px solid #172b4d;
+                    margin-bottom: 25px;
+                }
+
+                .marca {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    min-width: 0;
+                }
+
+                .logo {
+                    width: 76px;
+                    height: 76px;
+                    object-fit: contain;
+                    flex-shrink: 0;
+                    border-radius: 12px;
+                }
+
+                .logo-placeholder {
+                    width: 76px;
+                    height: 76px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #172b4d;
+                    color: white;
+                    font-weight: 900;
+                    border-radius: 12px;
+                    font-size: 16px;
+                }
+
+                .identidade {
+                    min-width: 0;
+                }
+
+                .identidade .etiqueta {
+                    display: block;
+                    color: #78869b;
+                    font-size: 9px;
+                    font-weight: 800;
+                    letter-spacing: 2px;
+                    margin-bottom: 6px;
+                    text-transform: uppercase;
+                }
+
+                .identidade h1 {
+                    margin: 0;
+                    font-size: 23px;
+                    font-weight: 800;
+                    color: #172b4d;
+                    overflow-wrap: anywhere;
+                }
+
+                .identidade p {
+                    margin: 5px 0 0;
+                    color: #64748b;
+                    font-size: 11px;
+                }
+
+                .parceria {
+                    text-align: right;
+                    max-width: 190px;
+                    flex-shrink: 0;
+                }
+
+                .parceria span {
+                    display: block;
+                    color: #8994a5;
+                    font-size: 9px;
+                    letter-spacing: 1.4px;
+                    font-weight: 800;
+                    margin-bottom: 6px;
+                }
+
+                .parceria strong {
+                    display: block;
+                    font-size: 13px;
+                    color: #172b4d;
+                    overflow-wrap: anywhere;
+                }
+
+                .titulo-secao {
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: space-between;
+                    margin-bottom: 17px;
+                }
+
+                .titulo-secao h2 {
+                    font-size: 19px;
+                    margin: 0;
+                    color: #172b4d;
+                }
+
+                .titulo-secao span {
+                    font-size: 10px;
+                    color: #8994a5;
+                }
+
+                .grade-produtos {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: 15px;
+                }
+
+                .card-produto {
+                    min-width: 0;
+                    border: 1px solid #e1e7ef;
+                    border-radius: 11px;
+                    overflow: hidden;
+                    background: #ffffff;
+                    break-inside: avoid;
+                    page-break-inside: avoid;
+                }
+
+                .card-imagem {
+                    width: 100%;
+                    height: 180px;
+                    background: #f5f7fa;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                }
+
+                .card-imagem img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    display: block;
+                }
+
+                .imagem-placeholder {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #aab4c2;
+                    font-size: 23px;
+                    font-weight: 900;
+                    letter-spacing: 3px;
+                }
+
+                .card-informacoes {
+                    padding: 13px 14px 15px;
+                }
+
+                .produto-numero {
+                    display: block;
+                    font-size: 8px;
+                    font-weight: 800;
+                    letter-spacing: 1.5px;
+                    color: #8491a3;
+                    margin-bottom: 7px;
+                }
+
+                .card-informacoes h2 {
+                    margin: 0;
+                    font-size: 14px;
+                    line-height: 1.4;
+                    color: #202d40;
+                    min-height: 39px;
+                    overflow-wrap: anywhere;
+                }
+
+                .produto-preco {
+                    display: inline-block;
+                    margin-top: 12px;
+                    padding-top: 9px;
+                    border-top: 1px solid #e8edf3;
+                    width: 100%;
+                    color: #173f75;
+                    font-size: 19px;
+                    font-weight: 900;
+                }
+
+                .rodape {
+                    margin-top: 25px;
+                    padding-top: 12px;
+                    border-top: 1px solid #e1e7ef;
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 10px;
+                    color: #8491a3;
+                    font-size: 9px;
+                }
+
+                .rodape strong {
+                    color: #172b4d;
+                }
+
+                .acoes {
+                    display: flex;
+                    justify-content: center;
+                    padding: 25px;
+                }
+
+                .acoes button {
+                    border: 0;
+                    border-radius: 8px;
+                    background: #173f75;
+                    color: white;
+                    padding: 13px 25px;
+                    font-size: 13px;
+                    font-weight: 800;
+                    cursor: pointer;
+                }
+
+                @media print {
+                    .acoes {
+                        display: none !important;
+                    }
+
+                    .cabecalho {
+                        break-inside: avoid;
+                    }
+
+                    .card-produto {
+                        break-inside: avoid;
+                        page-break-inside: avoid;
+                    }
+                }
+
+                @media screen {
+                    body {
+                        padding: 20px;
+                        background: #e9edf3;
+                    }
+
+                    .cardapio {
+                        max-width: 800px;
+                        padding: 30px;
+                        background: white;
+                    }
+                }
+            </style>
+        </head>
+
+        <body>
+
+            <main class="cardapio">
+
+                <header class="cabecalho">
+
+                    <div class="marca">
+
+                        ${logoComercio
+                ? `
+                                    <img
+                                        class="logo"
+                                        src="${escaparHTML(logoComercio)}"
+                                        alt="Logo ${escaparHTML(nomeComercio)}"
+                                        onerror="this.style.display='none'"
+                                    />
+                                `
+                : `
+                                    <div class="logo-placeholder">
+                                        ${escaparHTML(
+                    String(nomeComercio).substring(0, 3).toUpperCase()
+                )}
+                                    </div>
+                                `
+            }
+
+                        <div class="identidade">
+
+                            <span class="etiqueta">
+                                CATÁLOGO OFICIAL
+                            </span>
+
+                            <h1>
+                                ${escaparHTML(nomeComercio)}
+                            </h1>
+
+                            <p>
+                                Produtos selecionados para você
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="parceria">
+
+                        <span>EM PARCERIA COM</span>
+
+                        <strong>
+                            ${escaparHTML(nomeParceiro)}
+                        </strong>
+
+                    </div>
+
+                </header>
+
+                <section class="titulo-secao">
+
+                    <h2>Nosso cardápio</h2>
+
+                    <span>
+                        ${produtos.length} produto(s)
+                    </span>
+
+                </section>
+
+                <section class="grade-produtos">
+
+                    ${produtosHTML}
+
+                </section>
+
+                <footer class="rodape">
+
+                    <span>
+                        <strong>${escaparHTML(nomeComercio)}</strong>
+                        · Em parceria com ${escaparHTML(nomeParceiro)}
+                    </span>
+
+                    <span>
+                        IRON EXECUTIONS
+                    </span>
+
+                </footer>
+
+            </main>
+
+            <div class="acoes">
+
+                <button onclick="window.print()">
+                    Imprimir cardápio / Salvar PDF
+                </button>
+
+            </div>
+
+            <script>
+                window.onload = function() {
+                    setTimeout(function() {
+                        window.print();
+                    }, 500);
+                };
+            <\/script>
+
+        </body>
+        </html>
+    `);
+
+        janela.document.close();
+    }
+
     const carregarMeusProdutos = useCallback(async () => {
 
         if (!token || !parceriaId) {
@@ -2141,21 +2637,29 @@ export default function ParceirosExtensao({ parceiro }) {
 
 
 
-                            <button
 
-                                type="button"
+                            <div className="pe-acoes-impressao">
+                                <button
+                                    type="button"
+                                    className="pe-imprimir"
+                                    onClick={imprimirRelatorio}
+                                    disabled={carregandoLista || produtosPorData.length === 0}
+                                >
+                                    <span className="pe-imprimir-icone">▤</span>
+                                    Imprimir relatório
+                                </button>
 
-                                className="pe-imprimir"
+                                <button
+                                    type="button"
+                                    className="pe-imprimir-cardapio"
+                                    onClick={imprimirCardapio}
+                                    disabled={carregandoLista || meusProdutos.length === 0}
+                                >
+                                    <span className="pe-cardapio-icone">▦</span>
+                                    Imprimir cardápio
+                                </button>
+                            </div>
 
-                                onClick={imprimirRelatorio}
-
-                                disabled={carregandoLista || produtosPorData.length === 0}
-
-                            >
-
-                                Imprimir relatório
-
-                            </button>
 
                         </div>
 

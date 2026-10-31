@@ -3948,3 +3948,95 @@
         text-align: left;
     }
 }
+
+
+/* =========================================
+   AÇÕES DE IMPRESSÃO DA PARCERIA
+========================================= */
+
+.pe-acoes-impressao {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pe-acoes-impressao .pe-imprimir {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 44px;
+    padding: 0 19px;
+    border: 1px solid #dce3ed;
+    border-radius: 11px;
+    background: #ffffff;
+    color: #34445b;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .25s ease, transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.pe-imprimir-cardapio {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 21px;
+    border: 1px solid #173f75;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #173f75, #245d9d);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .1px;
+    cursor: pointer;
+    box-shadow: 0 5px 14px rgba(23, 63, 117, .18);
+    transition: all .25s ease;
+    overflow: hidden;
+}
+
+.pe-imprimir-cardapio:hover:not(:disabled) {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #102f5b, #194b83);
+    box-shadow: 0 9px 22px rgba(23, 63, 117, .28);
+}
+
+.pe-acoes-impressao .pe-imprimir:hover:not(:disabled) {
+    background: #f1f5fa;
+    transform: translateY(-2px);
+}
+
+.pe-imprimir-cardapio:active:not(:disabled),
+.pe-acoes-impressao .pe-imprimir:active:not(:disabled) {
+    transform: scale(.97);
+}
+
+.pe-imprimir-cardapio:disabled,
+.pe-acoes-impressao .pe-imprimir:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.pe-cardapio-icone,
+.pe-imprimir-icone {
+    font-size: 19px;
+    line-height: 1;
+}
+
+@media (max-width: 600px) {
+    .pe-acoes-impressao {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .pe-acoes-impressao button {
+        width: 100%;
+    }
+}
