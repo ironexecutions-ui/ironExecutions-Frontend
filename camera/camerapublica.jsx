@@ -88,6 +88,93 @@ export default function Camerapublica() {
         setCopiandoLinkMissionarios
     ] = useState(false);
 
+    const [
+        emailMissionario,
+        setEmailMissionario
+    ] = useState("");
+
+    const [
+        enviandoEmailMissionario,
+        setEnviandoEmailMissionario
+    ] = useState(false);
+
+    const [
+        mensagemEmailMissionario,
+        setMensagemEmailMissionario
+    ] = useState("");
+    // =====================================================
+    // ENVIAR E-MAIL PARA MISSIONÁRIO
+    // =====================================================
+
+    async function enviarEmailMissionario() {
+
+        const email = (
+            emailMissionario.trim().toLowerCase()
+        );
+
+        if (!email || enviandoEmailMissionario) {
+            return;
+        }
+
+        setEnviandoEmailMissionario(true);
+        setMensagemEmailMissionario("");
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/camera-publica/missionarios/email`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        token,
+                        email: `${email}@missionary.org`
+                    })
+                }
+            );
+
+            const resultado = await resposta
+                .json()
+                .catch(() => ({}));
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    resultado.detail ||
+                    "Não foi possível registrar o e-mail."
+                );
+
+            }
+
+            setEmailMissionario("");
+
+            setMensagemEmailMissionario(
+                "E-mail enviado com sucesso!"
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "[CÂMERA PÚBLICA] Erro ao enviar e-mail:",
+                erro
+            );
+
+            setMensagemEmailMissionario(
+                erro.message ||
+                "Não foi possível enviar o e-mail."
+            );
+
+        } finally {
+
+            setEnviandoEmailMissionario(false);
+
+        }
+
+    }
     async function copiarLinkMissionarios() {
         const link = LINK_MISSIONARIOS;
 
@@ -664,6 +751,83 @@ export default function Camerapublica() {
                         para que eles possam acompanhar suas fotos.
                     </div>
 
+                    {/* =====================================================
+    ENVIAR LINK POR E-MAIL
+===================================================== */}
+
+                    <div className="camera-publica-missionarios-email">
+
+                        <div className="camera-publica-missionarios-email-titulo">
+                            Ou envie o link para eles
+                        </div>
+
+                        <div className="camera-publica-missionarios-email-descricao">
+                            Informe o e-mail institucional do missionário
+                            para que ele receba uma mensagem sobre suas fotos.
+                        </div>
+
+                        <div className="camera-publica-missionarios-email-campo">
+
+                            <input
+                                type="text"
+                                value={emailMissionario}
+                                onChange={(evento) => {
+
+                                    const valor = evento.target.value
+                                        .replace(/@/g, "")
+                                        .replace(/[^a-zA-Z0-9._+-]/g, "");
+
+                                    setEmailMissionario(valor);
+
+                                    setMensagemEmailMissionario("");
+
+                                }}
+                                placeholder="nome.sobrenome"
+                                autoComplete="off"
+                                spellCheck={false}
+                                aria-label="E-mail do missionário"
+                            />
+
+                            <span>
+                                @missionary.org
+                            </span>
+
+                        </div>
+
+                        {emailMissionario.trim() && (
+
+                            <button
+                                type="button"
+                                className="camera-publica-missionarios-email-enviar"
+                                onClick={enviarEmailMissionario}
+                                disabled={enviandoEmailMissionario}
+                            >
+
+                                {enviandoEmailMissionario
+                                    ? "Enviando..."
+                                    : "Enviar"}
+
+                            </button>
+
+                        )}
+
+                        {mensagemEmailMissionario && (
+
+                            <div className="camera-publica-missionarios-email-feedback">
+
+                                {mensagemEmailMissionario}
+
+                            </div>
+
+                        )}
+
+                    </div>
+
+
+                    {/* =====================================================
+    AÇÕES EXISTENTES
+===================================================== */}
+
                     <div className="camera-publica-missionarios-autenticado-acoes">
 
                         <button
@@ -817,13 +981,66 @@ export default function Camerapublica() {
                                         <div className="camera-publica-missionarios-conteudo">
 
                                             <strong>
-                                                Envie para seus missionarios
+                                                Envie as fotos e videos para seus missionários
                                             </strong>
 
+                                            <div className="camera-publica-missionarios-email">
 
+                                                <div className="camera-publica-missionarios-email-titulo">
+                                                    Enviar convite por e-mail
+                                                </div>
+
+                                                <div className="camera-publica-missionarios-email-descricao">
+                                                    Informe o e-mail institucional do missionário.
+                                                </div>
+
+                                                <div className="camera-publica-missionarios-email-campo">
+
+                                                    <input
+                                                        type="text"
+                                                        value={emailMissionario}
+                                                        onChange={(evento) => {
+                                                            const valor = evento.target.value
+                                                                .replace(/@/g, "")
+                                                                .replace(/[^a-zA-Z0-9._+-]/g, "");
+
+                                                            setEmailMissionario(valor);
+                                                            setMensagemEmailMissionario("");
+                                                        }}
+                                                        placeholder="nome.sobrenome"
+                                                        autoComplete="off"
+                                                        spellCheck={false}
+                                                        aria-label="E-mail do missionário"
+                                                    />
+
+                                                    <span>
+                                                        @missionary.org
+                                                    </span>
+
+                                                </div>
+
+                                                {emailMissionario.trim() && (
+                                                    <button
+                                                        type="button"
+                                                        className="camera-publica-missionarios-email-enviar"
+                                                        onClick={enviarEmailMissionario}
+                                                        disabled={enviandoEmailMissionario}
+                                                    >
+                                                        {enviandoEmailMissionario
+                                                            ? "Enviando..."
+                                                            : "Enviar"}
+                                                    </button>
+                                                )}
+
+                                                {mensagemEmailMissionario && (
+                                                    <div className="camera-publica-missionarios-email-feedback">
+                                                        {mensagemEmailMissionario}
+                                                    </div>
+                                                )}
+
+                                            </div>
 
                                             <div className="camera-publica-missionarios-acoes">
-
                                                 <button
                                                     type="button"
                                                     className="camera-publica-missionarios-copiar"

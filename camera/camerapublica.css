@@ -2468,3 +2468,443 @@
     }
 
 }
+
+/* =========================================================
+   ENVIO DE E-MAIL PARA MISSIONÁRIOS
+   Branco + Dourado + Preto
+   ========================================================= */
+
+.camera-publica-missionarios-email {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 11px;
+
+    margin-bottom: 17px;
+    padding: 17px;
+
+    box-sizing: border-box;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(145deg,
+            #fffefa 0%,
+            #fffaf0 55%,
+            #fbf3df 100%);
+
+    border: 1px solid rgba(180, 128, 25, 0.22);
+
+    box-shadow:
+        0 8px 22px rgba(45, 32, 10, 0.055),
+        inset 0 1px 0 #ffffff;
+
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    animation: cameraPublicaEmailEntrada 0.35s ease both;
+}
+
+
+/* =========================================================
+   DETALHE DOURADO SUPERIOR
+   ========================================================= */
+
+.camera-publica-missionarios-email::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+
+    width: 76%;
+    height: 2px;
+
+    border-radius: 0 0 999px 999px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #b98727,
+            #f2d58a,
+            #b98727,
+            transparent);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.camera-publica-missionarios-email-titulo {
+    color: #171717 !important;
+
+    font-size: 13px;
+    line-height: 1.35;
+
+    font-weight: 800;
+    letter-spacing: -0.2px;
+
+    text-align: left;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+   ========================================================= */
+
+.camera-publica-missionarios-email-descricao {
+    color: #71695b !important;
+
+    font-size: 11px;
+    line-height: 1.55;
+
+    font-weight: 500;
+
+    text-align: left;
+
+    margin-top: -5px;
+}
+
+
+/* =========================================================
+   CAMPO DE E-MAIL
+   ========================================================= */
+
+.camera-publica-missionarios-email-campo {
+    width: 100%;
+    min-height: 47px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 3px;
+
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(151, 107, 21, 0.25);
+
+    box-shadow:
+        0 3px 9px rgba(0, 0, 0, 0.025),
+        inset 0 1px 2px rgba(0, 0, 0, 0.015);
+
+    transition:
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease;
+}
+
+
+.camera-publica-missionarios-email-campo:focus-within {
+    border-color: #c99732;
+
+    box-shadow:
+        0 0 0 3px rgba(201, 151, 50, 0.12),
+        0 5px 13px rgba(126, 86, 14, 0.06);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.camera-publica-missionarios-email-campo input {
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+    height: 45px;
+
+    padding: 0;
+
+    border: none !important;
+    outline: none !important;
+
+    background: transparent !important;
+
+    color: #171717 !important;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    box-shadow: none !important;
+}
+
+
+.camera-publica-missionarios-email-campo input::placeholder {
+    color: #aaa18f !important;
+
+    font-weight: 450;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   DOMÍNIO FIXO
+   ========================================================= */
+
+.camera-publica-missionarios-email-campo span {
+    flex-shrink: 0;
+
+    color: #986b19 !important;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: -0.25px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   BOTÃO ENVIAR
+   ========================================================= */
+
+.camera-publica-missionarios-email-enviar {
+    width: 100%;
+    min-height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    border: 1px solid rgba(139, 94, 13, 0.38);
+    border-radius: 11px;
+
+    background:
+        linear-gradient(135deg,
+            #d9ad4f 0%,
+            #c18c2b 48%,
+            #a66f14 100%);
+
+    color: #ffffff !important;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 14px rgba(126, 86, 14, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.32);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        filter 0.22s ease;
+
+    animation: cameraPublicaEmailBotaoEntrada 0.25s ease both;
+}
+
+
+.camera-publica-missionarios-email-enviar:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+
+    box-shadow:
+        0 10px 19px rgba(126, 86, 14, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.38);
+}
+
+
+.camera-publica-missionarios-email-enviar:active {
+    transform: scale(0.985);
+
+    box-shadow:
+        0 3px 8px rgba(126, 86, 14, 0.13);
+}
+
+
+.camera-publica-missionarios-email-enviar:disabled {
+    opacity: 0.6;
+
+    cursor: wait;
+
+    transform: none;
+
+    filter: grayscale(0.15);
+}
+
+
+/* =========================================================
+   MENSAGEM DE RETORNO
+   ========================================================= */
+
+.camera-publica-missionarios-email-feedback {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    box-sizing: border-box;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(135deg,
+            #fff9e9,
+            #f8edcf);
+
+    border: 1px solid rgba(180, 128, 25, 0.2);
+
+    color: #76520f !important;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    font-weight: 700;
+
+    text-align: center;
+
+    animation: cameraPublicaEmailBotaoEntrada 0.25s ease both;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes cameraPublicaEmailEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(9px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes cameraPublicaEmailBotaoEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .camera-publica-missionarios-email {
+        padding: 15px;
+
+        gap: 10px;
+
+        border-radius: 14px;
+
+        margin-bottom: 15px;
+    }
+
+    .camera-publica-missionarios-email-titulo {
+        font-size: 12px;
+    }
+
+    .camera-publica-missionarios-email-descricao {
+        font-size: 10px;
+    }
+
+    .camera-publica-missionarios-email-campo {
+        min-height: 45px;
+
+        padding: 0 10px;
+    }
+
+    .camera-publica-missionarios-email-campo input {
+        height: 43px;
+
+        font-size: 12px;
+    }
+
+    .camera-publica-missionarios-email-campo span {
+        font-size: 10px;
+    }
+
+    .camera-publica-missionarios-email-enviar {
+        min-height: 41px;
+
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .camera-publica-missionarios-email {
+        padding: 12px;
+    }
+
+    .camera-publica-missionarios-email-campo {
+        padding: 0 8px;
+    }
+
+    .camera-publica-missionarios-email-campo input {
+        font-size: 11px;
+    }
+
+    .camera-publica-missionarios-email-campo span {
+        font-size: 9px;
+        letter-spacing: -0.4px;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .camera-publica-missionarios-email,
+    .camera-publica-missionarios-email-enviar,
+    .camera-publica-missionarios-email-feedback {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .camera-publica-missionarios-email-campo:focus-within,
+    .camera-publica-missionarios-email-enviar:hover {
+        transform: none !important;
+    }
+
+}
