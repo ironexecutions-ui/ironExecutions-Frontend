@@ -10,6 +10,7 @@ import { API_URL } from "../../../../config";
 
 const API_PREFIX = "/ironstore/frete-avulso";
 const CACHE_DESTINATARIOS_KEY = "ironstore_frete_avulso_destinatarios";
+const CACHE_CHAVE_SOLICITACAO_KEY = "ironstore_frete_avulso_chave_solicitacao";
 
 function normalizarTexto(valor) {
     return String(valor || "").trim().toLocaleLowerCase("pt-BR");
@@ -179,6 +180,72 @@ export default function Frete({ token: tokenProp }) {
     // =========================================================
 
     const origemEditada = useRef(false);
+    const chaveSolicitacaoRef = useRef(null);
+
+    const gerarChaveSolicitacao = () => {
+        if (
+            typeof crypto !== "undefined" &&
+            typeof crypto.randomUUID === "function"
+        ) {
+            return crypto.randomUUID();
+        }
+
+        // Compatibilidade com navegadores sem crypto.randomUUID.
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+            /[xy]/g,
+            (caractere) => {
+                const numero = Math.floor(Math.random() * 16);
+                const valor = caractere === "x"
+                    ? numero
+                    : (numero & 0x3) | 0x8;
+
+                return valor.toString(16);
+            }
+        );
+    };
+
+    const criarNovaChaveSolicitacao = () => {
+        const chave = gerarChaveSolicitacao();
+        chaveSolicitacaoRef.current = chave;
+
+        try {
+            sessionStorage.setItem(
+                CACHE_CHAVE_SOLICITACAO_KEY,
+                chave
+            );
+        } catch (erroStorage) {
+            console.warn(
+                "[Frete Avulso] Não foi possível guardar a chave da solicitação na sessão:",
+                erroStorage
+            );
+        }
+
+        return chave;
+    };
+
+    const obterChaveSolicitacao = () => {
+        if (chaveSolicitacaoRef.current) {
+            return chaveSolicitacaoRef.current;
+        }
+
+        try {
+            const chaveSalva = sessionStorage.getItem(
+                CACHE_CHAVE_SOLICITACAO_KEY
+            );
+
+            if (chaveSalva) {
+                chaveSolicitacaoRef.current = chaveSalva;
+                return chaveSalva;
+            }
+        } catch (erroStorage) {
+            console.warn(
+                "[Frete Avulso] Não foi possível recuperar a chave da solicitação:",
+                erroStorage
+            );
+        }
+
+        return criarNovaChaveSolicitacao();
+    };
 
     const [carregandoRemetente, setCarregandoRemetente] = useState(true);
     const [rastreamentoEditandoId, setRastreamentoEditandoId] =
@@ -891,6 +958,11 @@ export default function Frete({ token: tokenProp }) {
             return;
         }
 
+        // Cada nova cotação completa inicia uma nova solicitação de frete.
+        // A mesma chave será reutilizada nas tentativas de pagamento e na
+        // confirmação de saldo, evitando registros ou cobranças duplicadas.
+        criarNovaChaveSolicitacao();
+
         // Salva os dados do destino antes da cotação. Assim, os dados ficam
         // disponíveis mesmo se a API de frete apresentar uma falha.
         salvarDestinatarioCache();
@@ -939,6 +1011,7 @@ export default function Frete({ token: tokenProp }) {
                 body: JSON.stringify({
                     ...montarPayload(),
                     servico_id: String(servicoSelecionado.id),
+                    chave_solicitacao: obterChaveSolicitacao(),
                 }),
             });
 
@@ -1002,6 +1075,7 @@ export default function Frete({ token: tokenProp }) {
                 body: JSON.stringify({
                     ...montarPayload(),
                     servico_id: String(servicoSelecionado.id),
+                    chave_solicitacao: obterChaveSolicitacao(),
                 }),
             });
 
@@ -1133,6 +1207,18 @@ export default function Frete({ token: tokenProp }) {
         setResultado(null);
         setErro("");
         setAviso("");
+
+        // O próximo envio precisa receber uma nova chave de idempotência.
+        chaveSolicitacaoRef.current = null;
+
+        try {
+            sessionStorage.removeItem(CACHE_CHAVE_SOLICITACAO_KEY);
+        } catch (erroStorage) {
+            console.warn(
+                "[Frete Avulso] Não foi possível limpar a chave da solicitação:",
+                erroStorage
+            );
+        }
     };
 
     const avancarInputDestino = (e) => {
