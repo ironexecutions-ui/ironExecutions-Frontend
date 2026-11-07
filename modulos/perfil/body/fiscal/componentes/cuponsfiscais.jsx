@@ -5,40 +5,27 @@ import { API_URL } from "../../../../../config";
 import "./cuponsfiscais.css";
 
 export default function CuponsFiscais() {
-
     const [lista, setLista] = useState([]);
-
     const [carregando, setCarregando] = useState(true);
 
-    /* =====================================================
-       FILTROS
-    ===================================================== */
-
-    const [filtroProtocolo, setFiltroProtocolo] = useState("");
-
+    const [filtroBusca, setFiltroBusca] = useState("");
     const [filtroData, setFiltroData] = useState("");
 
-    const [filtroValorMin, setFiltroValorMin] = useState("");
-
-    const [filtroValorMax, setFiltroValorMax] = useState("");
+    const [chaveCopiada, setChaveCopiada] = useState("");
 
     const token = localStorage.getItem("token");
 
-
-    /* =====================================================
-       CARREGAR CUPONS FISCAIS
-    ===================================================== */
+    // =====================================================
+    // CARREGAR DOCUMENTOS FISCAIS
+    // =====================================================
 
     useEffect(() => {
-
-        async function carregarCupons() {
-
+        async function carregarDocumentos() {
             try {
-
                 setCarregando(true);
 
                 const resposta = await fetch(
-                    `${API_URL}/fiscal/nfce`,
+                    `${API_URL}/fiscal/notas`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -49,26 +36,21 @@ export default function CuponsFiscais() {
                 const dados = await resposta.json();
 
                 if (!resposta.ok) {
-
                     console.error(
-                        "Erro ao carregar cupons fiscais:",
+                        "Erro ao carregar documentos fiscais:",
                         resposta.status,
                         dados
                     );
 
                     setLista([]);
-
                     return;
                 }
 
                 if (Array.isArray(dados)) {
-
                     setLista(dados);
-
                 } else {
-
                     console.error(
-                        "Resposta inesperada ao carregar cupons:",
+                        "Resposta inesperada:",
                         dados
                     );
 
@@ -76,291 +58,256 @@ export default function CuponsFiscais() {
                 }
 
             } catch (erro) {
-
                 console.error(
-                    "Erro ao carregar cupons fiscais:",
+                    "Erro ao carregar documentos fiscais:",
                     erro
                 );
 
                 setLista([]);
 
             } finally {
-
                 setCarregando(false);
             }
         }
 
-        carregarCupons();
+        carregarDocumentos();
 
     }, [token]);
 
+    // =====================================================
+    // COPIAR CHAVE DE ACESSO
+    // =====================================================
 
-    /* =====================================================
-       IMPRIMIR DANFE
-    ===================================================== */
-
-    async function imprimirDanfe(id) {
+    async function copiarChave(chave, identificador) {
+        if (!chave) {
+            alert("Chave de acesso não encontrada.");
+            return;
+        }
 
         try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(chave);
+            } else {
+                const campo = document.createElement("textarea");
 
-            const resposta = await fetch(
-                `${API_URL}/fiscal/nfce/${id}/danfe`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                campo.value = chave;
+                campo.style.position = "fixed";
+                campo.style.opacity = "0";
+
+                document.body.appendChild(campo);
+
+                campo.select();
+
+                const sucesso = document.execCommand("copy");
+
+                document.body.removeChild(campo);
+
+                if (!sucesso) {
+                    throw new Error("Não foi possível copiar a chave.");
                 }
-            );
+            }
+
+            setChaveCopiada(identificador);
+
+            setTimeout(() => {
+                setChaveCopiada("");
+            }, 2000);
+
+        } catch (erro) {
+            console.error("Erro ao copiar chave:", erro);
+
+            alert("Não foi possível copiar a chave de acesso.");
+        }
+    }
+
+    // =====================================================
+    // IMPRIMIR DOCUMENTO FISCAL
+    // =====================================================
+
+    async function imprimirDocumento(documento) {
+        const modelo = String(documento.modelo);
+
+        let endpoint = "";
+
+        if (modelo === "55") {
+            endpoint = `${API_URL}/fiscal/nfe/${documento.id}/danfe`;
+        } else if (modelo === "65") {
+            endpoint = `${API_URL}/fiscal/nfce/${documento.id}/danfe`;
+        } else {
+            alert("Modelo de documento fiscal não reconhecido.");
+            return;
+        }
+
+        try {
+            const resposta = await fetch(endpoint, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
 
             if (!resposta.ok) {
+                let mensagem = "Não foi possível gerar o DANFE.";
 
-                const texto = await resposta.text();
+                try {
+                    const dados = await resposta.json();
+
+                    mensagem =
+                        dados.detail || mensagem;
+                } catch {
+                    const texto = await resposta.text();
+
+                    if (texto) {
+                        mensagem = texto;
+                    }
+                }
 
                 console.error(
-                    "Erro ao buscar DANFE:",
+                    `Erro ao gerar DANFE modelo ${modelo}:`,
                     resposta.status,
-                    texto
+                    mensagem
                 );
 
-                throw new Error(
-                    `Erro ${resposta.status} ao gerar DANFE`
-                );
+                throw new Error(mensagem);
             }
 
             const blob = await resposta.blob();
 
+            if (!blob.type.includes("pdf")) {
+                throw new Error(
+                    "O servidor não retornou um arquivo PDF válido."
+                );
+            }
+
             const url = URL.createObjectURL(blob);
 
-            window.open(
-                url,
-                "_blank"
-            );
+            const janela = window.open(url, "_blank");
 
-            setTimeout(() => {
-
+            if (!janela) {
                 URL.revokeObjectURL(url);
 
+                alert(
+                    "O navegador bloqueou a janela de impressão. Permita pop-ups para este site."
+                );
+
+                return;
+            }
+
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
             }, 60000);
 
         } catch (erro) {
-
             console.error(
-                "Erro ao imprimir DANFE:",
+                `Erro ao imprimir NF-e/NFC-e modelo ${modelo}:`,
                 erro
             );
 
             alert(
-                "Não foi possível gerar o DANFE da NFC-e."
+                erro.message ||
+                `Não foi possível gerar o DANFE da nota modelo ${modelo}.`
             );
         }
     }
 
 
-    /* =====================================================
-       DESCOBRIR VALOR DO CUPOM
-    ===================================================== */
+    // =====================================================
+    // FILTRAR DOCUMENTOS
+    // =====================================================
 
-    function obterValorCupom(n) {
+    const listaFiltrada = lista.filter((documento) => {
 
-        const valor =
-            n.valor_total ??
-            n.valor_pago ??
-            n.valor ??
-            0;
+        if (filtroBusca.trim()) {
+            const busca = filtroBusca.trim().toLowerCase();
 
-        const numero = Number(valor);
-
-        if (Number.isNaN(numero)) {
-
-            return 0;
-        }
-
-        return numero;
-    }
-
-
-    /* =====================================================
-       FILTRAR CUPONS
-    ===================================================== */
-
-    const listaFiltrada = lista.filter((n) => {
-
-        /* =================================================
-           PROTOCOLO / ID / NÚMERO NFC-e
-        ================================================= */
-
-        if (filtroProtocolo.trim()) {
-
-            const busca = filtroProtocolo
-                .trim()
-                .toLowerCase();
-
-            const id = String(
-                n.id ?? ""
+            const vendaId = String(
+                documento.venda_id ?? ""
             ).toLowerCase();
 
-            const protocolo = String(
-                n.protocolo ??
-                n.protocolo_autorizacao ??
-                n.n_protocolo ??
-                ""
-            ).toLowerCase();
-
-            const numeroNfce = String(
-                n.numero_nfce ?? ""
+            const chave = String(
+                documento.chave_acesso ?? ""
             ).toLowerCase();
 
             const encontrou =
-                id.includes(busca) ||
-                protocolo.includes(busca) ||
-                numeroNfce.includes(busca);
+                vendaId.includes(busca) ||
+                chave.includes(busca);
 
             if (!encontrou) {
-
                 return false;
             }
         }
-
-
-        /* =================================================
-           DATA
-        ================================================= */
 
         if (filtroData) {
-
-            if (!n.criado_em) {
-
+            if (!documento.criado_em) {
                 return false;
             }
 
-            const dataCupom = String(
-                n.criado_em
+            const dataDocumento = String(
+                documento.criado_em
             ).slice(0, 10);
 
-            if (dataCupom !== filtroData) {
-
+            if (dataDocumento !== filtroData) {
                 return false;
             }
         }
-
-
-        /* =================================================
-           VALOR
-        ================================================= */
-
-        const valorCupom = obterValorCupom(n);
-
-
-        /* =================================================
-           VALOR MÍNIMO
-        ================================================= */
-
-        if (
-            filtroValorMin !== "" &&
-            valorCupom < Number(filtroValorMin)
-        ) {
-
-            return false;
-        }
-
-
-        /* =================================================
-           VALOR MÁXIMO
-        ================================================= */
-
-        if (
-            filtroValorMax !== "" &&
-            valorCupom > Number(filtroValorMax)
-        ) {
-
-            return false;
-        }
-
 
         return true;
     });
 
-
-    /* =====================================================
-       LIMPAR FILTROS
-    ===================================================== */
+    // =====================================================
+    // LIMPAR FILTROS
+    // =====================================================
 
     function limparFiltros() {
-
-        setFiltroProtocolo("");
-
+        setFiltroBusca("");
         setFiltroData("");
-
-        setFiltroValorMin("");
-
-        setFiltroValorMax("");
     }
 
-
-    /* =====================================================
-       CARREGANDO
-    ===================================================== */
+    // =====================================================
+    // CARREGANDO
+    // =====================================================
 
     if (carregando) {
-
         return (
-
             <div className="cupons-fiscais">
-
                 <p className="cupons-fiscais-loading">
-
-                    Carregando cupons fiscais...
-
+                    Carregando documentos fiscais...
                 </p>
-
             </div>
         );
     }
 
-
-    /* =====================================================
-       RETURN
-    ===================================================== */
+    // =====================================================
+    // RETURN
+    // =====================================================
 
     return (
-
         <div className="cupons-fiscais">
 
             <h4>
-                Cupons Fiscais (NFC-e)
+                Documentos Fiscais
             </h4>
 
-
-            {/* =================================================
-                FILTROS
-            ================================================= */}
+            {/* FILTROS */}
 
             <div className="cupons-fiscais-filtros-premium">
-
-
-                {/* PROTOCOLO / ID */}
 
                 <div className="cupons-fiscais-filtro-protocolo-premium">
 
                     <label>
-                        Protocolo / ID
+                        Venda ou chave de acesso
                     </label>
 
                     <input
                         type="text"
-                        placeholder="ID, protocolo ou número..."
-                        value={filtroProtocolo}
+                        placeholder="ID da venda ou chave..."
+                        value={filtroBusca}
                         onChange={(e) =>
-                            setFiltroProtocolo(
-                                e.target.value
-                            )
+                            setFiltroBusca(e.target.value)
                         }
                     />
 
                 </div>
-
-
-                {/* DATA */}
 
                 <div className="cupons-fiscais-filtro-data-premium">
 
@@ -372,64 +319,11 @@ export default function CuponsFiscais() {
                         type="date"
                         value={filtroData}
                         onChange={(e) =>
-                            setFiltroData(
-                                e.target.value
-                            )
+                            setFiltroData(e.target.value)
                         }
                     />
 
                 </div>
-
-
-                {/* VALOR MÍNIMO */}
-
-                <div className="cupons-fiscais-filtro-valor-premium">
-
-                    <label>
-                        Valor mínimo
-                    </label>
-
-                    <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        placeholder="R$ 0,00"
-                        value={filtroValorMin}
-                        onChange={(e) =>
-                            setFiltroValorMin(
-                                e.target.value
-                            )
-                        }
-                    />
-
-                </div>
-
-
-                {/* VALOR MÁXIMO */}
-
-                <div className="cupons-fiscais-filtro-valor-premium">
-
-                    <label>
-                        Valor máximo
-                    </label>
-
-                    <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        placeholder="R$ 0,00"
-                        value={filtroValorMax}
-                        onChange={(e) =>
-                            setFiltroValorMax(
-                                e.target.value
-                            )
-                        }
-                    />
-
-                </div>
-
-
-                {/* LIMPAR */}
 
                 <button
                     type="button"
@@ -441,10 +335,7 @@ export default function CuponsFiscais() {
 
             </div>
 
-
-            {/* =================================================
-                QUANTIDADE ENCONTRADA
-            ================================================= */}
+            {/* QUANTIDADE ENCONTRADA */}
 
             <div className="cupons-fiscais-resultado-premium">
 
@@ -453,23 +344,20 @@ export default function CuponsFiscais() {
                 </span>
 
                 {listaFiltrada.length === 1
-                    ? " cupom encontrado"
-                    : " cupons encontrados"
+                    ? " documento encontrado"
+                    : " documentos encontrados"
                 }
 
             </div>
 
-
-            {/* =================================================
-                SEM RESULTADOS
-            ================================================= */}
+            {/* SEM RESULTADOS */}
 
             {listaFiltrada.length === 0 ? (
 
                 <div className="cupons-fiscais-vazio-premium">
 
                     <p>
-                        Nenhum cupom fiscal encontrado com esses filtros.
+                        Nenhum documento fiscal encontrado com esses filtros.
                     </p>
 
                     <button
@@ -484,9 +372,7 @@ export default function CuponsFiscais() {
 
             ) : (
 
-                /* =================================================
-                   TABELA
-                ================================================= */
+                /* TABELA */
 
                 <table>
 
@@ -495,19 +381,19 @@ export default function CuponsFiscais() {
                         <tr>
 
                             <th>
-                                Número
+                                Modelo
                             </th>
 
                             <th>
-                                Série
+                                Venda
+                            </th>
+
+                            <th>
+                                Chave de acesso
                             </th>
 
                             <th>
                                 Status
-                            </th>
-
-                            <th>
-                                Ambiente
                             </th>
 
                             <th>
@@ -522,75 +408,102 @@ export default function CuponsFiscais() {
 
                     </thead>
 
-
                     <tbody>
 
-                        {listaFiltrada.map((n) => (
+                        {listaFiltrada.map((documento) => {
 
-                            <tr key={n.id}>
+                            const identificador =
+                                `${documento.modelo}-${documento.id}`;
 
-                                <td data-label="Número">
+                            return (
+                                <tr key={identificador}>
 
-                                    {n.numero_nfce}
+                                    <td data-label="Modelo">
 
-                                </td>
+                                        <span
+                                            className={
+                                                documento.modelo === "55"
+                                                    ? "cupons-fiscais-modelo-55"
+                                                    : "cupons-fiscais-modelo-65"
+                                            }
+                                        >
+                                            {documento.modelo}
+                                        </span>
 
+                                    </td>
 
-                                <td data-label="Série">
+                                    <td data-label="Venda">
 
-                                    {n.serie}
+                                        #{documento.venda_id}
 
-                                </td>
+                                    </td>
 
+                                    <td data-label="Chave de acesso">
 
-                                <td
-                                    data-label="Status"
-                                    className={`status-${n.status}`}
-                                >
+                                        <button
+                                            type="button"
+                                            className="cupons-fiscais-copiar-chave"
+                                            onClick={() =>
+                                                copiarChave(
+                                                    documento.chave_acesso,
+                                                    identificador
+                                                )
+                                            }
+                                            title={documento.chave_acesso}
+                                            disabled={!documento.chave_acesso}
+                                        >
+                                            {chaveCopiada === identificador ? (
+                                                <>
+                                                    <span>✓</span>
+                                                    Copiado
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span>⧉</span>
+                                                    Copiar chave
+                                                </>
+                                            )}
+                                        </button>
 
-                                    {n.status}
+                                    </td>
 
-                                </td>
-
-
-                                <td data-label="Ambiente">
-
-                                    {n.ambiente}
-
-                                </td>
-
-
-                                <td data-label="Data">
-
-                                    {n.criado_em
-                                        ? new Date(
-                                            n.criado_em
-                                        ).toLocaleString(
-                                            "pt-BR"
-                                        )
-                                        : "-"
-                                    }
-
-                                </td>
-
-
-                                <td data-label="Ações">
-
-                                    <button
-                                        type="button"
-                                        className="cupons-fiscais-imprimir-premium"
-                                        onClick={() =>
-                                            imprimirDanfe(n.id)
-                                        }
+                                    <td
+                                        data-label="Status"
+                                        className={`status-${documento.status}`}
                                     >
-                                        Imprimir
-                                    </button>
 
-                                </td>
+                                        {documento.status}
 
-                            </tr>
+                                    </td>
 
-                        ))}
+                                    <td data-label="Data">
+
+                                        {documento.criado_em
+                                            ? new Date(
+                                                documento.criado_em
+                                            ).toLocaleString("pt-BR")
+                                            : "-"
+                                        }
+
+                                    </td>
+
+                                    <td data-label="Ações">
+
+                                        <button
+                                            type="button"
+                                            className="cupons-fiscais-imprimir-premium"
+                                            onClick={() =>
+                                                imprimirDocumento(documento)
+                                            }
+                                        >
+                                            Imprimir
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+                            );
+                        })}
 
                     </tbody>
 

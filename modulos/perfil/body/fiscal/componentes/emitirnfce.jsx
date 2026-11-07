@@ -7,11 +7,11 @@ import "./emitirnfce.css";
 // CONFIGURAÇÃO DE TESTE DA NF-e
 // =====================================================
 
-const USAR_DADOS_TESTE_NFE = true;
+const USAR_DADOS_TESTE_NFE = false;
 
 const DADOS_TESTE_DESTINATARIO_NFE = {
     nome: "Andy Jose de Oliveira Romero",
-    documento: "64593886000107",
+    documento: "70835582213",
 
     email: "ELDERROMERO565@GMAIL.COM",
     telefone: "1118547818",
