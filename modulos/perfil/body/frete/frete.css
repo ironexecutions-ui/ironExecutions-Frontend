@@ -1648,36 +1648,110 @@
 .isfa-custom-alert {
     position: fixed !important;
     z-index: 2147483000 !important;
-    right: max(20px, env(safe-area-inset-right)) !important;
-    bottom: max(20px, env(safe-area-inset-bottom)) !important;
+    right: max(22px, env(safe-area-inset-right)) !important;
+    bottom: max(22px, env(safe-area-inset-bottom)) !important;
     display: flex !important;
-    width: min(440px, calc(100vw - 32px)) !important;
-    max-height: calc(100vh - 40px) !important;
+    width: min(420px, calc(100vw - 36px)) !important;
+    max-height: calc(100dvh - 44px) !important;
     align-items: flex-end !important;
     justify-content: flex-end !important;
-    overflow: auto !important;
+    overflow: visible !important;
     padding: 0 !important;
     pointer-events: none !important;
+    perspective: 1000px !important;
 }
 
 .isfa-custom-alert__card {
+    position: relative !important;
+    isolation: isolate !important;
     width: 100% !important;
-    padding: 22px !important;
+    max-height: calc(100dvh - 44px) !important;
+    overflow: hidden !important;
+    padding: 23px !important;
     color: #27334a !important;
-    background: #ffffff !important;
-    border: 1px solid #e1e7ef !important;
-    border-radius: 19px !important;
-    box-shadow: 0 24px 70px rgba(12, 24, 45, .22), 0 4px 15px rgba(12, 24, 45, .08) !important;
+    background:
+        radial-gradient(circle at 100% 0%, rgba(36, 87, 214, .055), transparent 38%),
+        linear-gradient(145deg, #ffffff 0%, #fbfcff 100%) !important;
+    border: 1px solid rgba(219, 228, 240, .95) !important;
+    border-radius: 20px !important;
+    box-shadow:
+        0 28px 80px rgba(12, 24, 45, .20),
+        0 10px 28px rgba(12, 24, 45, .08),
+        0 2px 6px rgba(12, 24, 45, .04),
+        inset 0 1px 0 rgba(255, 255, 255, .95) !important;
     pointer-events: auto !important;
-    animation: isfa-alert-enter .24s ease-out both !important;
+    transform-origin: 92% 100% !important;
+    backdrop-filter: blur(18px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.15) !important;
+    animation: isfa-alert-enter .48s cubic-bezier(.2, .85, .25, 1.15) both !important;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease !important;
+}
+
+.isfa-custom-alert__card::before {
+    position: absolute !important;
+    z-index: -1 !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    height: 4px !important;
+    content: "" !important;
+    background: linear-gradient(90deg, rgba(255, 255, 255, .2), currentColor, rgba(255, 255, 255, .35)) !important;
+    opacity: .9 !important;
+}
+
+.isfa-custom-alert__card::after {
+    position: absolute !important;
+    z-index: -1 !important;
+    top: -85px !important;
+    right: -75px !important;
+    width: 190px !important;
+    height: 190px !important;
+    content: "" !important;
+    background: radial-gradient(circle, rgba(80, 125, 220, .075), transparent 70%) !important;
+    border-radius: 50% !important;
+    pointer-events: none !important;
+}
+
+.isfa-custom-alert__card:hover {
+    transform: translateY(-3px) !important;
+    border-color: #d5dfef !important;
+    box-shadow:
+        0 34px 90px rgba(12, 24, 45, .23),
+        0 14px 34px rgba(12, 24, 45, .10),
+        0 2px 7px rgba(12, 24, 45, .04) !important;
 }
 
 .isfa-custom-alert__card--warning {
-    border-top: 4px solid #e4a12c !important;
+    color: #c58a25 !important;
+    border-color: #f0dfbd !important;
 }
 
 .isfa-custom-alert__card--error {
-    border-top: 4px solid #d94a54 !important;
+    color: #d94a54 !important;
+    border-color: #f1d5d8 !important;
+}
+
+.isfa-custom-alert__card--info {
+    color: #2457d6 !important;
+    border-color: #d8e4fb !important;
+}
+
+.isfa-custom-alert__card--info .isfa-custom-alert__icon {
+    color: #2457d6 !important;
+    background: #edf3ff !important;
+    border-color: #d6e4ff !important;
+}
+
+.isfa-custom-alert__card--info .isfa-custom-alert__code {
+    color: #2457d6 !important;
+}
+
+.isfa-custom-alert--toast .isfa-custom-alert__card {
+    padding: 19px 20px !important;
+}
+
+.isfa-custom-alert--toast .isfa-custom-alert__message {
+    margin-bottom: 0 !important;
 }
 
 .isfa-custom-alert__top {
@@ -1687,23 +1761,32 @@
 }
 
 .isfa-custom-alert__icon {
+    position: relative !important;
     display: grid !important;
-    width: 43px !important;
-    height: 43px !important;
-    flex: 0 0 43px !important;
+    width: 46px !important;
+    height: 46px !important;
+    flex: 0 0 46px !important;
     place-items: center !important;
     color: #a96509 !important;
-    background: #fff5df !important;
-    border: 1px solid #f4dfb1 !important;
-    border-radius: 13px !important;
+    background: linear-gradient(145deg, #fff9eb, #fff0d0) !important;
+    border: 1px solid #f1dfb9 !important;
+    border-radius: 15px !important;
+    box-shadow: 0 5px 13px rgba(169, 101, 9, .09), inset 0 1px 0 rgba(255, 255, 255, .9) !important;
     font-size: 23px !important;
     font-weight: 900 !important;
+    animation: isfa-alert-icon-in .55s .08s cubic-bezier(.2, .8, .2, 1) both !important;
 }
 
 .isfa-custom-alert__card--error .isfa-custom-alert__icon {
     color: #c03945 !important;
-    background: #fff0f1 !important;
-    border-color: #f6d3d6 !important;
+    background: linear-gradient(145deg, #fff5f5, #ffe9eb) !important;
+    border-color: #f2d1d5 !important;
+    box-shadow: 0 5px 13px rgba(192, 57, 69, .09), inset 0 1px 0 rgba(255, 255, 255, .9) !important;
+}
+
+.isfa-custom-alert__card--info .isfa-custom-alert__icon {
+    background: linear-gradient(145deg, #f4f7ff, #e8efff) !important;
+    box-shadow: 0 5px 13px rgba(36, 87, 214, .09), inset 0 1px 0 rgba(255, 255, 255, .9) !important;
 }
 
 .isfa-custom-alert__heading {
@@ -1748,12 +1831,20 @@
     font-size: 21px !important;
     line-height: 1 !important;
     cursor: pointer !important;
-    transition: color .18s ease, background .18s ease !important;
+    box-shadow: 0 2px 5px rgba(20, 35, 60, .035) !important;
+    transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease !important;
 }
 
 .isfa-custom-alert__close:hover {
     color: #25334a !important;
     background: #eaf0f7 !important;
+    border-color: #d7e0ec !important;
+    transform: rotate(90deg) !important;
+    box-shadow: 0 4px 10px rgba(20, 35, 60, .08) !important;
+}
+
+.isfa-custom-alert__close:active {
+    transform: rotate(90deg) scale(.92) !important;
 }
 
 .isfa-custom-alert__message {
@@ -1813,15 +1904,54 @@
     text-align: center !important;
 }
 
-@keyframes isfa-alert-enter {
-    from {
-        opacity: 0 !important;
-        transform: translateY(12px) scale(.985) !important;
+@media (max-width: 600px) {
+    .isfa-custom-alert {
+        right: max(12px, env(safe-area-inset-right)) !important;
+        bottom: max(12px, env(safe-area-inset-bottom)) !important;
+        width: min(440px, calc(100vw - 24px)) !important;
+        max-height: calc(100dvh - 24px) !important;
     }
 
-    to {
+    .isfa-custom-alert--toast .isfa-custom-alert__card {
+        padding: 16px !important;
+        border-radius: 15px !important;
+    }
+}
+
+@keyframes isfa-alert-enter {
+    0% {
+        opacity: 0 !important;
+        filter: blur(7px) !important;
+        transform: translate3d(0, 22px, 0) scale(.94) rotateX(5deg) !important;
+    }
+
+    65% {
         opacity: 1 !important;
-        transform: translateY(0) scale(1) !important;
+        filter: blur(0) !important;
+        transform: translate3d(0, -3px, 0) scale(1.008) rotateX(0) !important;
+    }
+
+    100% {
+        opacity: 1 !important;
+        filter: blur(0) !important;
+        transform: translate3d(0, 0, 0) scale(1) rotateX(0) !important;
+    }
+}
+
+@keyframes isfa-alert-icon-in {
+    0% {
+        opacity: 0 !important;
+        transform: scale(.72) rotate(-12deg) !important;
+    }
+
+    70% {
+        opacity: 1 !important;
+        transform: scale(1.08) rotate(3deg) !important;
+    }
+
+    100% {
+        opacity: 1 !important;
+        transform: scale(1) rotate(0) !important;
     }
 }
 
@@ -4609,5 +4739,467 @@
         opacity: 1 !important;
         transform: none !important;
         will-change: auto !important;
+    }
+}
+
+/* =========================================
+   EFEITOS PROFISSIONAIS PARA O ALERTA
+========================================= */
+
+/* Entrada do alerta */
+.isfa-custom-alert__card {
+    animation: alertaEntradaPro 0.65s cubic-bezier(.16, 1, .3, 1) both;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+    transform-origin: bottom right;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Brilho passando pelo alerta */
+.isfa-custom-alert__card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(110deg,
+            transparent,
+            rgba(255, 255, 255, 0.45),
+            transparent);
+    transform: skewX(-20deg);
+    animation: alertaBrilho 1.2s ease 0.4s;
+    pointer-events: none;
+}
+
+/* Elevação ao passar o mouse */
+.isfa-custom-alert__card:hover {
+    transform: translateY(-5px) scale(1.015);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.18),
+        0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Ícone com animação */
+.isfa-custom-alert__icon {
+    animation: alertaIconeEntrada 0.55s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+/* Botão fechar */
+.isfa-custom-alert__close {
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+.isfa-custom-alert__close:hover {
+    transform: rotate(90deg) scale(1.15);
+}
+
+/* Animação de entrada */
+@keyframes alertaEntradaPro {
+    0% {
+        opacity: 0;
+        transform: translate3d(45px, 25px, 0) scale(0.88);
+        filter: blur(8px);
+    }
+
+    65% {
+        opacity: 1;
+        transform: translate3d(-5px, -3px, 0) scale(1.02);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Reflexo passando */
+@keyframes alertaBrilho {
+    0% {
+        left: -120%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+/* Ícone aparecendo */
+@keyframes alertaIconeEntrada {
+    0% {
+        opacity: 0;
+        transform: scale(0.4) rotate(-25deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+
+    .isfa-custom-alert__card,
+    .isfa-custom-alert__icon,
+    .isfa-custom-alert__card::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   SELETOR DE PRODUTOS PARA COTAÇÃO E ENVIO DE FRETE
+   Cole este bloco no final de frete.css
+========================================================= */
+
+.isfa-produtos-frete {
+    width: 100%;
+    margin: 0 0 18px;
+    padding: 20px;
+    border: 1px solid #e4e8ef;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.045);
+    color: #172033;
+}
+
+.isfa-produtos-frete__cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.isfa-produtos-frete__eyebrow {
+    display: block;
+    margin-bottom: 5px;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+}
+
+.isfa-produtos-frete__cabecalho h3 {
+    margin: 0;
+    color: #111827;
+    font-size: 17px;
+    font-weight: 750;
+    line-height: 1.3;
+}
+
+.isfa-produtos-frete__cabecalho p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.isfa-produtos-frete__contador {
+    flex: 0 0 auto;
+    padding: 7px 10px;
+    border: 1px solid #dbeafe;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 11px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.isfa-produtos-frete__busca {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 42px;
+    margin-bottom: 12px;
+    padding: 0 12px;
+    border: 1px solid #dce2ea;
+    border-radius: 10px;
+    background: #fff;
+    color: #64748b;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.isfa-produtos-frete__busca:focus-within {
+    border-color: #647de8;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, .11);
+}
+
+.isfa-produtos-frete__busca>span {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.isfa-produtos-frete__busca input {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #172033;
+    font: inherit;
+    font-size: 13px;
+}
+
+.isfa-produtos-frete__lista {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    max-height: 270px;
+    overflow-y: auto;
+    padding: 2px 3px 4px 2px;
+}
+
+.isfa-produtos-frete__produto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 9px;
+    border: 1px solid #e5e9f0;
+    border-radius: 12px;
+    background: #fff;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.isfa-produtos-frete__produto:hover {
+    transform: translateY(-2px);
+    border-color: #a5b4fc;
+    box-shadow: 0 7px 18px rgba(30, 41, 59, .08);
+}
+
+.isfa-produtos-frete__produto--selecionado {
+    border-color: #647de8;
+    background: #f5f7ff;
+    box-shadow: inset 0 0 0 1px rgba(100, 125, 232, .12);
+}
+
+.isfa-produtos-frete__foto {
+    display: grid;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    place-items: center;
+    border-radius: 9px;
+    background: #f1f5f9;
+    color: #94a3b8;
+}
+
+.isfa-produtos-frete__foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.isfa-produtos-frete__produto-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.isfa-produtos-frete__produto-info strong {
+    overflow: hidden;
+    color: #1e293b;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.isfa-produtos-frete__produto-info>span {
+    color: #0f766e;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.isfa-produtos-frete__selecao {
+    display: grid;
+    flex: 0 0 25px;
+    width: 25px;
+    height: 25px;
+    place-items: center;
+    border: 1px solid #dbe2ea;
+    border-radius: 50%;
+    background: #fff;
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.isfa-produtos-frete__produto--selecionado .isfa-produtos-frete__selecao {
+    border-color: #4f65d8;
+    background: #4f65d8;
+    color: #fff;
+}
+
+.isfa-produtos-frete__estado,
+.isfa-produtos-frete__erro {
+    margin: 10px 0;
+    padding: 13px;
+    border-radius: 10px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.isfa-produtos-frete__erro {
+    background: #fff1f2;
+    color: #be123c;
+}
+
+.isfa-produtos-frete__selecionados {
+    margin-top: 14px;
+    padding-top: 13px;
+    border-top: 1px solid #e5e9f0;
+}
+
+.isfa-produtos-frete__selecionados-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.isfa-produtos-frete__selecionados-titulo strong {
+    color: #334155;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.isfa-produtos-frete__selecionados-titulo button {
+    padding: 4px 0;
+    border: 0;
+    background: transparent;
+    color: #647de8;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.isfa-produtos-frete__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 82px auto 28px;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.isfa-produtos-frete__item>span {
+    overflow: hidden;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.isfa-produtos-frete__item label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #64748b;
+    font-size: 10px;
+}
+
+.isfa-produtos-frete__item input {
+    width: 48px;
+    height: 30px;
+    padding: 0 5px;
+    border: 1px solid #dce2ea;
+    border-radius: 7px;
+    background: #fff;
+    color: #172033;
+    text-align: center;
+    font-size: 12px;
+}
+
+.isfa-produtos-frete__item>strong {
+    color: #0f766e;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.isfa-produtos-frete__item>button {
+    display: grid;
+    width: 27px;
+    height: 27px;
+    place-items: center;
+    border: 0;
+    border-radius: 7px;
+    background: #fff1f2;
+    color: #be123c;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.isfa-produtos-frete__nota {
+    margin: 12px 0 0;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.55;
+}
+
+.isfa-cotacao-modal .isfa-produtos-frete {
+    margin-bottom: 15px;
+}
+
+@media (max-width: 640px) {
+    .isfa-produtos-frete {
+        padding: 14px;
+        border-radius: 13px;
+    }
+
+    .isfa-produtos-frete__cabecalho {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .isfa-produtos-frete__lista {
+        grid-template-columns: 1fr;
+        max-height: 230px;
+    }
+
+    .isfa-produtos-frete__item {
+        grid-template-columns: minmax(0, 1fr) 76px auto 27px;
+        gap: 6px;
+    }
+
+    .isfa-produtos-frete__item>span {
+        font-size: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .isfa-produtos-frete__produto,
+    .isfa-produtos-frete__busca {
+        transition: none;
     }
 }
