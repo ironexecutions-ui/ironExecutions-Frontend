@@ -4352,3 +4352,450 @@
         transform: none !important;
     }
 }
+
+/* =========================================================
+   NF-e MODELO 55
+   ÁREA DE EMISSÃO DENTRO DOS DETALHES DO PEDIDO
+   ========================================================= */
+
+.ironstore-pedido-nfe-area {
+    width: auto !important;
+    margin: 20px 24px 0 !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+
+    border: 1px solid #dbeafe !important;
+    border-radius: 14px !important;
+
+    background:
+        linear-gradient(145deg, #ffffff 0%, #f8fbff 100%) !important;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.025),
+        0 8px 24px rgba(37, 99, 235, 0.045) !important;
+}
+
+.ironstore-pedido-nfe-cabecalho {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 18px !important;
+    margin-bottom: 17px !important;
+}
+
+.ironstore-pedido-nfe-cabecalho>div {
+    min-width: 0 !important;
+}
+
+.ironstore-pedido-nfe-sobretitulo {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    margin-bottom: 7px !important;
+
+    color: #2563eb !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.075em !important;
+    line-height: 1.2 !important;
+    text-transform: uppercase !important;
+}
+
+.ironstore-pedido-nfe-cabecalho h3 {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 17px !important;
+    font-weight: 850 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.ironstore-pedido-nfe-cabecalho p {
+    margin: 6px 0 0 !important;
+
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+}
+
+.ironstore-pedido-nfe-status {
+    min-height: 27px !important;
+    flex: 0 0 auto !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 5px 10px !important;
+
+    border: 1px solid #fde68a !important;
+    border-radius: 999px !important;
+
+    background: #fffbeb !important;
+    color: #b45309 !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+.ironstore-pedido-nfe-status-emitida {
+    border-color: #bbf7d0 !important;
+    background: #f0fdf4 !important;
+    color: #15803d !important;
+}
+
+.ironstore-pedido-nfe-status-emitida::before {
+    content: "" !important;
+
+    width: 6px !important;
+    height: 6px !important;
+    margin-right: 6px !important;
+
+    border-radius: 50% !important;
+    background: #22c55e !important;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.10) !important;
+}
+
+.ironstore-pedido-nfe-emitir {
+    min-height: 43px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+
+    padding: 11px 17px !important;
+
+    border: 1px solid #2563eb !important;
+    border-radius: 10px !important;
+
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 850 !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-shadow: 0 7px 18px rgba(37, 99, 235, 0.17) !important;
+
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        background 160ms ease !important;
+}
+
+.ironstore-pedido-nfe-emitir::before {
+    content: "NF" !important;
+
+    width: 21px !important;
+    height: 21px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 6px !important;
+
+    background: rgba(255, 255, 255, 0.13) !important;
+
+    color: #ffffff !important;
+    font-size: 8px !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.03em !important;
+}
+
+.ironstore-pedido-nfe-emitir:hover:not(:disabled) {
+    transform: translateY(-1px) !important;
+
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important;
+
+    box-shadow: 0 10px 23px rgba(37, 99, 235, 0.23) !important;
+}
+
+.ironstore-pedido-nfe-emitir:active:not(:disabled) {
+    transform: translateY(0) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.16) !important;
+}
+
+.ironstore-pedido-nfe-emitir:disabled {
+    border-color: #cbd5e1 !important;
+    background: #e2e8f0 !important;
+    color: #94a3b8 !important;
+    box-shadow: none !important;
+    cursor: wait !important;
+}
+
+.ironstore-pedido-nfe-emitir:disabled::before {
+    content: "" !important;
+
+    width: 13px !important;
+    height: 13px !important;
+
+    border: 2px solid rgba(148, 163, 184, 0.35) !important;
+    border-top-color: #64748b !important;
+    border-radius: 50% !important;
+
+    background: transparent !important;
+
+    animation: ironstorePedidoNfeSpinner 650ms linear infinite !important;
+}
+
+@keyframes ironstorePedidoNfeSpinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Chave de acesso retornada após a emissão */
+
+.ironstore-pedido-nfe-chave-area {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+
+    padding: 14px !important;
+    box-sizing: border-box !important;
+
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 11px !important;
+
+    background: #f0fdf4 !important;
+}
+
+.ironstore-pedido-nfe-chave-area>label {
+    color: #166534 !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.055em !important;
+    text-transform: uppercase !important;
+}
+
+.ironstore-pedido-nfe-chave-linha {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+}
+
+.ironstore-pedido-nfe-chave-linha input {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
+
+    padding: 10px 12px !important;
+    box-sizing: border-box !important;
+
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 8px !important;
+    outline: none !important;
+
+    background: #ffffff !important;
+    color: #14532d !important;
+
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace !important;
+    font-size: 12px !important;
+    font-weight: 750 !important;
+    letter-spacing: 0.025em !important;
+
+    cursor: text !important;
+}
+
+.ironstore-pedido-nfe-chave-linha input:focus {
+    border-color: #16a34a !important;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10) !important;
+}
+
+.ironstore-pedido-nfe-copiar {
+    min-width: 112px !important;
+    min-height: 42px !important;
+    flex: 0 0 auto !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 9px 13px !important;
+
+    border: 1px solid #15803d !important;
+    border-radius: 8px !important;
+
+    background: #15803d !important;
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-weight: 850 !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        transform 150ms ease !important;
+}
+
+.ironstore-pedido-nfe-copiar:hover {
+    transform: translateY(-1px) !important;
+    border-color: #166534 !important;
+    background: #166534 !important;
+}
+
+.ironstore-pedido-nfe-sucesso {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+
+    color: #15803d !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    line-height: 1.45 !important;
+}
+
+.ironstore-pedido-nfe-sucesso::before {
+    content: "✓" !important;
+
+    width: 16px !important;
+    height: 16px !important;
+    flex: 0 0 16px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+    background: #dcfce7 !important;
+    color: #15803d !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+}
+
+.ironstore-pedido-nfe-ja-emitida {
+    width: 100% !important;
+
+    padding: 13px 14px !important;
+    box-sizing: border-box !important;
+
+    border: 1px solid #fde68a !important;
+    border-left: 4px solid #f59e0b !important;
+    border-radius: 9px !important;
+
+    background: #fffbeb !important;
+    color: #92400e !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    line-height: 1.55 !important;
+}
+
+.ironstore-pedido-nfe-erro {
+    width: 100% !important;
+
+    margin-top: 12px !important;
+    padding: 12px 14px !important;
+    box-sizing: border-box !important;
+
+    border: 1px solid #fecaca !important;
+    border-left: 4px solid #dc2626 !important;
+    border-radius: 9px !important;
+
+    background: #fef2f2 !important;
+    color: #b91c1c !important;
+
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    line-height: 1.5 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+/* Acessibilidade e adaptação para telas menores */
+
+.ironstore-pedido-nfe-area button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.17) !important;
+    outline-offset: 2px !important;
+}
+
+@media (max-width: 720px) {
+    .ironstore-pedido-nfe-area {
+        margin: 16px 18px 0 !important;
+        padding: 16px !important;
+    }
+
+    .ironstore-pedido-nfe-cabecalho {
+        align-items: flex-start !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .ironstore-pedido-nfe-chave-linha {
+        flex-direction: column !important;
+    }
+
+    .ironstore-pedido-nfe-copiar {
+        width: 100% !important;
+    }
+
+    .ironstore-pedido-nfe-emitir {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .ironstore-pedido-nfe-area {
+        margin: 14px 14px 0 !important;
+        padding: 14px !important;
+        border-radius: 12px !important;
+    }
+
+    .ironstore-pedido-nfe-cabecalho h3 {
+        font-size: 16px !important;
+    }
+
+    .ironstore-pedido-nfe-chave-area {
+        padding: 11px !important;
+    }
+
+    .ironstore-pedido-nfe-chave-linha input {
+        font-size: 10px !important;
+    }
+}
+
+@media (hover: none) {
+
+    .ironstore-pedido-nfe-emitir:hover:not(:disabled),
+    .ironstore-pedido-nfe-copiar:hover {
+        transform: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ironstore-pedido-nfe-area *,
+    .ironstore-pedido-nfe-area *::before,
+    .ironstore-pedido-nfe-area *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

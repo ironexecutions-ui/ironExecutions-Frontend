@@ -52,6 +52,26 @@ export default function Tabela() {
     ] = useState(null);
 
     const [
+        emitindoNotaFiscalId,
+        setEmitindoNotaFiscalId
+    ] = useState(null);
+
+    const [
+        notasFiscaisPedidos,
+        setNotasFiscaisPedidos
+    ] = useState({});
+
+    const [
+        erroNotaFiscal,
+        setErroNotaFiscal
+    ] = useState("");
+
+    const [
+        chaveCopiadaPedidoId,
+        setChaveCopiadaPedidoId
+    ] = useState(null);
+
+    const [
         mensagemEnvio,
         setMensagemEnvio
     ] = useState("");
@@ -381,6 +401,23 @@ export default function Tabela() {
     const abrirPedido = (
         pedido
     ) => {
+
+        setErroNotaFiscal("");
+        setChaveCopiadaPedidoId(null);
+
+        const chaveSalva = sessionStorage.getItem(
+            `ironstore_nfe_chave_${pedido.id}`
+        );
+
+        if (chaveSalva) {
+            setNotasFiscaisPedidos(atuais => ({
+                ...atuais,
+                [pedido.id]: {
+                    emitida: true,
+                    chave_acesso: chaveSalva
+                }
+            }));
+        }
 
         setPedidoAberto(
             pedido
@@ -888,6 +925,133 @@ export default function Tabela() {
     };
 
 
+
+
+    // ========================================================
+    // EMITIR NF-e MODELO 55 DIRETAMENTE PELO PEDIDO
+    // ========================================================
+
+    const emitirNotaFiscalPedido = async (pedido) => {
+        if (!pedido?.id || emitindoNotaFiscalId !== null) {
+            return;
+        }
+
+        const notaJaEmitida =
+            String(pedido.status || "").toLowerCase() === "nfe_emitida" ||
+            Boolean(notasFiscaisPedidos[pedido.id]?.emitida);
+
+        if (notaJaEmitida) {
+            return;
+        }
+
+        setEmitindoNotaFiscalId(pedido.id);
+        setErroNotaFiscal("");
+        setChaveCopiadaPedidoId(null);
+
+        try {
+            const token = buscarToken();
+
+            if (!token) {
+                throw new Error("Sessão não encontrada. Faça login novamente.");
+            }
+
+            const resposta = await fetch(
+                `${API_URL}/vendas/${pedido.id}/emitir-nfe`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+
+            let dados = {};
+
+            try {
+                dados = await resposta.json();
+            } catch {
+                dados = {};
+            }
+
+            if (!resposta.ok) {
+                const detalhe = dados?.detail;
+
+                const mensagem =
+                    typeof detalhe === "string"
+                        ? detalhe
+                        : detalhe?.mensagem ||
+                        detalhe?.detail ||
+                        dados?.erro ||
+                        dados?.mensagem ||
+                        "Não foi possível emitir a NF-e.";
+
+                throw new Error(mensagem);
+            }
+
+            const chaveAcesso =
+                dados?.chave_acesso ||
+                dados?.fiscal?.chave_acesso ||
+                dados?.fiscal?.chave ||
+                "";
+
+            const chaveNormalizada = String(chaveAcesso).replace(/\D/g, "");
+
+            if (chaveNormalizada) {
+                sessionStorage.setItem(
+                    `ironstore_nfe_chave_${pedido.id}`,
+                    chaveNormalizada
+                );
+            }
+
+            setNotasFiscaisPedidos(atuais => ({
+                ...atuais,
+                [pedido.id]: {
+                    emitida: true,
+                    chave_acesso: chaveNormalizada,
+                    mensagem: dados?.mensagem || "NF-e emitida com sucesso."
+                }
+            }));
+
+            setPedidos(atuais =>
+                atuais.map(item =>
+                    Number(item.id) === Number(pedido.id)
+                        ? { ...item, status: "nfe_emitida" }
+                        : item
+                )
+            );
+
+            setPedidoAberto(atual =>
+                atual && Number(atual.id) === Number(pedido.id)
+                    ? { ...atual, status: "nfe_emitida" }
+                    : atual
+            );
+
+        } catch (erroRequisicao) {
+            console.error("[IronStore] Erro ao emitir NF-e:", erroRequisicao);
+
+            setErroNotaFiscal(
+                erroRequisicao?.message ||
+                "Ocorreu um erro ao emitir a NF-e."
+            );
+        } finally {
+            setEmitindoNotaFiscalId(null);
+        }
+    };
+
+    const copiarChaveAcessoNota = async (pedidoId, chave) => {
+        if (!chave) return;
+
+        try {
+            await navigator.clipboard.writeText(chave);
+            setChaveCopiadaPedidoId(pedidoId);
+        } catch (erroCopia) {
+            console.error("Erro ao copiar chave de acesso:", erroCopia);
+            setErroNotaFiscal(
+                "Não foi possível copiar automaticamente. Selecione e copie a chave."
+            );
+        }
+    };
 
 
     // ========================================================
@@ -1983,6 +2147,95 @@ export default function Tabela() {
                             )}
 
                         </section>
+                        {/* ====================================
+                            NOTA FISCAL MODELO 55
+                        ===================================== */}
+
+                        <section className="ironstore-pedido-nfe-area">
+                            <div className="ironstore-pedido-nfe-cabecalho">
+                                <div>
+                                    <span className="ironstore-pedido-nfe-sobretitulo">
+                                        Documento fiscal
+                                    </span>
+                                    <h3>NF-e modelo 55</h3>
+                                    <p>
+                                        Emita a nota fiscal desta venda e copie a chave de acesso.
+                                    </p>
+                                </div>
+
+                                <span className={
+                                    String(pedidoAberto.status || "").toLowerCase() === "nfe_emitida" ||
+                                        notasFiscaisPedidos[pedidoAberto.id]?.emitida
+                                        ? "ironstore-pedido-nfe-status ironstore-pedido-nfe-status-emitida"
+                                        : "ironstore-pedido-nfe-status"
+                                }>
+                                    {
+                                        String(pedidoAberto.status || "").toLowerCase() === "nfe_emitida" ||
+                                            notasFiscaisPedidos[pedidoAberto.id]?.emitida
+                                            ? "Emitida"
+                                            : "Pendente"
+                                    }
+                                </span>
+                            </div>
+
+                            {notasFiscaisPedidos[pedidoAberto.id]?.chave_acesso ? (
+                                <div className="ironstore-pedido-nfe-chave-area">
+                                    <label htmlFor={`ironstore-pedido-nfe-chave-${pedidoAberto.id}`}>
+                                        Chave de acesso
+                                    </label>
+
+                                    <div className="ironstore-pedido-nfe-chave-linha">
+                                        <input
+                                            id={`ironstore-pedido-nfe-chave-${pedidoAberto.id}`}
+                                            type="text"
+                                            readOnly
+                                            value={notasFiscaisPedidos[pedidoAberto.id].chave_acesso}
+                                            onFocus={evento => evento.target.select()}
+                                        />
+
+                                        <button
+                                            type="button"
+                                            onClick={() => copiarChaveAcessoNota(
+                                                pedidoAberto.id,
+                                                notasFiscaisPedidos[pedidoAberto.id].chave_acesso
+                                            )}
+                                            className="ironstore-pedido-nfe-copiar"
+                                        >
+                                            {chaveCopiadaPedidoId === pedidoAberto.id
+                                                ? "Copiada"
+                                                : "Copiar chave"}
+                                        </button>
+                                    </div>
+
+                                    <span className="ironstore-pedido-nfe-sucesso">
+                                        NF-e emitida com sucesso. Guarde esta chave de acesso.
+                                    </span>
+                                </div>
+                            ) : String(pedidoAberto.status || "").toLowerCase() === "nfe_emitida" ? (
+                                <div className="ironstore-pedido-nfe-ja-emitida">
+                                    A NF-e desta venda já consta como emitida. A chave não foi retornada nesta consulta.
+                                </div>
+                            ) : (
+                                <button
+                                    type="button"
+                                    disabled={emitindoNotaFiscalId === pedidoAberto.id}
+                                    onClick={() => emitirNotaFiscalPedido(pedidoAberto)}
+                                    className="ironstore-pedido-nfe-emitir"
+                                >
+                                    {emitindoNotaFiscalId === pedidoAberto.id
+                                        ? "Emitindo NF-e..."
+                                        : "Emitir nota fiscal"}
+                                </button>
+                            )}
+
+                            {erroNotaFiscal && (
+                                <div className="ironstore-pedido-nfe-erro">
+                                    {erroNotaFiscal}
+                                </div>
+                            )}
+                        </section>
+
+
                         {/* ====================================
                             AÇÕES
                         ===================================== */}

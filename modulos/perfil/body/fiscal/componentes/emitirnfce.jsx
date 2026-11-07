@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { API_URL } from "../../../../../config";
 
@@ -82,6 +82,94 @@ export default function EmitirNfce() {
     });
 
     const [salvandoDestinatarioNfe, setSalvandoDestinatarioNfe] = useState(false);
+    // Identifica a consulta mais recente para evitar respostas fora de ordem.
+    const cepConsultaId = useRef(0);
+
+    async function buscarCepDestinatarioNfe(cep) {
+        const cepLimpo = cep.replace(/\D/g, "").slice(0, 8);
+
+        // Identifica esta consulta.
+        const consultaAtual = ++cepConsultaId.current;
+
+        // Atualiza o CEP e limpa os dados do endereço anterior.
+        setDestinatarioNfe(atual => ({
+            ...atual,
+            cep: cepLimpo,
+            logradouro: "",
+            bairro: "",
+            codigo_municipio: "",
+            municipio: "",
+            uf: ""
+        }));
+
+        // Limpa mensagens de erro anteriores.
+        setAlertaNfce(atual => ({
+            ...atual,
+            erroDestinatario: false
+        }));
+
+        // Só consulta quando tiver os 8 dígitos.
+        if (cepLimpo.length !== 8) {
+            return;
+        }
+
+        try {
+            const resposta = await fetch(
+                `https://viacep.com.br/ws/${cepLimpo}/json/`
+            );
+
+            if (!resposta.ok) {
+                throw new Error("Não foi possível consultar o CEP.");
+            }
+
+            const dados = await resposta.json();
+
+            // Ignora respostas de consultas antigas.
+            if (consultaAtual !== cepConsultaId.current) {
+                return;
+            }
+
+            if (dados.erro) {
+                setAlertaNfce(atual => ({
+                    ...atual,
+                    mensagem: "CEP não encontrado. Verifique os números informados.",
+                    erroDestinatario: true
+                }));
+
+                return;
+            }
+
+            // Preenche os dados do endereço encontrado.
+            setDestinatarioNfe(atual => ({
+                ...atual,
+                cep: cepLimpo,
+                logradouro: dados.logradouro || "",
+                bairro: dados.bairro || "",
+                codigo_municipio: dados.ibge || "",
+                municipio: dados.localidade || "",
+                uf: dados.uf || ""
+            }));
+
+            setAlertaNfce(atual => ({
+                ...atual,
+                erroDestinatario: false
+            }));
+
+        } catch (erro) {
+            // Não altera o formulário se uma consulta antiga falhar.
+            if (consultaAtual !== cepConsultaId.current) {
+                return;
+            }
+
+            console.error("[NF-e] Erro ao consultar CEP:", erro);
+
+            setAlertaNfce(atual => ({
+                ...atual,
+                mensagem: "Não foi possível consultar o CEP. Confira sua conexão ou preencha o endereço manualmente.",
+                erroDestinatario: true
+            }));
+        }
+    }
     useEffect(() => {
 
         carregar();
@@ -214,17 +302,68 @@ export default function EmitirNfce() {
         if (tipo === "interestadual") {
             setModeloFiscalSelecionado("55");
 
-            // Quando a constante estiver true, abre o formulário
-            // preenchido automaticamente com os dados definidos para teste.
-            // Quando estiver false, mantém o comportamento normal.
+            // Compras da IronStore possuem realizada no formato:
+            // ironstore:ID_DO_CLIENTE
+            const ehVendaIronStore = String(
+                vendaSelecionada?.realizada || ""
+            ).startsWith("ironstore:");
+
+            const dadosIronStore = ehVendaIronStore
+                ? {
+                    nome: String(vendaSelecionada?.cliente_nome || "").trim(),
+                    documento: String(
+                        vendaSelecionada?.cliente_documento || documentoAtual || ""
+                    ).replace(/\D/g, "").slice(0, 14),
+                    email: vendaSelecionada?.cliente_email || "",
+                    telefone: String(
+                        vendaSelecionada?.cliente_telefone || ""
+                    ).replace(/\D/g, ""),
+                    inscricao_estadual: "",
+                    indicador_inscricao_estadual: "9",
+                    cep: String(vendaSelecionada?.cliente_cep || "")
+                        .replace(/\D/g, "")
+                        .slice(0, 8),
+                    logradouro: vendaSelecionada?.cliente_logradouro || "",
+                    numero: String(vendaSelecionada?.cliente_numero || ""),
+                    complemento: vendaSelecionada?.cliente_complemento || "",
+                    bairro: vendaSelecionada?.cliente_bairro || "",
+                    codigo_municipio: String(
+                        vendaSelecionada?.cliente_codigo_municipio || ""
+                    ).replace(/\D/g, "").slice(0, 7),
+                    municipio: vendaSelecionada?.cliente_municipio || "",
+                    uf: String(vendaSelecionada?.cliente_uf || "")
+                        .trim()
+                        .toUpperCase()
+                }
+                : null;
+
             if (USAR_DADOS_TESTE_NFE) {
                 setDestinatarioNfe({
                     ...DADOS_TESTE_DESTINATARIO_NFE
                 });
+            } else if (dadosIronStore) {
+                setDestinatarioNfe(dadosIronStore);
+
+                // Se o cadastro tiver CEP, mas faltar algum dado que o
+                // ViaCEP fornece, consulta o CEP para completar o endereço.
+                const enderecoIncompleto = (
+                    !dadosIronStore.logradouro ||
+                    !dadosIronStore.bairro ||
+                    !dadosIronStore.codigo_municipio ||
+                    !dadosIronStore.municipio ||
+                    !dadosIronStore.uf
+                );
+
+                if (
+                    dadosIronStore.cep.length === 8 &&
+                    enderecoIncompleto
+                ) {
+                    buscarCepDestinatarioNfe(dadosIronStore.cep);
+                }
             } else {
                 setDestinatarioNfe(atual => ({
                     ...atual,
-                    documento: String(documentoAtual).replace(/\\D/g, "")
+                    documento: String(documentoAtual).replace(/\D/g, "")
                 }));
             }
 
@@ -233,7 +372,9 @@ export default function EmitirNfce() {
                 titulo: "Dados do destinatário",
                 mensagem: USAR_DADOS_TESTE_NFE
                     ? "Formulário preenchido com os dados de teste. Confira os campos antes de continuar."
-                    : "Informe os dados necessários para emitir a NF-e modelo 55.",
+                    : dadosIronStore
+                        ? "Dados do cliente da IronStore preenchidos automaticamente. Confira os campos antes de continuar."
+                        : "Informe os dados necessários para emitir a NF-e modelo 55.",
                 vendaId
             });
 
@@ -1615,9 +1756,10 @@ export default function EmitirNfce() {
                                             <label>CEP *</label>
                                             <input
                                                 value={destinatarioNfe.cep}
-                                                onChange={e => atualizarDestinatarioNfe("cep", e.target.value.replace(/\D/g, "").slice(0, 8))}
-                                                placeholder="00000000"
+                                                onChange={e => buscarCepDestinatarioNfe(e.target.value)}
+                                                placeholder="Digite o CEP"
                                                 inputMode="numeric"
+                                                maxLength={8}
                                             />
                                         </div>
 
