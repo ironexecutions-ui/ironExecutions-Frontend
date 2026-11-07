@@ -3,7 +3,32 @@ import { createPortal } from "react-dom";
 import { API_URL } from "../../../../../config";
 
 import "./emitirnfce.css";
+// =====================================================
+// CONFIGURAÇÃO DE TESTE DA NF-e
+// =====================================================
 
+const USAR_DADOS_TESTE_NFE = true;
+
+const DADOS_TESTE_DESTINATARIO_NFE = {
+    nome: "Andy Jose de Oliveira Romero",
+    documento: "64593886000107",
+
+    email: "ELDERROMERO565@GMAIL.COM",
+    telefone: "1118547818",
+
+    inscricao_estadual: "239241180111",
+    indicador_inscricao_estadual: "1",
+
+    cep: "07718025",
+    logradouro: "RUA JOSE FAILLACE",
+    numero: "214",
+    complemento: "ANDAR CASA",
+    bairro: "VERA TEREZA",
+
+    codigo_municipio: "3509004",
+    municipio: "CAIEIRAS",
+    uf: "SP"
+};
 export default function EmitirNfce() {
 
     const [vendas, setVendas] = useState([]);
@@ -189,15 +214,26 @@ export default function EmitirNfce() {
         if (tipo === "interestadual") {
             setModeloFiscalSelecionado("55");
 
-            setDestinatarioNfe(atual => ({
-                ...atual,
-                documento: documentoAtual
-            }));
+            // Quando a constante estiver true, abre o formulário
+            // preenchido automaticamente com os dados definidos para teste.
+            // Quando estiver false, mantém o comportamento normal.
+            if (USAR_DADOS_TESTE_NFE) {
+                setDestinatarioNfe({
+                    ...DADOS_TESTE_DESTINATARIO_NFE
+                });
+            } else {
+                setDestinatarioNfe(atual => ({
+                    ...atual,
+                    documento: String(documentoAtual).replace(/\\D/g, "")
+                }));
+            }
 
             setAlertaNfce({
                 tipo: "destinatario_nfe",
                 titulo: "Dados do destinatário",
-                mensagem: "Informe os dados necessários para emitir a NF-e modelo 55.",
+                mensagem: USAR_DADOS_TESTE_NFE
+                    ? "Formulário preenchido com os dados de teste. Confira os campos antes de continuar."
+                    : "Informe os dados necessários para emitir a NF-e modelo 55.",
                 vendaId
             });
 
