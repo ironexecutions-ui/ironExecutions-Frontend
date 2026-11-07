@@ -398,30 +398,42 @@ export default function Tabela() {
     // ABRIR DETALHES
     // ========================================================
 
-    const abrirPedido = (
-        pedido
-    ) => {
+    // ========================================================
+    // ABRIR DETALHES
+    // ========================================================
 
+    const abrirPedido = (pedido) => {
         setErroNotaFiscal("");
         setChaveCopiadaPedidoId(null);
 
-        const chaveSalva = sessionStorage.getItem(
-            `ironstore_nfe_chave_${pedido.id}`
-        );
+        // Prioriza a chave retornada pelo backend.
+        const chaveBackend =
+            pedido?.chave_acesso_nfe ||
+            pedido?.chave_acesso ||
+            "";
 
-        if (chaveSalva) {
+        // Usa o sessionStorage somente como alternativa.
+        const chaveSessao = sessionStorage.getItem(
+            `ironstore_nfe_chave_${pedido.id}`
+        ) || "";
+
+        const chaveAcesso = String(
+            chaveBackend || chaveSessao
+        ).replace(/\D/g, "");
+
+        // Atualiza os dados fiscais do pedido.
+        if (chaveAcesso) {
             setNotasFiscaisPedidos(atuais => ({
                 ...atuais,
                 [pedido.id]: {
+                    ...atuais[pedido.id],
                     emitida: true,
-                    chave_acesso: chaveSalva
+                    chave_acesso: chaveAcesso
                 }
             }));
         }
 
-        setPedidoAberto(
-            pedido
-        );
+        setPedidoAberto(pedido);
 
         const indiceAleatorio = Math.floor(
             Math.random() * mensagensEnvioPadrao.length
@@ -433,6 +445,7 @@ export default function Tabela() {
             pedido?.protocolo?.mensagem ||
             mensagensEnvioPadrao[indiceAleatorio]
         );
+
         setCodigoRastreioEnvio(
             String(
                 pedido?.protocolo?.codigo_rastreio ||
@@ -441,7 +454,6 @@ export default function Tabela() {
             ).toUpperCase()
         );
     };
-
 
     // ========================================================
     // FECHAR DETALHES
