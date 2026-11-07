@@ -19,15 +19,15 @@ const DADOS_TESTE_DESTINATARIO_NFE = {
     inscricao_estadual: "239241180111",
     indicador_inscricao_estadual: "1",
 
-    cep: "53250055",
-    logradouro: "R. DO AMOR",
-    numero: "29",
-    complemento: "",
-    bairro: "JATOBA",
+    cep: "07718025",
+    logradouro: "RUA JOSE FAILLACE",
+    numero: "214",
+    complemento: "ANDAR CASA",
+    bairro: "VERA TEREZA",
 
-    codigo_municipio: "2609600",
-    municipio: "OLINDA",
-    uf: "PE"
+    codigo_municipio: "3509007",
+    municipio: "CAIEIRAS",
+    uf: "SP"
 };
 export default function EmitirNfce() {
 
