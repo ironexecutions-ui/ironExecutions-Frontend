@@ -7,8 +7,16 @@ import "./emitirnfce.css";
 export default function EmitirNfce() {
 
     const [vendas, setVendas] = useState([]);
+    function vendaJaPossuiDocumentoFiscal(vendaId) {
+        const venda = vendas.find(
+            item => Number(item.id) === Number(vendaId)
+        );
 
-    const [vendasComNfce, setVendasComNfce] = useState(new Set());
+        return (
+            Number(venda?.nfce_emitida) === 1 ||
+            Number(venda?.nfe_emitida) === 1
+        );
+    }
 
     const [carregando, setCarregando] = useState(true);
 
@@ -18,6 +26,7 @@ export default function EmitirNfce() {
 
     const [dataFiltro, setDataFiltro] = useState("");
     const [documentoNfce, setDocumentoNfce] = useState("");
+    const [modeloFiscalSelecionado, setModeloFiscalSelecionado] = useState("65");
     const [salvandoDocumentoNfce, setSalvandoDocumentoNfce] = useState(false);
     const [horaMinima, setHoraMinima] = useState("");
     const [protocoloFiltroNfce, setProtocoloFiltroNfce] = useState("");
@@ -110,7 +119,7 @@ export default function EmitirNfce() {
             return;
         }
 
-        if (vendasComNfce.has(Number(vendaId))) {
+        if (vendaJaPossuiDocumentoFiscal(vendaId)) {
             setAlertaNfce({
                 tipo: "aviso",
                 titulo: "NFC-e já emitida",
@@ -131,52 +140,44 @@ export default function EmitirNfce() {
     function selecionarOperacaoFiscal(tipo) {
         const vendaId = alertaNfce?.vendaId;
 
-        if (!vendaId) {
-            return;
-        }
+        if (!vendaId) return;
 
-        // OPERAÇÃO DENTRO DO ESTADO
-        if (tipo === "interna") {
-            const vendaSelecionada = vendas.find(
-                venda => Number(venda.id) === Number(vendaId)
-            );
+        const modeloFiscal = tipo === "interna" ? "65" : "55";
 
-            const documentoAtual =
-                vendaSelecionada?.cpf_consumidor || "";
+        setModeloFiscalSelecionado(modeloFiscal);
 
-            setDocumentoNfce(
-                formatarCpfCnpjNfce(documentoAtual)
-            );
+        const vendaSelecionada = vendas.find(
+            venda => Number(venda.id) === Number(vendaId)
+        );
 
-            setAlertaNfce({
-                tipo: "documento",
-                titulo: "CPF/CNPJ na nota?",
-                mensagem: documentoAtual
-                    ? "Esta venda já possui um CPF/CNPJ. Você pode mantê-lo ou informar outro."
-                    : "Deseja informar o CPF ou CNPJ do consumidor nesta NFC-e?",
-                vendaId
-            });
+        const documentoAtual = vendaSelecionada?.cpf_consumidor || "";
 
-            return;
-        }
+        setDocumentoNfce(
+            formatarCpfCnpjNfce(documentoAtual)
+        );
 
-        // OPERAÇÃO FORA DO ESTADO
-        if (tipo === "interestadual") {
-            setAlertaNfce({
-                tipo: "nfe_indisponivel",
-                titulo: "Emissão de NF-e modelo 55",
-                mensagem: "Esta operação será direcionada para a emissão de NF-e modelo 55. O fluxo de emissão será disponibilizado após a implementação do módulo fiscal.",
-                vendaId
-            });
-        }
+        setAlertaNfce({
+            tipo: "documento",
+            titulo: "CPF/CNPJ na nota?",
+            mensagem: documentoAtual
+                ? "Esta venda já possui um CPF/CNPJ. Você pode mantê-lo ou informar outro."
+                : "Deseja informar o CPF ou CNPJ do consumidor?",
+            vendaId
+        });
     }
     function abrirConfirmacaoEmissao(vendaId) {
+        const modeloFiscal = modeloFiscalSelecionado;
 
         setAlertaNfce({
             tipo: "confirmacao",
-            titulo: "Emitir NFC-e",
-            mensagem: `Confirma a emissão da NFC-e referente à venda #${vendaId}?`,
-            vendaId
+            titulo: modeloFiscal === "55"
+                ? "Emitir NF-e"
+                : "Emitir NFC-e",
+            mensagem: modeloFiscal === "55"
+                ? `Confirma a emissão da NF-e modelo 55 referente à venda #${vendaId}?`
+                : `Confirma a emissão da NFC-e modelo 65 referente à venda #${vendaId}?`,
+            vendaId,
+            modeloFiscal
         });
     }
 
@@ -304,8 +305,7 @@ export default function EmitirNfce() {
      * =====================================================
      */
 
-    async function emitir(vendaId) {
-
+    async function emitir(vendaId, modeloFiscal = modeloFiscalSelecionado) {
         /*
          * Impede duas emissões simultâneas.
          */
@@ -322,11 +322,7 @@ export default function EmitirNfce() {
          * =====================================================
          */
 
-        if (
-            vendasComNfce.has(
-                Number(vendaId)
-            )
-        ) {
+        if (vendaJaPossuiDocumentoFiscal(vendaId)) {
 
             setAlertaNfce({
                 tipo: "aviso",
@@ -355,22 +351,31 @@ export default function EmitirNfce() {
 
         setAlertaNfce({
             tipo: "processando",
-            titulo: "Emitindo NFC-e",
+            titulo: modeloFiscal === "55" ? "Emitindo NF-e" : "Emitindo NFC-e",
             mensagem: "Comunicando com a SEFAZ. Aguarde a conclusão da emissão.",
             vendaId: vendaId
         });
 
         try {
 
+            const endpoint = modeloFiscal === "55"
+                ? "emitir-nfe"
+                : "emitir-nfce";
+
             const resposta = await fetch(
-                `${API_URL}/vendas/${vendaId}/emitir-nfce`,
+                `${API_URL}/vendas/${vendaId}/${endpoint}`,
                 {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        modelo: Number(modeloFiscal)
+                    })
                 }
             );
+
 
             const data =
                 await resposta.json();
@@ -513,10 +518,13 @@ export default function EmitirNfce() {
 
             setAlertaNfce({
                 tipo: "sucesso",
-                titulo: "NFC-e emitida com sucesso",
+                titulo: modeloFiscal === "55"
+                    ? "NF-e emitida com sucesso"
+                    : "NFC-e emitida com sucesso",
                 mensagem:
                     data.mensagem ||
-                    `A NFC-e do protocolo #${vendaId} foi emitida e registrada com sucesso.`,
+                    `A ${modeloFiscal === "55" ? "NF-e" : "NFC-e"} do protocolo #${vendaId} foi emitida e registrada com sucesso.`,
+
                 vendaId: vendaId
             });
 
@@ -543,7 +551,9 @@ export default function EmitirNfce() {
 
             setAlertaNfce({
                 tipo: "erro",
-                titulo: "Falha na emissão da NFC-e",
+                titulo: modeloFiscal === "55"
+                    ? "Falha na emissão da NF-e"
+                    : "Falha na emissão da NFC-e",
                 mensagem:
                     erro.message ||
                     "Ocorreu um erro inesperado durante a emissão.",
@@ -599,7 +609,7 @@ export default function EmitirNfce() {
         const vendaId =
             alertaNfce.vendaId;
 
-        emitir(vendaId);
+        emitir(vendaId, alertaNfce.modeloFiscal);
     }
 
     /*
@@ -621,7 +631,7 @@ export default function EmitirNfce() {
         const vendaId =
             alertaNfce.vendaId;
 
-        emitir(vendaId);
+        emitir(vendaId, alertaNfce.modeloFiscal);
     }
 
     /*
@@ -1366,7 +1376,6 @@ export default function EmitirNfce() {
 
                         )}
                         {alertaNfce.tipo === "confirmacao" && (
-
                             <div className="nfce-alerta-acoes-premium">
 
                                 <button
@@ -1382,13 +1391,13 @@ export default function EmitirNfce() {
                                     className="nfce-alerta-btn-confirmar-premium"
                                     onClick={confirmarEmissaoNfce}
                                 >
-                                    Emitir NFC-e
+                                    {alertaNfce.modeloFiscal === "55"
+                                        ? "Emitir NF-e"
+                                        : "Emitir NFC-e"}
                                 </button>
 
                             </div>
-
                         )}
-
                         {/*
                          * =====================================================
                          * SUCESSO
