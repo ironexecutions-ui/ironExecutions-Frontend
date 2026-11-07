@@ -35,7 +35,28 @@ export default function EmitirNfce() {
 
 
     const [alertaNfce, setAlertaNfce] = useState(null);
+    // =====================================================
+    // DADOS DO DESTINATÁRIO DA NF-e MODELO 55
+    // =====================================================
 
+    const [destinatarioNfe, setDestinatarioNfe] = useState({
+        nome: "",
+        documento: "",
+        email: "",
+        telefone: "",
+        inscricao_estadual: "",
+        indicador_inscricao_estadual: "9",
+        cep: "",
+        logradouro: "",
+        numero: "",
+        complemento: "",
+        bairro: "",
+        codigo_municipio: "",
+        municipio: "",
+        uf: ""
+    });
+
+    const [salvandoDestinatarioNfe, setSalvandoDestinatarioNfe] = useState(false);
     useEffect(() => {
 
         carregar();
@@ -137,20 +158,55 @@ export default function EmitirNfce() {
             vendaId
         });
     }
+
+    // =====================================================
+    // FORMATAR DOCUMENTO DA NF-e
+    // =====================================================
+
+    function atualizarDestinatarioNfe(campo, valor) {
+        setDestinatarioNfe(atual => ({
+            ...atual,
+            [campo]: valor
+        }));
+    }
+
+
+    // =====================================================
+    // SELECIONAR OPERAÇÃO FISCAL
+    // =====================================================
+
     function selecionarOperacaoFiscal(tipo) {
         const vendaId = alertaNfce?.vendaId;
 
         if (!vendaId) return;
-
-        const modeloFiscal = tipo === "interna" ? "65" : "55";
-
-        setModeloFiscalSelecionado(modeloFiscal);
 
         const vendaSelecionada = vendas.find(
             venda => Number(venda.id) === Number(vendaId)
         );
 
         const documentoAtual = vendaSelecionada?.cpf_consumidor || "";
+
+        if (tipo === "interestadual") {
+            setModeloFiscalSelecionado("55");
+
+            setDestinatarioNfe(atual => ({
+                ...atual,
+                documento: documentoAtual
+            }));
+
+            setAlertaNfce({
+                tipo: "destinatario_nfe",
+                titulo: "Dados do destinatário",
+                mensagem: "Informe os dados necessários para emitir a NF-e modelo 55.",
+                vendaId
+            });
+
+            return;
+        }
+
+        // FLUXO ORIGINAL DA NFC-e MODELO 65
+
+        setModeloFiscalSelecionado("65");
 
         setDocumentoNfce(
             formatarCpfCnpjNfce(documentoAtual)
@@ -165,6 +221,112 @@ export default function EmitirNfce() {
             vendaId
         });
     }
+
+
+    // =====================================================
+    // VALIDAR E CONTINUAR COM A NF-e
+    // =====================================================
+
+    async function salvarDestinatarioNfe() {
+        const vendaId = alertaNfce?.vendaId;
+
+        if (!vendaId) return;
+
+        const dados = {
+            ...destinatarioNfe,
+            documento: destinatarioNfe.documento.replace(/\D/g, ""),
+            cep: destinatarioNfe.cep.replace(/\D/g, ""),
+            telefone: destinatarioNfe.telefone.replace(/\D/g, ""),
+            codigo_municipio: destinatarioNfe.codigo_municipio.replace(/\D/g, ""),
+            uf: destinatarioNfe.uf.trim().toUpperCase()
+        };
+
+        if (!dados.nome.trim()) {
+            setAlertaNfce(atual => ({
+                ...atual,
+                mensagem: "Informe o nome ou a razão social do destinatário.",
+                erroDestinatario: true
+            }));
+            return;
+        }
+
+        if (![11, 14].includes(dados.documento.length)) {
+            setAlertaNfce(atual => ({
+                ...atual,
+                mensagem: "Informe um CPF com 11 dígitos ou CNPJ com 14 dígitos.",
+                erroDestinatario: true
+            }));
+            return;
+        }
+
+        if (
+            !dados.cep ||
+            dados.cep.length !== 8 ||
+            !dados.logradouro.trim() ||
+            !dados.numero.trim() ||
+            !dados.bairro.trim() ||
+            !dados.codigo_municipio ||
+            dados.codigo_municipio.length !== 7 ||
+            !dados.municipio.trim() ||
+            !dados.uf
+        ) {
+            setAlertaNfce(atual => ({
+                ...atual,
+                mensagem: "Preencha todos os campos obrigatórios do endereço.",
+                erroDestinatario: true
+            }));
+            return;
+        }
+
+        const ufsValidas = [
+            "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES",
+            "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR",
+            "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC",
+            "SP", "SE", "TO"
+        ];
+
+        if (!ufsValidas.includes(dados.uf)) {
+            setAlertaNfce(atual => ({
+                ...atual,
+                mensagem: "Informe uma UF válida.",
+                erroDestinatario: true
+            }));
+            return;
+        }
+
+        if (
+            dados.indicador_inscricao_estadual === "1" &&
+            !dados.inscricao_estadual.trim()
+        ) {
+            setAlertaNfce(atual => ({
+                ...atual,
+                mensagem: "Informe a Inscrição Estadual do destinatário.",
+                erroDestinatario: true
+            }));
+            return;
+        }
+
+        setSalvandoDestinatarioNfe(true);
+
+        try {
+            setDestinatarioNfe(dados);
+
+            setAlertaNfce({
+                tipo: "confirmacao",
+                titulo: "Emitir NF-e",
+                mensagem: `Confirma a emissão da NF-e modelo 55 referente à venda #${vendaId}?`,
+                vendaId,
+                modeloFiscal: "55",
+                destinatario: dados
+            });
+
+        } finally {
+            setSalvandoDestinatarioNfe(false);
+        }
+    }
+
+
+
     function abrirConfirmacaoEmissao(vendaId) {
         const modeloFiscal = modeloFiscalSelecionado;
 
@@ -252,18 +414,15 @@ export default function EmitirNfce() {
                 `${API_URL}/vendas/${vendaId}/cpf-cnpj`,
                 {
                     method: "POST",
-
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
                     },
-
                     body: JSON.stringify({
                         documento: documentoLimpo
                     })
                 }
             );
-
             const dados = await resposta.json();
 
             if (!resposta.ok) {
@@ -305,8 +464,11 @@ export default function EmitirNfce() {
      * =====================================================
      */
 
-    async function emitir(vendaId, modeloFiscal = modeloFiscalSelecionado) {
-        /*
+    async function emitir(
+        vendaId,
+        modeloFiscal = modeloFiscalSelecionado,
+        destinatario = null
+    ) {        /*
          * Impede duas emissões simultâneas.
          */
 
@@ -370,9 +532,13 @@ export default function EmitirNfce() {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({
-                        modelo: Number(modeloFiscal)
-                    })
+                    body: JSON.stringify(
+                        modeloFiscal === "55"
+                            ? destinatario
+                            : {
+                                modelo: Number(modeloFiscal)
+                            }
+                    )
                 }
             );
 
@@ -557,7 +723,9 @@ export default function EmitirNfce() {
                 mensagem:
                     erro.message ||
                     "Ocorreu um erro inesperado durante a emissão.",
-                vendaId: vendaId
+                vendaId: vendaId,
+                modeloFiscal: modeloFiscal,
+                destinatario: destinatario
             });
 
         } finally {
@@ -597,19 +765,22 @@ export default function EmitirNfce() {
      */
 
     function confirmarEmissaoNfce() {
-
-        if (
-            !alertaNfce?.vendaId
-        ) {
-
+        if (!alertaNfce?.vendaId) {
             return;
-
         }
 
-        const vendaId =
-            alertaNfce.vendaId;
+        const vendaId = alertaNfce.vendaId;
 
-        emitir(vendaId, alertaNfce.modeloFiscal);
+        if (alertaNfce.modeloFiscal === "55") {
+            emitir(
+                vendaId,
+                "55",
+                alertaNfce.destinatario
+            );
+            return;
+        }
+
+        emitir(vendaId, "65");
     }
 
     /*
@@ -619,19 +790,17 @@ export default function EmitirNfce() {
      */
 
     function tentarNovamenteNfce() {
-
-        if (
-            !alertaNfce?.vendaId
-        ) {
-
+        if (!alertaNfce?.vendaId) {
             return;
-
         }
 
-        const vendaId =
-            alertaNfce.vendaId;
+        const vendaId = alertaNfce.vendaId;
 
-        emitir(vendaId, alertaNfce.modeloFiscal);
+        emitir(
+            vendaId,
+            alertaNfce.modeloFiscal,
+            alertaNfce.destinatario || null
+        );
     }
 
     /*
@@ -970,7 +1139,8 @@ export default function EmitirNfce() {
 
                         {vendasVisiveisNfce.map(v => {
                             const possuiNfce =
-                                Number(v.nfce_emitida) === 1;
+                                Number(v.nfce_emitida) === 1 ||
+                                Number(v.nfe_emitida) === 1;
 
                             const estaEmitindo =
                                 Number(emitindoVendaId) === Number(v.id);
@@ -1325,6 +1495,165 @@ export default function EmitirNfce() {
                                 </div>
 
                             )}
+
+                            {alertaNfce.tipo === "destinatario_nfe" && (
+                                <div className="nfe-destinatario-form">
+
+                                    <div className="nfe-destinatario-introducao">
+                                        <strong>Dados do destinatário da NF-e</strong>
+                                        <span>Preencha os dados necessários para a emissão.</span>
+                                    </div>
+
+                                    <div className="nfe-destinatario-grid">
+
+                                        <div className="nfe-destinatario-campo nfe-destinatario-largo">
+                                            <label>Nome ou razão social *</label>
+                                            <input
+                                                value={destinatarioNfe.nome}
+                                                onChange={e => atualizarDestinatarioNfe("nome", e.target.value)}
+                                                placeholder="Nome completo ou razão social"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>CPF ou CNPJ *</label>
+                                            <input
+                                                value={destinatarioNfe.documento}
+                                                onChange={e => atualizarDestinatarioNfe("documento", e.target.value.replace(/\D/g, "").slice(0, 14))}
+                                                placeholder="Somente números"
+                                                inputMode="numeric"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>E-mail</label>
+                                            <input
+                                                type="email"
+                                                value={destinatarioNfe.email}
+                                                onChange={e => atualizarDestinatarioNfe("email", e.target.value)}
+                                                placeholder="email@exemplo.com"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>Telefone</label>
+                                            <input
+                                                value={destinatarioNfe.telefone}
+                                                onChange={e => atualizarDestinatarioNfe("telefone", e.target.value)}
+                                                placeholder="Telefone"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>Indicador de Inscrição Estadual *</label>
+                                            <select
+                                                value={destinatarioNfe.indicador_inscricao_estadual}
+                                                onChange={e => atualizarDestinatarioNfe("indicador_inscricao_estadual", e.target.value)}
+                                            >
+                                                <option value="1">Contribuinte ICMS</option>
+                                                <option value="2">Contribuinte isento</option>
+                                                <option value="9">Não contribuinte</option>
+                                            </select>
+                                        </div>
+
+                                        {destinatarioNfe.indicador_inscricao_estadual === "1" && (
+                                            <div className="nfe-destinatario-campo">
+                                                <label>Inscrição Estadual *</label>
+                                                <input
+                                                    value={destinatarioNfe.inscricao_estadual}
+                                                    onChange={e => atualizarDestinatarioNfe("inscricao_estadual", e.target.value)}
+                                                    placeholder="Inscrição Estadual"
+                                                />
+                                            </div>
+                                        )}
+
+                                    </div>
+
+                                    <div className="nfe-destinatario-separador">
+                                        Endereço do destinatário
+                                    </div>
+
+                                    <div className="nfe-destinatario-grid">
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>CEP *</label>
+                                            <input
+                                                value={destinatarioNfe.cep}
+                                                onChange={e => atualizarDestinatarioNfe("cep", e.target.value.replace(/\D/g, "").slice(0, 8))}
+                                                placeholder="00000000"
+                                                inputMode="numeric"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo nfe-destinatario-largo">
+                                            <label>Logradouro *</label>
+                                            <input
+                                                value={destinatarioNfe.logradouro}
+                                                onChange={e => atualizarDestinatarioNfe("logradouro", e.target.value)}
+                                                placeholder="Rua, avenida..."
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>Número *</label>
+                                            <input
+                                                value={destinatarioNfe.numero}
+                                                onChange={e => atualizarDestinatarioNfe("numero", e.target.value)}
+                                                placeholder="Número"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>Complemento</label>
+                                            <input
+                                                value={destinatarioNfe.complemento}
+                                                onChange={e => atualizarDestinatarioNfe("complemento", e.target.value)}
+                                                placeholder="Apartamento, sala..."
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>Bairro *</label>
+                                            <input
+                                                value={destinatarioNfe.bairro}
+                                                onChange={e => atualizarDestinatarioNfe("bairro", e.target.value)}
+                                                placeholder="Bairro"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>Código IBGE do município *</label>
+                                            <input
+                                                value={destinatarioNfe.codigo_municipio}
+                                                onChange={e => atualizarDestinatarioNfe("codigo_municipio", e.target.value.replace(/\D/g, "").slice(0, 7))}
+                                                placeholder="7 dígitos"
+                                                inputMode="numeric"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>Município *</label>
+                                            <input
+                                                value={destinatarioNfe.municipio}
+                                                onChange={e => atualizarDestinatarioNfe("municipio", e.target.value)}
+                                                placeholder="Cidade"
+                                            />
+                                        </div>
+
+                                        <div className="nfe-destinatario-campo">
+                                            <label>UF *</label>
+                                            <input
+                                                value={destinatarioNfe.uf}
+                                                onChange={e => atualizarDestinatarioNfe("uf", e.target.value.toUpperCase().slice(0, 2))}
+                                                placeholder="SP"
+                                                maxLength={2}
+                                            />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            )}
+
                             {alertaNfce.tipo === "processando" && (
 
                                 <span className="nfce-alerta-processando-texto-premium">
@@ -1375,6 +1704,30 @@ export default function EmitirNfce() {
                             </div>
 
                         )}
+                        {alertaNfce.tipo === "destinatario_nfe" && (
+                            <div className="nfce-alerta-acoes-premium">
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-cancelar-premium"
+                                    onClick={fecharAlertaNfce}
+                                    disabled={salvandoDestinatarioNfe}
+                                >
+                                    Cancelar
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="nfce-alerta-btn-confirmar-premium"
+                                    onClick={salvarDestinatarioNfe}
+                                    disabled={salvandoDestinatarioNfe}
+                                >
+                                    {salvandoDestinatarioNfe ? "Validando..." : "Continuar"}
+                                </button>
+
+                            </div>
+                        )}
+
                         {alertaNfce.tipo === "confirmacao" && (
                             <div className="nfce-alerta-acoes-premium">
 
