@@ -22,11 +22,8 @@ export default function EmitirNfce() {
     const [horaMinima, setHoraMinima] = useState("");
     const [protocoloFiltroNfce, setProtocoloFiltroNfce] = useState("");
     const [valorFiltroNfce, setValorFiltroNfce] = useState("");
-    const [quantidadeVisivelNfce, setQuantidadeVisivelNfce] = useState(5);    /*
-     * =====================================================
-     * ALERTA PERSONALIZADO NFC-e
-     * =====================================================
-     */
+    const [quantidadeVisivelNfce, setQuantidadeVisivelNfce] = useState(5);
+
 
     const [alertaNfce, setAlertaNfce] = useState(null);
 
@@ -109,17 +106,11 @@ export default function EmitirNfce() {
      */
 
     function solicitarEmissao(vendaId) {
-
         if (emitindoVendaId !== null) {
             return;
         }
 
-        if (
-            vendasComNfce.has(
-                Number(vendaId)
-            )
-        ) {
-
+        if (vendasComNfce.has(Number(vendaId))) {
             setAlertaNfce({
                 tipo: "aviso",
                 titulo: "NFC-e já emitida",
@@ -130,25 +121,54 @@ export default function EmitirNfce() {
             return;
         }
 
-        const vendaSelecionada = vendas.find(
-            venda => Number(venda.id) === Number(vendaId)
-        );
-
-        const documentoAtual =
-            vendaSelecionada?.cpf_consumidor || "";
-
-        setDocumentoNfce(
-            formatarCpfCnpjNfce(documentoAtual)
-        );
-
         setAlertaNfce({
-            tipo: "documento",
-            titulo: "CPF/CNPJ na nota?",
-            mensagem: documentoAtual
-                ? "Esta venda já possui um CPF/CNPJ. Você pode mantê-lo ou informar outro."
-                : "Deseja informar o CPF ou CNPJ do consumidor nesta NFC-e?",
+            tipo: "tipo_operacao",
+            titulo: "Onde será realizada a operação?",
+            mensagem: "Informe se o destinatário está dentro ou fora do estado do estabelecimento.",
             vendaId
         });
+    }
+    function selecionarOperacaoFiscal(tipo) {
+        const vendaId = alertaNfce?.vendaId;
+
+        if (!vendaId) {
+            return;
+        }
+
+        // OPERAÇÃO DENTRO DO ESTADO
+        if (tipo === "interna") {
+            const vendaSelecionada = vendas.find(
+                venda => Number(venda.id) === Number(vendaId)
+            );
+
+            const documentoAtual =
+                vendaSelecionada?.cpf_consumidor || "";
+
+            setDocumentoNfce(
+                formatarCpfCnpjNfce(documentoAtual)
+            );
+
+            setAlertaNfce({
+                tipo: "documento",
+                titulo: "CPF/CNPJ na nota?",
+                mensagem: documentoAtual
+                    ? "Esta venda já possui um CPF/CNPJ. Você pode mantê-lo ou informar outro."
+                    : "Deseja informar o CPF ou CNPJ do consumidor nesta NFC-e?",
+                vendaId
+            });
+
+            return;
+        }
+
+        // OPERAÇÃO FORA DO ESTADO
+        if (tipo === "interestadual") {
+            setAlertaNfce({
+                tipo: "nfe_indisponivel",
+                titulo: "Emissão de NF-e modelo 55",
+                mensagem: "Esta operação será direcionada para a emissão de NF-e modelo 55. O fluxo de emissão será disponibilizado após a implementação do módulo fiscal.",
+                vendaId
+            });
+        }
     }
     function abrirConfirmacaoEmissao(vendaId) {
 
@@ -1083,7 +1103,17 @@ export default function EmitirNfce() {
                          */}
 
                         <div className="nfce-alerta-icone-area-premium">
+                            {alertaNfce.tipo === "tipo_operacao" && (
+                                <div className="nfce-alerta-icone-premium nfce-alerta-icone-operacao">
+                                    UF
+                                </div>
+                            )}
 
+                            {alertaNfce.tipo === "nfe_indisponivel" && (
+                                <div className="nfce-alerta-icone-premium nfce-alerta-icone-aviso">
+                                    NF
+                                </div>
+                            )}
                             {alertaNfce.tipo === "confirmacao" && (
 
                                 <div className="nfce-alerta-icone-premium nfce-alerta-icone-confirmacao">
@@ -1153,6 +1183,95 @@ export default function EmitirNfce() {
                             <p>
                                 {alertaNfce.mensagem}
                             </p>
+                            {alertaNfce.tipo === "tipo_operacao" && (
+                                <div className="nfce-operacao-escolha">
+
+                                    <button
+                                        type="button"
+                                        className="nfce-operacao-card nfce-operacao-interna"
+                                        onClick={() => selecionarOperacaoFiscal("interna")}
+                                    >
+                                        <span className="nfce-operacao-card-icone">
+                                            <i className="fa-solid fa-location-dot"></i>
+                                        </span>
+
+                                        <span className="nfce-operacao-card-texto">
+                                            <strong>Dentro do estado</strong>
+                                            <small>Continuar com NFC-e, modelo 65</small>
+                                        </span>
+
+                                        <span className="nfce-operacao-card-seta">
+                                            <i className="fa-solid fa-chevron-right"></i>
+                                        </span>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="nfce-operacao-card nfce-operacao-externa"
+                                        onClick={() => selecionarOperacaoFiscal("interestadual")}
+                                    >
+                                        <span className="nfce-operacao-card-icone">
+                                            <i className="fa-solid fa-truck-fast"></i>
+                                        </span>
+
+                                        <span className="nfce-operacao-card-texto">
+                                            <strong>Fora do estado</strong>
+                                            <small>Direcionar para NF-e, modelo 55</small>
+                                        </span>
+
+                                        <span className="nfce-operacao-card-seta">
+                                            <i className="fa-solid fa-chevron-right"></i>
+                                        </span>
+                                    </button>
+
+                                </div>
+                            )}
+
+                            {alertaNfce.tipo === "tipo_operacao" && (
+                                <div className="nfce-alerta-acoes-premium">
+
+                                    <button
+                                        type="button"
+                                        className="nfce-alerta-btn-cancelar-premium"
+                                        onClick={fecharAlertaNfce}
+                                    >
+                                        Cancelar
+                                    </button>
+
+                                </div>
+                            )}
+
+                            {alertaNfce.tipo === "nfe_indisponivel" && (
+                                <div className="nfce-alerta-acoes-premium">
+
+                                    <button
+                                        type="button"
+                                        className="nfce-alerta-btn-cancelar-premium"
+                                        onClick={() => {
+                                            const vendaId = alertaNfce.vendaId;
+
+                                            setAlertaNfce({
+                                                tipo: "tipo_operacao",
+                                                titulo: "Onde será realizada a operação?",
+                                                mensagem: "Informe se o destinatário está dentro ou fora do estado do estabelecimento.",
+                                                vendaId
+                                            });
+                                        }}
+                                    >
+                                        Voltar
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="nfce-alerta-btn-confirmar-premium"
+                                        onClick={fecharAlertaNfce}
+                                    >
+                                        Entendido
+                                    </button>
+
+                                </div>
+                            )}
+
                             {alertaNfce.tipo === "documento" && (
 
                                 <div className="nfce-documento-consumidor-area">

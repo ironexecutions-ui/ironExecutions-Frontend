@@ -755,3 +755,762 @@
         transition-duration: 0.01ms !important;
     }
 }
+
+/* =========================================================
+   NOVOS INDICADORES DO GRÁFICO DE VENDAS
+========================================================= */
+
+.grafico-linhas-resumo {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+
+/* =========================================================
+   TEXTOS DOS CARDS
+========================================================= */
+
+.grafico-linhas-resumo>div {
+    min-width: 0 !important;
+}
+
+.grafico-linhas-resumo>div>small {
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 3px !important;
+    margin-top: 5px !important;
+}
+
+.grafico-linhas-resumo>div>small span {
+    font-size: 10px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-weight: 500 !important;
+}
+
+
+/* =========================================================
+   VARIAÇÕES POSITIVAS, NEGATIVAS E NEUTRAS
+========================================================= */
+
+.grafico-linhas-variacao-positiva {
+    color: #059669 !important;
+}
+
+.grafico-linhas-variacao-negativa {
+    color: #dc2626 !important;
+}
+
+.grafico-linhas-variacao-neutra {
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   DETALHES COMPLEMENTARES
+========================================================= */
+
+.grafico-linhas-detalhes {
+    display: grid !important;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 10px !important;
+
+    padding: 0 20px !important;
+}
+
+.grafico-linhas-detalhe-item {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 6px !important;
+
+    min-width: 0 !important;
+
+    padding: 14px !important;
+
+    border-radius: 13px !important;
+
+    background: rgba(255, 255, 255, 0.78) !important;
+
+    border: 1px solid rgba(15, 23, 42, 0.07) !important;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+.grafico-linhas-detalhe-item:hover {
+    transform: translateY(-3px) !important;
+
+    border-color: rgba(37, 99, 235, 0.20) !important;
+
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06) !important;
+}
+
+.grafico-linhas-detalhe-item>span {
+    color: #64748b !important;
+
+    font-size: 10px !important;
+
+    font-weight: 800 !important;
+
+    text-transform: uppercase !important;
+
+    letter-spacing: 0.4px !important;
+}
+
+.grafico-linhas-detalhe-item>strong {
+    color: #0f172a !important;
+
+    font-size: 17px !important;
+
+    font-weight: 800 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+.grafico-linhas-detalhe-item>small {
+    color: #64748b !important;
+
+    font-size: 10px !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   TÍTULO E TOPO
+========================================================= */
+
+.grafico-linhas-topo {
+    justify-content: space-between !important;
+
+    align-items: center !important;
+
+    gap: 14px !important;
+}
+
+.grafico-linhas-titulo {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 4px !important;
+
+    min-width: 0 !important;
+}
+
+.grafico-linhas-titulo strong {
+    font-size: 15px !important;
+
+    font-weight: 800 !important;
+
+    color: #0f172a !important;
+}
+
+.grafico-linhas-titulo span {
+    font-size: 11px !important;
+
+    font-weight: 500 !important;
+
+    color: #64748b !important;
+}
+
+.grafico-linhas-periodo-btn span {
+    margin-left: 7px !important;
+
+    font-size: 14px !important;
+}
+
+
+/* =========================================================
+   GRÁFICO
+========================================================= */
+
+.grafico-linhas-conteudo canvas {
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+
+    .grafico-linhas-detalhes {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        padding: 0 16px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .grafico-linhas-resumo {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 8px !important;
+    }
+
+    .grafico-linhas-resumo>div:last-child {
+        grid-column: 1 / -1 !important;
+    }
+
+    .grafico-linhas-detalhes {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 8px !important;
+
+        padding: 0 14px !important;
+    }
+
+    .grafico-linhas-detalhe-item {
+        padding: 12px !important;
+    }
+
+    .grafico-linhas-topo {
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+    }
+
+    .grafico-linhas-titulo {
+        width: 100% !important;
+    }
+
+    .grafico-linhas-topo button {
+        width: 100% !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .grafico-linhas-resumo {
+        grid-template-columns: 1fr !important;
+    }
+
+    .grafico-linhas-resumo>div:last-child {
+        grid-column: auto !important;
+    }
+
+    .grafico-linhas-detalhe-item>strong {
+        font-size: 14px !important;
+    }
+
+    .grafico-linhas-detalhe-item>span {
+        font-size: 9px !important;
+    }
+
+    .grafico-linhas-titulo strong {
+        font-size: 14px !important;
+    }
+
+}
+
+/* =========================================================
+   IRON EXECUTIONS | DASHBOARD DE VENDAS PREMIUM
+   DESTAQUE VISUAL AVANÇADO
+========================================================= */
+
+
+/* =========================================================
+   1. CONTAINER PRINCIPAL
+========================================================= */
+
+.grafico-linhas-container {
+    background:
+        radial-gradient(700px 300px at 0% 0%,
+            rgba(37, 99, 235, 0.13),
+            transparent 70%),
+        radial-gradient(600px 300px at 100% 0%,
+            rgba(14, 165, 233, 0.10),
+            transparent 70%),
+        linear-gradient(145deg,
+            #ffffff 0%,
+            #f8faff 55%,
+            #f1f5fb 100%) !important;
+
+    border: 1px solid rgba(37, 99, 235, 0.13) !important;
+
+    box-shadow:
+        0 25px 65px rgba(15, 23, 42, 0.09),
+        0 8px 20px rgba(37, 99, 235, 0.045),
+        inset 0 1px 0 #ffffff !important;
+}
+
+
+/* =========================================================
+   2. CARDS PRINCIPAIS
+========================================================= */
+
+.grafico-linhas-resumo>div {
+    min-height: 112px !important;
+
+    padding: 19px !important;
+
+    border-radius: 17px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f8faff) !important;
+
+    border: 1px solid rgba(148, 163, 184, 0.18) !important;
+
+    box-shadow:
+        0 8px 22px rgba(15, 23, 42, 0.045),
+        inset 0 1px 0 #ffffff !important;
+
+    transition:
+        transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease !important;
+}
+
+.grafico-linhas-resumo>div:hover {
+    transform: translateY(-5px) !important;
+
+    border-color: rgba(37, 99, 235, 0.30) !important;
+
+    box-shadow:
+        0 18px 35px rgba(15, 23, 42, 0.09),
+        0 5px 15px rgba(37, 99, 235, 0.08) !important;
+}
+
+
+/* =========================================================
+   3. DESTAQUE NOS TÍTULOS
+========================================================= */
+
+.grafico-linhas-resumo>div>span {
+    font-size: 10px !important;
+
+    letter-spacing: 1px !important;
+
+    color: #64748b !important;
+
+    font-weight: 900 !important;
+}
+
+
+/* =========================================================
+   4. VALORES PRINCIPAIS
+========================================================= */
+
+.grafico-linhas-resumo>div>strong {
+    font-size: clamp(20px, 2vw, 26px) !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: -1px !important;
+
+    line-height: 1.2 !important;
+
+    color: #0f172a !important;
+
+    font-variant-numeric: tabular-nums !important;
+}
+
+
+/* =========================================================
+   5. FATURAMENTO DO PERÍODO
+========================================================= */
+
+.grafico-linhas-card-periodo {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    background:
+        linear-gradient(125deg,
+            #eff6ff,
+            #ffffff 75%) !important;
+
+    border-color: rgba(37, 99, 235, 0.20) !important;
+}
+
+.grafico-linhas-card-periodo::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 130px !important;
+
+    height: 130px !important;
+
+    right: -45px !important;
+
+    top: -55px !important;
+
+    border-radius: 50% !important;
+
+    background: rgba(37, 99, 235, 0.08) !important;
+
+    pointer-events: none !important;
+}
+
+.grafico-linhas-card-periodo>strong {
+    color: #1d4ed8 !important;
+
+    font-size: clamp(22px, 2.2vw, 29px) !important;
+}
+
+
+/* =========================================================
+   6. VENDAS DE HOJE
+========================================================= */
+
+.grafico-linhas-card-hoje {
+    background:
+        linear-gradient(125deg,
+            #ecfdf5,
+            #ffffff 75%) !important;
+
+    border-color: rgba(16, 185, 129, 0.20) !important;
+}
+
+.grafico-linhas-card-hoje>strong {
+    color: #047857 !important;
+}
+
+
+/* =========================================================
+   7. TICKET MÉDIO
+========================================================= */
+
+.grafico-linhas-card-ticket {
+    background:
+        linear-gradient(125deg,
+            #f5f3ff,
+            #ffffff 75%) !important;
+
+    border-color: rgba(139, 92, 246, 0.18) !important;
+}
+
+.grafico-linhas-card-ticket>strong {
+    color: #6d28d9 !important;
+}
+
+
+/* =========================================================
+   8. INDICADORES DE CRESCIMENTO
+========================================================= */
+
+.grafico-linhas-resumo>div>small {
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    width: fit-content !important;
+
+    padding: 5px 9px !important;
+
+    border-radius: 7px !important;
+
+    font-size: 10px !important;
+
+    font-weight: 900 !important;
+
+    margin-top: 8px !important;
+}
+
+.grafico-linhas-variacao-positiva {
+    color: #047857 !important;
+
+    background: rgba(16, 185, 129, 0.11) !important;
+}
+
+.grafico-linhas-variacao-negativa {
+    color: #b91c1c !important;
+
+    background: rgba(239, 68, 68, 0.10) !important;
+}
+
+.grafico-linhas-variacao-neutra {
+    color: #64748b !important;
+
+    background: rgba(100, 116, 139, 0.10) !important;
+}
+
+.grafico-linhas-resumo>div>small span {
+    color: inherit !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   9. CARDS DE DETALHES
+========================================================= */
+
+.grafico-linhas-detalhes {
+    gap: 12px !important;
+}
+
+.grafico-linhas-detalhe-item {
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    padding: 17px !important;
+
+    border-radius: 15px !important;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f8fafc) !important;
+
+    border: 1px solid rgba(148, 163, 184, 0.19) !important;
+
+    box-shadow:
+        0 5px 15px rgba(15, 23, 42, 0.035),
+        inset 0 1px 0 #ffffff !important;
+
+    transition: all 0.3s ease !important;
+}
+
+.grafico-linhas-detalhe-item::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+
+    top: 0 !important;
+
+    height: 100% !important;
+
+    width: 3px !important;
+
+    background:
+        linear-gradient(180deg,
+            #2563eb,
+            #38bdf8) !important;
+
+    opacity: 0.75 !important;
+}
+
+.grafico-linhas-detalhe-item:hover {
+    transform: translateY(-4px) !important;
+
+    border-color: rgba(37, 99, 235, 0.25) !important;
+
+    box-shadow:
+        0 14px 28px rgba(15, 23, 42, 0.075),
+        0 4px 12px rgba(37, 99, 235, 0.05) !important;
+}
+
+.grafico-linhas-detalhe-item>span {
+    font-size: 9px !important;
+
+    letter-spacing: 0.9px !important;
+
+    color: #64748b !important;
+}
+
+.grafico-linhas-detalhe-item>strong {
+    font-size: 20px !important;
+
+    letter-spacing: -0.7px !important;
+
+    font-weight: 900 !important;
+
+    color: #172554 !important;
+
+    font-variant-numeric: tabular-nums !important;
+}
+
+.grafico-linhas-detalhe-item>small {
+    font-size: 10px !important;
+
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   10. TÍTULO DO GRÁFICO
+========================================================= */
+
+.grafico-linhas-titulo strong {
+    font-size: 17px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: -0.4px !important;
+
+    color: #0f172a !important;
+}
+
+.grafico-linhas-titulo span {
+    font-size: 11px !important;
+
+    color: #64748b !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   11. BOTÃO DE PERÍODO
+========================================================= */
+
+.grafico-linhas-periodo-btn {
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8) !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #1d4ed8 !important;
+
+    border-radius: 11px !important;
+
+    padding: 11px 17px !important;
+
+    font-weight: 800 !important;
+
+    box-shadow:
+        0 7px 16px rgba(37, 99, 235, 0.20) !important;
+}
+
+.grafico-linhas-periodo-btn:hover {
+    background:
+        linear-gradient(135deg,
+            #1d4ed8,
+            #1e40af) !important;
+
+    box-shadow:
+        0 12px 23px rgba(37, 99, 235, 0.28) !important;
+}
+
+
+/* =========================================================
+   12. ÁREA DO GRÁFICO
+========================================================= */
+
+.grafico-linhas-conteudo {
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f8faff) !important;
+
+    border: 1px solid rgba(37, 99, 235, 0.10) !important;
+
+    box-shadow:
+        inset 0 1px 0 #ffffff,
+        0 10px 30px rgba(15, 23, 42, 0.045) !important;
+
+    border-radius: 20px !important;
+}
+
+
+/* =========================================================
+   13. LOADING MAIS ELEGANTE
+========================================================= */
+
+.grafico-loading p {
+    color: #334155 !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 0.2px !important;
+}
+
+.spinner {
+    width: 42px !important;
+
+    height: 42px !important;
+
+    border-width: 3px !important;
+
+    box-shadow:
+        0 0 0 7px rgba(37, 99, 235, 0.045),
+        0 8px 22px rgba(37, 99, 235, 0.15) !important;
+}
+
+
+/* =========================================================
+   14. RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .grafico-linhas-resumo>div {
+        min-height: 100px !important;
+
+        padding: 14px !important;
+    }
+
+    .grafico-linhas-resumo>div>strong {
+        font-size: 20px !important;
+    }
+
+    .grafico-linhas-detalhe-item {
+        padding: 14px !important;
+    }
+
+    .grafico-linhas-detalhe-item>strong {
+        font-size: 17px !important;
+    }
+
+    .grafico-linhas-conteudo {
+        border-radius: 15px !important;
+    }
+
+}
+
+@media (max-width: 420px) {
+
+    .grafico-linhas-resumo>div>strong {
+        font-size: 19px !important;
+    }
+
+    .grafico-linhas-resumo>div>span {
+        font-size: 9px !important;
+    }
+
+    .grafico-linhas-detalhe-item>strong {
+        font-size: 15px !important;
+    }
+
+    .grafico-linhas-detalhe-item>small {
+        font-size: 9px !important;
+    }
+
+}
+
+
+/* =========================================================
+   15. ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .grafico-linhas-container *,
+    .grafico-linhas-container *::before,
+    .grafico-linhas-container *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+}

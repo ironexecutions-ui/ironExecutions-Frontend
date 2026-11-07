@@ -1,5 +1,8 @@
+
 import React, { useEffect, useState } from "react";
+
 import { Line } from "react-chartjs-2";
+
 import {
     Chart as ChartJS,
     LineElement,
@@ -7,11 +10,14 @@ import {
     LinearScale,
     CategoryScale,
     Tooltip,
-    Legend
+    Legend,
+    Filler
 } from "chart.js";
 
 import { API_URL } from "../../../../../../config";
+
 import "./graficolinhasvendas.css";
+
 
 ChartJS.register(
     LineElement,
@@ -19,206 +25,275 @@ ChartJS.register(
     LinearScale,
     CategoryScale,
     Tooltip,
-    Legend
+    Legend,
+    Filler
 );
+
 
 export default function GraficoLinhasVendas() {
 
     const [periodo, setPeriodo] = useState("dias");
+
     const [dados, setDados] = useState([]);
+
+    const [resumo, setResumo] = useState(null);
+
     const [carregando, setCarregando] = useState(true);
 
     const token = localStorage.getItem("token");
 
 
-    /* =========================================================
-       IDENTIFICAR COMÉRCIO
-    ========================================================= */
+    // =====================================================
+    // FORMATAR MOEDA
+    // =====================================================
 
-    function obterComercioId() {
-        try {
-            const usuario = JSON.parse(
-                localStorage.getItem("usuario") || "null"
-            );
+    function formatarMoeda(valor) {
 
-            return usuario?.comercio_id || null;
+        return Number(valor || 0).toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+        );
 
-        } catch (erro) {
-            console.warn(
-                "[GRAFICO LINHAS] Erro ao ler usuário:",
-                erro
-            );
-
-            return null;
-        }
     }
 
 
-    /* =========================================================
-       CHAVE DO CACHE
-    ========================================================= */
+    // =====================================================
+    // FORMATAR PERCENTUAL
+    // =====================================================
 
-    function obterChaveCache(periodoAtual) {
+    function formatarVariacao(valor) {
 
-        const comercioId = obterComercioId();
-
-        if (!comercioId) {
-            return null;
+        if (valor === null || valor === undefined) {
+            return "Sem base anterior";
         }
 
-        return `iron_grafico_linhas_${comercioId}_${periodoAtual}`;
+        const numero = Number(valor);
+
+        if (!Number.isFinite(numero)) {
+            return "Sem comparação";
+        }
+
+        const sinal = numero > 0 ? "+" : "";
+
+        return `${sinal}${numero.toFixed(1).replace(".", ",")}%`;
+
     }
 
 
-    /* =========================================================
-       LER CACHE
-    ========================================================= */
+    // =====================================================
+    // IDENTIFICAR COR DA VARIAÇÃO
+    // =====================================================
 
-    function lerCache(periodoAtual) {
+    function classeVariacao(valor) {
 
-        const chave = obterChaveCache(periodoAtual);
-
-        if (!chave) {
-            return null;
+        if (valor === null || valor === undefined) {
+            return "grafico-linhas-variacao-neutra";
         }
 
-        try {
+        if (Number(valor) > 0) {
+            return "grafico-linhas-variacao-positiva";
+        }
 
-            const salvo = localStorage.getItem(chave);
+        if (Number(valor) < 0) {
+            return "grafico-linhas-variacao-negativa";
+        }
 
-            if (!salvo) {
-                return null;
+        return "grafico-linhas-variacao-neutra";
+
+    }
+
+
+    // =====================================================
+    // ÍCONE DA VARIAÇÃO
+    // =====================================================
+
+    function iconeVariacao(valor) {
+
+        if (valor === null || valor === undefined) {
+            return "•";
+        }
+
+        if (Number(valor) > 0) {
+            return "↑";
+        }
+
+        if (Number(valor) < 0) {
+            return "↓";
+        }
+
+        return "→";
+
+    }
+
+
+    // =====================================================
+    // CARREGAR DADOS
+    // =====================================================
+
+    useEffect(() => {
+
+        let componenteAtivo = true;
+
+        async function carregar() {
+
+            setCarregando(true);
+
+            setDados([]);
+
+            setResumo(null);
+
+            try {
+
+                const params = new URLSearchParams();
+
+                params.append("periodo", periodo);
+
+                const resp = await fetch(
+                    `${API_URL}/admin/graficos/linhas?${params.toString()}`,
+                    {
+                        method: "GET",
+
+                        cache: "no-store",
+
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                if (!resp.ok) {
+
+                    throw new Error(
+                        `Erro ao carregar gráfico: ${resp.status}`
+                    );
+
+                }
+
+                const resposta = await resp.json();
+
+                if (!componenteAtivo) {
+                    return;
+                }
+
+                if (
+                    !resposta ||
+                    !Array.isArray(resposta.dados)
+                ) {
+                    throw new Error(
+                        "Formato de resposta inválido"
+                    );
+                }
+
+                const dadosNormalizados = resposta.dados.map(item => ({
+
+                    label: item.label || "",
+
+                    total: Number(item.total) || 0,
+
+                    quantidade: Number(item.quantidade) || 0,
+
+                    ticket_medio: Number(item.ticket_medio) || 0,
+
+                    variacao_percentual:
+                        item.variacao_percentual === null ||
+                            item.variacao_percentual === undefined
+                            ? null
+                            : Number(item.variacao_percentual),
+
+                    total_anterior: Number(item.total_anterior) || 0,
+
+                    quantidade_anterior:
+                        Number(item.quantidade_anterior) || 0
+
+                }));
+
+                setDados(dadosNormalizados);
+
+                setResumo(resposta.resumo || {});
+
+            } catch (erro) {
+
+                console.error(
+                    "[GRAFICO LINHAS] Erro:",
+                    erro
+                );
+
+                if (componenteAtivo) {
+
+                    setDados([]);
+
+                    setResumo(null);
+
+                }
+
+            } finally {
+
+                if (componenteAtivo) {
+                    setCarregando(false);
+                }
+
             }
 
-            const dadosCache = JSON.parse(salvo);
-
-            if (!Array.isArray(dadosCache)) {
-                throw new Error("Formato do cache inválido");
-            }
-
-            return dadosCache;
-
-        } catch (erro) {
-
-            console.warn(
-                "[GRAFICO LINHAS] Cache inválido:",
-                erro
-            );
-
-            localStorage.removeItem(chave);
-
-            return null;
-        }
-    }
-
-
-    /* =========================================================
-       SALVAR CACHE
-    ========================================================= */
-
-    function salvarCache(periodoAtual, novosDados) {
-
-        const chave = obterChaveCache(periodoAtual);
-
-        if (
-            !chave ||
-            !Array.isArray(novosDados)
-        ) {
-            return;
         }
 
-        try {
+        carregar();
 
-            localStorage.setItem(
-                chave,
-                JSON.stringify(novosDados)
-            );
+        return () => {
+            componenteAtivo = false;
+        };
 
-        } catch (erro) {
-
-            console.warn(
-                "[GRAFICO LINHAS] Erro ao salvar cache:",
-                erro
-            );
-        }
-    }
+    }, [periodo, token]);
 
 
-    /* =========================================================
-       NORMALIZAR DADOS
-    ========================================================= */
+    // =====================================================
+    // MÉTRICAS
+    // =====================================================
 
-    function normalizarDados(lista) {
-
-        if (!Array.isArray(lista)) {
-            return [];
-        }
-
-        return lista.map(item => ({
-            label: item.label || "",
-            total: Number(item.total) || 0
-        }));
-    }
-
-
-    /* =========================================================
-       COMPARAR CACHE COM SERVIDOR
-    ========================================================= */
-
-    function dadosIguais(cache, servidor) {
-
-        if (
-            !Array.isArray(cache) ||
-            !Array.isArray(servidor)
-        ) {
-            return false;
-        }
-
-        try {
-
-            const cacheNormalizado =
-                normalizarDados(cache);
-
-            const servidorNormalizado =
-                normalizarDados(servidor);
-
-            return (
-                JSON.stringify(cacheNormalizado) ===
-                JSON.stringify(servidorNormalizado)
-            );
-
-        } catch {
-            return false;
-        }
-    }
-
-
-    /* =========================================================
-       MÉTRICAS DERIVADAS
-    ========================================================= */
-
-    const totalPeriodo = dados.reduce(
-        (acc, d) =>
-            acc + (Number(d.total) || 0),
-        0
+    const totalPeriodo = Number(
+        resumo?.faturamento_periodo || 0
     );
 
-    const mediaPeriodo =
-        dados.length
-            ? totalPeriodo / dados.length
-            : 0;
+    const quantidadeVendas = Number(
+        resumo?.quantidade_vendas || 0
+    );
 
-    const maiorValor = Math.max(
-        ...dados.map(
-            d => Number(d.total) || 0
-        ),
-        0
+    const ticketMedio = Number(
+        resumo?.ticket_medio || 0
+    );
+
+    const faturamentoHoje = Number(
+        resumo?.faturamento_hoje || 0
+    );
+
+    const quantidadeHoje = Number(
+        resumo?.quantidade_hoje || 0
+    );
+
+    const ticketMedioHoje = Number(
+        resumo?.ticket_medio_hoje || 0
+    );
+
+    const variacaoPeriodo = resumo?.variacao_periodo;
+
+    const variacaoHoje = resumo?.variacao_hoje;
+
+    const mediaPeriodo = Number(
+        resumo?.media_por_periodo || 0
+    );
+
+    const melhorPeriodo = resumo?.melhor_periodo;
+
+    const melhorFaturamento = Number(
+        resumo?.melhor_faturamento || 0
     );
 
 
-    /* =========================================================
-       TROCAR PERÍODO
-    ========================================================= */
+    // =====================================================
+    // ALTERNAR PERÍODO
+    // =====================================================
 
     function alternarPeriodo() {
 
@@ -233,210 +308,44 @@ export default function GraficoLinhasVendas() {
         }
 
         setPeriodo("dias");
+
     }
 
 
-    /* =========================================================
-       CARREGAR DADOS
+    // =====================================================
+    // NOME DO PERÍODO
+    // =====================================================
 
-       1. Procura cache
-       2. Se existir, mostra imediatamente
-       3. Consulta API
-       4. Compara
-       5. Atualiza somente se mudou
-    ========================================================= */
+    const nomePeriodo = {
 
-    useEffect(() => {
+        dias: "Últimos 7 dias",
 
-        let componenteAtivo = true;
+        semanas: "Últimas 7 semanas",
 
-        async function carregar() {
+        meses: "Últimos 7 meses"
 
-            /* ===============================
-               CACHE DO PERÍODO ATUAL
-            =============================== */
-
-            const cache = lerCache(periodo);
+    }[periodo];
 
 
-            /* ===============================
-               MOSTRAR CACHE
-            =============================== */
-
-            if (Array.isArray(cache)) {
-
-                if (componenteAtivo) {
-                    setDados(cache);
-                    setCarregando(false);
-                }
-
-                console.log(
-                    `[GRAFICO LINHAS] ${periodo} carregado do cache.`
-                );
-
-            } else {
-
-                if (componenteAtivo) {
-                    setDados([]);
-                    setCarregando(true);
-                }
-            }
-
-
-            /* ===============================
-               PARÂMETROS
-            =============================== */
-
-            const params = new URLSearchParams();
-
-            params.append(
-                "periodo",
-                periodo
-            );
-
-
-            /* ===============================
-               CONSULTAR SERVIDOR
-            =============================== */
-
-            try {
-
-                const resp = await fetch(
-                    `${API_URL}/admin/graficos/linhas?${params.toString()}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
-
-
-                if (!resp.ok) {
-
-                    throw new Error(
-                        `Erro gráfico linhas: ${resp.status}`
-                    );
-                }
-
-
-                const resposta = await resp.json();
-
-                const dadosServidor =
-                    Array.isArray(resposta)
-                        ? resposta
-                        : [];
-
-
-                if (!componenteAtivo) {
-                    return;
-                }
-
-
-                /* ===============================
-                   COMPARAR CACHE
-                =============================== */
-
-                const iguais =
-                    dadosIguais(
-                        cache,
-                        dadosServidor
-                    );
-
-
-                /* ===============================
-                   CACHE JÁ ATUALIZADO
-                =============================== */
-
-                if (iguais) {
-
-                    console.log(
-                        `[GRAFICO LINHAS] Cache de ${periodo} já está atualizado.`
-                    );
-
-                    return;
-                }
-
-
-                /* ===============================
-                   SERVIDOR MUDOU
-                =============================== */
-
-                console.log(
-                    `[GRAFICO LINHAS] Dados de ${periodo} mudaram. Atualizando cache.`
-                );
-
-
-                setDados(dadosServidor);
-
-                salvarCache(
-                    periodo,
-                    dadosServidor
-                );
-
-
-            } catch (erro) {
-
-                console.error(
-                    "[GRAFICO LINHAS] Erro ao consultar servidor:",
-                    erro
-                );
-
-
-                /*
-                    Se existir cache, mantém o cache.
-                    Caso contrário, mostra vazio.
-                */
-
-                if (
-                    !Array.isArray(cache) &&
-                    componenteAtivo
-                ) {
-                    setDados([]);
-                }
-
-
-            } finally {
-
-                if (componenteAtivo) {
-                    setCarregando(false);
-                }
-            }
-        }
-
-
-        carregar();
-
-
-        return () => {
-            componenteAtivo = false;
-        };
-
-    }, [periodo, token]);
-
-
-    /* =========================================================
-       DADOS DO GRÁFICO
-    ========================================================= */
+    // =====================================================
+    // DADOS DO GRÁFICO
+    // =====================================================
 
     const chartData = {
 
-        labels: dados.map(
-            d => d.label
-        ),
+        labels: dados.map(item => item.label),
 
         datasets: [
 
             {
-                label: "Total de Vendas",
 
-                data: dados.map(
-                    d => Number(d.total) || 0
-                ),
+                label: "Faturamento",
+
+                data: dados.map(item => item.total),
 
                 borderColor: "#2563eb",
 
-                backgroundColor:
-                    "rgba(37, 99, 235, 0.12)",
+                backgroundColor: "rgba(37, 99, 235, 0.12)",
 
                 borderWidth: 3,
 
@@ -444,9 +353,9 @@ export default function GraficoLinhasVendas() {
 
                 fill: true,
 
-                pointRadius: 4,
+                pointRadius: 5,
 
-                pointHoverRadius: 7,
+                pointHoverRadius: 8,
 
                 pointBackgroundColor: "#2563eb",
 
@@ -459,17 +368,16 @@ export default function GraficoLinhasVendas() {
                 pointHoverBorderColor: "#ffffff",
 
                 pointHoverBorderWidth: 3
+
             },
 
             {
-                label: "Média",
 
-                data: dados.map(
-                    () => mediaPeriodo
-                ),
+                label: "Média do período",
 
-                borderColor:
-                    "rgba(71, 85, 105, 0.55)",
+                data: dados.map(() => mediaPeriodo),
+
+                borderColor: "rgba(71, 85, 105, 0.55)",
 
                 borderDash: [6, 6],
 
@@ -480,14 +388,17 @@ export default function GraficoLinhasVendas() {
                 pointHoverRadius: 0,
 
                 fill: false
+
             }
+
         ]
+
     };
 
 
-    /* =========================================================
-       OPÇÕES DO GRÁFICO
-    ========================================================= */
+    // =====================================================
+    // CONFIGURAÇÕES DO GRÁFICO
+    // =====================================================
 
     const chartOptions = {
 
@@ -496,25 +407,22 @@ export default function GraficoLinhasVendas() {
         maintainAspectRatio: false,
 
         interaction: {
+
             mode: "index",
+
             intersect: false
+
         },
 
         animation: {
+
             duration: 750,
+
             easing: "easeOutQuart"
+
         },
 
-
-        /* ===============================
-           PLUGINS
-        =============================== */
-
         plugins: {
-
-            /* ===============================
-               LEGENDA
-            =============================== */
 
             legend: {
 
@@ -537,32 +445,30 @@ export default function GraficoLinhasVendas() {
                     boxHeight: 8,
 
                     font: {
+
                         size: 12,
+
                         weight: "600"
+
                     }
+
                 }
+
             },
-
-
-            /* ===============================
-               TOOLTIP
-            =============================== */
 
             tooltip: {
 
-                backgroundColor:
-                    "rgba(15, 23, 42, 0.96)",
+                backgroundColor: "rgba(15, 23, 42, 0.97)",
 
                 titleColor: "#ffffff",
 
                 bodyColor: "#e2e8f0",
 
-                borderColor:
-                    "rgba(59, 130, 246, 0.35)",
+                borderColor: "rgba(59, 130, 246, 0.35)",
 
                 borderWidth: 1,
 
-                padding: 13,
+                padding: 14,
 
                 cornerRadius: 10,
 
@@ -570,50 +476,75 @@ export default function GraficoLinhasVendas() {
 
                 callbacks: {
 
-                    label: ctx => {
+                    title: (items) => {
 
-                        const valor =
-                            Number(ctx.raw) || 0;
-
-                        const percentual =
-                            totalPeriodo
-                                ? (
-                                    (
-                                        valor /
-                                        totalPeriodo
-                                    ) * 100
-                                ).toFixed(1)
-                                : 0;
-
-
-                        if (
-                            ctx.dataset.label === "Média"
-                        ) {
-                            return (
-                                ` Média: R$ ${valor.toFixed(2)}`
-                            );
+                        if (!items.length) {
+                            return "";
                         }
 
+                        return items[0].label;
 
-                        return (
-                            ` R$ ${valor.toFixed(2)} • ` +
-                            `${percentual}% do período`
+                    },
+
+                    label: (ctx) => {
+
+                        const valor = Number(ctx.raw) || 0;
+
+                        if (ctx.datasetIndex === 1) {
+
+                            return ` Média: ${formatarMoeda(valor)}`;
+
+                        }
+
+                        return ` Faturamento: ${formatarMoeda(valor)}`;
+
+                    },
+
+                    afterBody: (items) => {
+
+                        if (!items.length) {
+                            return [];
+                        }
+
+                        const indice = items[0].dataIndex;
+
+                        const item = dados[indice];
+
+                        if (!item) {
+                            return [];
+                        }
+
+                        const variacao = formatarVariacao(
+                            item.variacao_percentual
                         );
+
+                        const quantidadeAnterior =
+                            item.quantidade_anterior;
+
+                        return [
+
+                            "",
+
+                            `Quantidade de vendas: ${item.quantidade}`,
+
+
+                            `Variação vs. ponto anterior: ${variacao}`,
+
+                            `Faturamento anterior: ${formatarMoeda(item.total_anterior)}`,
+
+                            `Vendas no ponto anterior: ${quantidadeAnterior}`
+
+                        ];
+
                     }
+
                 }
+
             }
+
         },
 
-
-        /* ===============================
-           ESCALAS
-        =============================== */
-
         scales: {
-
-            /* ===============================
-               EIXO X
-            =============================== */
 
             x: {
 
@@ -631,21 +562,18 @@ export default function GraficoLinhasVendas() {
                         size: 11,
                         weight: "500"
                     }
+
                 },
 
                 grid: {
 
-                    color:
-                        "rgba(15, 23, 42, 0.055)",
+                    color: "rgba(15, 23, 42, 0.055)",
 
                     drawTicks: false
+
                 }
+
             },
-
-
-            /* ===============================
-               EIXO Y
-            =============================== */
 
             y: {
 
@@ -668,91 +596,169 @@ export default function GraficoLinhasVendas() {
 
                     callback: value => {
 
-                        const numero =
-                            Number(value) || 0;
-
-                        return `R$ ${numero.toLocaleString(
+                        return `R$ ${Number(value).toLocaleString(
                             "pt-BR",
                             {
                                 maximumFractionDigits: 0
                             }
                         )}`;
+
                     }
+
                 },
 
                 grid: {
 
-                    color:
-                        "rgba(15, 23, 42, 0.065)",
+                    color: "rgba(15, 23, 42, 0.065)",
 
                     drawTicks: false
+
                 }
+
             }
+
         }
+
     };
 
 
-    /* =========================================================
-       RENDER
-    ========================================================= */
+    // =====================================================
+    // RENDER
+    // =====================================================
 
     return (
 
         <div className="grafico-linhas-container">
 
-
-            {/* ===============================
-                RESUMO
-            =============================== */}
+            {/* RESUMO PRINCIPAL */}
 
             <div className="grafico-linhas-resumo">
 
-                <div>
+                <div className="grafico-linhas-card-periodo">
 
-                    <span>
-                        Total
-                    </span>
+                    <span>Faturamento do período</span>
 
                     <strong>
-                        R$ {totalPeriodo.toFixed(2)}
+                        {formatarMoeda(totalPeriodo)}
                     </strong>
+
+                    {!carregando && (
+
+                        <small className={classeVariacao(variacaoPeriodo)}>
+
+                            {iconeVariacao(variacaoPeriodo)}{" "}
+
+                            {formatarVariacao(variacaoPeriodo)}
+
+                            <span>
+                                {" "}vs. período anterior
+                            </span>
+
+                        </small>
+
+                    )}
 
                 </div>
 
 
-                <div>
+                <div className="grafico-linhas-card-hoje">
 
-                    <span>
-                        Média
-                    </span>
+                    <span>Vendas de hoje</span>
 
                     <strong>
-                        R$ {mediaPeriodo.toFixed(2)}
+                        {formatarMoeda(faturamentoHoje)}
                     </strong>
+
+                    {!carregando && (
+
+                        <small className={classeVariacao(variacaoHoje)}>
+
+                            {iconeVariacao(variacaoHoje)}{" "}
+
+                            {formatarVariacao(variacaoHoje)}
+
+                            <span>
+                                {" "}vs. ontem
+                            </span>
+
+                        </small>
+
+                    )}
 
                 </div>
 
 
-                <div>
 
-                    <span>
-                        Pico
-                    </span>
+            </div>
+
+
+            {/* DETALHES COMPLEMENTARES */}
+
+            <div className="grafico-linhas-detalhes">
+
+                <div className="grafico-linhas-detalhe-item">
+
+                    <span>Quantidade de vendas</span>
 
                     <strong>
-                        R$ {maiorValor.toFixed(2)}
+                        {quantidadeVendas.toLocaleString("pt-BR")}
                     </strong>
+
+                    <small>
+                        {quantidadeHoje.toLocaleString("pt-BR")} hoje
+                    </small>
+
+                </div>
+
+
+
+
+
+                <div className="grafico-linhas-detalhe-item">
+
+                    <span>Média por intervalo</span>
+
+                    <strong>
+                        {formatarMoeda(mediaPeriodo)}
+                    </strong>
+
+                    <small>
+                        No período selecionado
+                    </small>
+
+                </div>
+
+
+                <div className="grafico-linhas-detalhe-item">
+
+                    <span>Melhor intervalo</span>
+
+                    <strong>
+                        {melhorPeriodo || "Sem dados"}
+                    </strong>
+
+                    <small>
+                        {formatarMoeda(melhorFaturamento)}
+                    </small>
 
                 </div>
 
             </div>
 
 
-            {/* ===============================
-                PERÍODO
-            =============================== */}
+            {/* TOPO DO GRÁFICO */}
 
             <div className="grafico-linhas-topo">
+
+                <div className="grafico-linhas-titulo">
+
+                    <strong>Desempenho das vendas</strong>
+
+                    <span>
+                        Acompanhe a evolução do faturamento
+                    </span>
+
+                </div>
 
                 <button
                     className="grafico-linhas-periodo-btn"
@@ -760,29 +766,18 @@ export default function GraficoLinhasVendas() {
                     type="button"
                 >
 
-                    {periodo === "dias" &&
-                        "Últimos 7 dias"
-                    }
+                    {nomePeriodo}
 
-                    {periodo === "semanas" &&
-                        "Últimas 7 semanas"
-                    }
-
-                    {periodo === "meses" &&
-                        "Últimos 7 meses"
-                    }
+                    <span>⌄</span>
 
                 </button>
 
             </div>
 
 
-            {/* ===============================
-                GRÁFICO
-            =============================== */}
+            {/* GRÁFICO */}
 
             <div className="grafico-linhas-conteudo">
-
 
                 {carregando && (
 
@@ -790,39 +785,35 @@ export default function GraficoLinhasVendas() {
 
                         <span className="spinner"></span>
 
-                        <p>
-                            Carregando dados…
-                        </p>
+                        <p>Atualizando indicadores...</p>
 
                     </div>
 
                 )}
 
 
-                {!carregando &&
-                    dados.length > 0 && (
+                {!carregando && dados.length > 0 && (
 
-                        <Line
-                            data={chartData}
-                            options={chartOptions}
-                        />
+                    <Line
+                        data={chartData}
+                        options={chartOptions}
+                    />
 
-                    )
-                }
+                )}
 
 
-                {!carregando &&
-                    dados.length === 0 && (
+                {!carregando && dados.length === 0 && (
 
-                        <span className="grafico-vazio">
-                            Nenhum dado encontrado
-                        </span>
+                    <span className="grafico-vazio">
+                        Nenhuma venda encontrada neste período.
+                    </span>
 
-                    )
-                }
+                )}
 
             </div>
 
         </div>
+
     );
+
 }
