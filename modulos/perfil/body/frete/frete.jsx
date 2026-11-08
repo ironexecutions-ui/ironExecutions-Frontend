@@ -2376,8 +2376,9 @@ export default function Frete({ token: tokenProp }) {
                                 </select>
                             </label>
 
-                            {form.documento.tipo_documento ===
-                                "nota_fiscal" && (
+                            {form.documento.tipo_documento === "nota_fiscal" && (
+                                <div className="isfa-doc-fiscal">
+
                                     <label className="isfa-field isfa-field--wide">
                                         <span>
                                             Chave da Nota Fiscal (44 dígitos) *
@@ -2385,26 +2386,45 @@ export default function Frete({ token: tokenProp }) {
 
                                         <input
                                             maxLength={44}
-                                            value={
-                                                form.documento.chave_documento
-                                            }
+                                            inputMode="numeric"
+                                            value={form.documento.chave_documento}
                                             onChange={(e) =>
                                                 setForm((f) => ({
                                                     ...f,
                                                     documento: {
                                                         ...f.documento,
-                                                        chave_documento:
-                                                            e.target.value.replace(
-                                                                /\D/g,
-                                                                ""
-                                                            ),
+                                                        chave_documento: e.target.value.replace(
+                                                            /\D/g,
+                                                            ""
+                                                        ),
                                                     },
                                                 }))
                                             }
+                                            placeholder="Digite os 44 dígitos da chave de acesso"
                                             required
                                         />
                                     </label>
-                                )}
+
+                                    <a
+                                        className="isfa-doc-fiscal__configurar"
+                                        href="/ironbusiness/perfil/fiscal"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <span className="isfa-doc-fiscal__icone">+</span>
+
+                                        <span className="isfa-doc-fiscal__texto">
+                                            <strong>Configurar dados fiscais</strong>
+                                            <small>
+                                                Cadastre ou atualize as informações fiscais da sua empresa.
+                                            </small>
+                                        </span>
+
+                                        <span className="isfa-doc-fiscal__seta">↗</span>
+                                    </a>
+
+                                </div>
+                            )}
 
                             <label className="isfa-field">
                                 <span>

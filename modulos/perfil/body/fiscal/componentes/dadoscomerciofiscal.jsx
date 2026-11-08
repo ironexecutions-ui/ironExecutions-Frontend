@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../../config";
 import "./dadoscomerciofiscal.css";
@@ -14,18 +15,23 @@ export default function DadosComerciaisFiscal() {
 
     const token = localStorage.getItem("token");
 
-    /* ===============================
-       VERIFICAR FUNÇÃO DO USUÁRIO
-    =============================== */
+    // =========================================
+    // VERIFICAR FUNÇÃO DO USUÁRIO
+    // =========================================
+
     useEffect(() => {
+
         fetch(`${API_URL}/clientes/me`, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
             .then(r => {
                 if (!r.ok) throw new Error();
                 return r.json();
             })
             .then(dados => {
+
                 if (
                     dados.funcao !== "Administrador(a)" &&
                     dados.funcao !== "Administradora"
@@ -34,196 +40,596 @@ export default function DadosComerciaisFiscal() {
                 } else {
                     setFuncao(dados.funcao);
                 }
+
             })
             .catch(() => setBloqueado(true));
+
     }, []);
 
-    /* ===============================
-       CARREGAR DADOS DO COMÉRCIO
-    =============================== */
+    // =========================================
+    // CARREGAR DADOS DO COMÉRCIO
+    // =========================================
+
     useEffect(() => {
+
         if (!funcao) return;
 
         carregar();
+
     }, [funcao]);
 
-    function carregar() {
-        fetch(`${API_URL}/fiscal/comercio`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then(r => {
-                if (r.status === 403) {
-                    throw new Error("Sem permissão");
+    async function carregar() {
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/fiscal/comercio/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-                return r.json();
-            })
-            .then(setDados)
-            .catch(() => {
-                setBloqueado(true);
-            });
+            );
+
+            if (!resposta.ok) {
+                throw new Error("Erro ao carregar dados fiscais");
+            }
+
+            const resultado = await resposta.json();
+
+            setDados(resultado);
+
+        } catch (erro) {
+
+            console.error(
+                "[DadosComerciaisFiscal] Erro:",
+                erro
+            );
+
+            setBloqueado(true);
+
+        }
+
     }
 
-    function salvar(tabela, campo, valor) {
-        fetch(`${API_URL}/fiscal/comercio/salvar-campo`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify({ tabela, campo, valor })
-        })
-            .then(r => {
-                if (r.status === 403) {
-                    throw new Error("Sem permissão");
+    // =========================================
+    // SALVAR CAMPO
+    // =========================================
+
+    async function salvar(tabela, campo, valor) {
+
+        try {
+
+            const resposta = await fetch(
+                `${API_URL}/fiscal/comercio/salvar-campo`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+
+                    body: JSON.stringify({
+                        tabela,
+                        campo,
+                        valor: String(valor ?? "")
+                    })
                 }
-                return r.json();
-            })
-            .then(() => carregar())
-            .catch(() => {
-                alert("Acesso restrito ao administrador");
-            });
+            );
+
+            const resultado = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    resultado.detail || "Erro ao salvar campo"
+                );
+            }
+
+            await carregar();
+
+        } catch (erro) {
+
+            console.error(
+                "[DadosComerciaisFiscal] Erro ao salvar:",
+                erro
+            );
+
+            alert(
+                erro.message || "Não foi possível salvar."
+            );
+
+            await carregar();
+
+        }
+
     }
 
-    if (bloqueado) {
-        return (
-            <div className="dados-comercio-bloqueado">
-                <h4>Acesso restrito</h4>
-                <p>Somente administradores podem acessar dados fiscais do comércio.</p>
-            </div>
-        );
-    }
+    // =========================================
+    // CAMPO EDITÁVEL
+    // =========================================
 
-    if (!dados) {
-        return <p>Carregando dados comerciais...</p>;
-    }
+    function Campo({
+        tabela,
+        campo,
+        label,
+        value,
+        datalist,
+        type = "text"
+    }) {
 
-    function Campo({ tabela, campo, label, value, datalist, type = "text" }) {
+        const identificador = `${tabela}.${campo}`;
 
-        const estaEditando = editando === `${tabela}.${campo}`;
+        const estaEditando = editando === identificador;
 
         function iniciarEdicao() {
-            setEditando(`${tabela}.${campo}`);
-            setValorTemp(value || "");
+
+            setEditando(identificador);
+
+            setValorTemp(
+                value === null || value === undefined
+                    ? ""
+                    : String(value)
+            );
+
         }
 
         function finalizar() {
+
+            if (editando !== identificador) return;
+
+            const valorOriginal =
+                value === null || value === undefined
+                    ? ""
+                    : String(value);
+
+            const novoValor = valorTemp;
+
             setEditando(null);
-            if (valorTemp !== value) {
-                salvar(tabela, campo, valorTemp);
+
+            if (novoValor !== valorOriginal) {
+
+                salvar(
+                    tabela,
+                    campo,
+                    novoValor
+                );
+
             }
+
         }
 
         return (
             <div className="campo-inline">
+
                 <label>{label}</label>
 
                 {!estaEditando && (
+
                     <p
                         className="campo-visual"
                         onClick={iniciarEdicao}
                     >
-                        {value || "Clique para editar"}
+                        {value !== null &&
+                            value !== undefined &&
+                            String(value).trim() !== ""
+                            ? value
+                            : "Clique para editar"}
                     </p>
+
                 )}
 
                 {estaEditando && (
+
                     <input
                         type={type}
                         list={datalist}
                         value={valorTemp}
                         autoFocus
-                        onChange={e => setValorTemp(e.target.value)}
+
+                        onChange={e =>
+                            setValorTemp(e.target.value)
+                        }
+
                         onBlur={finalizar}
-                        onKeyDown={e => e.key === "Enter" && finalizar()}
+
+                        onKeyDown={e => {
+
+                            if (e.key === "Enter") {
+                                e.preventDefault();
+                                e.currentTarget.blur();
+                            }
+
+                            if (e.key === "Escape") {
+                                setEditando(null);
+                            }
+
+                        }}
                     />
+
                 )}
+
             </div>
         );
+
     }
 
+    // =========================================
+    // BLOQUEIO
+    // =========================================
+
+    if (bloqueado) {
+
+        return (
+            <div className="dados-comercio-bloqueado">
+
+                <h4>Acesso restrito</h4>
+
+                <p>
+                    Somente administradores podem acessar
+                    dados fiscais do comércio.
+                </p>
+
+            </div>
+        );
+
+    }
+
+    if (!dados) {
+
+        return <p>Carregando dados comerciais...</p>;
+
+    }
+
+    const fiscal = dados.fiscal || {};
+    const comercio = dados.comercio || {};
+
+    const tabelaFiscal = "fiscal_dados_comercio";
+    const tabelaComercio = "comercios_cadastradas";
+
     return (
+
         <div className="dados-comercio">
 
             <h4>Dados do Comércio</h4>
 
-            <Campo tabela="comercios_cadastradas" campo="loja" label="Nome da loja" value={dados.comercio.loja} />
-            <Campo tabela="comercios_cadastradas" campo="cnpj" label="CNPJ" value={dados.comercio.cnpj} />
-            <Campo tabela="comercios_cadastradas" campo="cep" label="CEP" value={dados.comercio.cep} />
-            <Campo tabela="comercios_cadastradas" campo="cidade" label="Cidade" value={dados.comercio.cidade} />
+            <Campo
+                tabela={tabelaComercio}
+                campo="loja"
+                label="Nome da loja"
+                value={comercio.loja}
+            />
+
+            <Campo
+                tabela={tabelaComercio}
+                campo="cnpj"
+                label="CNPJ"
+                value={comercio.cnpj}
+            />
+
+            <Campo
+                tabela={tabelaComercio}
+                campo="cep"
+                label="CEP"
+                value={comercio.cep}
+            />
+
+            <Campo
+                tabela={tabelaComercio}
+                campo="cidade"
+                label="Cidade"
+                value={comercio.cidade}
+            />
+
+            {/* ================================= */}
+            {/* DADOS FISCAIS */}
+            {/* ================================= */}
 
             <h4>Dados Fiscais</h4>
 
-            <Campo tabela="fiscal_dados_comercio" campo="razao_social" label="Razão Social" value={dados.fiscal.razao_social} />
-            <Campo tabela="fiscal_dados_comercio" campo="nome_fantasia" label="Nome Fantasia" value={dados.fiscal.nome_fantasia} />
-            <Campo tabela="fiscal_dados_comercio" campo="inscricao_estadual" label="Inscrição Estadual" value={dados.fiscal.inscricao_estadual} />
-            <Campo tabela="fiscal_dados_comercio" campo="cnae" label="CNAE" value={dados.fiscal.cnae} />
             <Campo
-                tabela="fiscal_dados_comercio"
-                campo="codigo_municipio"
-                label="Código do Município (IBGE)"
-                value={dados.fiscal.codigo_municipio}
+                tabela={tabelaFiscal}
+                campo="razao_social"
+                label="Razão Social"
+                value={fiscal.razao_social}
             />
 
             <Campo
-                tabela="fiscal_dados_comercio"
+                tabela={tabelaFiscal}
+                campo="nome_fantasia"
+                label="Nome Fantasia"
+                value={fiscal.nome_fantasia}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="inscricao_estadual"
+                label="Inscrição Estadual"
+                value={fiscal.inscricao_estadual}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
                 campo="inscricao_municipal"
                 label="Inscrição Municipal"
-                value={dados.fiscal.inscricao_municipal}
+                value={fiscal.inscricao_municipal}
             />
 
             <Campo
-                tabela="fiscal_dados_comercio"
+                tabela={tabelaFiscal}
+                campo="cnae"
+                label="CNAE"
+                value={fiscal.cnae}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="codigo_municipio"
+                label="Código do Município (IBGE)"
+                value={fiscal.codigo_municipio}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
                 campo="regime_tributario"
                 label="Regime Tributário"
-                value={dados.fiscal.regime_tributario}
-                datalist="regimes"
+                value={fiscal.regime_tributario}
+                datalist="regimes-fiscais"
             />
 
             <Campo
-                tabela="fiscal_dados_comercio"
+                tabela={tabelaFiscal}
                 campo="crt"
                 label="CRT"
-                value={dados.fiscal.crt}
-                datalist="crt"
+                value={fiscal.crt}
+                datalist="crt-fiscais"
             />
+
+            {/* ================================= */}
+            {/* PADRÕES FISCAIS DOS PRODUTOS */}
+            {/* ================================= */}
+
+            <h4>Padrões Fiscais dos Produtos</h4>
+
+            <p>
+                Configure os valores fiscais habituais
+                que poderão ser utilizados como padrão
+                no cadastro dos produtos.
+            </p>
+
+            {/* OPERAÇÃO E ORIGEM */}
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="cfop_padrao"
+                label="CFOP Padrão"
+                value={fiscal.cfop_padrao}
+                datalist="cfops-fiscais"
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="origem_padrao"
+                label="Origem Padrão da Mercadoria"
+                value={fiscal.origem_padrao}
+                datalist="origens-fiscais"
+            />
+
+            {/* ICMS */}
+
+            <h4>Tributação ICMS</h4>
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="cst_icms_padrao"
+                label="CST ICMS Padrão"
+                value={fiscal.cst_icms_padrao}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="csosn_padrao"
+                label="CSOSN Padrão"
+                value={fiscal.csosn_padrao}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="aliquota_icms_padrao"
+                label="Alíquota ICMS (%)"
+                value={fiscal.aliquota_icms_padrao}
+                type="number"
+            />
+
+            {/* PIS */}
+
+            <h4>Tributação PIS / COFINS</h4>
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="cst_pis_padrao"
+                label="CST PIS Padrão"
+                value={fiscal.cst_pis_padrao}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="aliquota_pis_padrao"
+                label="Alíquota PIS (%)"
+                value={fiscal.aliquota_pis_padrao}
+                type="number"
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="cst_cofins_padrao"
+                label="CST COFINS Padrão"
+                value={fiscal.cst_cofins_padrao}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="aliquota_cofins_padrao"
+                label="Alíquota COFINS (%)"
+                value={fiscal.aliquota_cofins_padrao}
+                type="number"
+            />
+
+            {/* ================================= */}
+            {/* IBS / CBS */}
+            {/* ================================= */}
+
+            <h4>Tributação IBS / CBS</h4>
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="cst_ibscbs_padrao"
+                label="CST IBS/CBS Padrão"
+                value={fiscal.cst_ibscbs_padrao}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="aliquota_ibs_uf_padrao"
+                label="Alíquota IBS UF (%)"
+                value={fiscal.aliquota_ibs_uf_padrao}
+                type="number"
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="aliquota_ibs_mun_padrao"
+                label="Alíquota IBS Município (%)"
+                value={fiscal.aliquota_ibs_mun_padrao}
+                type="number"
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="aliquota_cbs_padrao"
+                label="Alíquota CBS (%)"
+                value={fiscal.aliquota_cbs_padrao}
+                type="number"
+            />
+
+            {/* ================================= */}
+            {/* SEGURANÇA FISCAL */}
+            {/* ================================= */}
 
             <h4>Segurança Fiscal</h4>
 
             <UploadCertificadoA1 onSucesso={carregar} />
 
-            <Campo tabela="fiscal_dados_comercio" campo="csc_id" label="ID do CSC" value={dados.fiscal.csc_id} />
-            <Campo tabela="fiscal_dados_comercio" campo="csc_token" label="CSC Token" value={dados.fiscal.csc_token} />
+            <Campo
+                tabela={tabelaFiscal}
+                campo="csc_id"
+                label="ID do CSC"
+                value={fiscal.csc_id}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="csc_token"
+                label="CSC Token"
+                value={fiscal.csc_token}
+            />
+
+            {/* ================================= */}
+            {/* NFC-e */}
+            {/* ================================= */}
 
             <h4>Configuração de Emissão NFC-e</h4>
 
             <Campo
-                tabela="fiscal_dados_comercio"
+                tabela={tabelaFiscal}
                 campo="ambiente_emissao"
                 label="Ambiente de Emissão"
-                value={dados.fiscal.ambiente_emissao}
-                datalist="ambientes"
+                value={fiscal.ambiente_emissao}
+                datalist="ambientes-fiscais"
             />
 
-            <Campo tabela="fiscal_dados_comercio" campo="serie_nfce" label="Série NFC-e" value={dados.fiscal.serie_nfce} />
-            <Campo tabela="fiscal_dados_comercio" campo="numero_inicial_nfce" label="Número Inicial NFC-e" value={dados.fiscal.numero_inicial_nfce} type="number" />
+            <Campo
+                tabela={tabelaFiscal}
+                campo="serie_nfce"
+                label="Série NFC-e"
+                value={fiscal.serie_nfce}
+            />
 
-            <datalist id="regimes">
+            <Campo
+                tabela={tabelaFiscal}
+                campo="numero_inicial_nfce"
+                label="Número Inicial NFC-e"
+                value={fiscal.numero_inicial_nfce}
+                type="number"
+            />
+
+            {/* ================================= */}
+            {/* NF-e */}
+            {/* ================================= */}
+
+            <h4>Configuração de Emissão NF-e</h4>
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="serie_nfe"
+                label="Série NF-e"
+                value={fiscal.serie_nfe}
+            />
+
+            <Campo
+                tabela={tabelaFiscal}
+                campo="numero_inicial_nfe"
+                label="Número Inicial NF-e"
+                value={fiscal.numero_inicial_nfe}
+                type="number"
+            />
+
+            {/* ================================= */}
+            {/* LISTAS */}
+            {/* ================================= */}
+
+            <datalist id="regimes-fiscais">
                 <option value="Simples Nacional" />
                 <option value="Lucro Presumido" />
                 <option value="Lucro Real" />
+                <option value="MEI" />
             </datalist>
 
-            <datalist id="crt">
+            <datalist id="crt-fiscais">
                 <option value="1" />
                 <option value="2" />
                 <option value="3" />
+                <option value="4" />
             </datalist>
 
-            <datalist id="ambientes">
+            <datalist id="ambientes-fiscais">
                 <option value="homologacao" />
                 <option value="producao" />
             </datalist>
 
+            <datalist id="origens-fiscais">
+                <option value="0" />
+                <option value="1" />
+                <option value="2" />
+                <option value="3" />
+                <option value="4" />
+                <option value="5" />
+                <option value="6" />
+                <option value="7" />
+                <option value="8" />
+            </datalist>
+
+            <datalist id="cfops-fiscais">
+                <option value="5102" />
+                <option value="5101" />
+                <option value="5405" />
+                <option value="6102" />
+                <option value="6101" />
+                <option value="6404" />
+            </datalist>
+
         </div>
+
     );
+
 }

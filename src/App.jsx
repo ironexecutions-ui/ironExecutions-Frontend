@@ -38,7 +38,7 @@ import Geral from "../camera/geral";
 import Irene from "./irene/irene";
 import Apresentacao from "../apresentacao/apresentacao";
 import FotosProdutos from "../fotos/fotos";
-
+import Fiscal from "../modulos/perfil/body/fiscal/fiscal"
 
 /* =========================================================
    MAPA FIXO
@@ -313,6 +313,10 @@ function RoteamentoComLoading() {
       <Route
         path="/impressao/:idCriptografado"
         element={<Impressao />}
+      />
+      <Route
+        path="/ironbusiness/perfil/fiscal"
+        element={<Fiscal />}
       />
       <Route
         path="/link/geral/:idComercioCriptografado"

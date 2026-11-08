@@ -191,16 +191,20 @@ export default function Fiscal() {
     // TROCAR ABA MANUALMENTE
     // ============================================================
 
-    function abrirAba(aba) {
+    function abrirAba(aba, nomeBotao) {
 
         if (aba !== "registrar-massa") {
-
             setProdutosFiscalMassa([]);
-
             setVendaFiscalPendente(null);
         }
 
         setAbaAtiva(aba);
+
+        // Adicionar hash somente no caminho exato do perfil.
+        if (window.location.pathname === "/ironbusiness/perfil/fiscal") {
+
+            window.location.hash = nomeBotao;
+        }
     }
 
 
@@ -291,94 +295,49 @@ export default function Fiscal() {
             <div className="fiscal-botoes">
 
                 <button
-                    className={
-                        abaAtiva === "cupons"
-                            ? "ativo"
-                            : ""
-                    }
-                    onClick={() =>
-                        abrirAba("cupons")
-                    }
+                    className={abaAtiva === "cupons" ? "ativo" : ""}
+                    onClick={() => abrirAba("cupons", "Cupons")}
                 >
                     Cupons
                 </button>
 
-
                 <button
-                    className={
-                        abaAtiva === "emitir-nfce"
-                            ? "ativo"
-                            : ""
-                    }
-                    onClick={() =>
-                        abrirAba("emitir-nfce")
-                    }
+                    className={abaAtiva === "emitir-nfce" ? "ativo" : ""}
+                    onClick={() => abrirAba("emitir-nfce", "Emitir NFC-e")}
                 >
                     Emitir NFC-e
                 </button>
 
-
                 {funcao === "Administrador(a)" && (
-
                     <>
-
                         <button
-                            className={
-                                abaAtiva === "registrar"
-                                    ? "ativo"
-                                    : ""
-                            }
-                            onClick={() =>
-                                abrirAba("registrar")
-                            }
+                            className={abaAtiva === "registrar" ? "ativo" : ""}
+                            onClick={() => abrirAba("registrar", "Registrar")}
                         >
                             Registrar
                         </button>
 
-
                         <button
-                            className={
-                                abaAtiva === "registrar-massa"
-                                    ? "ativo"
-                                    : ""
-                            }
-                            onClick={() =>
-                                abrirAba("registrar-massa")
-                            }
+                            className={abaAtiva === "registrar-massa" ? "ativo" : ""}
+                            onClick={() => abrirAba("registrar-massa", "Registrar em massa")}
                         >
                             Registrar em massa
                         </button>
 
-
                         <button
-                            className={
-                                abaAtiva === "registrados"
-                                    ? "ativo"
-                                    : ""
-                            }
-                            onClick={() =>
-                                abrirAba("registrados")
-                            }
+                            className={abaAtiva === "registrados" ? "ativo" : ""}
+                            onClick={() => abrirAba("registrados", "Registrados")}
                         >
                             Registrados
                         </button>
 
-
                         <button
-                            className={
-                                abaAtiva === "dados-comerciais"
-                                    ? "ativo"
-                                    : ""
-                            }
-                            onClick={() =>
-                                abrirAba("dados-comerciais")
-                            }
+                            className={abaAtiva === "dados-comerciais" ? "ativo" : ""}
+                            onClick={() => abrirAba("dados-comerciais", "Dados Comerciais")}
                         >
                             Dados Comerciais
                         </button>
-
                     </>
-
                 )}
 
             </div>

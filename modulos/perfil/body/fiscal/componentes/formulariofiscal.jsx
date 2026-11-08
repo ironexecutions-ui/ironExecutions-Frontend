@@ -14,6 +14,8 @@ export default function FormularioFiscal({
     const [salvando, setSalvando] = useState(false);
     const [mensagem, setMensagem] = useState("");
     const [possuiCadastroFiscal, setPossuiCadastroFiscal] = useState(false);
+    const [padroesComercio, setPadroesComercio] = useState({});
+    const [padroesCarregados, setPadroesCarregados] = useState(false);
     const [form, setForm] = useState({
         produto_id: produto.id,
 
@@ -53,183 +55,171 @@ export default function FormularioFiscal({
     =============================== */
 
     useEffect(() => {
+        if (!dadosIa || !padroesCarregados) return;
 
-        if (!dadosIa) return;
+        const camposProtegidos = [
+            "cfop",
+            "origem",
+            "cst_csosn",
+            "icms",
+            "pis",
+            "cofins",
+            "cst_ibscbs",
+            "aliquota_ibs_uf",
+            "aliquota_ibs_mun",
+            "aliquota_cbs"
+        ];
 
-        console.log(
-            "[FormularioFiscal] Dados recebidos da IA:",
-            dadosIa
-        );
+        function possuiPadraoComercio(campo) {
+            const valor = padroesComercio[campo];
+
+            return (
+                valor !== null &&
+                valor !== undefined &&
+                valor !== ""
+            );
+        }
 
         setForm(anterior => {
+            const atualizado = { ...anterior };
 
-            const atualizado = {
-                ...anterior
-            };
+            function aplicar(campo, valor, numerico = false) {
+                if (valor === undefined || valor === null) return;
 
-            // ===============================
-            // PRODUTO
-            // ===============================
+                // Não permite que a IA altere padrões definidos pelo comércio.
+                if (
+                    camposProtegidos.includes(campo) &&
+                    possuiPadraoComercio(campo)
+                ) {
+                    return;
+                }
+
+                atualizado[campo] = numerico
+                    ? valor === "" ? "" : Number(valor)
+                    : valor;
+            }
 
             if (tipo === "produto") {
+                aplicar("ncm", dadosIa.ncm);
+                aplicar("cfop", dadosIa.cfop);
+                aplicar("origem", dadosIa.origem);
+                aplicar("cst_csosn", dadosIa.cst_csosn);
+                aplicar("icms", dadosIa.icms, true);
+                aplicar("pis", dadosIa.pis, true);
+                aplicar("cofins", dadosIa.cofins, true);
+                aplicar("cest", dadosIa.cest);
 
-                if (dadosIa.ncm !== undefined) {
-                    atualizado.ncm = dadosIa.ncm;
-                }
+                aplicar("cst_ibscbs", dadosIa.cst_ibscbs);
+                aplicar("cclass_trib", dadosIa.cclass_trib);
 
-                if (dadosIa.cfop !== undefined) {
-                    atualizado.cfop = dadosIa.cfop;
-                }
+                aplicar(
+                    "aliquota_ibs_uf",
+                    dadosIa.aliquota_ibs_uf,
+                    true
+                );
 
-                if (dadosIa.origem !== undefined) {
-                    atualizado.origem = dadosIa.origem;
-                }
+                aplicar(
+                    "aliquota_ibs_mun",
+                    dadosIa.aliquota_ibs_mun,
+                    true
+                );
 
-                if (dadosIa.cst_csosn !== undefined) {
-                    atualizado.cst_csosn = dadosIa.cst_csosn;
-                }
-
-                if (dadosIa.icms !== undefined) {
-                    atualizado.icms =
-                        dadosIa.icms === ""
-                            ? ""
-                            : Number(dadosIa.icms);
-                }
-
-                if (dadosIa.pis !== undefined) {
-                    atualizado.pis =
-                        dadosIa.pis === ""
-                            ? ""
-                            : Number(dadosIa.pis);
-                }
-
-                if (dadosIa.cofins !== undefined) {
-                    atualizado.cofins =
-                        dadosIa.cofins === ""
-                            ? ""
-                            : Number(dadosIa.cofins);
-                }
-
-                if (dadosIa.cest !== undefined) {
-                    atualizado.cest = dadosIa.cest;
-                }
-
-                // ===============================
-                // IBS / CBS
-                // ===============================
-
-                if (dadosIa.cst_ibscbs !== undefined) {
-                    atualizado.cst_ibscbs =
-                        dadosIa.cst_ibscbs;
-                }
-
-                if (dadosIa.cclass_trib !== undefined) {
-                    atualizado.cclass_trib =
-                        dadosIa.cclass_trib;
-                }
-
-                if (dadosIa.aliquota_ibs_uf !== undefined) {
-                    atualizado.aliquota_ibs_uf =
-                        dadosIa.aliquota_ibs_uf === ""
-                            ? ""
-                            : Number(dadosIa.aliquota_ibs_uf);
-                }
-
-                if (dadosIa.aliquota_ibs_mun !== undefined) {
-                    atualizado.aliquota_ibs_mun =
-                        dadosIa.aliquota_ibs_mun === ""
-                            ? ""
-                            : Number(dadosIa.aliquota_ibs_mun);
-                }
-
-                if (dadosIa.aliquota_cbs !== undefined) {
-                    atualizado.aliquota_cbs =
-                        dadosIa.aliquota_cbs === ""
-                            ? ""
-                            : Number(dadosIa.aliquota_cbs);
-                }
+                aplicar("aliquota_cbs", dadosIa.aliquota_cbs, true);
             }
-
-            // ===============================
-            // SERVIÇO
-            // ===============================
 
             if (tipo === "servico") {
-
-                if (dadosIa.codigo_servico !== undefined) {
-                    atualizado.codigo_servico =
-                        dadosIa.codigo_servico;
-                }
-
-                if (dadosIa.aliquota_iss !== undefined) {
-                    atualizado.aliquota_iss =
-                        dadosIa.aliquota_iss === ""
-                            ? ""
-                            : Number(dadosIa.aliquota_iss);
-                }
-
-                if (dadosIa.municipio !== undefined) {
-                    atualizado.municipio =
-                        dadosIa.municipio;
-                }
+                aplicar("codigo_servico", dadosIa.codigo_servico);
+                aplicar("aliquota_iss", dadosIa.aliquota_iss, true);
+                aplicar("municipio", dadosIa.municipio);
             }
-
-            console.log(
-                "[FormularioFiscal] Formulário após IA:",
-                atualizado
-            );
 
             return atualizado;
         });
 
-    }, [dadosIa, tipo]);
+    }, [dadosIa, tipo, padroesCarregados, padroesComercio]);
     /* ===============================
        CARREGAR DADOS PARA EDIÇÃO
     =============================== */
     useEffect(() => {
-
         const produtoId = produto.produto_id || produto.id;
+        let cancelado = false;
 
-        // SE O FORMULÁRIO FOI ABERTO COM DADOS DA IA,
-        // NÃO LIMPA OS CAMPOS E NÃO BUSCA O CADASTRO ANTIGO
-        if (dadosIa) {
-            return;
-        }
-
-        // Sempre limpa primeiro ao trocar de produto.
-
-        // Sempre limpa primeiro ao trocar de produto.
-        // Isso evita mostrar por alguns milissegundos
-        // os dados fiscais do produto anterior.
-        setForm({
+        const formularioVazio = {
             produto_id: produtoId,
-
             ncm: "",
             cfop: "",
             origem: "",
             cst_csosn: "",
-
             icms: "",
             pis: "",
             cofins: "",
             cest: "",
-
             cst_ibscbs: "",
             cclass_trib: "",
             aliquota_ibs_uf: "",
             aliquota_ibs_mun: "",
             aliquota_cbs: "",
-
             codigo_servico: "",
             aliquota_iss: "",
             municipio: ""
-        });
+        };
 
-        async function carregarDadosFiscais() {
+        setPadroesCarregados(false);
+        setPadroesComercio({});
+        setPossuiCadastroFiscal(false);
+        setForm(formularioVazio);
+
+        async function carregarDados() {
+            let padroes = {};
+            let dadosProduto = null;
 
             try {
+                // 1. Buscar padrões fiscais do comércio
+                if (tipo === "produto") {
+                    const respostaComercio = await fetch(
+                        `${API_URL}/fiscal/comercio/`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        }
+                    );
 
-                const resp = await fetch(
+                    if (respostaComercio.ok) {
+                        const resposta = await respostaComercio.json();
+                        const fiscal = resposta.fiscal || {};
+
+                        const numero = valor =>
+                            valor === null || valor === undefined || valor === ""
+                                ? ""
+                                : Number(valor);
+
+                        padroes = {
+                            cfop: fiscal.cfop_padrao ?? "",
+                            origem: fiscal.origem_padrao ?? "",
+                            cst_csosn:
+                                fiscal.csosn_padrao ||
+                                fiscal.cst_icms_padrao ||
+                                "",
+                            icms: numero(fiscal.aliquota_icms_padrao),
+                            pis: numero(fiscal.aliquota_pis_padrao),
+                            cofins: numero(fiscal.aliquota_cofins_padrao),
+                            cst_ibscbs: fiscal.cst_ibscbs_padrao ?? "",
+                            aliquota_ibs_uf: numero(
+                                fiscal.aliquota_ibs_uf_padrao
+                            ),
+                            aliquota_ibs_mun: numero(
+                                fiscal.aliquota_ibs_mun_padrao
+                            ),
+                            aliquota_cbs: numero(
+                                fiscal.aliquota_cbs_padrao
+                            )
+                        };
+                    }
+                }
+
+                // 2. Buscar dados fiscais específicos do produto
+                const respostaProduto = await fetch(
                     `${API_URL}/fiscal/dados/${produtoId}`,
                     {
                         headers: {
@@ -238,85 +228,97 @@ export default function FormularioFiscal({
                     }
                 );
 
-                // Produto ainda não possui cadastro fiscal.
-                // Continua com o formulário vazio.
-                if (resp.status === 404) {
+                if (respostaProduto.ok) {
+                    const resposta = await respostaProduto.json();
 
-                    console.log(
-                        `[FormularioFiscal] Produto ${produtoId} ainda não possui cadastro fiscal.`
-                    );
-
-                    setPossuiCadastroFiscal(false);
-
-                    return;
+                    dadosProduto = resposta.existe === true
+                        ? resposta.dados
+                        : resposta.existe === false
+                            ? null
+                            : resposta;
+                } else if (respostaProduto.status !== 404) {
+                    throw new Error("Erro ao consultar os dados fiscais do produto.");
                 }
 
-                if (!resp.ok) {
+                if (cancelado) return;
 
-                    let detalhe = "";
+                // 3. Registrar os padrões carregados
+                setPadroesComercio(padroes);
+                setPadroesCarregados(true);
 
-                    try {
-                        const erro = await resp.json();
-                        detalhe = erro.detail || "";
-                    } catch {
-                        // resposta sem JSON
-                    }
+                // 4. Montar formulário, priorizando dados já salvos no produto
+                const campos = [
+                    "ncm",
+                    "cfop",
+                    "origem",
+                    "cst_csosn",
+                    "icms",
+                    "pis",
+                    "cofins",
+                    "cest",
+                    "cst_ibscbs",
+                    "cclass_trib",
+                    "aliquota_ibs_uf",
+                    "aliquota_ibs_mun",
+                    "aliquota_cbs",
+                    "codigo_servico",
+                    "aliquota_iss",
+                    "municipio"
+                ];
 
-                    throw new Error(
-                        detalhe ||
-                        `Erro ao carregar dados fiscais. HTTP ${resp.status}`
-                    );
+                const formularioFinal = {
+                    ...formularioVazio,
+                    ...padroes
+                };
+
+                if (dadosProduto) {
+                    campos.forEach(campo => {
+                        const valor = dadosProduto[campo];
+
+                        if (
+                            valor !== null &&
+                            valor !== undefined &&
+                            valor !== ""
+                        ) {
+                            formularioFinal[campo] = valor;
+                        }
+                    });
+
+                    setPossuiCadastroFiscal(true);
                 }
 
-                const dados = await resp.json();
-                setPossuiCadastroFiscal(true);
-                console.log(
-                    "[FormularioFiscal] Dados fiscais existentes:",
-                    dados
-                );
-
-                setForm(anterior => ({
-                    ...anterior,
-                    ...dados,
-                    produto_id: produtoId,
-
-                    ncm: dados.ncm ?? "",
-                    cfop: dados.cfop ?? "",
-                    origem: dados.origem ?? "",
-                    cst_csosn: dados.cst_csosn ?? "",
-
-                    icms: dados.icms ?? "",
-                    pis: dados.pis ?? "",
-                    cofins: dados.cofins ?? "",
-                    cest: dados.cest ?? "",
-
-                    cst_ibscbs: dados.cst_ibscbs ?? "",
-                    cclass_trib: dados.cclass_trib ?? "",
-                    aliquota_ibs_uf: dados.aliquota_ibs_uf ?? "",
-                    aliquota_ibs_mun: dados.aliquota_ibs_mun ?? "",
-                    aliquota_cbs: dados.aliquota_cbs ?? "",
-
-                    codigo_servico: dados.codigo_servico ?? "",
-                    aliquota_iss: dados.aliquota_iss ?? "",
-                    municipio: dados.municipio ?? ""
-                }));
+                if (!cancelado) {
+                    setForm(formularioFinal);
+                }
 
             } catch (erro) {
-
                 console.error(
-                    "[FormularioFiscal] Erro ao carregar cadastro fiscal:",
+                    "[FormularioFiscal] Erro ao carregar dados fiscais:",
                     erro
                 );
+
+                if (!cancelado) {
+                    setPadroesComercio(padroes);
+                    setPadroesCarregados(true);
+                    setForm({
+                        ...formularioVazio,
+                        ...padroes
+                    });
+                }
             }
         }
 
-        carregarDadosFiscais();
+        carregarDados();
+
+        return () => {
+            cancelado = true;
+        };
 
     }, [
         produto.id,
         produto.produto_id,
         token,
-        dadosIa
+        tipo
     ]);
     /* ===============================
        LISTAS PADRÃO (LEGAIS)
@@ -503,11 +505,15 @@ export default function FormularioFiscal({
 
                             <div className="formulario-fiscal-campo-premium">
 
-                                <label>
+                                <label
+
+                                    style={{ Color: "orange" }}
+                                >
                                     NCM
                                 </label>
 
                                 <input
+
                                     className={
                                         campoVazioIa("ncm")
                                             ? "formulario-fiscal-input-ia-vazio"
@@ -850,7 +856,10 @@ export default function FormularioFiscal({
 
                             <div className="formulario-fiscal-campo-premium">
 
-                                <label>
+                                <label
+
+                                    style={{ Color: "orange" }}
+                                >
                                     CEST
                                 </label>
 
@@ -978,7 +987,11 @@ export default function FormularioFiscal({
 
                             <div className="formulario-fiscal-campo-premium">
 
-                                <label>
+                                <label
+
+                                    style={{ Color: "orange" }}
+
+                                >
                                     cClassTrib
                                 </label>
 
