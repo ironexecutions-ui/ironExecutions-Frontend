@@ -16,8 +16,8 @@ import {
 import "./lente.css";
 
 
-const MAXIMO_ARQUIVOS = 100;
-const LIMITE_DIARIO_CAPTURAS = 100;
+const MAXIMO_ARQUIVOS = 1000;
+const LIMITE_DIARIO_CAPTURAS = 1000;
 const DURACAO_MAXIMA_VIDEO = 90;
 
 
