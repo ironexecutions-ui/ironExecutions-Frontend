@@ -344,8 +344,8 @@ export default function CuponsFiscais() {
                 </span>
 
                 {listaFiltrada.length === 1
-                    ? " documento encontrado"
-                    : " documentos encontrados"
+                    ? " Nota Fiscal emitida"
+                    : " Notas Fiscais emitidas"
                 }
 
             </div>
@@ -391,7 +391,9 @@ export default function CuponsFiscais() {
                             <th>
                                 Chave de acesso
                             </th>
-
+                            <th>
+                                Protocolo de autorização
+                            </th>
                             <th>
                                 Status
                             </th>
@@ -466,7 +468,9 @@ export default function CuponsFiscais() {
                                         </button>
 
                                     </td>
-
+                                    <td data-label="Protocolo de autorização">
+                                        {documento.protocolo_autorizacao || "-"}
+                                    </td>
                                     <td
                                         data-label="Status"
                                         className={`status-${documento.status}`}

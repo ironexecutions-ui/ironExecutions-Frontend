@@ -1182,7 +1182,7 @@ export default function EmitirNfce() {
         <div className="emitir-nfce">
 
             <h4>
-                Vendas pendentes de NFC-e
+                Vendas pendentes de NFC-e/NF-e
             </h4>
 
             <div className="filtros-nfce">
@@ -1392,7 +1392,7 @@ export default function EmitirNfce() {
                                                 ? "NFC-e emitida"
                                                 : estaEmitindo
                                                     ? "Emitindo..."
-                                                    : "Emitir NFC-e"
+                                                    : "Emitir"
                                             }
 
                                         </button>
@@ -1972,27 +1972,14 @@ export default function EmitirNfce() {
                                     type="button"
                                     className="nfce-alerta-btn-confirmar-premium"
                                     onClick={() => {
-
-                                        const produtos =
-                                            alertaNfce.produtos || [];
-
-                                        const vendaId =
-                                            alertaNfce.vendaId;
+                                        const vendaId = alertaNfce.vendaId;
 
                                         setAlertaNfce(null);
 
-                                        window.dispatchEvent(
-                                            new CustomEvent(
-                                                "abrir-fiscal-massa",
-                                                {
-                                                    detail: {
-                                                        produtos,
-                                                        vendaId
-                                                    }
-                                                }
-                                            )
+                                        window.open(
+                                            `/ironbusiness/perfil/fiscal#Registrar#${vendaId}`,
+                                            "_blank"
                                         );
-
                                     }}
                                 >
                                     Cadastrar dados fiscais

@@ -22,6 +22,185 @@ export default function RegistrarFiscal() {
     const [promptCopiado, setPromptCopiado] = useState(false);
 
     const token = localStorage.getItem("token");
+    // ============================================================
+    // CONFERÊNCIA FISCAL DA VENDA
+    // ============================================================
+
+    const [vendaId, setVendaId] = useState(null);
+    const [produtosVenda, setProdutosVenda] = useState([]);
+    const [carregandoProdutosVenda, setCarregandoProdutosVenda] = useState(false);
+    const [erroProdutosVenda, setErroProdutosVenda] = useState("");
+    const [copiadoProdutoVenda, setCopiadoProdutoVenda] = useState(null);
+    const [copiandoPendentes, setCopiandoPendentes] = useState(false);
+
+    // ============================================================
+    // IDENTIFICAR ID DA VENDA PELA URL
+    // Exemplo: #Registrar#7206
+    // ============================================================
+
+    useEffect(() => {
+        function lerVendaDaUrl() {
+            if (window.location.pathname !== "/ironbusiness/perfil/fiscal") {
+                setVendaId(null);
+                return;
+            }
+
+            const partes = window.location.hash.split("#");
+
+            const corresponde =
+                partes[1] === "Registrar" &&
+                partes.length === 3 &&
+                /^\d+$/.test(partes[2] || "");
+
+            setVendaId(corresponde ? Number(partes[2]) : null);
+        }
+
+        lerVendaDaUrl();
+
+        window.addEventListener("hashchange", lerVendaDaUrl);
+
+        return () => {
+            window.removeEventListener("hashchange", lerVendaDaUrl);
+        };
+    }, []);
+
+    // ============================================================
+    // CONSULTAR PRODUTOS DA VENDA
+    // ============================================================
+
+    useEffect(() => {
+        if (!vendaId || !funcao) {
+            setProdutosVenda([]);
+            setErroProdutosVenda("");
+            return;
+        }
+
+        const controller = new AbortController();
+
+        async function carregarProdutosDaVenda() {
+            setCarregandoProdutosVenda(true);
+            setErroProdutosVenda("");
+
+            try {
+                const resposta = await fetch(
+                    `${API_URL}/fiscal/venda/${vendaId}/produtos`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                        signal: controller.signal
+                    }
+                );
+
+                let dados = {};
+
+                try {
+                    dados = await resposta.json();
+                } catch {
+                    dados = {};
+                }
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        dados.detail ||
+                        "Não foi possível consultar os produtos desta venda."
+                    );
+                }
+
+                setProdutosVenda(
+                    Array.isArray(dados.produtos)
+                        ? dados.produtos
+                        : []
+                );
+
+            } catch (erro) {
+                if (erro.name === "AbortError") return;
+
+                console.error(
+                    "[RegistrarFiscal] Erro ao consultar produtos da venda:",
+                    erro
+                );
+
+                setProdutosVenda([]);
+
+                setErroProdutosVenda(
+                    erro.message || "Erro ao carregar os produtos da venda."
+                );
+
+            } finally {
+                if (!controller.signal.aborted) {
+                    setCarregandoProdutosVenda(false);
+                }
+            }
+        }
+
+        carregarProdutosDaVenda();
+
+        return () => controller.abort();
+
+    }, [vendaId, funcao, token]);
+
+    // ============================================================
+    // COPIAR NOME DE UM PRODUTO
+    // ============================================================
+
+    async function copiarNomeProdutoVenda(produto) {
+        try {
+            await navigator.clipboard.writeText(produto.nome);
+
+            setCopiadoProdutoVenda(produto.produto_id);
+
+            window.setTimeout(() => {
+                setCopiadoProdutoVenda(atual =>
+                    atual === produto.produto_id ? null : atual
+                );
+            }, 1800);
+
+        } catch (erro) {
+            console.error(
+                "[RegistrarFiscal] Não foi possível copiar o nome:",
+                erro
+            );
+
+            setErroProdutosVenda(
+                "O navegador não permitiu copiar o nome do produto."
+            );
+        }
+    }
+
+    // ============================================================
+    // COPIAR TODOS OS PRODUTOS PENDENTES
+    // ============================================================
+
+    async function copiarNomesPendentes() {
+        const pendentes = produtosVenda.filter(
+            produto => !produto.cadastrado
+        );
+
+        if (!pendentes.length) return;
+
+        try {
+            await navigator.clipboard.writeText(
+                pendentes.map(produto => produto.nome).join("\n")
+            );
+
+            setCopiandoPendentes(true);
+
+            window.setTimeout(() => {
+                setCopiandoPendentes(false);
+            }, 1800);
+
+        } catch (erro) {
+            console.error(
+                "[RegistrarFiscal] Não foi possível copiar os produtos pendentes:",
+                erro
+            );
+
+            setErroProdutosVenda(
+                "O navegador não permitiu copiar os nomes dos produtos."
+            );
+        }
+    }
     const [configFiscalIa, setConfigFiscalIa] = useState(() => {
 
         try {
@@ -200,8 +379,15 @@ export default function RegistrarFiscal() {
             String(produto.id) === texto
         );
 
-        if (porId) {
-            selecionarProduto(porId);
+        // Procura pelo nome exato do produto.
+        const porNome = filtrados.find(produto =>
+            String(produto.nome || "").trim().toLowerCase() ===
+            texto.toLowerCase()
+        );
+
+        if (porNome) {
+            selecionarProduto(porNome);
+            setBuscaProduto(porNome.nome);
             return;
         }
 
@@ -255,6 +441,50 @@ export default function RegistrarFiscal() {
             `Nenhum produto encontrado para "${texto}".`
         );
     }
+
+    // ============================================================
+    // COLAR NOME DO PRODUTO AO CLICAR NO INPUT
+    // ============================================================
+
+    async function colarNomeProdutoCopiado() {
+        try {
+            if (!navigator.clipboard?.readText) return;
+
+            const textoCopiado = (await navigator.clipboard.readText()).trim();
+
+            if (!textoCopiado) return;
+
+            // Impede colar números, códigos ou textos sem letras.
+            if (!/[a-zA-ZÀ-ÿ]/.test(textoCopiado)) return;
+
+            function normalizarNome(nome) {
+                return String(nome || "")
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim()
+                    .replace(/\s+/g, " ")
+                    .toLowerCase();
+            }
+
+            // Procura um produto pelo nome exato.
+            const produtoEncontrado = filtrados.find(produto =>
+                normalizarNome(produto.nome) ===
+                normalizarNome(textoCopiado)
+            );
+
+            // Só altera o campo se encontrar um produto.
+            if (!produtoEncontrado) return;
+
+            buscarProduto(produtoEncontrado.nome);
+
+        } catch (erro) {
+            console.warn(
+                "[RegistrarFiscal] Não foi possível ler a área de transferência:",
+                erro
+            );
+        }
+    }
+
     // ===============================
     // GERAR PROMPT PARA IA
     // ===============================
@@ -678,7 +908,50 @@ RESPONDA SOMENTE COM O JSON.
         }
 
     }
+    async function atualizarConferenciaVenda() {
+        if (!vendaId) return;
 
+        try {
+            setCarregandoProdutosVenda(true);
+            setErroProdutosVenda("");
+
+            const resposta = await fetch(
+                `${API_URL}/fiscal/venda/${vendaId}/produtos`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    cache: "no-store"
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.detail ||
+                    "Não foi possível atualizar a conferência."
+                );
+            }
+
+            setProdutosVenda(
+                Array.isArray(dados.produtos)
+                    ? dados.produtos
+                    : []
+            );
+
+        } catch (erro) {
+            console.error(
+                "[RegistrarFiscal] Erro ao atualizar conferência:",
+                erro
+            );
+
+            setErroProdutosVenda(erro.message);
+
+        } finally {
+            setCarregandoProdutosVenda(false);
+        }
+    }
     // ===============================
     // BLOQUEADO
     // ===============================
@@ -714,7 +987,105 @@ RESPONDA SOMENTE COM O JSON.
         <div className="registrar-fiscal">
 
             <h4>Registrar Dados Fiscais</h4>
+            {vendaId && (
+                <section className="registrar-fiscal-venda-checklist">
 
+                    <div className="registrar-fiscal-venda-cabecalho">
+                        <div>
+                            <span className="registrar-fiscal-venda-etiqueta">
+                                CONFERÊNCIA FISCAL
+                            </span>
+
+                            <h5>Produtos da venda #{vendaId}</h5>
+                        </div>
+                    </div>
+
+                    {carregandoProdutosVenda && (
+                        <div className="registrar-fiscal-venda-feedback">
+                            Consultando os produtos...
+                        </div>
+                    )}
+
+                    {erroProdutosVenda && (
+                        <div className="registrar-fiscal-venda-erro">
+                            {erroProdutosVenda}
+                        </div>
+                    )}
+
+                    {!carregandoProdutosVenda && !erroProdutosVenda && (
+                        <>
+                            {produtosVenda.length === 0 ? (
+
+                                <div className="registrar-fiscal-venda-vazio">
+                                    Nenhum produto válido foi encontrado nesta venda.
+                                </div>
+
+                            ) : (
+
+                                <div className="registrar-fiscal-venda-lista">
+
+                                    {produtosVenda.map(produto => (
+
+                                        <div
+                                            className={`registrar-fiscal-venda-item ${produto.cadastrado
+                                                ? "cadastrado"
+                                                : "pendente"
+                                                }`}
+                                            key={produto.produto_id}
+                                        >
+
+                                            <div className="registrar-fiscal-venda-item-info">
+
+                                                <span className="registrar-fiscal-venda-item-id">
+                                                    PRODUTO #{produto.produto_id}
+                                                </span>
+
+                                                <strong>{produto.nome}</strong>
+
+                                                {produto.ids_vendidos?.length > 1 && (
+                                                    <small>
+                                                        Variações na venda:{" "}
+                                                        {produto.ids_vendidos.join(", ")}
+                                                    </small>
+                                                )}
+
+                                            </div>
+
+                                            <div className="registrar-fiscal-venda-item-acoes">
+
+                                                <span className="registrar-fiscal-venda-status">
+                                                    {produto.cadastrado
+                                                        ? "Cadastro fiscal concluído"
+                                                        : "Cadastro fiscal pendente"
+                                                    }
+                                                </span>
+
+                                                <button
+                                                    type="button"
+                                                    className="registrar-fiscal-venda-copiar-item"
+                                                    onClick={() => copiarNomeProdutoVenda(produto)}
+                                                >
+                                                    {copiadoProdutoVenda === produto.produto_id
+                                                        ? "Copiado"
+                                                        : "Copiar nome"
+                                                    }
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    ))}
+
+                                </div>
+
+                            )}
+
+                        </>
+                    )}
+
+                </section>
+            )}
             <div className="registrar-fiscal-topo">
 
                 <select
@@ -754,19 +1125,17 @@ RESPONDA SOMENTE COM O JSON.
                         placeholder="Nome, ID ou código de barras"
                         autoComplete="off"
 
+                        onClick={colarNomeProdutoCopiado}
+
                         onChange={e => {
                             buscarProduto(e.target.value);
                         }}
 
                         onKeyDown={e => {
-
                             if (e.key === "Enter") {
-
                                 e.preventDefault();
-
                                 buscarProdutoEnter();
                             }
-
                         }}
                     />
 
@@ -1201,24 +1570,17 @@ RESPONDA SOMENTE COM O JSON.
                             produtoPorPeso={tipo === "peso"}
                             dadosIa={dadosIa}
                             onSalvo={() => {
-
-                                // Remove o produto atual
                                 setSelecionado(null);
-
-                                // Limpa a busca para receber outro código
                                 setBuscaProduto("");
 
-                                // Fecha a ajuda da IA
                                 setMostrarAjudaIa(false);
 
-                                // Limpa os dados temporários da IA
                                 setJsonIa("");
                                 setDadosIa(null);
                                 setMensagemIa("");
                                 setPromptCopiado(false);
 
-                                // Não limpamos configFiscalIa
-                                // porque são as respostas salvas do comércio
+                                atualizarConferenciaVenda();
                             }}
                         />
 

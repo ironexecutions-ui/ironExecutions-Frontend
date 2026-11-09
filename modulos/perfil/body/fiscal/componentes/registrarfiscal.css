@@ -1856,3 +1856,430 @@
     }
 
 }
+
+/* ============================================================
+   CONFERÊNCIA FISCAL DA VENDA
+============================================================ */
+
+.registrar-fiscal-venda-checklist {
+    width: 100%;
+    margin: 22px 0;
+    padding: 22px;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid #e4e7ec;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.035);
+}
+
+/* ============================================================
+   CABEÇALHO
+============================================================ */
+
+.registrar-fiscal-venda-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+    padding-bottom: 17px;
+
+    border-bottom: 1px solid #eaecf0;
+}
+
+.registrar-fiscal-venda-etiqueta {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 7px;
+
+    color: #667085;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.registrar-fiscal-venda-cabecalho h5 {
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 18px;
+    font-weight: 750;
+    letter-spacing: -0.4px;
+}
+
+/* ============================================================
+   LISTA DE PRODUTOS
+============================================================ */
+
+.registrar-fiscal-venda-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    width: 100%;
+}
+
+/* ============================================================
+   ITEM DO PRODUTO
+============================================================ */
+
+.registrar-fiscal-venda-item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 17px 18px;
+    box-sizing: border-box;
+
+    border: 1px solid #e4e7ec;
+    border-left: 5px solid transparent;
+    border-radius: 9px;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* ============================================================
+   PRODUTO CADASTRADO
+============================================================ */
+
+.registrar-fiscal-venda-item.cadastrado {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    border-left-color: #16a34a;
+}
+
+.registrar-fiscal-venda-item.cadastrado:hover {
+    background: #eafbf0;
+    border-color: #86efac;
+    border-left-color: #15803d;
+
+    box-shadow: 0 3px 10px rgba(22, 163, 74, 0.08);
+}
+
+/* ============================================================
+   PRODUTO PENDENTE
+============================================================ */
+
+.registrar-fiscal-venda-item.pendente {
+    background: #fff7ed;
+    border-color: #fed7aa;
+    border-left-color: #ea580c;
+}
+
+.registrar-fiscal-venda-item.pendente:hover {
+    background: #ffedd5;
+    border-color: #fdba74;
+    border-left-color: #c2410c;
+
+    box-shadow: 0 3px 10px rgba(234, 88, 12, 0.08);
+}
+
+/* ============================================================
+   INFORMAÇÕES DO PRODUTO
+============================================================ */
+
+.registrar-fiscal-venda-item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    flex: 1;
+    min-width: 0;
+}
+
+.registrar-fiscal-venda-item-id {
+    color: #667085;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+}
+
+.registrar-fiscal-venda-item-info strong {
+    color: #101828;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.45;
+
+    overflow-wrap: anywhere;
+}
+
+.registrar-fiscal-venda-item-info small {
+    margin-top: 2px;
+
+    color: #667085;
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ============================================================
+   STATUS FISCAL
+============================================================ */
+
+.registrar-fiscal-venda-item-acoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    flex-shrink: 0;
+}
+
+.registrar-fiscal-venda-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-width: 205px;
+    min-height: 38px;
+
+    padding: 0 13px;
+    box-sizing: border-box;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.45px;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+/* ============================================================
+   STATUS CADASTRADO
+============================================================ */
+
+.registrar-fiscal-venda-item.cadastrado .registrar-fiscal-venda-status {
+    color: #166534;
+
+    background: #dcfce7;
+    border: 1px solid #86efac;
+}
+
+.registrar-fiscal-venda-item.cadastrado .registrar-fiscal-venda-status::before {
+    content: "✓";
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+
+    color: #ffffff;
+    background: #16a34a;
+
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+/* ============================================================
+   STATUS PENDENTE
+============================================================ */
+
+.registrar-fiscal-venda-item.pendente .registrar-fiscal-venda-status {
+    color: #9a3412;
+
+    background: #ffedd5;
+    border: 1px solid #fdba74;
+}
+
+.registrar-fiscal-venda-item.pendente .registrar-fiscal-venda-status::before {
+    content: "!";
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+
+    color: #ffffff;
+    background: #ea580c;
+
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+/* ============================================================
+   CARREGAMENTO
+============================================================ */
+
+.registrar-fiscal-venda-feedback {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 17px;
+
+    color: #475467;
+    background: #f9fafb;
+
+    border: 1px solid #eaecf0;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ============================================================
+   ERRO
+============================================================ */
+
+.registrar-fiscal-venda-erro {
+    padding: 14px 16px;
+
+    color: #b42318;
+    background: #fef3f2;
+
+    border: 1px solid #fecdca;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ============================================================
+   LISTA VAZIA
+============================================================ */
+
+.registrar-fiscal-venda-vazio {
+    padding: 30px 16px;
+
+    color: #667085;
+    background: #f9fafb;
+
+    border: 1px dashed #d0d5dd;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ============================================================
+   RESPONSIVIDADE
+============================================================ */
+
+@media (max-width: 600px) {
+
+    .registrar-fiscal-venda-checklist {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .registrar-fiscal-venda-cabecalho {
+        margin-bottom: 16px;
+    }
+
+    .registrar-fiscal-venda-cabecalho h5 {
+        font-size: 16px;
+    }
+
+    .registrar-fiscal-venda-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 13px;
+
+        padding: 15px;
+    }
+
+    .registrar-fiscal-venda-item-acoes {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .registrar-fiscal-venda-status {
+        min-width: 0;
+        width: 100%;
+        min-height: 35px;
+
+        justify-content: flex-start;
+    }
+
+}
+
+/* AÇÕES DO PRODUTO */
+
+.registrar-fiscal-venda-item-acoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* BOTÃO COPIAR NOME */
+
+.registrar-fiscal-venda-copiar-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 38px;
+    padding: 0 14px;
+
+    background: #ffffff;
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+
+    color: #344054;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: all 0.2s ease;
+}
+
+.registrar-fiscal-venda-copiar-item:hover {
+    background: #f2f4f7;
+    border-color: #98a2b3;
+    color: #101828;
+}
+
+.registrar-fiscal-venda-copiar-item:active {
+    transform: scale(0.97);
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .registrar-fiscal-venda-item-acoes {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .registrar-fiscal-venda-copiar-item {
+        min-height: 35px;
+        padding: 0 11px;
+    }
+}
