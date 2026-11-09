@@ -16,8 +16,8 @@ import {
 import "./lente.css";
 
 
-const MAXIMO_ARQUIVOS = 50;
-const LIMITE_DIARIO_CAPTURAS = 50;
+const MAXIMO_ARQUIVOS = 100;
+const LIMITE_DIARIO_CAPTURAS = 100;
 const DURACAO_MAXIMA_VIDEO = 90;
 
 
@@ -1176,7 +1176,7 @@ export default function Lente({
         ) {
 
             setMensagem(
-                "Você atingiu o limite diário de 50 fotos e vídeos. Novas capturas serão liberadas amanhã."
+                "Você atingiu o limite diário de 100 fotos e vídeos. Novas capturas serão liberadas amanhã."
             );
 
             return false;
@@ -1216,7 +1216,7 @@ export default function Lente({
         ) {
 
             setMensagem(
-                "Você atingiu o limite de 50 arquivos nesta sessão. Finalize o envio antes de continuar."
+                "Você atingiu o limite de 100 arquivos nesta sessão. Finalize o envio antes de continuar."
             );
 
             return false;
