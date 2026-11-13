@@ -1,0 +1,2728 @@
+.contatos-iron-crm-contatos {
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding: 30px;
+
+    color: #183653 !important;
+
+    background: #ffffff !important;
+
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+
+    font-size: 14px;
+
+    box-sizing: border-box;
+
+}
+
+.contatos-iron-crm-contatos *,
+
+.contatos-iron-crm-contatos *::before,
+
+.contatos-iron-crm-contatos *::after {
+
+    box-sizing: border-box;
+
+}
+
+.contatos-iron-crm-contatos h1,
+
+.contatos-iron-crm-contatos h2,
+
+.contatos-iron-crm-contatos h3,
+
+.contatos-iron-crm-contatos p,
+
+.contatos-iron-crm-contatos span,
+
+.contatos-iron-crm-contatos strong,
+
+.contatos-iron-crm-contatos label,
+
+.contatos-iron-crm-contatos small {
+
+    color: #183653 !important;
+
+}
+
+.contatos-iron-crm-contatos button,
+
+.contatos-iron-crm-contatos input {
+
+    font-family: inherit;
+
+}
+
+.contatos-iron-crm-contatos button {
+
+    cursor: pointer;
+
+}
+
+.contatos-iron-crm-contatos button:disabled {
+
+    cursor: not-allowed;
+
+    opacity: 0.55;
+
+}
+
+.contatos-iron-crm-contatos button:focus-visible,
+
+.contatos-iron-crm-contatos input:focus-visible {
+
+    outline: 3px solid rgba(20, 91, 66, 0.2);
+
+    outline-offset: 3px;
+
+}
+
+.contatos-iron-crm-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding: 10px 0 28px;
+
+    border-bottom: 2px solid #0b3f2d;
+
+}
+
+.contatos-iron-crm-header-content {
+
+    min-width: 0;
+
+}
+
+.contatos-iron-crm-breadcrumb {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 16px;
+
+    font-size: 10px;
+
+    font-weight: 850;
+
+    letter-spacing: 1.5px;
+
+}
+
+.contatos-iron-crm-breadcrumb span {
+
+    color: #102b4e !important;
+
+}
+
+.contatos-iron-crm-breadcrumb-separator {
+
+    color: #145b42 !important;
+
+}
+
+.contatos-iron-crm-title-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+}
+
+.contatos-iron-crm-title-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 58px;
+
+    height: 58px;
+
+    flex-shrink: 0;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border: 2px solid #145b42;
+
+    border-radius: 13px;
+
+    box-shadow: 0 5px 15px rgba(16, 43, 78, 0.13);
+
+}
+
+.contatos-iron-crm-title-icon svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-title-area h1 {
+
+    margin: 0;
+
+    color: #091d35 !important;
+
+    font-size: clamp(23px, 3vw, 30px);
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+}
+
+.contatos-iron-crm-title-area p {
+
+    margin: 7px 0 0;
+
+    color: #38536e !important;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+.contatos-iron-crm-header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+.contatos-iron-crm-header-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 10px 13px;
+
+    background: #f3f5f7 !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 8px;
+
+}
+
+.contatos-iron-crm-header-status span:last-child {
+
+    color: #102b4e !important;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+}
+
+.contatos-iron-crm-status-indicator,
+
+.contatos-iron-crm-information-dot {
+
+    width: 8px;
+
+    height: 8px;
+
+    flex-shrink: 0;
+
+    background: #16814e !important;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 4px rgba(22, 129, 78, 0.12);
+
+}
+
+.contatos-iron-crm-refresh-button {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 43px;
+
+    height: 43px;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 9px;
+
+    transition: 0.2s ease;
+
+}
+
+.contatos-iron-crm-refresh-button svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-refresh-button:hover {
+
+    background: #0b3f2d !important;
+
+    transform: rotate(12deg);
+
+}
+
+.contatos-iron-crm-stats {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 17px;
+
+    margin: 26px 0;
+
+}
+
+.contatos-iron-crm-stat-card {
+
+    position: relative;
+
+    min-width: 0;
+
+    padding: 21px;
+
+    overflow: hidden;
+
+    background: #f3f5f7 !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 12px;
+
+    box-shadow: 0 3px 12px rgba(10, 40, 27, 0.045);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+}
+
+.contatos-iron-crm-stat-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 9px 22px rgba(10, 40, 27, 0.10);
+
+}
+
+.contatos-iron-crm-stat-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+}
+
+.contatos-iron-crm-stat-top>span {
+
+    color: #102b4e !important;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+.contatos-iron-crm-stat-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 39px;
+
+    height: 39px;
+
+    flex-shrink: 0;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 9px;
+
+}
+
+.contatos-iron-crm-stat-icon svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-stat-value {
+
+    margin-top: 17px;
+
+    color: #183653 !important;
+
+    font-size: 35px;
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: -1.5px;
+
+}
+
+.contatos-iron-crm-stat-description {
+
+    display: block;
+
+    margin-top: 9px;
+
+    color: #38536e !important;
+
+    font-size: 11px;
+
+    font-weight: 650;
+
+}
+
+.contatos-iron-crm-stat-progress {
+
+    width: 100%;
+
+    height: 5px;
+
+    margin-top: 19px;
+
+    overflow: hidden;
+
+    background: #dce3e8 !important;
+
+    border-radius: 20px;
+
+}
+
+.contatos-iron-crm-stat-progress span {
+
+    display: block;
+
+    height: 100%;
+
+    background: #145b42 !important;
+
+    border-radius: inherit;
+
+    transition: width 0.5s ease;
+
+}
+
+.iron-crm-stat-total .contatos-iron-crm-stat-progress span {
+
+    width: 100%;
+
+    background: #102b4e !important;
+
+}
+
+.iron-crm-stat-gold .contatos-iron-crm-stat-icon {
+
+    background: #a87919 !important;
+
+}
+
+.iron-crm-stat-gold .contatos-iron-crm-stat-progress span {
+
+    background: #a87919 !important;
+
+}
+
+.iron-crm-stat-silver .contatos-iron-crm-stat-icon {
+
+    background: #62758a !important;
+
+}
+
+.iron-crm-stat-silver .contatos-iron-crm-stat-progress span {
+
+    background: #62758a !important;
+
+}
+
+.iron-crm-stat-bronze .contatos-iron-crm-stat-icon {
+
+    background: #936044 !important;
+
+}
+
+.iron-crm-stat-bronze .contatos-iron-crm-stat-progress span {
+
+    background: #936044 !important;
+
+}
+
+.contatos-iron-crm-registration,
+
+.contatos-iron-crm-directory {
+
+    background: #ffffff !important;
+
+    border: 1px solid #0b3f2d;
+
+    border-radius: 13px;
+
+    box-shadow: 0 4px 17px rgba(10, 40, 27, 0.055);
+
+}
+
+.contatos-iron-crm-registration {
+
+    margin-bottom: 27px;
+
+    padding: 25px;
+
+}
+
+.contatos-iron-crm-section-header,
+
+.contatos-iron-crm-directory-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+.contatos-iron-crm-section-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+.contatos-iron-crm-section-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 46px;
+
+    height: 46px;
+
+    flex-shrink: 0;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 10px;
+
+}
+
+.contatos-iron-crm-section-icon svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-section-eyebrow {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #0b3f2d !important;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+
+}
+
+.contatos-iron-crm-section-heading h2,
+
+.contatos-iron-crm-directory-title h2 {
+
+    margin: 0;
+
+    color: #091d35 !important;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    letter-spacing: -0.5px;
+
+}
+
+.contatos-iron-crm-section-heading p,
+
+.contatos-iron-crm-directory-title p {
+
+    margin: 6px 0 0;
+
+    color: #38536e !important;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+.contatos-iron-crm-required-label {
+
+    color: #102b4e !important;
+
+    font-size: 11px;
+
+    font-weight: 750;
+
+}
+
+.contatos-iron-crm-form {
+
+    margin-top: 26px;
+
+}
+
+.contatos-iron-crm-form-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+
+}
+
+.contatos-iron-crm-field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    gap: 9px;
+
+}
+
+.contatos-iron-crm-field label,
+
+.contatos-iron-crm-level-heading label {
+
+    color: #091d35 !important;
+
+    font-size: 12px;
+
+    font-weight: 850;
+
+}
+
+.contatos-iron-crm-field label span,
+
+.contatos-iron-crm-level-heading label span {
+
+    margin-left: 4px;
+
+    color: #b32626 !important;
+
+}
+
+.contatos-iron-crm-input-wrapper {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-height: 49px;
+
+    padding: 0 14px;
+
+    background: #f3f5f7 !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 8px;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+.contatos-iron-crm-input-wrapper:focus-within {
+
+    background: #ffffff !important;
+
+    border-color: #102b4e;
+
+    box-shadow: 0 0 0 3px rgba(16, 43, 78, 0.10);
+
+}
+
+.contatos-iron-crm-input-wrapper>svg {
+
+    flex-shrink: 0;
+
+    color: #102b4e !important;
+
+}
+
+.contatos-iron-crm-input-wrapper input {
+
+    width: 100%;
+
+    min-width: 0;
+
+    height: 47px;
+
+    padding: 0;
+
+    color: #091d35 !important;
+
+    background: transparent !important;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+}
+
+.contatos-iron-crm-input-wrapper input::placeholder {
+
+    color: #617386 !important;
+
+    opacity: 1;
+
+    font-weight: 450;
+
+}
+
+.contatos-iron-crm-field small {
+
+    color: #38536e !important;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+}
+
+.contatos-iron-crm-level-section {
+
+    margin-top: 25px;
+
+}
+
+.contatos-iron-crm-level-heading {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 13px;
+
+}
+
+.contatos-iron-crm-level-heading>span {
+
+    color: #38536e !important;
+
+    font-size: 11px;
+
+}
+
+.contatos-iron-crm-level-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 13px;
+
+}
+
+.iron-crm-level-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+    padding: 15px;
+
+    text-align: left;
+
+    background: #f3f5f7 !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 10px;
+
+    transition: all 0.2s ease;
+
+}
+
+.iron-crm-level-card:hover {
+
+    background: #ffffff !important;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 13px rgba(10, 40, 27, 0.08);
+
+}
+
+.iron-crm-level-card.active {
+
+    background: #eaf3ee !important;
+
+    border: 2px solid #0b3f2d;
+
+    box-shadow: 0 0 0 3px rgba(20, 91, 66, 0.08);
+
+}
+
+.contatos-iron-crm-level-symbol {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 40px;
+
+    height: 40px;
+
+    flex-shrink: 0;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border-radius: 9px;
+
+}
+
+.contatos-iron-crm-level-symbol svg {
+
+    color: #ffffff !important;
+
+}
+
+.iron-crm-level-ouro .contatos-iron-crm-level-symbol {
+
+    background: #a87919 !important;
+
+}
+
+.iron-crm-level-prata .contatos-iron-crm-level-symbol {
+
+    background: #62758a !important;
+
+}
+
+.iron-crm-level-bronze .contatos-iron-crm-level-symbol {
+
+    background: #936044 !important;
+
+}
+
+.contatos-iron-crm-level-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    gap: 4px;
+
+}
+
+.contatos-iron-crm-level-text strong {
+
+    color: #091d35 !important;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+}
+
+.contatos-iron-crm-level-text small {
+
+    color: #38536e !important;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+
+}
+
+.contatos-iron-crm-level-selector {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 20px;
+
+    height: 20px;
+
+    flex-shrink: 0;
+
+    margin-left: auto;
+
+    color: #ffffff !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 50%;
+
+}
+
+.iron-crm-level-card.active .contatos-iron-crm-level-selector {
+
+    background: #0b3f2d !important;
+
+    border-color: #0b3f2d;
+
+}
+
+.contatos-iron-crm-level-selector svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-form-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #c8d8cf;
+
+}
+
+.contatos-iron-crm-form-information {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+
+}
+
+.contatos-iron-crm-form-information span:last-child {
+
+    color: #38536e !important;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+}
+
+.contatos-iron-crm-submit-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 45px;
+
+    padding: 0 20px;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 850;
+
+    transition: all 0.2s ease;
+
+}
+
+.contatos-iron-crm-submit-button svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-submit-button:hover:not(:disabled) {
+
+    background: #0b3f2d !important;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 13px rgba(11, 63, 45, 0.18);
+
+}
+
+.contatos-iron-crm-button-loader {
+
+    display: inline-block;
+
+    width: 16px;
+
+    height: 16px;
+
+    border: 2px solid rgba(255, 255, 255, 0.35);
+
+    border-top-color: #ffffff;
+
+    border-radius: 50%;
+
+    animation: contatos-iron-crm-spin 0.7s linear infinite;
+
+}
+
+.contatos-iron-crm-directory {
+
+    padding: 25px;
+
+}
+
+.contatos-iron-crm-directory-header {
+
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid #c8d8cf;
+
+}
+
+.contatos-iron-crm-directory-counter {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 13px;
+
+    background: #f3f5f7 !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 8px;
+
+}
+
+.contatos-iron-crm-directory-counter strong {
+
+    color: #102b4e !important;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+}
+
+.contatos-iron-crm-directory-counter span {
+
+    color: #183653 !important;
+
+    font-size: 11px;
+
+    font-weight: 750;
+
+}
+
+.contatos-iron-crm-toolbar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin: 20px 0;
+
+}
+
+.contatos-iron-crm-search {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: min(100%, 390px);
+
+    min-height: 43px;
+
+    padding: 0 12px;
+
+    background: #f3f5f7 !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 8px;
+
+    transition: box-shadow 0.2s ease;
+
+}
+
+.contatos-iron-crm-search:focus-within {
+
+    background: #ffffff !important;
+
+    border-color: #102b4e;
+
+    box-shadow: 0 0 0 3px rgba(16, 43, 78, 0.09);
+
+}
+
+.contatos-iron-crm-search>svg {
+
+    flex-shrink: 0;
+
+    color: #102b4e !important;
+
+}
+
+.contatos-iron-crm-search input {
+
+    width: 100%;
+
+    min-width: 0;
+
+    height: 41px;
+
+    padding: 0;
+
+    color: #091d35 !important;
+
+    background: transparent !important;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 12px;
+
+}
+
+.contatos-iron-crm-search input::placeholder {
+
+    color: #617386 !important;
+
+    opacity: 1;
+
+}
+
+.contatos-iron-crm-search button {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 27px;
+
+    height: 27px;
+
+    flex-shrink: 0;
+
+    color: #102b4e !important;
+
+    background: transparent !important;
+
+    border: none;
+
+    border-radius: 5px;
+
+}
+
+.contatos-iron-crm-search button:hover {
+
+    background: #e9edf1 !important;
+
+}
+
+.contatos-iron-crm-filters {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+}
+
+.contatos-iron-crm-filters>span {
+
+    margin-right: 4px;
+
+    color: #102b4e !important;
+
+    font-size: 11px;
+
+    font-weight: 850;
+
+}
+
+.iron-crm-filter-button {
+
+    min-height: 33px;
+
+    padding: 0 12px;
+
+    color: #102b4e !important;
+
+    background: #f3f5f7 !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    font-weight: 850;
+
+    transition: all 0.2s ease;
+
+}
+
+.iron-crm-filter-button:hover {
+
+    background: #eaf3ee !important;
+
+}
+
+.iron-crm-filter-button.active {
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border-color: #145b42;
+
+}
+
+.iron-crm-filter-button.active.ouro {
+
+    background: #a87919 !important;
+
+}
+
+.iron-crm-filter-button.active.prata {
+
+    background: #62758a !important;
+
+}
+
+.iron-crm-filter-button.active.bronze {
+
+    background: #936044 !important;
+
+}
+
+.contatos-iron-crm-contact-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 11px;
+
+}
+
+.iron-crm-contact-card {
+
+    display: grid;
+
+    grid-template-columns: 43px minmax(0, 1fr) 115px auto;
+
+    align-items: center;
+
+    gap: 17px;
+
+    min-width: 0;
+
+    padding: 17px;
+
+    background: #f3f5f7 !important;
+
+    border: 1px solid #145b42;
+
+    border-left: 4px solid #0b3f2d;
+
+    border-radius: 10px;
+
+    animation: contatos-iron-crm-appear 0.35s ease both;
+
+    animation-delay: calc(var(--iron-crm-card-index, 0) * 35ms);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+.iron-crm-contact-card:hover {
+
+    background: #ffffff !important;
+
+    transform: translateX(3px);
+
+    box-shadow: 0 5px 17px rgba(10, 40, 27, 0.075);
+
+}
+
+.iron-crm-contact-ouro {
+
+    border-left-color: #a87919;
+
+}
+
+.iron-crm-contact-prata {
+
+    border-left-color: #62758a;
+
+}
+
+.iron-crm-contact-bronze {
+
+    border-left-color: #936044;
+
+}
+
+.contatos-iron-crm-contact-position {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 39px;
+
+    height: 39px;
+
+    color: #102b4e !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+}
+
+.contatos-iron-crm-contact-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    min-width: 0;
+
+}
+
+.iron-crm-contact-level {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 62px;
+
+    padding: 6px 9px;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border-radius: 5px;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.4px;
+
+}
+
+.iron-crm-contact-level-ouro {
+
+    background: #a87919 !important;
+
+}
+
+.iron-crm-contact-level-prata {
+
+    background: #62758a !important;
+
+}
+
+.iron-crm-contact-level-bronze {
+
+    background: #936044 !important;
+
+}
+
+.contatos-iron-crm-contact-information {
+
+    min-width: 0;
+
+}
+
+.contatos-iron-crm-contact-information h3 {
+
+    overflow: hidden;
+
+    margin: 0;
+
+    color: #091d35 !important;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+.contatos-iron-crm-contact-phone {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 7px;
+
+}
+
+.contatos-iron-crm-contact-phone svg {
+
+    color: #0b3f2d !important;
+
+}
+
+.contatos-iron-crm-contact-phone span {
+
+    color: #38536e !important;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+.contatos-iron-crm-contact-classification {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding-left: 15px;
+
+    border-left: 1px solid #c8d8cf;
+
+}
+
+.contatos-iron-crm-contact-classification span {
+
+    color: #38536e !important;
+
+    font-size: 9px;
+
+    font-weight: 850;
+
+    letter-spacing: 0.7px;
+
+}
+
+.contatos-iron-crm-contact-classification strong {
+
+    color: #091d35 !important;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+}
+
+.contatos-iron-crm-contact-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+}
+
+.contatos-iron-crm-action-whatsapp {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 38px;
+
+    padding: 0 11px;
+
+    color: #ffffff !important;
+
+    background: #0b3f2d !important;
+
+    border: 1px solid #0b3f2d;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    font-weight: 850;
+
+    transition: all 0.2s ease;
+
+}
+
+/* =========================================================
+   IRON EXECUTIONS | PADRÃO GLOBAL DE INPUTS
+   Neutralização de efeitos visuais indesejados
+========================================================= */
+
+:where(input, textarea, select, button) {
+    -webkit-tap-highlight-color: transparent;
+}
+
+:where(input, textarea, select):focus,
+:where(input, textarea, select):focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove aparências nativas de campos de pesquisa */
+input[type="search"] {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Impede efeitos de foco herdados dos contêineres */
+:where(div, section, article, label):focus-within {
+    outline: none;
+}
+
+.contatos-iron-crm-action-whatsapp span {
+    color: white !important;
+}
+
+.contatos-iron-crm-action-whatsapp svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-action-whatsapp:hover {
+
+    background: #176b4b !important;
+
+    transform: translateY(-2px);
+
+}
+
+.iron-crm-action-copy,
+
+.contatos-iron-crm-action-delete {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 37px;
+
+    height: 37px;
+
+    flex-shrink: 0;
+
+    background: #ffffff !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 7px;
+
+    transition: all 0.2s ease;
+
+}
+
+.iron-crm-action-copy {
+
+    color: #102b4e !important;
+
+}
+
+.iron-crm-action-copy svg,
+
+.contatos-iron-crm-action-delete svg {
+
+    color: currentColor !important;
+
+}
+
+.iron-crm-action-copy:hover,
+
+.iron-crm-action-copy.copied {
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+}
+
+.iron-crm-action-copy:hover svg,
+
+.iron-crm-action-copy.copied svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-action-delete {
+
+    color: #9b2525 !important;
+
+    border-color: #a94b4b;
+
+}
+
+.contatos-iron-crm-action-delete:hover {
+
+    color: #ffffff !important;
+
+    background: #a92c2c !important;
+
+    border-color: #a92c2c;
+
+}
+
+.contatos-iron-crm-action-delete:hover svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-loading {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 240px;
+
+    padding: 30px;
+
+    text-align: center;
+
+}
+
+.contatos-iron-crm-loading-spinner {
+
+    width: 35px;
+
+    height: 35px;
+
+    margin-bottom: 17px;
+
+    border: 3px solid #e9edf1;
+
+    border-top-color: #0b3f2d;
+
+    border-radius: 50%;
+
+    animation: contatos-iron-crm-spin 0.75s linear infinite;
+
+}
+
+.contatos-iron-crm-loading strong {
+
+    color: #091d35 !important;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+}
+
+.contatos-iron-crm-loading p {
+
+    margin: 7px 0 0;
+
+    color: #38536e !important;
+
+    font-size: 12px;
+
+}
+
+.contatos-iron-crm-empty {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 260px;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+}
+
+.contatos-iron-crm-empty-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 65px;
+
+    height: 65px;
+
+    margin-bottom: 17px;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 16px;
+
+}
+
+.contatos-iron-crm-empty-icon svg {
+
+    color: #ffffff !important;
+
+}
+
+.contatos-iron-crm-empty h3 {
+
+    margin: 0;
+
+    color: #091d35 !important;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+}
+
+.contatos-iron-crm-empty p {
+
+    max-width: 420px;
+
+    margin: 9px 0 0;
+
+    color: #38536e !important;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+}
+
+.contatos-iron-crm-empty button {
+
+    min-height: 38px;
+
+    margin-top: 18px;
+
+    padding: 0 15px;
+
+    color: #ffffff !important;
+
+    background: #102b4e !important;
+
+    border: 1px solid #145b42;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    font-weight: 850;
+
+}
+
+.contatos-iron-crm-empty button:hover {
+
+    background: #0b3f2d !important;
+
+}
+
+.contatos-iron-crm-directory-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #c8d8cf;
+
+}
+
+.contatos-iron-crm-directory-footer>span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #38536e !important;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+.contatos-iron-crm-directory-footer>span:last-child {
+
+    color: #0b3f2d !important;
+
+    font-weight: 850;
+
+}
+
+.contatos-iron-crm-directory-footer svg {
+
+    color: #0b3f2d !important;
+
+}
+
+.iron-crm-toast {
+
+    position: fixed;
+
+    z-index: 9999;
+
+    top: 22px;
+
+    right: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    width: min(390px, calc(100vw - 30px));
+
+    padding: 15px;
+
+    background: #ffffff !important;
+
+    border: 1px solid #145b42;
+
+    border-left: 5px solid #145b42;
+
+    border-radius: 9px;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.13);
+
+    animation: contatos-iron-crm-toast-in 0.3s ease;
+
+}
+
+.iron-crm-toast>span:nth-child(2) {
+
+    flex: 1;
+
+    color: #091d35 !important;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    line-height: 1.5;
+
+}
+
+.contatos-iron-crm-toast-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 30px;
+
+    height: 30px;
+
+    flex-shrink: 0;
+
+    color: #ffffff !important;
+
+    background: #0b3f2d !important;
+
+    border-radius: 50%;
+
+}
+
+.contatos-iron-crm-toast-icon svg {
+
+    color: #ffffff !important;
+
+}
+
+.iron-crm-toast>button {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 27px;
+
+    height: 27px;
+
+    color: #102b4e !important;
+
+    background: transparent !important;
+
+    border: none;
+
+    border-radius: 5px;
+
+}
+
+.iron-crm-toast>button:hover {
+
+    background: #f3f5f7 !important;
+
+}
+
+.iron-crm-toast.erro {
+
+    border-left-color: #a52b2b;
+
+}
+
+.iron-crm-toast.erro .contatos-iron-crm-toast-icon {
+
+    background: #a52b2b !important;
+
+}
+
+.contatos-iron-crm-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 25px;
+
+    padding: 18px 0 5px;
+
+    border-top: 1px solid #0b3f2d;
+
+}
+
+.contatos-iron-crm-footer span:first-child {
+
+    color: #102b4e !important;
+
+    font-size: 11px;
+
+    font-weight: 950;
+
+    letter-spacing: 1.3px;
+
+}
+
+.contatos-iron-crm-footer span:last-child {
+
+    color: #38536e !important;
+
+    font-size: 11px;
+
+    font-weight: 650;
+
+}
+
+@keyframes contatos-iron-crm-spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+@keyframes contatos-iron-crm-appear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+@keyframes contatos-iron-crm-toast-in {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateX(15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateX(0);
+
+    }
+
+}
+
+@media (max-width: 1100px) {
+
+    .contatos-iron-crm-contatos {
+
+        padding: 23px;
+
+    }
+
+    .contatos-iron-crm-stats {
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    }
+
+    .iron-crm-contact-card {
+
+        grid-template-columns: 40px minmax(0, 1fr) auto;
+
+    }
+
+    .contatos-iron-crm-contact-classification {
+
+        display: none;
+
+    }
+
+}
+
+@media (max-width: 760px) {
+
+    .contatos-iron-crm-contatos {
+
+        padding: 16px;
+
+    }
+
+    .contatos-iron-crm-header {
+
+        align-items: flex-start;
+
+    }
+
+    .contatos-iron-crm-header-status {
+
+        display: none;
+
+    }
+
+    .contatos-iron-crm-title-icon {
+
+        width: 48px;
+
+        height: 48px;
+
+    }
+
+    .contatos-iron-crm-title-area {
+
+        gap: 11px;
+
+    }
+
+    .contatos-iron-crm-title-area h1 {
+
+        font-size: 22px;
+
+    }
+
+    .contatos-iron-crm-title-area p {
+
+        font-size: 11px;
+
+    }
+
+    .contatos-iron-crm-registration,
+
+    .contatos-iron-crm-directory {
+
+        padding: 18px;
+
+    }
+
+    .contatos-iron-crm-toolbar {
+
+        align-items: stretch;
+
+        flex-direction: column;
+
+    }
+
+    .contatos-iron-crm-search {
+
+        width: 100%;
+
+    }
+
+    .contatos-iron-crm-filters {
+
+        justify-content: flex-start;
+
+    }
+
+    .iron-crm-contact-card {
+
+        grid-template-columns: 40px minmax(0, 1fr);
+
+        gap: 12px;
+
+    }
+
+    .contatos-iron-crm-contact-position {
+
+        width: 35px;
+
+        height: 35px;
+
+    }
+
+    .contatos-iron-crm-contact-main {
+
+        flex-wrap: wrap;
+
+        gap: 9px;
+
+    }
+
+    .contatos-iron-crm-contact-actions {
+
+        grid-column: 2;
+
+        justify-content: flex-start;
+
+        padding-top: 3px;
+
+    }
+
+    .contatos-iron-crm-action-whatsapp {
+
+        min-width: 115px;
+
+    }
+
+    .contatos-iron-crm-section-header {
+
+        align-items: flex-start;
+
+    }
+
+}
+
+@media (max-width: 540px) {
+
+    .contatos-iron-crm-contatos {
+
+        padding: 12px;
+
+    }
+
+    .contatos-iron-crm-header {
+
+        gap: 10px;
+
+        padding-bottom: 20px;
+
+    }
+
+    .contatos-iron-crm-breadcrumb {
+
+        font-size: 9px;
+
+    }
+
+    .contatos-iron-crm-title-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+    }
+
+    .contatos-iron-crm-title-icon svg {
+
+        width: 20px;
+
+        height: 20px;
+
+    }
+
+    .contatos-iron-crm-title-area h1 {
+
+        font-size: 19px;
+
+    }
+
+    .contatos-iron-crm-title-area p {
+
+        font-size: 10px;
+
+    }
+
+    .contatos-iron-crm-refresh-button {
+
+        width: 37px;
+
+        height: 37px;
+
+    }
+
+    .contatos-iron-crm-stats {
+
+        gap: 9px;
+
+        margin: 17px 0;
+
+    }
+
+    .contatos-iron-crm-stat-card {
+
+        padding: 13px;
+
+        border-radius: 9px;
+
+    }
+
+    .contatos-iron-crm-stat-top>span {
+
+        font-size: 10px;
+
+    }
+
+    .contatos-iron-crm-stat-icon {
+
+        width: 31px;
+
+        height: 31px;
+
+    }
+
+    .contatos-iron-crm-stat-icon svg {
+
+        width: 17px;
+
+        height: 17px;
+
+    }
+
+    .contatos-iron-crm-stat-value {
+
+        margin-top: 13px;
+
+        font-size: 27px;
+
+    }
+
+    .contatos-iron-crm-stat-description {
+
+        min-height: 27px;
+
+        font-size: 9px;
+
+        line-height: 1.4;
+
+    }
+
+    .contatos-iron-crm-stat-progress {
+
+        margin-top: 12px;
+
+    }
+
+    .contatos-iron-crm-registration,
+
+    .contatos-iron-crm-directory {
+
+        padding: 15px;
+
+        border-radius: 10px;
+
+    }
+
+    .contatos-iron-crm-section-heading {
+
+        gap: 10px;
+
+    }
+
+    .contatos-iron-crm-section-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+    .contatos-iron-crm-section-heading h2,
+
+    .contatos-iron-crm-directory-title h2 {
+
+        font-size: 16px;
+
+    }
+
+    .contatos-iron-crm-section-heading p,
+
+    .contatos-iron-crm-directory-title p {
+
+        font-size: 10px;
+
+    }
+
+    .contatos-iron-crm-required-label {
+
+        display: none;
+
+    }
+
+    .contatos-iron-crm-form-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+
+    }
+
+    .contatos-iron-crm-level-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+
+    }
+
+    .iron-crm-level-card {
+
+        padding: 11px;
+
+    }
+
+    .contatos-iron-crm-level-heading {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+    .contatos-iron-crm-form-footer {
+
+        align-items: stretch;
+
+        flex-direction: column;
+
+    }
+
+    .contatos-iron-crm-form-information {
+
+        align-items: flex-start;
+
+    }
+
+    .contatos-iron-crm-submit-button {
+
+        width: 100%;
+
+    }
+
+    .contatos-iron-crm-directory-header {
+
+        align-items: flex-start;
+
+    }
+
+    .contatos-iron-crm-directory-counter {
+
+        padding: 7px 9px;
+
+    }
+
+    .contatos-iron-crm-directory-counter strong {
+
+        font-size: 15px;
+
+    }
+
+    .contatos-iron-crm-directory-counter span {
+
+        font-size: 9px;
+
+    }
+
+    .iron-crm-filter-button {
+
+        min-height: 31px;
+
+        padding: 0 9px;
+
+        font-size: 9px;
+
+    }
+
+    .iron-crm-contact-card {
+
+        gap: 9px;
+
+        padding: 12px;
+
+    }
+
+    .contatos-iron-crm-contact-information h3 {
+
+        font-size: 12px;
+
+    }
+
+    .contatos-iron-crm-contact-phone span {
+
+        font-size: 10px;
+
+    }
+
+    .contatos-iron-crm-contact-actions {
+
+        gap: 6px;
+
+    }
+
+    .contatos-iron-crm-action-whatsapp {
+
+        min-height: 35px;
+
+        padding: 0 9px;
+
+        font-size: 9px;
+
+    }
+
+    .iron-crm-action-copy,
+
+    .contatos-iron-crm-action-delete {
+
+        width: 34px;
+
+        height: 34px;
+
+    }
+
+    .contatos-iron-crm-directory-footer {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+    .contatos-iron-crm-footer {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 7px;
+
+    }
+
+    .iron-crm-toast {
+
+        top: 12px;
+
+        right: 12px;
+
+    }
+
+}
+
+@media (max-width: 360px) {
+
+    .contatos-iron-crm-contatos {
+
+        padding: 9px;
+
+    }
+
+    .contatos-iron-crm-title-area h1 {
+
+        font-size: 17px;
+
+    }
+
+    .contatos-iron-crm-stat-card {
+
+        padding: 10px;
+
+    }
+
+    .contatos-iron-crm-stat-top>span {
+
+        font-size: 9px;
+
+    }
+
+    .contatos-iron-crm-stat-value {
+
+        font-size: 24px;
+
+    }
+
+    .iron-crm-contact-level {
+
+        min-width: 53px;
+
+        padding: 5px 6px;
+
+        font-size: 8px;
+
+    }
+
+    .contatos-iron-crm-action-whatsapp {
+
+        min-width: 0;
+
+    }
+
+    .contatos-iron-crm-action-whatsapp span {
+
+        display: none;
+
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .contatos-iron-crm-contatos *,
+
+    .contatos-iron-crm-contatos *::before,
+
+    .contatos-iron-crm-contatos *::after {
+
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+    }
+
+}
+
+@media print {
+
+    .contatos-iron-crm-contatos {
+
+        padding: 0;
+
+        background: #ffffff !important;
+
+    }
+
+    .contatos-iron-crm-header-actions,
+
+    .contatos-iron-crm-registration,
+
+    .contatos-iron-crm-toolbar,
+
+    .contatos-iron-crm-contact-actions,
+
+    .iron-crm-toast,
+
+    .contatos-iron-crm-footer {
+
+        display: none !important;
+
+    }
+
+    .contatos-iron-crm-stat-card,
+
+    .contatos-iron-crm-directory,
+
+    .iron-crm-contact-card {
+
+        box-shadow: none;
+
+        break-inside: avoid;
+
+    }
+
+}

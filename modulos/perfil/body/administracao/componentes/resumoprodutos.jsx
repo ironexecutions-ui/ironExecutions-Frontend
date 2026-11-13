@@ -3,6 +3,7 @@ import FormularioProduto from "./formularioproduto";
 import { API_URL } from "../../../../../config";
 import "./resumoprodutos.css";
 import Etiquetas from "./etiquetas";
+import Categorias from "./categorias";
 
 export default function ResumoProdutos() {
 
@@ -810,7 +811,14 @@ export default function ResumoProdutos() {
                 >
                     Etiquetas
                 </button>
-
+                <button
+                    type="button"
+                    className={`resumo-produtos-botao-etiquetas ${visualizacao === "categorias" ? "ativo" : ""
+                        }`}
+                    onClick={() => setVisualizacao("categorias")}
+                >
+                    Categorias
+                </button>
             </div>
 
 
@@ -819,9 +827,9 @@ export default function ResumoProdutos() {
         =============================== */}
 
             {visualizacao === "etiquetas" ? (
-
                 <Etiquetas />
-
+            ) : visualizacao === "categorias" ? (
+                <Categorias />
             ) : (
 
                 <>

@@ -1,1025 +1,1019 @@
-/* =========================================================
+/* ============================================================
    IRON EXECUTIONS
-   ADMINISTRAÇÃO FINANCEIRA
-   DESIGN PREMIUM, ALINHADO AO FECHAMENTO DE CAIXA
-========================================================= */
+   MÓDULO ADMINISTRATIVO
+   DESIGN SYSTEM CORPORATIVO
+============================================================ */
 
-.administrativa-despesas-container {
-    --ad-fundo: #f5f7fb;
-    --ad-card: #ffffff;
-    --ad-card-secundario: #f8fafc;
+.adm-fases-container {
+    --adm-navy: #102b46;
+    --adm-navy-deep: #091d32;
+    --adm-navy-soft: #eaf0f6;
 
-    --ad-texto: #111827;
-    --ad-texto-secundario: #374151;
-    --ad-texto-terciario: #6b7280;
-    --ad-texto-suave: #94a3b8;
+    --adm-green: #174c35;
+    --adm-green-dark: #103c29;
+    --adm-green-soft: #edf5ef;
+    --adm-green-border: #315d43;
 
-    --ad-borda: #e5e7eb;
-    --ad-borda-forte: #d7dce3;
+    --adm-black: #161b18;
+    --adm-text: #343d37;
+    --adm-muted: #7b8780;
 
-    --ad-primaria: #111827;
-    --ad-primaria-hover: #000000;
+    --adm-white: #ffffff;
+    --adm-surface: #f8faf9;
+    --adm-border: #dce5df;
+    --adm-border-strong: #c7d5cb;
 
-    --ad-verde: #059669;
-    --ad-verde-fundo: #ecfdf5;
-    --ad-verde-borda: #a7f3d0;
+    --adm-danger: #a52c2c;
+    --adm-danger-soft: #fff2f1;
 
-    --ad-vermelho: #dc2626;
-    --ad-vermelho-fundo: #fef2f2;
-    --ad-vermelho-borda: #fecaca;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 26px !important;
 
-    width: 100%;
-    max-width: 1500px;
-    min-height: 600px;
-    margin: 0 auto;
-    padding: 28px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
 
-    box-sizing: border-box;
-    border-radius: 24px;
+    color: var(--adm-black) !important;
+    background: var(--adm-white) !important;
 
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
+    font-family: Inter, "Segoe UI", Arial, sans-serif !important;
 
-    color: var(--ad-texto) !important;
-
-    background:
-        radial-gradient(circle at 0% 0%,
-            rgba(37, 99, 235, 0.045),
-            transparent 27%),
-        radial-gradient(circle at 100% 0%,
-            rgba(5, 150, 105, 0.035),
-            transparent 25%),
-        var(--ad-fundo);
-
-    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box !important;
 }
 
-.administrativa-despesas-container *,
-.administrativa-despesas-container *::before,
-.administrativa-despesas-container *::after {
-    box-sizing: border-box;
+.adm-fases-container *,
+.adm-fases-container *::before,
+.adm-fases-container *::after {
+    box-sizing: border-box !important;
 }
 
-.administrativa-despesas-container button,
-.administrativa-despesas-container input,
-.administrativa-despesas-container textarea {
-    font-family: inherit;
-}
-
-.administrativa-despesas-container button {
-    -webkit-tap-highlight-color: transparent;
-}
-
-
-/* =========================================================
+/* ============================================================
    CABEÇALHO PRINCIPAL
-========================================================= */
+============================================================ */
 
-.administrativa-despesas-cabecalho {
-    position: relative;
+.adm-fases-header {
+    position: relative !important;
+    overflow: hidden !important;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
 
-    gap: 24px;
+    width: 100% !important;
+    min-height: 135px !important;
 
-    padding: 30px 32px;
-    margin-bottom: 18px;
+    padding: 27px 30px !important;
 
-    background: linear-gradient(135deg,
-            #ffffff 0%,
-            #fafbfc 100%);
+    background: var(--adm-white) !important;
 
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    border-radius: 20px;
+    border: 1px solid var(--adm-border) !important;
+    border-left: 5px solid var(--adm-green) !important;
+    border-radius: 12px !important;
 
-    box-shadow:
-        0 1px 2px rgba(15, 23, 42, 0.03),
-        0 8px 30px rgba(15, 23, 42, 0.045);
+    box-shadow: 0 4px 18px rgba(9, 29, 50, 0.045) !important;
 
-    overflow: hidden;
+    transition: all 0.3s ease !important;
 }
 
-.administrativa-despesas-cabecalho::before {
-    content: "";
-
-    position: absolute;
-    top: 24px;
-    bottom: 24px;
-    left: 0;
-
-    width: 4px;
-
-    background: var(--ad-primaria);
-    border-radius: 0 8px 8px 0;
+.adm-fases-header:hover {
+    border-color: var(--adm-green-border) !important;
+    border-left-width: 8px !important;
+    box-shadow: 0 12px 28px rgba(9, 29, 50, 0.09) !important;
+    transform: translateY(-3px) !important;
 }
 
-.administrativa-despesas-cabecalho>div {
-    min-width: 0;
+.adm-fases-header>div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
 }
 
-.administrativa-despesas-etiqueta {
-    display: inline-flex;
-    align-items: center;
+.adm-fases-subtitulo {
+    display: inline-block !important;
 
-    margin-bottom: 12px;
-
-    color: var(--ad-texto-suave) !important;
+    color: var(--adm-green) !important;
 
     font-size: 10px !important;
     font-weight: 850 !important;
-    letter-spacing: 1.5px;
-    line-height: 1.4;
+
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
 }
 
-.administrativa-despesas-cabecalho h1 {
+.adm-fases-header h1 {
     margin: 0 !important;
 
-    color: var(--ad-texto) !important;
+    color: var(--adm-navy) !important;
 
-    font-size: 28px !important;
-    font-weight: 800 !important;
-    line-height: 1.15 !important;
+    font-size: 29px !important;
+    font-weight: 900 !important;
+
+    line-height: 1.2 !important;
     letter-spacing: -0.8px !important;
 }
 
-.administrativa-despesas-cabecalho p {
-    max-width: 620px;
-
-    margin: 9px 0 0 !important;
-
-    color: var(--ad-texto-terciario) !important;
-
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    line-height: 1.65 !important;
-}
-
-
-/* =========================================================
-   BOTÃO ATUALIZAR
-========================================================= */
-
-.administrativa-despesas-atualizar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    flex: 0 0 auto;
-
-    min-height: 44px;
-    padding: 0 19px;
-
-    border: 1px solid #dce1e8;
-    border-radius: 12px;
-
-    background: #ffffff;
-
-    color: #374151 !important;
-
-    font-size: 12px !important;
-    font-weight: 750 !important;
-
-    white-space: nowrap;
-    cursor: pointer;
-
-    box-shadow:
-        0 1px 2px rgba(15, 23, 42, 0.03),
-        0 4px 12px rgba(15, 23, 42, 0.025);
-
-    transition:
-        transform 0.18s ease,
-        border-color 0.18s ease,
-        background 0.18s ease,
-        color 0.18s ease,
-        box-shadow 0.18s ease;
-}
-
-.administrativa-despesas-atualizar:hover:not(:disabled) {
-    transform: translateY(-1px);
-
-    background: #f8fafc;
-    border-color: #bfc7d1;
-
-    color: #111827 !important;
-
-    box-shadow:
-        0 5px 14px rgba(15, 23, 42, 0.07);
-}
-
-.administrativa-despesas-atualizar:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-.administrativa-despesas-atualizar:disabled {
-    opacity: 0.65;
-    cursor: wait;
-}
-
-
-/* =========================================================
-   FILTRO MENSAL
-========================================================= */
-
-.administrativa-despesas-filtro-mensal {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 20px;
-
-    padding: 20px 22px;
-    margin-bottom: 16px;
-
-    background: var(--ad-card);
-
-    border: 1px solid var(--ad-borda);
-    border-radius: 18px;
-
-    box-shadow:
-        0 1px 2px rgba(15, 23, 42, 0.02),
-        0 5px 20px rgba(15, 23, 42, 0.025);
-}
-
-.administrativa-despesas-filtro-mensal>div {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-
-    min-width: 0;
-}
-
-.administrativa-despesas-filtro-mensal label {
-    color: #94a3b8 !important;
-
-    font-size: 10px !important;
-    font-weight: 800 !important;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.administrativa-despesas-filtro-mensal strong {
-    color: #111827 !important;
-
-    font-size: 16px !important;
-    font-weight: 800 !important;
-    line-height: 1.3;
-    letter-spacing: -0.3px;
-}
-
-.administrativa-despesas-seletor-mes {
-    width: 190px;
-    max-width: 100%;
-    min-width: 0;
-    height: 43px;
-
-    padding: 0 12px;
-
-    outline: none;
-
-    border: 1px solid #dfe4ea;
-    border-radius: 10px;
-
-    background: #f8fafc;
-
-    color: #1e293b !important;
-
-    font-size: 13px !important;
-    font-weight: 650 !important;
-
-    cursor: pointer;
-
-    transition:
-        border-color 0.18s ease,
-        background 0.18s ease,
-        box-shadow 0.18s ease;
-}
-
-.administrativa-despesas-seletor-mes:hover {
-    border-color: #cbd5e1;
-    background: #ffffff;
-}
-
-.administrativa-despesas-seletor-mes:focus {
-    border-color: #94a3b8;
-    background: #ffffff;
-
-    box-shadow:
-        0 0 0 3px rgba(148, 163, 184, 0.13);
-}
-
-
-/* =========================================================
-   ALERTAS
-========================================================= */
-
-.administrativa-despesas-alerta {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-
-    padding: 15px 18px;
-    margin-bottom: 14px;
-
-    border: 1px solid transparent;
-    border-radius: 13px;
-
-    font-size: 12px !important;
-    font-weight: 650 !important;
-    line-height: 1.6;
-
-    animation: administrativaDespesasEntrada 0.22s ease both;
-}
-
-.administrativa-despesas-alerta-erro {
-    background: var(--ad-vermelho-fundo);
-    border-color: var(--ad-vermelho-borda);
-
-    color: #b91c1c !important;
-}
-
-.administrativa-despesas-alerta-sucesso {
-    background: var(--ad-verde-fundo);
-    border-color: var(--ad-verde-borda);
-
-    color: #047857 !important;
-}
-
-
-/* =========================================================
-   INDICADORES FINANCEIROS
-========================================================= */
-
-.administrativa-despesas-resumo {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-
-    gap: 14px;
-    margin-bottom: 18px;
-}
-
-.administrativa-despesas-card {
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    gap: 11px;
-
-    min-width: 0;
-    min-height: 135px;
-
-    padding: 23px 24px;
-
-    background: var(--ad-card);
-
-    border: 1px solid var(--ad-borda);
-    border-radius: 17px;
-
-    box-shadow:
-        0 1px 2px rgba(15, 23, 42, 0.02),
-        0 6px 20px rgba(15, 23, 42, 0.03);
-
-    overflow: hidden;
-
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.administrativa-despesas-card::before {
-    content: "";
-
-    position: absolute;
-    top: 0;
-    left: 22px;
-    right: 22px;
-
-    height: 2px;
-
-    background: #111827;
-
-    opacity: 0;
-
-    transition: opacity 0.2s ease;
-}
-
-.administrativa-despesas-card:hover {
-    transform: translateY(-2px);
-
-    border-color: #d5dae2;
-
-    box-shadow:
-        0 10px 28px rgba(15, 23, 42, 0.07);
-}
-
-.administrativa-despesas-card:hover::before {
-    opacity: 1;
-}
-
-.administrativa-despesas-card>span {
-    color: #64748b !important;
-
-    font-size: 11px !important;
-    font-weight: 750 !important;
-    line-height: 1.4;
-
-    letter-spacing: 0.15px;
-}
-
-.administrativa-despesas-card>strong {
-    display: block;
-
-    width: 100%;
-    margin-top: auto;
-
-    color: #111827 !important;
-
-    font-size: clamp(22px, 2vw, 30px) !important;
-    font-weight: 850 !important;
-    line-height: 1.15 !important;
-
-    letter-spacing: -0.9px !important;
-    font-variant-numeric: tabular-nums;
-
-    overflow-wrap: anywhere;
-}
-
-.administrativa-despesas-card>small {
-    display: block;
-
-    color: #94a3b8 !important;
-
-    font-size: 10px !important;
-    font-weight: 600 !important;
-    line-height: 1.5;
-}
-
-
-/* =========================================================
-   CARD DE SALDO POSITIVO
-========================================================= */
-
-.administrativa-despesas-card-saldo {
-    background:
-        linear-gradient(145deg, #ffffff 0%, #f8fdfb 100%);
-
-    border-color: #dcefe6;
-}
-
-.administrativa-despesas-card-saldo>strong {
-    color: #059669 !important;
-}
-
-.administrativa-despesas-card-saldo::before {
-    background: #059669;
-}
-
-
-/* =========================================================
-   CARD DE SALDO NEGATIVO
-========================================================= */
-
-.administrativa-despesas-card-negativo {
-    background:
-        linear-gradient(145deg, #ffffff 0%, #fffafa 100%);
-
-    border-color: #f1dddd;
-}
-
-.administrativa-despesas-card-negativo>strong {
-    color: #dc2626 !important;
-}
-
-.administrativa-despesas-card-negativo::before {
-    background: #dc2626;
-}
-
-
-/* =========================================================
-   LAYOUT PRINCIPAL
-========================================================= */
-
-.administrativa-despesas-layout {
-    display: grid;
-
-    grid-template-columns:
-        minmax(320px, 0.82fr) minmax(0, 1.35fr);
-
-    align-items: start;
-
-    gap: 18px;
-}
-
-
-/* =========================================================
-   PAINÉIS
-========================================================= */
-
-.administrativa-despesas-painel {
-    min-width: 0;
-    padding: 25px;
-
-    background: var(--ad-card);
-
-    border: 1px solid var(--ad-borda);
-    border-radius: 19px;
-
-    box-shadow:
-        0 1px 2px rgba(15, 23, 42, 0.02),
-        0 7px 22px rgba(15, 23, 42, 0.03);
-}
-
-.administrativa-despesas-titulo {
-    padding-bottom: 19px;
-    margin-bottom: 20px;
-
-    border-bottom: 1px solid #edf0f3;
-}
-
-.administrativa-despesas-titulo h2 {
+.adm-fases-header p {
     margin: 0 !important;
 
-    color: #111827 !important;
+    color: var(--adm-muted) !important;
 
-    font-size: 19px !important;
-    font-weight: 800 !important;
-    line-height: 1.3 !important;
-
-    letter-spacing: -0.45px !important;
-}
-
-.administrativa-despesas-titulo p {
-    margin: 7px 0 0 !important;
-
-    color: #6b7280 !important;
-
-    font-size: 12px !important;
-    font-weight: 500 !important;
+    font-size: 13px !important;
     line-height: 1.6 !important;
 }
 
+/* ============================================================
+   NAVEGAÇÃO DAS ABAS
+============================================================ */
 
-/* =========================================================
-   FORMULÁRIO
-========================================================= */
+.adm-fases-navegacao {
+    position: relative !important;
 
-.administrativa-despesas-formulario {
-    display: flex;
-    flex-direction: column;
+    display: flex !important;
+    align-items: stretch !important;
 
-    gap: 9px;
-    min-width: 0;
+    width: 100% !important;
+    gap: 10px !important;
+
+    padding: 7px !important;
+
+    background: var(--adm-surface) !important;
+
+    border: 1px solid var(--adm-border) !important;
+    border-radius: 11px !important;
+
+    box-shadow: 0 3px 12px rgba(9, 29, 50, 0.035) !important;
 }
 
-.administrativa-despesas-formulario>label {
-    display: block;
+.adm-fases-nav-btn {
+    position: relative !important;
+    overflow: hidden !important;
 
-    margin-top: 9px;
-    padding-left: 2px;
+    flex: 1 1 0 !important;
 
-    color: #475569 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-    font-size: 11px !important;
-    font-weight: 750 !important;
-    line-height: 1.4;
-}
+    gap: 11px !important;
 
-.administrativa-despesas-formulario>label:first-child {
-    margin-top: 0;
-}
+    min-width: 0 !important;
+    min-height: 49px !important;
 
-.administrativa-despesas-formulario input,
-.administrativa-despesas-formulario textarea {
-    display: block;
+    padding: 11px 18px !important;
 
-    width: 100%;
-    min-width: 0;
+    color: var(--adm-navy) !important;
+    background: transparent !important;
 
-    border: 1px solid #dfe4ea;
-    border-radius: 11px;
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
 
-    outline: none;
-
-    background: #f8fafc;
-
-    color: #1e293b !important;
-
-    font-size: 13px !important;
-    font-weight: 550 !important;
-
-    transition:
-        border-color 0.18s ease,
-        background 0.18s ease,
-        box-shadow 0.18s ease;
-}
-
-.administrativa-despesas-formulario input {
-    height: 45px;
-    padding: 0 13px;
-}
-
-.administrativa-despesas-formulario textarea {
-    min-height: 112px;
-
-    padding: 12px 13px;
-
-    line-height: 1.65 !important;
-
-    resize: vertical;
-}
-
-.administrativa-despesas-formulario input::placeholder,
-.administrativa-despesas-formulario textarea::placeholder {
-    color: #a0a9b6 !important;
-
-    font-size: 12px !important;
-    font-weight: 450 !important;
-}
-
-.administrativa-despesas-formulario input:hover,
-.administrativa-despesas-formulario textarea:hover {
-    border-color: #cbd5e1;
-    background: #ffffff;
-}
-
-.administrativa-despesas-formulario input:focus,
-.administrativa-despesas-formulario textarea:focus {
-    border-color: #94a3b8;
-    background: #ffffff;
-
-    box-shadow:
-        0 0 0 3px rgba(148, 163, 184, 0.13);
-}
-
-
-/* =========================================================
-   CAMPOS LADO A LADO
-========================================================= */
-
-.administrativa-despesas-campos {
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr) minmax(0, 1fr);
-
-    gap: 12px;
-
-    margin: 7px 0;
-}
-
-.administrativa-despesas-campos>div {
-    display: flex;
-    flex-direction: column;
-
-    gap: 8px;
-    min-width: 0;
-}
-
-.administrativa-despesas-campos label {
-    padding-left: 2px;
-
-    color: #475569 !important;
-
-    font-size: 11px !important;
-    font-weight: 750 !important;
-}
-
-.administrativa-despesas-campos input {
-    width: 100%;
-    min-width: 0;
-}
-
-
-/* =========================================================
-   BOTÃO CADASTRAR
-========================================================= */
-
-.administrativa-despesas-salvar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    min-height: 48px;
-
-    padding: 12px 18px;
-    margin-top: 12px;
-
-    border: 1px solid #111827;
-    border-radius: 11px;
-
-    background: #111827;
-
-    color: #ffffff !important;
-
+    font-family: inherit !important;
     font-size: 12px !important;
     font-weight: 800 !important;
 
-    letter-spacing: 0.1px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 5px 14px rgba(17, 24, 39, 0.12);
+    cursor: pointer !important;
 
     transition:
-        transform 0.18s ease,
-        background 0.18s ease,
-        border-color 0.18s ease,
-        box-shadow 0.18s ease;
+        color 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease !important;
 }
 
-.administrativa-despesas-salvar:hover:not(:disabled) {
-    transform: translateY(-1px);
+.adm-fases-nav-btn span {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-    background: #000000;
-    border-color: #000000;
+    width: 25px !important;
+    height: 25px !important;
 
-    box-shadow:
-        0 8px 19px rgba(17, 24, 39, 0.18);
-}
+    flex-shrink: 0 !important;
 
-.administrativa-despesas-salvar:active:not(:disabled) {
-    transform: translateY(0);
-}
+    color: var(--adm-green) !important;
+    background: var(--adm-green-soft) !important;
 
-.administrativa-despesas-salvar:disabled {
-    opacity: 0.65;
-    cursor: wait;
-    box-shadow: none;
-}
-
-
-/* =========================================================
-   HISTÓRICO
-========================================================= */
-
-.administrativa-despesas-historico {
-    min-height: 360px;
-}
-
-.administrativa-despesas-historico .administrativa-despesas-titulo {
-    margin-bottom: 15px;
-}
-
-.administrativa-despesas-lista {
-    display: flex;
-    flex-direction: column;
-
-    gap: 0;
-    min-width: 0;
-}
-
-
-/* =========================================================
-   ITEM DA DESPESA
-========================================================= */
-
-.administrativa-despesas-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 18px;
-
-    min-width: 0;
-    padding: 17px 13px;
-
-    border-bottom: 1px solid #eef0f3;
-    border-radius: 10px;
-    margin: 3px;
-    background: transparent;
-
-    transition:
-        background 0.18s ease,
-        box-shadow 0.18s ease;
-}
-
-.administrativa-despesas-item:last-child {
-    border-bottom-color: transparent;
-}
-
-.administrativa-despesas-item:hover {
-    background: #f8fafc;
-
-    box-shadow:
-        inset 3px 0 0 #111827;
-}
-
-.administrativa-despesas-item-principal {
-    display: flex;
-    flex-direction: column;
-
-    gap: 6px;
-
-    min-width: 0;
-    flex: 1;
-}
-
-.administrativa-despesas-item-principal>strong {
-    color: #334155 !important;
-
-    font-size: 13px !important;
-    font-weight: 800 !important;
-    line-height: 1.5;
-
-    overflow-wrap: anywhere;
-}
-
-.administrativa-despesas-item-principal>span {
-    color: #94a3b8 !important;
+    border: 1px solid var(--adm-green-border) !important;
+    border-radius: 6px !important;
 
     font-size: 10px !important;
+    font-weight: 900 !important;
+
+    transition: all 0.25s ease !important;
+}
+
+.adm-fases-nav-btn:hover:not(.ativo) {
+    color: #ffffff !important;
+    background: var(--adm-green) !important;
+    border-color: var(--adm-green) !important;
+
+    box-shadow: 0 6px 15px rgba(23, 76, 53, 0.16) !important;
+
+    transform: translateY(-2px) !important;
+}
+
+.adm-fases-nav-btn:hover:not(.ativo) span {
+    color: var(--adm-green) !important;
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.adm-fases-nav-btn.ativo {
+    color: #ffffff !important;
+    background: var(--adm-navy) !important;
+
+    border-color: var(--adm-navy) !important;
+
+    box-shadow: 0 5px 14px rgba(9, 29, 50, 0.16) !important;
+}
+
+.adm-fases-nav-btn.ativo span {
+    color: var(--adm-green) !important;
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.adm-fases-nav-btn:active {
+    transform: scale(0.98) !important;
+}
+
+/* ============================================================
+   PAINEL DE CADASTRO
+============================================================ */
+
+.adm-fases-painel {
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 26px !important;
+
+    background: var(--adm-white) !important;
+
+    border: 1px solid var(--adm-border) !important;
+    border-top: 4px solid var(--adm-green) !important;
+    border-radius: 12px !important;
+
+    box-shadow: 0 5px 22px rgba(9, 29, 50, 0.045) !important;
+
+    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+
+    animation: admFasesEntrada 0.4s ease both !important;
+}
+
+.adm-fases-painel:hover {
+    border-color: var(--adm-border-strong) !important;
+    border-top-color: var(--adm-green) !important;
+    box-shadow: 0 10px 28px rgba(9, 29, 50, 0.075) !important;
+}
+
+/* ============================================================
+   CABEÇALHO DO PAINEL
+============================================================ */
+
+.adm-fases-painel-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    padding-bottom: 23px !important;
+    margin-bottom: 24px !important;
+
+    border-bottom: 1px solid var(--adm-border) !important;
+}
+
+.adm-fases-painel-header>div:first-child {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 7px !important;
+}
+
+.adm-fases-painel-header h2 {
+    margin: 0 !important;
+
+    color: var(--adm-navy) !important;
+
+    font-size: 20px !important;
+    font-weight: 900 !important;
+
+    letter-spacing: -0.4px !important;
+}
+
+.adm-fases-painel-header p {
+    margin: 0 !important;
+
+    color: var(--adm-muted) !important;
+
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+}
+
+/* ============================================================
+   CONTADOR DE FASES
+============================================================ */
+
+.adm-fases-contador {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 4px !important;
+
+    min-width: 112px !important;
+    min-height: 75px !important;
+
+    padding: 12px 16px !important;
+
+    color: var(--adm-green) !important;
+    background: var(--adm-green-soft) !important;
+
+    border: 1px solid var(--adm-green-border) !important;
+    border-radius: 9px !important;
+
+    transition: all 0.3s ease !important;
+}
+
+.adm-fases-contador:hover {
+    color: #ffffff !important;
+    background: var(--adm-green) !important;
+    border-color: var(--adm-green) !important;
+
+    box-shadow: 0 7px 17px rgba(23, 76, 53, 0.2) !important;
+    transform: translateY(-3px) !important;
+}
+
+.adm-fases-contador strong {
+    color: inherit !important;
+
+    font-size: 25px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+}
+
+.adm-fases-contador span {
+    color: inherit !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    text-align: center !important;
+}
+
+/* ============================================================
+   FORMULÁRIO
+============================================================ */
+
+.adm-fases-formulario {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+    gap: 23px !important;
+
+    padding: 22px !important;
+
+    background: var(--adm-surface) !important;
+
+    border: 1px solid var(--adm-border) !important;
+    border-radius: 10px !important;
+
+    transition: all 0.3s ease !important;
+}
+
+.adm-fases-formulario:hover {
+    border-color: var(--adm-border-strong) !important;
+    box-shadow: 0 6px 17px rgba(9, 29, 50, 0.045) !important;
+}
+
+.adm-fases-campo {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+
+    gap: 9px !important;
+}
+
+.adm-fases-campo label {
+    color: var(--adm-navy) !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+}
+
+.adm-fases-campo input {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 47px !important;
+
+    padding: 12px 15px !important;
+
+    color: var(--adm-black) !important;
+    background: #ffffff !important;
+
+    border: 1px solid var(--adm-border-strong) !important;
+    border-radius: 8px !important;
+
+    outline: none !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+
+    transition: all 0.25s ease !important;
+}
+
+.adm-fases-campo input::placeholder {
+    color: #a0aaa3 !important;
+    opacity: 1 !important;
+}
+
+.adm-fases-campo input:hover {
+    color: var(--adm-navy) !important;
+    background: var(--adm-green-soft) !important;
+    border-color: var(--adm-green) !important;
+
+    box-shadow: 0 3px 10px rgba(23, 76, 53, 0.07) !important;
+}
+
+.adm-fases-campo input:focus {
+    color: var(--adm-navy) !important;
+    background: #ffffff !important;
+    border-color: var(--adm-green) !important;
+
+    box-shadow: 0 0 0 4px rgba(23, 76, 53, 0.12) !important;
+}
+
+/* ============================================================
+   SELEÇÃO DE NÍVEIS
+============================================================ */
+
+.adm-fases-niveis {
+    display: grid !important;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    width: 100% !important;
+}
+
+.adm-fases-nivel-btn {
+    position: relative !important;
+    overflow: hidden !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    gap: 10px !important;
+
+    min-width: 0 !important;
+    min-height: 55px !important;
+
+    padding: 12px 14px !important;
+
+    color: var(--adm-navy) !important;
+    background: #ffffff !important;
+
+    border: 1px solid var(--adm-border-strong) !important;
+    border-radius: 8px !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    transition: all 0.28s ease !important;
+}
+
+.adm-fases-nivel-btn:hover:not(:disabled):not(.selecionado) {
+    color: #ffffff !important;
+    background: var(--adm-green) !important;
+    border-color: var(--adm-green) !important;
+
+    box-shadow: 0 7px 17px rgba(23, 76, 53, 0.17) !important;
+
+    transform: translateY(-3px) !important;
+}
+
+.adm-fases-nivel-cor {
+    display: block !important;
+
+    width: 13px !important;
+    height: 13px !important;
+
+    flex-shrink: 0 !important;
+
+    border: 2px solid rgba(0, 0, 0, 0.12) !important;
+    border-radius: 50% !important;
+
+    box-shadow: 0 0 0 3px rgba(16, 43, 70, 0.055) !important;
+
+    transition: all 0.25s ease !important;
+}
+
+.adm-fases-nivel-btn:hover:not(:disabled) .adm-fases-nivel-cor {
+    border-color: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16) !important;
+    transform: scale(1.15) !important;
+}
+
+.adm-fases-nivel-btn.selecionado {
+    color: #ffffff !important;
+    background: var(--adm-navy) !important;
+    border-color: var(--adm-navy) !important;
+
+    box-shadow: 0 6px 16px rgba(9, 29, 50, 0.18) !important;
+}
+
+.adm-fases-nivel-btn.selecionado .adm-fases-nivel-cor {
+    border-color: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.17) !important;
+}
+
+.adm-fases-nivel-btn small {
+    margin-left: auto !important;
+
+    color: inherit !important;
+    opacity: 0.8 !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+}
+
+.adm-fases-nivel-btn.ocupado,
+.adm-fases-nivel-btn:disabled {
+    color: #9ca69f !important;
+    background: #edf0ee !important;
+
+    border-color: #e0e5e1 !important;
+
+    opacity: 0.65 !important;
+    cursor: not-allowed !important;
+
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.adm-fases-nivel-btn.ocupado .adm-fases-nivel-cor {
+    filter: grayscale(0.75) !important;
+    opacity: 0.6 !important;
+}
+
+/* ============================================================
+   BOTÃO ADICIONAR FASE
+============================================================ */
+
+.adm-fases-btn-adicionar {
+    position: relative !important;
+    overflow: hidden !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100% !important;
+    min-height: 49px !important;
+
+    padding: 13px 20px !important;
+
+    color: #ffffff !important;
+    background: var(--adm-navy) !important;
+
+    border: 1px solid var(--adm-navy) !important;
+    border-radius: 8px !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    transition: all 0.28s ease !important;
+}
+
+.adm-fases-btn-adicionar:hover:not(:disabled) {
+    color: #ffffff !important;
+    background: var(--adm-green) !important;
+    border-color: var(--adm-green) !important;
+
+    box-shadow: 0 8px 19px rgba(23, 76, 53, 0.2) !important;
+
+    transform: translateY(-3px) !important;
+}
+
+.adm-fases-btn-adicionar:active:not(:disabled) {
+    transform: scale(0.98) !important;
+}
+
+.adm-fases-btn-adicionar:disabled {
+    color: #ffffff !important;
+    background: #9ba8a0 !important;
+    border-color: #9ba8a0 !important;
+
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* ============================================================
+   CABEÇALHO DA LISTAGEM
+============================================================ */
+
+.adm-fases-lista-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    margin-top: 30px !important;
+    margin-bottom: 15px !important;
+
+    padding-bottom: 14px !important;
+
+    border-bottom: 1px solid var(--adm-border) !important;
+}
+
+.adm-fases-lista-header h3 {
+    margin: 0 !important;
+
+    color: var(--adm-navy) !important;
+
+    font-size: 16px !important;
+    font-weight: 900 !important;
+}
+
+.adm-fases-lista-header span {
+    padding: 6px 11px !important;
+
+    color: var(--adm-green) !important;
+    background: var(--adm-green-soft) !important;
+
+    border: 1px solid var(--adm-green-border) !important;
+    border-radius: 6px !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+}
+
+/* ============================================================
+   LISTAGEM DE FASES
+============================================================ */
+
+.adm-fases-lista {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+    gap: 11px !important;
+}
+
+.adm-fases-item {
+    position: relative !important;
+    overflow: hidden !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 16px !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 80px !important;
+
+    padding: 14px 17px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid var(--adm-border) !important;
+    border-left: 4px solid var(--adm-green) !important;
+    border-radius: 9px !important;
+
+    box-shadow: 0 3px 11px rgba(9, 29, 50, 0.035) !important;
+
+    transition: all 0.28s ease !important;
+
+    animation: admFasesEntrada 0.4s ease both !important;
+}
+
+.adm-fases-item:hover {
+    background: var(--adm-navy) !important;
+    border-color: var(--adm-navy) !important;
+    border-left-color: var(--adm-green) !important;
+
+    box-shadow: 0 9px 22px rgba(9, 29, 50, 0.16) !important;
+
+    transform: translateX(4px) translateY(-2px) !important;
+}
+
+/* ============================================================
+   NUMERAÇÃO DA FASE
+============================================================ */
+
+.adm-fases-item-numero {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 43px !important;
+    height: 43px !important;
+
+    flex-shrink: 0 !important;
+
+    color: var(--adm-green) !important;
+    background: var(--adm-green-soft) !important;
+
+    border: 1px solid var(--adm-green-border) !important;
+    border-radius: 8px !important;
+
+    font-size: 12px !important;
+    font-weight: 900 !important;
+
+    transition: all 0.28s ease !important;
+}
+
+.adm-fases-item:hover .adm-fases-item-numero {
+    color: var(--adm-navy) !important;
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+
+    transform: rotate(-5deg) scale(1.07) !important;
+}
+
+/* ============================================================
+   INFORMAÇÕES DA FASE
+============================================================ */
+
+.adm-fases-item-info {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    min-width: 0 !important;
+    gap: 8px !important;
+}
+
+.adm-fases-item-info>strong {
+    color: var(--adm-navy) !important;
+
+    font-size: 14px !important;
+    font-weight: 850 !important;
+
+    overflow-wrap: anywhere !important;
+
+    transition: color 0.25s ease !important;
+}
+
+.adm-fases-item:hover .adm-fases-item-info>strong {
+    color: #ffffff !important;
+}
+
+/* ============================================================
+   BADGE DO NÍVEL
+============================================================ */
+
+.adm-fases-badge-nivel {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    padding: 5px 10px !important;
+
+    color: var(--adm-navy) !important;
+    background: var(--adm-surface) !important;
+
+    border: 1px solid var(--adm-border) !important;
+    border-radius: 20px !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    transition: all 0.25s ease !important;
+}
+
+.adm-fases-badge-nivel i {
+    display: block !important;
+
+    width: 9px !important;
+    height: 9px !important;
+
+    flex-shrink: 0 !important;
+
+    background: var(--cor-nivel, #999999) !important;
+
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 50% !important;
+}
+
+.adm-fases-item:hover .adm-fases-badge-nivel {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+
+    border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ============================================================
+   BOTÃO EXCLUIR
+============================================================ */
+
+.adm-fases-btn-excluir {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+
+    min-width: 86px !important;
+    min-height: 37px !important;
+
+    padding: 8px 13px !important;
+
+    color: var(--adm-danger) !important;
+    background: var(--adm-danger-soft) !important;
+
+    border: 1px solid #edcccc !important;
+    border-radius: 7px !important;
+
+    font-family: inherit !important;
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    transition: all 0.25s ease !important;
+}
+
+.adm-fases-btn-excluir:hover:not(:disabled) {
+    color: #ffffff !important;
+    background: var(--adm-danger) !important;
+
+    border-color: var(--adm-danger) !important;
+
+    box-shadow: 0 5px 13px rgba(165, 44, 44, 0.22) !important;
+
+    transform: translateY(-2px) !important;
+}
+
+.adm-fases-item:hover .adm-fases-btn-excluir {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+
+    border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.adm-fases-item:hover .adm-fases-btn-excluir:hover:not(:disabled) {
+    color: #ffffff !important;
+    background: var(--adm-danger) !important;
+    border-color: var(--adm-danger) !important;
+}
+
+.adm-fases-btn-excluir:disabled {
+    opacity: 0.55 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+/* ============================================================
+   ESTADO VAZIO E CARREGAMENTO
+============================================================ */
+
+.adm-fases-vazio {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100% !important;
+    min-height: 175px !important;
+
+    gap: 10px !important;
+
+    padding: 28px !important;
+
+    color: var(--adm-muted) !important;
+    background: var(--adm-surface) !important;
+
+    border: 1px dashed var(--adm-border-strong) !important;
+    border-radius: 10px !important;
+
+    text-align: center !important;
+
+    transition: all 0.3s ease !important;
+}
+
+.adm-fases-vazio:hover {
+    background: var(--adm-green-soft) !important;
+    border-color: var(--adm-green) !important;
+}
+
+.adm-fases-vazio-icone {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 43px !important;
+    height: 43px !important;
+
+    color: #ffffff !important;
+    background: var(--adm-green) !important;
+
+    border-radius: 50% !important;
+
+    font-size: 25px !important;
+    font-weight: 400 !important;
+
+    box-shadow: 0 5px 13px rgba(23, 76, 53, 0.17) !important;
+
+    transition: all 0.3s ease !important;
+}
+
+.adm-fases-vazio:hover .adm-fases-vazio-icone {
+    color: var(--adm-green) !important;
+    background: #ffffff !important;
+
+    transform: rotate(90deg) scale(1.08) !important;
+}
+
+.adm-fases-vazio strong {
+    color: var(--adm-navy) !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+}
+
+.adm-fases-vazio p {
+    margin: 0 !important;
+
+    color: var(--adm-muted) !important;
+
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+}
+
+/* ============================================================
+   ALERTAS
+============================================================ */
+
+.adm-fases-alerta {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 11px !important;
+
+    width: 100% !important;
+    padding: 14px 17px !important;
+
+    border-radius: 8px !important;
+
+    font-size: 12px !important;
     font-weight: 700 !important;
 
-    font-variant-numeric: tabular-nums;
+    animation: admFasesEntrada 0.3s ease both !important;
 }
 
-.administrativa-despesas-item-principal>p {
-    margin: 3px 0 0 !important;
+.adm-fases-alerta.erro {
+    color: var(--adm-danger) !important;
+    background: var(--adm-danger-soft) !important;
 
-    color: #64748b !important;
-
-    font-size: 11px !important;
-    font-weight: 500 !important;
-    line-height: 1.65 !important;
-
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
+    border: 1px solid #edcccc !important;
+    border-left: 4px solid var(--adm-danger) !important;
 }
 
+.adm-fases-alerta.sucesso {
+    color: var(--adm-green) !important;
+    background: var(--adm-green-soft) !important;
 
-/* =========================================================
-   VALOR E AÇÕES
-========================================================= */
-
-.administrativa-despesas-item-acoes {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    flex: 0 0 auto;
-    gap: 10px;
-
-    min-width: 105px;
+    border: 1px solid #cbdccf !important;
+    border-left: 4px solid var(--adm-green) !important;
 }
 
-.administrativa-despesas-item-acoes>strong {
-    color: #111827 !important;
-
-    font-size: 15px !important;
-    font-weight: 850 !important;
-    line-height: 1.3;
-
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   BOTÃO EXCLUIR
-========================================================= */
-
-.administrativa-despesas-excluir {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-height: 31px;
-    padding: 0 11px;
-
-    border: 1px solid #fee2e2;
-    border-radius: 8px;
-
-    background: #fffafa;
-
-    color: #b91c1c !important;
-
-    font-size: 10px !important;
-    font-weight: 750 !important;
-
-    cursor: pointer;
-
-    transition:
-        background 0.18s ease,
-        border-color 0.18s ease,
-        color 0.18s ease,
-        transform 0.18s ease;
-}
-
-.administrativa-despesas-excluir:hover:not(:disabled) {
-    transform: translateY(-1px);
-
-    background: #dc2626;
-    border-color: #dc2626;
-
-    color: #ffffff !important;
-}
-
-.administrativa-despesas-excluir:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-.administrativa-despesas-excluir:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
-
-
-/* =========================================================
-   ESTADO VAZIO E CARREGAMENTO
-========================================================= */
-
-.administrativa-despesas-vazio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    min-height: 190px;
-    padding: 28px 20px;
-
-    border: 1px dashed #cbd5e1;
-    border-radius: 14px;
-
-    background: #fbfcfd;
-
-    color: #94a3b8 !important;
-
-    font-size: 12px !important;
-    font-weight: 550 !important;
-    line-height: 1.6;
-
-    text-align: center;
-}
-
-.administrativa-despesas-vazio strong {
-    color: #334155 !important;
-
-    font-size: 13px !important;
-    font-weight: 800 !important;
-}
-
-.administrativa-despesas-vazio span {
-    color: #94a3b8 !important;
-
-    font-size: 11px !important;
-    font-weight: 500 !important;
-}
-
-.administrativa-despesas-historico .administrativa-despesas-vazio:not(:has(strong)) {
-    position: relative;
-    overflow: hidden;
-}
-
-.administrativa-despesas-historico .administrativa-despesas-vazio:not(:has(strong))::after {
-    content: "";
-
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
-    width: 35%;
-    height: 3px;
-
-    border-radius: 999px;
-    background: #111827;
-
-    animation: administrativaDespesasLoading 1.3s ease-in-out infinite;
-}
-
-
-/* =========================================================
+/* ============================================================
    ANIMAÇÕES
-========================================================= */
+============================================================ */
 
-@keyframes administrativaDespesasLoading {
-    0% {
-        left: -35%;
-    }
-
-    100% {
-        left: 100%;
-    }
-}
-
-@keyframes administrativaDespesasEntrada {
+@keyframes admFasesEntrada {
     from {
         opacity: 0;
-        transform: translateY(-5px);
+        transform: translateY(12px);
     }
 
     to {
@@ -1028,1712 +1022,157 @@
     }
 }
 
+/* ============================================================
+   FOCO DE ACESSIBILIDADE
+============================================================ */
 
-/* =========================================================
-   FOCO E ACESSIBILIDADE
-========================================================= */
-
-.administrativa-despesas-container button:focus-visible,
-.administrativa-despesas-container input:focus-visible,
-.administrativa-despesas-container textarea:focus-visible {
-    outline: 2px solid #64748b;
-    outline-offset: 3px;
+.adm-fases-container button:focus-visible,
+.adm-fases-container input:focus-visible {
+    outline: 3px solid rgba(23, 76, 53, 0.3) !important;
+    outline-offset: 3px !important;
 }
 
-.administrativa-despesas-container button:disabled {
-    cursor: not-allowed;
-}
+/* ============================================================
+   RESPONSIVIDADE
+============================================================ */
 
-
-/* =========================================================
-   TABLET E NOTEBOOK
-========================================================= */
-
-@media (max-width: 1100px) {
-    .administrativa-despesas-container {
-        padding: 20px;
+@media (max-width: 850px) {
+    .adm-fases-container {
+        padding: 18px !important;
+        gap: 19px !important;
     }
 
-    .administrativa-despesas-layout {
-        grid-template-columns:
-            minmax(280px, 0.9fr) minmax(0, 1.1fr);
-
-        gap: 14px;
+    .adm-fases-painel {
+        padding: 20px !important;
     }
 
-    .administrativa-despesas-painel {
-        padding: 21px;
-    }
-
-    .administrativa-despesas-card {
-        padding: 20px;
-    }
-
-    .administrativa-despesas-card>strong {
-        font-size: clamp(20px, 2.2vw, 27px) !important;
+    .adm-fases-niveis {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 }
-
-
-/* =========================================================
-   TABLET PEQUENO
-========================================================= */
-
-@media (max-width: 800px) {
-    .administrativa-despesas-container {
-        padding: 15px;
-        border-radius: 18px;
-    }
-
-    .administrativa-despesas-cabecalho {
-        align-items: flex-start;
-        flex-direction: column;
-
-        padding: 24px;
-        gap: 18px;
-    }
-
-    .administrativa-despesas-atualizar {
-        width: 100%;
-    }
-
-    .administrativa-despesas-resumo {
-        gap: 10px;
-    }
-
-    .administrativa-despesas-card {
-        min-height: 120px;
-        padding: 17px;
-    }
-
-    .administrativa-despesas-card>strong {
-        font-size: clamp(18px, 3vw, 25px) !important;
-    }
-
-    .administrativa-despesas-layout {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .administrativa-despesas-painel {
-        padding: 22px;
-    }
-
-    .administrativa-despesas-historico {
-        min-height: 0;
-    }
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media (max-width: 600px) {
-    .administrativa-despesas-container {
-        padding: 10px;
-        border-radius: 14px;
-
-        background: #f6f7f9;
+    .adm-fases-container {
+        padding: 12px !important;
+        gap: 15px !important;
     }
 
-    /* CABEÇALHO */
-
-    .administrativa-despesas-cabecalho {
-        padding: 21px 18px;
-        margin-bottom: 10px;
-
-        gap: 17px;
-        border-radius: 15px;
+    .adm-fases-header {
+        min-height: auto !important;
+        padding: 21px !important;
     }
 
-    .administrativa-despesas-cabecalho::before {
-        top: 19px;
-        bottom: 19px;
-    }
-
-    .administrativa-despesas-etiqueta {
-        margin-bottom: 9px;
-        font-size: 9px !important;
-    }
-
-    .administrativa-despesas-cabecalho h1 {
-        font-size: 23px !important;
-    }
-
-    .administrativa-despesas-cabecalho p {
-        font-size: 12px !important;
-    }
-
-    .administrativa-despesas-atualizar {
-        min-height: 43px;
-    }
-
-    /* MÊS */
-
-    .administrativa-despesas-filtro-mensal {
-        align-items: flex-start;
-        flex-direction: column;
-
-        gap: 13px;
-
-        padding: 16px;
-        margin-bottom: 10px;
-
-        border-radius: 15px;
-    }
-
-    .administrativa-despesas-filtro-mensal strong {
-        font-size: 15px !important;
-    }
-
-    .administrativa-despesas-seletor-mes {
-        width: 100%;
-        height: 43px;
-    }
-
-    /* INDICADORES */
-
-    .administrativa-despesas-resumo {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-
-        gap: 8px;
-        margin-bottom: 10px;
-    }
-
-    .administrativa-despesas-card {
-        min-height: 105px;
-
-        gap: 8px;
-
-        padding: 15px;
-
-        border-radius: 14px;
-    }
-
-    .administrativa-despesas-card:last-child {
-        grid-column: 1 / -1;
-    }
-
-    .administrativa-despesas-card>span {
-        font-size: 10px !important;
-    }
-
-    .administrativa-despesas-card>strong {
-        font-size: clamp(18px, 5vw, 25px) !important;
-        letter-spacing: -0.65px !important;
-    }
-
-    .administrativa-despesas-card>small {
-        font-size: 9px !important;
-    }
-
-    /* PAINÉIS */
-
-    .administrativa-despesas-layout {
-        gap: 10px;
-    }
-
-    .administrativa-despesas-painel {
-        padding: 17px;
-
-        border-radius: 15px;
-    }
-
-    .administrativa-despesas-titulo {
-        padding-bottom: 15px;
-        margin-bottom: 16px;
-    }
-
-    .administrativa-despesas-titulo h2 {
-        font-size: 17px !important;
-    }
-
-    .administrativa-despesas-titulo p {
-        font-size: 11px !important;
-    }
-
-    /* FORMULÁRIO */
-
-    .administrativa-despesas-formulario input {
-        height: 44px;
-        font-size: 13px !important;
-    }
-
-    .administrativa-despesas-formulario textarea {
-        min-height: 100px;
-    }
-
-    .administrativa-despesas-campos {
-        gap: 9px;
-    }
-
-    .administrativa-despesas-campos label,
-    .administrativa-despesas-formulario>label {
-        font-size: 10px !important;
-    }
-
-    .administrativa-despesas-salvar {
-        min-height: 46px;
-    }
-
-    /* HISTÓRICO */
-
-    .administrativa-despesas-item {
-        align-items: flex-start;
-
-        gap: 12px;
-
-        padding: 15px 9px;
-    }
-
-    .administrativa-despesas-item-principal>strong {
-        font-size: 12px !important;
-    }
-
-    .administrativa-despesas-item-principal>p {
-        font-size: 10px !important;
-    }
-
-    .administrativa-despesas-item-acoes {
-        min-width: 85px;
-        gap: 9px;
-    }
-
-    .administrativa-despesas-item-acoes>strong {
-        font-size: 13px !important;
-    }
-
-    .administrativa-despesas-excluir {
-        min-height: 30px;
-        padding: 0 9px;
-        font-size: 9px !important;
-    }
-
-    .administrativa-despesas-vazio {
-        min-height: 155px;
-        padding: 22px 15px;
-    }
-}
-
-
-/* =========================================================
-   CELULARES MUITO PEQUENOS
-========================================================= */
-
-@media (max-width: 380px) {
-    .administrativa-despesas-container {
-        padding: 7px;
-    }
-
-    .administrativa-despesas-cabecalho {
-        padding: 19px 15px;
-    }
-
-    .administrativa-despesas-cabecalho h1 {
-        font-size: 21px !important;
-    }
-
-    .administrativa-despesas-resumo {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .administrativa-despesas-card:last-child {
-        grid-column: auto;
-    }
-
-    .administrativa-despesas-card {
-        min-height: 90px;
-    }
-
-    .administrativa-despesas-card>strong {
+    .adm-fases-header h1 {
         font-size: 24px !important;
     }
 
-    .administrativa-despesas-painel {
-        padding: 14px;
+    .adm-fases-navegacao {
+        gap: 5px !important;
+        padding: 5px !important;
     }
 
-    .administrativa-despesas-campos {
-        grid-template-columns: minmax(0, 1fr);
+    .adm-fases-nav-btn {
+        flex-direction: column !important;
+        gap: 5px !important;
+
+        min-height: 65px !important;
+        padding: 8px 5px !important;
+
+        font-size: 10px !important;
     }
 
-    .administrativa-despesas-item {
-        flex-direction: column;
-        gap: 12px;
+    .adm-fases-painel {
+        padding: 15px !important;
     }
 
-    .administrativa-despesas-item-acoes {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-
-        width: 100%;
-        min-width: 0;
-
-        padding-top: 10px;
-        border-top: 1px solid #eef0f3;
-    }
-}
-
-
-/* =========================================================
-   REDUÇÃO DE MOVIMENTO
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .administrativa-despesas-container *,
-    .administrativa-despesas-container *::before,
-    .administrativa-despesas-container *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-/* =========================================================
-   IRON EXECUTIONS
-   ADMINISTRAÇÃO FINANCEIRA
-   CAMADA EXTRA DE ACABAMENTO PREMIUM
-   Adicionar no FINAL de administrativa.css
-========================================================= */
-
-
-/* =========================================================
-   1. IDENTIDADE VISUAL E RENDERIZAÇÃO
-========================================================= */
-
-.administrativa-despesas-container {
-    isolation: isolate;
-
-    --ad-sombra-suave:
-        0 2px 5px rgba(15, 23, 42, 0.025),
-        0 12px 32px rgba(15, 23, 42, 0.035);
-
-    --ad-sombra-hover:
-        0 12px 30px rgba(15, 23, 42, 0.075);
-
-    --ad-foco:
-        0 0 0 4px rgba(100, 116, 139, 0.12);
-
-    text-rendering: optimizeLegibility;
-}
-
-
-/* =========================================================
-   2. CABEÇALHO MAIS REFINADO
-========================================================= */
-
-.administrativa-despesas-cabecalho {
-    box-shadow: var(--ad-sombra-suave);
-
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.administrativa-despesas-cabecalho::after {
-    content: "";
-
-    position: absolute;
-    top: -80px;
-    right: -55px;
-
-    width: 230px;
-    height: 230px;
-
-    border: 1px solid rgba(148, 163, 184, 0.12);
-    border-radius: 50%;
-
-    background:
-        radial-gradient(circle,
-            rgba(148, 163, 184, 0.075),
-            transparent 70%);
-
-    pointer-events: none;
-}
-
-.administrativa-despesas-cabecalho>div,
-.administrativa-despesas-cabecalho>button {
-    position: relative;
-    z-index: 1;
-}
-
-.administrativa-despesas-etiqueta {
-    gap: 9px;
-}
-
-.administrativa-despesas-etiqueta::before {
-    content: "";
-
-    width: 7px;
-    height: 7px;
-
-    flex: 0 0 7px;
-
-    border-radius: 50%;
-
-    background: #059669;
-
-    box-shadow:
-        0 0 0 3px rgba(5, 150, 105, 0.10);
-}
-
-
-/* =========================================================
-   3. BOTÕES COM RESPOSTA VISUAL PROFISSIONAL
-========================================================= */
-
-.administrativa-despesas-container button {
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.administrativa-despesas-atualizar,
-.administrativa-despesas-salvar,
-.administrativa-despesas-excluir {
-    position: relative;
-    overflow: hidden;
-}
-
-.administrativa-despesas-atualizar:focus-visible,
-.administrativa-despesas-salvar:focus-visible,
-.administrativa-despesas-excluir:focus-visible {
-    outline: none;
-
-    box-shadow: var(--ad-foco);
-}
-
-.administrativa-despesas-atualizar:active:not(:disabled),
-.administrativa-despesas-excluir:active:not(:disabled) {
-    transform: scale(0.985);
-}
-
-.administrativa-despesas-salvar:active:not(:disabled) {
-    transform: scale(0.99);
-}
-
-.administrativa-despesas-salvar:disabled,
-.administrativa-despesas-atualizar:disabled,
-.administrativa-despesas-excluir:disabled {
-    transform: none;
-    filter: saturate(0.75);
-}
-
-
-/* =========================================================
-   4. INDICADORES FINANCEIROS COM ACABAMENTO EXECUTIVO
-========================================================= */
-
-.administrativa-despesas-card {
-    box-shadow: var(--ad-sombra-suave);
-}
-
-.administrativa-despesas-card::after {
-    content: "";
-
-    position: absolute;
-    top: 12px;
-    right: 12px;
-
-    width: 34px;
-    height: 34px;
-
-    border: 1px solid rgba(148, 163, 184, 0.14);
-    border-radius: 11px;
-
-    background:
-        linear-gradient(145deg,
-            rgba(148, 163, 184, 0.08),
-            rgba(148, 163, 184, 0.015));
-
-    pointer-events: none;
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease;
-}
-
-.administrativa-despesas-card:hover::after {
-    transform: scale(1.08);
-
-    background: rgba(148, 163, 184, 0.11);
-}
-
-.administrativa-despesas-card>span {
-    position: relative;
-    z-index: 1;
-
-    padding-right: 37px;
-}
-
-.administrativa-despesas-card>strong {
-    position: relative;
-    z-index: 1;
-
-    font-feature-settings: "tnum";
-}
-
-.administrativa-despesas-card>small {
-    position: relative;
-    z-index: 1;
-}
-
-
-/* =========================================================
-   5. ACABAMENTO ESPECIAL DO SALDO
-========================================================= */
-
-.administrativa-despesas-card-saldo::after {
-    border-color: rgba(5, 150, 105, 0.13);
-
-    background:
-        linear-gradient(145deg,
-            rgba(5, 150, 105, 0.10),
-            rgba(5, 150, 105, 0.025));
-}
-
-.administrativa-despesas-card-negativo::after {
-    border-color: rgba(220, 38, 38, 0.13);
-
-    background:
-        linear-gradient(145deg,
-            rgba(220, 38, 38, 0.10),
-            rgba(220, 38, 38, 0.025));
-}
-
-.administrativa-despesas-card-saldo:hover {
-    border-color: #b7e4cf;
-}
-
-.administrativa-despesas-card-negativo:hover {
-    border-color: #f2c4c4;
-}
-
-
-/* =========================================================
-   6. PAINÉIS COM PROFUNDIDADE E HIERARQUIA
-========================================================= */
-
-.administrativa-despesas-painel {
-    box-shadow: var(--ad-sombra-suave);
-
-    transition:
-        border-color 0.22s ease,
-        box-shadow 0.22s ease;
-}
-
-.administrativa-despesas-painel:hover {
-    border-color: #dce1e8;
-    box-shadow: var(--ad-sombra-hover);
-}
-
-.administrativa-despesas-titulo {
-    position: relative;
-}
-
-.administrativa-despesas-titulo h2 {
-    letter-spacing: -0.55px !important;
-}
-
-.administrativa-despesas-titulo p {
-    max-width: 520px;
-}
-
-
-/* =========================================================
-   7. CAMPOS COM FOCO DE ALTA QUALIDADE
-========================================================= */
-
-.administrativa-despesas-formulario input,
-.administrativa-despesas-formulario textarea,
-.administrativa-despesas-seletor-mes {
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.015);
-}
-
-.administrativa-despesas-formulario input:focus,
-.administrativa-despesas-formulario textarea:focus,
-.administrativa-despesas-seletor-mes:focus {
-    border-color: #64748b;
-
-    box-shadow:
-        0 0 0 3px rgba(100, 116, 139, 0.11),
-        0 1px 3px rgba(15, 23, 42, 0.025);
-}
-
-.administrativa-despesas-formulario input:focus::placeholder,
-.administrativa-despesas-formulario textarea:focus::placeholder {
-    color: #c0c7d1 !important;
-}
-
-.administrativa-despesas-formulario input:disabled,
-.administrativa-despesas-formulario textarea:disabled {
-    background: #f1f5f9;
-
-    color: #94a3b8 !important;
-
-    cursor: not-allowed;
-}
-
-.administrativa-despesas-formulario textarea {
-    min-height: 120px;
-
-    line-height: 1.7 !important;
-}
-
-
-/* =========================================================
-   8. BOTÃO DE CADASTRO MAIS DESTACADO
-========================================================= */
-
-.administrativa-despesas-salvar {
-    min-height: 50px;
-
-    letter-spacing: 0.2px;
-
-    background:
-        linear-gradient(180deg,
-            #1f2937 0%,
-            #111827 100%);
-
-    box-shadow:
-        0 2px 4px rgba(17, 24, 39, 0.08),
-        0 7px 16px rgba(17, 24, 39, 0.10);
-}
-
-.administrativa-despesas-salvar:hover:not(:disabled) {
-    background:
-        linear-gradient(180deg,
-            #111827 0%,
-            #030712 100%);
-
-    box-shadow:
-        0 5px 10px rgba(17, 24, 39, 0.12),
-        0 12px 22px rgba(17, 24, 39, 0.13);
-}
-
-
-/* =========================================================
-   9. LISTAGEM COM SEPARAÇÃO MAIS ELEGANTE
-========================================================= */
-
-.administrativa-despesas-lista {
-    border-top: 1px solid #f1f3f6;
-}
-
-.administrativa-despesas-item {
-    position: relative;
-
-    border-bottom-color: #edf0f4;
-
-    transition:
-        background 0.18s ease,
-        box-shadow 0.18s ease,
-        padding 0.18s ease;
-}
-
-.administrativa-despesas-item:hover {
-    background:
-        linear-gradient(90deg,
-            #f8fafc 0%,
-            #ffffff 100%);
-
-    box-shadow:
-        inset 3px 0 0 #111827;
-}
-
-.administrativa-despesas-item-principal>strong {
-    transition: color 0.18s ease;
-}
-
-.administrativa-despesas-item:hover .administrativa-despesas-item-principal>strong {
-    color: #111827 !important;
-}
-
-.administrativa-despesas-item-principal>p {
-    max-width: 100%;
-}
-
-
-/* =========================================================
-   10. VALORES MONETÁRIOS MAIS LEGÍVEIS
-========================================================= */
-
-.administrativa-despesas-card>strong,
-.administrativa-despesas-item-acoes>strong {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: "tnum" 1;
-    font-kerning: none;
-}
-
-.administrativa-despesas-item-acoes>strong {
-    letter-spacing: -0.35px;
-}
-
-
-/* =========================================================
-   11. EXCLUSÃO COM ESTADO VISUAL MAIS DISCRETO
-========================================================= */
-
-.administrativa-despesas-excluir {
-    background: #fffafa;
-
-    box-shadow: 0 1px 2px rgba(127, 29, 29, 0.025);
-}
-
-.administrativa-despesas-excluir:hover:not(:disabled) {
-    box-shadow:
-        0 4px 10px rgba(220, 38, 38, 0.14);
-}
-
-
-/* =========================================================
-   12. ALERTAS COM MELHOR LEITURA
-========================================================= */
-
-.administrativa-despesas-alerta {
-    box-shadow:
-        0 3px 10px rgba(15, 23, 42, 0.025);
-}
-
-.administrativa-despesas-alerta-erro {
-    background:
-        linear-gradient(135deg,
-            #fffafa 0%,
-            #fef2f2 100%);
-}
-
-.administrativa-despesas-alerta-sucesso {
-    background:
-        linear-gradient(135deg,
-            #ffffff 0%,
-            #ecfdf5 100%);
-}
-
-
-/* =========================================================
-   13. FILTRO MENSAL MAIS SOFISTICADO
-========================================================= */
-
-.administrativa-despesas-filtro-mensal {
-    box-shadow: var(--ad-sombra-suave);
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.administrativa-despesas-filtro-mensal:hover {
-    border-color: #d8dee7;
-}
-
-
-/* =========================================================
-   14. ROLAGEM E SELEÇÃO DE TEXTO
-========================================================= */
-
-.administrativa-despesas-container ::selection {
-    background: rgba(148, 163, 184, 0.24);
-    color: #111827;
-}
-
-.administrativa-despesas-container input,
-.administrativa-despesas-container textarea {
-    caret-color: #111827;
-}
-
-
-/* =========================================================
-   15. TELAS GRANDES
-========================================================= */
-
-@media (min-width: 1501px) {
-    .administrativa-despesas-container {
-        padding: 34px;
+    .adm-fases-painel-header {
+        align-items: flex-start !important;
+        gap: 12px !important;
     }
 
-    .administrativa-despesas-cabecalho {
-        padding: 34px 38px;
+    .adm-fases-painel-header h2 {
+        font-size: 17px !important;
     }
 
-    .administrativa-despesas-painel {
-        padding: 29px;
+    .adm-fases-contador {
+        min-width: 85px !important;
+        min-height: 65px !important;
+        padding: 9px !important;
     }
 
-    .administrativa-despesas-resumo {
-        gap: 18px;
+    .adm-fases-contador strong {
+        font-size: 21px !important;
     }
 
-    .administrativa-despesas-card {
-        min-height: 148px;
-        padding: 27px;
+    .adm-fases-contador span {
+        font-size: 8px !important;
     }
 
-    .administrativa-despesas-layout {
-        gap: 22px;
-    }
-}
-
-
-/* =========================================================
-   16. TABLETS
-========================================================= */
-
-@media (max-width: 800px) {
-    .administrativa-despesas-painel:hover {
-        box-shadow: var(--ad-sombra-suave);
+    .adm-fases-formulario {
+        padding: 15px !important;
+        gap: 19px !important;
     }
 
-    .administrativa-despesas-card:hover {
-        transform: none;
+    .adm-fases-niveis {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
     }
 
-    .administrativa-despesas-cabecalho::after {
-        width: 150px;
-        height: 150px;
-
-        top: -40px;
-        right: -45px;
-    }
-}
-
-
-/* =========================================================
-   17. MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-    .administrativa-despesas-cabecalho::after {
-        width: 120px;
-        height: 120px;
-
-        top: -30px;
-        right: -40px;
+    .adm-fases-nivel-btn {
+        min-height: 49px !important;
+        padding: 9px !important;
+        gap: 7px !important;
+        font-size: 10px !important;
     }
 
-    .administrativa-despesas-card::after {
-        top: 10px;
-        right: 10px;
-
-        width: 27px;
-        height: 27px;
-
-        border-radius: 9px;
+    .adm-fases-item {
+        gap: 10px !important;
+        padding: 12px !important;
     }
 
-    .administrativa-despesas-card>span {
-        padding-right: 30px;
+    .adm-fases-item-numero {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 10px !important;
     }
 
-    .administrativa-despesas-card:hover::after {
-        transform: none;
-    }
-
-    .administrativa-despesas-item:hover {
-        background: #f8fafc;
-    }
-
-    .administrativa-despesas-item:hover .administrativa-despesas-item-principal>strong {
-        color: #334155 !important;
-    }
-
-    .administrativa-despesas-filtro-mensal:hover {
-        border-color: var(--ad-borda);
-    }
-}
-
-
-/* =========================================================
-   18. ACESSIBILIDADE E MOVIMENTO REDUZIDO
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .administrativa-despesas-container *,
-    .administrativa-despesas-container *::before,
-    .administrativa-despesas-container *::after {
-        scroll-behavior: auto !important;
-
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-
-        transition-duration: 0.01ms !important;
-    }
-}
-
-.administrativa-despesa-status-pendente {
-    display: inline-block;
-    margin-left: 8px;
-    padding: 4px 9px;
-    border-radius: 6px;
-    background: #f0b906;
-    color: #0c0a04 !important;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-/* SOBRESCRITA: todas as propriedades background/background-color/color com !important */
-
-.administrativa-despesas-container {
-    color: var(--ad-texto) !important;
-    background: radial-gradient(circle at 0% 0%, rgba(37, 99, 235, 0.045), transparent 27%), radial-gradient(circle at 100% 0%, rgba(5, 150, 105, 0.035), transparent 25%), var(--ad-fundo) !important;
-}
-
-.administrativa-despesas-cabecalho {
-    background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%) !important;
-}
-
-.administrativa-despesas-cabecalho::before {
-    background: var(--ad-primaria) !important;
-}
-
-.administrativa-despesas-etiqueta {
-    color: var(--ad-texto-suave) !important;
-}
-
-.administrativa-despesas-cabecalho h1 {
-    color: var(--ad-texto) !important;
-}
-
-.administrativa-despesas-cabecalho p {
-    color: var(--ad-texto-terciario) !important;
-}
-
-.administrativa-despesas-atualizar {
-    background: #ffffff !important;
-    color: #374151 !important;
-}
-
-.administrativa-despesas-atualizar:hover:not(:disabled) {
-    background: #f8fafc !important;
-    color: #111827 !important;
-}
-
-.administrativa-despesas-filtro-mensal {
-    background: var(--ad-card) !important;
-}
-
-.administrativa-despesas-filtro-mensal label {
-    color: #94a3b8 !important;
-}
-
-.administrativa-despesas-filtro-mensal strong {
-    color: #111827 !important;
-}
-
-.administrativa-despesas-seletor-mes {
-    background: #f8fafc !important;
-    color: #1e293b !important;
-}
-
-.administrativa-despesas-seletor-mes:hover {
-    background: #ffffff !important;
-}
-
-.administrativa-despesas-seletor-mes:focus {
-    background: #ffffff !important;
-}
-
-.administrativa-despesas-alerta-erro {
-    background: var(--ad-vermelho-fundo) !important;
-    color: #b91c1c !important;
-}
-
-.administrativa-despesas-alerta-sucesso {
-    background: var(--ad-verde-fundo) !important;
-    color: #047857 !important;
-}
-
-.administrativa-despesas-card {
-    background: var(--ad-card) !important;
-}
-
-.administrativa-despesas-card::before {
-    background: #111827 !important;
-}
-
-.administrativa-despesas-card>span {
-    color: #64748b !important;
-}
-
-.administrativa-despesas-card>strong {
-    color: #111827 !important;
-}
-
-.administrativa-despesas-card>small {
-    color: #94a3b8 !important;
-}
-
-.administrativa-despesas-card-saldo {
-    background: linear-gradient(145deg, #ffffff 0%, #f8fdfb 100%) !important;
-}
-
-/* =========================================================
-   IRON EXECUTIONS — DESPESAS AGRUPADAS
-   DESIGN PREMIUM | LIMPO | RESPONSIVO
-   Adicionar no FINAL de administrativa.css
-========================================================= */
-
-.administrativa-despesas-historico {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    width: 100%;
-}
-
-/* CARTÃO PRINCIPAL */
-.administrativa-despesas-historico .administrativa-despesas-item {
-    display: flex;
-    align-items: stretch;
-    gap: 22px;
-
-    width: 100%;
-    min-width: 0;
-    padding: 22px;
-
-    background: #ffffff;
-    border: 1px solid #e5eaf1;
-    border-radius: 16px;
-
-    box-shadow:
-        0 1px 2px rgba(15, 23, 42, 0.025),
-        0 4px 14px rgba(15, 23, 42, 0.025);
-
-    transition:
-        border-color 180ms ease,
-        box-shadow 180ms ease,
-        transform 180ms ease;
-}
-
-.administrativa-despesas-historico .administrativa-despesas-item:hover {
-    border-color: #cbd5e1;
-    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.065);
-    transform: translateY(-2px);
-}
-
-/* CONTEÚDO DA DESPESA */
-.administrativa-despesas-historico .administrativa-despesas-item-principal {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-
-    min-width: 0;
-}
-
-/* NOME DA DESPESA */
-.administrativa-despesas-historico .administrativa-despesas-item-principal>strong {
-    display: block;
-    margin: 0 0 4px;
-    overflow-wrap: anywhere;
-
-    color: #111827 !important;
-    font-size: 15px !important;
-    font-weight: 750 !important;
-    line-height: 1.45;
-    letter-spacing: -0.025em;
-}
-
-/* CADA LANÇAMENTO INDIVIDUAL */
-.administrativa-despesas-historico .administrativa-despesas-item-principal>div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-
-    width: 100%;
-    min-width: 0;
-    padding: 12px 14px;
-
-    background: #f8fafc;
-    border: 1px solid #edf1f6;
-    border-radius: 10px;
-
-    transition:
-        background 160ms ease,
-        border-color 160ms ease;
-}
-
-.administrativa-despesas-historico .administrativa-despesas-item-principal>div:hover {
-    background: #f1f5f9;
-    border-color: #e2e8f0;
-}
-
-/* DATA */
-.administrativa-despesas-historico .administrativa-despesas-item-principal>div>span:first-child {
-    color: #64748b !important;
-    font-size: 12px !important;
-    font-weight: 550 !important;
-    line-height: 1.5;
-    font-variant-numeric: tabular-nums;
-}
-
-/* VALOR INDIVIDUAL */
-.administrativa-despesas-historico .administrativa-despesas-item-principal>div>span:nth-child(2) {
-    color: #334155 !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-}
-
-/* ÁREA DO TOTAL */
-.administrativa-despesas-historico .administrativa-despesas-item-acoes {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    align-self: stretch;
-    gap: 9px;
-
-    flex-shrink: 0;
-    padding: 18px;
-
-    background: #f8fafc;
-    border: 1px solid #e9eef5;
-    border-radius: 13px;
-}
-
-/* VALOR TOTAL */
-.administrativa-despesas-historico .administrativa-despesas-item-acoes>strong {
-    display: block;
-    max-width: 100%;
-    overflow-wrap: anywhere;
-
-    color: #0f172a !important;
-    font-size: 22px !important;
-    font-weight: 800 !important;
-    line-height: 1.25;
-    letter-spacing: -0.045em;
-    font-variant-numeric: tabular-nums;
-}
-
-/* QUANTIDADE DE REGISTROS */
-.administrativa-despesas-historico .administrativa-despesas-item-acoes>small {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-
-    padding: 5px 9px;
-
-    background: #e9eef5;
-    border: 1px solid #e1e7ef;
-    border-radius: 7px;
-
-    color: #475569 !important;
-    font-size: 10px !important;
-    font-weight: 700 !important;
-    line-height: 1.4;
-}
-
-/* OBSERVAÇÕES */
-.administrativa-despesas-historico .administrativa-despesas-item-principal>p {
-    margin: 2px 0 0 !important;
-    padding: 12px 14px;
-
-    background: #fafbfc;
-    border: 1px solid #eef1f5;
-    border-left: 3px solid #cbd5e1;
-    border-radius: 0 9px 9px 0;
-
-    color: #64748b !important;
-    font-size: 12px !important;
-    font-weight: 450 !important;
-    line-height: 1.7 !important;
-    overflow-wrap: anywhere;
-}
-
-/* BOTÃO EXCLUIR */
-.administrativa-despesas-historico .administrativa-despesas-item-principal .administrativa-despesas-excluir {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    gap: 6px;
-
-    min-height: 32px;
-    padding: 7px 11px;
-
-    background: #fff !important;
-    border: 1px solid #fecaca !important;
-    border-radius: 8px;
-
-    color: #b91c1c !important;
-    font-size: 11px !important;
-    font-weight: 650 !important;
-
-    cursor: pointer;
-
-    transition:
-        background 160ms ease,
-        border-color 160ms ease,
-        color 160ms ease;
-}
-
-.administrativa-despesas-historico .administrativa-despesas-item-principal .administrativa-despesas-excluir:hover {
-    background: #fef2f2 !important;
-    border-color: #fca5a5 !important;
-    color: #991b1b !important;
-}
-
-/* STATUS PENDENTE */
-.administrativa-despesas-historico .administrativa-despesa-status-pendente {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-
-    margin-left: 7px;
-    padding: 4px 8px;
-
-    background: #fffbeb;
-    border: 1px solid #fde68a;
-    border-radius: 6px;
-
-    color: #92400e !important;
-    font-size: 10px !important;
-    font-weight: 700 !important;
-    line-height: 1.4;
-    vertical-align: middle;
-}
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-    .administrativa-despesas-historico .administrativa-despesas-item {
-        gap: 14px;
-        padding: 17px;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-acoes {
-        min-width: 135px;
-        padding: 14px;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-acoes>strong {
-        font-size: 19px !important;
-    }
-}
-
-/* =========================================================
-   CELULAR
-========================================================= */
-
-@media (max-width: 600px) {
-    .administrativa-despesas-historico {
-        gap: 12px;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 14px;
-        padding: 14px;
-        border-radius: 13px;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-principal {
-        width: 100%;
-        gap: 9px;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-principal>strong {
-        font-size: 14px !important;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-principal>div {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 8px;
-        padding: 11px;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-principal>div>span:first-child {
-        min-width: 0;
-        overflow-wrap: anywhere;
-        font-size: 11px !important;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-principal>div>span:nth-child(2) {
-        text-align: right;
+    .adm-fases-item-info>strong {
         font-size: 12px !important;
     }
 
-    .administrativa-despesas-historico .administrativa-despesas-item-acoes {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        align-self: auto;
-        flex-wrap: wrap;
-        gap: 10px;
-
-        width: 100%;
-        min-width: 0;
-        padding: 13px 14px;
-        border-radius: 10px;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-acoes>strong {
-        font-size: 19px !important;
-    }
-
-    .administrativa-despesas-historico .administrativa-despesas-item-principal>p {
-        padding: 10px 11px;
-        font-size: 11px !important;
+    .adm-fases-btn-excluir {
+        min-width: 66px !important;
+        min-height: 34px !important;
+        padding: 7px !important;
+        font-size: 9px !important;
     }
 }
 
-/* ACESSIBILIDADE */
-@media (prefers-reduced-motion: reduce) {
-
-    .administrativa-despesas-historico *,
-    .administrativa-despesas-historico *::before,
-    .administrativa-despesas-historico *::after {
-        transition: none !important;
-        animation: none !important;
-        scroll-behavior: auto !important;
+@media (max-width: 380px) {
+    .adm-fases-niveis {
+        grid-template-columns: 1fr !important;
     }
 
-    .administrativa-despesas-historico .administrativa-despesas-item:hover {
-        transform: none;
+    .adm-fases-item {
+        flex-wrap: wrap !important;
+    }
+
+    .adm-fases-btn-excluir {
+        margin-left: auto !important;
     }
 }
 
-/* =====================================================
-   IRON EXECUTIONS — NOTIFICAÇÕES VIA CREATEPORTAL
-===================================================== */
-
-.admin-toast {
-    --toast-cor: #2563eb;
-    --toast-fundo: #ffffff;
-
-    position: fixed;
-    z-index: 99999;
-    top: 24px;
-    right: 24px;
-
-    display: flex;
-    align-items: center;
-    gap: 13px;
-
-    width: min(420px, calc(100vw - 32px));
-    padding: 17px 16px;
-
-    overflow: hidden;
-
-    background: var(--toast-fundo);
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-
-    box-shadow:
-        0 18px 50px rgba(15, 23, 42, 0.14),
-        0 3px 10px rgba(15, 23, 42, 0.05);
-
-    font-family: inherit;
-
-    animation: admin-toast-entrada 250ms ease-out both;
-}
-
-.admin-toast-sucesso {
-    --toast-cor: #15803d;
-}
-
-.admin-toast-erro {
-    --toast-cor: #dc2626;
-}
-
-.admin-toast-indicador {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 4px;
-    background: var(--toast-cor);
-}
-
-.admin-toast-icone {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-
-    width: 37px;
-    height: 37px;
-
-    color: var(--toast-cor);
-    background: color-mix(in srgb, var(--toast-cor) 10%, white);
-    border: 1px solid color-mix(in srgb, var(--toast-cor) 17%, white);
-    border-radius: 11px;
-
-    font-size: 19px;
-    font-weight: 800;
-}
-
-.admin-toast-conteudo {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0;
-}
-
-.admin-toast-conteudo strong {
-    color: #111827;
-    font-size: 13px;
-    font-weight: 750;
-    line-height: 1.4;
-}
-
-.admin-toast-conteudo span {
-    color: #64748b;
-    font-size: 12px;
-    font-weight: 450;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-}
-
-.admin-toast-fechar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-
-    width: 30px;
-    height: 30px;
-    padding: 0;
-
-    color: #94a3b8;
-    background: transparent;
-    border: none;
-    border-radius: 7px;
-
-    font-size: 23px;
-    line-height: 1;
-
-    cursor: pointer;
-    transition: color 150ms ease, background 150ms ease;
-}
-
-.admin-toast-fechar:hover {
-    color: #334155;
-    background: #f1f5f9;
-}
-
-.admin-toast-progresso {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    height: 3px;
-    background: var(--toast-cor);
-    transform-origin: left;
-    animation: admin-toast-tempo 4s linear forwards;
-}
-
-@keyframes admin-toast-entrada {
-    from {
-        opacity: 0;
-        transform: translate3d(18px, -8px, 0);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes admin-toast-tempo {
-    from {
-        transform: scaleX(1);
-    }
-
-    to {
-        transform: scaleX(0);
-    }
-}
-
-/* =====================================================
-   CONFIRMAÇÃO DE EXCLUSÃO
-===================================================== */
-
-.admin-confirmacao-fundo {
-    position: fixed;
-    inset: 0;
-    z-index: 100000;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(15, 23, 42, 0.48);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-
-    animation: admin-confirmacao-fundo-entrada 160ms ease-out;
-}
-
-.admin-confirmacao-modal {
-    width: min(420px, 100%);
-    padding: 28px;
-
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 18px;
-
-    box-shadow: 0 25px 80px rgba(15, 23, 42, 0.24);
-
-    animation: admin-confirmacao-modal-entrada 200ms ease-out;
-}
-
-.admin-confirmacao-icone {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 45px;
-    height: 45px;
-    margin-bottom: 19px;
-
-    color: #b91c1c;
-    background: #fef2f2;
-    border: 1px solid #fee2e2;
-    border-radius: 13px;
-
-    font-size: 23px;
-    font-weight: 800;
-}
-
-.admin-confirmacao-modal h2 {
-    margin: 0 0 9px;
-
-    color: #111827;
-    font-size: 19px;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-}
-
-.admin-confirmacao-modal p {
-    margin: 0;
-
-    color: #64748b;
-    font-size: 13px;
-    line-height: 1.75;
-}
-
-.admin-confirmacao-acoes {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 25px;
-}
-
-.admin-confirmacao-acoes button {
-    min-height: 40px;
-    padding: 0 15px;
-
-    border-radius: 9px;
-
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 700;
-
-    cursor: pointer;
-    transition: background 150ms ease, border-color 150ms ease;
-}
-
-.admin-confirmacao-cancelar {
-    color: #475569;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-}
-
-.admin-confirmacao-cancelar:hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-}
-
-.admin-confirmacao-excluir {
-    color: #ffffff;
-    background: #dc2626;
-    border: 1px solid #dc2626;
-}
-
-.admin-confirmacao-excluir:hover {
-    background: #b91c1c;
-    border-color: #b91c1c;
-}
-
-@keyframes admin-confirmacao-fundo-entrada {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes admin-confirmacao-modal-entrada {
-    from {
-        opacity: 0;
-        transform: translateY(8px) scale(0.98);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* =====================================================
-   RESPONSIVIDADE
-===================================================== */
-
-@media (max-width: 480px) {
-    .admin-toast {
-        top: 12px;
-        right: 12px;
-        width: calc(100vw - 24px);
-        padding: 14px 12px;
-        gap: 10px;
-    }
-
-    .admin-toast-icone {
-        width: 33px;
-        height: 33px;
-    }
-
-    .admin-confirmacao-modal {
-        padding: 22px;
-        border-radius: 15px;
-    }
-
-    .admin-confirmacao-acoes {
-        flex-direction: column-reverse;
-    }
-
-    .admin-confirmacao-acoes button {
-        width: 100%;
-    }
-}
+/* ============================================================
+   REDUÇÃO DE MOVIMENTO
+============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
 
-    .admin-toast,
-    .admin-toast-progresso,
-    .admin-confirmacao-fundo,
-    .admin-confirmacao-modal {
-        animation: none !important;
+    .adm-fases-container *,
+    .adm-fases-container *::before,
+    .adm-fases-container *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

@@ -5,6 +5,7 @@ import ProdutosComercio from "./componentes/produtoscomercio";
 import Tarefas from "./componentes/tarefas";
 import Impressaocontrole from "./componentes/impressaocontrole";
 import "./menucontrole.css";
+import Contatos from "./componentes/contatos";
 
 export default function Controle() {
     const [abaAtiva, setAbaAtiva] = useState("tabelas");
@@ -83,7 +84,12 @@ export default function Controle() {
                 >
                     Apresentação
                 </button>
-
+                <button
+                    className="menu-controle-btn"
+                    onClick={() => setAbaAtiva("contatos")}
+                >
+                    Contatos
+                </button>
             </div>
 
             {/* ===== CONTEÚDO ===== */}
@@ -99,6 +105,9 @@ export default function Controle() {
 
                 {abaAtiva === "tarefas" && (
                     <Tarefas />
+                )}
+                {abaAtiva === "contatos" && (
+                    <Contatos />
                 )}
                 {abaAtiva === "impressaocontrole" && (
                     <Impressaocontrole />

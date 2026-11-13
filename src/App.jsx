@@ -39,7 +39,7 @@ import Irene from "./irene/irene";
 import Apresentacao from "../apresentacao/apresentacao";
 import FotosProdutos from "../fotos/fotos";
 import Fiscal from "../modulos/perfil/body/fiscal/fiscal"
-
+import AlertaVencimentoDiamante from "./vencimento";
 /* =========================================================
    MAPA FIXO
    COMERCIO_ID -> IMAGEM
@@ -1616,7 +1616,7 @@ export default function App() {
     <Router>
       <AlertaPedidos />
       <CaixaOperacionalModal />
-
+      <AlertaVencimentoDiamante />
       <ControleTermos
         verificarTermosPendentes={verificarTermosPendentes}
         setTermosPendentes={setTermosPendentes}

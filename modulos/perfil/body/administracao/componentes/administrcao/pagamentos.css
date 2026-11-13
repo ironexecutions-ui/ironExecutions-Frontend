@@ -1,0 +1,3611 @@
+/* ============================================================
+   IRON EXECUTIONS
+   MÓDULO FINANCEIRO | PAGAMENTOS
+   DESIGN SYSTEM CORPORATIVO
+============================================================ */
+
+.iron-pagamentos-page {
+    --ip-navy: #102b46;
+    --ip-navy-deep: #091d32;
+    --ip-navy-light: #eaf0f6;
+
+    --ip-green: #174c35;
+    --ip-green-dark: #103c29;
+    --ip-green-soft: #edf5ef;
+    --ip-green-border: #315d43;
+
+    --ip-black: #161b18;
+    --ip-text: #343d37;
+    --ip-muted: #7b8780;
+
+    --ip-white: #ffffff;
+    --ip-surface: #f8faf9;
+    --ip-border: #dce5df;
+    --ip-border-strong: #c7d5cb;
+
+    --ip-danger: #a52c2c;
+    --ip-danger-bg: #fff2f1;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 26px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 25px !important;
+
+    color: var(--ip-black) !important;
+    background: var(--ip-white) !important;
+
+    font-family: Inter, "Segoe UI", Arial, sans-serif !important;
+
+    box-sizing: border-box !important;
+}
+
+.iron-pagamentos-page *,
+.iron-pagamentos-page *::before,
+.iron-pagamentos-page *::after {
+    box-sizing: border-box !important;
+}
+
+/* ============================================================
+   CABEÇALHO PRINCIPAL
+============================================================ */
+
+.iron-pagamentos-header {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 24px !important;
+
+    width: 100% !important;
+    padding: 25px 28px !important;
+
+    background: var(--ip-white) !important;
+
+    border: 1px solid var(--ip-border) !important;
+    border-left: 5px solid var(--ip-green) !important;
+    border-radius: 12px !important;
+
+    box-shadow: 0 4px 18px rgba(9, 29, 50, 0.045) !important;
+}
+
+.iron-pagamentos-header-conteudo {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 7px !important;
+}
+
+.iron-pagamentos-header-identificador {
+    color: var(--ip-green) !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+}
+
+.iron-pagamentos-header h2 {
+    margin: 0 !important;
+
+    color: var(--ip-navy) !important;
+
+    font-size: 28px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.2 !important;
+    letter-spacing: -0.8px !important;
+}
+
+.iron-pagamentos-header p {
+    margin: 0 !important;
+
+    color: var(--ip-muted) !important;
+
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+}
+
+.iron-pagamentos-header-status {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+
+    flex-shrink: 0 !important;
+
+    padding: 10px 14px !important;
+
+    color: var(--ip-green) !important;
+    background: var(--ip-green-soft) !important;
+
+    border: 1px solid var(--ip-green-border) !important;
+    border-radius: 7px !important;
+
+    font-size: 11px !important;
+    font-weight: 750 !important;
+}
+
+.iron-pagamentos-status-indicador {
+    width: 8px !important;
+    height: 8px !important;
+
+    flex-shrink: 0 !important;
+
+    background: var(--ip-green) !important;
+    border-radius: 50% !important;
+
+    box-shadow: 0 0 0 3px rgba(23, 76, 53, 0.12) !important;
+}
+
+/* ============================================================
+   ESTRUTURA DOS TÍTULOS DE SEÇÃO
+============================================================ */
+
+.iron-pagamentos-section-heading {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-heading-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    flex-shrink: 0 !important;
+
+    color: var(--ip-white) !important;
+    background: var(--ip-navy) !important;
+
+    border: 1px solid var(--ip-navy) !important;
+    border-radius: 9px !important;
+}
+
+.iron-pagamentos-heading-icon span {
+    color: var(--ip-white) !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.5px !important;
+}
+
+.iron-pagamentos-section-heading h3 {
+    margin: 0 0 5px !important;
+
+    color: var(--ip-navy) !important;
+
+    font-size: 17px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: -0.3px !important;
+}
+
+.iron-pagamentos-section-heading p {
+    margin: 0 !important;
+
+    color: var(--ip-muted) !important;
+
+    font-size: 11px !important;
+    line-height: 1.6 !important;
+}
+
+/* ============================================================
+   PAINEL DO FORMULÁRIO
+============================================================ */
+
+.iron-pagamentos-form-card {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 25px !important;
+
+    background: var(--ip-white) !important;
+
+    border: 1px solid var(--ip-border) !important;
+    border-top: 3px solid var(--ip-green) !important;
+    border-radius: 12px !important;
+
+    box-shadow: 0 5px 22px rgba(9, 29, 50, 0.045) !important;
+}
+
+.iron-pagamentos-form-card>.iron-pagamentos-section-heading {
+    margin-bottom: 25px !important;
+}
+
+/* ============================================================
+   FORMULÁRIO
+============================================================ */
+
+.iron-pagamentos-form {
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 21px 24px !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-field {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+
+    gap: 8px !important;
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-field label {
+    color: var(--ip-navy) !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: 0.15px !important;
+}
+
+.iron-pagamentos-field input,
+.iron-pagamentos-field textarea,
+.iron-pagamentos-field select {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 12px 14px !important;
+
+    color: var(--ip-black) !important;
+    background: var(--ip-white) !important;
+
+    border: 1px solid var(--ip-border-strong) !important;
+    border-radius: 8px !important;
+
+    outline: none !important;
+    box-shadow: none !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.iron-pagamentos-field input {
+    min-height: 46px !important;
+}
+
+.iron-pagamentos-field textarea {
+    min-height: 105px !important;
+
+    resize: vertical !important;
+    line-height: 1.6 !important;
+}
+
+.iron-pagamentos-field input:hover,
+.iron-pagamentos-field textarea:hover,
+.iron-pagamentos-field select:hover {
+    border-color: var(--ip-green-border) !important;
+}
+
+.iron-pagamentos-field input:focus,
+.iron-pagamentos-field textarea:focus,
+.iron-pagamentos-field select:focus {
+    border-color: var(--ip-green) !important;
+
+    box-shadow: 0 0 0 3px rgba(23, 76, 53, 0.11) !important;
+
+    background: #ffffff !important;
+}
+
+.iron-pagamentos-field input::placeholder,
+.iron-pagamentos-field textarea::placeholder {
+    color: #a0aaa3 !important;
+    opacity: 1 !important;
+    font-weight: 400 !important;
+}
+
+.iron-pagamentos-field small {
+    color: var(--ip-muted) !important;
+
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
+
+/* ============================================================
+   OBSERVAÇÃO
+============================================================ */
+
+.iron-pagamentos-field-observacao {
+    grid-column: 1 / -1 !important;
+}
+
+/* ============================================================
+   COMPROMISSO SELECIONADO
+============================================================ */
+
+.iron-pagamentos-compromisso {
+    grid-column: 1 / -1 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+
+    padding: 18px 20px !important;
+
+    background: var(--ip-green-soft) !important;
+
+    border: 1px solid #cbdccf !important;
+    border-left: 4px solid var(--ip-green) !important;
+    border-radius: 9px !important;
+}
+
+.iron-pagamentos-compromisso-topo {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+}
+
+.iron-pagamentos-compromisso-topo>span:first-child {
+    color: var(--ip-green) !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 1px !important;
+}
+
+.iron-pagamentos-compromisso-check {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 24px !important;
+    height: 24px !important;
+
+    color: white !important;
+    background: var(--ip-green) !important;
+
+    border-radius: 50% !important;
+
+    font-size: 12px !important;
+    font-weight: 900 !important;
+}
+
+.iron-pagamentos-compromisso>strong {
+    color: var(--ip-navy) !important;
+
+    font-size: 16px !important;
+    font-weight: 850 !important;
+}
+
+.iron-pagamentos-compromisso-detalhes {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 9px 22px !important;
+}
+
+.iron-pagamentos-compromisso-detalhes span {
+    color: #52675a !important;
+
+    font-size: 11px !important;
+    font-weight: 600 !important;
+}
+
+/* ============================================================
+   CAMPO MONETÁRIO
+============================================================ */
+
+.iron-pagamentos-money-input {
+    display: flex !important;
+    align-items: stretch !important;
+
+    width: 100% !important;
+    min-height: 46px !important;
+
+    overflow: hidden !important;
+
+    background: var(--ip-white) !important;
+
+    border: 1px solid var(--ip-border-strong) !important;
+    border-radius: 8px !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.iron-pagamentos-money-input:focus-within {
+    border-color: var(--ip-green) !important;
+
+    box-shadow: 0 0 0 3px rgba(23, 76, 53, 0.11) !important;
+}
+
+.iron-pagamentos-money-input>span {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 16px !important;
+
+    color: var(--ip-green) !important;
+    background: var(--ip-green-soft) !important;
+
+    border-right: 1px solid var(--ip-border) !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+}
+
+.iron-pagamentos-money-input input {
+    flex: 1 !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+
+    padding: 10px 14px !important;
+
+    color: var(--ip-navy) !important;
+    background: transparent !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+
+    font-size: 16px !important;
+    font-weight: 850 !important;
+}
+
+.iron-pagamentos-money-input input:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ============================================================
+   FEEDBACK
+============================================================ */
+
+.iron-pagamentos-feedback {
+    grid-column: 1 / -1 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    gap: 11px !important;
+
+    padding: 13px 16px !important;
+
+    border-radius: 8px !important;
+
+    font-size: 12px !important;
+    font-weight: 650 !important;
+}
+
+.iron-pagamentos-feedback>span {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 22px !important;
+    height: 22px !important;
+
+    flex-shrink: 0 !important;
+
+    border-radius: 50% !important;
+
+    font-size: 12px !important;
+    font-weight: 900 !important;
+}
+
+.iron-pagamentos-feedback-erro {
+    color: var(--ip-danger) !important;
+    background: var(--ip-danger-bg) !important;
+    border: 1px solid #efcccc !important;
+}
+
+.iron-pagamentos-feedback-erro>span {
+    color: white !important;
+    background: var(--ip-danger) !important;
+}
+
+.iron-pagamentos-feedback-sucesso {
+    color: var(--ip-green) !important;
+    background: var(--ip-green-soft) !important;
+    border: 1px solid #cbdccf !important;
+}
+
+.iron-pagamentos-feedback-sucesso>span {
+    color: white !important;
+    background: var(--ip-green) !important;
+}
+
+/* ============================================================
+   AÇÃO DO FORMULÁRIO
+============================================================ */
+
+.iron-pagamentos-form-acoes {
+    grid-column: 1 / -1 !important;
+
+    display: flex !important;
+    justify-content: flex-end !important;
+
+    padding-top: 5px !important;
+}
+
+.iron-pagamentos-btn-registrar {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 220px !important;
+    min-height: 47px !important;
+
+    padding: 12px 22px !important;
+
+    color: #ffffff !important;
+    background: var(--ip-navy) !important;
+
+    border: 1px solid var(--ip-navy) !important;
+    border-radius: 8px !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.iron-pagamentos-btn-registrar:hover:not(:disabled) {
+    color: #ffffff !important;
+    background: var(--ip-green) !important;
+
+    border-color: var(--ip-green) !important;
+
+    box-shadow: 0 5px 14px rgba(23, 76, 53, 0.17) !important;
+
+    transform: translateY(-2px) !important;
+}
+
+.iron-pagamentos-btn-registrar:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+.iron-pagamentos-btn-registrar:disabled {
+    color: #ffffff !important;
+    background: #a5b0a9 !important;
+
+    border-color: #a5b0a9 !important;
+
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+}
+
+/* ============================================================
+   HISTÓRICO FINANCEIRO
+============================================================ */
+
+.iron-pagamentos-historico {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 25px !important;
+
+    background: var(--ip-white) !important;
+
+    border: 1px solid var(--ip-border) !important;
+    border-radius: 12px !important;
+
+    box-shadow: 0 4px 18px rgba(9, 29, 50, 0.035) !important;
+}
+
+.iron-pagamentos-historico-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+
+    padding-bottom: 22px !important;
+    margin-bottom: 24px !important;
+
+    border-bottom: 1px solid var(--ip-border) !important;
+}
+
+/* ============================================================
+   NAVEGAÇÃO DE PERÍODO
+============================================================ */
+
+.iron-pagamentos-periodo-navegacao {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-wrap: wrap !important;
+    gap: 9px !important;
+}
+
+.iron-pagamentos-periodo-seta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 38px !important;
+    height: 38px !important;
+
+    color: var(--ip-navy) !important;
+    background: var(--ip-white) !important;
+
+    border: 1px solid var(--ip-green-border) !important;
+    border-radius: 7px !important;
+
+    font-size: 16px !important;
+    font-weight: 850 !important;
+
+    cursor: pointer !important;
+
+    transition: all 0.2s ease !important;
+}
+
+.iron-pagamentos-periodo-seta:hover:not(:disabled) {
+    color: white !important;
+    background: var(--ip-navy) !important;
+    border-color: var(--ip-navy) !important;
+}
+
+.iron-pagamentos-periodo-seta:disabled {
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+}
+
+.iron-pagamentos-periodo-info {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 5px !important;
+
+    min-width: 175px !important;
+    padding: 5px 10px !important;
+}
+
+.iron-pagamentos-periodo-info strong {
+    color: var(--ip-navy) !important;
+
+    font-size: 12px !important;
+    font-weight: 850 !important;
+    text-align: center !important;
+}
+
+.iron-pagamentos-periodo-info span {
+    color: var(--ip-green) !important;
+
+    font-size: 10px !important;
+    font-weight: 750 !important;
+}
+
+.iron-pagamentos-periodo-atual {
+    min-height: 38px !important;
+
+    padding: 0 13px !important;
+
+    color: white !important;
+    background: var(--ip-green) !important;
+
+    border: 1px solid var(--ip-green) !important;
+    border-radius: 7px !important;
+
+    font-family: inherit !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer !important;
+
+    transition: all 0.2s ease !important;
+}
+
+.iron-pagamentos-periodo-atual:hover:not(:disabled) {
+    background: var(--ip-navy) !important;
+    border-color: var(--ip-navy) !important;
+}
+
+/* ============================================================
+   RESUMO FINANCEIRO
+============================================================ */
+
+.iron-pagamentos-resumo {
+    display: grid !important;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 16px !important;
+
+    width: 100% !important;
+    margin-bottom: 30px !important;
+}
+
+.iron-pagamentos-resumo-card {
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    gap: 13px !important;
+
+    min-width: 0 !important;
+    min-height: 142px !important;
+
+    padding: 20px !important;
+
+    background: var(--ip-white) !important;
+
+    border: 1px solid var(--ip-border) !important;
+    border-top: 4px solid var(--ip-navy) !important;
+    border-radius: 10px !important;
+
+    box-shadow: 0 3px 13px rgba(9, 29, 50, 0.045) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.iron-pagamentos-resumo-card:hover {
+    transform: translateY(-3px) !important;
+
+    box-shadow: 0 9px 22px rgba(9, 29, 50, 0.09) !important;
+}
+
+.iron-pagamentos-resumo-topo {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    width: 100% !important;
+    gap: 10px !important;
+}
+
+.iron-pagamentos-resumo-label {
+    color: var(--ip-muted) !important;
+
+    font-size: 10px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.9px !important;
+}
+
+.iron-pagamentos-resumo-simbolo {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 29px !important;
+    height: 29px !important;
+
+    color: var(--ip-navy) !important;
+    background: var(--ip-navy-light) !important;
+
+    border-radius: 7px !important;
+
+    font-size: 12px !important;
+    font-weight: 900 !important;
+}
+
+.iron-pagamentos-resumo-card>strong {
+    color: var(--ip-navy) !important;
+
+    font-size: clamp(20px, 2vw, 27px) !important;
+    font-weight: 900 !important;
+
+    letter-spacing: -0.8px !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+.iron-pagamentos-resumo-card>small {
+    color: var(--ip-muted) !important;
+
+    font-size: 10px !important;
+    font-weight: 550 !important;
+    line-height: 1.5 !important;
+}
+
+.iron-pagamentos-resumo-vendido {
+    border-top-color: var(--ip-navy) !important;
+}
+
+.iron-pagamentos-resumo-vendido .iron-pagamentos-resumo-simbolo {
+    color: var(--ip-navy) !important;
+    background: var(--ip-navy-light) !important;
+}
+
+.iron-pagamentos-resumo-pago {
+    border-top-color: var(--ip-green) !important;
+}
+
+.iron-pagamentos-resumo-pago>strong {
+    color: var(--ip-green) !important;
+}
+
+.iron-pagamentos-resumo-pago .iron-pagamentos-resumo-simbolo {
+    color: var(--ip-green) !important;
+    background: var(--ip-green-soft) !important;
+}
+
+.iron-pagamentos-resumo-saldo {
+    border-top-color: var(--ip-green-dark) !important;
+}
+
+.iron-pagamentos-resumo-saldo .iron-pagamentos-resumo-simbolo {
+    color: var(--ip-green-dark) !important;
+    background: var(--ip-green-soft) !important;
+}
+
+/* ============================================================
+   CABEÇALHO DAS FASES
+============================================================ */
+
+.iron-pagamentos-fases-area {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-fases-heading {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    margin-bottom: 17px !important;
+}
+
+.iron-pagamentos-fases-heading h3 {
+    margin: 0 0 5px !important;
+
+    color: var(--ip-navy) !important;
+
+    font-size: 16px !important;
+    font-weight: 850 !important;
+}
+
+.iron-pagamentos-fases-heading p {
+    margin: 0 !important;
+
+    color: var(--ip-muted) !important;
+
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+}
+
+.iron-pagamentos-fases-contagem {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 7px 12px !important;
+
+    color: var(--ip-green) !important;
+    background: var(--ip-green-soft) !important;
+
+    border: 1px solid var(--ip-green-border) !important;
+    border-radius: 6px !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    white-space: nowrap !important;
+}
+
+/* ============================================================
+   GRID DOS CARDS
+============================================================ */
+
+.iron-pagamentos-fases-grid {
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    align-items: stretch !important;
+
+    gap: 16px !important;
+
+    width: 100% !important;
+}
+
+/* ============================================================
+   CARD DA FASE
+============================================================ */
+
+.iron-pagamentos-fase-card {
+    display: flex !important;
+    flex-direction: column !important;
+
+    min-width: 0 !important;
+
+    padding: 19px !important;
+
+    background: var(--ip-white) !important;
+
+    border: 1px solid var(--ip-border) !important;
+    border-left: 4px solid var(--ip-green) !important;
+    border-radius: 10px !important;
+
+    box-shadow: 0 3px 13px rgba(9, 29, 50, 0.04) !important;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease !important;
+}
+
+.iron-pagamentos-fase-card:hover {
+    border-color: var(--ip-green-border) !important;
+
+    box-shadow: 0 8px 21px rgba(9, 29, 50, 0.075) !important;
+
+    transform: translateY(-2px) !important;
+}
+
+/* ============================================================
+   IDENTIFICAÇÃO DA FASE
+============================================================ */
+
+.iron-pagamentos-fase-header {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    padding-bottom: 16px !important;
+    margin-bottom: 2px !important;
+
+    border-bottom: 1px solid var(--ip-border) !important;
+}
+
+.iron-pagamentos-fase-identificacao {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    gap: 7px !important;
+
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-fase-nivel {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    padding: 5px 9px !important;
+
+    color: var(--ip-green) !important;
+    background: var(--ip-green-soft) !important;
+
+    border: 1px solid #cbdccf !important;
+    border-radius: 5px !important;
+
+    font-size: 9px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+}
+
+.iron-pagamentos-fase-identificacao h4 {
+    margin: 0 !important;
+
+    color: var(--ip-black) !important;
+
+    font-size: 15px !important;
+    font-weight: 850 !important;
+
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.iron-pagamentos-fase-identificacao small {
+    color: var(--ip-muted) !important;
+
+    font-size: 10px !important;
+    font-weight: 550 !important;
+}
+
+/* ============================================================
+   TOTAL DA FASE
+============================================================ */
+
+.iron-pagamentos-fase-total {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+
+    gap: 7px !important;
+
+    flex-shrink: 0 !important;
+}
+
+.iron-pagamentos-fase-total>span {
+    color: var(--ip-muted) !important;
+
+    font-size: 9px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.5px !important;
+}
+
+.iron-pagamentos-fase-total>strong {
+    color: var(--ip-green) !important;
+
+    font-size: 19px !important;
+    font-weight: 900 !important;
+
+    letter-spacing: -0.5px !important;
+    white-space: nowrap !important;
+}
+
+/* ============================================================
+   LISTAGEM DE PAGAMENTOS
+============================================================ */
+
+.iron-pagamentos-fase-lista {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* ============================================================
+   PAGAMENTO INDIVIDUAL
+============================================================ */
+
+.iron-pagamentos-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    padding: 16px 0 !important;
+
+    border-bottom: 1px solid #edf1ee !important;
+}
+
+.iron-pagamentos-item:last-child {
+    padding-bottom: 2px !important;
+
+    border-bottom: none !important;
+}
+
+.iron-pagamentos-item-informacoes {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    gap: 6px !important;
+
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-item-informacoes>strong {
+    color: var(--ip-navy) !important;
+
+    font-size: 13px !important;
+    font-weight: 850 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+.iron-pagamentos-item-data {
+    color: var(--ip-muted) !important;
+
+    font-size: 10px !important;
+    font-weight: 600 !important;
+}
+
+.iron-pagamentos-item-informacoes p {
+    margin: 0 !important;
+
+    color: var(--ip-text) !important;
+
+    font-size: 11px !important;
+    line-height: 1.6 !important;
+
+    overflow-wrap: anywhere !important;
+}
+
+.iron-pagamentos-item-valor {
+    flex-shrink: 0 !important;
+
+    color: var(--ip-navy) !important;
+
+    font-size: 13px !important;
+    font-weight: 900 !important;
+
+    white-space: nowrap !important;
+}
+
+/* ============================================================
+   FASE SEM PAGAMENTOS
+============================================================ */
+
+.iron-pagamentos-fase-sem-registros {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 12px !important;
+
+    padding: 19px 0 4px !important;
+}
+
+.iron-pagamentos-fase-sem-registros>span {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 29px !important;
+    height: 29px !important;
+
+    flex-shrink: 0 !important;
+
+    color: var(--ip-green) !important;
+    background: var(--ip-green-soft) !important;
+
+    border: 1px solid #cbdccf !important;
+    border-radius: 7px !important;
+
+    font-size: 11px !important;
+    font-weight: 850 !important;
+}
+
+.iron-pagamentos-fase-sem-registros p {
+    margin: 0 !important;
+
+    color: var(--ip-muted) !important;
+
+    font-size: 11px !important;
+    line-height: 1.6 !important;
+}
+
+/* ============================================================
+   ESTADOS VAZIOS E CARREGAMENTO
+============================================================ */
+
+.iron-pagamentos-estado-vazio {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 12px !important;
+
+    width: 100% !important;
+    min-height: 115px !important;
+
+    padding: 25px !important;
+
+    color: var(--ip-muted) !important;
+    background: var(--ip-surface) !important;
+
+    border: 1px dashed var(--ip-border-strong) !important;
+    border-radius: 9px !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+
+    text-align: center !important;
+}
+
+.iron-pagamentos-loading-indicador {
+    width: 17px !important;
+    height: 17px !important;
+
+    flex-shrink: 0 !important;
+
+    border: 2px solid #d5e1d8 !important;
+    border-top-color: var(--ip-green) !important;
+
+    border-radius: 50% !important;
+
+    animation: ironPagamentosGirar 0.7s linear infinite !important;
+}
+
+@keyframes ironPagamentosGirar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================================
+   RESPONSIVIDADE | TABLET
+============================================================ */
+
+@media (max-width: 950px) {
+    .iron-pagamentos-page {
+        padding: 19px !important;
+        gap: 20px !important;
+    }
+
+    .iron-pagamentos-header,
+    .iron-pagamentos-form-card,
+    .iron-pagamentos-historico {
+        padding: 21px !important;
+    }
+
+    .iron-pagamentos-resumo {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .iron-pagamentos-fases-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* ============================================================
+   RESPONSIVIDADE | MOBILE
+============================================================ */
+
+@media (max-width: 650px) {
+    .iron-pagamentos-page {
+        padding: 12px !important;
+        gap: 16px !important;
+    }
+
+    .iron-pagamentos-header {
+        align-items: flex-start !important;
+        flex-direction: column !important;
+
+        gap: 17px !important;
+
+        padding: 20px !important;
+    }
+
+    .iron-pagamentos-header h2 {
+        font-size: 24px !important;
+    }
+
+    .iron-pagamentos-header p {
+        font-size: 11px !important;
+    }
+
+    .iron-pagamentos-form-card,
+    .iron-pagamentos-historico {
+        padding: 17px !important;
+    }
+
+    .iron-pagamentos-form {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 17px !important;
+    }
+
+    .iron-pagamentos-field-observacao,
+    .iron-pagamentos-compromisso,
+    .iron-pagamentos-feedback,
+    .iron-pagamentos-form-acoes {
+        grid-column: 1 !important;
+    }
+
+    .iron-pagamentos-form-acoes {
+        justify-content: stretch !important;
+    }
+
+    .iron-pagamentos-btn-registrar {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .iron-pagamentos-historico-header {
+        align-items: flex-start !important;
+        flex-direction: column !important;
+        gap: 18px !important;
+    }
+
+    .iron-pagamentos-periodo-navegacao {
+        width: 100% !important;
+        justify-content: flex-start !important;
+    }
+
+    .iron-pagamentos-periodo-info {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .iron-pagamentos-periodo-info strong {
+        font-size: 10px !important;
+    }
+
+    .iron-pagamentos-periodo-atual {
+        flex: 1 1 100% !important;
+    }
+
+    .iron-pagamentos-resumo {
+        grid-template-columns: 1fr !important;
+        gap: 11px !important;
+    }
+
+    .iron-pagamentos-resumo-card {
+        min-height: 120px !important;
+        padding: 17px !important;
+    }
+
+    .iron-pagamentos-resumo-card>strong {
+        font-size: 25px !important;
+    }
+
+    .iron-pagamentos-fases-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .iron-pagamentos-fase-card {
+        padding: 16px !important;
+    }
+
+    .iron-pagamentos-compromisso-detalhes {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+}
+
+/* ============================================================
+   RESPONSIVIDADE | TELAS PEQUENAS
+============================================================ */
+
+@media (max-width: 380px) {
+
+    .iron-pagamentos-header,
+    .iron-pagamentos-form-card,
+    .iron-pagamentos-historico {
+        padding: 14px !important;
+    }
+
+    .iron-pagamentos-section-heading {
+        gap: 10px !important;
+    }
+
+    .iron-pagamentos-heading-icon {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .iron-pagamentos-section-heading h3 {
+        font-size: 15px !important;
+    }
+
+    .iron-pagamentos-fase-header {
+        gap: 8px !important;
+    }
+
+    .iron-pagamentos-fase-total>strong {
+        font-size: 16px !important;
+    }
+
+    .iron-pagamentos-fase-total>span {
+        font-size: 8px !important;
+    }
+
+    .iron-pagamentos-item {
+        gap: 8px !important;
+    }
+
+    .iron-pagamentos-item-valor {
+        font-size: 11px !important;
+    }
+}
+
+/* ============================================================
+   ACESSIBILIDADE
+============================================================ */
+
+.iron-pagamentos-page button:focus-visible,
+.iron-pagamentos-page input:focus-visible,
+.iron-pagamentos-page textarea:focus-visible,
+.iron-pagamentos-page select:focus-visible {
+    outline: 2px solid var(--ip-green) !important;
+    outline-offset: 3px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .iron-pagamentos-page *,
+    .iron-pagamentos-page *::before,
+    .iron-pagamentos-page *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================================
+   IRON EXECUTIONS | PAGAMENTOS
+   CAMADA PREMIUM DE EFEITOS E ANIMAÇÕES
+============================================================ */
+
+/* 1. ANIMAÇÃO DE ENTRADA DA PÁGINA */
+
+.iron-pagamentos-page {
+    animation: ironPagEntrada 0.65s cubic-bezier(.2, .7, .2, 1) both !important;
+}
+
+@keyframes ironPagEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 2. CABEÇALHO COM PROFUNDIDADE */
+
+.iron-pagamentos-header {
+    overflow: hidden !important;
+    isolation: isolate !important;
+
+    background:
+        linear-gradient(115deg, #ffffff 0%, #ffffff 65%, #f0f5f1 100%) !important;
+
+    box-shadow:
+        0 5px 15px rgba(9, 29, 50, 0.035),
+        0 15px 35px rgba(9, 29, 50, 0.045) !important;
+
+    transition:
+        box-shadow 0.35s ease,
+        border-color 0.35s ease !important;
+}
+
+.iron-pagamentos-header::after {
+    content: "" !important;
+
+    position: absolute !important;
+    top: -85px !important;
+    right: -55px !important;
+
+    width: 240px !important;
+    height: 240px !important;
+
+    z-index: -1 !important;
+
+    background: radial-gradient(circle,
+            rgba(23, 76, 53, 0.09),
+            rgba(23, 76, 53, 0) 70%) !important;
+
+    pointer-events: none !important;
+}
+
+.iron-pagamentos-header:hover {
+    box-shadow:
+        0 8px 22px rgba(9, 29, 50, 0.06),
+        0 18px 40px rgba(9, 29, 50, 0.06) !important;
+}
+
+/* 3. STATUS COM PULSAÇÃO DISCRETA */
+
+.iron-pagamentos-status-indicador {
+    animation: ironPagPulso 2.4s ease-in-out infinite !important;
+}
+
+@keyframes ironPagPulso {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 3px rgba(23, 76, 53, 0.10);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(23, 76, 53, 0.04);
+    }
+}
+
+/* 4. PAINEL DO FORMULÁRIO */
+
+.iron-pagamentos-form-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    transition:
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        transform 0.35s ease !important;
+}
+
+.iron-pagamentos-form-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 3px !important;
+
+    background: linear-gradient(90deg,
+            #103c29,
+            #357b52,
+            #103c29) !important;
+
+    background-size: 200% 100% !important;
+
+    animation: ironPagLinhaMovel 5s linear infinite !important;
+}
+
+@keyframes ironPagLinhaMovel {
+    from {
+        background-position: 100% 0;
+    }
+
+    to {
+        background-position: -100% 0;
+    }
+}
+
+.iron-pagamentos-form-card:hover {
+    box-shadow: 0 12px 32px rgba(9, 29, 50, 0.065) !important;
+}
+
+/* 5. CAMPOS COM FOCO SOFISTICADO */
+
+.iron-pagamentos-field input,
+.iron-pagamentos-field textarea,
+.iron-pagamentos-field select {
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease,
+        background 0.25s ease !important;
+}
+
+.iron-pagamentos-field input:focus,
+.iron-pagamentos-field textarea:focus,
+.iron-pagamentos-field select:focus {
+    transform: translateY(-1px) !important;
+
+    background: #fcfefd !important;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 76, 53, 0.09),
+        0 5px 13px rgba(9, 29, 50, 0.045) !important;
+}
+
+.iron-pagamentos-field label {
+    transition: color 0.2s ease !important;
+}
+
+.iron-pagamentos-field:focus-within label {
+    color: var(--ip-green) !important;
+}
+
+/* 6. COMPROMISSO SELECIONADO */
+
+.iron-pagamentos-compromisso {
+    animation: ironPagDetalheEntrada 0.35s ease both !important;
+
+    box-shadow: 0 5px 17px rgba(23, 76, 53, 0.045) !important;
+
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease !important;
+}
+
+.iron-pagamentos-compromisso:hover {
+    transform: translateY(-2px) !important;
+
+    box-shadow: 0 9px 23px rgba(23, 76, 53, 0.09) !important;
+}
+
+@keyframes ironPagDetalheEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 7. BOTÃO COM EFEITO DE LUZ */
+
+.iron-pagamentos-btn-registrar {
+    position: relative !important;
+    overflow: hidden !important;
+
+    box-shadow: 0 4px 12px rgba(16, 43, 70, 0.12) !important;
+}
+
+.iron-pagamentos-btn-registrar::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: -120% !important;
+
+    width: 65% !important;
+    height: 100% !important;
+
+    background: linear-gradient(110deg,
+            transparent,
+            rgba(255, 255, 255, 0.20),
+            transparent) !important;
+
+    transform: skewX(-20deg) !important;
+
+    transition: left 0.65s ease !important;
+}
+
+.iron-pagamentos-btn-registrar:hover:not(:disabled)::before {
+    left: 150% !important;
+}
+
+.iron-pagamentos-btn-registrar:hover:not(:disabled) {
+    box-shadow:
+        0 7px 19px rgba(16, 43, 70, 0.18),
+        0 0 0 3px rgba(23, 76, 53, 0.07) !important;
+}
+
+/* 8. HISTÓRICO COM ENTRADA SUAVE */
+
+.iron-pagamentos-historico {
+    animation: ironPagHistoricoEntrada 0.75s 0.12s ease both !important;
+
+    transition: box-shadow 0.3s ease !important;
+}
+
+@keyframes ironPagHistoricoEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 9. INDICADORES FINANCEIROS PREMIUM */
+
+.iron-pagamentos-resumo-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    transition:
+        transform 0.3s cubic-bezier(.2, .7, .2, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease !important;
+}
+
+.iron-pagamentos-resumo-card::after {
+    content: "" !important;
+
+    position: absolute !important;
+    right: -35px !important;
+    bottom: -65px !important;
+
+    width: 145px !important;
+    height: 145px !important;
+
+    background: radial-gradient(circle,
+            rgba(23, 76, 53, 0.065),
+            transparent 70%) !important;
+
+    border-radius: 50% !important;
+
+    pointer-events: none !important;
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease !important;
+}
+
+.iron-pagamentos-resumo-card:hover {
+    transform: translateY(-5px) !important;
+
+    box-shadow:
+        0 12px 26px rgba(9, 29, 50, 0.09),
+        0 3px 8px rgba(9, 29, 50, 0.035) !important;
+}
+
+.iron-pagamentos-resumo-card:hover::after {
+    transform: scale(1.3) !important;
+}
+
+.iron-pagamentos-resumo-card>strong {
+    transition:
+        color 0.25s ease,
+        letter-spacing 0.25s ease !important;
+}
+
+.iron-pagamentos-resumo-card:hover>strong {
+    letter-spacing: -1px !important;
+}
+
+/* 10. ÍCONES DOS INDICADORES */
+
+.iron-pagamentos-resumo-simbolo {
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease !important;
+}
+
+.iron-pagamentos-resumo-card:hover .iron-pagamentos-resumo-simbolo {
+    transform: rotate(-8deg) scale(1.1) !important;
+
+    box-shadow: 0 4px 10px rgba(9, 29, 50, 0.08) !important;
+}
+
+/* 11. CARDS DAS FASES */
+
+.iron-pagamentos-fase-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    transition:
+        transform 0.3s cubic-bezier(.2, .7, .2, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease !important;
+}
+
+.iron-pagamentos-fase-card::before {
+    content: "" !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 0 !important;
+    height: 3px !important;
+
+    background: var(--ip-green) !important;
+
+    transition: width 0.35s ease !important;
+}
+
+.iron-pagamentos-fase-card:hover::before {
+    width: 100% !important;
+}
+
+.iron-pagamentos-fase-card:hover {
+    transform: translateY(-4px) !important;
+
+    box-shadow:
+        0 13px 28px rgba(9, 29, 50, 0.075),
+        0 3px 8px rgba(23, 76, 53, 0.035) !important;
+}
+
+/* 12. NÍVEIS DAS FASES */
+
+.iron-pagamentos-fase-nivel {
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease !important;
+}
+
+.iron-pagamentos-fase-card:hover .iron-pagamentos-fase-nivel {
+    color: white !important;
+    background: var(--ip-green) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+/* 13. VALORES DAS FASES */
+
+.iron-pagamentos-fase-total>strong {
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease !important;
+}
+
+.iron-pagamentos-fase-card:hover .iron-pagamentos-fase-total>strong {
+    color: var(--ip-green-dark) !important;
+    transform: scale(1.04) !important;
+}
+
+/* 14. ITENS DO HISTÓRICO */
+
+.iron-pagamentos-item {
+    position: relative !important;
+
+    transition:
+        padding 0.25s ease,
+        background 0.25s ease !important;
+}
+
+.iron-pagamentos-item:hover {
+    padding-left: 10px !important;
+    padding-right: 8px !important;
+
+    background: linear-gradient(90deg,
+            rgba(23, 76, 53, 0.045),
+            transparent) !important;
+}
+
+.iron-pagamentos-item-informacoes>strong {
+    transition: color 0.2s ease !important;
+}
+
+.iron-pagamentos-item:hover .iron-pagamentos-item-informacoes>strong {
+    color: var(--ip-green) !important;
+}
+
+.iron-pagamentos-item-valor {
+    transition: transform 0.25s ease !important;
+}
+
+.iron-pagamentos-item:hover .iron-pagamentos-item-valor {
+    transform: scale(1.04) !important;
+}
+
+/* 15. BOTÕES DE NAVEGAÇÃO */
+
+.iron-pagamentos-periodo-seta,
+.iron-pagamentos-periodo-atual {
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.iron-pagamentos-periodo-seta:hover:not(:disabled),
+.iron-pagamentos-periodo-atual:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+
+    box-shadow: 0 5px 12px rgba(9, 29, 50, 0.12) !important;
+}
+
+.iron-pagamentos-periodo-seta:active:not(:disabled),
+.iron-pagamentos-periodo-atual:active:not(:disabled) {
+    transform: scale(0.96) !important;
+}
+
+/* 16. BADGES E CONTADORES */
+
+.iron-pagamentos-fases-contagem {
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease !important;
+}
+
+.iron-pagamentos-fases-contagem:hover {
+    color: white !important;
+    background: var(--ip-green) !important;
+
+    transform: translateY(-1px) !important;
+}
+
+/* 17. SOMBRAS E ACABAMENTO DOS PAINÉIS */
+
+.iron-pagamentos-form-card,
+.iron-pagamentos-historico {
+    transition:
+        box-shadow 0.3s ease,
+        border-color 0.3s ease !important;
+}
+
+.iron-pagamentos-form-card:hover,
+.iron-pagamentos-historico:hover {
+    box-shadow: 0 12px 32px rgba(9, 29, 50, 0.055) !important;
+}
+
+/* 18. ESTADOS DE FOCO DOS BOTÕES */
+
+.iron-pagamentos-page button:focus-visible {
+    outline: 2px solid var(--ip-green) !important;
+    outline-offset: 4px !important;
+
+    box-shadow: 0 0 0 5px rgba(23, 76, 53, 0.08) !important;
+}
+
+/* 19. ENTRADA ESCALONADA DOS INDICADORES */
+
+.iron-pagamentos-resumo-card:nth-child(1) {
+    animation: ironPagCardEntrada 0.5s 0.05s ease both !important;
+}
+
+.iron-pagamentos-resumo-card:nth-child(2) {
+    animation: ironPagCardEntrada 0.5s 0.12s ease both !important;
+}
+
+.iron-pagamentos-resumo-card:nth-child(3) {
+    animation: ironPagCardEntrada 0.5s 0.19s ease both !important;
+}
+
+@keyframes ironPagCardEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 20. ENTRADA ESCALONADA DOS CARDS DAS FASES */
+
+.iron-pagamentos-fase-card {
+    animation: ironPagFaseEntrada 0.45s ease both !important;
+}
+
+.iron-pagamentos-fase-card:nth-child(1) {
+    animation-delay: 0.04s !important;
+}
+
+.iron-pagamentos-fase-card:nth-child(2) {
+    animation-delay: 0.09s !important;
+}
+
+.iron-pagamentos-fase-card:nth-child(3) {
+    animation-delay: 0.14s !important;
+}
+
+.iron-pagamentos-fase-card:nth-child(4) {
+    animation-delay: 0.19s !important;
+}
+
+.iron-pagamentos-fase-card:nth-child(5) {
+    animation-delay: 0.24s !important;
+}
+
+.iron-pagamentos-fase-card:nth-child(6) {
+    animation-delay: 0.29s !important;
+}
+
+@keyframes ironPagFaseEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 21. REDUÇÃO DE MOVIMENTO */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .iron-pagamentos-page *,
+    .iron-pagamentos-page *::before,
+    .iron-pagamentos-page *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* =========================================
+   SELETOR VISUAL DE FASES ADMINISTRATIVAS
+   Classes exclusivas: iron-pagamentos-fases-*
+========================================= */
+
+.iron-pagamentos-fases-seletor {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 13px !important;
+}
+
+.iron-pagamentos-fases-titulo {
+    color: #102b46 !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.2px !important;
+}
+
+.iron-pagamentos-fases-botoes {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+    gap: 11px !important;
+    width: 100% !important;
+}
+
+.iron-pagamentos-fase-opcao {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 11px !important;
+    min-height: 53px !important;
+    padding: 12px 15px !important;
+    border: 1px solid #dce5df !important;
+    border-radius: 11px !important;
+    background: #ffffff !important;
+    color: #18251e !important;
+    font-size: 13px !important;
+    font-weight: 650 !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    transition: all 0.22s ease !important;
+    box-shadow: 0 2px 7px rgba(16, 43, 70, 0.04) !important;
+}
+
+.iron-pagamentos-fase-opcao:hover {
+    border-color: #315d43 !important;
+    background: #f5faf6 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 13px rgba(16, 43, 70, 0.09) !important;
+}
+
+.iron-pagamentos-fase-indicador {
+    flex-shrink: 0 !important;
+    width: 9px !important;
+    height: 9px !important;
+    border-radius: 50% !important;
+    background: #aab8ae !important;
+    transition: all 0.2s ease !important;
+}
+
+.iron-pagamentos-fase-nome {
+    flex: 1 !important;
+    line-height: 1.4 !important;
+}
+
+.iron-pagamentos-fase-opcao-ativa {
+    border: 1.5px solid #174c35 !important;
+    background: #edf5ef !important;
+    color: #103c29 !important;
+    box-shadow: 0 0 0 3px rgba(23, 76, 53, 0.08) !important;
+}
+
+.iron-pagamentos-fase-opcao-ativa .iron-pagamentos-fase-indicador {
+    background: #174c35 !important;
+    box-shadow: 0 0 0 4px rgba(23, 76, 53, 0.13) !important;
+}
+
+.iron-pagamentos-fase-check {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 21px !important;
+    height: 21px !important;
+    flex-shrink: 0 !important;
+    border-radius: 50% !important;
+    background: #174c35 !important;
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+}
+
+.iron-pagamentos-fases-ajuda {
+    color: #77847b !important;
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+}
+
+.iron-pagamentos-fases-limpar {
+    align-self: flex-start !important;
+    padding: 7px 12px !important;
+    border: 1px solid #dce5df !important;
+    border-radius: 7px !important;
+    background: #ffffff !important;
+    color: #315d43 !important;
+    font-size: 11px !important;
+    font-weight: 750 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.iron-pagamentos-fases-limpar:hover {
+    border-color: #174c35 !important;
+    background: #edf5ef !important;
+    color: #103c29 !important;
+}
+
+@media (max-width: 600px) {
+    .iron-pagamentos-fases-botoes {
+        grid-template-columns: 1fr !important;
+    }
+
+    .iron-pagamentos-fase-opcao {
+        min-height: 49px !important;
+    }
+}
+
+
+/* ==========================================
+   DROPDOWN PERSONALIZADO DE COMPROMISSOS
+========================================== */
+
+.iron-pagamentos-compromisso-dropdown {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+
+.iron-pagamentos-compromisso-label {
+    color: #102b46 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+}
+
+.iron-pagamentos-compromisso-campo {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-height: 49px !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd9cf !important;
+    border-radius: 11px !important;
+    transition: all 0.25s ease !important;
+    overflow: hidden !important;
+}
+
+.iron-pagamentos-compromisso-campo:focus-within {
+    border-color: #174c35 !important;
+    box-shadow: 0 0 0 4px rgba(23, 76, 53, 0.09) !important;
+}
+
+.iron-pagamentos-compromisso-icone {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 45px !important;
+    height: 49px !important;
+    color: #315d43 !important;
+    font-size: 15px !important;
+    flex-shrink: 0 !important;
+}
+
+.iron-pagamentos-compromisso-campo input {
+    flex: 1 !important;
+    width: 100% !important;
+    height: 49px !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    color: #102b46 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    padding: 0 8px !important;
+    box-shadow: none !important;
+}
+
+.iron-pagamentos-compromisso-campo input::placeholder {
+    color: #9aa79e !important;
+    font-weight: 400 !important;
+}
+
+.iron-pagamentos-compromisso-seta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 45px !important;
+    height: 49px !important;
+    border: none !important;
+    background: transparent !important;
+    color: #315d43 !important;
+    cursor: pointer !important;
+    transition: transform 0.25s ease !important;
+}
+
+.iron-pagamentos-compromisso-seta-ativa {
+    transform: rotate(180deg) !important;
+}
+
+/* LISTA DE OPÇÕES */
+
+.iron-pagamentos-compromisso-lista {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 280px !important;
+    overflow-y: auto !important;
+    padding: 7px !important;
+    background: #ffffff !important;
+    border: 1px solid #dce7df !important;
+    border-radius: 13px !important;
+    box-shadow: 0 12px 35px rgba(9, 29, 50, 0.15) !important;
+    animation: ironPagamentosCompromissoEntrada 0.2s ease !important;
+}
+
+@keyframes ironPagamentosCompromissoEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(-7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* OPÇÕES */
+
+.iron-pagamentos-compromisso-opcao {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    min-height: 63px !important;
+    padding: 10px 12px !important;
+    border: 1px solid transparent !important;
+    border-radius: 9px !important;
+    background: #ffffff !important;
+    color: #102b46 !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.iron-pagamentos-compromisso-opcao:hover {
+    background: #f1f7f3 !important;
+    border-color: #d7e7dc !important;
+    transform: translateX(3px) !important;
+}
+
+.iron-pagamentos-compromisso-opcao-icone {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 37px !important;
+    height: 37px !important;
+    flex-shrink: 0 !important;
+    border-radius: 9px !important;
+    background: #edf4ef !important;
+    color: #174c35 !important;
+    font-size: 15px !important;
+}
+
+.iron-pagamentos-compromisso-opcao-texto {
+    display: flex !important;
+    flex: 1 !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-compromisso-opcao-texto strong {
+    color: #102b46 !important;
+    font-size: 12px !important;
+    font-weight: 750 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.iron-pagamentos-compromisso-opcao-texto small {
+    color: #89958c !important;
+    font-size: 10px !important;
+}
+
+.iron-pagamentos-compromisso-opcao-ativa {
+    background: #edf5ef !important;
+    border-color: #b9d3c0 !important;
+}
+
+.iron-pagamentos-compromisso-opcao-check {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 23px !important;
+    height: 23px !important;
+    flex-shrink: 0 !important;
+    border-radius: 50% !important;
+    background: #174c35 !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+}
+
+/* ESTADO VAZIO */
+
+.iron-pagamentos-compromisso-vazio {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 25px 15px !important;
+    color: #849188 !important;
+    text-align: center !important;
+}
+
+.iron-pagamentos-compromisso-vazio>i {
+    color: #315d43 !important;
+    font-size: 25px !important;
+}
+
+.iron-pagamentos-compromisso-vazio strong {
+    color: #102b46 !important;
+    font-size: 12px !important;
+}
+
+.iron-pagamentos-compromisso-vazio small {
+    font-size: 10px !important;
+}
+
+.iron-pagamentos-compromisso-ajuda {
+    color: #89958c !important;
+    font-size: 11px !important;
+}
+
+@media (max-width: 600px) {
+    .iron-pagamentos-compromisso-lista {
+        max-height: 240px !important;
+    }
+}
+
+
+/* ============================================
+   DETALHAMENTO DE PAGAMENTOS POR FASE
+   Identidade visual exclusiva
+============================================ */
+
+.iron-pagamentos-detalhamento-area {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+}
+
+/* CABEÇALHO GERAL */
+
+.iron-pagamentos-detalhamento-heading {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 15px !important;
+}
+
+.iron-pagamentos-detalhamento-heading h3 {
+    margin: 0 !important;
+    color: #102b46 !important;
+    font-size: 19px !important;
+    font-weight: 850 !important;
+    letter-spacing: -0.5px !important;
+}
+
+.iron-pagamentos-detalhamento-heading p {
+    margin: 5px 0 0 !important;
+    color: #7b8780 !important;
+    font-size: 12px !important;
+}
+
+.iron-pagamentos-detalhamento-contagem {
+    padding: 8px 13px !important;
+    border: 1px solid #d4e2d8 !important;
+    border-radius: 30px !important;
+    background: #f0f6f1 !important;
+    color: #174c35 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+}
+
+/* GRID */
+
+.iron-pagamentos-detalhamento-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)) !important;
+    gap: 18px !important;
+    width: 100% !important;
+}
+
+/* CARD DA FASE */
+
+.iron-pagamentos-detalhamento-card {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    border: 1px solid #cbdccf !important;
+    border-radius: 15px !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(9, 29, 50, 0.055) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 25px rgba(9, 29, 50, 0.09) !important;
+}
+
+/* IDENTIDADE DA FASE */
+
+.iron-pagamentos-detalhamento-card-topo {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 15px !important;
+    padding: 22px 20px !important;
+    background: linear-gradient(120deg, #102b46 0%, #173d35 100%) !important;
+    border-bottom: 3px solid #315d43 !important;
+}
+
+.iron-pagamentos-detalhamento-identidade {
+    display: flex !important;
+    flex: 1 !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 7px !important;
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-detalhamento-nivel {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 5px 10px !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 5px !important;
+    background: rgba(255, 255, 255, 0.11) !important;
+    color: #dceee1 !important;
+    font-size: 9px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.2px !important;
+}
+
+.iron-pagamentos-detalhamento-identidade h4 {
+    margin: 0 !important;
+    color: #ffffff !important;
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.4px !important;
+    overflow-wrap: anywhere !important;
+}
+
+.iron-pagamentos-detalhamento-quantidade {
+    color: #d1e0d5 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+}
+
+/* TOTAL DA FASE */
+
+.iron-pagamentos-detalhamento-total {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 7px !important;
+    flex-shrink: 0 !important;
+}
+
+.iron-pagamentos-detalhamento-total span {
+    color: #c2d8c9 !important;
+    font-size: 9px !important;
+    font-weight: 850 !important;
+    letter-spacing: 1px !important;
+}
+
+.iron-pagamentos-detalhamento-total strong {
+    color: #ffffff !important;
+    font-size: 19px !important;
+    font-weight: 900 !important;
+    white-space: nowrap !important;
+}
+
+/* ÁREA DO HISTÓRICO */
+
+.iron-pagamentos-detalhamento-lista-area {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 15px !important;
+    gap: 11px !important;
+    background: #ffffff !important;
+}
+
+.iron-pagamentos-detalhamento-lista-heading {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    padding: 0 2px 9px !important;
+    border-bottom: 1px solid #e8eee9 !important;
+}
+
+.iron-pagamentos-detalhamento-lista-heading span:first-child {
+    color: #315d43 !important;
+    font-size: 9px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.9px !important;
+}
+
+.iron-pagamentos-detalhamento-lista-heading span:last-child {
+    color: #7b8780 !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+}
+
+/* PAGAMENTOS INDIVIDUAIS */
+
+.iron-pagamentos-detalhamento-itens {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.iron-pagamentos-detalhamento-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    padding: 13px 12px !important;
+    border: 1px solid #e3ebe5 !important;
+    border-left: 3px solid #315d43 !important;
+    border-radius: 8px !important;
+    background: #f8faf8 !important;
+    transition: background 0.2s ease, border-color 0.2s ease !important;
+}
+
+.iron-pagamentos-detalhamento-item:hover {
+    background: #f0f6f1 !important;
+    border-color: #c5d9ca !important;
+}
+
+.iron-pagamentos-detalhamento-item-conteudo {
+    display: flex !important;
+    flex: 1 !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 5px !important;
+    min-width: 0 !important;
+}
+
+.iron-pagamentos-detalhamento-item-conteudo>strong {
+    color: #102b46 !important;
+    font-size: 13px !important;
+    font-weight: 850 !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.iron-pagamentos-detalhamento-item-conteudo>span {
+    color: #315d43 !important;
+    font-size: 11px !important;
+    font-weight: 750 !important;
+}
+
+.iron-pagamentos-detalhamento-item-conteudo>p {
+    margin: 2px 0 0 !important;
+    color: #64736a !important;
+    font-size: 11px !important;
+    font-weight: 550 !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.iron-pagamentos-detalhamento-item-valor {
+    flex-shrink: 0 !important;
+    color: #174c35 !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    white-space: nowrap !important;
+}
+
+/* FASE SEM PAGAMENTOS */
+
+.iron-pagamentos-detalhamento-sem-registros {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 16px 12px !important;
+    border: 1px dashed #d5e2d8 !important;
+    border-radius: 9px !important;
+    background: #f8faf8 !important;
+}
+
+.iron-pagamentos-detalhamento-sem-registros>span {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0 !important;
+    border-radius: 8px !important;
+    background: #e9f0eb !important;
+    color: #315d43 !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+}
+
+.iron-pagamentos-detalhamento-sem-registros p {
+    margin: 0 !important;
+    color: #758178 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+}
+
+/* CARREGAMENTO E ESTADO VAZIO */
+
+.iron-pagamentos-detalhamento-vazio {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    min-height: 100px !important;
+    padding: 20px !important;
+    border: 1px dashed #d5e2d8 !important;
+    border-radius: 12px !important;
+    background: #f8faf8 !important;
+    color: #64736a !important;
+    font-size: 12px !important;
+    font-weight: 650 !important;
+}
+
+.iron-pagamentos-detalhamento-loading {
+    width: 19px !important;
+    height: 19px !important;
+    flex-shrink: 0 !important;
+    border: 2px solid #dce8df !important;
+    border-top-color: #174c35 !important;
+    border-radius: 50% !important;
+    animation: ironPagamentosDetalhamentoGiro 0.7s linear infinite !important;
+}
+
+@keyframes ironPagamentosDetalhamentoGiro {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+    .iron-pagamentos-detalhamento-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .iron-pagamentos-detalhamento-card-topo {
+        align-items: flex-start !important;
+        padding: 18px 15px !important;
+    }
+
+    .iron-pagamentos-detalhamento-identidade h4 {
+        font-size: 17px !important;
+    }
+
+    .iron-pagamentos-detalhamento-total strong {
+        font-size: 15px !important;
+    }
+
+    .iron-pagamentos-detalhamento-lista-area {
+        padding: 12px !important;
+    }
+
+    .iron-pagamentos-detalhamento-item {
+        padding: 11px 9px !important;
+    }
+
+    .iron-pagamentos-detalhamento-item-valor {
+        font-size: 12px !important;
+    }
+}
+
+/* ==============================================
+   EFEITOS PREMIUM E HOVER
+   DETALHAMENTO DE PAGAMENTOS POR FASE
+============================================== */
+
+/* CARD COMPLETO DA FASE */
+
+.iron-pagamentos-detalhamento-card {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover {
+    transform: translateY(-5px) scale(1.005) !important;
+    border-color: #174c35 !important;
+    box-shadow:
+        0 15px 32px rgba(9, 29, 50, 0.13),
+        0 0 0 3px rgba(23, 76, 53, 0.07) !important;
+}
+
+/* CABEÇALHO DA FASE */
+
+.iron-pagamentos-detalhamento-card-topo {
+    transition: background 0.3s ease !important;
+    background-size: 200% 200% !important;
+    background-position: left center !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover .iron-pagamentos-detalhamento-card-topo {
+    background: linear-gradient(120deg,
+            #174c35 0%,
+            #102b46 100%) !important;
+    background-position: right center !important;
+}
+
+/* NOME DA FASE */
+
+.iron-pagamentos-detalhamento-identidade h4 {
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover .iron-pagamentos-detalhamento-identidade h4 {
+    color: #d9f5df !important;
+    transform: translateX(4px) !important;
+}
+
+/* IDENTIFICADOR DA FASE */
+
+.iron-pagamentos-detalhamento-nivel {
+    transition: all 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover .iron-pagamentos-detalhamento-nivel {
+    background: #ffffff !important;
+    color: #174c35 !important;
+    border-color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+/* TOTAL PAGO */
+
+.iron-pagamentos-detalhamento-total strong {
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease,
+        text-shadow 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover .iron-pagamentos-detalhamento-total strong {
+    color: #d8f5a9 !important;
+    transform: scale(1.06) !important;
+    text-shadow: 0 0 12px rgba(216, 245, 169, 0.2) !important;
+}
+
+/* QUANTIDADE DE PAGAMENTOS */
+
+.iron-pagamentos-detalhamento-quantidade {
+    transition: color 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover .iron-pagamentos-detalhamento-quantidade {
+    color: #ffffff !important;
+}
+
+/* CABEÇALHO DO HISTÓRICO */
+
+.iron-pagamentos-detalhamento-lista-heading {
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover .iron-pagamentos-detalhamento-lista-heading {
+    border-color: #b9d3c0 !important;
+}
+
+.iron-pagamentos-detalhamento-lista-heading span:first-child {
+    transition: color 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-card:hover .iron-pagamentos-detalhamento-lista-heading span:first-child {
+    color: #174c35 !important;
+}
+
+/* PAGAMENTOS INDIVIDUAIS */
+
+.iron-pagamentos-detalhamento-item {
+    position: relative !important;
+    overflow: hidden !important;
+    transition:
+        background 0.28s ease,
+        border-color 0.28s ease,
+        transform 0.28s ease,
+        box-shadow 0.28s ease !important;
+}
+
+.iron-pagamentos-detalhamento-item::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(110deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.35) 50%,
+            transparent 100%) !important;
+    transform: translateX(-120%) !important;
+    transition: transform 0.55s ease !important;
+    pointer-events: none !important;
+}
+
+.iron-pagamentos-detalhamento-item:hover {
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+    border-left-color: #102b46 !important;
+    transform: translateX(4px) !important;
+    box-shadow: 0 5px 14px rgba(16, 43, 70, 0.13) !important;
+}
+
+.iron-pagamentos-detalhamento-item:hover::before {
+    transform: translateX(120%) !important;
+}
+
+/* NOME DO PAGAMENTO */
+
+.iron-pagamentos-detalhamento-item-conteudo>strong {
+    transition: color 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-item:hover .iron-pagamentos-detalhamento-item-conteudo>strong {
+    color: #ffffff !important;
+}
+
+/* DATA */
+
+.iron-pagamentos-detalhamento-item-conteudo>span {
+    transition: color 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-item:hover .iron-pagamentos-detalhamento-item-conteudo>span {
+    color: #d8f5a9 !important;
+}
+
+/* OBSERVAÇÃO */
+
+.iron-pagamentos-detalhamento-item-conteudo>p {
+    transition: color 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-item:hover .iron-pagamentos-detalhamento-item-conteudo>p {
+    color: #e0eee4 !important;
+}
+
+/* VALOR DO PAGAMENTO */
+
+.iron-pagamentos-detalhamento-item-valor {
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-item:hover .iron-pagamentos-detalhamento-item-valor {
+    color: #ffffff !important;
+    transform: scale(1.08) !important;
+}
+
+/* EFEITO NO ESTADO SEM REGISTROS */
+
+.iron-pagamentos-detalhamento-sem-registros {
+    transition: all 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-sem-registros:hover {
+    background: #edf5ef !important;
+    border-color: #174c35 !important;
+    transform: translateY(-2px) !important;
+}
+
+.iron-pagamentos-detalhamento-sem-registros>span {
+    transition: all 0.25s ease !important;
+}
+
+.iron-pagamentos-detalhamento-sem-registros:hover>span {
+    background: #174c35 !important;
+    color: #ffffff !important;
+    transform: rotate(8deg) scale(1.08) !important;
+}
+
+/* ACESSIBILIDADE: REDUZIR MOVIMENTO */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .iron-pagamentos-detalhamento-card,
+    .iron-pagamentos-detalhamento-item,
+    .iron-pagamentos-detalhamento-item::before,
+    .iron-pagamentos-detalhamento-identidade h4 {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ==========================================================
+   IRON EXECUTIONS
+   SISTEMA GLOBAL DE HOVER E INTERAÇÃO
+   MÓDULO DE PAGAMENTOS
+========================================================== */
+
+/* TRANSIÇÃO GERAL DOS ELEMENTOS INTERATIVOS */
+
+.iron-pagamentos-page button,
+.iron-pagamentos-page a,
+.iron-pagamentos-page .iron-pagamentos-resumo-card,
+.iron-pagamentos-page .iron-pagamentos-fase-card,
+.iron-pagamentos-page .iron-pagamentos-header-status,
+.iron-pagamentos-page .iron-pagamentos-heading-icon,
+.iron-pagamentos-page .iron-pagamentos-compromisso,
+.iron-pagamentos-page .iron-pagamentos-money-input,
+.iron-pagamentos-page .iron-pagamentos-field input,
+.iron-pagamentos-page .iron-pagamentos-field textarea,
+.iron-pagamentos-page .iron-pagamentos-field select {
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease,
+        filter 0.25s ease !important;
+}
+
+/* ==========================================================
+   CABEÇALHO
+========================================================== */
+
+.iron-pagamentos-header {
+    transition: all 0.3s ease !important;
+}
+
+.iron-pagamentos-header:hover {
+    border-color: #174c35 !important;
+    border-left-width: 8px !important;
+    box-shadow: 0 10px 28px rgba(9, 29, 50, 0.11) !important;
+    transform: translateY(-3px) !important;
+}
+
+.iron-pagamentos-header-status {
+    cursor: default !important;
+}
+
+.iron-pagamentos-header-status:hover {
+    color: #ffffff !important;
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 5px 15px rgba(23, 76, 53, 0.2) !important;
+    transform: scale(1.04) !important;
+}
+
+.iron-pagamentos-header-status:hover .iron-pagamentos-status-indicador {
+    background: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ==========================================================
+   ÍCONES DOS TÍTULOS
+========================================================== */
+
+.iron-pagamentos-heading-icon {
+    transition: all 0.3s ease !important;
+}
+
+.iron-pagamentos-section-heading:hover .iron-pagamentos-heading-icon {
+    color: #174c35 !important;
+    background: #edf5ef !important;
+    border-color: #174c35 !important;
+    transform: rotate(-5deg) scale(1.08) !important;
+    box-shadow: 0 5px 14px rgba(23, 76, 53, 0.14) !important;
+}
+
+.iron-pagamentos-section-heading:hover .iron-pagamentos-heading-icon span {
+    color: #174c35 !important;
+}
+
+/* ==========================================================
+   PAINÉIS PRINCIPAIS
+========================================================== */
+
+.iron-pagamentos-form-card,
+.iron-pagamentos-historico {
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease !important;
+}
+
+.iron-pagamentos-form-card:hover,
+.iron-pagamentos-historico:hover {
+    border-color: #b3cbbb !important;
+    box-shadow: 0 12px 30px rgba(9, 29, 50, 0.075) !important;
+}
+
+/* ==========================================================
+   CAMPOS DO FORMULÁRIO
+========================================================== */
+
+.iron-pagamentos-field input:hover,
+.iron-pagamentos-field textarea:hover,
+.iron-pagamentos-field select:hover {
+    color: #102b46 !important;
+    background: #edf5ef !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 3px 10px rgba(23, 76, 53, 0.08) !important;
+}
+
+.iron-pagamentos-field input:focus,
+.iron-pagamentos-field textarea:focus,
+.iron-pagamentos-field select:focus {
+    color: #102b46 !important;
+    background: #ffffff !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 0 0 4px rgba(23, 76, 53, 0.13) !important;
+}
+
+.iron-pagamentos-money-input:hover {
+    background: #edf5ef !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 4px 13px rgba(23, 76, 53, 0.1) !important;
+}
+
+.iron-pagamentos-money-input:hover>span {
+    color: #ffffff !important;
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+}
+
+.iron-pagamentos-money-input:hover input {
+    background: transparent !important;
+    color: #102b46 !important;
+}
+
+/* ==========================================================
+   BOTÕES DE SELEÇÃO DAS FASES
+========================================================== */
+
+.iron-pagamentos-fase-opcao {
+    position: relative !important;
+    overflow: hidden !important;
+    transition: all 0.28s ease !important;
+}
+
+.iron-pagamentos-fase-opcao::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(110deg,
+            transparent,
+            rgba(255, 255, 255, 0.18),
+            transparent) !important;
+    transform: translateX(-120%) !important;
+    transition: transform 0.55s ease !important;
+    pointer-events: none !important;
+}
+
+.iron-pagamentos-fase-opcao:hover {
+    color: #ffffff !important;
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 7px 17px rgba(23, 76, 53, 0.2) !important;
+    transform: translateY(-3px) !important;
+}
+
+.iron-pagamentos-fase-opcao:hover::before {
+    transform: translateX(120%) !important;
+}
+
+.iron-pagamentos-fase-opcao:hover .iron-pagamentos-fase-nome {
+    color: #ffffff !important;
+}
+
+.iron-pagamentos-fase-opcao:hover .iron-pagamentos-fase-indicador {
+    background: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16) !important;
+}
+
+.iron-pagamentos-fase-opcao:hover .iron-pagamentos-fase-check {
+    color: #174c35 !important;
+    background: #ffffff !important;
+}
+
+/* FASE SELECIONADA */
+
+.iron-pagamentos-fase-opcao-ativa {
+    color: #ffffff !important;
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 4px 13px rgba(23, 76, 53, 0.16) !important;
+}
+
+.iron-pagamentos-fase-opcao-ativa .iron-pagamentos-fase-nome {
+    color: #ffffff !important;
+}
+
+.iron-pagamentos-fase-opcao-ativa .iron-pagamentos-fase-indicador {
+    background: #ffffff !important;
+}
+
+.iron-pagamentos-fase-opcao-ativa .iron-pagamentos-fase-check {
+    color: #174c35 !important;
+    background: #ffffff !important;
+}
+
+/* LIMPAR SELEÇÃO */
+
+.iron-pagamentos-fases-limpar:hover {
+    color: #ffffff !important;
+    background: #102b46 !important;
+    border-color: #102b46 !important;
+    box-shadow: 0 4px 12px rgba(16, 43, 70, 0.17) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ==========================================================
+   DROPDOWN DE COMPROMISSOS
+========================================================== */
+
+.iron-pagamentos-compromisso-campo:hover {
+    background: #edf5ef !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 4px 13px rgba(23, 76, 53, 0.09) !important;
+}
+
+.iron-pagamentos-compromisso-campo:hover input {
+    color: #102b46 !important;
+    background: transparent !important;
+}
+
+.iron-pagamentos-compromisso-campo:hover .iron-pagamentos-compromisso-icone {
+    color: #174c35 !important;
+}
+
+.iron-pagamentos-compromisso-seta:hover {
+    color: #ffffff !important;
+    background: #174c35 !important;
+}
+
+.iron-pagamentos-compromisso-opcao {
+    position: relative !important;
+    overflow: hidden !important;
+    transition: all 0.25s ease !important;
+}
+
+.iron-pagamentos-compromisso-opcao:hover {
+    color: #ffffff !important;
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+    transform: translateX(4px) !important;
+    box-shadow: 0 5px 13px rgba(23, 76, 53, 0.16) !important;
+}
+
+.iron-pagamentos-compromisso-opcao:hover .iron-pagamentos-compromisso-opcao-icone {
+    color: #174c35 !important;
+    background: #ffffff !important;
+}
+
+.iron-pagamentos-compromisso-opcao:hover .iron-pagamentos-compromisso-opcao-texto strong {
+    color: #ffffff !important;
+}
+
+.iron-pagamentos-compromisso-opcao:hover .iron-pagamentos-compromisso-opcao-texto small {
+    color: #d8e9dc !important;
+}
+
+.iron-pagamentos-compromisso-opcao:hover .iron-pagamentos-compromisso-opcao-check {
+    color: #174c35 !important;
+    background: #ffffff !important;
+}
+
+/* ==========================================================
+   COMPROMISSO SELECIONADO
+========================================================== */
+
+.iron-pagamentos-compromisso {
+    transition: all 0.3s ease !important;
+}
+
+.iron-pagamentos-compromisso:hover {
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+    border-left-color: #102b46 !important;
+    box-shadow: 0 8px 20px rgba(23, 76, 53, 0.14) !important;
+    transform: translateY(-3px) !important;
+}
+
+.iron-pagamentos-compromisso:hover>strong,
+.iron-pagamentos-compromisso:hover .iron-pagamentos-compromisso-topo>span:first-child,
+.iron-pagamentos-compromisso:hover .iron-pagamentos-compromisso-detalhes span {
+    color: #ffffff !important;
+}
+
+.iron-pagamentos-compromisso:hover .iron-pagamentos-compromisso-check {
+    color: #174c35 !important;
+    background: #ffffff !important;
+}
+
+/* ==========================================================
+   BOTÃO REGISTRAR
+========================================================== */
+
+.iron-pagamentos-btn-registrar {
+    position: relative !important;
+    overflow: hidden !important;
+    transition: all 0.28s ease !important;
+}
+
+.iron-pagamentos-btn-registrar::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -120% !important;
+    width: 80% !important;
+    height: 100% !important;
+    background: linear-gradient(100deg,
+            transparent,
+            rgba(255, 255, 255, 0.23),
+            transparent) !important;
+    transform: skewX(-20deg) !important;
+    transition: left 0.6s ease !important;
+    pointer-events: none !important;
+}
+
+.iron-pagamentos-btn-registrar:hover:not(:disabled) {
+    color: #174c35 !important;
+    background: #ffffff !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 8px 20px rgba(23, 76, 53, 0.2) !important;
+    transform: translateY(-3px) scale(1.015) !important;
+}
+
+.iron-pagamentos-btn-registrar:hover:not(:disabled)::before {
+    left: 150% !important;
+}
+
+.iron-pagamentos-btn-registrar:active:not(:disabled) {
+    color: #ffffff !important;
+    background: #103c29 !important;
+    transform: scale(0.97) !important;
+    box-shadow: 0 2px 6px rgba(23, 76, 53, 0.18) !important;
+}
+
+/* ==========================================================
+   CARDS DO RESUMO FINANCEIRO
+========================================================== */
+
+.iron-pagamentos-resumo-card {
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+}
+
+.iron-pagamentos-resumo-card:hover {
+    color: #ffffff !important;
+    background: #102b46 !important;
+    border-color: #102b46 !important;
+    border-top-color: #174c35 !important;
+    box-shadow: 0 12px 25px rgba(9, 29, 50, 0.19) !important;
+    transform: translateY(-6px) !important;
+}
+
+.iron-pagamentos-resumo-card:hover .iron-pagamentos-resumo-label,
+.iron-pagamentos-resumo-card:hover>small {
+    color: #d8e4dc !important;
+}
+
+.iron-pagamentos-resumo-card:hover>strong {
+    color: #ffffff !important;
+}
+
+.iron-pagamentos-resumo-card:hover .iron-pagamentos-resumo-simbolo {
+    color: #174c35 !important;
+    background: #ffffff !important;
+    transform: rotate(8deg) scale(1.12) !important;
+}
+
+/* ==========================================================
+   NAVEGAÇÃO ENTRE PERÍODOS
+========================================================== */
+
+.iron-pagamentos-periodo-seta {
+    transition: all 0.25s ease !important;
+}
+
+.iron-pagamentos-periodo-seta:hover:not(:disabled) {
+    color: #ffffff !important;
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+    box-shadow: 0 5px 13px rgba(23, 76, 53, 0.18) !important;
+    transform: scale(1.1) !important;
+}
+
+.iron-pagamentos-periodo-seta:active:not(:disabled) {
+    transform: scale(0.92) !important;
+}
+
+.iron-pagamentos-periodo-atual:hover:not(:disabled) {
+    color: #102b46 !important;
+    background: #ffffff !important;
+    border-color: #102b46 !important;
+    box-shadow: 0 5px 13px rgba(16, 43, 70, 0.15) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ==========================================================
+   CONTAGEM E INDICADORES
+========================================================== */
+
+.iron-pagamentos-fases-contagem {
+    transition: all 0.25s ease !important;
+}
+
+.iron-pagamentos-fases-contagem:hover {
+    color: #ffffff !important;
+    background: #174c35 !important;
+    border-color: #174c35 !important;
+    transform: scale(1.06) !important;
+}
+
+/* ==========================================================
+   HISTÓRICO E CARDS DAS FASES
+========================================================== */
+
+.iron-pagamentos-fase-card {
+    transition: all 0.3s ease !important;
+}
+
+.iron-pagamentos-fase-card:hover {
+    background: #f0f6f1 !important;
+    border-color: #174c35 !important;
+    border-left-width: 7px !important;
+    box-shadow: 0 10px 24px rgba(9, 29, 50, 0.12) !important;
+    transform: translateY(-5px) !important;
+}
+
+.iron-pagamentos-fase-card:hover .iron-pagamentos-fase-total strong {
+    color: #174c35 !important;
+}
+
+/* ==========================================================
+   FOCO PELO TECLADO
+========================================================== */
+
+.iron-pagamentos-page button:focus-visible,
+.iron-pagamentos-page input:focus-visible,
+.iron-pagamentos-page textarea:focus-visible,
+.iron-pagamentos-page select:focus-visible {
+    outline: 3px solid rgba(23, 76, 53, 0.35) !important;
+    outline-offset: 3px !important;
+}
+
+/* ==========================================================
+   CLIQUE E MOVIMENTO
+========================================================== */
+
+.iron-pagamentos-page button:active:not(:disabled) {
+    filter: brightness(0.92) !important;
+}
+
+.iron-pagamentos-page button:disabled {
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================================
+   ANIMAÇÃO DE ENTRADA DOS PAINÉIS
+========================================================== */
+
+.iron-pagamentos-form-card,
+.iron-pagamentos-historico,
+.iron-pagamentos-resumo-card,
+.iron-pagamentos-fase-card {
+    animation: ironPagamentosEntradaGeral 0.45s ease both !important;
+}
+
+@keyframes ironPagamentosEntradaGeral {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================
+   ACESSIBILIDADE
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .iron-pagamentos-page *,
+    .iron-pagamentos-page *::before,
+    .iron-pagamentos-page *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =========================================
+   LOADING | REGISTRO DE PAGAMENTOS
+========================================= */
+
+.regpag-loading-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-height: 420px !important;
+    padding: 30px 20px !important;
+    background: #ffffff !important;
+}
+
+.regpag-loading-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 390px !important;
+    padding: 35px 30px 25px !important;
+    border: 1px solid #e7ece8 !important;
+    border-radius: 16px !important;
+    background: #ffffff !important;
+    box-shadow: 0 12px 40px rgba(16, 43, 32, 0.07) !important;
+}
+
+.regpag-loading-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    margin-bottom: 12px !important;
+    border-radius: 13px !important;
+    background: #174c35 !important;
+}
+
+.regpag-loading-spinner {
+    width: 23px !important;
+    height: 23px !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-top-color: #ffffff !important;
+    border-radius: 50% !important;
+    animation: regpag-loading-girar 0.8s linear infinite !important;
+}
+
+.regpag-loading-identificacao {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin-bottom: 32px !important;
+}
+
+.regpag-loading-identificacao strong {
+    color: #102b46 !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+}
+
+.regpag-loading-identificacao span {
+    color: #849087 !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.3px !important;
+}
+
+.regpag-loading-conteudo {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.regpag-loading-pontos {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 18px !important;
+}
+
+.regpag-loading-pontos span {
+    width: 7px !important;
+    height: 7px !important;
+    border-radius: 50% !important;
+    background: #174c35 !important;
+    animation: regpag-loading-pulsar 1.2s ease-in-out infinite !important;
+}
+
+.regpag-loading-pontos span:nth-child(2) {
+    animation-delay: 0.15s !important;
+}
+
+.regpag-loading-pontos span:nth-child(3) {
+    animation-delay: 0.3s !important;
+}
+
+.regpag-loading-conteudo h3 {
+    margin: 0 0 9px !important;
+    color: #102b46 !important;
+    font-size: 19px !important;
+    font-weight: 750 !important;
+}
+
+.regpag-loading-conteudo p {
+    max-width: 285px !important;
+    margin: 0 !important;
+    color: #7b8780 !important;
+    font-size: 12px !important;
+    line-height: 1.7 !important;
+}
+
+.regpag-loading-rodape {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 9px !important;
+    width: 100% !important;
+    margin-top: 30px !important;
+    padding-top: 18px !important;
+    border-top: 1px solid #edf0ed !important;
+    color: #849087 !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+}
+
+.regpag-loading-status {
+    width: 7px !important;
+    height: 7px !important;
+    flex-shrink: 0 !important;
+    border-radius: 50% !important;
+    background: #24945b !important;
+    box-shadow: 0 0 0 4px rgba(36, 148, 91, 0.10) !important;
+    animation: regpag-loading-pulsar 1.5s ease-in-out infinite !important;
+}
+
+@keyframes regpag-loading-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes regpag-loading-pulsar {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+@media (max-width: 480px) {
+    .regpag-loading-container {
+        min-height: 350px !important;
+        padding: 20px 12px !important;
+    }
+
+    .regpag-loading-card {
+        padding: 28px 20px 22px !important;
+    }
+}
