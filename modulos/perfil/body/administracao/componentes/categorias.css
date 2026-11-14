@@ -1,521 +1,960 @@
- /* =========================================================
+/* ============================================================
    IRON EXECUTIONS
-   GERENCIAMENTO DE CATEGORIAS
-========================================================= */
+   CATEGORIAS | PREMIUM INTERACTIVE UI
+   Branco + Cinza + Azul Marinho
+============================================================ */
 
- .iron-categorias-container {
-     width: 100%;
-     min-height: 100%;
-     padding: 24px;
-     color: #202938;
-     box-sizing: border-box;
-     font-family: inherit;
- }
+.iron-categorias-container {
+    --cat-primary: #172b49;
+    --cat-primary-light: #294b75;
+    --cat-primary-soft: #edf2f8;
+    --cat-text: #202d40;
+    --cat-muted: #8995a6;
+    --cat-border: #e5eaf0;
+    --cat-bg: #ffffff;
+    --cat-success: #21845b;
 
- /* =========================================================
+    width: 100%;
+    min-height: 100%;
+    padding: 24px;
+    color: var(--cat-text);
+    box-sizing: border-box;
+    font-family: inherit;
+    animation: catContainerEnter .55s ease both;
+}
+
+.iron-categorias-container *,
+.iron-categorias-container *::before,
+.iron-categorias-container *::after {
+    box-sizing: border-box;
+}
+
+@keyframes catContainerEnter {
+    from {
+        opacity: 0;
+        transform: translateY(9px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   INTERAÇÕES GLOBAIS
+============================================================ */
+
+.iron-categorias-container button,
+.iron-categorias-container input,
+.iron-categorias-container .iron-categorias-card,
+.iron-categorias-container .iron-categorias-indicador,
+.iron-categorias-container .iron-categorias-upload {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.iron-categorias-container button:focus-visible,
+.iron-categorias-container input:focus-visible,
+.iron-categorias-container .iron-categorias-upload:focus-visible {
+    outline: 3px solid rgba(41, 75, 117, .25);
+    outline-offset: 3px;
+}
+
+/* ============================================================
    CABEÇALHO
-========================================================= */
+============================================================ */
 
- .iron-categorias-topo {
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
-     gap: 20px;
-     margin-bottom: 25px;
- }
+.iron-categorias-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+}
 
- .iron-categorias-titulo h2 {
-     margin: 5px 0;
-     font-size: 25px;
-     font-weight: 750;
-     color: #182335;
- }
+.iron-categorias-titulo {
+    animation: catElementEnter .5s .05s both;
+}
 
- .iron-categorias-subtitulo {
-     color: #8993a2;
-     font-size: 10px;
-     font-weight: 800;
-     letter-spacing: 1.5px;
- }
+.iron-categorias-subtitulo {
+    display: inline-block;
+    color: var(--cat-primary-light);
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 1.8px;
+    transition: color .25s, letter-spacing .3s;
+}
 
- .iron-categorias-titulo p {
-     margin: 5px 0 0;
-     color: #8993a2;
-     font-size: 13px;
- }
+.iron-categorias-titulo:hover .iron-categorias-subtitulo {
+    color: #4774a8;
+    letter-spacing: 2.4px;
+}
 
- .iron-categorias-atualizar {
-     border: 1px solid #e1e6ed;
-     background: #fff;
-     color: #344054;
-     padding: 10px 16px;
-     border-radius: 9px;
-     font-size: 12px;
-     font-weight: 700;
-     cursor: pointer;
-     transition: .2s;
- }
+.iron-categorias-titulo h2 {
+    margin: 6px 0;
+    color: var(--cat-primary);
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -.8px;
+    transition: color .25s, transform .25s;
+}
 
- .iron-categorias-atualizar:hover {
-     background: #f4f6f9;
-     border-color: #cbd3df;
- }
+.iron-categorias-titulo:hover h2 {
+    color: #315780;
+    transform: translateX(3px);
+}
 
- .iron-categorias-atualizar:disabled {
-     opacity: .5;
-     cursor: not-allowed;
- }
+.iron-categorias-titulo p {
+    margin: 5px 0 0;
+    color: var(--cat-muted);
+    font-size: 13px;
+    transition: color .2s;
+}
 
- /* =========================================================
+.iron-categorias-titulo:hover p {
+    color: #65758a;
+}
+
+/* ============================================================
+   BOTÃO ATUALIZAR
+============================================================ */
+
+.iron-categorias-atualizar {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 17px;
+    border: 1px solid var(--cat-primary);
+    border-radius: 9px;
+    background: var(--cat-primary);
+    color: #fff !important;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    transition:
+        background .25s,
+        color .25s,
+        border-color .25s,
+        box-shadow .25s,
+        transform .2s;
+}
+
+.iron-categorias-atualizar:hover {
+    background: #fff;
+    color: var(--cat-primary);
+    border-color: var(--cat-primary);
+    box-shadow: 0 5px 16px rgba(23, 43, 73, .13);
+    transform: translateY(-3px);
+}
+
+.iron-categorias-atualizar:active {
+    transform: scale(.96);
+}
+
+.iron-categorias-atualizar:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ============================================================
    INDICADORES
-========================================================= */
+============================================================ */
 
- .iron-categorias-indicadores {
-     display: grid;
-     grid-template-columns: repeat(3, minmax(0, 1fr));
-     gap: 13px;
-     margin-bottom: 22px;
- }
+.iron-categorias-indicadores {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+    margin-bottom: 22px;
+}
 
- .iron-categorias-indicador {
-     background: #fff;
-     border: 1px solid #e9edf2;
-     border-radius: 12px;
-     padding: 17px;
-     display: flex;
-     flex-direction: column;
-     gap: 9px;
- }
+.iron-categorias-indicador {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid var(--cat-border);
+    border-radius: 13px;
+    box-shadow: 0 2px 7px rgba(22, 39, 62, .025);
+    transition:
+        background .3s,
+        border-color .3s,
+        color .3s,
+        transform .3s,
+        box-shadow .3s;
+    animation: catElementEnter .55s both;
+}
 
- .iron-categorias-indicador span {
-     color: #8993a2;
-     font-size: 12px;
-     font-weight: 600;
- }
+.iron-categorias-indicador:nth-child(1) {
+    animation-delay: .08s;
+}
 
- .iron-categorias-indicador strong {
-     color: #1d2939;
-     font-size: 25px;
-     font-weight: 750;
- }
+.iron-categorias-indicador:nth-child(2) {
+    animation-delay: .15s;
+}
 
- /* =========================================================
+.iron-categorias-indicador:nth-child(3) {
+    animation-delay: .22s;
+}
+
+.iron-categorias-indicador::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 75px;
+    height: 75px;
+    background: radial-gradient(circle,
+            rgba(52, 92, 140, .09),
+            transparent 70%);
+    opacity: 0;
+    transition: opacity .35s, transform .35s;
+    transform: translate(15px, -15px);
+}
+
+.iron-categorias-indicador:hover {
+    background: var(--cat-primary);
+    border-color: var(--cat-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(23, 43, 73, .15);
+}
+
+.iron-categorias-indicador:hover::after {
+    opacity: 1;
+    transform: translate(0, 0) scale(1.5);
+}
+
+.iron-categorias-indicador span {
+    position: relative;
+    z-index: 1;
+    color: var(--cat-muted);
+    font-size: 12px;
+    font-weight: 650;
+    transition: color .25s;
+}
+
+.iron-categorias-indicador strong {
+    position: relative;
+    z-index: 1;
+    color: var(--cat-primary);
+    font-size: 27px;
+    font-weight: 850;
+    transition: color .25s, transform .3s;
+}
+
+.iron-categorias-indicador:hover span {
+    color: rgba(255, 255, 255, .68);
+}
+
+.iron-categorias-indicador:hover strong {
+    color: #fff;
+    transform: translateX(4px) scale(1.04);
+}
+
+/* ============================================================
    BUSCA
-========================================================= */
+============================================================ */
 
- .iron-categorias-busca {
-     display: flex;
-     align-items: center;
-     gap: 11px;
-     height: 45px;
-     padding: 0 14px;
-     margin-bottom: 22px;
-     background: #fff;
-     border: 1px solid #e4e9f0;
-     border-radius: 10px;
-     transition: .2s;
- }
+.iron-categorias-busca {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    height: 47px;
+    padding: 0 15px;
+    margin-bottom: 23px;
+    background: #fff;
+    border: 1px solid var(--cat-border);
+    border-radius: 11px;
+    box-shadow: 0 2px 5px rgba(20, 35, 55, .025);
+    transition:
+        border-color .3s,
+        box-shadow .3s,
+        transform .3s,
+        background .3s;
+}
 
- .iron-categorias-busca:focus-within {
-     border-color: #526d91;
-     box-shadow: 0 0 0 3px rgba(82, 109, 145, .09);
- }
+.iron-categorias-busca:hover {
+    border-color: #9cacc0;
+    box-shadow: 0 4px 13px rgba(23, 43, 73, .07);
+    transform: translateY(-2px);
+}
 
- .iron-categorias-busca span {
-     font-size: 23px;
-     color: #929dad;
- }
+.iron-categorias-busca:focus-within {
+    background: #fff;
+    border-color: var(--cat-primary);
+    box-shadow:
+        0 0 0 3px rgba(23, 43, 73, .09),
+        0 7px 20px rgba(23, 43, 73, .07);
+    transform: translateY(-2px);
+}
 
- .iron-categorias-busca input {
-     flex: 1;
-     min-width: 0;
-     height: 100%;
-     border: none;
-     outline: none;
-     background: transparent;
-     color: #263447;
-     font-size: 13px;
- }
+.iron-categorias-busca span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #929dad;
+    font-size: 23px;
+    transition: color .25s, transform .3s;
+}
 
- .iron-categorias-busca input::placeholder {
-     color: #a4adba;
- }
+.iron-categorias-busca:hover span,
+.iron-categorias-busca:focus-within span {
+    color: var(--cat-primary);
+    transform: scale(1.13);
+}
 
- /* =========================================================
+.iron-categorias-busca input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--cat-text);
+    font-size: 13px;
+}
+
+.iron-categorias-busca input::placeholder {
+    color: #a4adba;
+    transition: color .2s;
+}
+
+.iron-categorias-busca:focus-within input::placeholder {
+    color: #7c899b;
+}
+
+/* ============================================================
    GRID
-========================================================= */
+============================================================ */
 
- .iron-categorias-grid {
-     display: grid;
-     grid-template-columns: repeat(auto-fill,
-             minmax(225px, 1fr));
-     gap: 17px;
- }
+.iron-categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,
+            minmax(225px, 1fr));
+    gap: 18px;
+    perspective: 1000px;
+}
 
- /* =========================================================
+/* ============================================================
    CARD
-========================================================= */
+============================================================ */
 
- .iron-categorias-card {
-     min-width: 0;
-     overflow: hidden;
-     background: #fff;
-     border: 1px solid #e9edf2;
-     border-radius: 13px;
-     transition: border-color .2s, box-shadow .2s, transform .2s;
- }
+.iron-categorias-card {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--cat-border);
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(20, 35, 55, .035);
+    transform: translateY(0);
+    transition:
+        transform .35s cubic-bezier(.2, .8, .2, 1),
+        border-color .3s,
+        box-shadow .35s,
+        background .3s;
+    animation: catCardEnter .55s both;
+}
 
- .iron-categorias-card:hover {
-     border-color: #cbd5e1;
-     box-shadow: 0 7px 22px rgba(20, 35, 55, .06);
-     transform: translateY(-2px);
- }
+.iron-categorias-card:nth-child(3n + 1) {
+    animation-delay: .05s;
+}
 
- /* =========================================================
+.iron-categorias-card:nth-child(3n + 2) {
+    animation-delay: .11s;
+}
+
+.iron-categorias-card:nth-child(3n) {
+    animation-delay: .17s;
+}
+
+@keyframes catCardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(17px) scale(.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.iron-categorias-card::before {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+            #172b49,
+            #6487b0,
+            #172b49);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s;
+}
+
+.iron-categorias-card:hover {
+    border-color: #9cacc0;
+    box-shadow:
+        0 15px 35px rgba(23, 43, 73, .12),
+        0 4px 10px rgba(23, 43, 73, .04);
+    transform: translateY(-6px);
+}
+
+.iron-categorias-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* ============================================================
    ÁREA DE UPLOAD
-========================================================= */
+============================================================ */
 
- .iron-categorias-upload {
-     position: relative;
-     width: 100%;
-     aspect-ratio: 16 / 10;
-     overflow: hidden;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     background: #f4f6f9;
-     cursor: pointer;
-     border-bottom: 1px solid #edf0f4;
-     transition: background .2s, border-color .2s;
- }
+.iron-categorias-upload {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f2f5f9;
+    border-bottom: 1px solid #edf0f4;
+    cursor: pointer;
+    transition: background .3s, border-color .3s;
+}
 
- .iron-categorias-upload:hover {
-     background: #edf1f6;
- }
+.iron-categorias-upload:hover {
+    background: #e5ebf3;
+}
 
- .iron-categorias-upload.arrastando {
-     background: #e9eff8;
-     outline: 2px dashed #536f96;
-     outline-offset: -6px;
- }
+.iron-categorias-upload.arrastando {
+    background: #dfe9f7;
+    outline: 3px dashed #355d8c;
+    outline-offset: -7px;
+    box-shadow: inset 0 0 25px rgba(23, 43, 73, .12);
+}
 
- .iron-categorias-imagem {
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     display: block;
-     transition: transform .3s;
- }
+.iron-categorias-imagem {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition:
+        transform .65s cubic-bezier(.2, .8, .2, 1),
+        filter .4s;
+}
 
- .iron-categorias-upload:hover .iron-categorias-imagem {
-     transform: scale(1.035);
- }
+.iron-categorias-upload:hover .iron-categorias-imagem {
+    transform: scale(1.09);
+    filter: brightness(.78) saturate(1.1);
+}
 
- /* =========================================================
+/* ============================================================
    SEM IMAGEM
-========================================================= */
+============================================================ */
 
- .iron-categorias-sem-imagem {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     gap: 7px;
-     color: #8792a2;
- }
+.iron-categorias-sem-imagem {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #8792a2;
+    transition:
+        background .3s,
+        color .3s,
+        transform .3s;
+}
 
- .iron-categorias-sem-imagem span {
-     font-size: 34px;
-     color: #a5afbd;
- }
+.iron-categorias-upload:hover .iron-categorias-sem-imagem {
+    background: var(--cat-primary);
+    color: #fff;
+    transform: scale(1.015);
+}
 
- .iron-categorias-sem-imagem strong {
-     font-size: 12px;
-     color: #526071;
- }
+.iron-categorias-sem-imagem span {
+    color: #a5afbd;
+    font-size: 36px;
+    transition: color .3s, transform .4s;
+}
 
- .iron-categorias-sem-imagem small {
-     font-size: 10px;
-     color: #9aa4b2;
- }
+.iron-categorias-upload:hover .iron-categorias-sem-imagem span {
+    color: #fff;
+    transform: translateY(-5px) scale(1.12);
+}
 
- /* =========================================================
+.iron-categorias-sem-imagem strong {
+    color: #526071;
+    font-size: 12px;
+    transition: color .3s;
+}
+
+.iron-categorias-upload:hover .iron-categorias-sem-imagem strong {
+    color: #fff;
+}
+
+.iron-categorias-sem-imagem small {
+    color: #9aa4b2;
+    font-size: 10px;
+    transition: color .3s;
+}
+
+.iron-categorias-upload:hover .iron-categorias-sem-imagem small {
+    color: rgba(255, 255, 255, .7);
+}
+
+/* ============================================================
    ALTERAR IMAGEM
-========================================================= */
+============================================================ */
 
- .iron-categorias-alterar-imagem {
-     position: absolute;
-     left: 0;
-     right: 0;
-     bottom: 0;
-     padding: 10px;
-     color: #fff;
-     background: rgba(20, 29, 43, .75);
-     font-size: 11px;
-     font-weight: 700;
-     text-align: center;
-     opacity: 0;
-     transition: opacity .2s;
- }
+.iron-categorias-alterar-imagem {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    justify-content: center;
+    padding: 13px;
+    color: #fff;
+    background: linear-gradient(transparent,
+            rgba(12, 25, 43, .94));
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .3px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s, transform .3s;
+}
 
- .iron-categorias-upload:hover .iron-categorias-alterar-imagem {
-     opacity: 1;
- }
+.iron-categorias-upload:hover .iron-categorias-alterar-imagem {
+    opacity: 1;
+    transform: translateY(0);
+}
 
- /* =========================================================
+/* ============================================================
    UPLOAD CARREGANDO
-========================================================= */
+============================================================ */
 
- .iron-categorias-upload-overlay {
-     position: absolute;
-     inset: 0;
-     z-index: 2;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     gap: 10px;
-     color: #fff;
-     background: rgba(20, 30, 45, .82);
-     font-size: 12px;
-     font-weight: 700;
- }
+.iron-categorias-upload-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    color: #fff;
+    background: rgba(16, 32, 54, .9);
+    backdrop-filter: blur(5px);
+    font-size: 12px;
+    font-weight: 750;
+    animation: catOverlayEnter .25s ease both;
+}
 
- .iron-categorias-spinner {
-     width: 24px;
-     height: 24px;
-     border: 3px solid rgba(255, 255, 255, .3);
-     border-top-color: #fff;
-     border-radius: 50%;
-     animation: ironCategoriasGirar .7s linear infinite;
- }
+@keyframes catOverlayEnter {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0);
+    }
 
- .iron-categorias-loading .iron-categorias-spinner {
-     border-color: #dce3ec;
-     border-top-color: #334e72;
- }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(5px);
+    }
+}
 
- @keyframes ironCategoriasGirar {
-     to {
-         transform: rotate(360deg);
-     }
- }
+.iron-categorias-spinner {
+    width: 25px;
+    height: 25px;
+    border: 3px solid rgba(255, 255, 255, .25);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: ironCategoriasGirar .7s linear infinite;
+}
 
- /* =========================================================
-   INFORMAÇÕES DO CARD
-========================================================= */
+.iron-categorias-loading .iron-categorias-spinner {
+    border-color: #dce3ec;
+    border-top-color: var(--cat-primary);
+}
 
- .iron-categorias-card-info {
-     padding: 15px;
- }
+@keyframes ironCategoriasGirar {
+    to {
+        transform: rotate(360deg);
+    }
+}
 
- .iron-categorias-card-nome {
-     display: flex;
-     flex-direction: column;
-     gap: 5px;
-     margin-bottom: 17px;
- }
+/* ============================================================
+   INFORMAÇÕES
+============================================================ */
 
- .iron-categorias-card-nome strong {
-     color: #263447;
-     font-size: 14px;
-     font-weight: 750;
-     overflow-wrap: anywhere;
- }
+.iron-categorias-card-info {
+    padding: 16px;
+    background: #fff;
+    transition: background .3s;
+}
 
- .iron-categorias-card-nome span {
-     color: #8993a2;
-     font-size: 10px;
- }
+.iron-categorias-card:hover .iron-categorias-card-info {
+    background: #fbfcfe;
+}
 
- /* =========================================================
+.iron-categorias-card-nome {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 17px;
+}
+
+.iron-categorias-card-nome strong {
+    color: var(--cat-primary);
+    font-size: 14px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+    transition: color .25s, transform .25s;
+}
+
+.iron-categorias-card:hover .iron-categorias-card-nome strong {
+    color: #416b9d;
+    transform: translateX(3px);
+}
+
+.iron-categorias-card-nome span {
+    width: fit-content;
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #f0f3f7;
+    color: #8591a0;
+    font-size: 10px;
+    font-weight: 750;
+    transition:
+        color .25s,
+        background .25s,
+        transform .25s;
+}
+
+.iron-categorias-card:hover .iron-categorias-card-nome span {
+    transform: translateX(3px);
+}
+
+.iron-categorias-card:has(.iron-categorias-switch.ativo) .iron-categorias-card-nome span {
+    background: #e9f5ef;
+    color: #21845b;
+}
+
+/* ============================================================
    CONTROLE DE EXIBIÇÃO
-========================================================= */
+============================================================ */
 
- .iron-categorias-controle {
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
-     gap: 10px;
-     padding-top: 13px;
-     border-top: 1px solid #edf0f4;
- }
+.iron-categorias-controle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 13px;
+    border-top: 1px solid #edf0f4;
+    transition: border-color .25s;
+}
 
- .iron-categorias-controle-texto {
-     display: flex;
-     flex-direction: column;
-     gap: 4px;
- }
+.iron-categorias-card:hover .iron-categorias-controle {
+    border-color: #d3dce7;
+}
 
- .iron-categorias-controle-texto strong {
-     color: #344054;
-     font-size: 11px;
-     font-weight: 700;
- }
+.iron-categorias-controle-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 
- .iron-categorias-controle-texto small {
-     color: #929dad;
-     font-size: 10px;
- }
+.iron-categorias-controle-texto strong {
+    color: #344054;
+    font-size: 11px;
+    font-weight: 800;
+    transition: color .25s;
+}
 
- /* =========================================================
+.iron-categorias-card:hover .iron-categorias-controle-texto strong {
+    color: var(--cat-primary);
+}
+
+.iron-categorias-controle-texto small {
+    color: #929dad;
+    font-size: 10px;
+    transition: color .25s;
+}
+
+.iron-categorias-card:hover .iron-categorias-controle-texto small {
+    color: #68788e;
+}
+
+/* ============================================================
    SWITCH
-========================================================= */
+============================================================ */
 
- .iron-categorias-switch {
-     flex-shrink: 0;
-     width: 39px;
-     height: 22px;
-     padding: 3px;
-     display: flex;
-     align-items: center;
-     justify-content: flex-start;
-     background: #d9dee6;
-     border: none;
-     border-radius: 30px;
-     cursor: pointer;
-     transition: background .2s;
- }
+.iron-categorias-switch {
+    position: relative;
+    flex-shrink: 0;
+    width: 43px;
+    height: 24px;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #d9dee6;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    cursor: pointer;
+    transition:
+        background .3s,
+        box-shadow .3s,
+        transform .2s,
+        border-color .3s;
+}
 
- .iron-categorias-switch span {
-     width: 16px;
-     height: 16px;
-     background: #fff;
-     border-radius: 50%;
-     box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
-     transition: transform .2s;
- }
+.iron-categorias-switch:hover {
+    background: #c4ccd8;
+    transform: scale(1.09);
+}
 
- .iron-categorias-switch.ativo {
-     background: #237b57;
- }
+.iron-categorias-switch:active {
+    transform: scale(.94);
+}
 
- .iron-categorias-switch.ativo span {
-     transform: translateX(17px);
- }
+.iron-categorias-switch span {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    transition:
+        transform .3s cubic-bezier(.2, .8, .2, 1),
+        width .2s;
+}
 
- .iron-categorias-switch:disabled {
-     opacity: .5;
-     cursor: not-allowed;
- }
+.iron-categorias-switch.ativo {
+    background: var(--cat-success);
+    box-shadow: 0 3px 9px rgba(33, 132, 91, .2);
+}
 
- /* =========================================================
+.iron-categorias-switch.ativo:hover {
+    background: #176844;
+    box-shadow: 0 4px 13px rgba(33, 132, 91, .3);
+}
+
+.iron-categorias-switch.ativo span {
+    transform: translateX(19px);
+}
+
+.iron-categorias-switch:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ============================================================
    ERRO
-========================================================= */
+============================================================ */
 
- .iron-categorias-erro {
-     padding: 12px 15px;
-     margin-bottom: 18px;
-     border: 1px solid #f1cccc;
-     border-radius: 9px;
-     background: #fff5f5;
-     color: #b42318;
-     font-size: 12px;
- }
+.iron-categorias-erro {
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border: 1px solid #f1cccc;
+    border-radius: 10px;
+    background: #fff5f5;
+    color: #b42318;
+    font-size: 12px;
+    animation: catErrorEnter .3s ease both;
+    transition: background .25s, border-color .25s;
+}
 
- /* =========================================================
-   LOADING
-========================================================= */
+.iron-categorias-erro:hover {
+    background: #ffeaea;
+    border-color: #e7aaaa;
+}
 
- .iron-categorias-loading {
-     min-height: 230px;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     gap: 13px;
-     color: #8993a2;
-     font-size: 12px;
- }
+@keyframes catErrorEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-7px);
+    }
 
- /* =========================================================
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================================
+   CARREGAMENTO
+============================================================ */
+
+.iron-categorias-loading {
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    color: var(--cat-muted);
+    font-size: 12px;
+    transition: color .25s;
+}
+
+.iron-categorias-loading:hover {
+    color: var(--cat-primary);
+}
+
+/* ============================================================
    ESTADO VAZIO
-========================================================= */
+============================================================ */
 
- .iron-categorias-vazio {
-     min-height: 250px;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     gap: 10px;
-     text-align: center;
- }
+.iron-categorias-vazio {
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    text-align: center;
+    border: 1px dashed #dce3eb;
+    border-radius: 14px;
+    background: #fff;
+    transition:
+        background .3s,
+        border-color .3s,
+        transform .3s;
+}
 
- .iron-categorias-vazio>span {
-     color: #b5bfcb;
-     font-size: 45px;
- }
+.iron-categorias-vazio:hover {
+    background: #f6f8fb;
+    border-color: #8fa5c0;
+    transform: translateY(-3px);
+}
 
- .iron-categorias-vazio strong {
-     color: #344054;
-     font-size: 14px;
- }
+.iron-categorias-vazio>span {
+    color: #b5bfcb;
+    font-size: 45px;
+    transition: color .3s, transform .3s;
+}
 
- .iron-categorias-vazio p {
-     max-width: 330px;
-     color: #929dad;
-     font-size: 12px;
-     line-height: 1.6;
- }
+.iron-categorias-vazio:hover>span {
+    color: var(--cat-primary);
+    transform: translateY(-5px) scale(1.08);
+}
 
- /* =========================================================
+.iron-categorias-vazio strong {
+    color: #344054;
+    font-size: 14px;
+    transition: color .25s;
+}
+
+.iron-categorias-vazio:hover strong {
+    color: var(--cat-primary);
+}
+
+.iron-categorias-vazio p {
+    max-width: 330px;
+    color: #929dad;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* ============================================================
    RESPONSIVIDADE
-========================================================= */
+============================================================ */
 
- @media (max-width: 700px) {
+@media (max-width: 700px) {
 
-     .iron-categorias-container {
-         padding: 15px;
-     }
+    .iron-categorias-container {
+        padding: 15px;
+    }
 
-     .iron-categorias-indicadores {
-         gap: 8px;
-     }
+    .iron-categorias-indicadores {
+        gap: 8px;
+    }
 
-     .iron-categorias-indicador {
-         padding: 12px;
-     }
+    .iron-categorias-indicador {
+        padding: 12px;
+    }
 
-     .iron-categorias-indicador span {
-         font-size: 10px;
-     }
+    .iron-categorias-indicador span {
+        font-size: 10px;
+    }
 
-     .iron-categorias-indicador strong {
-         font-size: 21px;
-     }
+    .iron-categorias-indicador strong {
+        font-size: 21px;
+    }
 
-     .iron-categorias-grid {
-         grid-template-columns: repeat(2, minmax(0, 1fr));
-         gap: 10px;
-     }
+    .iron-categorias-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+    }
 
-     .iron-categorias-card-info {
-         padding: 11px;
-     }
+    .iron-categorias-card-info {
+        padding: 11px;
+    }
 
-     .iron-categorias-card-nome strong {
-         font-size: 12px;
-     }
+    .iron-categorias-card-nome strong {
+        font-size: 12px;
+    }
 
-     .iron-categorias-controle-texto strong {
-         font-size: 10px;
-     }
+    .iron-categorias-controle-texto strong {
+        font-size: 10px;
+    }
 
-     .iron-categorias-controle-texto small {
-         font-size: 9px;
-     }
+    .iron-categorias-controle-texto small {
+        font-size: 9px;
+    }
 
-     .iron-categorias-topo {
-         align-items: flex-start;
-     }
+    .iron-categorias-topo {
+        align-items: flex-start;
+    }
 
- }
+    .iron-categorias-titulo h2 {
+        font-size: 22px;
+    }
 
- @media (max-width: 380px) {
+    .iron-categorias-card:hover {
+        transform: translateY(-3px);
+    }
 
-     .iron-categorias-grid {
-         grid-template-columns: 1fr;
-     }
+}
 
- }
+@media (max-width: 380px) {
+
+    .iron-categorias-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .iron-categorias-indicadores {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* ============================================================
+   ACESSIBILIDADE
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .iron-categorias-container *,
+    .iron-categorias-container *::before,
+    .iron-categorias-container *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+
+}
