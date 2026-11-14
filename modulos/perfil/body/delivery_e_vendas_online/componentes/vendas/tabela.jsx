@@ -65,7 +65,10 @@ export default function Tabela() {
         erroNotaFiscal,
         setErroNotaFiscal
     ] = useState("");
-
+    const [
+        erroNotaFiscalProdutos,
+        setErroNotaFiscalProdutos
+    ] = useState(false);
     const [
         chaveCopiadaPedidoId,
         setChaveCopiadaPedidoId
@@ -943,7 +946,12 @@ export default function Tabela() {
     // EMITIR NF-e MODELO 55 DIRETAMENTE PELO PEDIDO
     // ========================================================
 
+    // ========================================================
+    // EMITIR NF-e MODELO 55 DIRETAMENTE PELO PEDIDO
+    // ========================================================
+
     const emitirNotaFiscalPedido = async (pedido) => {
+
         if (!pedido?.id || emitindoNotaFiscalId !== null) {
             return;
         }
@@ -958,9 +966,11 @@ export default function Tabela() {
 
         setEmitindoNotaFiscalId(pedido.id);
         setErroNotaFiscal("");
+        setErroNotaFiscalProdutos(false);
         setChaveCopiadaPedidoId(null);
 
         try {
+
             const token = buscarToken();
 
             if (!token) {
@@ -987,7 +997,64 @@ export default function Tabela() {
             }
 
             if (!resposta.ok) {
+
                 const detalhe = dados?.detail;
+
+                // ====================================================
+                // IDENTIFICAR ERROS RELACIONADOS AOS PRODUTOS
+                // ====================================================
+
+                const textoErro = JSON.stringify({
+                    detalhe,
+                    erro: dados?.erro,
+                    mensagem: dados?.mensagem
+                }).toLowerCase();
+
+                const codigoErro = String(
+                    detalhe?.codigo ||
+                    dados?.codigo ||
+                    ""
+                ).toUpperCase();
+
+                const possuiProdutosNoErro = (
+                    Array.isArray(detalhe?.produtos) &&
+                    detalhe.produtos.length > 0
+                ) || (
+                        Array.isArray(dados?.produtos) &&
+                        dados.produtos.length > 0
+                    );
+
+                const palavrasErroProduto = [
+                    "produto",
+                    "produtos",
+                    "ncm",
+                    "cfop",
+                    "cest",
+                    "csosn",
+                    "cst",
+                    "origem da mercadoria",
+                    "tributação do produto",
+                    "dados fiscais do item",
+                    "item da nota",
+                    "itens da nota",
+                    "item da nfe",
+                    "itens da nfe"
+                ];
+
+                const erroRelacionadoProduto =
+                    possuiProdutosNoErro ||
+                    codigoErro.includes("PRODUTO") ||
+                    palavrasErroProduto.some(palavra =>
+                        textoErro.includes(palavra)
+                    );
+
+                setErroNotaFiscalProdutos(
+                    erroRelacionadoProduto
+                );
+
+                // ====================================================
+                // EXTRAIR MENSAGEM DO ERRO
+                // ====================================================
 
                 const mensagem =
                     typeof detalhe === "string"
@@ -996,10 +1063,18 @@ export default function Tabela() {
                         detalhe?.detail ||
                         dados?.erro ||
                         dados?.mensagem ||
-                        "Não foi possível emitir a NF-e.";
+                        (
+                            detalhe
+                                ? JSON.stringify(detalhe)
+                                : "Não foi possível emitir a NF-e."
+                        );
 
                 throw new Error(mensagem);
             }
+
+            // ====================================================
+            // EMISSÃO CONCLUÍDA
+            // ====================================================
 
             const chaveAcesso =
                 dados?.chave_acesso ||
@@ -1010,10 +1085,12 @@ export default function Tabela() {
             const chaveNormalizada = String(chaveAcesso).replace(/\D/g, "");
 
             if (chaveNormalizada) {
+
                 sessionStorage.setItem(
                     `ironstore_nfe_chave_${pedido.id}`,
                     chaveNormalizada
                 );
+
             }
 
             setNotasFiscaisPedidos(atuais => ({
@@ -1039,16 +1116,26 @@ export default function Tabela() {
                     : atual
             );
 
+            setErroNotaFiscalProdutos(false);
+
         } catch (erroRequisicao) {
-            console.error("[IronStore] Erro ao emitir NF-e:", erroRequisicao);
+
+            console.error(
+                "[IronStore] Erro ao emitir NF-e:",
+                erroRequisicao
+            );
 
             setErroNotaFiscal(
                 erroRequisicao?.message ||
                 "Ocorreu um erro ao emitir a NF-e."
             );
+
         } finally {
+
             setEmitindoNotaFiscalId(null);
+
         }
+
     };
 
     const copiarChaveAcessoNota = async (pedidoId, chave) => {
@@ -2145,9 +2232,43 @@ export default function Tabela() {
                             )}
 
                             {erroNotaFiscal && (
-                                <div className="ironstore-pedido-nfe-erro">
-                                    {erroNotaFiscal}
+
+                                <div className="ironstore-pedido-nfe-erro-container">
+
+                                    <div className="ironstore-pedido-nfe-erro">
+                                        {erroNotaFiscal}
+                                    </div>
+
+                                    {erroNotaFiscalProdutos && (
+                                        <button
+                                            type="button"
+                                            className="ironstore-pedido-nfe-corrigir-produtos"
+                                            onClick={() => {
+                                                const destino = `https://ironexecutions.com.br/ironbusiness/perfil/fiscal#Registrar#${pedidoAberto.id}`;
+
+                                                window.open(destino, "_blank", "noopener,noreferrer");
+                                            }}
+                                        >
+                                            <span className="ironstore-pedido-nfe-corrigir-icone">
+                                                <i className="fas fa-edit"></i>
+                                            </span>
+
+                                            <span className="ironstore-pedido-nfe-corrigir-texto">
+                                                Corrigir dados fiscais dos produtos
+
+                                                <small>
+                                                    Acesse o cadastro fiscal desta venda e resolva as pendências.
+                                                </small>
+                                            </span>
+
+                                            <span className="ironstore-pedido-nfe-corrigir-seta">
+                                                <i className="fas fa-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                    )}
+
                                 </div>
+
                             )}
                         </section>
 
