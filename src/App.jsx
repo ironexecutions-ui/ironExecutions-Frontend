@@ -40,6 +40,7 @@ import Apresentacao from "../apresentacao/apresentacao";
 import FotosProdutos from "../fotos/fotos";
 import Fiscal from "../modulos/perfil/body/fiscal/fiscal"
 import AlertaVencimentoDiamante from "./vencimento";
+import ironfly from "./imagens/ironfly.png";
 /* =========================================================
    MAPA FIXO
    COMERCIO_ID -> IMAGEM
@@ -53,6 +54,7 @@ const FUNDOS_POR_COMERCIO = {
   29: alexsiaUtilidades,
   38: neide,
   45: rpt,
+  48: ironfly,
 };
 
 const CACHE_AVISO_TERMOS =
