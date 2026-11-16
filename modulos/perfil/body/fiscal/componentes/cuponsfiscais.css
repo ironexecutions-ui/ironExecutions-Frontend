@@ -1872,3 +1872,258 @@
         margin: 18px 0;
     }
 }
+
+
+/* =========================================================
+   IRON EXECUTIONS | DOWNLOAD XML PREMIUM
+========================================================= */
+
+/* COLUNA XML */
+
+.cupons-fiscais thead th:nth-child(5),
+.cupons-fiscais tbody td:nth-child(5) {
+    min-width: 125px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* BOTÃO BAIXAR XML */
+
+.cupons-fiscais-baixar-xml-premium {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 112px;
+    height: 37px;
+
+    padding: 0 13px;
+
+    overflow: hidden;
+    outline: none;
+
+    background: linear-gradient(135deg,
+            #ecfdf5 0%,
+            #d1fae5 100%) !important;
+
+    border: 1px solid #a7e4c4 !important;
+    border-radius: 9px !important;
+
+    color: #047857 !important;
+
+    font-size: 11px !important;
+    font-weight: 850 !important;
+
+    letter-spacing: 0.1px;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(5, 150, 105, 0.07),
+        0 4px 10px rgba(5, 150, 105, 0.045);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* ÍCONE DO DOWNLOAD */
+
+.cupons-fiscais-baixar-xml-premium span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 19px;
+    height: 19px;
+
+    border-radius: 5px;
+
+    background: rgba(4, 120, 87, 0.10);
+
+    font-size: 16px;
+    font-weight: 900;
+
+    line-height: 1;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* HOVER */
+
+.cupons-fiscais-baixar-xml-premium:hover:not(:disabled) {
+
+    transform: translateY(-2px);
+
+    background: linear-gradient(135deg,
+            #059669 0%,
+            #047857 100%) !important;
+
+    border-color: #047857 !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 5px 12px rgba(5, 150, 105, 0.20),
+        0 9px 18px rgba(5, 150, 105, 0.10);
+}
+
+.cupons-fiscais-baixar-xml-premium:hover:not(:disabled) span {
+
+    background: rgba(255, 255, 255, 0.17);
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+/* CLIQUE */
+
+.cupons-fiscais-baixar-xml-premium:active:not(:disabled) {
+
+    transform: translateY(0) scale(0.97);
+
+    box-shadow:
+        0 2px 4px rgba(5, 150, 105, 0.12);
+}
+
+/* XML INDISPONÍVEL OU BOTÃO DESABILITADO */
+
+.cupons-fiscais-baixar-xml-premium:disabled {
+
+    background: #f2f4f7 !important;
+
+    border-color: #e2e5e9 !important;
+
+    color: #98a2b3 !important;
+
+    box-shadow: none;
+
+    opacity: 0.85;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+/* FOCO DE ACESSIBILIDADE */
+
+.cupons-fiscais-baixar-xml-premium:focus-visible {
+
+    outline: 3px solid rgba(5, 150, 105, 0.20);
+
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   AJUSTES DA TABELA COM A NOVA COLUNA
+========================================================= */
+
+/* PROTOCOLO DE AUTORIZAÇÃO */
+
+.cupons-fiscais thead th:nth-child(4),
+.cupons-fiscais tbody td:nth-child(4) {
+
+    min-width: 165px;
+
+}
+
+/* STATUS */
+
+.cupons-fiscais thead th:nth-child(6),
+.cupons-fiscais tbody td:nth-child(6) {
+
+    min-width: 100px;
+
+    white-space: nowrap;
+
+}
+
+/* DATA */
+
+.cupons-fiscais thead th:nth-child(7),
+.cupons-fiscais tbody td:nth-child(7) {
+
+    min-width: 155px;
+
+    white-space: nowrap;
+
+}
+
+/* AÇÕES */
+
+.cupons-fiscais thead th:nth-child(8),
+.cupons-fiscais tbody td:nth-child(8) {
+
+    min-width: 110px;
+
+    text-align: center;
+
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .cupons-fiscais table {
+
+        min-width: 1050px;
+
+    }
+
+    .cupons-fiscais-baixar-xml-premium {
+
+        min-width: 105px;
+
+        height: 35px;
+
+        padding: 0 10px;
+
+        font-size: 10px !important;
+
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .cupons-fiscais table {
+
+        min-width: 1050px;
+
+    }
+
+    .cupons-fiscais thead th:nth-child(5),
+    .cupons-fiscais tbody td:nth-child(5) {
+
+        padding-left: 10px;
+        padding-right: 10px;
+
+    }
+
+    .cupons-fiscais-baixar-xml-premium {
+
+        min-width: 100px;
+
+        height: 34px;
+
+        gap: 5px;
+
+        font-size: 10px !important;
+
+    }
+
+}

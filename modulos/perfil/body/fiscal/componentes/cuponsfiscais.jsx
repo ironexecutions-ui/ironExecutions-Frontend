@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 
 import { API_URL } from "../../../../../config";
@@ -5,6 +6,7 @@ import { API_URL } from "../../../../../config";
 import "./cuponsfiscais.css";
 
 export default function CuponsFiscais() {
+
     const [lista, setLista] = useState([]);
     const [carregando, setCarregando] = useState(true);
 
@@ -13,6 +15,8 @@ export default function CuponsFiscais() {
 
     const [chaveCopiada, setChaveCopiada] = useState("");
 
+    const [xmlBaixando, setXmlBaixando] = useState({});
+
     const token = localStorage.getItem("token");
 
     // =====================================================
@@ -20,8 +24,11 @@ export default function CuponsFiscais() {
     // =====================================================
 
     useEffect(() => {
+
         async function carregarDocumentos() {
+
             try {
+
                 setCarregando(true);
 
                 const resposta = await fetch(
@@ -36,6 +43,7 @@ export default function CuponsFiscais() {
                 const dados = await resposta.json();
 
                 if (!resposta.ok) {
+
                     console.error(
                         "Erro ao carregar documentos fiscais:",
                         resposta.status,
@@ -47,8 +55,11 @@ export default function CuponsFiscais() {
                 }
 
                 if (Array.isArray(dados)) {
+
                     setLista(dados);
+
                 } else {
+
                     console.error(
                         "Resposta inesperada:",
                         dados
@@ -58,6 +69,7 @@ export default function CuponsFiscais() {
                 }
 
             } catch (erro) {
+
                 console.error(
                     "Erro ao carregar documentos fiscais:",
                     erro
@@ -66,6 +78,7 @@ export default function CuponsFiscais() {
                 setLista([]);
 
             } finally {
+
                 setCarregando(false);
             }
         }
@@ -79,15 +92,21 @@ export default function CuponsFiscais() {
     // =====================================================
 
     async function copiarChave(chave, identificador) {
+
         if (!chave) {
+
             alert("Chave de acesso não encontrada.");
             return;
         }
 
         try {
+
             if (navigator.clipboard && window.isSecureContext) {
+
                 await navigator.clipboard.writeText(chave);
+
             } else {
+
                 const campo = document.createElement("textarea");
 
                 campo.value = chave;
@@ -103,20 +122,137 @@ export default function CuponsFiscais() {
                 document.body.removeChild(campo);
 
                 if (!sucesso) {
-                    throw new Error("Não foi possível copiar a chave.");
+
+                    throw new Error(
+                        "Não foi possível copiar a chave."
+                    );
                 }
             }
 
             setChaveCopiada(identificador);
 
             setTimeout(() => {
+
                 setChaveCopiada("");
+
             }, 2000);
 
         } catch (erro) {
+
             console.error("Erro ao copiar chave:", erro);
 
             alert("Não foi possível copiar a chave de acesso.");
+        }
+    }
+
+    // =====================================================
+    // BAIXAR XML DA NOTA FISCAL
+    // =====================================================
+
+    async function baixarXml(documento) {
+
+        const modelo = String(documento.modelo);
+
+        const identificador = `${modelo}-${documento.id}`;
+
+        if (!documento.xml_disponivel) {
+
+            alert("O arquivo XML não está disponível.");
+            return;
+        }
+
+        if (xmlBaixando[identificador]) {
+            return;
+        }
+
+        try {
+
+            setXmlBaixando((anterior) => ({
+                ...anterior,
+                [identificador]: true
+            }));
+
+            const endpoint =
+                `${API_URL}/fiscal/notas/${modelo}/${documento.id}/xml`;
+
+            const resposta = await fetch(endpoint, {
+
+                method: "GET",
+
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            });
+
+            if (!resposta.ok) {
+
+                let mensagem = "Não foi possível baixar o XML.";
+
+                try {
+
+                    const dados = await resposta.json();
+
+                    mensagem = dados.detail || mensagem;
+
+                } catch {
+
+                    // Mantém a mensagem padrão.
+                }
+
+                throw new Error(mensagem);
+            }
+
+            const blob = await resposta.blob();
+
+            if (!blob.size) {
+
+                throw new Error(
+                    "O servidor retornou um arquivo XML vazio."
+                );
+            }
+
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+
+            const chave = String(
+                documento.chave_acesso || `nota_${documento.id}`
+            ).replace(/[^a-zA-Z0-9_-]/g, "");
+
+            link.href = url;
+            link.download = `${chave}.xml`;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+            setTimeout(() => {
+
+                URL.revokeObjectURL(url);
+
+            }, 10000);
+
+        } catch (erro) {
+
+            console.error(
+                `Erro ao baixar XML modelo ${modelo}:`,
+                erro
+            );
+
+            alert(
+                erro.message ||
+                "Não foi possível baixar o XML da nota fiscal."
+            );
+
+        } finally {
+
+            setXmlBaixando((anterior) => ({
+                ...anterior,
+                [identificador]: false
+            }));
         }
     }
 
@@ -125,36 +261,49 @@ export default function CuponsFiscais() {
     // =====================================================
 
     async function imprimirDocumento(documento) {
+
         const modelo = String(documento.modelo);
 
         let endpoint = "";
 
         if (modelo === "55") {
+
             endpoint = `${API_URL}/fiscal/nfe/${documento.id}/danfe`;
+
         } else if (modelo === "65") {
+
             endpoint = `${API_URL}/fiscal/nfce/${documento.id}/danfe`;
+
         } else {
+
             alert("Modelo de documento fiscal não reconhecido.");
             return;
         }
 
         try {
+
             const resposta = await fetch(endpoint, {
+
                 method: "GET",
+
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
+
             });
 
             if (!resposta.ok) {
+
                 let mensagem = "Não foi possível gerar o DANFE.";
 
                 try {
+
                     const dados = await resposta.json();
 
-                    mensagem =
-                        dados.detail || mensagem;
+                    mensagem = dados.detail || mensagem;
+
                 } catch {
+
                     const texto = await resposta.text();
 
                     if (texto) {
@@ -174,6 +323,7 @@ export default function CuponsFiscais() {
             const blob = await resposta.blob();
 
             if (!blob.type.includes("pdf")) {
+
                 throw new Error(
                     "O servidor não retornou um arquivo PDF válido."
                 );
@@ -184,6 +334,7 @@ export default function CuponsFiscais() {
             const janela = window.open(url, "_blank");
 
             if (!janela) {
+
                 URL.revokeObjectURL(url);
 
                 alert(
@@ -194,10 +345,13 @@ export default function CuponsFiscais() {
             }
 
             setTimeout(() => {
+
                 URL.revokeObjectURL(url);
+
             }, 60000);
 
         } catch (erro) {
+
             console.error(
                 `Erro ao imprimir NF-e/NFC-e modelo ${modelo}:`,
                 erro
@@ -210,7 +364,6 @@ export default function CuponsFiscais() {
         }
     }
 
-
     // =====================================================
     // FILTRAR DOCUMENTOS
     // =====================================================
@@ -218,6 +371,7 @@ export default function CuponsFiscais() {
     const listaFiltrada = lista.filter((documento) => {
 
         if (filtroBusca.trim()) {
+
             const busca = filtroBusca.trim().toLowerCase();
 
             const vendaId = String(
@@ -238,6 +392,7 @@ export default function CuponsFiscais() {
         }
 
         if (filtroData) {
+
             if (!documento.criado_em) {
                 return false;
             }
@@ -259,6 +414,7 @@ export default function CuponsFiscais() {
     // =====================================================
 
     function limparFiltros() {
+
         setFiltroBusca("");
         setFiltroData("");
     }
@@ -268,11 +424,15 @@ export default function CuponsFiscais() {
     // =====================================================
 
     if (carregando) {
+
         return (
+
             <div className="cupons-fiscais">
+
                 <p className="cupons-fiscais-loading">
                     Carregando documentos fiscais...
                 </p>
+
             </div>
         );
     }
@@ -282,6 +442,7 @@ export default function CuponsFiscais() {
     // =====================================================
 
     return (
+
         <div className="cupons-fiscais">
 
             <h4>
@@ -391,9 +552,15 @@ export default function CuponsFiscais() {
                             <th>
                                 Chave de acesso
                             </th>
+
                             <th>
                                 Protocolo de autorização
                             </th>
+
+                            <th>
+                                XML
+                            </th>
+
                             <th>
                                 Status
                             </th>
@@ -418,6 +585,7 @@ export default function CuponsFiscais() {
                                 `${documento.modelo}-${documento.id}`;
 
                             return (
+
                                 <tr key={identificador}>
 
                                     <td data-label="Modelo">
@@ -454,23 +622,75 @@ export default function CuponsFiscais() {
                                             title={documento.chave_acesso}
                                             disabled={!documento.chave_acesso}
                                         >
+
                                             {chaveCopiada === identificador ? (
+
                                                 <>
                                                     <span>✓</span>
                                                     Copiado
                                                 </>
+
                                             ) : (
+
                                                 <>
                                                     <span>⧉</span>
                                                     Copiar chave
                                                 </>
+
                                             )}
+
                                         </button>
 
                                     </td>
+
                                     <td data-label="Protocolo de autorização">
+
                                         {documento.protocolo_autorizacao || "-"}
+
                                     </td>
+
+                                    {/* DOWNLOAD XML */}
+
+                                    <td data-label="XML">
+
+                                        <button
+                                            type="button"
+                                            className="cupons-fiscais-baixar-xml-premium"
+                                            onClick={() =>
+                                                baixarXml(documento)
+                                            }
+                                            disabled={
+                                                !documento.xml_disponivel ||
+                                                xmlBaixando[identificador]
+                                            }
+                                            title={
+                                                !documento.xml_disponivel
+                                                    ? "XML indisponível"
+                                                    : "Baixar arquivo XML"
+                                            }
+                                        >
+
+                                            {xmlBaixando[identificador] ? (
+
+                                                "Baixando..."
+
+                                            ) : documento.xml_disponivel ? (
+
+                                                <>
+                                                    <span>↓</span>
+                                                    Baixar XML
+                                                </>
+
+                                            ) : (
+
+                                                "Indisponível"
+
+                                            )}
+
+                                        </button>
+
+                                    </td>
+
                                     <td
                                         data-label="Status"
                                         className={`status-${documento.status}`}
@@ -483,10 +703,13 @@ export default function CuponsFiscais() {
                                     <td data-label="Data">
 
                                         {documento.criado_em
+
                                             ? new Date(
                                                 documento.criado_em
                                             ).toLocaleString("pt-BR")
+
                                             : "-"
+
                                         }
 
                                     </td>
@@ -506,7 +729,9 @@ export default function CuponsFiscais() {
                                     </td>
 
                                 </tr>
+
                             );
+
                         })}
 
                     </tbody>
