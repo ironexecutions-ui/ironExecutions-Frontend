@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./linktarefa.css";
 import { API_URL } from "../config";
+import logoIron from "../favicon.png";
 
 export default function LinkTarefa() {
 
@@ -10,6 +11,7 @@ export default function LinkTarefa() {
 
     const [status, setStatus] = useState("carregando");
     const [mensagem, setMensagem] = useState("");
+    const [nomeTarefa, setNomeTarefa] = useState("");
 
     useEffect(() => {
 
@@ -34,6 +36,7 @@ export default function LinkTarefa() {
                         }
                     }
                 );
+
                 const dados = await resposta.json();
 
                 if (!resposta.ok || !dados.ok) {
@@ -45,6 +48,7 @@ export default function LinkTarefa() {
                 if (ativo) {
                     setStatus("sucesso");
                     setMensagem(dados.mensagem);
+                    setNomeTarefa(dados.tarefa);
                 }
 
             } catch (erro) {
@@ -74,7 +78,7 @@ export default function LinkTarefa() {
 
                 <header className="linktarefa-header">
                     <img
-                        src="../favicon.png"
+                        src={logoIron}
                         alt="Iron Executions"
                         className="linktarefa-logo"
                     />
@@ -84,6 +88,7 @@ export default function LinkTarefa() {
 
                 {status === "carregando" && (
                     <div className="linktarefa-result">
+
                         <div className="linktarefa-loader"></div>
 
                         <h1>Registrando tarefa</h1>
@@ -91,6 +96,7 @@ export default function LinkTarefa() {
                         <p>
                             Estamos atualizando as informações no sistema.
                         </p>
+
                     </div>
                 )}
 
@@ -119,12 +125,16 @@ export default function LinkTarefa() {
 
                         <h1>Tarefa registrada!</h1>
 
-                        <p>{mensagem}</p>
+                        <p>
+                            {mensagem}
+                        </p>
 
-                        <div className="linktarefa-task-reference">
-                            <span>Tarefa</span>
-                            <strong>#{id}</strong>
-                        </div>
+                        {nomeTarefa && (
+                            <div className="linktarefa-task-reference">
+                                <span>Tarefa concluída</span>
+                                <strong>{nomeTarefa}</strong>
+                            </div>
+                        )}
 
                     </div>
                 )}
@@ -143,11 +153,6 @@ export default function LinkTarefa() {
                         <h1>Ocorreu um problema</h1>
 
                         <p>{mensagem}</p>
-
-                        <div className="linktarefa-task-reference">
-                            <span>Tarefa</span>
-                            <strong>#{id}</strong>
-                        </div>
 
                     </div>
                 )}

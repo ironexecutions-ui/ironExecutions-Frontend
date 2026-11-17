@@ -49,6 +49,7 @@
 .linktarefa-logo {
     display: block;
     width: 58px;
+    border-radius: 50%;
     height: 58px;
     object-fit: contain;
     transition: transform 0.3s ease;
@@ -252,5 +253,429 @@
     .linktarefa-success-icon,
     .linktarefa-error-icon {
         animation: none;
+    }
+}
+
+/* =========================================================
+   IRON EXECUTIONS | PÁGINA PÚBLICA DE CONCLUSÃO DE TAREFA
+========================================================= */
+
+.linktarefa-page {
+    min-height: 100vh;
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    box-sizing: border-box;
+    background:
+        radial-gradient(ellipse at 15% 15%, rgba(25, 75, 115, 0.08), transparent 38%),
+        radial-gradient(ellipse at 90% 85%, rgba(19, 123, 85, 0.055), transparent 35%),
+        #f4f6f9;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Textura discreta de fundo */
+
+.linktarefa-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.32;
+    background-image: radial-gradient(#9aa9b8 0.7px, transparent 0.7px);
+    background-size: 25px 25px;
+}
+
+/* Luzes decorativas */
+
+.linktarefa-background-effect {
+    position: absolute;
+    width: 580px;
+    height: 580px;
+    top: -300px;
+    right: -200px;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            rgba(25, 75, 115, 0.13),
+            rgba(25, 75, 115, 0.035) 45%,
+            transparent 72%);
+    pointer-events: none;
+}
+
+.linktarefa-page::after {
+    content: "";
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    bottom: -290px;
+    left: -180px;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            rgba(19, 123, 85, 0.10),
+            transparent 70%);
+    pointer-events: none;
+}
+
+/* Cartão principal */
+
+.linktarefa-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 470px;
+    padding: 38px 38px 25px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(221, 229, 237, 0.95);
+    border-radius: 23px;
+    box-shadow:
+        0 30px 80px rgba(19, 39, 61, 0.09),
+        0 8px 22px rgba(19, 39, 61, 0.035),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-sizing: border-box;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    animation: linktarefa-entrada 0.65s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+/* Cabeçalho */
+
+.linktarefa-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 27px;
+}
+
+.linktarefa-logo {
+    display: block;
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 10px rgba(20, 45, 68, 0.12));
+    transition:
+        transform 0.35s ease,
+        filter 0.35s ease;
+}
+
+.linktarefa-logo:hover {
+    transform: translateY(-3px) scale(1.06);
+    filter: drop-shadow(0 9px 14px rgba(20, 45, 68, 0.17));
+}
+
+/* Separador */
+
+.linktarefa-divider {
+    width: 100%;
+    height: 1px;
+    position: relative;
+    background: linear-gradient(90deg,
+            transparent,
+            #e5eaf0 15%,
+            #e5eaf0 85%,
+            transparent);
+}
+
+/* Área de resultado */
+
+.linktarefa-result {
+    padding: 43px 0 38px;
+    text-align: center;
+    animation: linktarefa-resultado 0.5s ease both;
+}
+
+.linktarefa-result h1 {
+    margin: 17px 0 11px;
+    color: #142b40;
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+.linktarefa-result p {
+    max-width: 330px;
+    margin: 0 auto;
+    color: #748293;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.8;
+}
+
+/* Ícones de sucesso e erro */
+
+.linktarefa-success-icon,
+.linktarefa-error-icon {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+    animation: linktarefa-pulso 0.75s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+.linktarefa-success-icon {
+    color: #ffffff;
+    background: linear-gradient(145deg, #1a9b6b, #08764e);
+    box-shadow:
+        0 12px 28px rgba(19, 123, 85, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.linktarefa-success-icon svg {
+    width: 39px;
+    height: 39px;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.12));
+}
+
+.linktarefa-error-icon {
+    color: #ffffff;
+    background: linear-gradient(145deg, #ef6565, #c93636);
+    font-size: 35px;
+    font-weight: 800;
+    box-shadow: 0 12px 28px rgba(217, 76, 76, 0.18);
+}
+
+/* Identificação do status */
+
+.linktarefa-status-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #16845b;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 1.8px;
+}
+
+.linktarefa-status-label::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 4px rgba(22, 132, 91, 0.09);
+}
+
+.linktarefa-error-label {
+    color: #d94c4c;
+}
+
+.linktarefa-error-label::before {
+    box-shadow: 0 0 0 4px rgba(217, 76, 76, 0.09);
+}
+
+/* Identificação da tarefa */
+
+.linktarefa-task-reference {
+    width: fit-content;
+    max-width: 100%;
+    min-width: 170px;
+    margin: 28px auto 0;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background: linear-gradient(145deg, #f7f9fb, #f0f4f7);
+    border: 1px solid #e7edf2;
+    border-radius: 13px;
+    box-shadow: 0 4px 12px rgba(19, 39, 61, 0.025);
+    box-sizing: border-box;
+}
+
+.linktarefa-task-reference span {
+    color: #8a98a6;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.linktarefa-task-reference strong {
+    color: #23425e;
+    font-size: 14px;
+    font-weight: 750;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Carregamento */
+
+.linktarefa-loader {
+    width: 43px;
+    height: 43px;
+    margin: 4px auto 26px;
+    border: 3px solid #e8edf2;
+    border-top-color: #194a70;
+    border-right-color: #194a70;
+    border-radius: 50%;
+    animation: linktarefa-girar 0.75s linear infinite;
+}
+
+.linktarefa-result:has(.linktarefa-loader) h1 {
+    font-size: 24px;
+}
+
+/* Rodapé */
+
+.linktarefa-footer {
+    min-height: 47px;
+    padding-top: 19px;
+    border-top: 1px solid #edf0f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: #9ba7b3;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.35px;
+}
+
+.linktarefa-footer-dot {
+    width: 4px;
+    height: 4px;
+    flex: 0 0 4px;
+    border-radius: 50%;
+    background: #16845b;
+    box-shadow: 0 0 0 3px rgba(22, 132, 91, 0.08);
+}
+
+/* Animações */
+
+@keyframes linktarefa-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes linktarefa-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes linktarefa-resultado {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes linktarefa-pulso {
+    0% {
+        transform: scale(0.75);
+        opacity: 0;
+    }
+
+    65% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Tablets e telas menores */
+
+@media (max-width: 600px) {
+    .linktarefa-page {
+        padding: 22px;
+    }
+
+    .linktarefa-content {
+        max-width: 430px;
+        padding: 32px 27px 23px;
+        border-radius: 20px;
+    }
+
+    .linktarefa-logo {
+        width: 59px;
+        height: 59px;
+    }
+
+    .linktarefa-result {
+        padding: 37px 0 32px;
+    }
+
+    .linktarefa-result h1 {
+        font-size: 25px;
+    }
+}
+
+/* Celulares */
+
+@media (max-width: 380px) {
+    .linktarefa-page {
+        padding: 15px;
+    }
+
+    .linktarefa-content {
+        padding: 27px 20px 20px;
+        border-radius: 17px;
+    }
+
+    .linktarefa-result h1 {
+        font-size: 22px;
+    }
+
+    .linktarefa-result p {
+        font-size: 13px;
+    }
+
+    .linktarefa-success-icon,
+    .linktarefa-error-icon {
+        width: 67px;
+        height: 67px;
+        border-radius: 21px;
+    }
+
+    .linktarefa-footer {
+        gap: 7px;
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+}
+
+/* Acessibilidade */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .linktarefa-content,
+    .linktarefa-result,
+    .linktarefa-loader,
+    .linktarefa-success-icon,
+    .linktarefa-error-icon {
+        animation: none !important;
+    }
+
+    .linktarefa-logo {
+        transition: none;
     }
 }
