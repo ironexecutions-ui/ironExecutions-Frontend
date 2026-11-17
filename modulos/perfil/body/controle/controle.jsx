@@ -6,7 +6,7 @@ import Tarefas from "./componentes/tarefas";
 import Impressaocontrole from "./componentes/impressaocontrole";
 import "./menucontrole.css";
 import Contatos from "./componentes/contatos";
-
+import Tarefasloja from "./componentes/tarefasloj";
 export default function Controle() {
     const [abaAtiva, setAbaAtiva] = useState("tabelas");
 
@@ -59,8 +59,19 @@ export default function Controle() {
                     }
                     onClick={() => setAbaAtiva("tarefas")}
                 >
+                    Lembretes
+                </button>
+                <button
+                    className={
+                        abaAtiva === "tarefasloja"
+                            ? "menu-controle-btn ativo"
+                            : "menu-controle-btn"
+                    }
+                    onClick={() => setAbaAtiva("tarefasloja")}
+                >
                     Tarefas
                 </button>
+
                 <button
                     className={
                         abaAtiva === "impressaocontrole"
@@ -111,6 +122,9 @@ export default function Controle() {
                 )}
                 {abaAtiva === "impressaocontrole" && (
                     <Impressaocontrole />
+                )}
+                {abaAtiva === "tarefasloja" && (
+                    <Tarefasloja />
                 )}
             </div>
 

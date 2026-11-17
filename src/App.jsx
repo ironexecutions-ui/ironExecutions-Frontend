@@ -45,7 +45,7 @@ import ironfly from "./imagens/ironfly.png";
    MAPA FIXO
    COMERCIO_ID -> IMAGEM
 ========================================================= */
-
+import LinkTarefa from "./linktarefa";
 const FUNDOS_POR_COMERCIO = {
   11: ironExecutions,
   25: missionaryStoreBrasil,
@@ -315,6 +315,10 @@ function RoteamentoComLoading() {
       <Route
         path="/impressao/:idCriptografado"
         element={<Impressao />}
+      />
+      <Route
+        path="/link/tarefa/:id"
+        element={<LinkTarefa />}
       />
       <Route
         path="/ironbusiness/perfil/fiscal"

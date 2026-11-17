@@ -880,11 +880,11 @@ export default function Tarefas() {
                 <div className="tarefas-gestao-cabecalho-textos">
 
                     <h1 className="tarefas-gestao-titulo">
-                        Tarefas
+                        Lembretes
                     </h1>
 
                     <p className="tarefas-gestao-subtitulo">
-                        Organize tarefas pontuais e recorrentes da equipe.
+                        Organize Lembretes pontuais e recorrentes da equipe.
                     </p>
 
                 </div>
@@ -952,7 +952,7 @@ export default function Tarefas() {
                         <div>
 
                             <h2 className="tarefas-coluna-titulo">
-                                Tarefas pontuais
+                                Lembretes pontuais
                             </h2>
 
                             <span className="tarefas-coluna-descricao">
@@ -973,7 +973,7 @@ export default function Tarefas() {
                     <div className="tarefas-cadastro-card">
 
                         <h3 className="tarefas-cadastro-titulo">
-                            Adicionar tarefas
+                            Adicionar Lembretes
                         </h3>
 
                         {renderizarCampos(
@@ -1042,13 +1042,13 @@ export default function Tarefas() {
                         {carregando ? (
 
                             <div className="tarefas-listagem-vazia">
-                                Carregando tarefas...
+                                Carregando Lembretes...
                             </div>
 
                         ) : tarefasPontuais.length === 0 ? (
 
                             <div className="tarefas-listagem-vazia">
-                                Nenhuma tarefa pontual cadastrada.
+                                Nenhuma Lembrete pontual cadastrada.
                             </div>
 
                         ) : (
@@ -1181,7 +1181,7 @@ export default function Tarefas() {
                         <div>
 
                             <h2 className="tarefas-coluna-titulo">
-                                Tarefas recorrentes
+                                Lembretes recorrentes
                             </h2>
 
                             <span className="tarefas-coluna-descricao">
@@ -1202,7 +1202,7 @@ export default function Tarefas() {
                     <div className="tarefas-cadastro-card">
 
                         <h3 className="tarefas-cadastro-titulo">
-                            Adicionar tarefas
+                            Adicionar Lembretes
                         </h3>
 
                         {renderizarCampos(
@@ -1381,13 +1381,13 @@ export default function Tarefas() {
                         {carregando ? (
 
                             <div className="tarefas-listagem-vazia">
-                                Carregando tarefas...
+                                Carregando Lembretes...
                             </div>
 
                         ) : tarefasFixas.length === 0 ? (
 
                             <div className="tarefas-listagem-vazia">
-                                Nenhuma tarefa recorrente cadastrada.
+                                Nenhuma Lembrete recorrente cadastrada.
                             </div>
 
                         ) : (
@@ -1541,11 +1541,11 @@ export default function Tarefas() {
                                     id="tarefas-modal-apagar-titulo"
                                     className="tarefas-modal-apagar-titulo"
                                 >
-                                    Apagar tarefa?
+                                    Apagar Lembrete?
                                 </h3>
 
                                 <p className="tarefas-modal-apagar-descricao">
-                                    Esta ação removerá a tarefa
+                                    Esta ação removerá a Lembrete
                                     permanentemente.
                                 </p>
 
@@ -1624,7 +1624,7 @@ export default function Tarefas() {
                                     id="tarefas-modal-cancelar-titulo"
                                     className="tarefas-modal-cancelar-titulo"
                                 >
-                                    Cancelar tarefa recorrente?
+                                    Cancelar Lembrete recorrente?
                                 </h3>
 
                                 <p className="tarefas-modal-cancelar-descricao">
