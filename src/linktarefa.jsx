@@ -26,7 +26,7 @@ export default function LinkTarefa() {
             try {
 
                 const resposta = await fetch(
-                    `${API_URL}/link/tarefa/${id}`,
+                    `${API_URL}/tarefas-loja/${id}`,
                     {
                         method: "POST",
                         headers: {
