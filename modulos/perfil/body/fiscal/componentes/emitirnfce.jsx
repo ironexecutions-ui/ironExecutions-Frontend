@@ -720,8 +720,19 @@ export default function EmitirNfce() {
             );
 
 
-            const data =
-                await resposta.json();
+            // Lê primeiro como texto para não perder a mensagem caso
+            // o servidor retorne HTML, texto puro ou JSON inválido.
+            const respostaTexto = await resposta.text();
+            let data = {};
+
+            try {
+                data = respostaTexto ? JSON.parse(respostaTexto) : {};
+            } catch (erroJson) {
+                data = {
+                    detail: respostaTexto ||
+                        `O servidor respondeu com HTTP ${resposta.status}, mas não enviou uma mensagem legível.`
+                };
+            }
 
             /*
              * =====================================================
@@ -732,98 +743,81 @@ export default function EmitirNfce() {
             if (!resposta.ok) {
 
                 // ============================================================
-                // PRODUTOS SEM CADASTRO FISCAL
+                // EXTRAIR A MENSAGEM REAL DO BACKEND
                 // ============================================================
-                const detalheEstruturado =
-                    data?.detail &&
-                        typeof data.detail === "object"
-                        ? data.detail
-                        : null;
+                const detalhe = data?.detail;
+                let mensagemErro = "";
+
+                if (typeof detalhe === "string") {
+                    mensagemErro = detalhe;
+                } else if (detalhe && typeof detalhe === "object" && !Array.isArray(detalhe)) {
+                    mensagemErro =
+                        detalhe.mensagem ||
+                        detalhe.erro ||
+                        detalhe.message ||
+                        "";
+                } else if (Array.isArray(detalhe)) {
+                    mensagemErro = detalhe.map(item => {
+                        const campo = Array.isArray(item?.loc)
+                            ? item.loc.filter(Boolean).join(" > ")
+                            : "Campo";
+                        return `${campo}: ${item?.msg || "valor inválido"}`;
+                    }).join(". ");
+                }
+
+                mensagemErro = String(
+                    mensagemErro ||
+                    data?.erro ||
+                    data?.mensagem ||
+                    data?.message ||
+                    data?.error ||
+                    `Não foi possível concluir a emissão. O servidor retornou HTTP ${resposta.status}.`
+                ).trim();
 
                 const codigoErro =
-                    detalheEstruturado?.codigo ??
-                    data?.codigo ??
+                    detalhe?.codigo ||
+                    data?.codigo ||
                     null;
 
                 const produtosErro =
-                    Array.isArray(detalheEstruturado?.produtos)
-                        ? detalheEstruturado.produtos
+                    Array.isArray(detalhe?.produtos)
+                        ? detalhe.produtos
                         : Array.isArray(data?.produtos)
                             ? data.produtos
                             : [];
 
-                const mensagemErro =
-                    detalheEstruturado?.mensagem ??
-                    (
-                        typeof data?.detail === "string"
-                            ? data.detail
-                            : null
-                    ) ??
-                    data?.erro ??
-                    data?.mensagem ??
-                    "";
+                // Reconhece tanto a resposta estruturada do backend quanto
+                // mensagens de validação que citam o produto e seu cadastro fiscal.
+                const erroRelacionadoProduto =
+                    codigoErro === "PRODUTOS_SEM_DADOS_FISCAIS" ||
+                    codigoErro === "DADOS_FISCAIS_PRODUTO" ||
+                    /produto\s*#?\s*\d+.*(fiscal|ncm|cfop|cst|csosn|origem|unidade|tribut)/i.test(mensagemErro) ||
+                    /(fiscal|ncm|cfop|cst|csosn|origem|unidade|tribut).*produto\s*#?\s*\d+/i.test(mensagemErro);
 
-                const detalheErro =
-                    String(mensagemErro || "");
+                if (erroRelacionadoProduto) {
+                    const matchProduto = mensagemErro.match(/produto\s*#?\s*(\d+)/i);
+                    let produtosSemFiscal = produtosErro.map(produto => {
+                        const id = produto?.produto_id ?? produto?.id;
+                        return {
+                            produto_id: id,
+                            id,
+                            nome: produto?.nome || `Produto ${id ?? "sem identificação"}`
+                        };
+                    });
 
-                const matchProdutoSemFiscal =
-                    detalheErro.match(
-                        /Produto\s+(\d+)\s+sem dados fiscais cadastrados/i
-                    );
-
-                if (
-                    (
-                        codigoErro === "PRODUTOS_SEM_DADOS_FISCAIS" &&
-                        produtosErro.length > 0
-                    ) ||
-                    matchProdutoSemFiscal
-                ) {
-
-                    let produtosSemFiscal = [];
-
-                    if (produtosErro.length > 0) {
-
-                        produtosSemFiscal =
-                            produtosErro.map(produto => ({
-
-                                produto_id:
-                                    produto.produto_id ??
-                                    produto.id,
-
-                                id:
-                                    produto.produto_id ??
-                                    produto.id,
-
-                                nome:
-                                    produto.nome ??
-                                    `Produto ${produto.produto_id ??
-                                    produto.id
-                                    }`
-                            }));
-
-                    } else if (matchProdutoSemFiscal) {
-
-                        const produtoId =
-                            Number(matchProdutoSemFiscal[1]);
-
-                        produtosSemFiscal = [
-                            {
-                                produto_id: produtoId,
-                                id: produtoId,
-                                nome: `Produto ${produtoId}`
-                            }
-                        ];
+                    if (!produtosSemFiscal.length && matchProduto) {
+                        const produtoId = Number(matchProduto[1]);
+                        produtosSemFiscal = [{
+                            produto_id: produtoId,
+                            id: produtoId,
+                            nome: `Produto ${produtoId}`
+                        }];
                     }
-                    // Salva temporariamente quais produtos precisam
-                    // ser cadastrados na tela Fiscal em Massa.
+
                     sessionStorage.setItem(
                         "fiscal_massa_produtos_pendentes",
                         JSON.stringify(produtosSemFiscal)
                     );
-
-                    // Também guardamos a venda que originou o problema.
-                    // Depois podemos usar isso para voltar e tentar emitir
-                    // exatamente a mesma NFC-e.
                     sessionStorage.setItem(
                         "fiscal_massa_venda_pendente",
                         String(vendaId)
@@ -831,26 +825,19 @@ export default function EmitirNfce() {
 
                     setAlertaNfce({
                         tipo: "fiscal_pendente",
-                        titulo: "Produtos sem dados fiscais",
-                        mensagem:
-                            produtosSemFiscal.length === 1
-                                ? `${produtosSemFiscal[0].nome} precisa do cadastro fiscal antes da emissão.`
-                                : `${produtosSemFiscal.length} produtos precisam do cadastro fiscal antes da emissão.`,
+                        titulo: "Verifique o cadastro fiscal do produto",
+                        mensagem: mensagemErro,
                         vendaId,
-                        produtos: produtosSemFiscal
+                        produtos: produtosSemFiscal,
+                        irParaFiscal: true
                     });
 
                     return;
                 }
 
-                // ============================================================
-                // DEMAIS ERROS
-                // ============================================================
-
-                throw new Error(
-                    mensagemErro ||
-                    "Erro desconhecido ao emitir NFC-e"
-                );
+                // Qualquer outro erro também apresenta o motivo retornado
+                // pelo backend, sem substituir por "erro desconhecido".
+                throw new Error(mensagemErro);
             }
 
             /*
@@ -892,18 +879,53 @@ export default function EmitirNfce() {
                 erro
             );
 
-            setAlertaNfce({
-                tipo: "erro",
-                titulo: modeloFiscal === "55"
-                    ? "Falha na emissão da NF-e"
-                    : "Falha na emissão da NFC-e",
-                mensagem:
-                    erro.message ||
-                    "Ocorreu um erro inesperado durante a emissão.",
-                vendaId: vendaId,
-                modeloFiscal: modeloFiscal,
-                destinatario: destinatario
-            });
+            const mensagemErro = String(
+                erro?.message ||
+                "Não foi possível concluir a emissão. Verifique os dados e tente novamente."
+            );
+            const matchProduto = mensagemErro.match(/produto\s*#?\s*(\d+)/i);
+            const erroProdutoFiscal = Boolean(
+                matchProduto &&
+                /(fiscal|ncm|cfop|cst|csosn|origem|unidade|tribut)/i.test(mensagemErro)
+            );
+
+            if (erroProdutoFiscal) {
+                const produtoId = Number(matchProduto[1]);
+                const produtosSemFiscal = [{
+                    produto_id: produtoId,
+                    id: produtoId,
+                    nome: `Produto ${produtoId}`
+                }];
+
+                sessionStorage.setItem(
+                    "fiscal_massa_produtos_pendentes",
+                    JSON.stringify(produtosSemFiscal)
+                );
+                sessionStorage.setItem(
+                    "fiscal_massa_venda_pendente",
+                    String(vendaId)
+                );
+
+                setAlertaNfce({
+                    tipo: "fiscal_pendente",
+                    titulo: "Verifique o cadastro fiscal do produto",
+                    mensagem: mensagemErro,
+                    vendaId,
+                    produtos: produtosSemFiscal,
+                    irParaFiscal: true
+                });
+            } else {
+                setAlertaNfce({
+                    tipo: "erro",
+                    titulo: modeloFiscal === "55"
+                        ? "Falha na emissão da NF-e"
+                        : "Falha na emissão da NFC-e",
+                    mensagem: mensagemErro,
+                    vendaId: vendaId,
+                    modeloFiscal: modeloFiscal,
+                    destinatario: destinatario
+                });
+            }
 
         } finally {
 
@@ -1978,7 +2000,8 @@ export default function EmitirNfce() {
 
                                         window.open(
                                             `/ironbusiness/perfil/fiscal#Registrar#${vendaId}`,
-                                            "_blank"
+                                            "_blank",
+                                            "noopener,noreferrer"
                                         );
                                     }}
                                 >

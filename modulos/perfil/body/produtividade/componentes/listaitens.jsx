@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useVenda } from "./vendaprovider";
 import { API_URL } from "../../../../../config";
@@ -85,6 +85,87 @@ function obterUrlArquivo(arquivo) {
     return `${API_URL.replace(/\/+$/, "")}/arquivos-impressao/${encodeURIComponent(nomeArquivo)}`;
 }
 
+
+function ListaPrecoDigitoAnimado({ caractere, anterior, direcao }) {
+    const mudou = anterior !== undefined && anterior !== caractere;
+    const ehNumero = /\d/.test(caractere);
+    const anteriorEhNumero = /\d/.test(anterior || "");
+
+    if (!mudou || (!ehNumero && !anteriorEhNumero)) {
+        return (
+            <span className="lista-preco-digito-fixo">
+                {caractere}
+            </span>
+        );
+    }
+
+    return (
+        <span className="lista-preco-digito-janela">
+            <span className={`lista-preco-digito-antigo lista-preco-digito-antigo-${direcao}`}>
+                {anterior}
+            </span>
+            <span className={`lista-preco-digito-novo lista-preco-digito-novo-${direcao}`}>
+                {caractere}
+            </span>
+        </span>
+    );
+}
+
+function ListaPrecoAnimado({ valor, numeroComparacao }) {
+    const valorAnteriorRef = useRef(valor);
+    const numeroAnteriorRef = useRef(numeroComparacao);
+
+    const [animacao, setAnimacao] = useState({
+        anterior: valor,
+        atual: valor,
+        direcao: "cima",
+        chave: 0
+    });
+
+    useEffect(() => {
+        if (valorAnteriorRef.current === valor) return;
+
+        const anterior = valorAnteriorRef.current;
+        const numeroAnterior = numeroAnteriorRef.current;
+        const direcao = numeroComparacao >= numeroAnterior ? "cima" : "baixo";
+
+        setAnimacao(estado => ({
+            anterior,
+            atual: valor,
+            direcao,
+            chave: estado.chave + 1
+        }));
+
+        valorAnteriorRef.current = valor;
+        numeroAnteriorRef.current = numeroComparacao;
+    }, [valor, numeroComparacao]);
+
+    const atual = Array.from(animacao.atual);
+    const anterior = Array.from(animacao.anterior);
+    const tamanho = Math.max(atual.length, anterior.length);
+
+    const atualAlinhado = atual.join("").padStart(tamanho, " ").split("");
+    const anteriorAlinhado = anterior.join("").padStart(tamanho, " ").split("");
+
+    return (
+        <span
+            className="lista-preco-animado"
+            key={animacao.chave}
+            aria-live="off"
+        >
+            {atualAlinhado.map((caractere, indice) => (
+                <ListaPrecoDigitoAnimado
+                    key={`${animacao.chave}-${indice}`}
+                    caractere={caractere}
+                    anterior={anteriorAlinhado[indice]}
+                    direcao={animacao.direcao}
+                />
+            ))}
+        </span>
+    );
+}
+
+
 export default function ListaItens() {
 
     const {
@@ -107,6 +188,13 @@ export default function ListaItens() {
 
     const [tema, setTema] = useState("escuro");
 
+    // Configuração de conversão compartilhada com o comportamento do TotalVenda.
+    const [converte, setConverte] = useState(0);
+    const [cambio, setCambio] = useState(null);
+
+    // Identifica qual preço está sendo exibido em dólares durante o hover.
+    const [precoEmDolarItem, setPrecoEmDolarItem] = useState(null);
+
     const [modalImpressaoAberto, setModalImpressaoAberto] =
 
         useState(false);
@@ -126,6 +214,72 @@ export default function ListaItens() {
     const [produtoImpressaoSelecionado, setProdutoImpressaoSelecionado] =
 
         useState("");
+
+    useEffect(() => {
+        let componenteAtivo = true;
+
+        async function buscarCambio() {
+            try {
+                const token = localStorage.getItem("token");
+
+                const resposta = await fetch(`${API_URL}/comercio/cambio`, {
+                    headers: token
+                        ? { Authorization: `Bearer ${token}` }
+                        : {}
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`Falha ao consultar câmbio (HTTP ${resposta.status}).`);
+                }
+
+                const dados = await resposta.json();
+
+                if (!componenteAtivo) return;
+
+                setConverte(Number(dados.converte));
+                setCambio(Number(dados.cambio));
+            } catch (erro) {
+                console.error("[LISTA ITENS] Erro ao buscar câmbio:", erro);
+
+                if (componenteAtivo) {
+                    setConverte(0);
+                    setCambio(null);
+                }
+            }
+        }
+
+        buscarCambio();
+
+        return () => {
+            componenteAtivo = false;
+        };
+    }, []);
+
+    function formatarPrecoDolar(valorReais) {
+        const valor = Number(valorReais || 0);
+        const cotacao = Number(cambio);
+
+        if (
+            converte !== 1 ||
+            !Number.isFinite(cotacao) ||
+            cotacao <= 0 ||
+            !Number.isFinite(valor) ||
+            valor <= 0
+        ) {
+            return "";
+        }
+
+        // Mantém a mesma regra de arredondamento utilizada no TotalVenda.
+        const convertido = valor / cotacao;
+        const inteiro = Math.floor(convertido);
+        const centavos = convertido - inteiro;
+        const valorArredondado = centavos > 0.30
+            ? Math.ceil(convertido)
+            : Math.floor(convertido);
+
+        return `US$ ${valorArredondado.toFixed(2)}`;
+    }
+
 
     useEffect(() => {
 
@@ -1115,24 +1269,35 @@ export default function ListaItens() {
 
                                 </div>
 
-                                <strong className="item-preco">
-
-                                    R${" "}
-
-                                    {Number(item.subtotal).toLocaleString(
-
-                                        "pt-BR",
-
-                                        {
-
-                                            minimumFractionDigits: 2,
-
-                                            maximumFractionDigits: 2
-
+                                <strong
+                                    className={`item-preco ${converte === 1 && Number(cambio) > 0 ? "item-preco-conversao-hover" : ""}`}
+                                    onMouseEnter={() => {
+                                        if (converte === 1 && Number(cambio) > 0) {
+                                            setPrecoEmDolarItem(String(item.itemKey ?? item.id));
                                         }
-
-                                    )}
-
+                                    }}
+                                    onMouseLeave={() => setPrecoEmDolarItem(null)}
+                                    title={
+                                        converte === 1 && Number(cambio) > 0
+                                            ? "Passe o mouse para alternar entre reais e dólares"
+                                            : undefined
+                                    }
+                                >
+                                    <ListaPrecoAnimado
+                                        valor={
+                                            precoEmDolarItem === String(item.itemKey ?? item.id)
+                                                ? formatarPrecoDolar(item.subtotal)
+                                                : `R$ ${Number(item.subtotal).toLocaleString("pt-BR", {
+                                                    minimumFractionDigits: 2,
+                                                    maximumFractionDigits: 2
+                                                })}`
+                                        }
+                                        numeroComparacao={
+                                            precoEmDolarItem === String(item.itemKey ?? item.id)
+                                                ? Number(formatarPrecoDolar(item.subtotal).replace("US$ ", ""))
+                                                : Number(item.subtotal || 0)
+                                        }
+                                    />
                                 </strong>
 
                             </div>
@@ -1226,6 +1391,7 @@ export default function ListaItens() {
                 </div>
 
             </div>
+
 
             {modalImpressaoAberto &&
                 createPortal(

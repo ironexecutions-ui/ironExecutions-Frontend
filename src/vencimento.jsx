@@ -446,10 +446,12 @@ export default function AlertaVencimentoDiamante() {
     return (
 
         <aside
-            className={`iron-diamante-lembrete ${saindo ? "iron-diamante-saindo" : ""
-                }`}
+            className={`iron-diamante-lembrete ${saindo ? "iron-diamante-saindo" : ""}`}
             role="status"
             aria-live="polite"
+            onMouseEnter={(e) => {
+                e.currentTarget.classList.add("iron-diamante-hover-oculto");
+            }}
         >
 
             {/* LOGO DO COMÉRCIO */}

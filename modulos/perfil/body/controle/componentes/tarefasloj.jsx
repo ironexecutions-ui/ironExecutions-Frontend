@@ -12,6 +12,9 @@ import {
 import QRCode from "qrcode";
 import { API_URL } from "../../../../../config";
 import "./tarefasloj.css";
+import { createPortal } from "react-dom";
+
+
 
 const styles = StyleSheet.create({
 
@@ -821,7 +824,7 @@ function DocumentoTarefas({
 
                             {categorias.length === 1
 
-                                ? `Data: ${formatarDataPDF(categorias[0].tarefa)}`
+                                ? `Categoria: ${categorias[0].tarefa}`
 
                                 : `${categorias.length} listas de atividades`}
 
@@ -833,41 +836,7 @@ function DocumentoTarefas({
 
                 </View>
 
-                <View style={styles.summary}>
 
-                    <View style={styles.summaryCard}>
-
-                        <Text style={styles.summaryNumber}>{total}</Text>
-
-                        <Text style={styles.summaryLabel}>TOTAL DE TAREFAS</Text>
-
-                    </View>
-
-                    <View style={styles.summaryCard}>
-
-                        <Text style={styles.summaryNumber}>{concluidas}</Text>
-
-                        <Text style={styles.summaryLabel}>CONCLUÍDAS</Text>
-
-                    </View>
-
-                    <View style={styles.summaryCard}>
-
-                        <Text style={styles.summaryNumber}>{pendentes}</Text>
-
-                        <Text style={styles.summaryLabel}>PENDENTES</Text>
-
-                    </View>
-
-                    <View style={styles.summaryCard}>
-
-                        <Text style={styles.summaryNumber}>{progresso}%</Text>
-
-                        <Text style={styles.summaryLabel}>PROGRESSO</Text>
-
-                    </View>
-
-                </View>
 
                 {categorias.map((categoria, indiceCategoria) => {
 
@@ -899,45 +868,7 @@ function DocumentoTarefas({
 
                         <View key={String(categoria.id)} style={styles.dateSection}>
 
-                            <View style={styles.dateHeader} wrap={false}>
 
-                                <Text style={styles.dateIndex}>
-
-                                    {String(indiceCategoria + 1).padStart(2, "0")}
-
-                                </Text>
-
-                                <View style={styles.dateInfo}>
-
-                                    <Text style={styles.sectionEyebrow}>
-
-                                        LISTA DE ATIVIDADES
-
-                                    </Text>
-
-                                    <Text style={styles.dateTitle}>
-
-                                        {formatarDataPDF(categoria.tarefa)}
-
-                                    </Text>
-
-                                    <Text style={styles.dateDescription}>
-
-                                        {tarefas.length} tarefas, {concluidasData} concluídas e{" "}
-
-                                        {tarefas.length - concluidasData} pendentes
-
-                                    </Text>
-
-                                </View>
-
-                                <Text style={styles.datePercent}>
-
-                                    {progressoData}%
-
-                                </Text>
-
-                            </View>
 
                             {grupos.map((grupo, indiceGrupo) => {
 
@@ -1248,43 +1179,28 @@ function TarefasLojaPDF({
 
     const [gerandoQR, setGerandoQR] = useState(false);
 
-    const estatisticasCalculadas = useMemo(() => {
+    const tarefasPendentes = useMemo(
+        () => (dados?.tarefas || []).filter((item) => !Boolean(item.pronto)),
+        [dados]
+    );
 
-        const tarefas = (dados?.tarefas || []).filter((item) =>
+    const dadosParaPDF = useMemo(
+        () => ({ ...dados, tarefas: tarefasPendentes }),
+        [dados, tarefasPendentes]
+    );
 
-            categorias.some((categoria) =>
-
-                String(categoria.id) === String(item.tarefa_nome_id)
-
-            )
-
-        );
-
-        const total = tarefas.length;
-
-        const concluidas = tarefas.filter((item) => Boolean(item.pronto)).length;
-
-        return {
-
-            total,
-
-            concluidas,
-
-            pendentes: total - concluidas
-
-        };
-
-    }, [dados, categorias]);
+    const estatisticasCalculadas = useMemo(() => ({
+        total: tarefasPendentes.length,
+        concluidas: 0,
+        pendentes: tarefasPendentes.length,
+        progresso: 0
+    }), [tarefasPendentes]);
 
     const estatisticasFinais = estatisticas || estatisticasCalculadas;
 
     const tarefasComLink = useMemo(
-        () => (dados?.tarefas || []).filter((item) =>
-            item.id && categorias.some((categoria) =>
-                String(categoria.id) === String(item.tarefa_nome_id)
-            )
-        ),
-        [dados, categorias]
+        () => tarefasPendentes.filter((item) => item.id),
+        [tarefasPendentes]
     );
 
     useEffect(() => {
@@ -1369,7 +1285,7 @@ function TarefasLojaPDF({
 
                 <DocumentoTarefas
 
-                    dados={dados}
+                    dados={dadosParaPDF}
 
                     categorias={categorias}
 
@@ -1397,1844 +1313,643 @@ function TarefasLojaPDF({
 
 }
 
-function obterDataHoje() {
-
-    const hoje = new Date();
-
-    const ano = hoje.getFullYear();
-
-    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
-
-    const dia = String(hoje.getDate()).padStart(2, "0");
-
-    return `${ano}-${mes}-${dia}`;
-
-}
-
-function formatarData(data) {
-
-    if (!data) return "";
-
-    // Datas armazenadas no formato ISO: YYYY-MM-DD
-
-    const partes = String(data).split("-");
-
-    if (partes.length === 3) {
-
-        return `${partes[2]}/${partes[1]}/${partes[0]}`;
-
-    }
-
-    return data;
-
-}
-
 function capitalizarPalavras(texto) {
-
     return texto.replace(
-
         /\b\p{L}/gu,
-
         letra => letra.toLocaleUpperCase("pt-BR")
-
     );
-
 }
 
 export default function Tarefasloja() {
-
     const [dados, setDados] = useState(null);
-
     const [carregando, setCarregando] = useState(true);
-
     const [tarefa, setTarefa] = useState("");
-
     const [link, setLink] = useState("");
-
     const [responsavel, setResponsavel] = useState("");
-
-    const [dataSelecionada, setDataSelecionada] = useState(obterDataHoje());
-
-    const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
-
-    const [filtro, setFiltro] = useState("todas");
-
     const [editando, setEditando] = useState(null);
-
-    const [mensagem, setMensagem] = useState("");
-
     const [erro, setErro] = useState("");
+    const [alerta, setAlerta] = useState(null);
 
-    const token = () => {
-
-        return (
-
-            localStorage.getItem("token") ||
-
-            localStorage.getItem("access_token") ||
-
-            localStorage.getItem("accessToken")
-
-        );
-
-    };
-
-    // =====================================================
-
-    // REQUISIÇÕES
-
-    // =====================================================
+    const token = () => (
+        localStorage.getItem("token") ||
+        localStorage.getItem("access_token") ||
+        localStorage.getItem("accessToken")
+    );
 
     async function requisicao(url, options = {}) {
-
         const resposta = await fetch(`${API_URL}${url}`, {
-
             ...options,
-
             headers: {
-
                 "Content-Type": "application/json",
-
                 Authorization: `Bearer ${token()}`,
-
                 ...options.headers
-
             }
-
         });
 
         const resultado = await resposta.json().catch(() => ({}));
 
         if (!resposta.ok) {
-
-            throw new Error(
-
-                resultado.detail || "Erro ao realizar operação"
-
-            );
-
+            throw new Error(resultado.detail || "Erro ao realizar operação");
         }
 
         return resultado;
-
     }
 
-    // =====================================================
-
-    // LOCALIZAR CATEGORIA PELA DATA
-
-    // =====================================================
-
-    function encontrarCategoriaPorData(listaCategorias, data) {
-
-        return listaCategorias.find(
-
-            categoria => categoria.tarefa === data
-
-        );
-
-    }
-
-    // =====================================================
-
-    // CRIAR DATA AUTOMATICAMENTE
-
-    // =====================================================
-
-    async function garantirCategoriaData(data) {
-
-        let categoria = encontrarCategoriaPorData(
-
-            dados?.categorias || [],
-
-            data
-
-        );
-
-        if (categoria) {
-
-            return categoria;
-
-        }
-
-        const resultado = await requisicao(
-
-            "/tarefas-loja/categoria",
-
-            {
-
-                method: "POST",
-
-                body: JSON.stringify({
-
-                    tarefa: data
-
-                })
-
-            }
-
-        );
-
-        return {
-
-            id: resultado.id,
-
-            tarefa: data,
-
-            total: 0,
-
-            concluidas: 0
-
-        };
-
-    }
-
-    // =====================================================
-
-    // CARREGAR DADOS
-
-    // =====================================================
-
-    async function carregarDados(selecionarHoje = false) {
-
+    async function carregarDados() {
         try {
-
             setCarregando(true);
-
             setErro("");
-
-            let resultado = await requisicao(
-
-                "/tarefas-loja/inicial"
-
-            );
-
-            const hoje = obterDataHoje();
-
-            let categoriaHoje = encontrarCategoriaPorData(
-
-                resultado.categorias,
-
-                hoje
-
-            );
-
-            // Se ainda não existe uma lista para hoje,
-
-            // ela será criada automaticamente.
-
-            if (!categoriaHoje) {
-
-                await requisicao(
-
-                    "/tarefas-loja/categoria",
-
-                    {
-
-                        method: "POST",
-
-                        body: JSON.stringify({
-
-                            tarefa: hoje
-
-                        })
-
-                    }
-
-                );
-
-                resultado = await requisicao(
-
-                    "/tarefas-loja/inicial"
-
-                );
-
-                categoriaHoje = encontrarCategoriaPorData(
-
-                    resultado.categorias,
-
-                    hoje
-
-                );
-
-            }
-
+            const resultado = await requisicao("/tarefas-loja/inicial");
             setDados(resultado);
-
-            if (categoriaHoje) {
-
-                setCategoriaSelecionada(atual => {
-
-                    if (selecionarHoje || !atual) {
-
-                        return String(categoriaHoje.id);
-
-                    }
-
-                    return atual;
-
-                });
-
-            }
-
-            setDataSelecionada(atual => atual || hoje);
-
         } catch (error) {
-
             setErro(error.message);
-
         } finally {
-
             setCarregando(false);
-
         }
-
     }
 
     useEffect(() => {
-
-        carregarDados(true);
-
+        carregarDados();
     }, []);
 
-    // =====================================================
-
-    // INDICADORES
-
-    // =====================================================
+    const categoriaPrincipal = dados?.categorias?.[0] || null;
 
     const estatisticas = dados?.estatisticas || {
-
         total: 0,
-
         concluidas: 0,
-
         pendentes: 0,
-
         progresso: 0
-
     };
 
-    // =====================================================
+    const tarefasOrdenadas = useMemo(() => {
+        if (!dados?.tarefas) return [];
 
-    // AGRUPAMENTO E FILTROS
-
-    // =====================================================
-
-    const categoriasOrdenadas = useMemo(() => {
-
-        if (!dados) return [];
-
-        return [...dados.categorias].sort((a, b) => {
-
-            return String(b.tarefa).localeCompare(
-
-                String(a.tarefa)
-
-            );
-
+        return [...dados.tarefas].sort((a, b) => {
+            if (Boolean(a.pronto) !== Boolean(b.pronto)) {
+                return Number(Boolean(a.pronto)) - Number(Boolean(b.pronto));
+            }
+            return Number(b.id) - Number(a.id);
         });
-
     }, [dados]);
 
-    const categoriasFiltradas = useMemo(() => {
-
-        if (!dados) return [];
-
-        if (filtro === "todas") {
-
-            return categoriasOrdenadas;
-
-        }
-
-        return categoriasOrdenadas.filter(
-
-            categoria => String(categoria.id) === String(filtro)
-
-        );
-
-    }, [dados, categoriasOrdenadas, filtro]);
-
-    function tarefasDaCategoria(categoriaId) {
-
-        if (!dados) return [];
-
-        return dados.tarefas.filter(
-
-            item => String(item.tarefa_nome_id) === String(categoriaId)
-
-        );
-
+    function mostrarAlerta(tipo, titulo, mensagem, acaoConfirmar = null) {
+        setAlerta({ tipo, titulo, mensagem, acaoConfirmar });
     }
 
-    function agruparTarefasPorResponsavel(itens) {
-
-        const grupos = new Map();
-
-        itens.forEach(item => {
-
-            const chave = item.responsavel
-
-                ? String(item.responsavel)
-
-                : "sem-responsavel";
-
-            if (!grupos.has(chave)) {
-
-                grupos.set(chave, {
-
-                    id: chave,
-
-                    nome: item.responsavel_nome || "Não identificado",
-
-                    tarefas: []
-
-                });
-
-            }
-
-            grupos.get(chave).tarefas.push(item);
-
-        });
-
-        return [...grupos.values()].sort((a, b) => {
-
-            if (a.id === "sem-responsavel") return 1;
-
-            if (b.id === "sem-responsavel") return -1;
-
-            return a.nome.localeCompare(b.nome, "pt-BR");
-
-        });
-
+    function fecharAlerta() {
+        setAlerta(null);
     }
 
-    // =====================================================
-
-    // NOTIFICAÇÕES
-
-    // =====================================================
-
-    function notificar(texto) {
-
-        setMensagem(texto);
-
-        setTimeout(() => {
-
-            setMensagem("");
-
-        }, 3000);
-
+    async function confirmarAlerta() {
+        const acao = alerta?.acaoConfirmar;
+        setAlerta(null);
+        if (acao) await acao();
     }
-
-    // =====================================================
-
-    // CADASTRAR TAREFA
-
-    // =====================================================
 
     async function cadastrarTarefa(e) {
-
         e.preventDefault();
 
         if (!tarefa.trim()) {
-
-            setErro("Descreva a tarefa antes de cadastrar.");
-
+            mostrarAlerta("aviso", "Campo obrigatório", "Descreva a tarefa antes de continuar.");
             return;
-
-        }
-
-        if (!dataSelecionada) {
-
-            setErro("Selecione uma data para a tarefa.");
-
-            return;
-
         }
 
         try {
-
             setErro("");
 
-            // Localiza ou cria automaticamente a lista da data.
+            const resultado = await requisicao("/tarefas-loja/tarefa", {
+                method: "POST",
+                body: JSON.stringify({
+                    tarefa: tarefa.trim(),
+                    link: link.trim() || null,
+                    responsavel: responsavel ? Number(responsavel) : null
+                })
+            });
 
-            let categoria = encontrarCategoriaPorData(
-
-                dados.categorias,
-
-                dataSelecionada
-
-            );
-
-            if (!categoria) {
-
-                const resultadoCategoria = await requisicao(
-
-                    "/tarefas-loja/categoria",
-
-                    {
-
-                        method: "POST",
-
-                        body: JSON.stringify({
-
-                            tarefa: dataSelecionada
-
-                        })
-
-                    }
-
-                );
-
-                categoria = {
-
-                    id: resultadoCategoria.id,
-
-                    tarefa: dataSelecionada
-
-                };
-
-            }
-
-            const resultadoTarefa = await requisicao(
-
-                "/tarefas-loja/tarefa",
-
-                {
-
-                    method: "POST",
-
-                    body: JSON.stringify({
-
-                        tarefa_nome_id: Number(categoria.id),
-
-                        tarefa: tarefa,
-
-                        link: link.trim() || null,
-
-                        responsavel: responsavel
-
-                            ? Number(responsavel)
-
-                            : null
-
-                    })
-
-                }
-
-            );
-
-            const funcionarioResponsavel = dados.funcionarios.find(
-
-                funcionario => String(funcionario.id) === String(responsavel)
-
+            const funcionario = dados.funcionarios.find(
+                item => String(item.id) === String(responsavel)
             );
 
             const novaTarefa = {
-
-                id: resultadoTarefa?.id ?? resultadoTarefa?.tarefa_id ?? `temporaria-${Date.now()}`,
-
-                tarefa_nome_id: Number(categoria.id),
-
+                id: resultado.id ?? resultado.tarefa_id ?? `temporaria-${Date.now()}`,
+                tarefa_nome_id: resultado.tarefa_nome_id ?? categoriaPrincipal?.id,
                 tarefa: tarefa.trim(),
-
                 link: link.trim() || null,
-
                 responsavel: responsavel ? Number(responsavel) : null,
-
-                responsavel_nome: funcionarioResponsavel?.nome_completo || null,
-
-                pronto: false
-
+                responsavel_nome: funcionario?.nome_completo || null,
+                pronto: false,
+                categoria: categoriaPrincipal?.tarefa
             };
 
             setDados(atual => {
-
                 if (!atual) return atual;
 
-                const tarefas = [...atual.tarefas, novaTarefa];
-
+                const tarefas = [novaTarefa, ...atual.tarefas];
                 const total = tarefas.length;
-
-                const concluidas = tarefas.filter(
-
-                    item => Boolean(item.pronto)
-
-                ).length;
-
+                const concluidas = tarefas.filter(item => Boolean(item.pronto)).length;
                 const pendentes = total - concluidas;
 
                 return {
-
                     ...atual,
-
                     tarefas,
-
-                    categorias: atual.categorias.map(itemCategoria => {
-
-                        if (String(itemCategoria.id) !== String(categoria.id)) {
-
-                            return itemCategoria;
-
-                        }
-
-                        const tarefasCategoria = tarefas.filter(
-
-                            item => String(item.tarefa_nome_id) === String(itemCategoria.id)
-
-                        );
-
-                        return {
-
-                            ...itemCategoria,
-
-                            total: tarefasCategoria.length,
-
-                            concluidas: tarefasCategoria.filter(
-
-                                item => Boolean(item.pronto)
-
-                            ).length
-
-                        };
-
-                    }),
-
-                    estatisticas: {
-
-                        ...atual.estatisticas,
-
+                    categorias: atual.categorias.map(categoria => ({
+                        ...categoria,
                         total,
-
+                        concluidas
+                    })),
+                    estatisticas: {
+                        total,
                         concluidas,
-
                         pendentes,
-
                         progresso: total
-
                             ? Math.round((concluidas / total) * 100)
-
                             : 0
-
                     }
-
                 };
-
             });
 
             setTarefa("");
-
             setLink("");
-
-            notificar("Tarefa cadastrada com sucesso!");
-
+            // Mantém o responsável selecionado para facilitar o cadastro da próxima tarefa.
+            mostrarAlerta("sucesso", "Tarefa cadastrada", "A atividade foi adicionada à lista com sucesso.");
         } catch (error) {
-
-            setErro(error.message);
-
+            mostrarAlerta("erro", "Não foi possível cadastrar", error.message);
         }
-
     }
 
-    // =====================================================
-
-    // MARCAR COMO CONCLUÍDA
-
-    // =====================================================
-
     async function alterarStatus(item) {
+        const novoStatus = !Boolean(item.pronto);
 
         try {
-
-            await requisicao(
-
-                `/tarefas-loja/tarefa/${item.id}/status`,
-
-                {
-
-                    method: "PATCH",
-
-                    body: JSON.stringify({
-
-                        pronto: !Boolean(item.pronto)
-
-                    })
-
-                }
-
-            );
+            await requisicao(`/tarefas-loja/tarefa/${item.id}/status`, {
+                method: "PATCH",
+                body: JSON.stringify({ pronto: novoStatus })
+            });
 
             setDados(atual => {
-
                 if (!atual) return atual;
 
-                const tarefas = atual.tarefas.map(tarefaAtual => {
-
-                    if (String(tarefaAtual.id) === String(item.id)) {
-
-                        return {
-
-                            ...tarefaAtual,
-
-                            pronto: !Boolean(item.pronto)
-
-                        };
-
-                    }
-
-                    return tarefaAtual;
-
-                });
+                const tarefas = atual.tarefas.map(tarefaAtual =>
+                    String(tarefaAtual.id) === String(item.id)
+                        ? { ...tarefaAtual, pronto: novoStatus }
+                        : tarefaAtual
+                );
 
                 const total = tarefas.length;
-
-                const concluidas = tarefas.filter(
-
-                    tarefaAtual => Boolean(tarefaAtual.pronto)
-
-                ).length;
-
+                const concluidas = tarefas.filter(t => Boolean(t.pronto)).length;
                 const pendentes = total - concluidas;
 
                 return {
-
                     ...atual,
-
                     tarefas,
-
-                    categorias: atual.categorias.map(categoria => {
-
-                        const tarefasCategoria = tarefas.filter(
-
-                            tarefaAtual =>
-
-                                String(tarefaAtual.tarefa_nome_id) ===
-
-                                String(categoria.id)
-
-                        );
-
-                        return {
-
-                            ...categoria,
-
-                            total: tarefasCategoria.length,
-
-                            concluidas: tarefasCategoria.filter(
-
-                                tarefaAtual => Boolean(tarefaAtual.pronto)
-
-                            ).length
-
-                        };
-
-                    }),
-
-                    estatisticas: {
-
-                        ...atual.estatisticas,
-
+                    categorias: atual.categorias.map(categoria => ({
+                        ...categoria,
                         total,
-
+                        concluidas
+                    })),
+                    estatisticas: {
+                        total,
                         concluidas,
-
                         pendentes,
-
                         progresso: total
-
                             ? Math.round((concluidas / total) * 100)
-
                             : 0
-
                     }
-
                 };
-
             });
 
-        } catch (error) {
-
-            setErro(error.message);
-
-        }
-
-    }
-
-    // =====================================================
-
-    // EXCLUIR TAREFA
-
-    // =====================================================
-
-    async function excluirTarefa(id) {
-
-        if (!window.confirm("Deseja excluir esta tarefa?")) {
-
-            return;
-
-        }
-
-        try {
-
-            await requisicao(
-
-                `/tarefas-loja/tarefa/${id}`,
-
-                {
-
-                    method: "DELETE"
-
-                }
-
+            mostrarAlerta(
+                novoStatus ? "sucesso" : "info",
+                novoStatus ? "Tarefa concluída" : "Tarefa reaberta",
+                novoStatus
+                    ? "O status da atividade foi atualizado para concluída."
+                    : "A atividade voltou para a lista de pendências."
             );
-
-            await carregarDados();
-
-            notificar("Tarefa excluída!");
-
         } catch (error) {
-
-            setErro(error.message);
-
+            mostrarAlerta("erro", "Falha ao atualizar tarefa", error.message);
         }
-
     }
 
-    // =====================================================
+    async function executarExclusao(id) {
+        try {
+            await requisicao(`/tarefas-loja/tarefa/${id}`, { method: "DELETE" });
+            await carregarDados();
+            mostrarAlerta("sucesso", "Tarefa excluída", "A atividade foi removida com sucesso.");
+        } catch (error) {
+            mostrarAlerta("erro", "Não foi possível excluir", error.message);
+        }
+    }
 
-    // EDITAR TAREFA
-
-    // =====================================================
+    function excluirTarefa(id) {
+        mostrarAlerta(
+            "confirmacao",
+            "Excluir esta tarefa?",
+            "Essa ação removerá a atividade da lista. Deseja realmente continuar?",
+            () => executarExclusao(id)
+        );
+    }
 
     function iniciarEdicao(item) {
-
         setEditando({
-
             id: item.id,
-
             tarefa: item.tarefa,
-
             link: item.link || "",
-
-            responsavel: item.responsavel
-
-                ? String(item.responsavel)
-
-                : ""
-
+            responsavel: item.responsavel ? String(item.responsavel) : ""
         });
-
     }
 
     async function salvarEdicao(e) {
-
         e.preventDefault();
 
         try {
-
-            await requisicao(
-
-                `/tarefas-loja/tarefa/${editando.id}`,
-
-                {
-
-                    method: "PUT",
-
-                    body: JSON.stringify({
-
-                        tarefa: editando.tarefa,
-
-                        link: editando.link.trim() || null,
-
-                        responsavel: editando.responsavel
-
-                            ? Number(editando.responsavel)
-
-                            : null
-
-                    })
-
-                }
-
-            );
+            await requisicao(`/tarefas-loja/tarefa/${editando.id}`, {
+                method: "PUT",
+                body: JSON.stringify({
+                    tarefa: editando.tarefa.trim(),
+                    link: editando.link.trim() || null,
+                    responsavel: editando.responsavel
+                        ? Number(editando.responsavel)
+                        : null
+                })
+            });
 
             setEditando(null);
-
             await carregarDados();
-
-            notificar("Tarefa atualizada!");
-
+            mostrarAlerta("sucesso", "Alterações salvas", "A tarefa foi atualizada com sucesso.");
         } catch (error) {
-
-            setErro(error.message);
-
+            mostrarAlerta("erro", "Não foi possível salvar", error.message);
         }
-
     }
 
     if (carregando) {
-
         return (
-
             <div className="tl-loading">
-
                 <div className="tl-spinner"></div>
-
                 <span>Carregando tarefas da loja...</span>
-
             </div>
-
         );
-
     }
 
     if (!dados) {
-
         return (
-
             <div className="tl-error">
-
                 <h3>Não foi possível carregar as tarefas.</h3>
-
                 <p>{erro}</p>
-
-                <button onClick={() => carregarDados(true)}>
-
-                    Tentar novamente
-
-                </button>
-
+                <button onClick={carregarDados}>Tentar novamente</button>
             </div>
-
         );
-
     }
 
-    // =====================================================
-
-    // INTERFACE
-
-    // =====================================================
-
     return (
-
         <main className="tl-container">
-
             <header className="tl-header">
-
                 <div className="tl-header-info">
-
                     <div className="tl-header-icon">
-
                         <span>✓</span>
-
                     </div>
-
                     <div>
-
-                        <span className="tl-overline">
-
-                            GESTÃO OPERACIONAL
-
-                        </span>
-
+                        <span className="tl-overline">GESTÃO OPERACIONAL</span>
                         <h1>Tarefas da loja</h1>
-
                         <p>
-
-                            Organize atividades por data e acompanhe
-
+                            Organize as atividades em uma única lista e acompanhe
                             a execução da sua equipe.
-
                         </p>
-
                     </div>
-
                 </div>
 
                 <TarefasLojaPDF
                     dados={dados}
-                    categorias={categoriasOrdenadas}
-                    nomeArquivo={`relatorio-geral-tarefas-${obterDataHoje()}.pdf`}
+                    categorias={categoriaPrincipal ? [categoriaPrincipal] : []}
+                    nomeArquivo="relatorio-tarefas-pendentes.pdf"
                 />
-
             </header>
 
-            {mensagem && (
-
-                <div className="tl-success">
-
-                    {mensagem}
-
-                </div>
-
-            )}
-
-            {erro && (
-
-                <div className="tl-error-message">
-
-                    {erro}
-
-                    <button
-
-                        type="button"
-
-                        onClick={() => setErro("")}
-
-                    >
-
-                        ×
-
-                    </button>
-
-                </div>
-
-            )}
-
             <section className="tl-stats">
-
                 <article className="tl-stat-card">
-
                     <span className="tl-stat-icon tl-icon-blue">▤</span>
-
                     <div>
-
                         <strong>{estatisticas.total}</strong>
-
                         <span>Total de tarefas</span>
-
                     </div>
-
                 </article>
 
                 <article className="tl-stat-card">
-
                     <span className="tl-stat-icon tl-icon-green">✓</span>
-
                     <div>
-
                         <strong>{estatisticas.concluidas}</strong>
-
                         <span>Concluídas</span>
-
                     </div>
-
                 </article>
 
                 <article className="tl-stat-card">
-
                     <span className="tl-stat-icon tl-icon-orange">◷</span>
-
                     <div>
-
                         <strong>{estatisticas.pendentes}</strong>
-
                         <span>Pendentes</span>
-
                     </div>
-
                 </article>
 
                 <article className="tl-stat-card">
-
                     <span className="tl-stat-icon tl-icon-purple">%</span>
-
                     <div>
-
                         <strong>{estatisticas.progresso}%</strong>
-
                         <span>Progresso geral</span>
-
                     </div>
-
                 </article>
-
             </section>
 
-            <section className="tl-progress-card">
 
-                <div className="tl-progress-heading">
-
-                    <div>
-
-                        <h3>Progresso das atividades</h3>
-
-                        <p>Acompanhamento geral da loja</p>
-
-                    </div>
-
-                    <strong>{estatisticas.progresso}%</strong>
-
-                </div>
-
-                <div className="tl-progress-track">
-
-                    <div
-
-                        className="tl-progress-value"
-
-                        style={{
-
-                            width: `${estatisticas.progresso}%`
-
-                        }}
-
-                    />
-
-                </div>
-
-                <div className="tl-progress-footer">
-
-                    <span>{estatisticas.concluidas} concluídas</span>
-
-                    <span>{estatisticas.pendentes} pendentes</span>
-
-                </div>
-
-            </section>
 
             <section className="tl-management">
-
                 <div className="tl-panel">
-
                     <div className="tl-panel-heading">
-
                         <div>
-
-                            <span className="tl-overline">
-
-                                NOVA ATIVIDADE
-
-                            </span>
-
+                            <span className="tl-overline">NOVA ATIVIDADE</span>
                             <h2>Cadastrar tarefa</h2>
-
+                            <p className="tl-label-optional">
+                                Categoria: {categoriaPrincipal?.tarefa || dados.comercio?.loja}
+                            </p>
                         </div>
-
                     </div>
 
-                    <form
-
-                        className="tl-task-form"
-
-                        onSubmit={cadastrarTarefa}
-
-                    >
-
+                    <form className="tl-task-form" onSubmit={cadastrarTarefa}>
                         <label>
-
-                            Data da tarefa
-
-                            <input
-
-                                type="date"
-
-                                value={dataSelecionada}
-
-                                onChange={e => {
-
-                                    setDataSelecionada(e.target.value);
-
-                                    const categoria = encontrarCategoriaPorData(
-
-                                        dados.categorias,
-
-                                        e.target.value
-
-                                    );
-
-                                    if (categoria) {
-
-                                        setCategoriaSelecionada(
-
-                                            String(categoria.id)
-
-                                        );
-
-                                    } else {
-
-                                        setCategoriaSelecionada("");
-
-                                    }
-
-                                }}
-
-                                required
-
-                            />
-
-                            <span className="tl-label-optional">
-
-                                A lista dessa data será criada automaticamente.
-
-                            </span>
-
-                        </label>
-
-                        <label>
-
                             Descrição da tarefa
-
                             <textarea
-
                                 value={tarefa}
-
-                                onChange={e => {
-
-                                    setTarefa(
-
-                                        capitalizarPalavras(e.target.value)
-
-                                    );
-
-                                }}
-
+                                onChange={e => setTarefa(capitalizarPalavras(e.target.value))}
                                 placeholder="Descreva o que precisa ser feito..."
-
                                 rows={3}
-
                                 required
-
                             />
-
                         </label>
 
                         <div className="tl-responsavel-group">
-
-                            <span className="tl-responsavel-label">
-
-                                Responsável
-
-                            </span>
+                            <span className="tl-responsavel-label">Responsável</span>
 
                             <div className="tl-responsavel-grid">
-
                                 <button
-
                                     type="button"
-
-                                    className={`tl-responsavel-option ${responsavel === ""
-
-                                        ? "tl-responsavel-active"
-
-                                        : ""
-
-                                        }`}
-
+                                    className={`tl-responsavel-option ${responsavel === "" ? "tl-responsavel-active" : ""}`}
                                     onClick={() => setResponsavel("")}
-
                                 >
-
                                     <span className="tl-responsavel-avatar">
-
                                         <icon name="users" />
-
                                     </span>
-
                                     <span className="tl-responsavel-info">
-
                                         <strong>Sem responsável</strong>
-
                                         <small>Definir depois</small>
-
                                     </span>
-
-                                    {responsavel === "" && (
-
-                                        <icon name="check-circle-2" />
-
-                                    )}
-
+                                    {responsavel === "" && <icon name="check-circle-2" />}
                                 </button>
 
                                 {dados.funcionarios.map(func => (
-
                                     <button
-
                                         key={func.id}
-
                                         type="button"
-
-                                        className={`tl-responsavel-option ${String(responsavel) === String(func.id)
-
-                                            ? "tl-responsavel-active"
-
-                                            : ""
-
-                                            }`}
-
-                                        onClick={() => {
-
-                                            setResponsavel(String(func.id));
-
-                                        }}
-
+                                        className={`tl-responsavel-option ${String(responsavel) === String(func.id) ? "tl-responsavel-active" : ""}`}
+                                        onClick={() => setResponsavel(String(func.id))}
                                     >
-
                                         <span className="tl-responsavel-avatar">
-
-                                            {func.nome_completo
-
-                                                ?.charAt(0)
-
-                                                ?.toUpperCase()}
-
+                                            {func.nome_completo?.charAt(0)?.toUpperCase()}
                                         </span>
-
                                         <span className="tl-responsavel-info">
-
-                                            <strong>
-
-                                                {func.nome_completo}
-
-                                            </strong>
-
-                                            <small>
-
-                                                Responsável pela tarefa
-
-                                            </small>
-
+                                            <strong>{func.nome_completo}</strong>
+                                            <small>Responsável pela tarefa</small>
                                         </span>
-
                                         {String(responsavel) === String(func.id) && (
-
                                             <icon name="check-circle-2" />
-
                                         )}
-
                                     </button>
-
                                 ))}
-
                             </div>
-
                         </div>
 
                         <label>
-
                             Link relacionado
-
-                            <span className="tl-label-optional">
-
-                                Opcional
-
-                            </span>
-
+                            <span className="tl-label-optional">Opcional</span>
                             <input
-
                                 type="url"
-
                                 value={link}
-
                                 onChange={e => setLink(e.target.value)}
-
                                 placeholder="https://..."
-
                             />
-
                         </label>
 
-                        <button
-
-                            className="tl-submit-button"
-
-                            type="submit"
-
-                        >
-
+                        <button className="tl-submit-button" type="submit">
                             + Adicionar tarefa
-
                         </button>
-
                     </form>
-
                 </div>
-
             </section>
 
             <section className="tl-tasks-section">
-
                 <div className="tl-list-heading">
-
                     <div>
-
-                        <span className="tl-overline">
-
-                            ACOMPANHAMENTO
-
-                        </span>
-
-                        <h2>Lista de tarefas por data</h2>
-
+                        <span className="tl-overline">ACOMPANHAMENTO</span>
+                        <h2>{categoriaPrincipal?.tarefa || "Lista de tarefas"}</h2>
+                        <p>Todas as tarefas, concluídas e pendentes.</p>
                     </div>
-
-                    <select
-
-                        value={filtro}
-
-                        onChange={e => setFiltro(e.target.value)}
-
-                    >
-
-                        <option value="todas">
-
-                            Todas as datas
-
-                        </option>
-
-                        {categoriasOrdenadas.map(categoria => (
-
-                            <option
-
-                                key={categoria.id}
-
-                                value={categoria.id}
-
-                            >
-
-                                {formatarData(categoria.tarefa)}
-
-                            </option>
-
-                        ))}
-
-                    </select>
-
                 </div>
 
-                {categoriasFiltradas.map(categoria => {
-
-                    const itens = tarefasDaCategoria(categoria.id);
-
-                    const concluidas = itens.filter(
-
-                        item => Boolean(item.pronto)
-
-                    ).length;
-
-                    return (
-
-                        <article
-
-                            key={categoria.id}
-
-                            className="tl-task-group"
-
-                        >
-
-                            <div className="tl-group-heading">
-
-                                <div>
-
-                                    <h3>
-
-                                        {formatarData(categoria.tarefa)}
-
-                                    </h3>
-
-                                    <span>
-
-                                        {itens.length} atividades
-
-                                    </span>
-
-                                </div>
-
-                                <div className="tl-group-progress">
-
-                                    {concluidas}/{itens.length}
-
-                                </div>
-
-                                <TarefasLojaPDF
-                                    dados={dados}
-                                    categorias={[categoria]}
-                                    nomeArquivo={`tarefas-${categoria.tarefa}.pdf`}
-                                />
-
-                            </div>
-
-                            {itens.map(item => (
-
-                                <div
-
-                                    key={item.id}
-
-                                    className={`tl-task-item ${item.pronto
-
-                                        ? "tl-task-completed"
-
-                                        : ""
-
-                                        }`}
-
-                                >
-
-                                    <label className="tl-task-check">
-
-                                        <input
-
-                                            type="checkbox"
-
-                                            checked={Boolean(item.pronto)}
-
-                                            onChange={() => alterarStatus(item)}
-
-                                        />
-
-                                        <span className="tl-custom-check"></span>
-
-                                    </label>
-
-                                    <div className="tl-task-description">
-
-                                        <strong>{item.tarefa}</strong>
-
-                                        <span>
-
-                                            Responsável:{" "}
-
-                                            {item.responsavel_nome || "Não definido"}
-
-                                        </span>
-
-                                        {item.link && (
-
-                                            <a
-
-                                                href={item.link}
-
-                                                target="\_blank"
-
-                                                rel="noopener noreferrer"
-
-                                            >
-
-                                                Abrir link ↗
-
-                                            </a>
-
-                                        )}
-
-                                    </div>
-
-                                    <div className="tl-task-actions">
-
-                                        <button
-
-                                            type="button"
-
-                                            onClick={() => iniciarEdicao(item)}
-
-                                            title="Editar"
-
-                                        >
-
-                                            ✎
-
-                                        </button>
-
-                                        <button
-
-                                            type="button"
-
-                                            onClick={() => excluirTarefa(item.id)}
-
-                                            title="Excluir"
-
-                                        >
-
-                                            ×
-
-                                        </button>
-
-                                    </div>
-
-                                    <span
-
-                                        className={`tl-status ${item.pronto
-
-                                            ? "tl-status-done"
-
-                                            : "tl-status-pending"
-
-                                            }`}
-
-                                    >
-
-                                        {item.pronto
-
-                                            ? "Concluída"
-
-                                            : "Pendente"}
-
-                                    </span>
-
-                                </div>
-
-                            ))}
-
-                            {!itens.length && (
-
-                                <div className="tl-empty">
-
-                                    Nenhuma tarefa nesta data.
-
-                                </div>
-
-                            )}
-
-                        </article>
-
-                    );
-
-                })}
-
-                {!categoriasFiltradas.length && (
-
-                    <div className="tl-empty tl-empty-large">
-
-                        Nenhuma data disponível.
-
+                <article className="tl-task-group">
+                    <div className="tl-group-heading">
+                        <div>
+                            <h3>{categoriaPrincipal?.tarefa || dados.comercio?.loja || "Tarefas da loja"}</h3>
+                            <span>{tarefasOrdenadas.length} atividades</span>
+                        </div>
+                        <div className="tl-group-progress">
+                            {estatisticas.concluidas}/{estatisticas.total}
+                        </div>
                     </div>
 
-                )}
+                    {tarefasOrdenadas.map(item => (
+                        <div
+                            key={item.id}
+                            className={`tl-task-item ${item.pronto ? "tl-task-completed" : ""}`}
+                        >
+                            <label className="tl-task-check">
+                                <input
+                                    type="checkbox"
+                                    checked={Boolean(item.pronto)}
+                                    onChange={() => alterarStatus(item)}
+                                />
+                                <span className="tl-custom-check"></span>
+                            </label>
 
+                            <div className="tl-task-description">
+                                <strong>{item.tarefa}</strong>
+                                <span>
+                                    Responsável: {item.responsavel_nome || "Não definido"}
+                                </span>
+                                {item.link && (
+                                    <a
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Abrir link ↗
+                                    </a>
+                                )}
+                            </div>
+
+                            <div className="tl-task-actions">
+                                <button
+                                    type="button"
+                                    onClick={() => iniciarEdicao(item)}
+                                    title="Editar"
+                                >
+                                    ✎
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => excluirTarefa(item.id)}
+                                    title="Excluir"
+                                >
+                                    ×
+                                </button>
+                            </div>
+
+                            <span className={`tl-status ${item.pronto ? "tl-status-done" : "tl-status-pending"}`}>
+                                {item.pronto ? "Concluída" : "Pendente"}
+                            </span>
+                        </div>
+                    ))}
+
+                    {!tarefasOrdenadas.length && (
+                        <div className="tl-empty">
+                            Nenhuma tarefa cadastrada nesta loja.
+                        </div>
+                    )}
+                </article>
             </section>
 
             {editando && (
-
                 <div
-
                     className="tl-modal-overlay"
-
                     onMouseDown={e => {
-
-                        if (e.target === e.currentTarget) {
-
-                            setEditando(null);
-
-                        }
-
+                        if (e.target === e.currentTarget) setEditando(null);
                     }}
-
                 >
-
-                    <form
-
-                        className="tl-modal"
-
-                        onSubmit={salvarEdicao}
-
-                    >
-
+                    <form className="tl-modal" onSubmit={salvarEdicao}>
                         <div className="tl-modal-heading">
-
                             <h2>Editar tarefa</h2>
-
-                            <button
-
-                                type="button"
-
-                                onClick={() => setEditando(null)}
-
-                            >
-
-                                ×
-
-                            </button>
-
+                            <button type="button" onClick={() => setEditando(null)}>×</button>
                         </div>
 
                         <label>
-
                             Descrição
-
                             <textarea
-
                                 value={editando.tarefa}
-
                                 onChange={e => setEditando({
-
                                     ...editando,
-
                                     tarefa: capitalizarPalavras(e.target.value)
-
                                 })}
-
                                 required
-
                             />
-
                         </label>
 
                         <div className="tl-responsavel-group">
-
-                            <span className="tl-responsavel-label">
-
-                                Responsável
-
-                            </span>
-
+                            <span className="tl-responsavel-label">Responsável</span>
                             <div className="tl-responsavel-grid">
-
                                 <button
-
                                     type="button"
-
-                                    className={`tl-responsavel-option ${editando.responsavel === ""
-
-                                        ? "tl-responsavel-active"
-
-                                        : ""
-
-                                        }`}
-
-                                    onClick={() => setEditando({
-
-                                        ...editando,
-
-                                        responsavel: ""
-
-                                    })}
-
+                                    className={`tl-responsavel-option ${editando.responsavel === "" ? "tl-responsavel-active" : ""}`}
+                                    onClick={() => setEditando({ ...editando, responsavel: "" })}
                                 >
-
                                     <span className="tl-responsavel-avatar">
-
                                         <icon name="users" />
-
                                     </span>
-
                                     <span className="tl-responsavel-info">
-
                                         <strong>Sem responsável</strong>
-
                                         <small>Definir depois</small>
-
                                     </span>
-
-                                    {editando.responsavel === "" && (
-
-                                        <icon name="check-circle-2" />
-
-                                    )}
-
+                                    {editando.responsavel === "" && <icon name="check-circle-2" />}
                                 </button>
 
                                 {dados.funcionarios.map(func => (
-
                                     <button
-
                                         key={func.id}
-
                                         type="button"
-
-                                        className={`tl-responsavel-option ${String(editando.responsavel) === String(func.id)
-
-                                            ? "tl-responsavel-active"
-
-                                            : ""
-
-                                            }`}
-
+                                        className={`tl-responsavel-option ${String(editando.responsavel) === String(func.id) ? "tl-responsavel-active" : ""}`}
                                         onClick={() => setEditando({
-
                                             ...editando,
-
                                             responsavel: String(func.id)
-
                                         })}
-
                                     >
-
                                         <span className="tl-responsavel-avatar">
-
-                                            {func.nome_completo
-
-                                                ?.charAt(0)
-
-                                                ?.toUpperCase()}
-
+                                            {func.nome_completo?.charAt(0)?.toUpperCase()}
                                         </span>
-
                                         <span className="tl-responsavel-info">
-
                                             <strong>{func.nome_completo}</strong>
-
                                             <small>Responsável pela tarefa</small>
-
                                         </span>
-
                                         {String(editando.responsavel) === String(func.id) && (
-
                                             <icon name="check-circle-2" />
-
                                         )}
-
                                     </button>
-
                                 ))}
-
                             </div>
-
                         </div>
 
                         <label>
-
                             Link
-
                             <input
-
                                 type="url"
-
                                 value={editando.link}
-
                                 onChange={e => setEditando({
-
                                     ...editando,
-
                                     link: e.target.value
-
                                 })}
-
                             />
-
                         </label>
 
                         <div className="tl-modal-actions">
-
-                            <button
-
-                                type="button"
-
-                                onClick={() => setEditando(null)}
-
-                            >
-
+                            <button type="button" onClick={() => setEditando(null)}>
                                 Cancelar
-
                             </button>
-
-                            <button type="submit">
-
-                                Salvar alterações
-
-                            </button>
-
+                            <button type="submit">Salvar alterações</button>
                         </div>
-
                     </form>
-
                 </div>
-
             )}
 
+            {alerta && createPortal(
+                <div className="tl-alert-portal-overlay">
+                    <div className={`tl-alert-portal-modal tl-alert-${alerta.tipo}`}>
+
+                        <div className="tl-alert-portal-icon">
+                            {alerta.tipo === "sucesso" && "✓"}
+                            {alerta.tipo === "erro" && "!"}
+                            {alerta.tipo === "aviso" && "!"}
+                            {alerta.tipo === "info" && "i"}
+                            {alerta.tipo === "confirmacao" && "?"}
+                        </div>
+
+                        <h2>{alerta.titulo}</h2>
+                        <p>{alerta.mensagem}</p>
+
+                        <div className="tl-alert-portal-actions">
+                            {alerta.tipo === "confirmacao" ? (
+                                <>
+                                    <button onClick={fecharAlerta}>
+                                        Cancelar
+                                    </button>
+                                    <button onClick={confirmarAlerta}>
+                                        Confirmar
+                                    </button>
+                                </>
+                            ) : (
+                                <button onClick={fecharAlerta}>
+                                    Entendi
+                                </button>
+                            )}
+                        </div>
+
+                    </div>
+                </div>,
+                document.body
+            )}
         </main>
-
     );
-
 }
