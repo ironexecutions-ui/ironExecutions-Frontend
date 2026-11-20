@@ -67,6 +67,8 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
     const [ComponenteAtivo, setComponenteAtivo] = useState(null);
 
     const [cliente, setCliente] = useState(null);
+    const [limpezaEmAndamento, setLimpezaEmAndamento] = useState(false);
+    const [erroNaLimpeza, setErroNaLimpeza] = useState(false);
 
     const componentes = {
 
@@ -438,6 +440,12 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
 
         console.log("[BODY] 7 dias completos. Renovando caches da aplicação.");
 
+        setLimpezaEmAndamento(true);
+        setErroNaLimpeza(false);
+
+        // Dá tempo para o React exibir o modal antes de iniciar a limpeza.
+        await new Promise(resolve => setTimeout(resolve, 650));
+
         try {
             // Preserva token, usuário e demais dados do localStorage.
             // Remove somente o cache de módulos criado por este Body.
@@ -479,9 +487,58 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
                 "[BODY] Próxima limpeza permitida após mais 7 dias."
             );
 
+            // Após concluir a limpeza, retorna à página inicial da aplicação.
+            window.location.assign("/");
+
         } catch (erro) {
             console.error("[BODY] Erro durante a limpeza dos caches:", erro);
+            setLimpezaEmAndamento(false);
+            setErroNaLimpeza(true);
         }
+    }
+
+    function renderizarModalLimpeza() {
+        if (!limpezaEmAndamento && !erroNaLimpeza) {
+            return null;
+        }
+
+        return createPortal(
+            <div className="iron-cache-modal-overlay" role="dialog" aria-modal="true" aria-live="polite">
+                <div className="iron-cache-modal-card">
+                    {limpezaEmAndamento ? (
+                        <>
+                            <div className="iron-cache-modal-spinner" aria-hidden="true" />
+                            <h2 className="iron-cache-modal-titulo">Otimizando sua aplicação</h2>
+                            <p className="iron-cache-modal-texto">
+                                Estamos realizando uma limpeza periódica dos arquivos temporários e caches.
+                                Isso pode levar alguns instantes.
+                            </p>
+                            <div className="iron-cache-modal-progresso">
+                                <span />
+                            </div>
+                            <span className="iron-cache-modal-status">Não feche esta página durante a operação.</span>
+                        </>
+                    ) : (
+                        <>
+                            <div className="iron-cache-modal-erro-icone">!</div>
+                            <h2 className="iron-cache-modal-titulo">Não foi possível concluir a limpeza</h2>
+                            <p className="iron-cache-modal-texto">
+                                Ocorreu um problema ao limpar os caches. Seus dados de acesso foram preservados.
+                                Você pode continuar usando a aplicação.
+                            </p>
+                            <button
+                                type="button"
+                                className="iron-cache-modal-botao"
+                                onClick={() => setErroNaLimpeza(false)}
+                            >
+                                Continuar
+                            </button>
+                        </>
+                    )}
+                </div>
+            </div>,
+            document.body
+        );
     }
 
     function dadosBodyIguais(cache, servidor) {
@@ -1562,6 +1619,8 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
 
                 <div className="sk-area"></div>
 
+                {renderizarModalLimpeza()}
+
             </div>
 
         );
@@ -1767,6 +1826,8 @@ export default function Body({ setHeaderMinimizado, atualizarHeader }) {
             )}
 
             {!modoModuloAberto && <Irene />}
+
+            {renderizarModalLimpeza()}
 
         </div>
 
