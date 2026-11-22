@@ -7,7 +7,7 @@ import Impressaocontrole from "./componentes/impressaocontrole";
 import "./menucontrole.css";
 import Contatos from "./componentes/contatos";
 import Tarefasloja from "./componentes/tarefasloj";
-import Produtos from "./componentes/produtos";
+import Espaco from "./componentes/produtos";
 export default function Controle() {
     const [abaAtiva, setAbaAtiva] = useState("tabelas");
 
@@ -73,7 +73,7 @@ export default function Controle() {
                     Tarefas
                 </button>
 
-                {/*  <button
+                <button
                     className={
                         abaAtiva === "produtoss"
                             ? "menu-controle-btn ativo"
@@ -81,8 +81,8 @@ export default function Controle() {
                     }
                     onClick={() => setAbaAtiva("produtoss")}
                 >
-                    Produtos
-                </button> */}
+                    Espaço
+                </button>
 
                 <button
                     className={
@@ -125,7 +125,9 @@ export default function Controle() {
                 {abaAtiva === "produtos" && (
                     <ProdutosComercio />
                 )}
-
+                {abaAtiva === "produtoss" && (
+                    <Espaco />
+                )}
                 {abaAtiva === "tarefas" && (
                     <Tarefas />
                 )}

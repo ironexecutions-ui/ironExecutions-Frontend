@@ -12,7 +12,7 @@ import Ironstock from "./ironstockpainel";
 import Ireneg from "./irene";
 const CACHE_HISTORICO_SQL =
     "painel_g_historico_sql_v1";
-
+import Espaco from "./espaco";
 const LIMITE_HISTORICO_SQL = 20;
 export default function PainelG() {
 
@@ -1125,6 +1125,19 @@ ATALHOS SQL DA TABELA
                 <button
                     type="button"
                     className={
+                        painelGSecaoAtiva === "espaco"
+                            ? "painel-g-menu-botao painel-g-menu-botao-ativo"
+                            : "painel-g-menu-botao"
+                    }
+                    onClick={() =>
+                        setPainelGSecaoAtiva("espaco")
+                    }
+                >
+                    Espaço
+                </button>
+                <button
+                    type="button"
+                    className={
                         painelGSecaoAtiva === "modulos"
                             ? "painel-g-menu-botao painel-g-menu-botao-ativo"
                             : "painel-g-menu-botao"
@@ -1229,6 +1242,9 @@ ATALHOS SQL DA TABELA
 
             {painelGSecaoAtiva === "supervisionar" && (
                 <Supervisionar />
+            )}
+            {painelGSecaoAtiva === "espaco" && (
+                <Espaco />
             )}
             {painelGSecaoAtiva === "json" && (
                 <Json />
