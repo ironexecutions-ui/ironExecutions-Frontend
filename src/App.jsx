@@ -1613,6 +1613,102 @@ export default function App() {
   }, []);
 
 
+  useEffect(() => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) return;
+
+    const chamadas = [];
+
+    const originalFetch = window.fetch;
+
+    window.fetch = async function (...args) {
+
+      const inicio = performance.now();
+
+      try {
+
+        const resposta = await originalFetch.apply(this, args);
+
+        const tempo = performance.now() - inicio;
+
+        const url = args[0] instanceof Request
+          ? args[0].url
+          : String(args[0]);
+
+        const metodo = args[1]?.method ||
+          (args[0] instanceof Request ? args[0].method : "GET");
+
+        let caminho = url;
+
+        try {
+          caminho = new URL(url, window.location.origin).pathname;
+        } catch { }
+
+        // Não registrar a própria rota de rastreamento
+        if (!caminho.includes("/rastreio-espaco/registrar")) {
+
+          chamadas.push(
+            `${metodo.toUpperCase()} ${caminho} | Status: ${resposta.status} | Tempo: ${tempo.toFixed(2)} ms`
+          );
+
+        }
+
+        return resposta;
+
+      } catch (erro) {
+
+        const tempo = performance.now() - inicio;
+
+        console.error("[RASTREIO] Erro na requisição:", erro);
+
+        throw erro;
+      }
+    };
+
+    const intervalo = setInterval(async () => {
+
+      if (chamadas.length === 0) return;
+
+      const lote = chamadas.splice(0, 20);
+
+      try {
+
+        await originalFetch(
+          `${API_URL}/rastreio-espaco/registrar`,
+          {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              chamada: lote.join("\n")
+            })
+          }
+        );
+
+      } catch (erro) {
+
+        // Devolve as chamadas para tentar novamente
+        chamadas.unshift(...lote);
+
+        console.error("[RASTREIO] Falha ao enviar:", erro);
+      }
+
+    }, 5000);
+
+    return () => {
+
+      clearInterval(intervalo);
+
+      window.fetch = originalFetch;
+
+    };
+
+  }, []);
+
   /* =========================================================
      RENDER
   ========================================================= */
